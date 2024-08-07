@@ -688,13 +688,37 @@
       <li>Let |requests| be |options|'s {{CredentialRequestOptions/digital}}'s
       {{DigitalCredentialRequestOptions/requests}} member.
       </li>
-      <li>If |requests| is empty, [=exception/throw=] a {{TypeError}}.
+      <li>If |requests| [=list/is empty=], [=exception/throw=] a {{TypeError}}.
       </li>
       <li>[=List/For each=] |request| of |requests|:
         <ol>
           <li>[=serialize a JavaScript value to a JSON string|Serialize=]
           |request| to a JSON string. [=exception/throw|Re-throw=] any
           [=exception=].
+          </li>
+          <li>Let |protocol| be |requests|'s
+          {{DigitalCredentialGetRequest/protocol}}.
+          </li>
+          <li>If |protocol| is not allowed by the user agent,
+          [=exception/throw=] a {{NotSupportedError}} {{DOMException}}.
+          </li>
+          <li>If the [=registry/link|specification=] corresponding to
+          |protocol| defines a [=dictionary=], then:
+            <ol>
+              <li>Let |request| be |requests|'s
+              {{DigitalCredentialGetRequest/data}} [=converted to an idl
+              value|converted=] to that dictionary. [=exception/throw|Rethrow=]
+              any exceptions.
+              </li>
+            </ol>
+          </li>
+          <li>Otherwise, let |request| be |requests|'s
+          {{DigitalCredentialGetRequest/data}}.
+          </li>
+          <li>Validate |request| against any validation rules set forth in
+          the corresponding [=registry/link|specification=]. If any of
+          |request|'s members are invalid, [=exception/throw=] a
+          {{TypeError}}.
           </li>
         </ol>
       </li>
