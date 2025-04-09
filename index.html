@@ -445,22 +445,24 @@
       protocol=]:
     </p>
     <ol>
-      <li>MUST be standardized at a <a href="https://www.w3.org/liaisons/">consortium the W3C liaises with</a>
-      <li>
-        MUST have a stable URL that points to a publicly available specification.
+      <li>MUST be standardized at a <a href=
+      "https://www.w3.org/liaisons/">consortium the W3C liaises with</a>
       </li>
+      <li>MUST have a stable URL that points to a publicly available
+      specification.
       </li>
-      <li>MUST define a representation, as either a [[WebIDL]] [=dictionary=] or a JSON object, of the
-      [=digital credential/exchange protocol=] request structure (i.e., the
-      [=dictionary=] to which the {{DigitalCredentialsProvider}}'s
-      {{DigitalCredentialsProvider/request}} is [=converted to idl
-      values|converted=] to before it is passed onto underlying platform).
+      <li>MUST define a representation, as either a [[WebIDL]] [=dictionary=]
+      or a JSON object, of the [=digital credential/exchange protocol=] request
+      structure (i.e., the [=dictionary=] to which the
+      {{DigitalCredentialsProvider}}'s {{DigitalCredentialsProvider/request}}
+      is [=converted to idl values|converted=] to before it is passed onto
+      underlying platform).
       </li>
-      <li>MUST define a representation, as either a [[WebIDL]] [=dictionary=] or a JSON object, of the
-      [=digital credential/exchange protocol=] response structure (i.e., the
-      [=dictionary=] to which the {{DigitalCredential}}'s
-      {{DigitalCredential/data}} is [=converted to idl values|converted=] before it
-      is made available to the relying party).
+      <li>MUST define a representation, as either a [[WebIDL]] [=dictionary=]
+      or a JSON object, of the [=digital credential/exchange protocol=]
+      response structure (i.e., the [=dictionary=] to which the
+      {{DigitalCredential}}'s {{DigitalCredential/data}} is [=converted to idl
+      values|converted=] before it is made available to the relying party).
       </li>
       <li>MUST define validation rules for members of the request and response
       structures.
@@ -475,8 +477,8 @@
       independent browser engines, to meet the W3C's adequate implementation
       experience requirements.
       </li>
-      <li>MUST be defined in a specification which is available publicly
-      at the URL listed in the registry.
+      <li>MUST be defined in a specification which is available publicly at the
+      URL listed in the registry.
       </li>
       <li>MUST have formally recorded consensus by the Working Group to be
       included in the registry.
@@ -491,12 +493,10 @@
       protocol=]:
     </p>
     <ol>
-      <li>
-        MUST support response encryption.
+      <li>MUST support response encryption.
       </li>
-      <li>
-        MUST encrypt any response containing personally identifiable 
-        information (PII).
+      <li>MUST encrypt any response containing personally identifiable
+      information (PII).
       </li>
     </ol>
     <h3>
@@ -514,21 +514,21 @@
         The protocol identifier MUST be a unique string that is not already in
         use in the registry. Use only lowercase ASCII letters, digits, and
         hyphens (e.g., "protocol", "the-protocol"). Avoid using version numbers
-        in the protocol identifier. The protocol identifier MUST uniquely define 
-        the set of required parameters and/or behavior that a digital credential
-        provider implementation needs to support to successfully handle the request.
-        If the set of required parameters or behaviors is updated in a way which 
-        would require a digital credential provider to also require an update to
-        remain functional, a new protocol identifier MUST be assigned and be added
-        to the registry.
+        in the protocol identifier. The protocol identifier MUST uniquely
+        define the set of required parameters and/or behavior that a digital
+        credential provider implementation needs to support to successfully
+        handle the request. If the set of required parameters or behaviors is
+        updated in a way which would require a digital credential provider to
+        also require an update to remain functional, a new protocol identifier
+        MUST be assigned and be added to the registry.
       </dd>
       <dt>
         Specify a protocol type
       </dt>
       <dd>
-        The protocol type is either "Presentation" for presentation protocols used with
-        `navigator.credentials.get` or "Issuance" for issuance protocols used
-        with `navigator.credentials.create`.
+        The protocol type is either "Presentation" for presentation protocols
+        used with `navigator.credentials.get` or "Issuance" for issuance
+        protocols used with `navigator.credentials.create`.
       </dd>
       <dt>
         Link to a Web IDL request dictionary
