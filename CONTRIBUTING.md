@@ -1,4 +1,4 @@
-# Federated Identity on the Web Working Group
+# Digital Credentials: Federated Identity on the Web Working Group
 
 This repository is being used for work in the W3CFederated Identity on the Web Working Group, governed by the 
 governed by the [W3C Patent Policy](http://www.w3.org/Consortium/Patent-Policy-20040205/) and
