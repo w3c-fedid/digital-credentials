@@ -2,7 +2,7 @@
 
 📄 [Digital credentials explainer](explainer.md) and [draft spec](https://wicg.github.io/digital-identities/).
 
-This incubation is attempting to specify an API for user agents that would mediate access to, and representation of, verifiably-issued digital credentials.
+This draft (migrated to the Federated Identity on the Web WG in April 2025) specifies an API for user agents that would mediate access to, and representation of, verifiably-issued digital credentials.
 
 These identities can range from government-issued documents, such as driver's licenses and passports, to start with, to other credential types, potentially in the future.
 
@@ -22,14 +22,14 @@ However, if you want to try it out:
 
 ## Contributing
 
-This is an unofficial proposal under development. Contributions, feedback, and discussions are highly encouraged to refine and enhance the API specification.
-[Join the WICG](https://www.w3.org/community/wicg/) to help us in shape the future of digital identity management on the web.
+This is a draft (migrated to the Federated Identity on the Web WG in April 2025) under development. Contributions, feedback, and discussions are highly encouraged to refine and enhance the API specification.
+Join the WG to help us in shape the future of digital identity management on the web.
 
 ### Weekly Meetings
 
-- Slack ["wicg-identity-cred"](https://w3ccommunity.slack.com/archives/C05UG0EJUDB) in W3C Community instance.
-- [Meeting notes](https://github.com/WICG/identity-credential/wiki/Meeting-Notes)
-- 📆 [ICS file (calendar items)](https://drive.google.com/file/d/1O4Tyeq1HVa8XobZoNefZe-0CgIWH6pzy/view?usp=sharing) (2025DST)
+- Slack ["fedid-wg"](https://app.slack.com/client/T010EGK9PQE/C06RR5RQUDT) in W3C Community instance.
+- [Meeting notes](https://github.com/w3c-fedid/meetings)
+- [Calendar](https://www.w3.org/groups/wg/fedid/calendar/)
 - [Agenda doc](https://docs.google.com/document/d/1Sq9tjh4Hv887Mzjoor-ZauXJ1glq6MCdjTsyUYNHjWA/)
 
 ## Initial proposals
