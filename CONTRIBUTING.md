@@ -1,8 +1,11 @@
-# Web Platform Incubator Community Group
+# Federated Identity on the Web Working Group
 
-This repository is being used for work in the W3C Web Platform Incubator Community Group, governed by the [W3C Community License
-Agreement (CLA)](http://www.w3.org/community/about/agreements/cla/). To make substantive contributions,
-you must join the CG.
+This repository is being used for work in the W3CFederated Identity on the Web Working Group, governed by the 
+governed by the [W3C Patent Policy](http://www.w3.org/Consortium/Patent-Policy-20040205/) and
+[Spftware and Document License](https://www.w3.org/copyright/software-license-2023/). To contribute, you must 
+either participate in the relevant W3C Working Group or make a [non-member patent licensing
+ commitment](https://www.w3.org/policies/process/#contributor-license).
+
 
 If you are not the sole contributor to a contribution (pull request), please identify all
 contributors in the pull request comment.
