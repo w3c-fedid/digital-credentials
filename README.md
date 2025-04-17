@@ -1,6 +1,6 @@
 # Digital Credentials
 
-📄 [Digital credentials explainer](explainer.md) and [draft spec](https://wicg.github.io/digital-identities/).
+📄 [Digital credentials explainer](explainer.md) and [draft spec](https://w3c-fedid.github.io/digital-credentials/).
 
 This draft (migrated to the Federated Identity on the Web WG in April 2025) specifies an API for user agents that would mediate access to, and representation of, verifiably-issued digital credentials.
 
