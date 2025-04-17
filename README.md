@@ -6,7 +6,7 @@ This draft (migrated to the Federated Identity on the Web WG in April 2025) spec
 
 These identities can range from government-issued documents, such as driver's licenses and passports, to start with, to other credential types, potentially in the future.
 
-[Digital Credentials](https://wicg.github.io/digital-identities/) builds upon [Credential Management](https://www.w3.org/TR/credential-management-1/) to enable the secure and private exchange of digital identity information. It facilitates authenticated interactions by representing digital credentials through the `DigitalCredential` interface, which embodies verifiable claims about an individual's identity.
+[Digital Credentials](https://w3c-fedid.github.io/digital-credentials/) builds upon [Credential Management](https://www.w3.org/TR/credential-management-1/) to enable the secure and private exchange of digital identity information. It facilitates authenticated interactions by representing digital credentials through the `DigitalCredential` interface, which embodies verifiable claims about an individual's identity.
 
 ## Scope
 
