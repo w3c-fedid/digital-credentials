@@ -594,6 +594,28 @@
       <dfn class="export" data-dfn-for="DigitalCredential">[[\discovery]]</dfn>
       whose value is "remote".
     </p>
+    <h3>
+      `isProtocolSupportedByClient()` Method
+    </h3>
+    <p>
+      Digital credential verifiers and issuers use this static method to
+      determine which [=digital credential/exchange protocols=] the client
+      understands.
+    </p>
+    <p>
+      This method does not convey protocol support in the underlying platform
+      or credential provider.
+    </p>
+    <p>
+      This method accepts a single argument, a [=DOMString=] that specifies the
+      [=digital credential/exchange protocol=], and returns a [=Promise=] that
+      resolves to a Boolean value.
+    </p>
+    <pre class="idl">
+      partial interface DigitalCredential {
+        static Promise<boolean> isProtocolSupportedByClient(DOMString protocol);
+      };
+    </pre>
     <section class="informative">
       <h3>
         User permission
