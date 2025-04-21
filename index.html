@@ -453,16 +453,15 @@
       </li>
       <li>MUST define a representation, as either a [[WebIDL]] [=dictionary=]
       or a JSON object, of the [=digital credential/exchange protocol=] request
-      structure (i.e., the [=dictionary=] to which the
-      {{DigitalCredentialsProvider}}'s {{DigitalCredentialsProvider/request}}
-      is [=converted to idl values|converted=] to before it is passed onto
-      underlying platform).
+      structure (i.e., the [=dictionary=] which defines the semantics and
+      validation of the {{DigitalCredentialsProvider}}'s
+      {{DigitalCredentialsProvider/request}} member.
       </li>
       <li>MUST define a representation, as either a [[WebIDL]] [=dictionary=]
       or a JSON object, of the [=digital credential/exchange protocol=]
-      response structure (i.e., the [=dictionary=] to which the
-      {{DigitalCredential}}'s {{DigitalCredential/data}} is [=converted to idl
-      values|converted=] before it is made available to the relying party).
+      response structure (i.e., the [=dictionary=] which defines the
+      semantics and validation of the {{DigitalCredential}}'s 
+      {{DigitalCredential/data}} member.
       </li>
       <li>MUST define validation rules for members of the request and response
       structures.
