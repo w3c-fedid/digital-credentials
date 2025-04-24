@@ -428,8 +428,10 @@
       Registry of protocols
     </h2>
     <p>
-      Initiating the registration a protocol is done by <a href="https://github.com/w3c-fedid/digital-credentials/issues">filing an issue</a> in our GitHub repository.
-     </p>
+      Initiating the registration a protocol is done by <a href=
+      "https://github.com/w3c-fedid/digital-credentials/issues">filing an
+      issue</a> in our GitHub repository.
+    </p>
     <p>
       The following is the registry of [=digital credential/exchange
       protocols=] that are supported by this specification.
@@ -464,27 +466,36 @@
       </li>
       <li>MUST define a representation, as either a [[WebIDL]] [=dictionary=]
       or a JSON object, of the [=digital credential/exchange protocol=]
-      response structure (i.e., the [=dictionary=] which defines the
-      semantics and validation of the {{DigitalCredential}}'s 
-      {{DigitalCredential/data}} member.
+      response structure (i.e., the [=dictionary=] which defines the semantics
+      and validation of the {{DigitalCredential}}'s {{DigitalCredential/data}}
+      member.
       </li>
       <li>MUST define validation rules for members of the request and response
       structures.
       </li>
-      <li>MUST have undergone privacy review by the W3C's <a href="https://www.w3.org/Privacy/IG/">Privacy Interest
-      Group</a> and <a href="https://www.w3.org/groups/wg/fedid/">Federated Identity Working Group</a>.
-      <aside class="note" title="Organizing reviews">
-        Once an expression of registration is received via GitHub, the registry maintainers will organize the privacy review with the <a href="https://www.w3.org/Privacy/IG/">Privacy Interest Group</a> . Please see the [[[[security-privacy-questionnaire]]] for the kind of questions that will be asked of the protocol you are registering. 
-      </aside>
+      <li>MUST have undergone privacy review by the W3C's <a href=
+      "https://www.w3.org/Privacy/IG/">Privacy Interest Group</a> and
+        <a href="https://www.w3.org/groups/wg/fedid/">Federated Identity
+        Working Group</a>.
+        <aside class="note" title="Organizing reviews">
+          Once an expression of registration is received via GitHub, the
+          registry maintainers will organize the privacy review with the
+          <a href="https://www.w3.org/Privacy/IG/">Privacy Interest Group</a> .
+          Please see the [[[[security-privacy-questionnaire]]] for the kind of
+          questions that will be asked of the protocol you are registering.
+        </aside>
       </li>
-      <li>MUST have undergone security review by the  <a href="https://www.w3.org/groups/wg/fedid/">Federated Identity Working Group</a>.
+      <li>MUST have undergone security review by the <a href=
+      "https://www.w3.org/groups/wg/fedid/">Federated Identity Working
+      Group</a>.
       </li>
       <li>MUST have implementation commitment from at least one browser engine,
       one credential provider/wallet, and one issuer or verifier (depending on
-      the protocol type). Each component MUST be from independent organizations.
+      the protocol type). Each component MUST be from independent
+      organizations.
       </li>
-      <li>MUST have formally recorded consensus by the Federated Identity Working Group to be
-      included in the registry.
+      <li>MUST have formally recorded consensus by the Federated Identity
+      Working Group to be included in the registry.
       </li>
     </ol>
     <h4>
@@ -516,12 +527,12 @@
       <dd>
         The protocol identifier MUST be a unique string that is not already in
         use in the registry. Use only lowercase ASCII letters, digits, and
-        hyphens (e.g., "protocol", "the-protocol"). The protocol identifier 
+        hyphens (e.g., "protocol", "the-protocol"). The protocol identifier
         MUST uniquely define the set of required parameters and/or behavior
-        that a digital credential provider implementation needs to support 
-        to successfully handle the request. If the set of required parameters 
-        or behaviors is updated in a way which would require a digital credential
-        provider to also require an update to remain functional, a new protocol 
+        that a digital credential provider implementation needs to support to
+        successfully handle the request. If the set of required parameters or
+        behaviors is updated in a way which would require a digital credential
+        provider to also require an update to remain functional, a new protocol
         identifier MUST be assigned and be added to the registry.
       </dd>
       <dt>
