@@ -89,7 +89,7 @@ async function requestCredential() {
 
 > Example from: https://digitalcredentials.dev/docs/verifier-site/requesting-cred
 
-You can read a more detailed and technical description of the API in the [specification draft](https://wicg.github.io/digital-credentials/).
+You can read a more detailed and technical description of the API in the [specification draft](https://w3c-fedid.github.io/digital-credentials/).
 
 ### Using the API from another origin
 
