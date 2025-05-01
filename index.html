@@ -311,9 +311,9 @@
       denotes the [=digital credential/exchange protocol=].
     </p>
     <p>
-      The {{DigitalCredentialCreateRequest/protocol}} member's value is be one
-      of the well-defined keys defined in [[[#protocol-registry]]] or any other
-      custom one.
+      The {{DigitalCredentialCreateRequest/protocol}} member's value can be one
+      of the well-defined protocol identifiers defined in [[[#protocol-registry]]] or a
+      custom protocol identifier.
     </p>
     <h3>
       The `data` member
@@ -321,7 +321,7 @@
     <p>
       The <dfn data-dfn-for="DigitalCredentialGetRequest">data</dfn> member is
       the [=digital credential/request data=] to be handled by the holder's
-      software, such as a digital wallet.
+      credential provider, such as a digital identity wallet.
     </p>
     <h2>
       Extensions to `CredentialCreationOptions` dictionary
@@ -388,7 +388,7 @@
     <p>
       The <dfn data-dfn-for="DigitalCredentialCreateRequest">data</dfn> member
       is the [=digital credential/request data=] to be handled by the holder's
-      software, such as a digital wallet.
+      credential provider, such as a digital identity wallet.
     </p>
     <h2>
       The `DigitalCredential` interface
