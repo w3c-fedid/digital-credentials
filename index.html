@@ -11,7 +11,7 @@
     "use strict";
     // See https://github.com/w3c/respec/wiki/ for how to configure ReSpec
     var respecConfig = {
-      github: "WICG/digital-credentials",
+      github: "w3c-fedid/digital-credentials",
       editors: [
         {
           name: "Marcos Caceres",
@@ -26,18 +26,27 @@
           companyURL: "https://okta.com",
         },
         {
+          name: "Mohamed Amir Yosef",
+          email: "mamir@google.com",
+          company: "Google Inc.",
+          companyURL: "https://google.com",
+        },
+        {
           name: "Sam Goto",
           email: "goto@google.com",
           company: "Google Inc.",
           companyURL: "https://google.com",
+          retiredDate: "2025-05-02",
         },
         // Add additional editors here.
         // https://github.com/w3c/respec/wiki/editors
       ],
       latestVersion: null,
       shortName: "digital-credentials",
-      specStatus: "CG-DRAFT",
-      group: "wicg",
+      specStatus: "ED",
+      edDraftURI: "https://w3c-fedid.github.io/digital-credentials/",
+      group: "fedid",
+      github: "https://github.com/w3c-fedid/digital-credentials",
       localBiblio: {},
       xref: {
         profile: "web-platform",
@@ -293,9 +302,9 @@
     <p>
       The {{DigitalCredentialGetRequest}} dictionary represents a [=digital
       credential/presentation request=]. It is used to specify an [=digital
-      credential/exchange protocol=] and some [=digital credential/request data=],
-      which the user agent MAY match against software used by a holder, such as
-      a digital wallet.
+      credential/exchange protocol=] and some [=digital credential/request
+      data=], which the user agent MAY match against software used by a holder,
+      such as a digital wallet.
     </p>
     <pre class="idl">
       dictionary DigitalCredentialGetRequest {
@@ -311,9 +320,9 @@
       denotes the [=digital credential/exchange protocol=].
     </p>
     <p>
-      The {{DigitalCredentialCreateRequest/protocol}} member's value is be one
-      of the well-defined keys defined in [[[#protocol-registry]]] or any other
-      custom one.
+      The {{DigitalCredentialCreateRequest/protocol}} member's value can be one
+      of the well-defined protocol identifiers defined in
+      [[[#protocol-registry]]] or a custom protocol identifier.
     </p>
     <h3>
       The `data` member
@@ -321,7 +330,7 @@
     <p>
       The <dfn data-dfn-for="DigitalCredentialGetRequest">data</dfn> member is
       the [=digital credential/request data=] to be handled by the holder's
-      software, such as a digital wallet.
+      credential provider, such as a digital identity wallet.
     </p>
     <h2>
       Extensions to `CredentialCreationOptions` dictionary
@@ -361,8 +370,9 @@
     <p>
       The {{DigitalCredentialCreateRequest}} dictionary represents an [=digital
       credential/issuance request=]. It is used to specify an [=digital
-      credential/issuance protocol=] and some [=digital credential/request data=],
-      to communicate the issuance request between the issuer and the holder.
+      credential/issuance protocol=] and some [=digital credential/request
+      data=], to communicate the issuance request between the issuer and the
+      holder.
     </p>
     <pre class="idl">
     dictionary DigitalCredentialCreateRequest {
@@ -388,7 +398,7 @@
     <p>
       The <dfn data-dfn-for="DigitalCredentialCreateRequest">data</dfn> member
       is the [=digital credential/request data=] to be handled by the holder's
-      software, such as a digital wallet.
+      credential provider, such as a digital identity wallet.
     </p>
     <h2>
       The `DigitalCredential` interface
@@ -571,6 +581,11 @@
       Registry of protocols
     </h2>
     <p>
+      Initiating the registration a protocol is done by <a href=
+      "https://github.com/w3c-fedid/digital-credentials/issues">filing an
+      issue</a> in our GitHub repository.
+    </p>
+    <p>
       The following is the registry of [=digital credential/exchange
       protocols=] and [=digital credential/issuance protocols=] that are
       supported by this specification.
@@ -580,11 +595,128 @@
       the future.
     </p>
     <h3>
-      Inclusion criteria
+      General inclusion criteria
+    </h3>
+    <aside class="note">
+      The below criteria are a work in progress and are likely to change as
+      this document evolves.
+    </aside>
+    <p>
+      To be included in the registry, the [=digital credential/exchange
+      protocol=]:
+    </p>
+    <ol>
+      <li>MUST be standardized at a <a href=
+      "https://www.w3.org/liaisons/">consortium the W3C liaises with</a>
+      </li>
+      <li>MUST be defined in a specification which is freely and publicly
+      available at the stable URL listed in the registry.
+      </li>
+      <li>MUST define a representation, as either a [[WebIDL]] [=dictionary=]
+      or a JSON object, of the [=digital credential/exchange protocol=] request
+      structure (i.e., the [=dictionary=] which defines the semantics and
+      validation of the {{DigitalCredentialGetRequest}}'s
+      {{DigitalCredentialGetRequest/data}} member) and the [=digital
+      credential/issuance protocol=] request structure (i.e., the
+      [=dictionary=] which defines the semantics and validation of the
+      {{DigitalCredentialCreateRequest}}'s
+      {{DigitalCredentialCreateRequest/data}} member).
+      </li>
+      <li>MUST define a representation, as either a [[WebIDL]] [=dictionary=]
+      or a JSON object, of the [=digital credential/exchange protocol=]
+      response structure (i.e., the [=dictionary=] which defines the semantics
+      and validation of the {{DigitalCredential}}'s {{DigitalCredential/data}}
+      member.
+      </li>
+      <li>MUST define validation rules for members of the request and response
+      structures.
+      </li>
+      <li>MUST have undergone privacy review by the W3C's <a href=
+      "https://www.w3.org/Privacy/IG/">Privacy Interest Group</a> and
+        <a href="https://www.w3.org/groups/wg/fedid/">Federated Identity
+        Working Group</a>.
+        <aside class="note" title="Organizing reviews">
+          Once an expression of registration is received via GitHub, the
+          registry maintainers will organize the privacy review with the
+          <a href="https://www.w3.org/Privacy/IG/">Privacy Interest Group</a> .
+          Please see the [[[[security-privacy-questionnaire]]] for the kind of
+          questions that will be asked of the protocol you are registering.
+        </aside>
+      </li>
+      <li>MUST have undergone security review by the <a href=
+      "https://www.w3.org/groups/wg/fedid/">Federated Identity Working
+      Group</a>.
+      </li>
+      <li>MUST have implementation commitment from at least one browser engine,
+      one credential provider/wallet, and one issuer or verifier (depending on
+      the protocol type). Each component MUST be from independent
+      organizations.
+      </li>
+      <li>MUST have formally recorded consensus by the Federated Identity
+      Working Group to be included in the registry.
+      </li>
+    </ol>
+    <h4>
+      Presentation-specific inclusion criteria
+    </h4>
+    <p>
+      To be included as a presentation protocol in the registry (used with
+      `navigator.credentials.get`), the [=digital credential/exchange
+      protocol=]:
+    </p>
+    <ol>
+      <li>MUST support response encryption.
+      </li>
+      <li>MUST encrypt any response containing personally identifiable
+      information (PII).
+      </li>
+    </ol>
+    <h3>
+      Change process
     </h3>
     <p>
-      To be included in the registry...
+      To add a new [=digital credential/exchange protocol=] to the registry, or
+      to update an existing one:
     </p>
+    <dl>
+      <dt>
+        Define a <dfn data-dfn-for="registry" data-local-lt="identifier">
+          protocol identifier</dfn>
+      </dt>
+      <dd>
+        The protocol identifier MUST be a unique string that is not already in
+        use in the registry. Use only lowercase ASCII letters, digits, and
+        hyphens (e.g., "protocol", "the-protocol"). The protocol identifier
+        MUST uniquely define the set of required parameters and/or behavior
+        that a digital credential provider implementation needs to support to
+        successfully handle the request. If the set of required parameters or
+        behaviors is updated in a way which would require a digital credential
+        provider to also require an update to remain functional, a new protocol
+        identifier MUST be assigned and be added to the registry.
+      </dd>
+      <dt>
+        Specify a <dfn data-dfn-for="registry" data-local-lt="type">protocol type</dfn>
+      </dt>
+      <dd>
+        The protocol type is either "Presentation" for presentation protocols
+        used with `navigator.credentials.get` or "Issuance" for issuance
+        protocols used with `navigator.credentials.create`.
+      </dd>
+      <dt>
+        <dfn data-dfn-for="registry" data-local-lt="description">Describe the protocol</dfn>
+      </dt>
+      <dd>
+        The description MUST be a brief summary of the protocol's purpose and
+        use case.
+      </dd>
+      <dt>
+        Provide a <dfn data-dfn-for="registry" data-local-lt="link">link to the specification</dfn>
+      </dt>
+      <dd>
+        The specification MUST be a stable URL that points to the authoritative
+        source for the protocol, including validation rules.
+      </dd>
+    </dl>
     <aside class="issue" data-number="58"></aside>
     <p>
       [=User agents=] MUST support the following [=digital credential/exchange
@@ -598,13 +730,16 @@
       <thead>
         <tr>
           <th>
-            Protocol identifier
+            [=registry/identifier|Protocol identifier=]
           </th>
           <th>
-            Description
+            [=registry/Type=]
           </th>
           <th>
-            Specification
+            [=registry/Description=]
+          </th>
+          <th>
+            [=registry/link|Specification=]
           </th>
         </tr>
       </thead>
