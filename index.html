@@ -607,6 +607,9 @@
       or credential provider.
     </p>
     <p>
+        User agents SHOULD NOT vary the response value based on any information about availability of hardware, presence or configuration of software, wallets or credentials, or user configuration or preferences. If the response value varied, the user agent would introduce risks both of fingerprinting and of silently revealing other details about user behavior or configuration. The response value SHOULD vary only by user agent major version and indicate whether the browser supports distributing requests with that protocol to underlying platform or provider.
+    </p>
+    <p>
       This method accepts a [=DOMString=] that uniquely specifies the
       [=digital credential/exchange protocol=] and returns a [=Promise=] that
       resolves to a Boolean value.
