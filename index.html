@@ -482,6 +482,28 @@
           Details of how to actually get the [=digital credential=] are
           forthcoming.
         </aside>
+        <!-- Goal: Normative guidance on how multiple requests will only return ONE response with N credentials -->
+        <ol class="algorithm" >
+          <li>
+            <aside class="issue">
+              The following guidance on handling multiple requests will need to be relocated once
+              this entire section of the algorithm is defined.
+            </aside>
+            When multiple [=digital credential/presentation requests=] are present
+            in {{DigitalCredentialRequestOptions/requests}},
+            [=user agents=] MUST only return one
+            [=digital credential/presentation responses | presentation response=] for one
+            of these requests.
+            Multiple credentials MAY be present in this one response depending on the capabilities
+            of the corresponding [=digital credential/exchange protocol=].
+            <aside class="note">
+              Verifiers SHOULD order entries in {{DigitalCredentialRequestOptions/requests}}
+              by descending preference to help [=user agents=] determine
+              which [=digital credential/presentation responses | presentation response=]
+              to return.
+            </aside>
+          </li>
+        </ol>
       </li>
       <li>Return a {{DigitalCredential}}.
       </li>
