@@ -595,7 +595,7 @@
       whose value is "remote".
     </p>
     <h3>
-      `isProtocolSupportedByClient()` Method
+      `clientAllowsProtocol()` Method
     </h3>
     <p>
       Digital credential verifiers and issuers use this static method to
@@ -616,7 +616,7 @@
     </p>
     <pre class="idl">
       partial interface DigitalCredential {
-        static Promise<boolean> isProtocolSupportedByClient(DOMString protocol);
+        static boolean clientAllowsProtocol(DOMString protocol);
       };
     </pre>
     <section class="informative">
