@@ -555,6 +555,38 @@
       <dfn class="export" data-dfn-for="DigitalCredential">[[\discovery]]</dfn>
       whose value is "remote".
     </p>
+    <h3>
+      `clientAllowsProtocol()` Method
+    </h3>
+    <p>
+      Digital credential verifiers and issuers use this static method to
+      determine which [=digital credential/exchange protocols=] the client
+      supports for interactions with credential providers.
+    </p>
+    <p>
+      This method does not convey protocol support in the underlying platform
+      or credential provider.
+    </p>
+    <p>
+        User agents SHOULD NOT vary the response value based on any information
+        about availability of hardware, presence or configuration of software,
+        wallets, credential providers, or digital credentials, or user
+        configuration or preferences. If the response value varied, the user
+        agent would introduce risks both of fingerprinting and of silently
+        revealing other details about user behavior or configuration. The
+        response value SHOULD vary only by user agent major version and
+        indicate whether the browser supports distributing requests with that
+        protocol to underlying platform or provider.
+    </p>
+    <p>
+      This method accepts a [=DOMString=] that uniquely specifies the
+      [=digital credential/exchange protocol=] and returns a Boolean value.
+    </p>
+    <pre class="idl">
+      partial interface DigitalCredential {
+        static boolean clientAllowsProtocol(DOMString protocol);
+      };
+    </pre>
     <section class="informative">
       <h3>
         User consent
