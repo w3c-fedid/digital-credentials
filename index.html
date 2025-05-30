@@ -47,7 +47,22 @@
       edDraftURI: "https://w3c-fedid.github.io/digital-credentials/",
       group: "fedid",
       github: "https://github.com/w3c-fedid/digital-credentials",
-      localBiblio: {},
+      localBiblio: {
+        "credential-considerations": {
+          title: "User considerations for credentials on the Web",
+          href: "https://github.com/w3c/credential-considerations/blob/main/credentials-considerations.md",
+          authors: ["Nick Doty", "Rick Byers"],
+          date: "2025-03-26",
+          publisher: "W3C"
+        },
+        "threat-model-decentralized-identities": {
+          title: "Threat Model for Decentralized Identities",
+          href: "https://github.com/w3c-cg/threat-modeling/blob/main/models/decentralized-identities.md",
+          authors: ["Simone Onofri"],
+          date: "2025-05-28",
+          publisher: "W3C"
+        },
+      },
       xref: {
         profile: "web-platform",
       },
@@ -857,31 +872,78 @@
         <p>
           This section is a work in progress as this document evolves.
         </p>
-        <p>
-          The documents listed below outline various privacy considerations for
-          Digital Credentials, both broadly and for presentation on the web.
-          Their contents will be integrated into this document gradually.
-        </p>
-        <ul>
-          <li>
-            <a href=
-            "https://github.com/WICG/digital-credentials/blob/main/horizontal-reviews/security-privacy.md">
-            TAG Security and Privacy Considerations Questionnaire (WIP)</a>
-          </li>
-          <li>
-            <a href="https://github.com/w3cping/credential-considerations">W3C
-            Privacy Interest Group (PING) Credentials Considerations
-            repository</a> which contains in-progress list of concerns and
-            implications of identity-verification and credential presentation,
-            for consideration in Internet and Web standardization
-          </li>
-          <li>
-            <a href=
-            "https://github.com/w3c-cg/threat-modeling/blob/main/models/decentralized-identities.md">
-            Threat Model for Decentralized Identities</a>
-          </li>
-        </ul>
       </div>
+      <p>
+      The Digital Credentials API integrates into a complex ecosystem with multiple technology
+      layers and various participants (including but not limited to Verifiers, Holders and Issuers),
+      each of which have to consider different aspects of user privacy.
+
+      This specification does not attempt to exhaustively list all considerations
+      for the different participants. We would like to refer these parties to a
+      variety of other resources that explore the digital credentials threat
+      model more holistically:
+      </p>
+      <ul>
+        <li>
+          <a href="">W3C Privacy Working Group Credentials Considerations</a> [[credential-considerations]]
+        </li>
+        <li>
+          <a href="">
+          Threat Model for Decentralized Identities</a> [[threat-model-decentralized-identities]]
+        </li>
+        <li>
+          <a data-cite="vc-data-model#privacy-considerations">
+          VC Data Model Privacy Considerations</a>
+        </li>
+        <li>
+          ...
+        </li>
+      </ul>
+      <p>
+        Instead, this specification aims to describe where the Digital Credentials
+        API itself is responsible for meeting user expectations of Privacy, and
+        how developers and user agents implementing or integrating with the API
+        are to consider these responsibilities.
+      </p>
+      <p>
+        The privacy considerations for digital credentials are not static. They
+        will evolve over time as the ecosystem matures, and may be informed by
+        the behavior of other actors in the ecosystem, improvements in other
+        layers of the stack, new threats to user privacy, as well as changing
+        societal norms and regulations.
+      </p>
+      <p>
+        It is expected that the various groups involved in the design and implementation
+        of the Digital Credentials API actively monitor the evolving privacy
+        landscape and participate in the corresponding evolution of the API.
+      </p>
+      <section data-cite="vc-data-model#spectrum-of-privacy">
+        <h3>
+          Spectrum of Privacy
+        </h3>
+        <p>
+          The Digital Credentials API serves a variety of use cases with different
+          grades of data disclosure and individual users with different preferences
+          depending on the context that they are in. Notably, the privacy properties
+          of a credential exchange mediated by this API could be mandated by
+          the legal and regulatory environment of an individual user.
+        </p>
+        <p>
+          This means that some users may not want, or be allowed,
+          to use the most privacy-preserving means of exchanging credential information.
+          Nonetheless, user agents need to serve users with an experience
+          that is private by default and protect them from harm.
+        </p>
+        <p>
+          Because of this spectrum of preferences and use cases, it may be difficult for a user
+          agent to discern whether a user means to expose their personal information
+          or is being tricked into doing so. It is thus the user agent's responsibility
+          to ensure that every user understands what data they are sharing and who
+          will participate in the exchange of information, before the exchange
+          begins. It is further the user agent's responsibility to ensure that
+          all parties have a legitimate reason for facilitating the exchange.
+        </p>
+      </section>
       <section>
         <h3>
           Unnecessary Requests for Credentials
@@ -895,73 +957,9 @@
       </section>
       <section>
         <h3>
-          Over Collection of Data
+          User Permission and Transparency
         </h3>
-        <p class="issue" title="Work in progress">
-          Explain how the API could be used to request more data than necessary
-          for a transaction and how the ecosystem can mitigate that over
-          collection.
-        </p>
-      </section>
-      <section>
-        <h3>
-          Individual Consent
-        </h3>
-        <p class="issue" title="Work in progress">
-          Explain how the API acquires an individual's consent to share a
-          digital credential and how digital wallets can also provide further
-          consent when sharing information.
-        </p>
-      </section>
-      <section>
-        <h3>
-          Data Retention
-        </h3>
-        <p class="issue" title="Work in progress">
-          Explain how verifiers might retain data and what the ecosystem does
-          to mitigate excessive data retention policies.
-        </p>
-      </section>
-      <section>
-        <h3>
-          Compliance with Privacy Regulations
-        </h3>
-        <p class="issue" title="Work in progress">
-          Explain to what extent the API complies with known privacy
-          regulations (e.g., consent) and what parts of those regulations are
-          not possible to enforce via the API (e.g., retention).
-        </p>
-      </section>
-      <section>
-        <h3>
-          Selective and Unlinkable Disclosure
-        </h3>
-        <p class="issue" title="Work in progress">
-          Explain how selective disclosure and unlinkable disclosure help
-          preserve privacy as well as their limitations in doing so.
-        </p>
-      </section>
-      <section>
-        <h3>
-          Phoning Home
-        </h3>
-        <p class="issue" title="Work in progress">
-          Explain how some systems might "phone home", the impact on privacy
-          that might have, and what the ecosystem provides to mitigate the
-          risk.
-        </p>
-      </section>
-      <section>
-        <h3>
-          Transmission of Personally Identifiable Information
-        </h3>
-        <p class="issue" title="Work in progress">
-          Explain that the API does enable the transmission of personally
-          identifiable information and that it does its best to ensure there is
-          informed consent by the individual, but that the consent might be
-          provided due to exhaustion or not understanding what PII is being
-          transmitted and how to mitigate those concerns.
-        </p>
+        <p class="issue" title="Work in progress"></p>
       </section>
     </section>
     <section class="informative">
