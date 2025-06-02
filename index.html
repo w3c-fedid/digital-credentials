@@ -557,7 +557,7 @@
     </p>
     <section class="informative">
       <h3>
-        User consent
+        User permission
       </h3>
       <p data-cite="permissions">
         The <cite>Digital Credential API</cite> is a [=powerful feature=] that
@@ -615,8 +615,12 @@
       <li>MUST define a representation, as either a [[WebIDL]] [=dictionary=]
       or a JSON object, of the [=digital credential/exchange protocol=] request
       structure (i.e., the [=dictionary=] which defines the semantics and
-      validation of the {{DigitalCredentialsProvider}}'s
-      {{DigitalCredentialsProvider/request}} member.
+      validation of the {{DigitalCredentialGetRequest}}'s
+      {{DigitalCredentialGetRequest/data}} member) and the [=digital
+      credential/issuance protocol=] request structure (i.e., the
+      [=dictionary=] which defines the semantics and validation of the
+      {{DigitalCredentialCreateRequest}}'s
+      {{DigitalCredentialCreateRequest/data}} member).
       </li>
       <li>MUST define a representation, as either a [[WebIDL]] [=dictionary=]
       or a JSON object, of the [=digital credential/exchange protocol=]
@@ -676,7 +680,8 @@
     </p>
     <dl>
       <dt>
-        Define a protocol identifier
+        Define a <dfn data-dfn-for="registry" data-local-lt=
+        "identifier">protocol identifier</dfn>.
       </dt>
       <dd>
         The protocol identifier MUST be a unique string that is not already in
@@ -690,7 +695,8 @@
         identifier MUST be assigned and be added to the registry.
       </dd>
       <dt>
-        Specify a protocol type
+        Specify a <dfn data-dfn-for="registry" data-local-lt="type">protocol
+        type</dfn>.
       </dt>
       <dd>
         The protocol type is either "Presentation" for presentation protocols
@@ -698,14 +704,16 @@
         protocols used with `navigator.credentials.create`.
       </dd>
       <dt>
-        Describe the protocol
+        <dfn data-dfn-for="registry" data-local-lt="description">Describe the
+        protocol</dfn>.
       </dt>
       <dd>
         The description MUST be a brief summary of the protocol's purpose and
         use case.
       </dd>
       <dt>
-        Provide a link to the specification
+        Provide a <dfn data-dfn-for="registry" data-local-lt="link">link to the
+        specification</dfn>.
       </dt>
       <dd>
         The specification MUST be a stable URL that points to the authoritative
@@ -724,15 +732,16 @@
       <thead>
         <tr>
           <th>
-            <dfn data-dfn-for="digital credentials registry">Protocol
-            identifier</dfn>
+            [=registry/identifier|Protocol identifier=]
           </th>
           <th>
-            <dfn data-dfn-for="digital credentials registry">Type</dfn>
+            [=registry/Type=]
           </th>
           <th>
-            <dfn data-dfn-for=
-            "digital credentials registry">Specification</dfn>
+            [=registry/Description=]
+          </th>
+          <th>
+            [=registry/link|Specification=]
           </th>
         </tr>
       </thead>
