@@ -1017,14 +1017,119 @@
       </section>
       <section>
         <h3>
-          Transmission of Personally Identifiable Information
+          User Permission and Transparency
         </h3>
-        <p class="issue" title="Work in progress">
-          Explain that the API does enable the transmission of personally
-          identifiable information and that it does its best to ensure there is
-          informed consent by the individual, but that the consent might be
-          provided due to exhaustion or not understanding what PII is being
-          transmitted and how to mitigate those concerns.
+        <p class="issue" title="Work in progress"></p>
+        <p>
+          The Digital Credentials API enables the capability to share highly
+          personal, sensitive and at-risk user information with websites via
+          credentials, potentially granting the ability to track users online
+          and offline, through permanent unique irrevocable cross-context
+          identifiers. It also reveals parts of the user's browsing activity as
+          well as their intent to identify to specific websites to wallets. A
+          crucial responsibility of the user agent in a credential request is
+          to gather permission by the user to proceed with the exchange of
+          information.
+        </p>
+        <p>
+          Important context that is needed for a user to make a decision about
+          proceeding with a credential exchange includes:
+        </p>
+        <ul>
+          <li>The origin of the verifier that requests the credential.
+          </li>
+          <li>The information that is being requested, or would be revealed by
+          responding to the request.
+          </li>
+          <li>Why the information is being requested.
+          </li>
+          <li>What the information will be used for.
+          </li>
+          <li>Whether presenting this information will enable tracking.
+          </li>
+          <li>How the information will be shared or retained.
+          </li>
+          <li>Which wallet(s) can be used to fulfill the credential request.
+          </li>
+          <li>Which credential would be used to share the requested
+          information.
+          </li>
+          <li>Any evaluations and attestations of this information, if
+          available.
+          </li>
+        </ul>
+        <p>
+          It is advised that user agents in their implementation ensure that
+          this information is fully disclosed to the user before an exchange of
+          any user-related information occurs.
+        </p>
+        <p class="issue" data-number="252">
+          Should these be normative in the spec?
+        </p>
+        <p class="issue" data-number="44">
+          Should the API be designed so the site can provide in-context
+          explanations?
+        </p>
+        <h4>
+          Integrating Multiple User Agents
+        </h4>
+        <p>
+          Depending on the technical architecture of the user's system, it is
+          likely that the definition of a "user agent" includes multiple
+          cooperating layers of the software stack, such as a browser and the
+          operating system. The greatest priority for these layers has to be a
+          safe and well-informed user permission experience. As such,
+          integration can be vital for user safety. Some layers may hold
+          information that is inaccessible to others, such as the availability
+          of a user's credentials. Overprompting or prompting without
+          sufficient context could lead to (exploitable) confusion and prompt
+          blindness.
+        </p>
+        <p>
+          For this reason user agents are encouraged to integrate software
+          layers for an ideal user experience when prompting for permission, if
+          they consider it safe to do so. This could happen, for example, if a
+          browser trusts the API contract of an operating system to show an
+          appropriate prompt and thus does not show a prompt itself.
+        </p>
+        <h4>
+          Permission Prior to Wallet Selection
+        </h4>
+        <p>
+          As part of the user permission flow, the user agent needs to ensure
+          that users retain the choice over whether to forward a credential
+          request to a wallet, and which wallet to select. This is due to the
+          information disclosure that happens as part of the request, and the
+          ability for wallets to retain or share this information at time of
+          the request.
+        </p>
+        <h4>
+          Permission vs. Consent
+        </h4>
+        <p>
+          The permission mediated by the user agent is not consent, which can
+          vary among different legal and regulatory environments and may need
+          to be collected by the digital wallet before sharing information with
+          the verifier, or by the verifier itself before initiating the
+          request. With frameworks and regulations for obtaining consent still
+          being developed, the API aims to enable the exchange of the necessary
+          information, which could include:
+        </p>
+        <ul>
+          <li>The privacy policy of the verifier receiving the credential.
+          </li>
+          <li>The purpose of the verifier for requesting the information.
+          </li>
+          <li>Assertions of the verifier's legimitacy and registration for
+          accessing the credential, such as <a href=
+          "https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/blob/main/docs/annexes/annex-2/annex-2-high-level-requirements.md#a2327-topic-27---registration-of-pid-providers-providers-of-qeaas-pub-eaas-and-non-qualified-eaas-and-relying-parties">
+            EUDI access and registration certificates</a>.
+          </li>
+        </ul>
+        <p>
+          As more of this information becomes available in a structured format,
+          we expect user agents and this specification to leverage it to
+          improve the user permission experience as well.
         </p>
       </section>
     </section>
