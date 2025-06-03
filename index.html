@@ -47,7 +47,22 @@
       edDraftURI: "https://w3c-fedid.github.io/digital-credentials/",
       group: "fedid",
       github: "https://github.com/w3c-fedid/digital-credentials",
-      localBiblio: {},
+      localBiblio: {
+        "credential-considerations": {
+          title: "User considerations for credentials on the Web",
+          href: "https://github.com/w3c/credential-considerations/blob/main/credentials-considerations.md",
+          authors: ["Nick Doty", "Rick Byers"],
+          date: "2025-03-26",
+          publisher: "W3C"
+        },
+        "threat-model-decentralized-identities": {
+          title: "Threat Model for Decentralized Identities",
+          href: "https://github.com/w3c-cg/threat-modeling/blob/main/models/decentralized-identities.md",
+          authors: ["Simone Onofri"],
+          date: "2025-05-28",
+          publisher: "W3C"
+        },
+      },
       xref: {
         profile: "web-platform",
       },
@@ -861,31 +876,78 @@
         <p>
           This section is a work in progress as this document evolves.
         </p>
-        <p>
-          The documents listed below outline various privacy considerations for
-          Digital Credentials, both broadly and for presentation on the web.
-          Their contents will be integrated into this document gradually.
-        </p>
-        <ul>
-          <li>
-            <a href=
-            "https://github.com/WICG/digital-credentials/blob/main/horizontal-reviews/security-privacy.md">
-            TAG Security and Privacy Considerations Questionnaire (WIP)</a>
-          </li>
-          <li>
-            <a href="https://github.com/w3cping/credential-considerations">W3C
-            Privacy Interest Group (PING) Credentials Considerations
-            repository</a> which contains in-progress list of concerns and
-            implications of identity-verification and credential presentation,
-            for consideration in Internet and Web standardization
-          </li>
-          <li>
-            <a href=
-            "https://github.com/w3c-cg/threat-modeling/blob/main/models/decentralized-identities.md">
-            Threat Model for Decentralized Identities</a>
-          </li>
-        </ul>
       </div>
+      <p>
+      The Digital Credentials API integrates into a complex ecosystem with multiple technology
+      layers and various participants (including but not limited to Verifiers, Holders and Issuers),
+      each of which have to consider different aspects of user privacy.
+
+      This specification does not attempt to exhaustively list all considerations
+      for the different participants. We would like to refer these parties to a
+      variety of other resources that explore the digital credentials threat
+      model more holistically:
+      </p>
+      <ul>
+        <li>
+          <a href="">W3C Privacy Working Group Credentials Considerations</a> [[credential-considerations]]
+        </li>
+        <li>
+          <a href="">
+          Threat Model for Decentralized Identities</a> [[threat-model-decentralized-identities]]
+        </li>
+        <li>
+          <a data-cite="vc-data-model#privacy-considerations">
+          VC Data Model Privacy Considerations</a>
+        </li>
+        <li>
+          ...
+        </li>
+      </ul>
+      <p>
+        Instead, these considerations focus on the Digital Credentials API itself,
+        and describe how user agents can satisfy their
+        <a href="https://w3ctag.github.io/privacy-principles/#dfn-user-agent-duties">user agent duties</a>
+        in an implementation of the API, taking into account the relevant
+        privacy properties of the ecosystem it interacts with.
+      </p>
+      <p>
+        The privacy considerations for digital credentials are not static. They
+        will evolve over time as the ecosystem matures, and may be informed by
+        the behavior of other actors in the ecosystem, improvements in other
+        layers of the stack, new threats to user privacy, as well as changing
+        societal norms and regulations.
+      </p>
+      <p>
+        It is expected that the various groups involved in the design and implementation
+        of the Digital Credentials API actively monitor the evolving privacy
+        landscape and participate in the corresponding evolution of the API.
+      </p>
+      <section data-cite="vc-data-model#spectrum-of-privacy">
+        <h3>
+          Spectrum of Privacy
+        </h3>
+        <p>
+          The Digital Credentials API serves a variety of use cases with different
+          grades of data disclosure and individual users with different preferences
+          depending on the context that they are in. Notably, the privacy properties
+          of a credential exchange mediated by this API could be mandated by
+          the legal and regulatory environment of an individual user.
+        </p>
+        <p>
+          This means that some users may not want, or be allowed,
+          to use the most privacy-preserving means of exchanging credential information.
+          Nonetheless, user agents need to serve users with an experience
+          that is private by default and protect them from harm.
+        </p>
+        <p>
+          Because of this spectrum of preferences and use cases, it may be difficult for a user
+          agent to discern whether a user means to expose their personal information
+          or is being tricked into doing so. It is thus the user agent's responsibility
+          to ensure that every user understands what data they are sharing and who
+          will participate in the exchange of information, before the exchange
+          begins.
+        </p>
+      </section>
       <section>
         <h3>
           Unnecessary Requests for Credentials
