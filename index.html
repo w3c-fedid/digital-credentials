@@ -878,37 +878,33 @@
         </p>
       </div>
       <p>
-      The Digital Credentials API integrates into a complex ecosystem with multiple technology
-      layers and various participants (including but not limited to Verifiers, Holders and Issuers),
-      each of which have to consider different aspects of user privacy.
-
-      This specification does not attempt to exhaustively list all considerations
-      for the different participants. We would like to refer these parties to a
-      variety of other resources that explore the digital credentials threat
-      model more holistically:
+        The Digital Credentials API integrates into a complex ecosystem with
+        multiple technology layers and various participants (including but not
+        limited to Verifiers, Holders and Issuers), each of which have to
+        consider different aspects of user privacy. This specification does not
+        attempt to exhaustively list all considerations for the different
+        participants. We would like to refer these parties to a variety of
+        other resources that explore the digital credentials threat model more
+        holistically:
       </p>
       <ul>
-        <li>
-          <a href="">W3C Privacy Working Group Credentials Considerations</a> [[credential-considerations]]
+        <li>[[[credential-considerations]]]
+        </li>
+        <li>[[[threat-model-decentralized-identities]]]
         </li>
         <li>
-          <a href="">
-          Threat Model for Decentralized Identities</a> [[threat-model-decentralized-identities]]
+          <a data-cite="vc-data-model#privacy-considerations">VC Data Model
+          Privacy Considerations</a>
         </li>
-        <li>
-          <a data-cite="vc-data-model#privacy-considerations">
-          VC Data Model Privacy Considerations</a>
-        </li>
-        <li>
-          ...
+        <li>...
         </li>
       </ul>
       <p>
-        Instead, these considerations focus on the Digital Credentials API itself,
-        and describe how user agents can satisfy their
-        <a href="https://w3ctag.github.io/privacy-principles/#dfn-user-agent-duties">user agent duties</a>
-        in an implementation of the API, taking into account the relevant
-        privacy properties of the ecosystem it interacts with.
+        Instead, these considerations focus on the Digital Credentials API
+        itself, and describe how user agents can satisfy their <a href=
+        "https://w3ctag.github.io/privacy-principles/#dfn-user-agent-duties">user
+        agent duties</a> in an implementation of the API, taking into account
+        the relevant privacy properties of the ecosystem it interacts with.
       </p>
       <p>
         The privacy considerations for digital credentials are not static. They
@@ -918,34 +914,36 @@
         societal norms and regulations.
       </p>
       <p>
-        It is expected that the various groups involved in the design and implementation
-        of the Digital Credentials API actively monitor the evolving privacy
-        landscape and participate in the corresponding evolution of the API.
+        It is expected that the various groups involved in the design and
+        implementation of the Digital Credentials API actively monitor the
+        evolving privacy landscape and participate in the corresponding
+        evolution of the API.
       </p>
       <section data-cite="vc-data-model#spectrum-of-privacy">
         <h3>
           Spectrum of Privacy
         </h3>
         <p>
-          The Digital Credentials API serves a variety of use cases with different
-          grades of data disclosure and individual users with different preferences
-          depending on the context that they are in. Notably, the privacy properties
-          of a credential exchange mediated by this API could be mandated by
-          the legal and regulatory environment of an individual user.
+          The Digital Credentials API serves a variety of use cases with
+          different grades of data disclosure and individual users with
+          different preferences depending on the context that they are in.
+          Notably, the privacy properties of a credential exchange mediated by
+          this API could be mandated by the legal and regulatory environment of
+          an individual user.
         </p>
         <p>
-          This means that some users may not want, or be allowed,
-          to use the most privacy-preserving means of exchanging credential information.
-          Nonetheless, user agents need to serve users with an experience
-          that is private by default and protect them from harm.
+          This means that some users may not want, or be allowed, to use the
+          most privacy-preserving means of exchanging credential information.
+          Nonetheless, user agents need to serve users with an experience that
+          is private by default and protect them from harm.
         </p>
         <p>
-          Because of this spectrum of preferences and use cases, it may be difficult for a user
-          agent to discern whether a user means to expose their personal information
-          or is being tricked into doing so. It is thus the user agent's responsibility
-          to ensure that every user understands what data they are sharing and who
-          will participate in the exchange of information, before the exchange
-          begins.
+          Because of this spectrum of preferences and use cases, it may be
+          difficult for a user agent to discern whether a user means to expose
+          their personal information or is being tricked into doing so. It is
+          thus the user agent's responsibility to ensure that every user
+          understands what data they are sharing and who will participate in
+          the exchange of information, before the exchange begins.
         </p>
       </section>
       <section>
