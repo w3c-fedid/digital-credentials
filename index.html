@@ -647,15 +647,16 @@
       structures.
       </li>
       <li>MUST have undergone privacy review by the W3C's <a href=
-      "https://www.w3.org/Privacy/IG/">Privacy Interest Group</a> and
-        <a href="https://www.w3.org/groups/wg/fedid/">Federated Identity
-        Working Group</a>.
+      "https://www.w3.org/groups/wg/privacy/">Privacy Working Group</a> and
+      <a href="https://www.w3.org/groups/wg/fedid/">Federated Identity Working
+      Group</a>.
         <aside class="note" title="Organizing reviews">
           Once an expression of registration is received via GitHub, the
           registry maintainers will organize the privacy review with the
-          <a href="https://www.w3.org/Privacy/IG/">Privacy Interest Group</a> .
-          Please see the [[[[security-privacy-questionnaire]]] for the kind of
-          questions that will be asked of the protocol you are registering.
+          <a href="https://www.w3.org/groups/wg/privacy/">Privacy Working
+          Group</a> . Please see the [[[[security-privacy-questionnaire]]] for
+          the kind of questions that will be asked of the protocol you are
+          registering.
         </aside>
       </li>
       <li>MUST have undergone security review by the <a href=
@@ -900,10 +901,10 @@
       </ul>
       <p>
         Instead, these considerations focus on the Digital Credentials API
-        itself, and describe how user agents can satisfy their <a href=
-        "https://w3ctag.github.io/privacy-principles/#dfn-user-agent-duties">user
-        agent duties</a> in an implementation of the API, taking into account
-        the relevant privacy properties of the ecosystem it interacts with.
+        itself, and describe how user agents can satisfy their <a data-cite=
+        "privacy-principles#dfn-user-agent-duties">user agent duties</a> in an
+        implementation of the API, taking into account the relevant privacy
+        properties of the ecosystem it interacts with.
       </p>
       <p>
         The privacy considerations for digital credentials are not static. They
@@ -943,6 +944,115 @@
           thus the user agent's responsibility to ensure that every user
           understands what data they are sharing and who will participate in
           the exchange of information, before the exchange begins.
+        </p>
+      </section>
+      <section>
+        <h3>
+          Exchange Protocol and Credential Format
+        </h3>
+        <p>
+          Because the Digital Credentials API sits at the center of an exchange
+          that involves multiple independent parties, the exchange protocol and
+          credential format used by these parties for exchanging user
+          information are crucial to the user agent's goal of protecting user
+          privacy.
+        </p>
+        <p>
+          The protocol registry for the Digital Credentials API is designed to
+          ensure that, among other requirements, supported protocols facilitate
+          specific privacy-enhancing capabilities. Protocols must undergo
+          privacy review by the W3C's <a href=
+          "https://www.w3.org/groups/wg/privacy/">Privacy Working Group</a>.
+        </p>
+        <h4>
+          Exchange Protocol Requirements for User Privacy
+        </h4>
+        <h5>
+          Selective disclosure
+        </h5>
+        <p>
+          <a data-cite=
+          "credential-considerations#selective-disclosure">Selective
+          disclosure</a> is a fundamental technique for <a data-cite=
+          "privacy-principles#data-minimization">data minimization</a> that
+          allows holders to share the minimum required information that is
+          needed by a verifier. Protocols can facilitate this selective
+          disclosure by allowing the verifier to specify the exact claims
+          needed, as well as through support of cryptographic primitives such
+          as <a data-cite="vc-data-model#zero-knowledge-proofs">Zero-Knowledge
+          Proofs</a>.
+        </p>
+        <h5>
+          Unlinkable presentations and revocation
+        </h5>
+        <p>
+          <a data-cite=
+          "credential-considerations#unlinkable-presentations">Unlinkability</a>
+          is a property that ensures that, if a user presents attributes from a
+          credential multiple times, verifiers cannot link these separate
+          presentations to conclude they concern the same user. Protocols are
+          required to limit linkability wherever possible. This can be done by
+          supporting the presentation of claims that are not inherently
+          linkable without introducing additional linkability, and support for
+          primitives such as Zero-Knowledge Proofs and Blind Signatures.
+        </p>
+        <p>
+          When used for unlinkable presentations, revocation mechanisms
+          supported by the protocol are expected to maintain unlinkablility. In
+          other words, revocation checking for a credential that was presented
+          unlinkably would not introduce an identifier that can be used to
+          track the user.
+        </p>
+        <h5>
+          No dependence on "phone home" mechanisms
+        </h5>
+        <p>
+          <a data-cite="credential-considerations#no-phoning-home">"Phoning
+          home"</a> refers to scenarios where the presentation or verification
+          of a digital credential causes a notification or communication back
+          to the issuer or another central entity, which can lead to tracking
+          and profiling of individuals.
+        </p>
+        <p>
+          Phoning home can happen in a number of ways, some of which are harder
+          to prevent than others. While linkable presentations have an inherent
+          risk of correlation through verifier to issuer communication,
+          protocol authors can not assume that this will happen on every
+          presentation and are encouraged to protect users against phoning home
+          by wallet applications. Unlinkable presentations, on the other hand,
+          are by design at risk of identification through phone home
+          mechanisms.
+        </p>
+        <p>
+          As such, the credential formats used in protocols are required to
+          support offline revocation methods such as <a href=
+          "https://eprint.iacr.org/2024/657.pdf">Cryptographic Accumulators</a>
+          or [[vc-bitstring-status-list]]. It is further expected that protocol
+          design and specification discourages the use of phone home wherever
+          possible.
+        </p>
+        <h5>
+          Support for user transparency, permission and consent
+        </h5>
+        <p>
+          User understanding and participation are non-negotiable properties of
+          a credential exchange. The protocol is expected to support all
+          involved parties in enabling user participation and provide them with
+          any of the information that is vital for informed permission or
+          consent. In particular, this involves granting verifiers the ability
+          to pass pertinent information along to the user agent or the wallet
+          in an unencrypted, structured text format.
+        </p>
+        <h5>
+          Encrypting credential responses
+        </h5>
+        <p>
+          To prevent exposure of user information to other parties in transit,
+          protocols are required to support and mandate encrypted responses in
+          a credential exchange.
+        </p>
+        <p class="issue" data-number="255">
+          Actually write these in the protocol requirements
         </p>
       </section>
       <section>
