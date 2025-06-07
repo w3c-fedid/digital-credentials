@@ -1021,25 +1021,24 @@
         </h3>
         <p class="issue" title="Work in progress"></p>
         <p>
-          The Digital Credentials API enables the capability to share highly
-          personal, sensitive and at-risk user information with websites via
-          credentials, potentially granting the ability to track users online
-          and offline, through permanent unique irrevocable cross-context
-          identifiers. It also reveals parts of the user's browsing activity as
-          well as their intent to identify to specific websites to wallets. A
-          crucial responsibility of the user agent in a credential request is
-          to gather permission by the user to proceed with the exchange of
-          information.
+          The Digital Credentials API enables the sharing of highly personal,
+          sensitive, and at-risk user information with websites via credentials,
+          potentially granting the ability to track users online and offline,
+          through permanent, unique, irrevocable, cross-context identifiers. It
+          also reveals parts of the user's browsing activity as well as their
+          intent to identify to specific websites and/or wallets. One crucial
+          responsibility of the user agent in a credential request is to gather
+          permission from the user to proceed with the exchange of information.
         </p>
         <p>
-          Important context that is needed for a user to make a decision about
-          proceeding with a credential exchange includes:
+          Important context details that are needed for a user to make an informed
+          decision about proceeding with a credential exchange include the following:
         </p>
         <ul>
           <li>The origin of the verifier that requests the credential.
           </li>
-          <li>The information that is being requested, or would be revealed by
-          responding to the request.
+          <li>The information that is being requested, or that would be
+          revealed by responding to the request.
           </li>
           <li>Why the information is being requested.
           </li>
@@ -1060,8 +1059,8 @@
         </ul>
         <p>
           It is advised that user agents in their implementation ensure that
-          this information is fully disclosed to the user before an exchange of
-          any user-related information occurs.
+          the details listed are fully disclosed to the user before an exchange
+          of any user-related information occurs.
         </p>
         <p class="issue" data-number="252">
           Should these be normative in the spec?
@@ -1074,51 +1073,52 @@
           Integrating Multiple User Agents
         </h4>
         <p>
-          Depending on the technical architecture of the user's system, it is
-          likely that the definition of a "user agent" includes multiple
+          Depending on the technical architecture of a user's system, it is
+          likely that the definition of a "user agent" will include multiple
           cooperating layers of the software stack, such as a browser and the
-          operating system. The greatest priority for these layers has to be a
-          safe and well-informed user permission experience. As such,
+          operating system. The greatest priority for these layers has to be
+          a safe and well-informed user permission experience. As such,
           integration can be vital for user safety. Some layers may hold
-          information that is inaccessible to others, such as the availability
-          of a user's credentials. Overprompting or prompting without
-          sufficient context could lead to (exploitable) confusion and prompt
-          blindness.
+          information that is inaccessible by other layers, such as the
+          availability of a user's credentials. Overprompting or prompting
+          without sufficient context could lead to (exploitable) confusion
+          and prompt blindness.
         </p>
         <p>
-          For this reason user agents are encouraged to integrate software
-          layers for an ideal user experience when prompting for permission, if
-          they consider it safe to do so. This could happen, for example, if a
+          For this reason, user agents prompting for permission are encouraged
+          to integrate software layers for an ideal user experience, if they
+          consider it safe to do so. This could happen, for example, if a
           browser trusts the API contract of an operating system to show an
-          appropriate prompt and thus does not show a prompt itself.
+          appropriate prompt, and thus does not show a prompt itself.
         </p>
         <h4>
           Permission Prior to Wallet Selection
         </h4>
         <p>
           As part of the user permission flow, the user agent needs to ensure
-          that users retain the choice over whether to forward a credential
+          that users retain the power to choose whether to forward a credential
           request to a wallet, and which wallet to select. This is due to the
           information disclosure that happens as part of the request, and the
-          ability for wallets to retain or share this information at time of
+          ability of wallets to retain or share this information at the time of
           the request.
         </p>
         <h4>
           Permission vs. Consent
         </h4>
         <p>
-          The permission mediated by the user agent is not consent, which can
-          vary among different legal and regulatory environments and may need
-          to be collected by the digital wallet before sharing information with
-          the verifier, or by the verifier itself before initiating the
-          request. With frameworks and regulations for obtaining consent still
-          being developed, the API aims to enable the exchange of the necessary
-          information, which could include:
+          The permission mediated by the user agent is not consent, which has
+          specific legal definitions which can vary among different legal and
+          regulatory environments and may need to be collected by the digital
+          wallet before sharing information with the verifier, or by the
+          verifier itself before initiating the request. With frameworks and
+          regulations for obtaining consent still being developed, this API
+          aims to enable the exchange of the necessary information, which
+          could include the following:
         </p>
         <ul>
           <li>The privacy policy of the verifier receiving the credential.
           </li>
-          <li>The purpose of the verifier for requesting the information.
+          <li>The purpose for which the verifier is requesting the information.
           </li>
           <li>Assertions of the verifier's legimitacy and registration for
           accessing the credential, such as <a href=
