@@ -976,11 +976,9 @@
           disclosure</a> is a fundamental technique for <a data-cite=
           "privacy-principles#data-minimization">data minimization</a> that
           allows holders to share the minimum required information that is
-          requested by a verifier. Protocols can facilitate this selective
-          disclosure by allowing the verifier to specify the exact claims
-          needed, as well as through support of cryptographic primitives such
-          as <a data-cite="vc-data-model#zero-knowledge-proofs">Zero-Knowledge
-          Proofs</a>.
+          requested by a verifier. Protocols are expected to facilitate
+          selective disclosure by allowing the verifier to specify the exact
+          claims needed.
         </p>
         <h5>
           Unlinkable presentations and revocation
@@ -994,7 +992,9 @@
           required to limit linkability wherever possible. This can be done by
           supporting the presentation of claims that are not inherently
           linkable without introducing additional linkability, and support for
-          primitives such as Zero-Knowledge Proofs and Blind Signatures.
+          primitives such as <a data-cite=
+          "vc-data-model#zero-knowledge-proofs">Zero-Knowledge Proofs</a> and
+          Blind Signatures.
         </p>
         <p>
           When used for unlinkable presentations, revocation mechanisms
