@@ -47,7 +47,22 @@
       edDraftURI: "https://w3c-fedid.github.io/digital-credentials/",
       group: "fedid",
       github: "https://github.com/w3c-fedid/digital-credentials",
-      localBiblio: {},
+      localBiblio: {
+        "credential-considerations": {
+          title: "User considerations for credentials on the Web",
+          href: "https://github.com/w3c/credential-considerations/blob/main/credentials-considerations.md",
+          authors: ["Nick Doty", "Rick Byers"],
+          date: "2025-03-26",
+          publisher: "W3C"
+        },
+        "threat-model-decentralized-identities": {
+          title: "Threat Model for Decentralized Identities",
+          href: "https://github.com/w3c-cg/threat-modeling/blob/main/models/decentralized-identities.md",
+          authors: ["Simone Onofri"],
+          date: "2025-05-28",
+          publisher: "W3C"
+        },
+      },
       xref: {
         profile: "web-platform",
       },
@@ -569,7 +584,7 @@
       whose value is "digital".
     </p>
     <h3>
-      [[\discovey]] internal slot
+      [[\discovery]] internal slot
     </h3>
     <p>
       The {{DigitalCredential}} [=interface object=] has an internal slot named
@@ -578,7 +593,7 @@
     </p>
     <section class="informative">
       <h3>
-        User consent
+        User permission
       </h3>
       <p data-cite="permissions">
         The <cite>Digital Credential API</cite> is a [=powerful feature=] that
@@ -636,8 +651,12 @@
       <li>MUST define a representation, as either a [[WebIDL]] [=dictionary=]
       or a JSON object, of the [=digital credential/exchange protocol=] request
       structure (i.e., the [=dictionary=] which defines the semantics and
-      validation of the {{DigitalCredentialsProvider}}'s
-      {{DigitalCredentialsProvider/request}} member.
+      validation of the {{DigitalCredentialGetRequest}}'s
+      {{DigitalCredentialGetRequest/data}} member) and the [=digital
+      credential/issuance protocol=] request structure (i.e., the
+      [=dictionary=] which defines the semantics and validation of the
+      {{DigitalCredentialCreateRequest}}'s
+      {{DigitalCredentialCreateRequest/data}} member).
       </li>
       <li>MUST define a representation, as either a [[WebIDL]] [=dictionary=]
       or a JSON object, of the [=digital credential/exchange protocol=]
@@ -661,8 +680,7 @@
         </aside>
       </li>
       <li>MUST have undergone security review by the <a href=
-      "https://www.w3.org/groups/wg/fedid/">Federated Identity Working
-      Group</a>.
+      "https://www.w3.org/groups/ig/security/">Security Interest Group</a>.
       </li>
       <li>MUST have implementation commitment from at least one browser engine,
       one credential provider/wallet, and one issuer or verifier (depending on
@@ -697,7 +715,8 @@
     </p>
     <dl>
       <dt>
-        Define a protocol identifier
+        Define a <dfn data-dfn-for="registry" data-local-lt=
+        "identifier">protocol identifier</dfn>.
       </dt>
       <dd>
         The protocol identifier MUST be a unique string that is not already in
@@ -711,7 +730,8 @@
         identifier MUST be assigned and be added to the registry.
       </dd>
       <dt>
-        Specify a protocol type
+        Specify a <dfn data-dfn-for="registry" data-local-lt="type">protocol
+        type</dfn>.
       </dt>
       <dd>
         The protocol type is either "Presentation" for presentation protocols
@@ -719,14 +739,16 @@
         protocols used with `navigator.credentials.create`.
       </dd>
       <dt>
-        Describe the protocol
+        <dfn data-dfn-for="registry" data-local-lt="description">Describe the
+        protocol</dfn>.
       </dt>
       <dd>
         The description MUST be a brief summary of the protocol's purpose and
         use case.
       </dd>
       <dt>
-        Provide a link to the specification
+        Provide a <dfn data-dfn-for="registry" data-local-lt="link">link to the
+        specification</dfn>.
       </dt>
       <dd>
         The specification MUST be a stable URL that points to the authoritative
@@ -745,15 +767,16 @@
       <thead>
         <tr>
           <th>
-            <dfn data-dfn-for="digital credentials registry">Protocol
-            identifier</dfn>
+            [=registry/identifier|Protocol identifier=]
           </th>
           <th>
-            <dfn data-dfn-for="digital credentials registry">Type</dfn>
+            [=registry/Type=]
           </th>
           <th>
-            <dfn data-dfn-for=
-            "digital credentials registry">Specification</dfn>
+            [=registry/Description=]
+          </th>
+          <th>
+            [=registry/link|Specification=]
           </th>
         </tr>
       </thead>
@@ -873,31 +896,76 @@
         <p>
           This section is a work in progress as this document evolves.
         </p>
-        <p>
-          The documents listed below outline various privacy considerations for
-          Digital Credentials, both broadly and for presentation on the web.
-          Their contents will be integrated into this document gradually.
-        </p>
-        <ul>
-          <li>
-            <a href=
-            "https://github.com/WICG/digital-credentials/blob/main/horizontal-reviews/security-privacy.md">
-            TAG Security and Privacy Considerations Questionnaire (WIP)</a>
-          </li>
-          <li>
-            <a href="https://github.com/w3cping/credential-considerations">W3C
-            Privacy Interest Group (PING) Credentials Considerations
-            repository</a> which contains in-progress list of concerns and
-            implications of identity-verification and credential presentation,
-            for consideration in Internet and Web standardization
-          </li>
-          <li>
-            <a href=
-            "https://github.com/w3c-cg/threat-modeling/blob/main/models/decentralized-identities.md">
-            Threat Model for Decentralized Identities</a>
-          </li>
-        </ul>
       </div>
+      <p>
+        The Digital Credentials API integrates into a complex ecosystem with
+        multiple technology layers and various participants (including but not
+        limited to Verifiers, Holders and Issuers), each of which have to
+        consider different aspects of user privacy. This specification does not
+        attempt to exhaustively list all considerations for the different
+        participants. We would like to refer these parties to a variety of
+        other resources that explore the digital credentials threat model more
+        holistically:
+      </p>
+      <ul>
+        <li>[[[credential-considerations]]]
+        </li>
+        <li>[[[threat-model-decentralized-identities]]]
+        </li>
+        <li>
+          <a data-cite="vc-data-model#privacy-considerations">VC Data Model
+          Privacy Considerations</a>
+        </li>
+        <li>...
+        </li>
+      </ul>
+      <p>
+        Instead, these considerations focus on the Digital Credentials API
+        itself, and describe how user agents can satisfy their <a href=
+        "https://w3ctag.github.io/privacy-principles/#dfn-user-agent-duties">user
+        agent duties</a> in an implementation of the API, taking into account
+        the relevant privacy properties of the ecosystem it interacts with.
+      </p>
+      <p>
+        The privacy considerations for digital credentials are not static. They
+        will evolve over time as the ecosystem matures, and may be informed by
+        the behavior of other actors in the ecosystem, improvements in other
+        layers of the stack, new threats to user privacy, as well as changing
+        societal norms and regulations.
+      </p>
+      <p>
+        It is expected that the various groups involved in the design and
+        implementation of the Digital Credentials API actively monitor the
+        evolving privacy landscape and participate in the corresponding
+        evolution of the API.
+      </p>
+      <section data-cite="vc-data-model#spectrum-of-privacy">
+        <h3>
+          Spectrum of Privacy
+        </h3>
+        <p>
+          The Digital Credentials API serves a variety of use cases with
+          different grades of data disclosure and individual users with
+          different preferences depending on the context that they are in.
+          Notably, the privacy properties of a credential exchange mediated by
+          this API could be mandated by the legal and regulatory environment of
+          an individual user.
+        </p>
+        <p>
+          This means that some users may not want, or be allowed, to use the
+          most privacy-preserving means of exchanging credential information.
+          Nonetheless, user agents need to serve users with an experience that
+          is private by default and protect them from harm.
+        </p>
+        <p>
+          Because of this spectrum of preferences and use cases, it may be
+          difficult for a user agent to discern whether a user means to expose
+          their personal information or is being tricked into doing so. It is
+          thus the user agent's responsibility to ensure that every user
+          understands what data they are sharing and who will participate in
+          the exchange of information, before the exchange begins.
+        </p>
+      </section>
       <section>
         <h3>
           Unnecessary Requests for Credentials
@@ -969,14 +1037,119 @@
       </section>
       <section>
         <h3>
-          Transmission of Personally Identifiable Information
+          User Permission and Transparency
         </h3>
-        <p class="issue" title="Work in progress">
-          Explain that the API does enable the transmission of personally
-          identifiable information and that it does its best to ensure there is
-          informed consent by the individual, but that the consent might be
-          provided due to exhaustion or not understanding what PII is being
-          transmitted and how to mitigate those concerns.
+        <p class="issue" title="Work in progress"></p>
+        <p>
+          The Digital Credentials API enables the sharing of highly personal,
+          sensitive, and at-risk user information with websites via
+          credentials, potentially granting the ability to track users online
+          and offline, through permanent, unique, irrevocable, cross-context
+          identifiers. It also reveals parts of the user's browsing activity as
+          well as their intent to identify to specific websites and/or wallets.
+          One crucial responsibility of the user agent in a credential request
+          is to gather permission from the user to proceed with the exchange of
+          information.
+        </p>
+        <p>
+          Important context details that are needed for a user to make an
+          informed decision about proceeding with a credential exchange include
+          the following:
+        </p>
+        <ul>
+          <li>The origin of the verifier that requests the credential.
+          </li>
+          <li>The information that is being requested, or that would be
+          revealed by responding to the request.
+          </li>
+          <li>Whether presenting this information will enable tracking.
+          </li>
+          <li>Which wallet(s) can be used to fulfill the credential request.
+          </li>
+          <li>Which credential would be used to share the requested
+          information.
+          </li>
+        </ul>
+        <p>
+          It is advised that user agents in their implementation ensure that
+          the details listed are fully disclosed to the user before an exchange
+          of any user-related information occurs.
+        </p>
+        <p class="issue" data-number="252">
+          Should these be normative in the spec?
+        </p>
+        <p class="issue" data-number="44">
+          Should the API be designed so the site can provide in-context
+          explanations?
+        </p>
+        <h4>
+          Integrating Multiple User Agents
+        </h4>
+        <p>
+          Depending on the technical architecture of a user's system, it is
+          likely that the definition of a "user agent" will include multiple
+          cooperating layers of the software stack, such as a browser and the
+          operating system. The greatest priority for these layers has to be a
+          safe and well-informed user permission experience. As such,
+          integration can be vital for user safety. Some layers may hold
+          information that is inaccessible by other layers, such as the
+          availability of a user's credentials. Overprompting or prompting
+          without sufficient context could lead to (exploitable) confusion and
+          prompt blindness.
+        </p>
+        <p>
+          For this reason, user agents prompting for permission are encouraged
+          to integrate software layers for an ideal user experience, if they
+          consider it safe to do so. This could happen, for example, if a
+          browser trusts the API contract of an operating system to show an
+          appropriate prompt, and thus does not show a prompt itself.
+        </p>
+        <h4>
+          Permission Prior to Wallet Selection
+        </h4>
+        <p>
+          As part of the user permission flow, the user agent needs to ensure
+          that users retain the power to choose whether to forward a credential
+          request to a wallet, and which wallet to select. This is due to the
+          information disclosure that happens as part of the request, and the
+          ability of wallets to retain or share this information at the time of
+          the request.
+        </p>
+        <h4>
+          Permission vs. Consent
+        </h4>
+        <p>
+          The permission mediated by the user agent is not consent, which has
+          specific legal definitions which can vary among different legal and
+          regulatory environments and may need to be collected by the digital
+          wallet before sharing information with the verifier, or by the
+          verifier itself before initiating the request. With frameworks and
+          regulations for obtaining consent still being developed, this API
+          aims to enable the exchange of the necessary information, which could
+          include the following:
+        </p>
+        <ul>
+          <li>The privacy policy of the verifier receiving the credential.
+          </li>
+          <li>The purpose for which the verifier is requesting the information.
+          </li>
+          <li>What the information will be used for.
+          </li>
+          <li>How the information will be shared or retained.
+          </li>
+          <li>Any evaluations and attestations of this information, if
+          available.
+          </li>
+          <li>Assertions of the verifier's legimitacy and registration for
+          accessing the credential, such as <a href=
+          "https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/blob/main/docs/annexes/annex-2/annex-2-high-level-requirements.md#a2327-topic-27---registration-of-pid-providers-providers-of-qeaas-pub-eaas-and-non-qualified-eaas-and-relying-parties">
+            EUDI access and registration certificates</a>.
+          </li>
+        </ul>
+        <p>
+          As more of this information becomes available in a structured format,
+          we expect user agents and this specification to leverage it to
+          improve the user permission experience as well.
         </p>
       </section>
     </section>
