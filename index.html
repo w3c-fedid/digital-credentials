@@ -496,9 +496,9 @@
       The {{DigitalCredential/clientAllowsProtocol()}} method allows digital
       credential verifiers and issuers to determine which 
       [=digital credential/exchange protocols=] the client supports for
-      interactions with credential providers.
+      interactions with [=credential providers=].
     </p>
-    <p>
+    <p class="note">
       This method does not convey [=digital credential/request protocol=] or 
       [=digital credential/issuance protocol=] support in the [=client device=]
       or [=credential provider=].
@@ -514,6 +514,26 @@
         indicate whether the browser supports distributing requests with that
         protocol to underlying platform or provider.
     </p>
+    <h4>
+      clientAllowsProtocol algorithm
+    </h4>
+    <p>
+      When this method is invoked, the user agent MUST execute the following
+      algorithm:
+    </p>
+    <ol class="algorithm">
+      <li>
+        If |protocol| contains characters other than lowercase ASCII letters,
+        digits, or hypens, throw a "{{ConstraintError}}" {{DOMException}}.
+      </li>
+      <li>
+        If |protocol| is known and allowed by the user agent, 
+        return <code>true</code>.
+      </li>
+      <li>
+        Else, return <code>false</code>.
+      </li>
+    </ol>
     <h3>
       [[\DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)
       internal method
