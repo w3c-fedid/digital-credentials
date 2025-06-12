@@ -62,7 +62,35 @@
           date: "2025-05-28",
           publisher: "W3C"
         },
+        "threat-model-web": {
+          title: "Threat Model for the Web",
+          href: "https://github.com/w3c/threat-model-web/blob/main/index.md",
+          authors: ["Simone Onofri", "Joe Andreieu"],
+          date: "2025-06-12",
+          publisher: "W3C"
+        },
+        "concerns-with-custom-schemes-for-identity-presentment": {
+          title: "Threat Model for the Web",
+          href: "https://github.com/w3c/threat-model-web/blob/main/index.md",
+          authors: ["Rick Byers"],
+          date: "2024-03-01",
+          publisher: "W3C"          
       },
+      "fido-security-reference": {
+          title: "FIDO Security Reference",
+          href: "https://fidoalliance.org/specs/common-specs/fido-security-ref-v2.1-ps-20220523.html",
+          authors: ["Rolf Lindemann"],
+          date: "2023-05-23",
+          publisher: "FIDO Alliance"          
+      },
+    "identity-web-impact": {
+          title: "FIDO Security Reference",
+          href: "https://www.w3.org/reports/identity-web-impact/",
+          authors: ["Simone Onofri"],
+          date: "2025-02-25",
+          publisher: "W3C"          
+      },
+      
       xref: {
         profile: "web-platform",
       },
@@ -771,15 +799,33 @@
       <h2>
         Security Considerations
       </h2>
-      <div class="issue" title=
-      "Security Considerations section is a work in progress">
+      <div class="issue" title="Security Considerations section is a work in progress">
         <p>
-          This section is a work in progress as this document evolves.
+            This section is a work in progress as this document evolves.
+        </p>
+      </div>
+        <p>
+            This section provides a few of the security considerations for the Digital Credentials API.
+            Note that there is a separate section for <a href="#privacy-considerations">Privacy Considerations</a>
+        </p>
+        <h3>Introduction</h3>
+        <p>
+            Digital Credentials APIs are part of and integrated into a broader ecosystem related to digital credentials. Therefore, this section do not specify all security considerations, threats, and mitigations of the ecosystem, but only those related to, directly linked to, or influenced by the Digital Credentials API.
+        <p>
+        <p>
+           Digital Credentials APIs mediate the communication of the presentation from a verifier using a web application to the user's wallet, and the issuance of the credential to the user's wallet when the issuer uses a web application. However, there are other elements that come into play with regard to the security aspects of these interactions, e.g.
+        <p>    
+          Therefore, the Threat Model for Digital Credentials API - and the resulting security considerations - is linked to other Threat Models, e.g., the Threat Model for Decentralized Credentials [[threat-model-decentralized-identities]], which describes threats at a broader level; the Threat Model for the Web [[threat-model-web]], which describes threats related to the Web Platform; the FIDO Security Reference, which describes threats related to the cross-device flow; as well as those related to other threat categories, such as Privacy.
         </p>
         <p>
-          The documents listed below outline initial security considerations
-          for Digital Credentials, both broadly and for presentation on the
-          web. Their contents will be integrated into this document gradually.
+            Furthermore, it assumes certain specific conditions and therefore provides requirements to other elements of the ecosystem (e.g., other standards and related implementations).
+        </p>
+        <p>
+            To conclude this introductory section, it is important to note that Digital Credentials APIs were created as a mitigation to other possible approaches to presenting digital credentials on the web, such as customs schemes [[concerns-with-custom-schemes-for-identity-presentment]], and that Digital Credentials are also a mitigation to sending paper documents (e.g., scanned government documents) over the web. 
+        </p>
+        <h3>References</h3>
+        <p>
+          The documents listed below outline initial security considerations for Digital Credentials API. Their contents will be integrated into this document gradually.
         </p>
         <ul>
           <li>
@@ -792,6 +838,9 @@
             "https://github.com/w3c-cg/threat-modeling/blob/main/models/decentralized-identities.md">
             Threat Model for Decentralized Identities</a>
           </li>
+          <li>
+            <a href="https://w3ctag.github.io/web-no-papers/">Preventing Abuse of Digital Identities
+                (W3C Draft TAG Finding)</a>
         </ul>
       </div>
       <section>
