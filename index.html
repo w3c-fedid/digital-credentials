@@ -170,6 +170,60 @@
     </p>
     <dl class="definitions" data-sort="" data-cite="vc-data-model-2.0">
       <dt>
+        <dfn>Client</dfn>
+        <br />
+        <dfn>Digital Credentials API Client</dfn>
+      </dt>
+      <dd>
+        Also referred to herein as simply a [=client=]. See also
+        [=Conforming User Agent=]. A [=Digital Credentials API Client=] is an
+        intermediary entity typically implemented in the user agent
+        (in whole, or in part). Conceptually, it underlies the Digital
+        Credentials API and embodies the implementation of the 
+        {{DigitalCredential/[[Create]](origin, options, sameOriginWithAncestors)}}
+        and {{DigitalCredential/[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)}}
+        internal methods. It is responsible for both marshalling the inputs for
+        the underlying credential provider operations, and for returning the
+        results of the latter operations to the Digital Credential API's
+        callers.
+      </dd>
+      <dt>
+        <dfn>Client Device</dfn>
+      </dt>
+      <dd>
+        The hardware device on which the [=client=] runs, for example a
+        smartphone, a laptop computer or a desktop computer, and the operating
+        system running on that hardware.
+
+        The distinctions between a [=client device=] and a [=client=] are:
+        <ul>
+          <li>
+            a single [=client device=] MAY support running multiple clients,
+            i.e., browser implementations, which all have access to the same
+            credential providers available on that [=client device=], and
+          </li>
+          <li>
+            credential providers are bound to a [=client device=] rather than a [=client=].
+          </li>
+        </ul>
+      </dd>
+      <dt>
+        <dfn>Conforming User Agent</dfn>
+      </dt>
+      <dd>
+        A user agent implementing, in cooperation with the underlying
+        [=client device=], the Digital Credentials API and algorithms given in
+        this specification, and handling communication between credential
+        providers, verifiers, and issuers.
+      </dd>
+      <dt>
+        <dfn>Credential provider</dfn>
+      </dt>
+      <dd>
+        A software or hardware component that stores and manages access to
+        credentials, including [=digital credentials=].
+      </dd>
+      <dt>
         <dfn>Digital credential</dfn>
       </dt>
       <dd>
@@ -247,6 +301,13 @@
         A protocol used for communication between an [=issuer=] and a
         [=holder=] during the issuance of a [=digital credential=]. See section
         [[[#protocol-registry]]].
+      </dd>
+      <dt>
+        <dfn>Protocol identifier</dfn>
+      </dt>
+      <dd>
+        A string representing a unique identifier for a given 
+        [=digital credential/exchange protocol=], using the semantics defined in [[[#change-process]]].
       </dd>
     </dl>
     <h2>
@@ -336,7 +397,7 @@
     </p>
     <p>
       The {{DigitalCredentialCreateRequest/protocol}} member's value can be one
-      of the well-defined protocol identifiers defined in
+      of the well-defined [=protocol identifiers=] defined in
       [[[#protocol-registry]]] or a custom protocol identifier.
     </p>
     <h3>
@@ -693,16 +754,15 @@
       to update an existing one:
     </p>
     <dl>
-      <dt>
-        Define a <dfn data-dfn-for="registry" data-local-lt=
-        "identifier">protocol identifier</dfn>.
+      <dt id="protocol-identifier-requirements">
+        Define a [=protocol identifier=].
       </dt>
       <dd>
         The protocol identifier MUST be a unique string that is not already in
         use in the registry. Use only lowercase ASCII letters, digits, and
         hyphens (e.g., "protocol", "the-protocol"). The protocol identifier
         MUST uniquely define the set of required parameters and/or behavior
-        that a digital credential provider implementation needs to support to
+        that a digital [=credential provider=] implementation needs to support to
         successfully handle the request. If the set of required parameters or
         behaviors is updated in a way which would require a digital credential
         provider to also require an update to remain functional, a new protocol
