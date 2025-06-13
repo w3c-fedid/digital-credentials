@@ -1261,8 +1261,8 @@
           For a more detailed exploration of how to determine and address
           unnecessary usage, it makes sense to consider goverment-issued
           credentials and other credentials separately, as they potentially
-          differ in the sensitivity of their data and the potential harms
-          from misuse as well as legal & regulatory considerations.
+          differ in the sensitivity of their data and the potential harms from
+          misuse as well as legal & regulatory considerations.
         </p>
         <p>
           A key component of risk mitigation and ensuring user control that
@@ -1331,16 +1331,16 @@
             <a data-cite=
             "identity-web-impact#opportunities-and-threats">Exclusion</a> from
             participation in services that would previously not require
-            government-issued credentials for individuals who cannot, or do
-            not want to, provide these credentials.
+            government-issued credentials for individuals who cannot, or do not
+            want to, provide these credentials.
           </li>
         </ul>
         <h5>
           Mitigating unnecessary requests for government credentials
         </h5>
         <p>
-          The outlined risks of government-issued digital credentials present
-          a challenge that cannot be solved by a single participant in the
+          The outlined risks of government-issued digital credentials present a
+          challenge that cannot be solved by a single participant in the
           ecosystem, and will require a broader society-wide discussion about
           the risks and benefits of accessing online services through
           real-world credentials.
@@ -1384,7 +1384,7 @@
           It is further critical that user agents design a permission
           experience that accounts for the lack of these mitigations, e.g., the
           exchange of personal information from government credentials without
-          any verifier authentication scheme. It is recommended that a very high
+          any verifier authentication scheme. It is recommended that a higher
           level of friction be applied to these types of high risk exchanges.
         </p>
         <h4>
@@ -1395,10 +1395,10 @@
           documents, certificates, and attestations that are not
           government-issued and don't represent government-issued documents.
           This could include proof of employment, education credentials, or
-          cinema tickets. Notably, their exchange is likely less restricted
-          by laws and regulations. While these documents often don't exhibit
-          the same risks as government-issued credentials, they could also
-          contain identifiable or sensitive information.
+          cinema tickets. Notably, their exchange is likely less restricted by
+          laws and regulations. While these documents often don't exhibit the
+          same risks as government-issued credentials, they could also contain
+          identifiable or sensitive information.
         </p>
         <h5>
           Risk of theft and leakage of non-government credentials
@@ -1433,14 +1433,14 @@
           Mitigating unnecessary requests for non-government credentials
         </h5>
         <p>
-          For non-government-issued credentials, it is especially critical that
-          the user agent understand the requested credential format and its
-          privacy attributes, and build a risk framework that informs the
-          context that is shown to the user, as well as the amount of friction
-          that is appropriate for each credential type. Protocols and formats
-          involved in the exchange of these credentials are generally expected
-          to support features such as selective disclosure and unlinkability,
-          but these features may not always be appropriate or necessary in the
+          For non-government-issued credentials, it is recommended that the
+          user agent understand the requested credential format and its privacy
+          attributes, and build a risk framework that informs the context that
+          is shown to the user, as well as the amount of friction that is
+          appropriate for each credential type. Protocols and formats involved
+          in the exchange of these credentials are generally expected to
+          support features such as selective disclosure and unlinkability, but
+          these features may not always be appropriate or necessary in the
           exchange of information, especially when it concerns low-risk
           credentials such as cinema tickets.
         </p>
@@ -1448,10 +1448,14 @@
           A user agent that recognizes the type of credential being requested
           is encouraged to customize its permission experience to best suit the
           requested credential and help users understand the consequences of
-          sharing it. A user agent that does not recognize the type of
-          credential being requested is advised to significantly increase user
-          friction in their permission experience, and very clearly communicate
-          the risks of sharing unknown credentials with websites.
+          sharing it.
+        </p>
+        <p>
+          User agents can not be expected to understand all credential
+          requests. A user agent that does not recognize the type of credential
+          being requested is advised to significantly increase user friction in
+          their permission experience, and very clearly communicate the risks
+          of sharing unknown credentials with websites to the user.
         </p>
       </section>
       <section>
