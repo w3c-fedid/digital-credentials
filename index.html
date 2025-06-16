@@ -1279,10 +1279,10 @@
           <a data-cite=
           "identity-web-impact#pure-digital-credentials">Government-issued
           digital credentials</a> include travel documents, personal licenses,
-          proof of welfare and public health programs, vehicle registrations
+          proof of welfare and public health programs, vehicle registrations,
           and other documents issued by government authorities, or other
           documents representing this information. These documents are highly
-          sensitive, as they contain permanent, irrevocable, unique identifiers
+          sensitive, as they can contain permanent, irrevocable, unique identifiers
           that are central to a person's individual identity and ability to
           interact with vital public services.
         </p>
@@ -1347,8 +1347,8 @@
         </p>
         <p>
           It is desirable that a government that issues digital credentials
-          also provide laws and regulations which clearly define how and for
-          which purposes those credentials are able to be used. All parties
+          also enact laws and regulations that clearly define how and for
+          what purposes those credentials are able to be used. All parties
           involved in the exchange, whether they are legally obliged to do so
           or not, are advised to support any government verifier authentication
           schemes, if they exist. The support for (and integration of) verifier
@@ -1362,10 +1362,10 @@
         <p>
           There are other practical steps that user agents implementing the
           Digital Credentials API can take to reduce risk, increase user
-          understanding, and prevent certain types of harm.
+          understanding, and prevent certain types of harm:
         </p>
         <ul>
-          <li>Requiring protocols to support selective disclosure and other
+          <li>Only support protocols that support selective disclosure and other
           techniques of data minimization can reduce the impact and likelihood
           of information leakage, and provide better context to users in
           permission and consent flows.
@@ -1394,7 +1394,7 @@
           Non-government-issued credentials include all other digital
           documents, certificates, and attestations that are not
           government-issued and don't represent government-issued documents.
-          This could include proof of employment, education credentials, or
+          This could include proof of employment, (non-government) education credentials, or
           cinema tickets. Notably, their exchange is likely less restricted by
           laws and regulations. While these documents often don't exhibit the
           same risks as government-issued credentials, they could also contain
@@ -1440,7 +1440,7 @@
           appropriate for each credential type. Protocols and formats involved
           in the exchange of these credentials are generally expected to
           support features such as selective disclosure and unlinkability, but
-          these features may not always be appropriate or necessary in the
+          these features might not always be appropriate or necessary in the
           exchange of information, especially when it concerns low-risk
           credentials such as cinema tickets.
         </p>
