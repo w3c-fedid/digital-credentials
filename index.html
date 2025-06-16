@@ -236,17 +236,28 @@
         "exchange protocol">Exchange protocol</dfn>
       </dt>
       <dd>
-        A protocol used for exchanging a [=digital credential=] between a
-        [=holder=] and a [=verifier=]. See section [[[#protocol-registry]]].
+        A standardized protocol used for exchanging a [=digital credential=]
+        between a [=holder=] and a [=verifier=]. A protocol is identified by a
+        [=digital credential/protocol identifier=]. See section also
+        [[[#protocol-registry]]].
+      </dd>
+      <dt>
+        <dfn data-dfn-for="digital credential">Protocol identifier</dfn>
+      </dt>
+      <dd>
+        A [=string=] composed of one or more [=ASCII lower alpha=] [=code
+        points=], zero or more U+002D HYPHEN-MINUS [=code points=], and zero or
+        more [=ASCII digit=] [=code points=].
       </dd>
       <dt>
         <dfn data-dfn-for="digital credential" data-local-lt=
         "issuance protocol">Issuance protocol</dfn>
       </dt>
       <dd>
-        A protocol used for communication between an [=issuer=] and a
-        [=holder=] during the issuance of a [=digital credential=]. See section
-        [[[#protocol-registry]]].
+        A standardized protocol used for communication between an [=issuer=]
+        and a [=holder=] during the issuance of a [=digital credential=]. The
+        issuance protocol is identified by a [=digital credential/protocol
+        identifier=]. See also section [[[#protocol-registry]]].
       </dd>
     </dl>
     <h2>
@@ -694,8 +705,7 @@
     </p>
     <dl>
       <dt>
-        Define a <dfn data-dfn-for="registry" data-local-lt=
-        "identifier">protocol identifier</dfn>.
+        Define a [=digital credential/protocol identifier=].
       </dt>
       <dd>
         The protocol identifier MUST be a unique string that is not already in
@@ -746,7 +756,7 @@
       <thead>
         <tr>
           <th>
-            [=registry/identifier|Protocol identifier=]
+            [=digital credential/Protocol identifier=]
           </th>
           <th>
             [=registry/Type=]
