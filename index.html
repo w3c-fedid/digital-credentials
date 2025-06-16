@@ -865,6 +865,136 @@
           the session management utilized on the website.
         </p>
       </section>
+  <h3 id='threats-and-attacks'>Threats and Attacks</h3>
+  <h4 id='same-origin-policy-violations'>Same-Origin Policy Violations</h4>
+  <p>SOP violation occurs when a script or resource from one origin breaks the browser's foundational Same-Origin
+      Policy—intended to segregate data between origins—by accessing or tampering with another origin's data, cookies,
+      DOM, or authenticated sessions.</p>
+  <h4 id='fingerprinting-and-cross-device-tracking'>Fingerprinting and Cross-Device Tracking</h4>
+  <p>Fingerprinting and Cross‑Device Tracking occur when the Digital Credentials API (or its surrounding browser features)
+      exposes minute but identifiable configuration details—like supported protocols, hardware capabilities, or timing
+      behaviors—that can be collected over time to create a unique fingerprint for a device, user, or browser.</p>
+  <p><strong>Mitigations</strong></p>
+  <ul>
+      <li>Data Minimization</li>
+  
+  </ul>
+  <h4 id='cross-site-scripting-xss-cross-site-request-forgery-csrf'>Cross-Site Scripting (XSS), Cross-Site Request Forgery
+      (CSRF)</h4>
+  <p>XSS occurs when an attacker injects malicious JavaScript into a web page, enabling that script to silently call the
+      API within the context of a trusted site.</p>
+  <p>CSRF occurs when a malicious site tricks the user’s browser into sending a silent request to the API on a legitimate,
+      origin using hidden forms, images, or fetch calls to forge credential retrieval action.</p>
+  <p><strong>Mitigations</strong></p>
+  <ul>
+      <li>Transient activation (Web API level) </li>
+      <li>Permission (Web API level) </li>
+      <li>Content Security Policy (RP level)</li>
+  
+  </ul>
+  <h4 id='clickjacking--ui-redressing'>Clickjacking &amp; UI redressing</h4>
+  <p>Clickjacking occurs when an attacker invisibly overlays a credential request prompt behind UI elements, tricking
+      users into approving unwarranted credential sharing.</p>
+  <p><strong>Mitigations</strong></p>
+  <ul>
+      <li>Transient activation (Web API level) </li>
+      <li>Informing the user (Web API level) </li>
+      <li>Content Security Policy (RP level)</li>
+  
+  </ul>
+  <h4 id='man-in-the-middle'>Man-In-the-Middle</h4>
+  <p>MiTM occurs when attackers insert themselves into the communication channel between two parties, intercepting,
+      relaying, or modifying messages at lower layers (like network or transport). At the same time, both endpoints
+      believe they are talking directly to each other.</p>
+  <p><strong>Mitigations</strong></p>
+  <ul>
+      <li>Secure contexts (Web API level) </li>
+      <li>Encryption (Protocol level) </li>
+      <li>Signature (Protocol level) </li>
+      <li>Nonce (Protocol level)</li>
+  
+  </ul>
+  <h4 id='reply-attack'>Reply Attack</h4>
+  <p>Replay Attacks occur when an attacker intercepts a legitimate credential exchange (via same- or cross-device flows)
+      and later replays that same exchange to another party. This tricks systems into accepting old, valid credentials as
+      fresh, leading to unauthorized authentication or credential disclosure.</p>
+  <p><strong>Mitigations</strong></p>
+  <ul>
+      <li>Secure contexts (Web API level) </li>
+      <li>Nonce (Protocol level)</li>
+  
+  </ul>
+  <h4 id='quishing'>Quishing</h4>
+  <p>Quishing occurs when a malicious site tricks the user into replacing a legitimate QR code, tricking it into
+      generating a Verifiable Presentation for an unauthorized verifier, enabling impersonation or unauthorized access to
+      services or data.</p>
+  <h4 id='phishingharvesting'>Phishing/Harvesting</h4>
+  <p>Phishing/Harvesting occurs when a malicious site tricks users into sharing credentials by imitating a legitimate
+      relying party, potentially harvesting sensitive identity data.</p>
+  <h3 id='mitigations'>Mitigations</h3>
+  <h4 id='data-minimization'>Data Minimization</h4>
+  <p>Data Minimization occurs when the API restricts the information shared to only what’s necessary for each credential
+      operation. Such operations must expose the smallest possible dataset—aligned with the specific purpose the user
+      explicitly approved—while concealing any additional metadata or details about why data isn't available.</p>
+  <p>The API uses the same message if the response is unavailable because of software or hardware limitations, user
+      permission, or credentials, ensuring that this lack of availability cannot be used to infer device —or user-specific
+      information.</p>
+    <p><strong>Threats and Attacks</strong></p>
+    <ul>
+        <li>Fingerprinting and Cross-Device Tracking </li>
+    
+    </ul>
+    <h4 id='explicitly-restrict-the-feature-to-first-party-origins'>Explicitly restrict the feature to first-party origins.
+    </h4>
+    <p>Limiting this sensitive API to only first-party contexts, where the requesting origin matches the top-level site,
+        makes it possible to block third-party content (like ads or embedded widgets) from invoking credential operations.
+        This prevents untrusted embedded code from accessing or misusing digital credentials under your site's permission
+        and control.</p>
+    <p>The API is not available to third-party iframes without a permission policy.</p>
+    <h4 id='secure-contexts'>Secure contexts</h4>
+    <p>Secure contexts ensure that certain powerful or privacy-sensitive web features are only offered when pages are loaded
+        over authenticated, encrypted channels (e.g., HTTPS, or other “potentially trustworthy” schemes like file:// or
+        localhost), blocking access from insecure origins.</p>
+    <p>The API is only available in a secure context.</p>
+    <p><strong>Mitigates</strong> </p>
+    <ul>
+        <li>MiTM attacks</li>
+    
+    </ul>
+    <h4 id='limit-api-usage'>Limit API usage</h4>
+    <p>Implementing multi-layered rate-limiting is essential to prevent API abuse, ensure reliability, and prevent
+        credential-related attacks.</p>
+    <p><em>Global</em>: A global rate limit should be implemented to restrict the number of requests made within a certain
+        period (e.g., per minute or hour), preventing excessive use and over-asking<br /><em>Session-Based</em>: Set
+        session-based limits during a single-user session to prevent prolonged abuse.<br /><em>Origin-based</em>: per site
+        and subdomains</p>
+    <h4 id='informing-the-user'>Informing the user</h4>
+    <p>When handling sensitive API calls involving personal data or credentials, including explicit user approval at the
+        point of use is important. Instead of allowing background or automated exchanges, the user agent must present a
+        clear, interactive prompt, such as a chooser UI, that shows the requesting origin and the data being accessed. This
+        ensures users are fully informed and retain control over each operation, significantly reducing risks from silent
+        data sharing or unintended leaks.</p>
+    <p>The API prompts the user to show the request's origin before proceeding.</p>
+    <h4 id='permission-request'>Permission request</h4>
+    <p>Permission controls require explicit user permission before any API use is allowed. This ensures that users know when
+        their device’s vibration feature is being accessed. Permissions must be granted per site, ensuring each website
+        obtains consent separately (e.g., not subdomain permission).</p>
+    <p><strong>Threats and Attacks</strong></p>
+    <ul>
+        <li>Fingerprinting and Cross-Device Tracking</li>
+    
+    </ul>
+    <h4 id='transient-activation'>Transient activation</h4>
+    <p>Transient activation ensures that powerful or sensitive web features can only be triggered immediately following a
+        real user interaction, such as a mouse click, keyboard press, touch, or menu selection, guarding against stealthy or
+        automated execution. This mechanism prevents malicious scripts from silently invoking functions like pop‑ups,
+        clipboard access, sharing dialogs, or system permissions without the user’s knowledge. </p>
+    <p>The API uses transient activation.</p>
+    <p><strong>Threats and Attacks</strong></p>
+    <ul>
+        <li>Cross-Site Scripting (XSS) and Cross-Site Request Forgery (CSRF)</li>
+    
+    </ul>
     </section>
     <section class="informative">
       <h2>
