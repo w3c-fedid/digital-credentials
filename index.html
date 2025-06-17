@@ -62,6 +62,18 @@
           date: "2025-05-28",
           publisher: "W3C"
         },
+        "custom-schemes": {
+          title: "Concerns with custom schemes for identity presentment",
+          href: "https://github.com/w3c-fedid/digital-credentials/blob/main/custom-schemes.md",
+          authors: ["Rick Byers"],
+          date: "2024-05-01",
+          publisher: "W3C"
+        },
+        "presenting-credentials-on-the-web": {
+          title: "Presenting Credentials on the Web",
+          href: "https://docs.google.com/document/d/1Ppaz_EnhzHqPOz5UusRJvbSunh-RXPWgJ3Np_TM2EE0/",
+          authors: ["Simone Onofri"]
+        },
       },
       xref: {
         profile: "web-platform",
@@ -930,6 +942,47 @@
         evolving privacy landscape and participate in the corresponding
         evolution of the API.
       </p>
+      <section>
+        <h3>
+          Design Considerations and Alternatives
+        </h3>
+        <p>
+          When reviewing the privacy characteristics of the Digital Credentials
+          API it is important to understand the goals of its design, which is
+          to offer a more secure and private user experience that matches the
+          flexibility of existing alternatives.
+        </p>
+        <p>
+          As new adopters are joining the rapidly emerging digital credentials
+          space, an important choice for implementation is the connection
+          between verifiers and wallets, i.e. the means by which a credential
+          exchange protocol is initiated and the user navigates from the
+          website they're browsing to their wallet application.
+        </p>
+        <p>
+          The most popular existing solutions for connecting verifiers and
+          wallets are QR codes and custom URL schemes, see
+          [[[presenting-credentials-on-the-web]]]. Both solutions have security
+          and privacy concerns (see the analysis in
+          [[[presenting-credentials-on-the-web]]] and [[[custom-schemes]]]) and
+          offer the user agent very little ability to intermediate on behalf of
+          the user, e.g. in the form of a permission prompt.
+        </p>
+        <p>
+          With adoption of digital credential technology being quickly driven
+          forward by consumer demand and regulatory mandates, we consider it
+          essential for user agents to offer an alternative to these harmful
+          technologies that is easy to use for web and wallet developers, is
+          compatible with existing credential exchange protocols and, most
+          importantly, significantly increases user privacy and security.
+        </p>
+        <p>
+          This API is not meant to inhibit the development of other Web APIs
+          that further push the boundaries on user privacy, for example an API
+          that more strictly enforces unlinkability for specific purposes such
+          as age verification.
+        </p>
+      </section>
       <section data-cite="vc-data-model#spectrum-of-privacy">
         <h3>
           Spectrum of Privacy
