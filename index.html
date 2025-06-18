@@ -1003,6 +1003,19 @@
           unlinkability was achieved in practice. Nonetheless, protocols are
           requested to limit linkability wherever possible.
         </p>
+        <p>
+          Note that unlinkability is exclusively a consideration for attributes
+          that can not be linked to a specific user identity. Inherently linkable
+          attributes such as names, driver's license numbers or phone numbers do
+          not benefit from unlinkability.
+        </p>
+        <p>
+          Through the Digital Credentials API, the user agent can help verifiers
+          and wallets exchange unlinkable attributes, but it can not guarantee
+          that no linkable information is passed between verifiers and wallets.
+          It is recommended that user agents account for this fact in their
+          user permission experience.
+        </p>
         <p class="issue" data-number="279">
           Which level of unlinkability is the goal for this API? Can we
           normatively enforce support for any particular unlinkability features
@@ -1026,8 +1039,11 @@
           application owns this decision. While some wallets can be considered
           user agents, it is generally recommended that the user agent
           implementing the Digital Credentials API designs its permission
-          experience to prevent exposure of a request to the wallet application
-          before user confirmation.
+          experience to prevent <a href=
+          "#permission-prior-to-wallet-selection">exposure of a request to the
+          wallet application</a> before user confirmation (keeping in mind
+          <a href="#multiple-user-agents">considerations for integrating
+          multiple cooperating user agents</a>).
         </p>
         <p>
           Protocols are required to support mechanisms that allow issuers,
@@ -1062,8 +1078,9 @@
         </h5>
         <p>
           User understanding and participation are non-negotiable properties of
-          a credential exchange. The protocol is expected to help all involved parties 
-          enable user participation by providing the information vital for informed permission and/or consent.
+          a credential exchange. The protocol is expected to help all involved
+          parties enable user participation by providing the information vital
+          for informed permission and/or consent.
         </p>
         <h5>
           Support for verifier authorization
@@ -1217,7 +1234,7 @@
           Should the API be designed so the site can provide in-context
           explanations?
         </p>
-        <h4>
+        <h4 id="multiple-user-agents">
           Integrating Multiple User Agents
         </h4>
         <p>
