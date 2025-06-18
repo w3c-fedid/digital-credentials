@@ -1303,7 +1303,11 @@
           online is <a href=
           "https://en.wikipedia.org/wiki/Jevons_paradox">Jevon's Paradox</a>,
           i.e., the chance of increasing demand for credentials through lower
-          friction of access. This might result in harmful outcomes for users:
+          friction of access. This effect is not inherently caused by the
+          Digital Credentials API, and rather the overall increasing adoption
+          of digital credentials across the ecosystem. Nonetheless, the effect
+          needs to be considered by user agents implementing the API, as it
+          might result in harmful outcomes for users:
         </p>
         <ul>
           <li>Increased risk of information leakage, and ultimately a less
@@ -1386,7 +1390,8 @@
           experience that accounts for the lack of these mitigations, e.g., the
           exchange of personal information from government credentials without
           any verifier authentication scheme. It is recommended that a higher
-          level of friction be applied to these types of high risk exchanges.
+          level of friction and clear user messaging that highlights the
+          involved risk be applied to these types of exchanges.
         </p>
         <h4>
           Non-government-issued credentials
@@ -1456,7 +1461,14 @@
           requests. A user agent that does not recognize the type of credential
           being requested is advised to significantly increase user friction in
           their permission experience, and very clearly communicate the risks
-          of sharing unknown credentials with websites to the user.
+          of sharing unknown credentials with websites to the user. Note that
+          this could require integration between <a href=
+          "#multiple-user-agents">different user agents</a> to apply
+          appropriate levels of friction and transparency. For example, a
+          browser might delegate knowledge about credential requests to the
+          operating system, which might require wallets to register known
+          credential types and reject an exchange request for an unknown
+          credential type.
         </p>
       </section>
       <section>
