@@ -1205,7 +1205,6 @@
         <h3>
           Unnecessary Requests for Credentials
         </h3>
-        <p class="issue" title="Work in progress"></p>
         <p>
           Unnecessary credential requests are a key privacy risk to the entire
           digital credentials ecosystem. They could manifest in different ways
@@ -1270,7 +1269,7 @@
           inspect the credential request metadata and make decisions or UI
           presentation based on it. The DC API ensures this user agent access
           to the exchange through requirements placed on protocols to transmit
-          requests in plain text and to include relevant information.
+          requests unencrypted and to include relevant information.
         </p>
         <h4>
           Government-issued credentials
@@ -1282,9 +1281,9 @@
           proof of welfare and public health programs, vehicle registrations,
           and other documents issued by government authorities, or other
           documents representing this information. These documents are highly
-          sensitive, as they can contain permanent, irrevocable, unique identifiers
-          that are central to a person's individual identity and ability to
-          interact with vital public services.
+          sensitive, as they can contain permanent, irrevocable, unique
+          identifiers that are central to a person's individual identity and
+          ability to interact with vital public services.
         </p>
         <h5>
           Risk of theft and leakage of government credentials
@@ -1309,10 +1308,12 @@
         <ul>
           <li>Increased risk of information leakage, and ultimately a less
           trusted user experience on the Web. When a large number of services
-          access and store government-issued credentials, the chance of data
-          leaks and unauthorized access increases as well. Even seemingly
-          non-identifying information like birthdates and postal codes, when
-          combined, can statistically identify an individual.
+          access and store government-issued credentials in an insecure manner
+          (i.e. not maintaining encryption or failing to safeguard private
+          keys), the chance of data leaks and unauthorized access increases as
+          well. Even seemingly non-identifying information like birthdates and
+          postal codes, when combined, can statistically identify an
+          individual.
           </li>
           <li>Prompt fatigue and a loss in trust by users when they are
           prompted by a large number of websites to share personal information.
@@ -1347,10 +1348,10 @@
         </p>
         <p>
           It is desirable that a government that issues digital credentials
-          also enact laws and regulations that clearly define how and for
-          what purposes those credentials are able to be used. All parties
-          involved in the exchange, whether they are legally obliged to do so
-          or not, are advised to support any government verifier authentication
+          also enact laws and regulations that clearly define how and for what
+          purposes those credentials are able to be used. All parties involved
+          in the exchange, whether they are legally obliged to do so or not,
+          are advised to support any government verifier authentication
           schemes, if they exist. The support for (and integration of) verifier
           authentication schemes such as <a href=
           "https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/blob/main/docs/annexes/annex-2/annex-2-high-level-requirements.md#a2327-topic-27---registration-of-pid-providers-providers-of-qeaas-pub-eaas-and-non-qualified-eaas-and-relying-parties">
@@ -1365,12 +1366,12 @@
           understanding, and prevent certain types of harm:
         </p>
         <ul>
-          <li>Only support protocols that support selective disclosure and other
-          techniques of data minimization can reduce the impact and likelihood
-          of information leakage, and provide better context to users in
-          permission and consent flows.
+          <li>Only support protocols that support selective disclosure and
+          other techniques of data minimization can reduce the impact and
+          likelihood of information leakage, and provide better context to
+          users in permission and consent flows.
           </li>
-          <li>Requiring protocols to support unlinkability mechanisms such as
+          <li>Support for protocols that allow unlinkability mechanisms such as
           Zero-Knowledge Proofs can prevent verifier-based surveillance and
           potential discrimination, by hiding the issuer.
           </li>
@@ -1394,11 +1395,11 @@
           Non-government-issued credentials include all other digital
           documents, certificates, and attestations that are not
           government-issued and don't represent government-issued documents.
-          This could include proof of employment, (non-government) education credentials, or
-          cinema tickets. Notably, their exchange is likely less restricted by
-          laws and regulations. While these documents often don't exhibit the
-          same risks as government-issued credentials, they could also contain
-          identifiable or sensitive information.
+          This could include proof of employment, (non-government) education
+          credentials, or cinema tickets. Notably, their exchange is likely
+          less restricted by laws and regulations. While these documents often
+          don't exhibit the same risks as government-issued credentials, they
+          could also contain identifiable or sensitive information.
         </p>
         <h5>
           Risk of theft and leakage of non-government credentials
