@@ -654,7 +654,7 @@
           Once an expression of registration is received via GitHub, the
           registry maintainers will organize the privacy review with the
           <a href="https://www.w3.org/groups/wg/privacy/">Privacy Working
-          Group</a> . Please see the [[[[security-privacy-questionnaire]]] for
+          Group</a> . Please see the [[[security-privacy-questionnaire]]] for
           the kind of questions that will be asked of the protocol you are
           registering.
         </aside>
@@ -960,12 +960,12 @@
         <p>
           The protocol registry for the Digital Credentials API is designed to
           ensure that, among other requirements, supported protocols facilitate
-          specific privacy-enhancing capabilities. Protocols must undergo
-          privacy review by the W3C's <a href=
+          specific privacy-enhancing capabilities. Protocols are required to
+          undergo privacy review by the W3C's <a href=
           "https://www.w3.org/groups/wg/privacy/">Privacy Working Group</a>.
         </p>
         <h4>
-          Exchange Protocol Requirements for User Privacy
+          Exchange Protocol Considerations for User Privacy
         </h4>
         <h5>
           Selective disclosure
@@ -981,30 +981,35 @@
           claims needed.
         </p>
         <h5>
-          Unlinkable presentations and revocation
+          Unlinkable presentations
         </h5>
         <p>
           <a data-cite=
           "credential-considerations#unlinkable-presentations">Unlinkability</a>
           is a property that ensures that, if a user presents attributes from a
           credential multiple times, verifiers cannot link these separate
-          presentations to conclude they concern the same user. Protocols are
-          required to limit linkability wherever possible. This can be done by
-          supporting the presentation of claims that are not inherently
-          linkable without introducing additional linkability, and support for
-          primitives such as <a data-cite=
-          "vc-data-model#zero-knowledge-proofs">Zero-Knowledge Proofs</a> and
-          Blind Signatures.
+          presentations to conclude they concern the same user
+          (verifier-verifier linkability), or that verifiers can not collude
+          with issuers to report the exchange of a credential from a wallet to
+          the issuer (verifier-issuer linkability). The former is a property
+          that can be maintained by the wallet and issuer, e.g. through issuing
+          fresh credentials for individual verifiers.
         </p>
         <p>
-          When used for unlinkable presentations, revocation mechanisms
-          supported by the protocol are expected to maintain unlinkablility. In
-          other words, revocation checking for a credential that was presented
-          unlinkably would not introduce an identifier that can be used to
-          track the user.
+          While the latter is achievable, e.g. through <a data-cite=
+          "vc-data-model#zero-knowledge-proofs">Zero-Knowledge Proofs</a>,
+          design choices of the API such as encrypted responses make it
+          impossible for a user agent to prove that verifier-issuer
+          unlinkability was achieved in practice. Nonetheless, protocols are
+          requested to limit linkability wherever possible.
+        </p>
+        <p class="issue" data-number="279">
+          Which level of unlinkability is the goal for this API? Can we
+          normatively enforce support for any particular unlinkability features
+          as part of the protocol registry inclusion criteria?
         </p>
         <h5>
-          No dependence on "phone home" mechanisms
+          "Phone home" mechanisms
         </h5>
         <p>
           <a data-cite="credential-considerations#no-phoning-home">"Phoning
@@ -1014,22 +1019,43 @@
           and profiling of individuals.
         </p>
         <p>
-          Phoning home can happen in a number of ways, some of which are harder
-          to prevent than others. While linkable presentations have an inherent
-          risk of correlation through verifier to issuer communication,
-          protocol authors can not assume that this will happen on every
-          presentation and are encouraged to protect users against phoning home
-          by wallet applications. Unlinkable presentations, on the other hand,
-          are by design at risk of identification through phone home
-          mechanisms.
+          Similar to unlinkability, it is impossible for user agents to ensure
+          that an issuer isn't actively involved in the creation or validation
+          of credential presentations after a user has given permission to
+          proceed with a credential request. From that point on, the wallet
+          application owns this decision. While some wallets can be considered
+          user agents, it is generally recommended that the user agent
+          implementing the Digital Credentials API designs its permission
+          experience to prevent exposure of a request to the wallet application
+          before user confirmation.
         </p>
         <p>
-          As such, the credential formats used in protocols are required to
-          support offline revocation methods such as <a href=
-          "https://eprint.iacr.org/2024/657.pdf">Cryptographic Accumulators</a>
-          or [[vc-bitstring-status-list]]. It is further expected that protocol
-          design and specification discourages the use of phone home wherever
-          possible.
+          Protocols are required to support mechanisms that allow issuers,
+          wallets and verifiers avoid or reduce the dependence on "phone home"
+          mechanisms.
+        </p>
+        <p class="issue" data-number="279">
+          Which level of unlinkability is the goal for this API? To what degree
+          can the spec mandate restrictions to issuer involvement?
+        </p>
+        <h5>
+          Unlinkable revocation
+        </h5>
+        <p class="issue" data-number="280">
+          A common instance of issuer involvement in a credential exchange is
+          for credential revocation checks. This is particularly challenging
+          when presentations are intended to be verifier-issuer unlinkable.
+          When credential presentations are made unlinkable through the use of
+          e.g. Zero-Knowledge Proofs, the credential formats used in protocols
+          are expected to support offline revocation methods such as <a href=
+          "https://eprint.iacr.org/2024/657.pdf">Cryptographic
+          Accumulators</a>. It is further expected that protocol design and
+          specification discourages the involvement of verifiers for the
+          purpose of revocation where possible.
+        </p>
+        <p class="issue" data-number="280">
+          We should discuss whether and unlinkable revocation techniques are
+          practical enough to be required normatively.
         </p>
         <h5>
           Support for user transparency, permission and consent
@@ -1039,15 +1065,37 @@
           a credential exchange. The protocol is expected to support all
           involved parties in enabling user participation and provide them with
           any of the information that is vital for informed permission or
-          consent. In particular, this involves granting verifiers the ability
-          to pass pertinent information along to the user agent or the wallet
-          in an unencrypted, structured text format.
+          consent.
+        </p>
+        <h5>
+          Support for verifier authorization
+        </h5>
+        <p>
+          Verifier authorization refers to the process by which a verifier
+          proves its identity and demonstrates that it is legitimately entitled
+          to request specific attributes or credentials. This is particularly
+          useful when exchanging sensitive data, such as from government-issued
+          credentials. Authorizing verifiers can limit unnecessary or abusive
+          credential requests, and ensure that a verifier's access is
+          restricted to the specific credential attributes it registered for.
+        </p>
+        <p>
+          Checking verifier authorization is usually handled by the wallet, but
+          user agents could find the presence of such a scheme helpful in
+          preventing API abuse and designing a well-informed user permission
+          experience.
+        </p>
+        <p class="issue" data-number="281">
+          Should we require protocols to include provisions that allow user
+          agents to understand verifier authorization?
         </p>
         <h5>
           Encrypting credential responses
         </h5>
         <p>
-          To prevent exposure of user information to other parties in transit,
+          To prevent exposure of user information to other parties in
+          "transit", for example browser extensions loaded on verifier pages,
+          and to encourage secure storage of user credentials by the verifier,
           protocols are required to support and mandate encrypted responses in
           a credential exchange.
         </p>
