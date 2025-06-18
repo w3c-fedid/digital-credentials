@@ -1547,6 +1547,47 @@
       </section>
       <section>
         <h3>
+          Fingerprinting and Data Leakage
+        </h3>
+        <h4>
+          Browser fingerprinting
+        </h4>
+        <p class="issue" data-number="219">
+          The Digital Credentials API exposes information about which
+          credential exchange protocols are supported by the user agent, which
+          has the potential to be used for browser fingerprinting (see
+          [[[fingerprinting-guidance]]]). We need to add privacy considerations
+          for the involved mitigations here.
+        </p>
+        <h4>
+          Avoiding leaks of credential availability
+        </h4>
+        <p>
+          The Digital Credentials API can not make it possible for websites to
+          learn whether a certain credential is available or not without going
+          through a <a href="#user-permission-and-transparency">user permission
+          flow</a>. Revealing the presence of credentials is a risk to user
+          privacy, as the presence of a credential is personal information that
+          the user might not have preferred to share with the site, and, in
+          combination with other signals, could be used to identify the user
+          without their permission. It is also a risk to free expression, as
+          websites might increasingly start to demand the presentation of these
+          credentials from the user in order to access services, excluding
+          individuals who are unwilling or unable to present credentials.
+        </p>
+      </section>
+      <section>
+        <h3>
+          Over Collection of Data
+        </h3>
+        <p class="issue" title="Work in progress">
+          Explain how the API could be used to request more data than necessary
+          for a transaction and how the ecosystem can mitigate that over
+          collection.
+        </p>
+      </section>
+      <section>
+        <h3>
           User Permission and Transparency
         </h3>
         <p class="issue" title="Work in progress"></p>
