@@ -62,6 +62,33 @@
           date: "2025-05-28",
           publisher: "W3C"
         },
+        "threat-model-web": {
+          title: "Threat Model for the Web",
+          href: "https://github.com/w3c/threat-model-web/blob/main/index.md",
+          authors: ["Simone Onofri", "Joe Andreieu"],
+          date: "2025-06-12",
+          publisher: "W3C"
+        },
+        "concerns-with-custom-schemes-for-identity-presentment": {
+          title: "Threat Model for the Web",
+          href: "https://github.com/w3c/threat-model-web/blob/main/index.md",
+          authors: ["Rick Byers"],
+          date: "2024-03-01",
+          publisher: "W3C"          
+      },
+      "fido-security-reference": {
+          title: "FIDO Security Reference",
+          href: "https://fidoalliance.org/specs/common-specs/fido-security-ref-v2.1-ps-20220523.html",
+          authors: ["Rolf Lindemann"],
+          date: "2023-05-23",
+          publisher: "FIDO Alliance"          
+      },
+    "identity-web-impact": {
+          title: "Identity & Web Impact",
+          href: "https://www.w3.org/reports/identity-web-impact/",
+          authors: ["Simone Onofri"],
+          date: "2025-02-25",
+          publisher: "W3C"          
       },
       xref: {
         profile: "web-platform",
@@ -772,15 +799,74 @@
       <h2>
         Security Considerations
       </h2>
-      <div class="issue" title=
-      "Security Considerations section is a work in progress">
+      <div class="issue" title="Security Considerations section is a work in progress">
         <p>
-          This section is a work in progress as this document evolves.
+            This section is a work in progress as this document evolves.
         </p>
+      </div>
+      <h3 id='use-scenario'>Use Scenario</h3>
+      <p><em>This section lists the use scenarios for the API - in other words, information about its expected use.</em></p>
+      <p>Digital Credentials APIs are part of and integrated into a broader ecosystem related to digital credentials.
+          Therefore, this section does not specify all security considerations, threats, and mitigations of the ecosystem, but
+          only those related to, directly linked to, or influenced by the Digital Credentials API.</p>
+      <p>It is important to note that Digital Credentials APIs were created to mitigate other possible approaches to
+          presenting digital credentials on the web, such as customs schemes
+          [[concerns-with-custom-schemes-for-identity-presentment]], and that Digital Credentials are also a mitigation to
+          sending paper documents (e.g., scanned government documents) over the web.</p>
+      <p>Digital Credentials APIs mediate the communication of the presentation from a verifier using a web application to the
+           [=holder=], and the issuance of the credential to the [=holder=] when the issuer uses a web
+          application. </p>
+      <p>Presentation Workflow</p>
+      <ol>
+          <li>WebIDL Dispatch &amp; Preconditions (Browser) </li>
+          <li>Internal Discovery Hook (Browser) </li>
+          <li>Cross-Device Handshake (Device / Browser) </li>
+          <li>Credential Matching (OS / Browser) </li>
+          <li>User-Picker UI (System) </li>
+          <li>Credential Retrieval (Wallet / Browser) </li>
+          <li>Promise Resolution &amp; Object Construction (Browser) </li>
+          <li>Application-Level Handling (Browser / RP)</li>  
+      </ol>
+      <h3 id='external-dependencies'>External Dependencies</h3>
+      <p><em>The section lists the external dependencies on other entities that can impact the security. These dependencies
+              contain assumptions made about the usage or behaviour of those other components or products. External
+              dependencies are requirements levied on systems outside the API.</em></p>
+      <p>Therefore, the Threat Model for Digital Credentials API - and the resulting Security considerations - depends to
+          other Threat Models:</p>
+      <ul>
+          <li><strong>Threat Model for Decentralized Credentials</strong>, which describes threats at a broader level
+              [[threat-model-decentralized-credentials]]. </li>
+          <li><strong>Threat Model for the Web</strong>, which describes threats related to the Web Platform
+              [[threat-model-web]] </li>
+          <li><strong>FIDO Security Reference</strong>, which describes threats related to the cross-device flow as it is
+              using CTAP [[fido-security-reference]].</li>
+      </ul>
+      <p>Other dependencies relate to the ecosystem, in particular: supported protocols, credential format, and revocation
+          methods used.</p>
+      <p>Finally, another important aspect relates to the security posture of the verifier application, which, even if
+          legitimate, could have vulnerabilities e.g., Cross Site Scripting (XSS), Cross-Site Request Forgery (CSRF) or
+          otherwise be compromised.</p>
+      <h3 id='assumptions'>Assumptions</h3>
+      <p><em>This section describes the security assumptions, an implicit or explicit fact or condition upon which the API
+              security relies. These conditions or facts are expected to be true for the API to operate securely. If these
+              assumptions prove false, they can introduce vulnerabilities.</em></p>
+      <h4 id='browser'>Browser</h4>
+      <p>The browser assumes the role of a trusted entity. It enforces its security features - such as same-origin policies
+          (SOP), executes Content Security Policy (CSP) and Cross-Origin Resource Sharing (CORS) checks, presents a secure,
+          non-forgeable UI that users can trust, and avoids containing or executing malicious third-party scripts or malicious
+          extensions.</p>
+      <p>The browser is responsible for mediating the flow and preventing unauthorized access to credentials, and has a
+          trusted relationship with the Wallet.</p>
+      <h4 id='protocols'>Protocols</h4>
+      <p>Given that the API acts as a mediator in the presentation of credentials, which are the asset to be protected, and
+          contains a registry of a series of protocols, it assumes that some threats are handled by the protocols and that,
+          being Internet protocols, they MUST comply with the provisions of RFC 3552 [[RFC3552]].</p>
+      <p>The protocols need to consider and mitigate at least for the following attacks: eavesdropping, replay, message
+          insertion, deletion, modification, and man-in-the-middle. </p>
+      <p>Furthermore, if they include query languages, they must be protected against injection vulnerabilities.</p>
+        <h3>References</h3>
         <p>
-          The documents listed below outline initial security considerations
-          for Digital Credentials, both broadly and for presentation on the
-          web. Their contents will be integrated into this document gradually.
+          The documents listed below outline initial security considerations for Digital Credentials API. Their contents will be integrated into this document gradually.
         </p>
         <ul>
           <li>
@@ -793,6 +879,9 @@
             "https://github.com/w3c-cg/threat-modeling/blob/main/models/decentralized-identities.md">
             Threat Model for Decentralized Identities</a>
           </li>
+          <li>
+            <a href="https://w3ctag.github.io/web-no-papers/">Preventing Abuse of Digital Identities
+                (W3C Draft TAG Finding)</a>
         </ul>
       </div>
       <section>
