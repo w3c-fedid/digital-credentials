@@ -1553,20 +1553,21 @@
           Browser fingerprinting
         </h4>
         <p class="issue" data-number="219">
-          The Digital Credentials API exposes information about which
-          credential exchange protocols are supported by the user agent, which
-          has the potential to be used for browser fingerprinting (see
-          [[[fingerprinting-guidance]]]). We need to add privacy considerations
-          for the involved mitigations here.
+          When the Digital Credentials API exposes information about which
+          credential exchange protocols are supported by the user agent, it
+          will mitigate browser fingerprinting through not customizing its
+          response based on e.g. installed wallets. We need to add privacy
+          considerations for the involved risks and mitigations of that
+          functionality here (see [[[fingerprinting-guidance]]]).
         </p>
         <h4>
           Avoiding leaks of credential availability
         </h4>
         <p>
-          The Digital Credentials API does not enable sites to
-          learn whether a credential is available without first going
-          through a <a href="#user-permission-and-transparency">user permission
-          flow</a>. Revealing the presence of credentials is a risk to user
+          The Digital Credentials API does not enable sites to learn whether a
+          credential is available without first going through a <a href=
+          "#user-permission-and-transparency">user permission flow</a>.
+          Revealing the presence of credentials would be a risk to user
           privacy, as the presence of a credential is personal information that
           the user might not have preferred to share with the site, and, in
           combination with other signals, could be used to identify the user
