@@ -967,6 +967,7 @@
         <h4>
           Exchange Protocol Considerations for User Privacy
         </h4>
+        <aside class="issue" data-number="255"></aside>
         <h5>
           Selective disclosure
         </h5>
@@ -1005,16 +1006,16 @@
         </p>
         <p>
           Note that unlinkability is exclusively a consideration for attributes
-          that can not be linked to a specific user identity. Inherently linkable
-          attributes such as names, driver's license numbers or phone numbers do
-          not benefit from unlinkability.
+          that can not be linked to a specific user identity. Inherently
+          linkable attributes such as names, driver's license numbers or phone
+          numbers do not benefit from unlinkability.
         </p>
         <p>
-          Through the Digital Credentials API, the user agent can help verifiers
-          and wallets exchange unlinkable attributes, but it can not guarantee
-          that no linkable information is passed between verifiers and wallets.
-          It is recommended that user agents account for this fact in their
-          user permission experience.
+          Through the Digital Credentials API, the user agent can help
+          verifiers and wallets exchange unlinkable attributes, but it can not
+          guarantee that no linkable information is passed between verifiers
+          and wallets. It is recommended that user agents account for this fact
+          in their user permission experience.
         </p>
         <p class="issue" data-number="279">
           Which level of unlinkability is the goal for this API? Can we
@@ -1057,7 +1058,7 @@
         <h5>
           Unlinkable revocation
         </h5>
-        <p class="issue" data-number="280">
+        <p>
           A common instance of issuer involvement in a credential exchange is
           for credential revocation checks. This is particularly challenging
           when presentations are intended to be verifier-issuer unlinkable.
@@ -1114,9 +1115,7 @@
           protocols are required to support and mandate encrypted responses in
           a credential exchange.
         </p>
-        <p class="issue" data-number="255">
-          Actually write these in the protocol requirements
-        </p>
+        <p class="issue" data-number="109"></p>
       </section>
       <section>
         <h3>
@@ -1185,6 +1184,13 @@
         <p class="issue" data-number="44">
           Should the API be designed so the site can provide in-context
           explanations?
+        </p>
+        <h4>
+          Handling multiple credential requests
+        </h4>
+        <p class="issue" data-number="286">
+          We need to describe concerns, tradeoffs and possible mitigations of
+          handling multiple requests and responses for credential presentation.
         </p>
         <h4 id="multiple-user-agents">
           Integrating Multiple User Agents
