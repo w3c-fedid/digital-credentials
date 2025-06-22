@@ -976,6 +976,7 @@
         <h4>
           Exchange Protocol Considerations for User Privacy
         </h4>
+        <aside class="issue" data-number="255"></aside>
         <h5>
           Selective disclosure
         </h5>
@@ -1066,7 +1067,7 @@
         <h5>
           Unlinkable revocation
         </h5>
-        <p class="issue" data-number="280">
+        <p>
           A common instance of issuer involvement in a credential exchange is
           for credential revocation checks. This is particularly challenging
           when presentations are intended to be verifier-issuer unlinkable.
@@ -1123,9 +1124,7 @@
           protocols are required to support and mandate encrypted responses in
           a credential exchange.
         </p>
-        <p class="issue" data-number="255">
-          Actually write these in the protocol requirements
-        </p>
+        <p class="issue" data-number="109"></p>
       </section>
       <section>
         <h3>
@@ -1146,54 +1145,6 @@
           Explain how the API could be used to request more data than necessary
           for a transaction and how the ecosystem can mitigate that over
           collection.
-        </p>
-      </section>
-      <section>
-        <h3>
-          Individual Consent
-        </h3>
-        <p class="issue" title="Work in progress">
-          Explain how the API acquires an individual's consent to share a
-          digital credential and how digital wallets can also provide further
-          consent when sharing information.
-        </p>
-      </section>
-      <section>
-        <h3>
-          Data Retention
-        </h3>
-        <p class="issue" title="Work in progress">
-          Explain how verifiers might retain data and what the ecosystem does
-          to mitigate excessive data retention policies.
-        </p>
-      </section>
-      <section>
-        <h3>
-          Compliance with Privacy Regulations
-        </h3>
-        <p class="issue" title="Work in progress">
-          Explain to what extent the API complies with known privacy
-          regulations (e.g., consent) and what parts of those regulations are
-          not possible to enforce via the API (e.g., retention).
-        </p>
-      </section>
-      <section>
-        <h3>
-          Selective and Unlinkable Disclosure
-        </h3>
-        <p class="issue" title="Work in progress">
-          Explain how selective disclosure and unlinkable disclosure help
-          preserve privacy as well as their limitations in doing so.
-        </p>
-      </section>
-      <section>
-        <h3>
-          Phoning Home
-        </h3>
-        <p class="issue" title="Work in progress">
-          Explain how some systems might "phone home", the impact on privacy
-          that might have, and what the ecosystem provides to mitigate the
-          risk.
         </p>
       </section>
       <section>
@@ -1242,6 +1193,13 @@
         <p class="issue" data-number="44">
           Should the API be designed so the site can provide in-context
           explanations?
+        </p>
+        <h4>
+          Handling multiple credential requests
+        </h4>
+        <p class="issue" data-number="286">
+          We need to describe concerns, tradeoffs and possible mitigations of
+          handling multiple requests and responses for credential presentation.
         </p>
         <h4 id="multiple-user-agents">
           Integrating Multiple User Agents
