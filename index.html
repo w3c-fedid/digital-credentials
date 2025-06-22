@@ -664,15 +664,16 @@
       structures.
       </li>
       <li>MUST have undergone privacy review by the W3C's <a href=
-      "https://www.w3.org/Privacy/IG/">Privacy Interest Group</a> and
-        <a href="https://www.w3.org/groups/wg/fedid/">Federated Identity
-        Working Group</a>.
+      "https://www.w3.org/groups/wg/privacy/">Privacy Working Group</a> and
+      <a href="https://www.w3.org/groups/wg/fedid/">Federated Identity Working
+      Group</a>.
         <aside class="note" title="Organizing reviews">
           Once an expression of registration is received via GitHub, the
           registry maintainers will organize the privacy review with the
-          <a href="https://www.w3.org/Privacy/IG/">Privacy Interest Group</a> .
-          Please see the [[[[security-privacy-questionnaire]]] for the kind of
-          questions that will be asked of the protocol you are registering.
+          <a href="https://www.w3.org/groups/wg/privacy/">Privacy Working
+          Group</a> . Please see the [[[security-privacy-questionnaire]]] for
+          the kind of questions that will be asked of the protocol you are
+          registering.
         </aside>
       </li>
       <li>MUST have undergone security review by the <a href=
@@ -917,10 +918,10 @@
       </ul>
       <p>
         Instead, these considerations focus on the Digital Credentials API
-        itself, and describe how user agents can satisfy their <a href=
-        "https://w3ctag.github.io/privacy-principles/#dfn-user-agent-duties">user
-        agent duties</a> in an implementation of the API, taking into account
-        the relevant privacy properties of the ecosystem it interacts with.
+        itself, and describe how user agents can satisfy their <a data-cite=
+        "privacy-principles#dfn-user-agent-duties">user agent duties</a> in an
+        implementation of the API, taking into account the relevant privacy
+        properties of the ecosystem it interacts with.
       </p>
       <p>
         The privacy considerations for digital credentials are not static. They
@@ -964,6 +965,177 @@
       </section>
       <section>
         <h3>
+          Exchange Protocol and Credential Format
+        </h3>
+        <p>
+          Because the Digital Credentials API sits at the center of an exchange
+          that involves multiple independent parties, the exchange protocol and
+          credential format used by these parties for exchanging user
+          information are crucial to the user agent's goal of protecting user
+          privacy.
+        </p>
+        <p>
+          The protocol registry for the Digital Credentials API is designed to
+          ensure that, among other requirements, supported protocols facilitate
+          specific privacy-enhancing capabilities. Protocols are required to
+          undergo privacy review by the W3C's <a href=
+          "https://www.w3.org/groups/wg/privacy/">Privacy Working Group</a>.
+        </p>
+        <h4>
+          Exchange Protocol Considerations for User Privacy
+        </h4>
+        <aside class="issue" data-number="255"></aside>
+        <h5>
+          Selective disclosure
+        </h5>
+        <p>
+          <a data-cite=
+          "credential-considerations#selective-disclosure">Selective
+          disclosure</a> is a fundamental technique for <a data-cite=
+          "privacy-principles#data-minimization">data minimization</a> that
+          allows holders to share the minimum required information that is
+          requested by a verifier. Protocols are expected to facilitate
+          selective disclosure by allowing the verifier to specify the exact
+          claims needed.
+        </p>
+        <h5>
+          Unlinkable presentations
+        </h5>
+        <p>
+          <a data-cite=
+          "credential-considerations#unlinkable-presentations">Unlinkability</a>
+          is a property that ensures that, if a user presents attributes from a
+          credential multiple times, verifiers cannot link these separate
+          presentations to conclude they concern the same user
+          (verifier-verifier linkability), or that verifiers can not collude
+          with issuers to report the exchange of a credential from a wallet to
+          the issuer (verifier-issuer linkability). The former is a property
+          that can be maintained by the wallet and issuer, e.g. through issuing
+          fresh credentials for individual verifiers.
+        </p>
+        <p>
+          While the latter is achievable, e.g. through <a data-cite=
+          "vc-data-model#zero-knowledge-proofs">Zero-Knowledge Proofs</a>,
+          design choices of the API such as encrypted responses make it
+          impossible for a user agent to prove that verifier-issuer
+          unlinkability was achieved in practice. Nonetheless, protocols are
+          requested to limit linkability wherever possible.
+        </p>
+        <p>
+          Note that unlinkability is exclusively a consideration for attributes
+          that can not be linked to a specific user identity. Inherently
+          linkable attributes such as names, driver's license numbers or phone
+          numbers do not benefit from unlinkability.
+        </p>
+        <p>
+          Through the Digital Credentials API, the user agent can help
+          verifiers and wallets exchange unlinkable attributes, but it can not
+          guarantee that no linkable information is passed between verifiers
+          and wallets. It is recommended that user agents account for this fact
+          in their user permission experience.
+        </p>
+        <p class="issue" data-number="279">
+          Which level of unlinkability is the goal for this API? Can we
+          normatively enforce support for any particular unlinkability features
+          as part of the protocol registry inclusion criteria?
+        </p>
+        <h5>
+          "Phone home" mechanisms
+        </h5>
+        <p>
+          <a data-cite="credential-considerations#no-phoning-home">"Phoning
+          home"</a> refers to scenarios where the presentation or verification
+          of a digital credential causes a notification or communication back
+          to the issuer or another central entity, which can lead to tracking
+          and profiling of individuals.
+        </p>
+        <p>
+          Similar to unlinkability, it is impossible for user agents to ensure
+          that an issuer isn't actively involved in the creation or validation
+          of credential presentations after a user has given permission to
+          proceed with a credential request. From that point on, the wallet
+          application owns this decision. While some wallets can be considered
+          user agents, it is generally recommended that the user agent
+          implementing the Digital Credentials API designs its permission
+          experience to prevent <a href=
+          "#permission-prior-to-wallet-selection">exposure of a request to the
+          wallet application</a> before user confirmation (keeping in mind
+          <a href="#multiple-user-agents">considerations for integrating
+          multiple cooperating user agents</a>).
+        </p>
+        <p>
+          Protocols are required to support mechanisms that allow issuers,
+          wallets and verifiers avoid or reduce the dependence on "phone home"
+          mechanisms.
+        </p>
+        <p class="issue" data-number="279">
+          Which level of unlinkability is the goal for this API? To what degree
+          can the spec mandate restrictions to issuer involvement?
+        </p>
+        <h5>
+          Unlinkable revocation
+        </h5>
+        <p>
+          A common instance of issuer involvement in a credential exchange is
+          for credential revocation checks. This is particularly challenging
+          when presentations are intended to be verifier-issuer unlinkable.
+          When credential presentations are made unlinkable through the use of
+          e.g. Zero-Knowledge Proofs, the credential formats used in protocols
+          are expected to support offline revocation methods such as <a href=
+          "https://eprint.iacr.org/2024/657.pdf">Cryptographic
+          Accumulators</a>. It is further expected that protocol design and
+          specification discourages the involvement of verifiers for the
+          purpose of revocation where possible.
+        </p>
+        <p class="issue" data-number="280">
+          We should discuss whether unlinkable revocation techniques are
+          practical enough to be required normatively.
+        </p>
+        <h5>
+          Support for user transparency, permission and consent
+        </h5>
+        <p>
+          User understanding and participation are non-negotiable properties of
+          a credential exchange. The protocol is expected to help all involved
+          parties enable user participation by providing the information vital
+          for informed permission and/or consent.
+        </p>
+        <h5>
+          Support for verifier authorization
+        </h5>
+        <p>
+          Verifier authorization refers to the process by which a verifier
+          proves its identity and demonstrates that it is legitimately entitled
+          to request specific attributes or credentials. This is particularly
+          useful when exchanging sensitive data, such as from government-issued
+          credentials. Verifier authorization can limit unnecessary or abusive
+          credential requests, and ensure that a verifier's access is
+          restricted to the specific credential attributes it registered for.
+        </p>
+        <p>
+          Checking verifier authorization is usually handled by the wallet, but
+          user agents could find the presence of such a scheme helpful in
+          preventing API abuse and designing a well-informed user permission
+          experience.
+        </p>
+        <p class="issue" data-number="281">
+          Should we require protocols to include provisions that allow user
+          agents to understand verifier authorization?
+        </p>
+        <h5>
+          Encrypting credential responses
+        </h5>
+        <p>
+          To prevent exposure of user information to other parties in
+          "transit", for example browser extensions loaded on verifier pages,
+          and to encourage secure storage of user credentials by the verifier,
+          protocols are required to support and mandate encrypted responses in
+          a credential exchange.
+        </p>
+        <p class="issue" data-number="109"></p>
+      </section>
+      <section>
+        <h3>
           Unnecessary Requests for Credentials
         </h3>
         <p class="issue" title="Work in progress">
@@ -981,54 +1153,6 @@
           Explain how the API could be used to request more data than necessary
           for a transaction and how the ecosystem can mitigate that over
           collection.
-        </p>
-      </section>
-      <section>
-        <h3>
-          Individual Consent
-        </h3>
-        <p class="issue" title="Work in progress">
-          Explain how the API acquires an individual's consent to share a
-          digital credential and how digital wallets can also provide further
-          consent when sharing information.
-        </p>
-      </section>
-      <section>
-        <h3>
-          Data Retention
-        </h3>
-        <p class="issue" title="Work in progress">
-          Explain how verifiers might retain data and what the ecosystem does
-          to mitigate excessive data retention policies.
-        </p>
-      </section>
-      <section>
-        <h3>
-          Compliance with Privacy Regulations
-        </h3>
-        <p class="issue" title="Work in progress">
-          Explain to what extent the API complies with known privacy
-          regulations (e.g., consent) and what parts of those regulations are
-          not possible to enforce via the API (e.g., retention).
-        </p>
-      </section>
-      <section>
-        <h3>
-          Selective and Unlinkable Disclosure
-        </h3>
-        <p class="issue" title="Work in progress">
-          Explain how selective disclosure and unlinkable disclosure help
-          preserve privacy as well as their limitations in doing so.
-        </p>
-      </section>
-      <section>
-        <h3>
-          Phoning Home
-        </h3>
-        <p class="issue" title="Work in progress">
-          Explain how some systems might "phone home", the impact on privacy
-          that might have, and what the ecosystem provides to mitigate the
-          risk.
         </p>
       </section>
       <section>
@@ -1079,6 +1203,13 @@
           explanations?
         </p>
         <h4>
+          Handling multiple credential requests
+        </h4>
+        <p class="issue" data-number="286">
+          We need to describe concerns, tradeoffs and possible mitigations of
+          handling multiple requests and responses for credential presentation.
+        </p>
+        <h4 id="multiple-user-agents">
           Integrating Multiple User Agents
         </h4>
         <p>
