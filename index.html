@@ -523,11 +523,11 @@
     </p>
     <ol class="algorithm">
       <li>
-        If |protocol| contains characters other than lowercase ASCII letters,
-        digits, or hypens, throw a "{{ConstraintError}}" {{DOMException}}.
+        If |protocol| is not a [=protocol identifier=], return `false`.
       </li>
       <li>
-        Return `true` if the user agent allows |protocol|, `false` otherwise.
+        Return `true` if the user agent allows |protocol|, otherwise return
+        `false`.
       </li>
     </ol>
     <h3>
