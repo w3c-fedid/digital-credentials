@@ -947,32 +947,33 @@
           Design Considerations and Alternatives
         </h3>
         <p>
-          The Digital Credentials API is designed to mediate requests for digital credentials
-          from websites, being agnostic to the credential format and
-          the information contained in it, as well as the protocol used to
-          exchange it (within the bounds on the protocol registry inclusion
-          criteria). This and other key design choices are derived from the
-          goal of providing a more secure and private credential exchange
-          experience for users than the existing alternatives (e.g., [[custom-schemes]]),
-          that is still compatible with common exchange protocols for ease of
-          adoption.
+          The Digital Credentials API is designed to mediate requests for
+          digital credentials from websites, being agnostic to the credential
+          format and the information contained in it, as well as the protocol
+          used to exchange it (within the bounds on the protocol registry
+          inclusion criteria). This and other key design choices are derived
+          from the goal of providing a more secure and private credential
+          exchange experience for users than the existing alternatives (e.g.,
+          [[custom-schemes]]), that is still compatible with common exchange
+          protocols for ease of adoption.
         </p>
         <p>
           The API provides the connection interface between [=verifiers=] and
           [=holders=], i.e. the means by which a [=digital credential/exchange
           protocol|credential exchange protocol=] is initiated and the user
-          switches to the [=holder=] application to select a credential. Solutions that have been used for this purpose in the
-          past include QR codes and custom URL schemes. As documented in
+          switches to the [=holder=] application to select a credential.
+          Solutions that have been used for this purpose in the past include QR
+          codes and custom URL schemes. As documented in
           [[[presenting-credentials-on-the-web]]] and [[[custom-schemes]]],
           those solutions have security, privacy, and accessibility concerns.
         </p>
         <p>
           With adoption of digital credential technology being driven by
-          ecosystem demand and regulatory mandates, the Web platform offers 
-          an alternative to the aforementioned less-desirable technologies
-          that is easy to use for developers, is compatible with existing
-          credential exchange protocols and, most importantly, increases user
-          privacy, security, and accessibility.
+          ecosystem demand and regulatory mandates, the Web platform offers an
+          alternative to the aforementioned less-desirable technologies that is
+          easy to use for developers, is compatible with existing credential
+          exchange protocols and, most importantly, has better user privacy,
+          security, and accessibility properties than these alternatives.
         </p>
         <p>
           The Digital Credentials API offers the user agent the ability to
@@ -983,16 +984,16 @@
           requirements on supported protocols, such as <a href=
           "#encrypting-credential-responses">response encryption</a>.
         </p>
-        <aside class="Note">
-          The Digital Credentials API is not intended to
-          inhibit the development of other standardized solutions that enhance user privacy.
-          For example, an API could be standardized that more strictly enforces unlinkability for
-          specific purposes such as age verification. Higher-level,
-          designed-for-purpose APIs often enable <a data-cite=
-          "privacy-principles#purpose-limitation">purpose limitation</a>, ease
-          of explanation to the user, and privacy and security protections from
-          <a data-cite="design-principles#high-level-low-level">user
-          agents</a>.
+        <aside class="note">
+          The Digital Credentials API is not intended to inhibit the
+          development of other standardized solutions that enhance user
+          privacy. For example, an API could be standardized that more strictly
+          enforces unlinkability for specific purposes such as age
+          verification. Higher-level, designed-for-purpose APIs often enable
+          <a data-cite="privacy-principles#purpose-limitation">purpose
+          limitation</a>, ease of explanation to the user, and privacy and
+          security protections from <a data-cite=
+          "design-principles#high-level-low-level">user agents</a>.
         </aside>
       </section>
       <section data-cite="vc-data-model#spectrum-of-privacy">
