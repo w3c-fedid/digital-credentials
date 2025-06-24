@@ -1096,10 +1096,11 @@
         </p>
         <p>
           Through the Digital Credentials API, the user agent can help
-          verifiers and wallets exchange unlinkable attributes, but it can not
-          guarantee that no linkable information is passed between verifiers
-          and wallets. It is recommended that user agents account for this fact
-          in their user permission experience.
+          verifiers and wallets exchange unlinkable attributes, but, because of
+          response encryption, it can not guarantee that no linkable
+          information is passed between verifiers and wallets. It is
+          recommended that user agents account for this fact in their user
+          permission experience.
         </p>
         <p class="issue" data-number="279">
           Which level of unlinkability is the goal for this API? Can we
@@ -1242,11 +1243,15 @@
           <li>Ideally, verifiers would self-regulate their requests for
           credentials. However, from a user agent's perspective, verifiers are
           potential attackers, and might not consider the user's best interest
-          in their designs.
+          in their designs. The Digital Credentials API needs to operate from
+          an assumption that all verifiers might have incentives that motivate
+          unnecessary requests and abuse, and protect users accordingly.
           </li>
           <li>User agents are responsible for protecting their users against
           dangerous content and permission requests on the Web and could
-          intervene on their behalf, proactively rejecting requests.
+          intervene on their behalf, proactively rejecting requests. To support
+          this, the Digital Credentials API requires credential requests to not
+          be encrypted.
           </li>
           <li>Issuers and lawmakers might decide to restrict use of
           (particularly government-issued) credentials to specific verifiers
@@ -1254,7 +1259,9 @@
           restrictions.
           </li>
           <li>The ultimate decision of whether or not to share their personal
-          information lies with the user.
+          information lies with the user, which is why the API requires the
+          user agent to present permission UI to the user, and other parties
+          might additionally require confirmation or consent.
           </li>
         </ul>
         <p>
@@ -1306,9 +1313,11 @@
           i.e., the chance of increasing demand for credentials through lower
           friction of access. This effect is not inherently caused by the
           Digital Credentials API, and rather the overall increasing adoption
-          of digital credentials across the ecosystem. Nonetheless, the effect
-          needs to be considered by user agents implementing the API, as it
-          might result in harmful outcomes for users:
+          of digital credentials across the ecosystem, which, however, would
+          likely see additional momentum from user agent implementation of the
+          Digital Credentials API. As such, the effect needs to be considered
+          by user agents implementing the API, as it might result in harmful
+          outcomes for users:
         </p>
         <ul>
           <li>Increased risk of information leakage, and ultimately a less
@@ -1331,7 +1340,7 @@
           this individual. Even when no action is taken, the possibility of
           surveillance alone can cause anxiety, discomfort, and behavioral
           changes such as inhibition and self-censorship, impacting individual
-          autonomy.
+          autonomy and freedom of expression.
           </li>
           <li>
             <a data-cite=
@@ -1339,7 +1348,7 @@
             and discrimination</a> of individuals who cannot, or do not want
             to, provide these credentials, prohibiting them from participation
             in services that would previously not require government-issued
-            credentials.
+            credentials, such as forums and social media platforms on the Web.
           </li>
         </ul>
         <h5>
