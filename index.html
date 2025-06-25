@@ -462,7 +462,7 @@
     interface DigitalCredential : Credential {
       readonly attribute DOMString protocol;
       [SameObject] readonly attribute object data;
-      static boolean clientAllowsProtocol(DOMString protocol);
+      static boolean userAgentAllowsProtocol(DOMString protocol);
     };
     </pre>
     <p>
@@ -490,12 +490,13 @@
     </h2>
     <aside class="issue" data-number="65"></aside>
     <h3>
-      The `<dfn>clientAllowsProtocol()</dfn>` method
+      The `<dfn>userAgentAllowsProtocol()</dfn>` method
     </h3>
     <p>
-      The {{DigitalCredential/clientAllowsProtocol()}} method allows digital
+      The {{DigitalCredential/userAgentAllowsProtocol()}} method allows digital
       credential verifiers and issuers to determine which 
-      [=digital credential/exchange protocols=] and [=digital credential/issuance protocols=] the client supports for
+      [=digital credential/exchange protocols=] and
+      [=digital credential/issuance protocols=] the user agent supports for
       interactions with [=credential providers=].
     </p>
     <p class="note">
@@ -515,7 +516,7 @@
         protocol to underlying platform or provider.
     </p>
     <h4>
-      clientAllowsProtocol algorithm
+      userAgentAllowsProtocol algorithm
     </h4>
     <p>
       When this method is invoked, the user agent MUST execute the following
