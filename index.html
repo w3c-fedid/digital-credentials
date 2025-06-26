@@ -1569,15 +1569,9 @@
           scripts embedded on the verifier's pages, but not actively
           collaborating with them for the purpose of tracking) because response
           encryption is mandatory and responses should be decrypted on the
-          verifier's server. There may be some decrypted results not reflected
-          back to client-side JavaScript.
-        </p>
-        <p>
-          To further help users understand the full consequences of sharing
-          credentials with verifiers, user agents could add additional context
-          to their permission prompts, for example informing users who recently
-          cleared their cookies, or are using a "private browsing" mode, that
-          credentials can be used to reidentify them on the page.
+          verifier's server. The verifier could thus ensure not to reflect back
+          decrypted information back to client-side JavaScript. Not all
+          verifiers will choose to do so, however.
         </p>
         <h4 id="leaking-incidental-data">
           Leaking incidental data with credential presentations
@@ -1602,15 +1596,17 @@
           verifiers.
         </p>
         <h4>
-          Revealing device properties through feature and protocol availability
+          Revealing device properties through protocol availability
         </h4>
-        <p class="issue" data-number="219">
-          When the Digital Credentials API exposes information about which
-          credential exchange protocols are supported by the user agent, it
-          will mitigate browser fingerprinting through not customizing its
-          response based on e.g. installed wallets. We need to add privacy
-          considerations for the involved risks and mitigations of that
-          functionality here (see [[[fingerprinting-guidance]]]).
+        <p>
+          The Digital Credentials API exposes information about which
+          credential exchange protocols are supported by the user agent through
+          {{DigitalCredential/userAgentAllowsProtocol()}}. It mitigates browser
+          fingerprinting and revealing information about the user's device
+          configuration through not customizing its response based on e.g.
+          which wallet applications are installed on a user's device. The
+          returned information is thus, at best, equivalent to a user agent
+          version.
         </p>
         <h4>
           Avoiding leaks of credential availability
@@ -1627,16 +1623,6 @@
           websites might increasingly start to demand the presentation of these
           credentials from the user in order to access services, excluding
           individuals who are unwilling to present credentials.
-        </p>
-      </section>
-      <section>
-        <h3>
-          Over Collection of Data
-        </h3>
-        <p class="issue" title="Work in progress">
-          Explain how the API could be used to request more data than necessary
-          for a transaction and how the ecosystem can mitigate that over
-          collection.
         </p>
       </section>
       <section>
