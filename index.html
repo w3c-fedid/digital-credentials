@@ -734,6 +734,17 @@
       [[\DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)
       internal method
     </h3>
+    <aside class="note" title=
+    "How is the DiscoverFromExternalSource() internal method invoked?">
+      <p>
+        The [[[credential-management-1]]] specification defines the
+        {{CredentialsContainer/get()}} method, which runs the [=request a
+        credential=] algorithm. If no exceptions are raised, that algorithm
+        eventualy invokes the {{DigitalCredential}}'s
+        {{DigitalCredential/[[DiscoverFromExternalSource]](origin, options,
+        sameOriginWithAncestors)}} internal method.
+      </p>
+    </aside>
     <p>
       When invoked, the <dfn class="export" data-dfn-for=
       "DigitalCredential">[[\DiscoverFromExternalSource]](origin, options,
@@ -756,7 +767,48 @@
       <li>Let |requests| be |options|'s {{CredentialRequestOptions/digital}}'s
       {{DigitalCredentialRequestOptions/requests}} member.
       </li>
-      <li>If |requests| is empty, [=exception/throw=] a {{TypeError}}.
+      <li>If |requests| [=list/is empty=], [=exception/throw=] a {{TypeError}}.
+      </li>
+      <li>Let |range| be [=list/get the indices|the indices=] of |requests|.
+      </li>
+      <li>Let |validatedRequests| be an empty [=list=].
+      </li>
+      <li>[=Set/For each=] |n| of |range|:
+        <ol>
+          <li>Let |requestRecord| be the [=list/item=] at |requests|'s |n|
+          index.
+          </li>
+          <li>Let |protocol| be |requestRecord|'s
+          {{DigitalCredentialGetRequest/protocol}}.
+          </li>
+          <li>If |protocol| is not supported by the user agent,
+          [=exception/throw=] a {{NotSupportedError}} {{DOMException}}.
+          </li>
+          <li>If the [=registry/link|specification=] corresponding to
+          |protocol| defines an IDL {{dictionary}} for [=converted to an idl
+          value|conversion=]:
+            <ol>
+              <li>Let |converted| be |requestRecord|'s
+              {{DigitalCredentialGetRequest/data}} [=converted to an idl
+              value|converted=] to that dictionary. [=exception/throw|Rethrow=]
+              any exceptions.
+              </li>
+            </ol>
+          </li>
+          <li>Otherwise, let |converted| be |requestRecord|'s
+          {{DigitalCredentialGetRequest/data}}.
+          </li>
+          <li>Validate |converted| against any validation rules set forth in
+          the corresponding [=registry/link|specification=]. If any of
+          |converted|'s members are invalid, [=exception/throw=] a
+          {{TypeError}}.
+          </li>
+          <li>Let |validatedRequest| be an internal representation of the
+          request using |protocol| and |converted|.
+          </li>
+          <li>Append |validatedRequest| to |validatedRequests|.
+          </li>
+        </ol>
       </li>
       <li>[=List/For each=] |request| of |requests|:
         <ol>
