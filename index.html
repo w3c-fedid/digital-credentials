@@ -1547,6 +1547,86 @@
       </section>
       <section>
         <h3>
+          Fingerprinting and Data Leakage
+        </h3>
+        <h4>
+          Browser fingerprinting
+        </h4>
+        <p>
+          While the API ensures that no user data is ever shared without a
+          permission prompt, the longevity and uniqueness of real world
+          identifiers that are likely to be returned by the Digital Credentials
+          API make it a potential target for trackers and fingerprinters.
+        </p>
+        <p>
+          Even with selective disclosure, attackers might combine data from a
+          digital credential (such as the user's age, or the credential issuer,
+          timestamps, see [[[#leaking-incidental-data]]]) to reidentify and/or
+          fingerprint users.
+        </p>
+        <p>
+          This attack might be harder for third-party attackers (such as
+          scripts embedded on the verifier's pages, but not actively
+          collaborating with them for the purpose of tracking) because response
+          encryption is mandatory and responses should be decrypted on the
+          verifier's server. The verifier could thus ensure not to reflect back
+          decrypted information back to client-side JavaScript. Not all
+          verifiers will choose to do so, however.
+        </p>
+        <h4 id="leaking-incidental-data">
+          Leaking incidental data with credential presentations
+        </h4>
+        <p>
+          To ensure authenticity of a credential, its presentation to verifiers
+          generally includes more information than the content the verifier is
+          requesting access to. It will usually contain at least a signature of
+          the issuer and the wallet, and potentially other metadata.
+        </p>
+        <p>
+          This additional information could be used to reidentify and
+          fingerprint users, which is especially relevant when an otherwise
+          unlinkable presentation is made.
+        </p>
+        <p>
+          While the Digital Credentials API does not control the content of a
+          credential response, user agents can help protect users against this
+          type of tracking through clearly highlighting which information
+          likely gets shared with the verifier beyond what was requested, and,
+          more broadly, by identifying and blocking fingerprinting through the
+          API by verifiers.
+        </p>
+        <h4>
+          Revealing device properties through protocol availability
+        </h4>
+        <p>
+          The Digital Credentials API exposes information about which
+          credential exchange protocols are supported by the user agent through
+          {{DigitalCredential/userAgentAllowsProtocol()}}. It mitigates browser
+          fingerprinting and revealing information about the user's device
+          configuration through not customizing its response based on e.g.
+          which wallet applications are installed on a user's device. The
+          returned information is thus, at best, equivalent to a user agent
+          version.
+        </p>
+        <h4>
+          Avoiding leaks of credential availability
+        </h4>
+        <p>
+          The Digital Credentials API does not enable sites to learn whether a
+          credential is available without first going through a <a href=
+          "#user-permission-and-transparency">user permission flow</a>.
+          Revealing the presence of credentials would be a risk to user
+          privacy, as the presence of a credential is personal information that
+          the user might not have preferred to share with the site, and, in
+          combination with other signals, could be used to identify the user
+          without their permission. It is also a risk to free expression, as
+          websites might increasingly start to demand the presentation of these
+          credentials from the user in order to access services, excluding
+          individuals who are unwilling to present credentials.
+        </p>
+      </section>
+      <section>
+        <h3>
           User Permission and Transparency
         </h3>
         <p class="issue" title="Work in progress"></p>
