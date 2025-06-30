@@ -285,6 +285,104 @@
         identifier=]. See also section [[[#protocol-registry]]].
       </dd>
     </dl>
+    <h3>
+      Credential Request Coordinator
+    </h3>
+    <p>
+      The <dfn>credential request coordinator</dfn> is a user-agent-defined
+      component responsible for mediating [=digital credential=] interactions
+      within a given [=top-level traversable=].
+    </p>
+    <p>
+      Each [=top-level traversable=] has a single associated [=credential
+      request coordinator=].
+    </p>
+    <p>
+      The [=credential request coordinator=]:
+    </p>
+    <ul>
+      <li>Ensures that only one [=digital credential=] interaction is active at
+      any time. This includes both via the:
+        <ul>
+          <li>{{DigitalCredential/[[DiscoverFromExternalSource]](origin,
+          options, sameOriginWithAncestors)}} internal method.
+          </li>
+          <li>{{DigitalCredential/[[Create]](origin, options,
+          sameOriginWithAncestors)}} internal method.
+          </li>
+        </ul>
+      </li>
+      <li>Handles state transitions across the following lifecycle states:
+        <ul>
+          <li>
+            <dfn data-dfn-for="credential request coordinator">Idle</dfn>: No
+            credential interaction is currently in progress.
+          </li>
+          <li>
+            <dfn data-dfn-for=
+            "credential request coordinator">Presenting</dfn>: A credential
+            interaction is currently in progress and the user interface is
+            being shown to the user.
+          </li>
+          <li>
+            <dfn data-dfn-for="credential request coordinator">Aborting</dfn>:
+            A credential interaction is being canceled. The coordinator is in
+            the process of cleaning up the interaction.
+          </li>
+        </ul>
+      </li>
+      <li>Manages the lifecycle of the current interaction's promise, including
+      its resolution or rejection.
+      </li>
+      <li>Integrates with an {{AbortSignal}} to allow user-initiated or
+      programmatic cancellation.
+      </li>
+    </ul>
+    <h3>
+      Digital Credential Client
+    </h3>
+    <p>
+      A <dfn>digital credential client</dfn> is a user-agent-defined component
+      responsible for presenting available [=holders=] to the user and
+      coordinating the credential request or issuance flow.
+    </p>
+    <p>
+      Each [=credential request coordinator=] uses a single associated
+      [=digital credential client=] to fulfill credential request and issuance
+      operations.
+    </p>
+    <p>
+      The [=digital credential client=]:
+    </p>
+    <ul>
+      <li>Validates and transforms digital credential request or issuance
+      inputs.
+      </li>
+      <li>Interprets each individual request in the input list as targeting a
+      specific [=holder=], and prepares holder options accordingly.
+      </li>
+      <li>Presents the available [=holders=] to the user for selection.
+      </li>
+      <li>Once a [=holder=] is selected, invokes it as a [=credential chooser=]
+      to complete the interaction.
+      </li>
+      <li>Returns the result — a selected credential or a cancellation — to the
+      [=credential request coordinator=].
+      </li>
+    </ul>
+    <aside class="note">
+      <p>
+        Although the [=digital credential client=] coordinates the credential
+        interaction, it is the selected [=holder=] that typically acts as the
+        [=credential chooser=].
+      </p>
+      <p>
+        In this model, the [=digital credential client=] presents the
+        user with a list of available [=holders=], and the selected [=holder=]
+        then displays its own user interface for selecting or issuing [=digital
+        credentials=].
+      </p>
+    </aside>
     <h2>
       Scope
     </h2>
