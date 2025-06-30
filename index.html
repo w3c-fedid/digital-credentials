@@ -324,6 +324,34 @@
       credential/issuance=] and [=digital credential/presentation=] of
       [=digital credentials=].
     </p>
+    <p>
+      The API allows [=digital credential/presentation request|requesting=] a
+      [=digital credential=] from the user agent, which in turn presents a
+      [=credential chooser=] to the user, allowing them to select a [=digital
+      credential=] that matches the request. This is done the website calling
+      the `navigator.credentials.`{{CredentialsContainer/get()}} method, which
+      runs the [=request a credential=] algorithm of
+      [[[credential-management]]]. That algorithm then calls back into this
+      specification's {{DigitalCredential}} interface's
+      {{DigitalCredential/[[DiscoverFromExternalSource]](origin, options,
+      sameOriginWithAncestors)}} internal method.
+    </p>
+    <p>
+      Additionally, the API also allows [=digital credential/Issuance
+      request|requesting issuance=] of a [=digital credential=], which
+      initiates an mediated issuance flow between the user agent and/or a
+      [=holder=]. This is done by calling the
+      `navigator.credentials.`{{CredentialsContainer/create()}} method, which
+      runs the [=create a credential=] algorithm of
+      [[[credential-management]]]. That algorithm then calls back into this
+      specification's {{DigitalCredential}} interface's
+      {{Credential/[[Create]](origin,options, sameOriginWithAncestors)}}
+      internal method.
+    </p>
+    <p>
+      Please see [[[#credential-management-integration]]] for complete details
+      of how to integrate with the [[[credential-management]]] specification.
+    </p>
     <aside class="example" title="Requesting a digital credential">
       <p>
         The following example shows how to request a digital credential using
@@ -628,7 +656,7 @@
       `false`.
       </li>
     </ol>
-    <h2>
+    <h2 id="credential-management-integration">
       Integration with Credential Management API
     </h2>
     <aside class="issue" data-number="65"></aside>
