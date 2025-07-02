@@ -312,7 +312,9 @@
           </li>
         </ul>
       </li>
-      <li>Handles state transitions across the following lifecycle states:
+      <li>Handles state transitions across the following <dfn data-for=
+      "credential request coordinator" data-local-lt="state">interaction
+      states</dfn>:
         <ul>
           <li>
             <dfn data-dfn-for="credential request coordinator">Idle</dfn>: No
@@ -338,6 +340,10 @@
       programmatic cancellation.
       </li>
     </ul>
+    <p>
+      The [=credential request coordinator=] is initialized in the [=credential
+      request coordinator/idle=] [=interaction state=].
+    </p>
     <h3>
       Digital Credential Client
     </h3>
@@ -377,9 +383,9 @@
         [=credential chooser=].
       </p>
       <p>
-        In this model, the [=digital credential client=] presents the
-        user with a list of available [=holders=], and the selected [=holder=]
-        then displays its own user interface for selecting or issuing [=digital
+        In this model, the [=digital credential client=] presents the user with
+        a list of available [=holders=], and the selected [=holder=] then
+        displays its own user interface for selecting or issuing [=digital
         credentials=].
       </p>
     </aside>
