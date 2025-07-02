@@ -88,7 +88,7 @@ Like other browser authentication (e.g., WebAuthn) and identification (e.g., aut
 > 15.  Does this specification have both "Security Considerations" and "Privacy
 >      Considerations" sections?
 
-The section has [extensive Privacy Considerations](https://w3c-fedid.github.io/digital-credentials/#privacy-considerations), most which are still evolving as the group works through the many Privacy-related challenges of the digital credentials space.
+The specification has [extensive Privacy Considerations](https://w3c-fedid.github.io/digital-credentials/#privacy-considerations), most which are still evolving as the group works through the many Privacy-related challenges of the digital credentials space.
 
 There are [some early outlines for the Security Considerations](https://w3c-fedid.github.io/digital-credentials/#security-considerations) and there is active work in progress to get those written up in more detail.
 
