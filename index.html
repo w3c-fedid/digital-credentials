@@ -316,40 +316,162 @@
       </li>
     </ul>
     <h2>
-      Extensions to `CredentialRequestOptions` dictionary
+      The Digital Credentials API
     </h2>
+    <p>
+      The Digital Credentials API leverages the [[[credential-management]]]
+      specificaion, allowing [=user agents=] to mediate the [=digital
+      credential/issuance=] and [=digital credential/presentation=] of
+      [=digital credentials=].
+    </p>
+    <p>
+      The API allows [=digital credential/presentation request|requesting=] a
+      [=digital credential=] from the user agent, which in turn presents a
+      [=credential chooser=] to the user, allowing them to select a [=digital
+      credential=] that can fulfill the request. This is done by the website
+      calling the `navigator.credentials.`{{CredentialsContainer/get()}}
+      method, which runs the [=request a credential=] algorithm of
+      [[[credential-management]]]. That algorithm then calls back into this
+      specification's {{DigitalCredential}} interface's
+      {{DigitalCredential/[[DiscoverFromExternalSource]](origin, options,
+      sameOriginWithAncestors)}} internal method.
+    </p>
+    <p>
+      Additionally, the API also allows [=digital credential/Issuance
+      request|requesting issuance=] of a [=digital credential=], which
+      initiates an mediated issuance flow between the user agent and/or a
+      [=holder=]. This is done by calling the
+      `navigator.credentials.`{{CredentialsContainer/create()}} method, which
+      runs the [=create a credential=] algorithm of
+      [[[credential-management]]]. That algorithm then calls back into this
+      specification's {{DigitalCredential}} interface's
+      {{Credential/[[Create]](origin,options, sameOriginWithAncestors)}}
+      internal method.
+    </p>
+    <p>
+      Please see [[[#credential-management-integration]]] for complete details
+      of how to integrate with the [[[credential-management]]] specification.
+    </p>
+    <aside class="example" title="Requesting a digital credential">
+      <p>
+        The following example shows how to request a digital credential using
+        the Digital Credentials API. The entry point for the API is the
+        `navigator.credentials.`{{CredentialsContainer/get()}} method, which is
+        used to request a [=digital credential=] from the user agent. If the
+        user agent supports [=digital credential/presentation
+        requests|presentation=], it allows the user to select a digital
+        credential through a [=credential chooser=]:
+      </p>
+      <pre class="html">
+        &lt;button&gt;Verify Identity&lt;/button&gt;
+        &lt;script&gt;
+          const button = document.querySelector("button");
+          button.addEventListener("click", async () =&gt; {
+            try {
+              const credential = await navigator.credentials.get({
+                digital: {
+                  requests: [{
+                    protocol: "example-protocol",
+                    data: { /* request data */ }
+                  }]
+                }
+              });
+
+              // Post it back to the server for decryption and verification
+              const response = await fetch("/verify-credential", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify(credential, null, 2)
+              });
+
+              // Check response
+              if (!response.ok) {
+                throw new Error("Failed to verify credential");
+              }
+
+              // Render the verification result
+              displayVerificationResult(await response.json());
+
+            } catch (error) {
+              console.error("Error requesting digital credential:", error);
+            }
+          });
+        &lt;/script&gt;
+      </pre>
+    </aside>
+    <p>
+      Simliarly, when a site needs to [=digital credential/issuance|issue=] a
+      digital credential, the Digital Credentials API mediates the issuance of
+      a digital credential between the site, the user agent, and the
+      [=holder=].
+    </p>
+    <aside class="example" title="Issuing a digital credential">
+      <p>
+        The following example shows how to request the issuance of a digital
+        credential using the Digital Credentials API. To issue a digital
+        credential, a site calls the
+        `navigator.credentials.`{{CredentialsContainer/create()}} method,
+        which, if the user agent supports issuance, would initiate the issuance
+        flow:
+      </p>
+      <pre class="html">
+        &lt;button&gt;Request Digital Credential Issuance&lt;/button&gt;
+        &lt;script&gt;
+          const button = document.querySelector("button");
+          button.addEventListener("click", async () =&gt; {
+            try {
+              const credential = await navigator.credentials.create({
+                digital: {
+                  requests: [{
+                    protocol: "example-issuance-protocol",
+                    data: { /* issuance request data */ }
+                  }]
+                }
+              });
+            } catch (error) {
+              console.error("Error issuing digital credential:", error);
+            }
+          });
+        &lt;/script&gt;
+      </pre>
+    </aside>
+    <h3>
+      Extensions to `CredentialRequestOptions` dictionary
+    </h3>
     <pre class="idl">
     partial dictionary CredentialRequestOptions {
       DigitalCredentialRequestOptions digital;
     };
     </pre>
-    <h3>
+    <h4>
       The `digital` member
-    </h3>
+    </h4>
     <p>
       The <dfn data-dfn-for="CredentialRequestOptions">digital</dfn> member
       allows for options to configure the request for a [=digital credential=].
     </p>
-    <h2>
+    <h3>
       The `DigitalCredentialRequestOptions` dictionary
-    </h2>
+    </h3>
     <pre class="idl">
     dictionary DigitalCredentialRequestOptions {
       sequence&lt;DigitalCredentialGetRequest&gt; requests;
     };
     </pre>
-    <h3>
+    <h4>
       The `requests` member
-    </h3>
+    </h4>
     <p>
       The <dfn data-dfn-for="DigitalCredentialRequestOptions">requests</dfn>
       specify an [=digital credential/exchange protocol=] and [=digital
       credential/request data=], which the user agent MAY match against a
       holder's software, such as a digital wallet.
     </p>
-    <h2>
+    <h3>
       The `DigitalCredentialGetRequest` dictionary
-    </h2>
+    </h3>
     <p>
       The {{DigitalCredentialGetRequest}} dictionary represents a [=digital
       credential/presentation request=]. It is used to specify an [=digital
@@ -363,9 +485,9 @@
         required object data;
       };
       </pre>
-    <h3>
+    <h4>
       The `protocol` member
-    </h3>
+    </h4>
     <p>
       The <dfn data-dfn-for="DigitalCredentialGetRequest">protocol</dfn> member
       denotes the [=digital credential/exchange protocol=].
@@ -375,49 +497,49 @@
       of the well-defined protocol identifiers defined in
       [[[#protocol-registry]]] or a custom protocol identifier.
     </p>
-    <h3>
+    <h4>
       The `data` member
-    </h3>
+    </h4>
     <p>
       The <dfn data-dfn-for="DigitalCredentialGetRequest">data</dfn> member is
       the [=digital credential/request data=] to be handled by the holder's
       credential provider, such as a digital identity wallet.
     </p>
-    <h2>
+    <h3>
       Extensions to `CredentialCreationOptions` dictionary
-    </h2>
+    </h3>
     <pre class="idl">
     partial dictionary CredentialCreationOptions {
       DigitalCredentialCreationOptions digital;
     };
     </pre>
-    <h3>
+    <h4>
       The `digital` member
-    </h3>
+    </h4>
     <p>
       The <dfn data-dfn-for="CredentialCreationOptions">digital</dfn> member
       allows for options to configure the issuance of a [=digital credential=].
     </p>
-    <h2>
+    <h3>
       The `DigitalCredentialCreationOptions` dictionary
-    </h2>
+    </h3>
     <pre class="idl">
     dictionary DigitalCredentialCreationOptions {
       sequence&lt;DigitalCredentialCreateRequest&gt; requests;
     };
     </pre>
-    <h3>
+    <h4>
       The `requests` member
-    </h3>
+    </h4>
     <p>
       The <dfn data-dfn-for="DigitalCredentialCreationOptions">requests</dfn>
       specify an [=digital credential/issuance protocol=] and [=digital
       credential/request data=], which the user agent MAY forward to a
       [=holder=].
     </p>
-    <h2>
+    <h3>
       The `DigitalCredentialCreateRequest` dictionary
-    </h2>
+    </h3>
     <p>
       The {{DigitalCredentialCreateRequest}} dictionary represents an [=digital
       credential/issuance request=]. It is used to specify an [=digital
@@ -431,9 +553,9 @@
       required object data;
     };
     </pre>
-    <h3>
+    <h4>
       The `protocol` member
-    </h3>
+    </h4>
     <p>
       The <dfn data-dfn-for="DigitalCredentialCreateRequest">protocol</dfn>
       member denotes the [=digital credential/issuance protocol=].
@@ -443,17 +565,17 @@
       of the well-defined keys defined in [[[#protocol-registry]]] or any other
       custom one.
     </p>
-    <h3>
+    <h4>
       The `data` member
-    </h3>
+    </h4>
     <p>
       The <dfn data-dfn-for="DigitalCredentialCreateRequest">data</dfn> member
       is the [=digital credential/request data=] to be handled by the holder's
       credential provider, such as a digital identity wallet.
     </p>
-    <h2>
+    <h3>
       The `DigitalCredential` interface
-    </h2>
+    </h3>
     <p>
       The <dfn>DigitalCredential</dfn> interface represents a conceptual
       [=digital credential=].
@@ -481,31 +603,27 @@
     <p>
       {{DigitalCredential}} instances are [=Credential/origin bound=].
     </p>
-    <h3>
+    <h4>
       The `protocol` member
-    </h3>
+    </h4>
     <p>
       The <dfn data-dfn-for="DigitalCredential">protocol</dfn> member is the
       [=digital credential/exchange protocol=] that was used to request the
       [=digital credential=], or the [=digital credential/issuance protocol=]
       that was used to issue the [=digital credential=].
     </p>
-    <h3>
+    <h4>
       The `data` member
-    </h3>
+    </h4>
     <p>
       The <dfn data-dfn-for="DigitalCredential">data</dfn> member is the
       credential's response data. It contains the subset of JSON-parseable
       object types.
     </p>
-    <h2>
-      Integration with Credential Management API
-    </h2>
-    <aside class="issue" data-number="65"></aside>
-    <h3>
+    <h4>
       The <dfn data-dfn-for="DigitalCredential">userAgentAllowsProtocol()</dfn>
       method
-    </h3>
+    </h4>
     <p>
       The {{DigitalCredential/userAgentAllowsProtocol()}} method allows digital
       credential [=verifiers=] to determine which [=digital credential/exchange
@@ -540,6 +658,10 @@
       `false`.
       </li>
     </ol>
+    <h2 id="credential-management-integration">
+      Integration with Credential Management API
+    </h2>
+    <aside class="issue" data-number="65"></aside>
     <h3>
       [[\DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)
       internal method
