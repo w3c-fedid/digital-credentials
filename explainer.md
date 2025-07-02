@@ -32,64 +32,7 @@ To balance this tension we propose an API with the following key properties:
 
 At its core, the API is designed for a website ("verifier") to [transparently](https://github.com/w3cping/credential-considerations/blob/main/credentials-considerations.md#in-context-explanations) request the [selective disclosure](https://github.com/w3cping/credential-considerations/blob/main/credentials-considerations.md#selective-disclosure) of attributes from (issued) digital credentials that were provisioned - ahead of time - to wallets ("holders"), in a manner that is seamlessly compatible with existing architectural choices (such as [OpenID4VP integration](https://github.com/openid/OpenID4VP/issues/125)).
 
-Here is an example of how the  the API might be used in practice:
-
-The API needs to be initiated through a user gesture, such as a button click:
-
-```html
-<button onclick="requestCredential()">Request Driver's license<button>
-```
-
-
-```javascript
-async function requestCredential() {
-
-  // Check for Digital Credentials API support
-  if (typeof window.DigitalCredential !== 'undefined') {
-    
-    try {
-      
-      // These parameters are typically fetched from the backend.
-      // Statically defined here for protocol extensibility illustration purposes.
-      const oid4vp = {
-        protocol: "oid4vp", // An example of an OpenID4VP request to wallets. // Based on https://github.com/openid/OpenID4VP/issues/125
-        data: {
-          nonce: "n-0S6_WzA2Mj",
-          presentation_definition: {
-          //Presentation Exchange request, omitted for brevity
-          },
-        },
-      };
-
-      // create an Abort Controller
-      const controller = new AbortController();
-
-      // Call the Digital Credentials API using the presentation request from the backend
-      let dcResponse = await navigator.credentials.get({
-        signal: controller.signal,
-        mediation: "required",
-        digital: {
-          requests: [ oid4vp ]
-        }
-      });
-
-      // Send the encrypted response to the backend for decryption and verification
-      // Ommitted for brevity
-
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  } else {
-    
-    // fallback scenario, illustrative only
-    alert("The Digital Credentials API is not supported in this browser.")
-  }
-};
-```
-
-> Example from: https://digitalcredentials.dev/docs/verifier-site/requesting-cred
-
-You can read a more detailed and technical description of the API in the [specification draft](https://w3c-fedid.github.io/digital-credentials/).
+For an [example of how to use the API](https://w3c-fedid.github.io/digital-credentials/#example-requesting-a-digital-credential) and a more detailed technical description, please refer to the [specification draft](https://w3c-fedid.github.io/digital-credentials/).
 
 ### Using the API from another origin
 
