@@ -40,7 +40,7 @@ Further, this specification aims to be an improvement over the existing communic
 > 05.  Do the features in your specification introduce state
 >      that persists across browsing sessions?
 
-No. In particular, the current scope is just about credential presentation (read-only). We have had requests to expand scope to consider credential issuance APIs but no work has begun on that.
+Yes. The specification includes [a facility](https://w3c-fedid.github.io/digital-credentials/#create-origin-options-sameoriginwithancestors-internal-method) for issuing new credentials into wallets with user permission.
 
 > 06.  Do the features in your specification expose information about the
 >      underlying platform to origins?
@@ -63,7 +63,7 @@ No.
 
 > 10.  Do features in this specification allow an origin to access other devices?
 
-Not yet, but we expect to expand the API to enable cross-device presentation flows using the same mechanism used by passkeys ([FIDO CTAP](https://fidoalliance.org/specs/fido-v2.2-rd-20230321/fido-client-to-authenticator-protocol-v2.2-rd-20230321.html)).
+Potentially, yes. While not a property of the DC API itself, the API is designed to support cross-device presentation flows such as by using the [FIDO CTAP](https://fidoalliance.org/specs/fido-v2.2-rd-20230321/fido-client-to-authenticator-protocol-v2.2-rd-20230321.html) protocol used by passkeys.
 
 > 11.  Do features in this specification allow an origin some measure of control over
 >      a user agent's native UI?
