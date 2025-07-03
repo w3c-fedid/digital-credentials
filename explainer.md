@@ -32,7 +32,7 @@ To balance this tension we propose an API with the following key properties:
 
 At its core, the API is designed for a website ("verifier") to [transparently](https://github.com/w3cping/credential-considerations/blob/main/credentials-considerations.md#in-context-explanations) request the [selective disclosure](https://github.com/w3cping/credential-considerations/blob/main/credentials-considerations.md#selective-disclosure) of attributes from (issued) digital credentials that were provisioned - ahead of time - to wallets ("holders"), in a manner that is seamlessly compatible with existing architectural choices (such as [OpenID4VP integration](https://github.com/openid/OpenID4VP/issues/125)).
 
-For an [example of how to use the API](https://w3c-fedid.github.io/digital-credentials/#example-requesting-a-digital-credential) and a more detailed technical description, please refer to the [specification draft](https://w3c-fedid.github.io/digital-credentials/).
+For an [example of how to use the API](https://w3c-fedid.github.io/digital-credentials/#example-requesting-a-digital-credential) and a more detailed technical description, please refer to the [specification draft](https://www.w3.org/TR/digital-credentials/).
 
 ### Using the API from another origin
 
