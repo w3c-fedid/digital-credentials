@@ -3,16 +3,16 @@
 > 01.  What information does this feature expose,
 >      and for what purposes?
 
-Potentially high-value privacy sensitive claims from digital credentials, such as digital driver's licenses for both unique identification (such as for access to government services) and selective disclosure (such as for age verification). It does this through a one-time user-mediated communication channel from websites, to digital wallet applications, and back to websites. It is designed to be a better option than established lower-level communication channels like custom schemes, QR codes, and server-to-server network communication. The website can decide which information to request. The request can be inspected by the user agent and the specification recommends disclosing the requested information to the user in the permission prompt. The wallet application decides which information is actually shared based on the request.
+Potentially high-value, privacy-sensitive claims from digital credentials, such as both unique identification (such as for access to government services) and selective disclosures (such as for age verification) from digital driver's licenses. These requests are made from websites, to digital wallet applications, and back to websites, through user-mediated, one-time communication channels. These are designed to be better options than established lower-level communication channels like custom schemes, QR codes, and server-to-server network communications. A website can decide which information to request. A request can be inspected by the user agent, and the specification recommends that the information being requested be disclosed to the user in the permission prompt. The wallet application decides which information is actually shared, based upon the request.
 
 > 02.  Do features in your specification expose the minimum amount of information
 >      necessary to implement the intended functionality?
 
 A primary use case of the digital credentials API is to enable users to selectively disclose only the minimum required information, such as a cryptographic attestation that the user holds a California driver’s license for an adult. The use of selective disclosure, however, is a decision for the verifier website based on the use case. There are legitimate scenarios, such as creating or recovering an account on a government website, where uniquely identifiable and potentially non-resettable personally identifiable information (PII) might be exposed.
 
-The API is designed to expect the use of response encryption so that this PII is exposed only to the requesting server, so that exposure to code running in the web page or browser can be avoided where possible. It is an [open question](https://github.com/WICG/digital-identities/issues/109) whether this response encryption is something we can reasonably enforce at this layer or not.
+The API is designed to expect the use of response encryption so that this PII is exposed only to the requesting server, such that exposure to code running in the web page or browser can be minimized or even avoided. It is an [open question](https://github.com/WICG/digital-identities/issues/109) whether this response encryption is something we can reasonably enforce at this layer.
 
-The API is also designed to require request transparency to enable user agents and operating systems to appropriately inform users about the level of privacy risk involved in the request. The specification has a set of recommendations ([1](https://www.w3.org/TR/digital-credentials/latest/#user-permission-and-transparency), [2](https://www.w3.org/TR/digital-credentials/latest/#mitigating-unnecessary-requests-for-government-credentials), [3](https://www.w3.org/TR/digital-credentials/latest/#mitigating-unnecessary-requests-for-non-government-credentials)) for implementers on how to appropriately inform users about the credentials exchange. For example, the [Chromium implementation](https://docs.google.com/document/d/1L68tmNXCQXucsCV8eS8CBd_F9FZ6TNwKNOaFkA8RfwI/edit) intends to show users stronger warnings in riskier scenarios such as those that lack the use of selective disclosure.
+The API is also designed to require request transparency to enable user agents and operating systems to appropriately inform users about the level of privacy risk involved in the request. The specification has a set of recommendations ([1](https://www.w3.org/TR/digital-credentials/latest/#user-permission-and-transparency), [2](https://www.w3.org/TR/digital-credentials/latest/#mitigating-unnecessary-requests-for-government-credentials), [3](https://www.w3.org/TR/digital-credentials/latest/#mitigating-unnecessary-requests-for-non-government-credentials)) for implementers, describing how to appropriately inform users about the credentials being exchanged. For example, the [Chromium implementation](https://docs.google.com/document/d/1L68tmNXCQXucsCV8eS8CBd_F9FZ6TNwKNOaFkA8RfwI/edit) intends to show users stronger warnings in riskier scenarios such as those that do not support selective disclosure.
 
 > 03.  Do the features in your specification expose personal information,
 >      personally-identifiable information (PII), or information derived from
@@ -78,7 +78,7 @@ None directly. Wallets may expose temporary identifiers, such as in the MSOs use
 > 13.  How does this specification distinguish between behavior in first-party and
 >      third-party contexts?
 
-The specification utilizes a Permissions Policy with the "self" default allowlist, meaning the API can not be used in third-party contexts unless (recursively) allowed by the parent context.
+The specification uses a Permissions Policy with the "self" default allow list, meaning the API cannot be used in third-party contexts unless allowed by the (recursive) parent context(s).
 
 > 14.  How do the features in this specification work in the context of a browser’s
 >      Private Browsing or Incognito mode?
@@ -88,9 +88,9 @@ Like other browser authentication (e.g., WebAuthn) and identification (e.g., aut
 > 15.  Does this specification have both "Security Considerations" and "Privacy
 >      Considerations" sections?
 
-The specification has [extensive Privacy considerations](https://w3c-fedid.github.io/digital-credentials/#privacy-considerations), most which are still evolving as the group works through the many Privacy-related challenges of the digital credentials space.
+The specification has [extensive Privacy considerations](https://w3c-fedid.github.io/digital-credentials/#privacy-considerations), most of which are still evolving as the group works through the many Privacy-related challenges of the digital credentials space.
 
-There are [some early outlines for the Security Considerations](https://w3c-fedid.github.io/digital-credentials/#security-considerations) and there is active work in progress to get those written up in more detail.
+There are [some early outlines for the Security Considerations](https://w3c-fedid.github.io/digital-credentials/#security-considerations), and there is active work in progress to write those up in more detail.
 
 > 16.  Do features in your specification enable origins to downgrade default
 >      security protections?
@@ -101,13 +101,13 @@ No
 >      (instead of getting destroyed) after navigation, and potentially gets reused
 >      on future navigations back to the document?
 
-Implementations should fail or postpone any requests which occur while the page is not visible to the user. The spec [requires](https://www.w3.org/TR/digital-credentials/latest/#discoverfromexternalsource-origin-options-sameoriginwithancestors-internal-method) both a fully active document with user attention and consumes user activation to use the API.
+Implementations should fail or postpone any requests which are made while the page is not visible to the user. The spec [requires](https://www.w3.org/TR/digital-credentials/latest/#discoverfromexternalsource-origin-options-sameoriginwithancestors-internal-method) both user attention on a fully active document and user activation to use the API.
 
 > 18.  What happens when a document that uses your feature gets disconnected?
 
-See above, the spec has "fully active" checks in its algorithms.
+See above. The spec has "fully active" checks in its algorithms.
 
 > 19.  What should this questionnaire have asked?
 
-What are the security and privacy implications of not shipping this feature? How does this feature fit into the larger privacy risk landscape. We believe the feature will lead to a reduced risk relative to large scale adoption of alternative technologies.
+What are the security and privacy implications of not shipping this feature? How does this feature fit into the larger privacy risk landscape? We believe this feature will offer reduced risks, relative to large-scale adoption of alternative technologies.
 
