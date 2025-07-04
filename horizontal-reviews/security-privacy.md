@@ -63,7 +63,7 @@ No.
 
 > 10.  Do features in this specification allow an origin to access other devices?
 
-Potentially, yes. While not a property of the DC API itself, the API is designed to support cross-device presentation flows such as by using the [FIDO CTAP](https://fidoalliance.org/specs/fido-v2.2-rd-20230321/fido-client-to-authenticator-protocol-v2.2-rd-20230321.html) protocol used by passkeys.
+Potentially, yes. While not a property of the DC API itself, the API is designed to support cross-device presentation flows such as by using the [FIDO CTAP](https://fidoalliance.org/specs/fido-v2.2-rd-20230321/fido-client-to-authenticator-protocol-v2.2-rd-20230321.html) used by passkeys.
 
 > 11.  Do features in this specification allow an origin some measure of control over
 >      a user agent's native UI?
