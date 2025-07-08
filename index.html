@@ -86,6 +86,13 @@
           date: "2025-02-25",
           publisher: "W3C"
         },
+        "credman-accessibility": {
+          title: "5.3. Credential Selection",
+          href:" https://w3c.github.io/webappsec-credential-management/#user-mediated-selection",
+          authors: ["Nina Satragno", "Marcos Cáceres"],
+          date: "2024-08-13",
+          publisher: "W3C"
+        }
       },
       xref: {
         profile: "web-platform",
@@ -1894,13 +1901,15 @@
         Accessibility Considerations
       </h2>
       <p>
-        [=User agents=] SHOULD mediate presentation and issuance requests in a
-        way that offers support for a wide range of user input methods, including
-        input hardware like keyboards, pointing devices, touch screens, voice
-        recognition, etc. Additionally, user agents SHOULD support accessible
-        output methods during these requests to ensure that prompts for
-        [=user permission=] during such requests can be meaningfully communicated to
-        the widest range of end-users.
+        Credential presentation and issuance facilitated by the Digital Credentials API have many
+        of the same accessibility considerations as detailed in [[[credman-accessibility]]] of the
+        Credential Management API.
+      </p>
+      <p>
+        [=credential chooser | Credential choosers=] have additional responsibilities. Contents
+        displayed to users during these ceremonies, including modal dialogs and QR codes, should be
+        accessible to screen readers. Interactive elements of a ceremony should also be
+        keyboard-accessible whether the user wishes to proceed with the ceremony or abort it.
       </p>
     </section>
     <section id="idl-index"></section>
