@@ -14,11 +14,7 @@ This project covers the requesting mechanisms for digital credentials, including
 
 ## Trying out the API
 
-**🚧 Note: The API is still extremely unstable and undergoing a lot of changes (almost daily!). 🚧**
-
-However, if you want to try it out:
-
-- [Try out the API in Chrome](https://digitalcredentials.dev/docs/requirements/)
+[Try out the API in Chrome](https://digitalcredentials.dev/docs/requirements/)
 
 ## Contributing
 
