@@ -18,7 +18,6 @@ jobs:
           VALIDATE_LINKS: true
           VALIDATE_PUBRULES: true
           GH_PAGES_BRANCH: gh-pages
-          W3C_API_KEY: ${{ secrets.W3C_API_KEY }}
           W3C_ECHIDNA_TOKEN: ${{ secrets.ECHIDNA_TOKEN }}
           W3C_WG_DECISION_URL: "https://lists.w3.org/Archives/Public/public-fedid-wg/2025Jun/0035.html"
           W3C_NOTIFICATIONS_CC: "${{ secrets.CC }}"
