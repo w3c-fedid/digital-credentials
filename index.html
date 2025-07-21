@@ -688,44 +688,56 @@
       <li>Let |requests| be |options|'s {{CredentialRequestOptions/digital}}'s
       {{DigitalCredentialRequestOptions/requests}} member.
       </li>
-      <li>If |requests| [=list/is empty=], [=exception/throw=] a {{TypeError}}.
+      <li>Let |validRequests| be a new empty [=list=].
       </li>
       <li>[=List/For each=] |request| of |requests|:
         <ol>
+          <li>
+            <p>
+              Run the following substeps for |request|. If any substep fails
+              (e.g., a validation rule is not met or an [=exception=] is
+              thrown), abort these substeps and continue to the next |request|.
+            </p>
+          </li>
           <li>[=serialize a JavaScript value to a JSON string|Serialize=]
-          |request| to a JSON string. [=exception/throw|Re-throw=] any
-          [=exception=].
+          |request|.
           </li>
           <li>Let |protocol| be |requests|'s
           {{DigitalCredentialGetRequest/protocol}}.
           </li>
-          <li>If |protocol| is not allowed by the user agent,
-          [=exception/throw=] a {{NotSupportedError}} {{DOMException}}.
+          <li>If |protocol| is not allowed by the user agent, abort these
+          substeps.
+          </li>
+          <li>Let |processedData|.
           </li>
           <li>If the [=registry/link|specification=] corresponding to
-          |protocol| defines a [=dictionary=], then:
+          |protocol| defines a [=dictionary=]:
             <ol>
-              <li>Let |request| be |requests|'s
-              {{DigitalCredentialGetRequest/data}} [=converted to an idl
-              value|converted=] to that dictionary. [=exception/throw|Rethrow=]
-              any exceptions.
+              <li>Set |processedData| to the result of [=converted to an idl
+              value|converting=] |request|'s
+              {{DigitalCredentialGetRequest/data}} to that dictionary.
               </li>
             </ol>
           </li>
-          <li>Otherwise, let |request| be |requests|'s
+          <li>Otherwise, set |processedData| to |request|'s
           {{DigitalCredentialGetRequest/data}}.
           </li>
-          <li>Validate |request| against any validation rules set forth in
-          the corresponding [=registry/link|specification=]. If any of
-          |request|'s members are invalid, [=exception/throw=] a
-          {{TypeError}}.
+          <li>Validate |processedData| against any validation rules in the
+          corresponding [=registry/link|specification=]. If validation fails,
+          abort these substeps.
+          </li>
+          <li>If all previous substeps completed successfully, [=list/append=]
+          |request| to |validRequests|.
           </li>
         </ol>
       </li>
+      <li>If |validRequests| [=list/is empty=], [=exception/throw=] a
+      {{TypeError}}.
+      </li>
       <li>
         <aside class="issue">
-          Details of how to actually get the [=digital credential=] are
-          forthcoming.
+          Details of how to actually get the [=digital credential=] using the
+          items in |validRequests| are forthcoming.
         </aside>
       </li>
       <li>Return a {{DigitalCredential}}.
