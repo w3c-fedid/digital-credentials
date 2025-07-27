@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"><head>
 <meta charset="utf-8">
-<meta name="generator" content="ReSpec 35.4.2">
+<meta name="generator" content="ReSpec 35.4.3">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <style>
 span.example-title{text-transform:none}
@@ -121,7 +121,7 @@ dd{margin-left:0}
     
   
 <meta name="color-scheme" content="light">
-<meta name="revision" content="385ee13a2216455e98f26a38ffd3caeb61aae448">
+<meta name="revision" content="d2b2c5656952010862b4d5127ed3e76aeb8ef9f1">
 <meta name="description" content="This document specifies an API to enable user agents to mediate
         presentation and issuance of digital credentials such as a driver's
         license, government-issued identification card, and/or other types of digital credential. The API builds on
@@ -252,16 +252,16 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "385ee13a2216455e98f26a38ffd3caeb61aae448",
-  "publishISODate": "2025-07-10T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 10 July 2025"
+  "gitRevision": "d2b2c5656952010862b4d5127ed3e76aeb8ef9f1",
+  "publishISODate": "2025-07-27T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 27 July 2025"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED"></head>
   <body data-cite="WEBIDL credential-management-1 vc-data-model HTML INFRA URL WEBIDL DOM FETCH" class="h-entry"><div class="head">
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Digital Credentials</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2025-07-10">10 July 2025</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2025-07-27">27 July 2025</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -601,7 +601,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         </p></div>
       </dd>
       <dt>
-        <dfn data-dfn-for="digital credential" data-local-lt="exchange protocol" data-lt="Exchange protocol|exchange protocol" data-plurals="exchange protocols" id="dfn-exchange-protocol" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">Exchange protocol</dfn>
+        <dfn data-dfn-for="digital credential" data-local-lt="exchange protocol" data-plurals="exchange protocols" id="dfn-exchange-protocol" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">Exchange protocol</dfn>
       </dt>
       <dd data-defines="#dfn-exchange-protocol">
         A standardized protocol used for exchanging a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-3">digital credential</a>
@@ -611,7 +611,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       Registry of protocols</a>.
       </dd>
       <dt>
-        <dfn data-dfn-for="digital credential" data-local-lt="issuance protocol" data-lt="Issuance protocol|issuance protocol" data-plurals="issuance protocols" id="dfn-issuance-protocol" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">Issuance protocol</dfn>
+        <dfn data-dfn-for="digital credential" data-local-lt="issuance protocol" data-plurals="issuance protocols" id="dfn-issuance-protocol" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">Issuance protocol</dfn>
       </dt>
       <dd data-defines="#dfn-issuance-protocol">
         A standardized protocol used for communication between an <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers">issuer</a>
@@ -619,7 +619,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         issuance protocol is identified by a <a data-link-type="dfn|abstract-op" href="#dfn-protocol-identifier" class="internalDFN" id="ref-for-dfn-protocol-identifier-2">protocol identifier</a>. See also section <a href="#protocol-registry" data-matched-text="[[[#protocol-registry]]]" class="sec-ref"><bdi class="secno">7. </bdi>
       Registry of protocols</a>.
       </dd><dt>
-        <dfn data-dfn-for="digital credential" data-local-lt="issuance" data-lt="Issuance request|issuance" data-plurals="issuance requests" id="dfn-issuance-request" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">Issuance request</dfn>
+        <dfn data-dfn-for="digital credential" data-local-lt="issuance" data-plurals="issuance requests" id="dfn-issuance-request" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">Issuance request</dfn>
       </dt>
       <dd data-defines="#dfn-issuance-request">
         An issuance request is a request to issue a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-5">digital credential</a>
@@ -642,14 +642,14 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         an <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers">issuer</a>.
       </dd>
       <dt>
-        <dfn data-dfn-for="digital credential" data-local-lt="presentation" data-lt="Presentation request|presentation" data-plurals="presentation requests" id="dfn-presentation-request" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">Presentation request</dfn>
+        <dfn data-dfn-for="digital credential" data-local-lt="presentation" data-plurals="presentation requests" id="dfn-presentation-request" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">Presentation request</dfn>
       </dt>
       <dd data-defines="#dfn-presentation-request">
         A presentation request is a request for a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-7">digital credential</a>
         composed of <a data-link-type="dfn|abstract-op" href="#dfn-request-data" class="internalDFN" id="ref-for-dfn-request-data-1">request data</a> and a <a data-link-type="dfn|abstract-op" href="#dfn-exchange-protocol" class="internalDFN" id="ref-for-dfn-exchange-protocol-3">exchange protocol</a>.
       </dd>
       <dt>
-        <dfn data-dfn-for="digital credential" data-local-lt="presentation response" data-lt="Presentation response|presentation response" data-plurals="presentation responses" id="dfn-presentation-response" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">Presentation response</dfn>
+        <dfn data-dfn-for="digital credential" data-local-lt="presentation response" data-plurals="presentation responses" id="dfn-presentation-response" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">Presentation response</dfn>
       </dt>
       <dd data-defines="#dfn-presentation-response">
         A format that a <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders">holder's</a> software, such as a digital wallet, uses,
@@ -895,8 +895,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </section></section><section id="the-digitalcredentialcreationoptions-dictionary"><div class="header-wrapper"><h3 id="x4-5-the-digitalcredentialcreationoptions-dictionary"><bdi class="secno">4.5 </bdi>
       The <code>DigitalCredentialCreationOptions</code> dictionary
     </h3><a class="self-link" href="#the-digitalcredentialcreationoptions-dictionary" aria-label="Permalink for Section 4.5"></a></div>
-    <pre class="idl def" id="webidl-416841533"><span class="idlHeader"><a class="self-link" href="#webidl-416841533">WebIDL</a></span><code><span data-idl="" class="idlDictionary" id="idl-def-digitalcredentialcreationoptions" data-title="DigitalCredentialCreationOptions">dictionary <dfn data-export="" data-dfn-type="dictionary" id="dom-digitalcredentialcreationoptions" data-idl="dictionary" data-title="DigitalCredentialCreationOptions" data-dfn-for="" class="idlID" tabindex="0" aria-haspopup="dialog"><code>DigitalCredentialCreationOptions</code></dfn> {<span data-idl="" class="idlMember" id="idl-def-digitalcredentialcreationoptions-requests" data-title="requests" data-dfn-for="DigitalCredentialCreationOptions"><span class="idlType">
-  <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence">sequence</a>&lt;<a data-link-type="idl" href="#dom-digitalcredentialcreaterequest" class="internalDFN" id="ref-for-dom-digitalcredentialcreaterequest-1"><code>DigitalCredentialCreateRequest</code></a>&gt;</span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialcreationoptions-requests" id="ref-for-dom-digitalcredentialcreationoptions-requests-1"><code>requests</code></a>;</span>
+    <pre class="idl def" id="webidl-185698318"><span class="idlHeader"><a class="self-link" href="#webidl-185698318">WebIDL</a></span><code><span data-idl="" class="idlDictionary" id="idl-def-digitalcredentialcreationoptions" data-title="DigitalCredentialCreationOptions">dictionary <dfn data-export="" data-dfn-type="dictionary" id="dom-digitalcredentialcreationoptions" data-idl="dictionary" data-title="DigitalCredentialCreationOptions" data-dfn-for="" class="idlID" tabindex="0" aria-haspopup="dialog"><code>DigitalCredentialCreationOptions</code></dfn> {<span data-idl="" class="idlMember" id="idl-def-digitalcredentialcreationoptions-requests" data-title="requests" data-dfn-for="DigitalCredentialCreationOptions">
+  required<span class="idlType"> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence">sequence</a>&lt;<a data-link-type="idl" href="#dom-digitalcredentialcreaterequest" class="internalDFN" id="ref-for-dom-digitalcredentialcreaterequest-1"><code>DigitalCredentialCreateRequest</code></a>&gt;</span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialcreationoptions-requests" id="ref-for-dom-digitalcredentialcreationoptions-requests-1"><code>requests</code></a>;</span>
 };</span></code></pre>
     <section id="the-requests-member-0"><div class="header-wrapper"><h4 id="x4-5-1-the-requests-member"><bdi class="secno">4.5.1 </bdi>
       The <code>requests</code> member
@@ -1269,7 +1269,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         added to the registry.
       </dd>
       <dt>
-        Specify a <dfn data-dfn-for="registry" data-local-lt="type" data-lt="protocol type|type" id="dfn-protocol-type" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">protocol
+        Specify a <dfn data-dfn-for="registry" data-local-lt="type" id="dfn-protocol-type" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">protocol
         type</dfn>.
       </dt>
       <dd>
@@ -1278,7 +1278,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         protocols used with <code>navigator.credentials.create</code>.
       </dd>
       <dt>
-        <dfn data-dfn-for="registry" data-local-lt="description" data-lt="Describe the protocol|description" id="dfn-describe-the-protocol" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">Describe the
+        <dfn data-dfn-for="registry" data-local-lt="description" id="dfn-describe-the-protocol" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">Describe the
         protocol</dfn>.
       </dt>
       <dd>
@@ -1286,7 +1286,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         use case.
       </dd>
       <dt>
-        Provide a <dfn data-dfn-for="registry" data-local-lt="link" data-lt="link to the specification|link" id="dfn-link-to-the-specification" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">link to the
+        Provide a <dfn data-dfn-for="registry" data-local-lt="link" id="dfn-link-to-the-specification" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">link to the
         specification</dfn>.
       </dt>
       <dd>
@@ -2243,8 +2243,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
   <a data-link-type="idl" href="#dom-digitalcredentialcreationoptions" class="internalDFN" id="ref-for-dom-digitalcredentialcreationoptions-2"><code>DigitalCredentialCreationOptions</code></a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-credentialcreationoptions-digital" id="ref-for-dom-credentialcreationoptions-digital-3"><code>digital</code></a>;</span>
 };</span>
 
-<span data-idl="" class="idlDictionary" data-title="DigitalCredentialCreationOptions">dictionary <dfn data-export="" data-dfn-type="dictionary" data-idl="dictionary" data-title="DigitalCredentialCreationOptions" data-dfn-for="" class="idlID"><code>DigitalCredentialCreationOptions</code></dfn> {<span data-idl="" class="idlMember" data-title="requests" data-dfn-for="DigitalCredentialCreationOptions"><span class="idlType">
-  <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence">sequence</a>&lt;<a data-link-type="idl" href="#dom-digitalcredentialcreaterequest" class="internalDFN" id="ref-for-dom-digitalcredentialcreaterequest-4"><code>DigitalCredentialCreateRequest</code></a>&gt;</span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialcreationoptions-requests" id="ref-for-dom-digitalcredentialcreationoptions-requests-3"><code>requests</code></a>;</span>
+<span data-idl="" class="idlDictionary" data-title="DigitalCredentialCreationOptions">dictionary <dfn data-export="" data-dfn-type="dictionary" data-idl="dictionary" data-title="DigitalCredentialCreationOptions" data-dfn-for="" class="idlID"><code>DigitalCredentialCreationOptions</code></dfn> {<span data-idl="" class="idlMember" data-title="requests" data-dfn-for="DigitalCredentialCreationOptions">
+  required<span class="idlType"> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence">sequence</a>&lt;<a data-link-type="idl" href="#dom-digitalcredentialcreaterequest" class="internalDFN" id="ref-for-dom-digitalcredentialcreaterequest-4"><code>DigitalCredentialCreateRequest</code></a>&gt;</span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialcreationoptions-requests" id="ref-for-dom-digitalcredentialcreationoptions-requests-3"><code>requests</code></a>;</span>
 };</span>
 
 <span data-idl="" class="idlDictionary" data-title="DigitalCredentialCreateRequest">dictionary <dfn data-export="" data-dfn-type="dictionary" data-idl="dictionary" data-title="DigitalCredentialCreateRequest" data-dfn-for="" class="idlID"><code>DigitalCredentialCreateRequest</code></dfn> {<span data-idl="" class="idlMember" data-title="protocol" data-dfn-for="DigitalCredentialCreateRequest">
@@ -2280,7 +2280,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </dd><dt id="bib-infra">[infra]</dt><dd>
       <a href="https://infra.spec.whatwg.org/"><cite>Infra Standard</cite></a>. Anne van Kesteren; Domenic Denicola.  WHATWG. Living Standard. URL: <a href="https://infra.spec.whatwg.org/">https://infra.spec.whatwg.org/</a>
     </dd><dt id="bib-permissions-policy">[permissions-policy]</dt><dd>
-      <a href="https://www.w3.org/TR/permissions-policy-1/"><cite>Permissions Policy</cite></a>. Ian Clelland.  W3C. 6 May 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/permissions-policy-1/">https://www.w3.org/TR/permissions-policy-1/</a>
+      <a href="https://www.w3.org/TR/permissions-policy-1/"><cite>Permissions Policy</cite></a>. Ian Clelland.  W3C. 18 July 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/permissions-policy-1/">https://www.w3.org/TR/permissions-policy-1/</a>
     </dd><dt id="bib-rfc2119">[RFC2119]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. S. Bradner.  IETF. March 1997. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>
     </dd><dt id="bib-rfc8174">[RFC8174]</dt><dd>
@@ -2667,7 +2667,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <span class="caret"></span>
       <div>
         <a class="self-link" href="#dom-digitalcredentialcreationoptions-requests" aria-label="Permalink for definition: requests. Activate to close this dialog.">Permalink</a>
-        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-416841533">IDL</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-185698318">IDL</a>
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
