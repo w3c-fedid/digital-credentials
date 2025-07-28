@@ -691,15 +691,13 @@
       <li>Let |validRequests| be a new empty [=list=].
       <li>[=List/For each=] |request| of |requests|:
         <ol>
-          <li><p>Run the following substeps for |request|. If any substep fails (e.g., an [=exception=] is thrown), abort these substeps and continue to the next |request|.</p>
-          </li>
-          <li>[=serialize a JavaScript value to a JSON string|Serialize=] |request|. If serialization fails, abort these substeps.
+          <li>[=serialize a JavaScript value to a JSON string|Serialize=] |request|. [=exception/throw|Rethrow=] any exception.</li>.
           </li>
           <li>Let |protocol| be |requests|'s {{DigitalCredentialGetRequest/protocol}}.
           </li>
-          <li>If |protocol| is not allowed by the user agent, abort these substeps.
+          <li>If |protocol| is not allowed by the user agent, [=exception/throw=] a {{NotSupportedError}} {{DOMException}}.
           </li>
-          <li>If all previous substeps completed successfully, [=list/append=] |request| to |validRequests|.
+          <li>[=list/Append=] |request| to |validRequests|.
           </li>
         </ol>
       </li>
