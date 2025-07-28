@@ -1,12 +1,13 @@
 # Digital Credentials
 
-📄 [Digital credentials explainer](explainer.md) and [draft spec](https://w3c-fedid.github.io/digital-credentials/).
+📄 [Digital credentials explainer](explainer.md) and [draft spec](https://www.w3.org/TR/digital-credentials/).
 
-This draft (migrated to the Federated Identity on the Web WG in April 2025) specifies an API for user agents that would mediate access to, and representation of, verifiably-issued digital credentials.
+This draft (migrated to the Federated Identity on the Web WG in April 2025, FPWD published July 2025) specifies an API for user agents that would mediate access to, and representation of, verifiably-issued digital credentials.
 
 These identities can range from government-issued documents, such as driver's licenses and passports, to start with, to other credential types, potentially in the future.
 
-[Digital Credentials](https://w3c-fedid.github.io/digital-credentials/) builds upon [Credential Management](https://www.w3.org/TR/credential-management-1/) to enable the secure and private exchange of digital identity information. It facilitates authenticated interactions by representing digital credentials through the `DigitalCredential` interface, which embodies verifiable claims about an individual's identity.
+[Digital Credentials](https://www.w3.org/TR/digital-credentials/) builds upon [Credential Management](https://www.w3.org/TR/credential-management-1/) to enable the secure and private exchange of digital identity information. It facilitates authenticated interactions by representing digital credentials through the `DigitalCredential` interface, which embodies verifiable claims about an individual's identity.
+
 
 ## Scope
 
