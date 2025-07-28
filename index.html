@@ -691,25 +691,13 @@
       <li>Let |validRequests| be a new empty [=list=].
       <li>[=List/For each=] |request| of |requests|:
         <ol>
-          <li><p>Run the following substeps for |request|. If any substep fails (e.g., a validation rule is not met or an [=exception=] is thrown), abort these substeps and continue to the next |request|.</p>
+          <li><p>Run the following substeps for |request|. If any substep fails (e.g., an [=exception=] is thrown), abort these substeps and continue to the next |request|.</p>
           </li>
-          <li>[=serialize a JavaScript value to a JSON string|Serialize=] |request|.
+          <li>[=serialize a JavaScript value to a JSON string|Serialize=] |request|. If serialization fails, abort these substeps.
           </li>
           <li>Let |protocol| be |requests|'s {{DigitalCredentialGetRequest/protocol}}.
           </li>
           <li>If |protocol| is not allowed by the user agent, abort these substeps.
-          </li>
-          <li>Let |processedData|. 
-          </li>
-          <li>If the [=registry/link|specification=] corresponding to |protocol| defines a [=dictionary=]:
-            <ol>
-              <li>Set |processedData| to the result of [=converted to an idl value|converting=] |request|'s {{DigitalCredentialGetRequest/data}} to that dictionary.
-              </li>
-            </ol>
-          </li>
-          <li>Otherwise, set |processedData| to |request|'s {{DigitalCredentialGetRequest/data}}.
-          </li>
-          <li>Validate |processedData| against any validation rules in the corresponding [=registry/link|specification=]. If validation fails, abort these substeps.
           </li>
           <li>If all previous substeps completed successfully, [=list/append=] |request| to |validRequests|.
           </li>
