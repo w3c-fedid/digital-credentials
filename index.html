@@ -773,58 +773,55 @@
       </li>
       <li>Let |validatedRequests| be an empty [=list=].
       </li>
-      <li>[=Set/For each=] |n| of |range|:
-        <ol>
-          <li>Let |requestRecord| be the [=list/item=] at |requests|'s |n|
-          index.
-          </li>
-          <li>Let |protocol| be |requestRecord|'s
-          {{DigitalCredentialGetRequest/protocol}}.
-          </li>
-          <li>If |protocol| is not supported by the user agent,
-          [=exception/throw=] a {{NotSupportedError}} {{DOMException}}.
-          </li>
-          <li>If the [=registry/link|specification=] corresponding to
-          |protocol| defines an IDL {{dictionary}} for [=converted to an idl
-          value|conversion=]:
-            <ol>
-              <li>Let |converted| be |requestRecord|'s
-              {{DigitalCredentialGetRequest/data}} [=converted to an idl
-              value|converted=] to that dictionary. [=exception/throw|Rethrow=]
-              any exceptions.
-              </li>
-            </ol>
-          </li>
-          <li>Otherwise, let |converted| be |requestRecord|'s
-          {{DigitalCredentialGetRequest/data}}.
-          </li>
-          <li>Validate |converted| against any validation rules set forth in
-          the corresponding [=registry/link|specification=]. If any of
-          |converted|'s members are invalid, [=exception/throw=] a
-          {{TypeError}}.
-          </li>
-          <li>Let |validatedRequest| be an internal representation of the
-          request using |protocol| and |converted|.
-          </li>
-          <li>Append |validatedRequest| to |validatedRequests|.
-          </li>
-        </ol>
-      </li>
       <li>[=List/For each=] |request| of |requests|:
         <ol>
           <li>[=serialize a JavaScript value to a JSON string|Serialize=]
           |request| to a JSON string. [=exception/throw|Re-throw=] any
           [=exception=].
           </li>
+          <li>Let |protocol| be |request|'s
+          {{DigitalCredentialGetRequest/protocol}}.
+          </li>
+          <li>If |protocol| is not allowed by the user agent,
+          [=exception/throw=] a {{NotSupportedError}} {{DOMException}}.
+          </li>
+          <li>If the [=registry/link|specification=] corresponding to
+          |protocol| defines an IDL [=dictionary=] for [=converted to an idl
+          value|conversion=]:
+            <ol>
+              <li>Let |converted| be |request|'s
+              {{DigitalCredentialGetRequest/data}} [=converted to an idl
+              value|converted=] to that dictionary. [=exception/throw|Rethrow=]
+              any exceptions.
+              </li>
+            </ol>
+          </li>
+          <li>Otherwise, let |data| be |request|'s
+          {{DigitalCredentialGetRequest/data}}.
+          </li>
+          <li>Validate |data| against any validation rules set forth in the
+          corresponding [=registry/link|specification=]. If any of |data|'s
+          members are invalid, [=exception/throw=] a {{TypeError}}.
+          </li>
+          <li>Let |validatedRequest| be an internal representation of the
+          request using |protocol| and |data|.
+          </li>
+          <li>Append |validatedRequest| to |validatedRequests|.
+          </li>
         </ol>
       </li>
-      <li>
-        <aside class="issue">
-          Details of how to actually get the [=digital credential=] are
-          forthcoming.
-        </aside>
+      <li>Let |coordinator| be the [=credential request coordinator=]
+      associated with |document|'s [=top-level traversable=].
       </li>
-      <li>Return a {{DigitalCredential}}.
+      <li>Let |signal| be |options|'s {{CredentialRequestOptions/signal}}, if
+      present.
+      </li>
+      <li>Let |result| be the result of awaiting the [=present credential
+      request UI=] algorithm, passing |document|, |requests|, and |signal|.
+      </li>
+      <li>If |result| is an [=exception=], [=exception/throw=] that exception.
+      </li>
+      <li>Return |result|.
       </li>
     </ol><!--
     // MARK: [[Store]]()
@@ -925,6 +922,27 @@
         normatively enforced when calling {{CredentialsContainer}}'s
         {{CredentialsContainer/get()}} method.
       </p>
+    </section>
+    <section>
+      <h2>
+        algorithms
+      </h2>
+      <p>
+        The following algorithms are used by the Digital Credentials API.
+      </p>
+      <h3>
+        Present credential request UI
+      </h3>
+      <p>
+        The <dfn>present credential request UI</dfn> algorithm is used to
+        present the user with a [=credential chooser=] to select a [=digital
+        credential=] that can fulfill the request. It takes a
+        |document:Document|,
+        |requests:sequence&lt;DigitalCredentialGetRequest&gt;|, and
+        |signal:AbortSignal|. When invoked, the algorithm MUST run the
+        following steps:
+      </p>
+      <ol class="algorithm"></ol>
     </section>
     <section id="permissions-policy" data-cite="permissions-policy">
       <!--
