@@ -287,73 +287,75 @@
       Credential Request Coordinator
     </h3>
     <p>
-      The <dfn>credential request coordinator</dfn> is a user-agent-defined
-      component responsible for mediating [=digital credential=] interactions
-      within a given [=top-level traversable=].
+      The <dfn data-local-lt="coordinator">credential request coordinator</dfn>
+      is a user-agent-defined component responsible for mediating [=digital
+      credential=] interactions within a given [=top-level traversable=]. It
+      ensures that only one interaction is active at any time across [=child
+      navigables=], and it manages the state transitions between different
+      [=credential request coordinator/interaction states=].
     </p>
     <p>
       Each [=top-level traversable=] has a single associated [=credential
       request coordinator=].
     </p>
     <p>
-      The [=credential request coordinator=]:
+      The coordinator manages the lifecycle of the current interaction's
+      {{Promise}}, including its resolution or rejection and integrates with an
+      {{AbortSignal}} to allow for both user-initiated and programmatic
+      cancellation.
     </p>
-    <ul>
-      <li>Ensures that only one [=digital credential=] interaction is active at
-      any time. This includes via both the:
-        <ul>
-          <li>{{DigitalCredential/[[DiscoverFromExternalSource]](origin,
-          options, sameOriginWithAncestors)}} internal method.
-          </li>
-          <li>{{DigitalCredential/[[Create]](origin, options,
-          sameOriginWithAncestors)}} internal method.
-          </li>
-        </ul>
-      </li>
-      <li>Handles state transitions across the following <dfn data-for=
-      "credential request coordinator" data-local-lt="state">interaction
-      states</dfn>:
-        <ul>
-          <li>
-            <dfn data-dfn-for="credential request coordinator">Idle</dfn>: No
-            credential interaction is currently in progress.
-          </li>
-          <li>
-            <dfn data-dfn-for=
-            "credential request coordinator">Ongoing</dfn>: A credential
-            interaction is currently in progress and the user interface is
-            being shown to the user.
-          </li>
-          <li>
-            <dfn data-dfn-for="credential request coordinator">Aborting</dfn>:
-            A credential interaction is being canceled. The coordinator is in
-            the process of cleaning up the interaction.
-          </li>
-        </ul>
-      </li>
-      <li>Manages the lifecycle of the current interaction's promise, including
-      its resolution or rejection.
-      </li>
-      <li>Integrates with an {{AbortSignal}} to allow user-initiated or
-      programmatic cancellation.
-      </li>
-    </ul>
+    <h3>
+      Interaction states
+    </h3>
+    <p>
+      The [=credential request coordinator=] has a finite set of
+      <dfn data-dfn-for="credential request coordinator">interaction
+      states</dfn>, which are used to manage the lifecycle of request for a
+      digital credential, be it either a [=digital credential/presentation
+      request=] or an [=digital credential/issuance request=]. The states are:
+    </p>
+    <dl>
+      <dt>
+        <dfn data-dfn-for="credential request coordinator">idle</dfn>:
+      </dt>
+      <dd>
+        No credential interaction is currently in progress.
+      </dd>
+      <dt>
+        <dfn data-dfn-for="credential request coordinator">ongoing</dfn>:
+      </dt>
+      <dd>
+        A credential interaction is currently in progress and the user
+        interface is being presented to the user.
+      </dd>
+      <dt>
+        <dfn data-dfn-for="credential request coordinator">aborting</dfn>:
+      </dt>
+      <dd>
+        A credential interaction is being canceled, either because of an error,
+        user cancellation, or a [=AbortController/signal abort=]. The
+        coordinator is in the process of cleaning up the interaction in order
+        to return to the [=credential request coordinator/idle=] state.
+      </dd>
+    </dl>
     <p>
       The [=credential request coordinator=] is initialized in the [=credential
-      request coordinator/idle=] [=interaction state=].
+      request coordinator/idle=] [=credential request coordinator/interaction
+      state=].
     </p>
     <h3>
       Digital Credential Client
     </h3>
     <p>
       A <dfn>digital credential client</dfn> is a user-agent-defined component
-      responsible for managing the credential presentation or issuance flow, which 
-      includes allowing the user to select from available [=holders=] and coordinating the request.
+      responsible for managing the credential presentation or issuance flow,
+      which includes allowing the user to select from available [=holders=] and
+      coordinating the request.
     </p>
     <p>
       Each [=credential request coordinator=] uses a single associated
-      [=digital credential client=] to fulfill credential presentation and issuance
-      operations.
+      [=digital credential client=] to fulfill credential presentation and
+      issuance operations.
     </p>
     <p>
       The [=digital credential client=]:
@@ -367,8 +369,8 @@
       </li>
       <li>Presents the available [=holders=] to the user for selection.
       </li>
-      <li>Returns the result — the user's selected [=digital credential=] or a cancellation — to the
-      [=credential request coordinator=].
+      <li>Returns the result — the user's selected [=digital credential=] or a
+      cancellation — to the [=credential request coordinator=].
       </li>
     </ul>
     <aside class="note">
