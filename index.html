@@ -304,6 +304,10 @@
       {{AbortSignal}} to allow for both user-initiated and programmatic
       cancellation.
     </p>
+    <p>
+      A [=credential request coordinator=] has an associated [=digital
+      credential client=], which it interacts with.
+    </p>
     <h3>
       Interaction states
     </h3>
@@ -361,8 +365,7 @@
       The [=digital credential client=]:
     </p>
     <ul>
-      <li>Validates and transforms digital credential presentation or issuance
-      inputs.
+      <li>Validates and transforms presentation or issuance inputs and outputs.
       </li>
       <li>Interprets each individual request in the input list as targeting a
       specific [=holder=], and prepares [=holder=] options accordingly.
