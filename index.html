@@ -282,7 +282,143 @@
         issuance protocol is identified by a [=digital credential/protocol
         identifier=]. See also section [[[#protocol-registry]]].
       </dd>
+      <dt>
+        Digital credential coordinator
+      </dt>
+      <dd>
+        See [=credential request coordinator=].
+      </dd>
+      <dt>
+        Digital credential client
+      </dt>
+      <dd>
+        See [=credential request client=].
+      </dd>
     </dl>
+    <h2>
+      Credential Request Coordinator
+    </h2>
+    <p>
+      The <dfn data-local-lt="coordinator">credential request coordinator</dfn>
+      is a user-agent-defined component responsible for mediating [=digital
+      credential=] interactions within a given [=top-level traversable=]. It
+      ensures that only one interaction is active at any time across [=child
+      navigables=], and it manages the state transitions between different
+      [=credential request coordinator/interaction states=].
+    </p>
+    <p>
+      Each [=top-level traversable=] has a single associated [=credential
+      request coordinator=].
+    </p>
+    <p>
+      The coordinator manages the lifecycle of the current interaction's
+      {{Promise}}, including its resolution or rejection and integrates with an
+      {{AbortSignal}} to allow for both user-initiated and programmatic
+      cancellation.
+    </p>
+    <p>
+      A [=credential request coordinator=] has an associated [=credential
+      request client=], which it interacts with.
+    </p>
+    <h3>
+      Interaction states
+    </h3>
+    <p>
+      The [=credential request coordinator=] has a finite set of
+      <dfn data-dfn-for="credential request coordinator">interaction
+      states</dfn>, which are used to manage the lifecycle of request for a
+      digital credential, be it either a [=digital credential/presentation
+      request=] or an [=digital credential/issuance request=]. The states are:
+    </p>
+    <dl>
+      <dt>
+        <dfn data-dfn-for="credential request coordinator">idle</dfn>:
+      </dt>
+      <dd>
+        No credential interaction is currently in progress.
+      </dd>
+      <dt>
+        <dfn data-dfn-for="credential request coordinator">requesting</dfn>:
+      </dt>
+      <dd>
+        A credential interaction is currently in progress and the user
+        interface is being presented to the user.
+      </dd>
+      <dt>
+        <dfn data-dfn-for="credential request coordinator">aborting</dfn>:
+      </dt>
+      <dd>
+        A credential interaction is being canceled, either because of an error,
+        user cancellation, or a [=AbortController/signal abort=]. The
+        coordinator is in the process of cleaning up the interaction in order
+        to return to the [=credential request coordinator/idle=] state.
+      </dd>
+    </dl>
+    <p>
+      The [=credential request coordinator=] is initialized in the [=credential
+      request coordinator/idle=] [=credential request coordinator/interaction
+      state=].
+    </p>
+    <h3>
+      Prepare credential requests
+    </h3>
+    <p>
+      To be written.
+    </p>
+    <h3>
+      Abort the credential request
+    </h3>
+    <p>
+      To be written.
+    </p>
+    <h2>
+      Credential request client
+    </h2>
+    <p>
+      A <dfn data-local-lt="client">credential request client</dfn> is a
+      user-agent-defined component responsible for managing the credential
+      presentation or issuance flow, which includes allowing the user to select
+      from available [=holders=] and coordinating the request.
+    </p>
+    <p>
+      Each [=credential request coordinator=] uses a single associated
+      [=credential request client=] to fulfill credential presentation and
+      issuance operations.
+    </p>
+    <p>
+      The [=credential request client=]:
+    </p>
+    <ul>
+      <li>Validates and transforms presentation or issuance inputs and outputs.
+      </li>
+      <li>Interprets each individual request in the input list as targeting a
+      specific [=holder=], and prepares [=holder=] options accordingly.
+      </li>
+      <li>Presents the available [=holders=] to the user for selection.
+      </li>
+      <li>Returns the result — the user's selected [=digital credential=] or a
+      cancellation — to the [=credential request coordinator=].
+      </li>
+    </ul>
+    <aside class="note">
+      <p>
+        Although the [=credential request client=] coordinates the user
+        interaction with respect to inputs and outputs, it is the [=holder=]
+        selected by the user that typically acts as the [=credential chooser=].
+      </p>
+    </aside>
+    <h3>
+      Dismiss credentials chooser
+    </h3>
+    <p>
+      To be written.
+    </p>
+    <h3>
+      Present credentials chooser
+    </h3>
+    <p>
+      To be written.
+    </p>
     <h2>
       Scope
     </h2>
