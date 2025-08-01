@@ -282,10 +282,22 @@
         issuance protocol is identified by a [=digital credential/protocol
         identifier=]. See also section [[[#protocol-registry]]].
       </dd>
+      <dt>
+        Digital credential coordinator
+      </dt>
+      <dd>
+        See [=credential request coordinator=].
+      </dd>
+      <dt>
+        Digital credential client
+      </dt>
+      <dd>
+        See [=credential request client=].
+      </dd>
     </dl>
-    <h3>
+    <h2>
       Credential Request Coordinator
-    </h3>
+    </h2>
     <p>
       The <dfn data-local-lt="coordinator">credential request coordinator</dfn>
       is a user-agent-defined component responsible for mediating [=digital
@@ -305,8 +317,8 @@
       cancellation.
     </p>
     <p>
-      A [=credential request coordinator=] has an associated [=digital
-      credential client=], which it interacts with.
+      A [=credential request coordinator=] has an associated [=credential
+      request client=], which it interacts with.
     </p>
     <h3>
       Interaction states
@@ -326,7 +338,7 @@
         No credential interaction is currently in progress.
       </dd>
       <dt>
-        <dfn data-dfn-for="credential request coordinator">ongoing</dfn>:
+        <dfn data-dfn-for="credential request coordinator">requesting</dfn>:
       </dt>
       <dd>
         A credential interaction is currently in progress and the user
@@ -348,21 +360,33 @@
       state=].
     </p>
     <h3>
-      Digital Credential Client
+      Prepare credential requests
     </h3>
     <p>
-      A <dfn>digital credential client</dfn> is a user-agent-defined component
-      responsible for managing the credential presentation or issuance flow,
-      which includes allowing the user to select from available [=holders=] and
-      coordinating the request.
+      To be written.
+    </p>
+    <h3>
+      Abort the credential request
+    </h3>
+    <p>
+      To be written.
+    </p>
+    <h2>
+      Credential request client
+    </h2>
+    <p>
+      A <dfn data-local-lt="client">credential request client</dfn> is a
+      user-agent-defined component responsible for managing the credential
+      presentation or issuance flow, which includes allowing the user to select
+      from available [=holders=] and coordinating the request.
     </p>
     <p>
       Each [=credential request coordinator=] uses a single associated
-      [=digital credential client=] to fulfill credential presentation and
+      [=credential request client=] to fulfill credential presentation and
       issuance operations.
     </p>
     <p>
-      The [=digital credential client=]:
+      The [=credential request client=]:
     </p>
     <ul>
       <li>Validates and transforms presentation or issuance inputs and outputs.
@@ -378,11 +402,23 @@
     </ul>
     <aside class="note">
       <p>
-        Although the [=digital credential client=] coordinates the credential
-        interaction, it is the selected [=holder=] that typically acts as the
-        [=credential chooser=].
+        Although the [=credential request client=] coordinates the user
+        interaction with respect to inputs and outputs, it is the [=holder=]
+        selected by the user that typically acts as the [=credential chooser=].
       </p>
     </aside>
+    <h3>
+      Dismiss credentials chooser
+    </h3>
+    <p>
+      To be written.
+    </p>
+    <h3>
+      Present credentials chooser
+    </h3>
+    <p>
+      To be written.
+    </p>
     <h2>
       Scope
     </h2>
