@@ -36,7 +36,7 @@ For an [example of how to use the API](https://w3c-fedid.github.io/digital-crede
 
 ### Using the API from another origin
 
-Please see the [Permission Policy Integration](https://www.w3.org/TR/digital-credentials/#permissions-policy)
+Please see the  [requesting a digital credential across origins](https://www.w3.org/TR/digital-credentials/#requesting-a-digital-credential-across-origins)
 
 ## Horizontal reviews
 
