@@ -102,11 +102,7 @@
         digital credential from a user agent or underlying platform.
       </p>
     </section>
-    <section id="sotd">
-      <p>
-        This is an unofficial proposal.
-      </p>
-    </section>
+    <section id="sotd"></section>
     <h2>
       Introduction
     </h2>
@@ -357,7 +353,7 @@
         credential/exchange protocol=].
       </dd>
       <dt>
-        <dfn data-dfn-for="digital credential">request data</dfn>
+        <dfn data-dfn-for="digital credential">Request data</dfn>
       </dt>
       <dd>
         A format that [=verifier=] software or a [=user agent=] uses, via an
@@ -383,7 +379,7 @@
         [=digital credential/issuance protocol=].
       </dd>
       <dt>
-        <dfn data-dfn-for="digital credential">issuance request data</dfn>
+        <dfn data-dfn-for="digital credential">Issuance request data</dfn>
       </dt>
       <dd>
         A data structure that an [=issuer=] or a [=user agent=], via an
@@ -443,7 +439,7 @@
       [=credential chooser=] to the user, allowing them to select a [=digital
       credential=] that can fulfill the request. This is done by the website
       calling the `navigator.credentials.`{{CredentialsContainer/get()}}
-      method, which runs the [=request a credential=] algorithm of
+      method, which runs the [=request a `Credential`=] algorithm of
       [[[credential-management]]]. That algorithm then calls back into this
       specification's {{DigitalCredential}} interface's
       {{DigitalCredential/[[DiscoverFromExternalSource]](origin, options,
