@@ -36,10 +36,13 @@ For an [example of how to use the API](https://w3c-fedid.github.io/digital-crede
 
 ### Using the API from another origin
 
-The specification allows usage of the API from a remote/third-party origin via the "digital-credentials-get" Permissions Policy. This is useful for scenarios where a website wants to request digital credentials from a wallet provider that is hosted on a different origin. The Permissions Policy can be set on an iframe that embeds the website that wants to use the API. Here is an example of how the Permissions Policy can be set on an iframe:
+
+The specification allows usage of the API from a remote/third-party origin via the "digital-credentials-get" and "digital-credentials-create" Permissions Policies. This is useful for scenarios where a website wants to request digital credentials from, or issue digital credentials to, a wallet provider that is hosted on a different origin.
+
+The Permissions Policy can be set on an iframe that embeds the website that wants to use the API. Here is an example of how the Permissions Policy can be set on an iframe to allow both operations:
 
 ```HTML
-<iframe allow="digital-credentials-get"></iframe>
+<iframe allow="digital-credentials-get digital-credentials-create"></iframe>
 ```
 
 ## Horizontal reviews
