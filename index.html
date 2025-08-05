@@ -121,7 +121,7 @@ dd{margin-left:0}
     
   
 <meta name="color-scheme" content="light">
-<meta name="revision" content="87f273d760ff701fd712376162a9bde1c50b9154">
+<meta name="revision" content="2ecd9658e99c60d3f287f4ebe6add14b6e6220fa">
 <meta name="description" content="This document specifies an API to enable user agents to mediate
         presentation and issuance of digital credentials such as a driver's
         license, government-issued identification card, and/or other types of digital credential. The API builds on
@@ -252,16 +252,16 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "87f273d760ff701fd712376162a9bde1c50b9154",
-  "publishISODate": "2025-08-03T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 03 August 2025"
+  "gitRevision": "2ecd9658e99c60d3f287f4ebe6add14b6e6220fa",
+  "publishISODate": "2025-08-05T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 05 August 2025"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED"></head>
   <body data-cite="WEBIDL credential-management-1 vc-data-model HTML INFRA URL WEBIDL DOM FETCH" class="h-entry"><div class="head">
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Digital Credentials</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2025-08-03">03 August 2025</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2025-08-05">05 August 2025</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -587,6 +587,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </section><section class="informative" id="examples-of-usage"><div class="header-wrapper"><h2 id="x2-examples-of-usage"><bdi class="secno">2. </bdi>
         Examples of usage
       </h2><a class="self-link" href="#examples-of-usage" aria-label="Permalink for Section 2."></a></div><p><em>This section is non-normative.</em></p>
+      
       
       <p>
         The following examples illustrate how the Digital Credentials API can
@@ -1182,6 +1183,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         User permission
       </h3><a class="self-link" href="#user-permission" aria-label="Permalink for Section 6.6"></a></div><p><em>This section is non-normative.</em></p>
       
+      
       <p data-cite="permissions">
         The <cite>Digital Credential API</cite> is a <a data-link-type="dfn" href="https://www.w3.org/TR/permissions/#dfn-powerful-feature">powerful feature</a> that
         requires <a data-link-type="dfn" href="https://www.w3.org/TR/permissions/#dfn-express-permission">express permission</a> from an end-user. This requirement is
@@ -1192,6 +1194,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </section><section id="permissions-policy" data-cite="permissions-policy"><div class="header-wrapper"><h2 id="x7-permissions-policy-integration"><bdi class="secno">7. </bdi>
         Permissions Policy integration
       </h2><a class="self-link" href="#permissions-policy" aria-label="Permalink for Section 7."></a></div>
+      
       
       <p>
         This specification defines a <a data-link-type="dfn" href="https://www.w3.org/TR/permissions-policy-1/#policy-controlled-feature">policy-controlled feature</a> identified
@@ -1367,6 +1370,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         Security Considerations
       </h2><a class="self-link" href="#security-considerations" aria-label="Permalink for Section 9."></a></div><p><em>This section is non-normative.</em></p>
       
+      
       <div class="issue" id="issue-container-generatedID-7"><div role="heading" class="issue-title marker" id="h-issue-2" aria-level="3"><span>Issue</span><span class="issue-label">: Security Considerations section is a work in progress</span></div><div class="">
         <p>
           This section is a work in progress as this document evolves.
@@ -1391,6 +1395,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           Credential Protocols
         </h3><a class="self-link" href="#credential-protocols" aria-label="Permalink for Section 9.1"></a></div>
         
+        
         <div class="issue" id="issue-container-generatedID-8"><div role="heading" class="issue-title marker" id="h-issue-3" aria-level="4"><span>Issue</span><span class="issue-label">: Work in progress</span></div><p class="">
           Explain that while the API provides security at the browser API
           level, that security for the underlying credential issuance or
@@ -1403,6 +1408,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           Cross-device Protocols
         </h3><a class="self-link" href="#cross-device-protocols" aria-label="Permalink for Section 9.2"></a></div>
         
+        
         <div class="issue" id="issue-container-generatedID-9"><div role="heading" class="issue-title marker" id="h-issue-4" aria-level="4"><span>Issue</span><span class="issue-label">: Work in progress</span></div><p class="">
           Explain that cross-device issuance or presentation uses a separate
           protocol that has its own security characteristics.
@@ -1411,6 +1417,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <section id="quishing"><div class="header-wrapper"><h3 id="x9-3-quishing"><bdi class="secno">9.3 </bdi>
           Quishing
         </h3><a class="self-link" href="#quishing" aria-label="Permalink for Section 9.3"></a></div>
+        
         
         <div class="issue" id="issue-container-generatedID-10"><div role="heading" class="issue-title marker" id="h-issue-5" aria-level="4"><span>Issue</span><span class="issue-label">: Work in progress</span></div><p class="">
           Explain that the API is designed to avoid the problem of quishing
@@ -1423,6 +1430,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           Data Integrity
         </h3><a class="self-link" href="#data-integrity" aria-label="Permalink for Section 9.4"></a></div>
         
+        
         <div class="issue" id="issue-container-generatedID-11"><div role="heading" class="issue-title marker" id="h-issue-6" aria-level="4"><span>Issue</span><span class="issue-label">: Work in progress</span></div><p class="">
           Explain that the API does not provide data integrity on the digital
           credential requests or responses and that responsibility is up to the
@@ -1432,6 +1440,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <section id="authentication"><div class="header-wrapper"><h3 id="x9-5-authentication"><bdi class="secno">9.5 </bdi>
           Authentication
         </h3><a class="self-link" href="#authentication" aria-label="Permalink for Section 9.5"></a></div>
+        
         
         <div class="issue" id="issue-container-generatedID-12"><div role="heading" class="issue-title marker" id="h-issue-7" aria-level="4"><span>Issue</span><span class="issue-label">: Work in progress</span></div><p class="">
           Explain that authentication (such as a PIN code to unlock) to a
@@ -1443,6 +1452,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           Cross-Site Scripting (XSS) and Cross-Site Request Forgery (CSRF)
         </h3><a class="self-link" href="#cross-site-scripting-xss-and-cross-site-request-forgery-csrf" aria-label="Permalink for Section 9.6"></a></div>
         
+        
         <div class="issue" id="issue-container-generatedID-13"><div role="heading" class="issue-title marker" id="h-issue-8" aria-level="4"><span>Issue</span><span class="issue-label">: Work in progress</span></div><p class="">
           Explain what attacks are possible via XSS and CSRF, if any.
         </p></div>
@@ -1450,6 +1460,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <section id="session-security"><div class="header-wrapper"><h3 id="x9-7-session-security"><bdi class="secno">9.7 </bdi>
           Session Security
         </h3><a class="self-link" href="#session-security" aria-label="Permalink for Section 9.7"></a></div>
+        
         
         <div class="issue" id="issue-container-generatedID-14"><div role="heading" class="issue-title marker" id="h-issue-9" aria-level="4"><span>Issue</span><span class="issue-label">: Work in progress</span></div><p class="">
           Explain that once a secure session is established at a website using
@@ -1462,6 +1473,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <section class="informative" id="privacy-considerations"><div class="header-wrapper"><h2 id="x10-privacy-considerations"><bdi class="secno">10. </bdi>
         Privacy Considerations
       </h2><a class="self-link" href="#privacy-considerations" aria-label="Permalink for Section 10."></a></div><p><em>This section is non-normative.</em></p>
+      
       
       <div class="issue" id="issue-container-generatedID-15"><div role="heading" class="issue-title marker" id="h-issue-10" aria-level="3"><span>Issue</span><span class="issue-label">: Privacy Considerations section is a work in progress</span></div><div class="">
         <p>
@@ -1513,6 +1525,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           Design Considerations and Alternatives
         </h3><a class="self-link" href="#design-considerations-and-alternatives" aria-label="Permalink for Section 10.1"></a></div>
         
+        
         <p>
           The Digital Credentials API is designed to mediate requests for
           digital credentials from websites, being agnostic to the credential
@@ -1563,6 +1576,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           Spectrum of Privacy
         </h3><a class="self-link" href="#spectrum-of-privacy" aria-label="Permalink for Section 10.2"></a></div>
         
+        
         <p>
           The Digital Credentials API serves a variety of use cases with
           different grades of data disclosure and individual users with
@@ -1589,6 +1603,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <section id="exchange-protocol-and-credential-format"><div class="header-wrapper"><h3 id="x10-3-exchange-protocol-and-credential-format"><bdi class="secno">10.3 </bdi>
           Exchange Protocol and Credential Format
         </h3><a class="self-link" href="#exchange-protocol-and-credential-format" aria-label="Permalink for Section 10.3"></a></div>
+        
         
         <p>
           Because the Digital Credentials API sits at the center of an exchange
@@ -1764,6 +1779,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <section id="unnecessary-requests-for-credentials"><div class="header-wrapper"><h3 id="x10-4-unnecessary-requests-for-credentials"><bdi class="secno">10.4 </bdi>
           Unnecessary Requests for Credentials
         </h3><a class="self-link" href="#unnecessary-requests-for-credentials" aria-label="Permalink for Section 10.4"></a></div>
+        
         
         <p>
           Unnecessary credential requests are a key privacy risk to the entire
@@ -2056,6 +2072,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           Fingerprinting and Data Leakage
         </h3><a class="self-link" href="#fingerprinting-and-data-leakage" aria-label="Permalink for Section 10.5"></a></div>
         
+        
         <section id="browser-fingerprinting"><div class="header-wrapper"><h4 id="x10-5-1-browser-fingerprinting"><bdi class="secno">10.5.1 </bdi>
           Browser fingerprinting
         </h4><a class="self-link" href="#browser-fingerprinting" aria-label="Permalink for Section 10.5.1"></a></div>
@@ -2135,6 +2152,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <section id="user-permission-and-transparency"><div class="header-wrapper"><h3 id="x10-6-user-permission-and-transparency"><bdi class="secno">10.6 </bdi>
           User Permission and Transparency
         </h3><a class="self-link" href="#user-permission-and-transparency" aria-label="Permalink for Section 10.6"></a></div>
+        
         
         <div class="issue" id="issue-container-generatedID-17"><div role="heading" class="issue-title marker" id="h-issue-20" aria-level="4"><span>Issue</span><span class="issue-label">: Work in progress</span></div><p class=""></p></div>
         <p>
@@ -2259,6 +2277,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <section class="informative" id="accessibility-considerations"><div class="header-wrapper"><h2 id="x11-accessibility-considerations"><bdi class="secno">11. </bdi>
         Accessibility Considerations
       </h2><a class="self-link" href="#accessibility-considerations" aria-label="Permalink for Section 11."></a></div><p><em>This section is non-normative.</em></p>
+      
       
       <div class="issue" id="issue-container-generatedID-18"><div role="heading" class="issue-title marker" id="h-issue-24" aria-level="3"><span>Issue</span><span class="issue-label">: Work in Progress</span></div><p class="">
         This section is a work in progress as this document evolves.
