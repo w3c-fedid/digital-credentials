@@ -45,8 +45,6 @@
         // Add additional editors here.
         // https://github.com/w3c/respec/wiki/editors
       ],
-      latestVersion: null,
-      canonicalURI: "TR",
       shortName: "digital-credentials",
       specStatus: "ED",
       edDraftURI: "https://w3c-fedid.github.io/digital-credentials/",
@@ -111,11 +109,7 @@
         digital credential from a user agent or underlying platform.
       </p>
     </section>
-    <section id="sotd">
-      <p>
-        This is an unofficial proposal.
-      </p>
-    </section>
+    <section id="sotd"></section>
     <h2>
       Introduction
     </h2>
@@ -190,6 +184,151 @@
       Cases</a>
       </li>
     </ul>
+    <section class="informative">
+      <h2>
+        Examples of usage
+      </h2>
+      <p>
+        The following examples illustrate how the Digital Credentials API can
+        be used to request and issue digital credentials.
+      </p>
+      <h3>
+        Requesting a digital credential
+      </h3>
+      <p>
+        The following example shows how to request a digital credential using
+        the Digital Credentials API. The entry point for the API is the
+        `navigator.credentials.`{{CredentialsContainer/get()}} method, which is
+        used to request a [=digital credential=] from the user agent. If the
+        user agent supports [=digital credential/presentation
+        requests|presentation=], it allows the user to select a digital
+        credential through a [=credential chooser=]:
+      </p>
+      <pre class="example html" title="Requesting a digital credential">
+        &lt;button&gt;Verify Identity&lt;/button&gt;
+        &lt;script&gt;
+          const button = document.querySelector("button");
+          button.addEventListener("click", async () =&gt; {
+            try {
+              const credential = await navigator.credentials.get({
+                digital: {
+                  requests: [{
+                    protocol: "example-protocol",
+                    data: { /* request data */ }
+                  }]
+                }
+              });
+
+              // Post it back to the server for decryption and verification
+              const response = await fetch("/verify-credential", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify(credential, null, 2)
+              });
+
+              // Check response
+              if (!response.ok) {
+                throw new Error("Failed to verify credential");
+              }
+
+              // Render the verification result
+              displayVerificationResult(await response.json());
+
+            } catch (error) {
+              console.error("Error requesting digital credential:", error);
+            }
+          });
+        &lt;/script&gt;
+      </pre>
+      <p>
+        Simliarly, when a site needs to [=digital credential/issuance|issue=] a
+        digital credential, the Digital Credentials API mediates the issuance
+        of a digital credential between the site, the user agent, and the
+        [=holder=].
+      </p>
+      <h3>
+        Issuing a digital credential
+      </h3>
+      <p>
+        The following example shows how to request the issuance of a digital
+        credential using the Digital Credentials API. To issue a digital
+        credential, a site calls the
+        `navigator.credentials.`{{CredentialsContainer/create()}} method,
+        which, if the user agent supports issuance, would initiate the issuance
+        flow:
+      </p>
+      <pre class="example html" title=
+      "Requesting issuance of a digital credential">
+        &lt;button&gt;Request Digital Credential Issuance&lt;/button&gt;
+        &lt;script&gt;
+          const button = document.querySelector("button");
+          button.addEventListener("click", async () =&gt; {
+            try {
+              const credential = await navigator.credentials.create({
+                digital: {
+                  requests: [{
+                    protocol: "example-issuance-protocol",
+                    data: { /* issuance request data */ }
+                  }]
+                }
+              });
+            } catch (error) {
+              console.error("Error issuing digital credential:", error);
+            }
+          });
+        &lt;/script&gt;
+      </pre>
+      <h3>
+        Requesting a digital credential across origins
+      </h3>
+      <p>
+        The specification allows usage of the API from a remote/third-party
+        origin via the <a>"digital-credentials-get"</a> Permissions Policy.
+        This is useful for scenarios where a website wants to request digital
+        credentials from a wallet provider that is hosted on a different
+        origin. The Permissions Policy can be set on an iframe that embeds the
+        website that wants to use the API. Here is an example of how the
+        Permissions Policy can be set on an iframe:
+      </p>
+      <pre class="example html" title=
+      "Requesting a digital credential across origins">
+        &lt;iframe src="https://wallet-provider.example.com"
+                allow="digital-credentials-get"&gt;
+        &lt;/iframe&gt;
+      </pre>
+    </section>
+    <h2>
+      Scope
+    </h2>
+    <p>
+      The following items are within the scope of this specification:
+    </p>
+    <ul>
+      <li>Requesting a [=digital credential=], including mechanisms for secure
+      presentation.
+      </li>
+      <li>Requesting issuance of a [=digital credential=].
+      </li>
+      <li>Ensuring that when an API call is made, the website does not learn
+      anything about the a holder's [=digital credentials=] or their software
+      unless the [=user agent=] has previously received user consent.
+      </li>
+      <li>Ensuring that any installed application software will not learn
+      anything about a given [=request=] unless the [=holder=] explicitly
+      consents to use that software.
+      </li>
+    </ul>
+    <p>
+      The following items are out of scope:
+    </p>
+    <ul>
+      <li>UI/UX considerations, with the exception of privacy considerations,
+      which are addressed to ensure the protection of user data during the
+      request process.
+      </li>
+    </ul>
     <h2>
       Model
     </h2>
@@ -221,7 +360,7 @@
         credential/exchange protocol=].
       </dd>
       <dt>
-        <dfn data-dfn-for="digital credential">request data</dfn>
+        <dfn data-dfn-for="digital credential">Request data</dfn>
       </dt>
       <dd>
         A format that [=verifier=] software or a [=user agent=] uses, via an
@@ -247,7 +386,7 @@
         [=digital credential/issuance protocol=].
       </dd>
       <dt>
-        <dfn data-dfn-for="digital credential">issuance request data</dfn>
+        <dfn data-dfn-for="digital credential">Issuance request data</dfn>
       </dt>
       <dd>
         A data structure that an [=issuer=] or a [=user agent=], via an
@@ -293,36 +432,6 @@
       </dd>
     </dl>
     <h2>
-      Scope
-    </h2>
-    <p>
-      The following items are within the scope of this specification:
-    </p>
-    <ul>
-      <li>Requesting a [=digital credential=], including mechanisms for secure
-      presentation.
-      </li>
-      <li>Requesting issuance of a [=digital credential=].
-      </li>
-      <li>Ensuring that when an API call is made, the website does not learn
-      anything about the a holder's [=digital credentials=] or their software
-      unless the [=user agent=] has previously received user consent.
-      </li>
-      <li>Ensuring that any installed application software will not learn
-      anything about a given [=request=] unless the [=holder=] explicitly
-      consents to use that software.
-      </li>
-    </ul>
-    <p>
-      The following items are out of scope:
-    </p>
-    <ul>
-      <li>UI/UX considerations, with the exception of privacy considerations,
-      which are addressed to ensure the protection of user data during the
-      request process.
-      </li>
-    </ul>
-    <h2>
       The Digital Credentials API
     </h2>
     <p>
@@ -337,7 +446,7 @@
       [=credential chooser=] to the user, allowing them to select a [=digital
       credential=] that can fulfill the request. This is done by the website
       calling the `navigator.credentials.`{{CredentialsContainer/get()}}
-      method, which runs the [=request a credential=] algorithm of
+      method, which runs the [=request a `Credential`=] algorithm of
       [[[credential-management]]]. That algorithm then calls back into this
       specification's {{DigitalCredential}} interface's
       {{DigitalCredential/[[DiscoverFromExternalSource]](origin, options,
@@ -359,91 +468,6 @@
       Please see [[[#credential-management-integration]]] for complete details
       of how to integrate with the [[[credential-management]]] specification.
     </p>
-    <aside class="example" title="Requesting a digital credential">
-      <p>
-        The following example shows how to request a digital credential using
-        the Digital Credentials API. The entry point for the API is the
-        `navigator.credentials.`{{CredentialsContainer/get()}} method, which is
-        used to request a [=digital credential=] from the user agent. If the
-        user agent supports [=digital credential/presentation
-        requests|presentation=], it allows the user to select a digital
-        credential through a [=credential chooser=]:
-      </p>
-      <pre class="html">
-        &lt;button&gt;Verify Identity&lt;/button&gt;
-        &lt;script&gt;
-          const button = document.querySelector("button");
-          button.addEventListener("click", async () =&gt; {
-            try {
-              const credential = await navigator.credentials.get({
-                digital: {
-                  requests: [{
-                    protocol: "example-protocol",
-                    data: { /* request data */ }
-                  }]
-                }
-              });
-
-              // Post it back to the server for decryption and verification
-              const response = await fetch("/verify-credential", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json"
-                },
-                body: JSON.stringify(credential, null, 2)
-              });
-
-              // Check response
-              if (!response.ok) {
-                throw new Error("Failed to verify credential");
-              }
-
-              // Render the verification result
-              displayVerificationResult(await response.json());
-
-            } catch (error) {
-              console.error("Error requesting digital credential:", error);
-            }
-          });
-        &lt;/script&gt;
-      </pre>
-    </aside>
-    <p>
-      Simliarly, when a site needs to [=digital credential/issuance|issue=] a
-      digital credential, the Digital Credentials API mediates the issuance of
-      a digital credential between the site, the user agent, and the
-      [=holder=].
-    </p>
-    <aside class="example" title="Issuing a digital credential">
-      <p>
-        The following example shows how to request the issuance of a digital
-        credential using the Digital Credentials API. To issue a digital
-        credential, a site calls the
-        `navigator.credentials.`{{CredentialsContainer/create()}} method,
-        which, if the user agent supports issuance, would initiate the issuance
-        flow:
-      </p>
-      <pre class="html">
-        &lt;button&gt;Request Digital Credential Issuance&lt;/button&gt;
-        &lt;script&gt;
-          const button = document.querySelector("button");
-          button.addEventListener("click", async () =&gt; {
-            try {
-              const credential = await navigator.credentials.create({
-                digital: {
-                  requests: [{
-                    protocol: "example-issuance-protocol",
-                    data: { /* issuance request data */ }
-                  }]
-                }
-              });
-            } catch (error) {
-              console.error("Error issuing digital credential:", error);
-            }
-          });
-        &lt;/script&gt;
-      </pre>
-    </aside>
     <h3>
       Extensions to `CredentialRequestOptions` dictionary
     </h3>
@@ -532,7 +556,7 @@
     </h3>
     <pre class="idl">
     dictionary DigitalCredentialCreationOptions {
-      sequence&lt;DigitalCredentialCreateRequest&gt; requests;
+      required sequence&lt;DigitalCredentialCreateRequest&gt; requests;
     };
     </pre>
     <h4>
