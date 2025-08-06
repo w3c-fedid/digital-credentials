@@ -45,8 +45,6 @@
         // Add additional editors here.
         // https://github.com/w3c/respec/wiki/editors
       ],
-      latestVersion: null,
-      canonicalURI: "TR",
       shortName: "digital-credentials",
       specStatus: "ED",
       edDraftURI: "https://w3c-fedid.github.io/digital-credentials/",
@@ -104,11 +102,9 @@
         digital credential from a user agent or underlying platform.
       </p>
     </section>
-    <section id="sotd">
-      <p>
-        This is an unofficial proposal.
-      </p>
-    </section>
+    <section id="sotd"></section><!--
+    // MARK: Introduction
+    -->
     <h2>
       Introduction
     </h2>
@@ -183,6 +179,156 @@
       Cases</a>
       </li>
     </ul>
+    <section class="informative">
+      <!--
+      // MARK: Examples of usage
+      -->
+      <h2>
+        Examples of usage
+      </h2>
+      <p>
+        The following examples illustrate how the Digital Credentials API can
+        be used to request and issue digital credentials.
+      </p>
+      <h3>
+        Requesting a digital credential
+      </h3>
+      <p>
+        The following example shows how to request a digital credential using
+        the Digital Credentials API. The entry point for the API is the
+        `navigator.credentials.`{{CredentialsContainer/get()}} method, which is
+        used to request a [=digital credential=] from the user agent. If the
+        user agent supports [=digital credential/presentation
+        requests|presentation=], it allows the user to select a digital
+        credential through a [=credential chooser=]:
+      </p>
+      <pre class="example html" title="Requesting a digital credential">
+        &lt;button&gt;Verify Identity&lt;/button&gt;
+        &lt;script&gt;
+          const button = document.querySelector("button");
+          button.addEventListener("click", async () =&gt; {
+            try {
+              const credential = await navigator.credentials.get({
+                digital: {
+                  requests: [{
+                    protocol: "example-protocol",
+                    data: { /* request data */ }
+                  }]
+                }
+              });
+
+              // Post it back to the server for decryption and verification
+              const response = await fetch("/verify-credential", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify(credential, null, 2)
+              });
+
+              // Check response
+              if (!response.ok) {
+                throw new Error("Failed to verify credential");
+              }
+
+              // Render the verification result
+              displayVerificationResult(await response.json());
+
+            } catch (error) {
+              console.error("Error requesting digital credential:", error);
+            }
+          });
+        &lt;/script&gt;
+      </pre>
+      <p>
+        Simliarly, when a site needs to [=digital credential/issuance|issue=] a
+        digital credential, the Digital Credentials API mediates the issuance
+        of a digital credential between the site, the user agent, and the
+        [=holder=].
+      </p>
+      <h3>
+        Issuing a digital credential
+      </h3>
+      <p>
+        The following example shows how to request the issuance of a digital
+        credential using the Digital Credentials API. To issue a digital
+        credential, a site calls the
+        `navigator.credentials.`{{CredentialsContainer/create()}} method,
+        which, if the user agent supports issuance, would initiate the issuance
+        flow:
+      </p>
+      <pre class="example html" title=
+      "Requesting issuance of a digital credential">
+        &lt;button&gt;Request Digital Credential Issuance&lt;/button&gt;
+        &lt;script&gt;
+          const button = document.querySelector("button");
+          button.addEventListener("click", async () =&gt; {
+            try {
+              const credential = await navigator.credentials.create({
+                digital: {
+                  requests: [{
+                    protocol: "example-issuance-protocol",
+                    data: { /* issuance request data */ }
+                  }]
+                }
+              });
+            } catch (error) {
+              console.error("Error issuing digital credential:", error);
+            }
+          });
+        &lt;/script&gt;
+      </pre>
+      <h3>
+        Requesting a digital credential across origins
+      </h3>
+      <p>
+        The specification allows usage of the API from a remote/third-party
+        origin via the <a>"digital-credentials-get"</a> Permissions Policy.
+        This is useful for scenarios where a website wants to request digital
+        credentials from a wallet provider that is hosted on a different
+        origin. The Permissions Policy can be set on an iframe that embeds the
+        website that wants to use the API. Here is an example of how the
+        Permissions Policy can be set on an iframe:
+      </p>
+      <pre class="example html" title=
+      "Requesting a digital credential across origins">
+        &lt;iframe src="https://wallet-provider.example.com"
+                allow="digital-credentials-get"&gt;
+        &lt;/iframe&gt;
+      </pre>
+    </section>
+    <h2>
+      Scope
+    </h2>
+    <p>
+      The following items are within the scope of this specification:
+    </p>
+    <ul>
+      <li>Requesting a [=digital credential=], including mechanisms for secure
+      presentation.
+      </li>
+      <li>Requesting issuance of a [=digital credential=].
+      </li>
+      <li>Ensuring that when an API call is made, the website does not learn
+      anything about the a holder's [=digital credentials=] or their software
+      unless the [=user agent=] has previously received user consent.
+      </li>
+      <li>Ensuring that any installed application software will not learn
+      anything about a given [=request=] unless the [=holder=] explicitly
+      consents to use that software.
+      </li>
+    </ul>
+    <p>
+      The following items are out of scope:
+    </p>
+    <ul>
+      <li>UI/UX considerations, with the exception of privacy considerations,
+      which are addressed to ensure the protection of user data during the
+      request process.
+      </li>
+    </ul><!--
+    // MARK: Model
+    -->
     <h2>
       Model
     </h2>
@@ -214,7 +360,7 @@
         credential/exchange protocol=].
       </dd>
       <dt>
-        <dfn data-dfn-for="digital credential">request data</dfn>
+        <dfn data-dfn-for="digital credential">Request data</dfn>
       </dt>
       <dd>
         A format that [=verifier=] software or a [=user agent=] uses, via an
@@ -240,7 +386,7 @@
         [=digital credential/issuance protocol=].
       </dd>
       <dt>
-        <dfn data-dfn-for="digital credential">issuance request data</dfn>
+        <dfn data-dfn-for="digital credential">Issuance request data</dfn>
       </dt>
       <dd>
         A data structure that an [=issuer=] or a [=user agent=], via an
@@ -284,37 +430,9 @@
         issuance protocol is identified by a [=digital credential/protocol
         identifier=]. See also section [[[#protocol-registry]]].
       </dd>
-    </dl>
-    <h2>
-      Scope
-    </h2>
-    <p>
-      The following items are within the scope of this specification:
-    </p>
-    <ul>
-      <li>Requesting a [=digital credential=], including mechanisms for secure
-      presentation.
-      </li>
-      <li>Requesting issuance of a [=digital credential=].
-      </li>
-      <li>Ensuring that when an API call is made, the website does not learn
-      anything about the a holder's [=digital credentials=] or their software
-      unless the [=user agent=] has previously received user consent.
-      </li>
-      <li>Ensuring that any installed application software will not learn
-      anything about a given [=request=] unless the [=holder=] explicitly
-      consents to use that software.
-      </li>
-    </ul>
-    <p>
-      The following items are out of scope:
-    </p>
-    <ul>
-      <li>UI/UX considerations, with the exception of privacy considerations,
-      which are addressed to ensure the protection of user data during the
-      request process.
-      </li>
-    </ul>
+    </dl><!--
+    // MARK: The Digital Credentials API
+    -->
     <h2>
       The Digital Credentials API
     </h2>
@@ -330,7 +448,7 @@
       [=credential chooser=] to the user, allowing them to select a [=digital
       credential=] that can fulfill the request. This is done by the website
       calling the `navigator.credentials.`{{CredentialsContainer/get()}}
-      method, which runs the [=request a credential=] algorithm of
+      method, which runs the [=request a `Credential`=] algorithm of
       [[[credential-management]]]. That algorithm then calls back into this
       specification's {{DigitalCredential}} interface's
       {{DigitalCredential/[[DiscoverFromExternalSource]](origin, options,
@@ -351,92 +469,9 @@
     <p>
       Please see [[[#credential-management-integration]]] for complete details
       of how to integrate with the [[[credential-management]]] specification.
-    </p>
-    <aside class="example" title="Requesting a digital credential">
-      <p>
-        The following example shows how to request a digital credential using
-        the Digital Credentials API. The entry point for the API is the
-        `navigator.credentials.`{{CredentialsContainer/get()}} method, which is
-        used to request a [=digital credential=] from the user agent. If the
-        user agent supports [=digital credential/presentation
-        requests|presentation=], it allows the user to select a digital
-        credential through a [=credential chooser=]:
-      </p>
-      <pre class="html">
-        &lt;button&gt;Verify Identity&lt;/button&gt;
-        &lt;script&gt;
-          const button = document.querySelector("button");
-          button.addEventListener("click", async () =&gt; {
-            try {
-              const credential = await navigator.credentials.get({
-                digital: {
-                  requests: [{
-                    protocol: "example-protocol",
-                    data: { /* request data */ }
-                  }]
-                }
-              });
-
-              // Post it back to the server for decryption and verification
-              const response = await fetch("/verify-credential", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json"
-                },
-                body: JSON.stringify(credential, null, 2)
-              });
-
-              // Check response
-              if (!response.ok) {
-                throw new Error("Failed to verify credential");
-              }
-
-              // Render the verification result
-              displayVerificationResult(await response.json());
-
-            } catch (error) {
-              console.error("Error requesting digital credential:", error);
-            }
-          });
-        &lt;/script&gt;
-      </pre>
-    </aside>
-    <p>
-      Simliarly, when a site needs to [=digital credential/issuance|issue=] a
-      digital credential, the Digital Credentials API mediates the issuance of
-      a digital credential between the site, the user agent, and the
-      [=holder=].
-    </p>
-    <aside class="example" title="Issuing a digital credential">
-      <p>
-        The following example shows how to request the issuance of a digital
-        credential using the Digital Credentials API. To issue a digital
-        credential, a site calls the
-        `navigator.credentials.`{{CredentialsContainer/create()}} method,
-        which, if the user agent supports issuance, would initiate the issuance
-        flow:
-      </p>
-      <pre class="html">
-        &lt;button&gt;Request Digital Credential Issuance&lt;/button&gt;
-        &lt;script&gt;
-          const button = document.querySelector("button");
-          button.addEventListener("click", async () =&gt; {
-            try {
-              const credential = await navigator.credentials.create({
-                digital: {
-                  requests: [{
-                    protocol: "example-issuance-protocol",
-                    data: { /* issuance request data */ }
-                  }]
-                }
-              });
-            } catch (error) {
-              console.error("Error issuing digital credential:", error);
-            }
-          });
-        &lt;/script&gt;
-      </pre>
-    </aside>
+    </p><!--
+    // MARK: CredentialRequestOptions
+    -->
     <h3>
       Extensions to `CredentialRequestOptions` dictionary
     </h3>
@@ -451,7 +486,9 @@
     <p>
       The <dfn data-dfn-for="CredentialRequestOptions">digital</dfn> member
       allows for options to configure the request for a [=digital credential=].
-    </p>
+    </p><!--
+    // MARK: DigitalCredentialRequestOptions
+    -->
     <h3>
       The `DigitalCredentialRequestOptions` dictionary
     </h3>
@@ -468,7 +505,9 @@
       specify an [=digital credential/exchange protocol=] and [=digital
       credential/request data=], which the user agent MAY match against a
       holder's software, such as a digital wallet.
-    </p>
+    </p><!--
+    // MARK: DigitalCredentialGetRequest
+    -->
     <h3>
       The `DigitalCredentialGetRequest` dictionary
     </h3>
@@ -484,7 +523,7 @@
         required DOMString protocol;
         required object data;
       };
-      </pre>
+    </pre>
     <h4>
       The `protocol` member
     </h4>
@@ -504,7 +543,9 @@
       The <dfn data-dfn-for="DigitalCredentialGetRequest">data</dfn> member is
       the [=digital credential/request data=] to be handled by the holder's
       credential provider, such as a digital identity wallet.
-    </p>
+    </p><!--
+    // MARK: CredentialCreationOptions
+    -->
     <h3>
       Extensions to `CredentialCreationOptions` dictionary
     </h3>
@@ -519,13 +560,15 @@
     <p>
       The <dfn data-dfn-for="CredentialCreationOptions">digital</dfn> member
       allows for options to configure the issuance of a [=digital credential=].
-    </p>
+    </p><!--
+    // MARK: DigitalCredentialCreationOptions
+    -->
     <h3>
       The `DigitalCredentialCreationOptions` dictionary
     </h3>
     <pre class="idl">
     dictionary DigitalCredentialCreationOptions {
-      sequence&lt;DigitalCredentialCreateRequest&gt; requests;
+      required sequence&lt;DigitalCredentialCreateRequest&gt; requests;
     };
     </pre>
     <h4>
@@ -536,7 +579,9 @@
       specify an [=digital credential/issuance protocol=] and [=digital
       credential/request data=], which the user agent MAY forward to a
       [=holder=].
-    </p>
+    </p><!--
+    // MARK: DigitalCredentialCreateRequest
+    -->
     <h3>
       The `DigitalCredentialCreateRequest` dictionary
     </h3>
@@ -572,7 +617,9 @@
       The <dfn data-dfn-for="DigitalCredentialCreateRequest">data</dfn> member
       is the [=digital credential/request data=] to be handled by the holder's
       credential provider, such as a digital identity wallet.
-    </p>
+    </p><!--
+    // MARK: DigitalCredential interface
+    -->
     <h3>
       The `DigitalCredential` interface
     </h3>
@@ -661,7 +708,9 @@
     <h2 id="credential-management-integration">
       Integration with Credential Management API
     </h2>
-    <aside class="issue" data-number="65"></aside>
+    <aside class="issue" data-number="65"></aside><!--
+    // MARK: [[\DiscoverFromExternalSource]]
+    -->
     <h3>
       [[\DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)
       internal method
@@ -706,7 +755,9 @@
       </li>
       <li>Return a {{DigitalCredential}}.
       </li>
-    </ol>
+    </ol><!--
+    // MARK: [[Store]]()
+    -->
     <h3>
       [[\Store]](credential, sameOriginWithAncestors) internal method
     </h3>
@@ -716,7 +767,9 @@
       MUST call the default implementation of {{Credential}}'s
       {{Credential/[[Store]](credential, sameOriginWithAncestors)}} internal
       method with the same arguments.
-    </p>
+    </p><!--
+    // MARK: [[Create]]()
+    -->
     <h3>
       [[\Create]](origin, options, sameOriginWithAncestors) internal method
     </h3>
@@ -767,7 +820,9 @@
       an [=digital credential/issuance response=] defined by that [=digital
       credential/issuance protocol=].
       </li>
-    </ol>
+    </ol><!--
+    // MARK: [[type]] internal slot
+    -->
     <h3>
       [[\type]] internal slot
     </h3>
@@ -775,7 +830,9 @@
       The {{DigitalCredential}} [=interface object=] has an internal slot named
       <dfn class="export" data-dfn-for="DigitalCredential">[[\type]]</dfn>
       whose value is "digital".
-    </p>
+    </p><!--
+    // MARK: [[discovery]] internal slot
+    -->
     <h3>
       [[\discovery]] internal slot
     </h3>
@@ -785,6 +842,9 @@
       whose value is "remote".
     </p>
     <section class="informative">
+      <!--
+      // MARK: User permission
+      -->
       <h3>
         User permission
       </h3>
@@ -796,6 +856,9 @@
       </p>
     </section>
     <section id="permissions-policy" data-cite="permissions-policy">
+      <!--
+      // MARK: Permissions Policy
+      -->
       <h2>
         Permissions Policy integration
       </h2>
@@ -822,7 +885,9 @@
     <p class="note" title="Official Registry" data-cite="w3c-process">
       It is expected that this registry will be become a [=W3C registry=] in
       the future.
-    </p>
+    </p><!--
+    // MARK: General inclusion criteria
+    -->
     <h3>
       General inclusion criteria
     </h3>
@@ -899,7 +964,9 @@
       <li>MUST encrypt any response containing personally identifiable
       information (PII).
       </li>
-    </ol>
+    </ol><!--
+    // MARK: Change process
+    -->
     <h3>
       Change process
     </h3>
@@ -982,6 +1049,9 @@
       </tbody>
     </table>
     <section class="informative">
+      <!--
+      // MARK: Security Considerations
+      -->
       <h2>
         Security Considerations
       </h2>
@@ -1009,6 +1079,7 @@
         </ul>
       </div>
       <section>
+        <!---->
         <h3>
           Credential Protocols
         </h3>
@@ -1021,6 +1092,9 @@
         </p>
       </section>
       <section>
+        <!--
+        // MARK: Cross-device Protocols
+        -->
         <h3>
           Cross-device Protocols
         </h3>
@@ -1030,6 +1104,9 @@
         </p>
       </section>
       <section>
+        <!--
+        // MARK: Quishing
+        -->
         <h3>
           Quishing
         </h3>
@@ -1041,6 +1118,9 @@
         </p>
       </section>
       <section>
+        <!--
+        // MARK: Data Integrity
+        -->
         <h3>
           Data Integrity
         </h3>
@@ -1051,6 +1131,9 @@
         </p>
       </section>
       <section>
+        <!--
+        // MARK: Authentication
+        -->
         <h3>
           Authentication
         </h3>
@@ -1061,6 +1144,9 @@
         </p>
       </section>
       <section>
+        <!--
+        // MARK: Cross-Site Scripting (XSS) and Cross-Site
+        -->
         <h3>
           Cross-Site Scripting (XSS) and Cross-Site Request Forgery (CSRF)
         </h3>
@@ -1069,6 +1155,9 @@
         </p>
       </section>
       <section>
+        <!--
+        // MARK: Session Security
+        -->
         <h3>
           Session Security
         </h3>
@@ -1081,6 +1170,9 @@
       </section>
     </section>
     <section class="informative">
+      <!--
+      // MARK: Privacy Considerations
+      -->
       <h2>
         Privacy Considerations
       </h2>
@@ -1133,6 +1225,9 @@
         evolution of the API.
       </p>
       <section>
+        <!--
+        // MARK: Design Considerations and Alternatives
+        -->
         <h3>
           Design Considerations and Alternatives
         </h3>
@@ -1187,6 +1282,9 @@
         </aside>
       </section>
       <section data-cite="vc-data-model#spectrum-of-privacy">
+        <!--
+        // MARK: Spectrum of Privacy
+        -->
         <h3>
           Spectrum of Privacy
         </h3>
@@ -1214,6 +1312,9 @@
         </p>
       </section>
       <section>
+        <!--
+        // MARK: Exchange Protocol and Credential Format
+        -->
         <h3>
           Exchange Protocol and Credential Format
         </h3>
@@ -1386,6 +1487,9 @@
         <p class="issue" data-number="109"></p>
       </section>
       <section>
+        <!--
+        // MARK: Unnecessary Requests for Credentials
+        -->
         <h3>
           Unnecessary Requests for Credentials
         </h3>
@@ -1685,6 +1789,9 @@
         </p>
       </section>
       <section>
+        <!--
+        // MARK: Fingerprinting and Data Leakage
+        -->
         <h3>
           Fingerprinting and Data Leakage
         </h3>
@@ -1765,6 +1872,9 @@
         </p>
       </section>
       <section>
+        <!--
+        // MARK: User Permission and Transparency
+        -->
         <h3>
           User Permission and Transparency
         </h3>
@@ -1890,6 +2000,9 @@
       </section>
     </section>
     <section class="informative">
+      <!--
+      // MARK: Accessibility Considerations
+      -->
       <h2>
         Accessibility Considerations
       </h2>

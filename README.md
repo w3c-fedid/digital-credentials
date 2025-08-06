@@ -1,33 +1,31 @@
 # Digital Credentials
 
-📄 [Digital credentials explainer](explainer.md) and [draft spec](https://w3c-fedid.github.io/digital-credentials/).
-
-This draft (migrated to the Federated Identity on the Web WG in April 2025) specifies an API for user agents that would mediate access to, and representation of, verifiably-issued digital credentials.
-
-These identities can range from government-issued documents, such as driver's licenses and passports, to start with, to other credential types, potentially in the future.
-
-[Digital Credentials](https://w3c-fedid.github.io/digital-credentials/) builds upon [Credential Management](https://www.w3.org/TR/credential-management-1/) to enable the secure and private exchange of digital identity information. It facilitates authenticated interactions by representing digital credentials through the `DigitalCredential` interface, which embodies verifiable claims about an individual's identity.
+📄 The [Digital Credentials API](https://www.w3.org/TR/digital-credentials/) builds upon the [Credential Management API](https://www.w3.org/TR/credential-management-1/) to enable secure and privacy-preserving issuance and exchange of digital credentials, such as identity documents. It facilitates authenticated interactions by representing digital credentials as instances of [`DigitalCredential`](https://www.w3.org/TR/digital-credentials/#dom-digitalcredential) — cryptographically verifiable claims about an individual's identity. These credentials can include government-issued documents like driver's licenses, with support for additional types envisioned in the future.
 
 ## Scope
 
-This project covers the requesting mechanisms for digital credentials, including secure presentation aspects. It does not yet encompass the issuance process for establishing a digital identity nor UI/UX considerations beyond privacy aspects related to data protection during the request process.
+See the [Scope section of the specification](https://www.w3.org/TR/digital-credentials/#scope) for normative details.
+
+This specification defines how digital credentials are securely represented, requested, and issued by user agents. It standardizes an interface for interoperable credential exchange on the web.
 
 ## Trying out the API
 
-[Try out the API in Chrome](https://digitalcredentials.dev/docs/requirements/)
+- [Try the API in Chrome](https://digitalcredentials.dev/docs/requirements/)
+- Supported in Safari 26
 
 ## Contributing
 
-This is a draft (migrated to the Federated Identity on the Web WG in April 2025) under development. Contributions, feedback, and discussions are highly encouraged to refine and enhance the API specification.
-Join the WG to help us in shape the future of digital identity management on the web.
+See [CONTRIBUTING.md](https://github.com/w3c-fedid/digital-credentials/blob/main/CONTRIBUTING.md) for details.
+
+[Join the Working Group](https://www.w3.org/groups/wg/fedid/instructions/) to help shape the future of digital identity on the web.
 
 ### Weekly Meetings
 
-- Slack ["fedid-wg"](https://app.slack.com/client/T010EGK9PQE/C06RR5RQUDT) in W3C Community instance.
+- Slack: [`#fedid-wg`](https://app.slack.com/client/T010EGK9PQE/C06RR5RQUDT) (W3C Community instance)
 - [Meeting notes](https://github.com/w3c-fedid/meetings)
 - [Calendar](https://www.w3.org/groups/wg/fedid/calendar/)
-- [Agenda doc](https://docs.google.com/document/d/1Sq9tjh4Hv887Mzjoor-ZauXJ1glq6MCdjTsyUYNHjWA/)
+- [Agenda document](https://docs.google.com/document/d/1Sq9tjh4Hv887Mzjoor-ZauXJ1glq6MCdjTsyUYNHjWA/)
 
-## Initial proposals
+## Historical
 
-The initial proposals have been moved to the proposals folder. They are still available as historical references.
+Initial design proposals can be found in the [proposals](https://github.com/w3c-fedid/digital-credentials/tree/main/proposals) folder. These are retained for historical reference.
