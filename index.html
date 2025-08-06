@@ -102,7 +102,9 @@
         digital credential from a user agent or underlying platform.
       </p>
     </section>
-    <section id="sotd"></section>
+    <section id="sotd"></section><!--
+    // MARK: Introduction
+    -->
     <h2>
       Introduction
     </h2>
@@ -178,6 +180,9 @@
       </li>
     </ul>
     <section class="informative">
+      <!--
+      // MARK: Examples of usage
+      -->
       <h2>
         Examples of usage
       </h2>
@@ -321,7 +326,9 @@
       which are addressed to ensure the protection of user data during the
       request process.
       </li>
-    </ul>
+    </ul><!--
+    // MARK: Model
+    -->
     <h2>
       Model
     </h2>
@@ -423,7 +430,9 @@
         issuance protocol is identified by a [=digital credential/protocol
         identifier=]. See also section [[[#protocol-registry]]].
       </dd>
-    </dl>
+    </dl><!--
+    // MARK: The Digital Credentials API
+    -->
     <h2>
       The Digital Credentials API
     </h2>
@@ -460,7 +469,9 @@
     <p>
       Please see [[[#credential-management-integration]]] for complete details
       of how to integrate with the [[[credential-management]]] specification.
-    </p>
+    </p><!--
+    // MARK: CredentialRequestOptions
+    -->
     <h3>
       Extensions to `CredentialRequestOptions` dictionary
     </h3>
@@ -475,7 +486,9 @@
     <p>
       The <dfn data-dfn-for="CredentialRequestOptions">digital</dfn> member
       allows for options to configure the request for a [=digital credential=].
-    </p>
+    </p><!--
+    // MARK: DigitalCredentialRequestOptions
+    -->
     <h3>
       The `DigitalCredentialRequestOptions` dictionary
     </h3>
@@ -492,7 +505,9 @@
       specify an [=digital credential/exchange protocol=] and [=digital
       credential/request data=], which the user agent MAY match against a
       holder's software, such as a digital wallet.
-    </p>
+    </p><!--
+    // MARK: DigitalCredentialGetRequest
+    -->
     <h3>
       The `DigitalCredentialGetRequest` dictionary
     </h3>
@@ -508,7 +523,7 @@
         required DOMString protocol;
         required object data;
       };
-      </pre>
+    </pre>
     <h4>
       The `protocol` member
     </h4>
@@ -528,7 +543,9 @@
       The <dfn data-dfn-for="DigitalCredentialGetRequest">data</dfn> member is
       the [=digital credential/request data=] to be handled by the holder's
       credential provider, such as a digital identity wallet.
-    </p>
+    </p><!--
+    // MARK: CredentialCreationOptions
+    -->
     <h3>
       Extensions to `CredentialCreationOptions` dictionary
     </h3>
@@ -543,7 +560,9 @@
     <p>
       The <dfn data-dfn-for="CredentialCreationOptions">digital</dfn> member
       allows for options to configure the issuance of a [=digital credential=].
-    </p>
+    </p><!--
+    // MARK: DigitalCredentialCreationOptions
+    -->
     <h3>
       The `DigitalCredentialCreationOptions` dictionary
     </h3>
@@ -560,7 +579,9 @@
       specify an [=digital credential/issuance protocol=] and [=digital
       credential/request data=], which the user agent MAY forward to a
       [=holder=].
-    </p>
+    </p><!--
+    // MARK: DigitalCredentialCreateRequest
+    -->
     <h3>
       The `DigitalCredentialCreateRequest` dictionary
     </h3>
@@ -596,7 +617,9 @@
       The <dfn data-dfn-for="DigitalCredentialCreateRequest">data</dfn> member
       is the [=digital credential/request data=] to be handled by the holder's
       credential provider, such as a digital identity wallet.
-    </p>
+    </p><!--
+    // MARK: DigitalCredential interface
+    -->
     <h3>
       The `DigitalCredential` interface
     </h3>
@@ -685,7 +708,9 @@
     <h2 id="credential-management-integration">
       Integration with Credential Management API
     </h2>
-    <aside class="issue" data-number="65"></aside>
+    <aside class="issue" data-number="65"></aside><!--
+    // MARK: [[\DiscoverFromExternalSource]]
+    -->
     <h3>
       [[\DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)
       internal method
@@ -730,7 +755,9 @@
       </li>
       <li>Return a {{DigitalCredential}}.
       </li>
-    </ol>
+    </ol><!--
+    // MARK: [[Store]]()
+    -->
     <h3>
       [[\Store]](credential, sameOriginWithAncestors) internal method
     </h3>
@@ -740,7 +767,9 @@
       MUST call the default implementation of {{Credential}}'s
       {{Credential/[[Store]](credential, sameOriginWithAncestors)}} internal
       method with the same arguments.
-    </p>
+    </p><!--
+    // MARK: [[Create]]()
+    -->
     <h3>
       [[\Create]](origin, options, sameOriginWithAncestors) internal method
     </h3>
@@ -791,7 +820,9 @@
       an [=digital credential/issuance response=] defined by that [=digital
       credential/issuance protocol=].
       </li>
-    </ol>
+    </ol><!--
+    // MARK: [[type]] internal slot
+    -->
     <h3>
       [[\type]] internal slot
     </h3>
@@ -799,7 +830,9 @@
       The {{DigitalCredential}} [=interface object=] has an internal slot named
       <dfn class="export" data-dfn-for="DigitalCredential">[[\type]]</dfn>
       whose value is "digital".
-    </p>
+    </p><!--
+    // MARK: [[discovery]] internal slot
+    -->
     <h3>
       [[\discovery]] internal slot
     </h3>
@@ -809,6 +842,9 @@
       whose value is "remote".
     </p>
     <section class="informative">
+      <!--
+      // MARK: User permission
+      -->
       <h3>
         User permission
       </h3>
@@ -820,6 +856,9 @@
       </p>
     </section>
     <section id="permissions-policy" data-cite="permissions-policy">
+      <!--
+      // MARK: Permissions Policy
+      -->
       <h2>
         Permissions Policy integration
       </h2>
@@ -846,7 +885,9 @@
     <p class="note" title="Official Registry" data-cite="w3c-process">
       It is expected that this registry will be become a [=W3C registry=] in
       the future.
-    </p>
+    </p><!--
+    // MARK: General inclusion criteria
+    -->
     <h3>
       General inclusion criteria
     </h3>
@@ -923,7 +964,9 @@
       <li>MUST encrypt any response containing personally identifiable
       information (PII).
       </li>
-    </ol>
+    </ol><!--
+    // MARK: Change process
+    -->
     <h3>
       Change process
     </h3>
@@ -1006,6 +1049,9 @@
       </tbody>
     </table>
     <section class="informative">
+      <!--
+      // MARK: Security Considerations
+      -->
       <h2>
         Security Considerations
       </h2>
@@ -1033,6 +1079,7 @@
         </ul>
       </div>
       <section>
+        <!---->
         <h3>
           Credential Protocols
         </h3>
@@ -1045,6 +1092,9 @@
         </p>
       </section>
       <section>
+        <!--
+        // MARK: Cross-device Protocols
+        -->
         <h3>
           Cross-device Protocols
         </h3>
@@ -1054,6 +1104,9 @@
         </p>
       </section>
       <section>
+        <!--
+        // MARK: Quishing
+        -->
         <h3>
           Quishing
         </h3>
@@ -1065,6 +1118,9 @@
         </p>
       </section>
       <section>
+        <!--
+        // MARK: Data Integrity
+        -->
         <h3>
           Data Integrity
         </h3>
@@ -1075,6 +1131,9 @@
         </p>
       </section>
       <section>
+        <!--
+        // MARK: Authentication
+        -->
         <h3>
           Authentication
         </h3>
@@ -1085,6 +1144,9 @@
         </p>
       </section>
       <section>
+        <!--
+        // MARK: Cross-Site Scripting (XSS) and Cross-Site
+        -->
         <h3>
           Cross-Site Scripting (XSS) and Cross-Site Request Forgery (CSRF)
         </h3>
@@ -1093,6 +1155,9 @@
         </p>
       </section>
       <section>
+        <!--
+        // MARK: Session Security
+        -->
         <h3>
           Session Security
         </h3>
@@ -1105,6 +1170,9 @@
       </section>
     </section>
     <section class="informative">
+      <!--
+      // MARK: Privacy Considerations
+      -->
       <h2>
         Privacy Considerations
       </h2>
@@ -1157,6 +1225,9 @@
         evolution of the API.
       </p>
       <section>
+        <!--
+        // MARK: Design Considerations and Alternatives
+        -->
         <h3>
           Design Considerations and Alternatives
         </h3>
@@ -1211,6 +1282,9 @@
         </aside>
       </section>
       <section data-cite="vc-data-model#spectrum-of-privacy">
+        <!--
+        // MARK: Spectrum of Privacy
+        -->
         <h3>
           Spectrum of Privacy
         </h3>
@@ -1238,6 +1312,9 @@
         </p>
       </section>
       <section>
+        <!--
+        // MARK: Exchange Protocol and Credential Format
+        -->
         <h3>
           Exchange Protocol and Credential Format
         </h3>
@@ -1410,6 +1487,9 @@
         <p class="issue" data-number="109"></p>
       </section>
       <section>
+        <!--
+        // MARK: Unnecessary Requests for Credentials
+        -->
         <h3>
           Unnecessary Requests for Credentials
         </h3>
@@ -1709,6 +1789,9 @@
         </p>
       </section>
       <section>
+        <!--
+        // MARK: Fingerprinting and Data Leakage
+        -->
         <h3>
           Fingerprinting and Data Leakage
         </h3>
@@ -1789,6 +1872,9 @@
         </p>
       </section>
       <section>
+        <!--
+        // MARK: User Permission and Transparency
+        -->
         <h3>
           User Permission and Transparency
         </h3>
@@ -1914,6 +2000,9 @@
       </section>
     </section>
     <section class="informative">
+      <!--
+      // MARK: Accessibility Considerations
+      -->
       <h2>
         Accessibility Considerations
       </h2>
