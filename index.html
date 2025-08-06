@@ -863,12 +863,30 @@
         Permissions Policy integration
       </h2>
       <p>
-        This specification defines two [=policy-controlled features=]
-        identified by the strings
-        <dfn class="permission">"digital-credentials-get"</dfn> and
-        <dfn class="permission">"digital-credentials-create"</dfn>.
-        Their [=policy-controlled feature/default allowlists=] are
-        both [=default allowlist/'self'=].
+        This specification defines two [=policy-controlled features=]:
+      </p>
+      <dl>
+        <dt>
+          <dfn class="permission">"digital-credentials-get"</dfn>
+        </dt>
+        <dd>
+          A [=policy-controlled feature=] that allows a [=document=] to
+          [=digital credential/presentation request|request=] digital
+          credentials. Its [=policy-controlled feature/default allowlists=] is
+          [=default allowlist/'self'=]. The [=request a `Credential`=]
+          algorithm serves as the policy enforcement point.
+        </dd>
+        <dt>
+          <dfn class="permission">"digital-credentials-create"</dfn>
+        </dt>
+        <dd>
+          A [=policy-controlled feature=] that allows a [=document=] to
+          [=digital credential/issuance request|issue=] digital credentials.
+          Its [=policy-controlled feature/default allowlists=] is [=default
+          allowlist/'self'=]. The [=create a `Credential`=] algorithm serves as
+          the policy enforcement point.
+        </dd>
+      </dl>
       </p>
     </section>
     <h2 id="protocol-registry">
