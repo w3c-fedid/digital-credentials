@@ -36,11 +36,7 @@ For an [example of how to use the API](https://w3c-fedid.github.io/digital-crede
 
 ### Using the API from another origin
 
-The specification allows usage of the API from a remote/third-party origin via the "digital-credentials-get" Permissions Policy. This is useful for scenarios where a website wants to request digital credentials from a wallet provider that is hosted on a different origin. The Permissions Policy can be set on an iframe that embeds the website that wants to use the API. Here is an example of how the Permissions Policy can be set on an iframe:
-
-```HTML
-<iframe allow="digital-credentials-get"></iframe>
-```
+Please see the  [requesting a digital credential across origins](https://www.w3.org/TR/digital-credentials/#requesting-a-digital-credential-across-origins)
 
 ## Horizontal reviews
 
@@ -61,12 +57,9 @@ There are still many open questions, but a few big ones:
 - Will existing protocols ([example](https://github.com/openid/OpenID4VP/issues/125)) adopt this API?
 - Will regulation ([example](https://digital-strategy.ec.europa.eu/en/library/european-digital-identity-architecture-and-reference-framework-outline)) adopt this API?
 
-# Out of Scope
+# Scope
 
-The following topics are currently out of scope for the API:
-
-- A website (issuer) requesting the issuance of a digital credential to a digital wallet
-- A website (verifier) explicitly requesting multiple digital credentials from multiple wallets in the same request
+Please see [Scope](https://www.w3.org/TR/digital-credentials/#scope)
 
 # Related Work
 
