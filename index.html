@@ -495,30 +495,30 @@
     <p>
       The [=credential request coordinator=] has a finite set of
       <dfn data-dfn-for="credential request coordinator">interaction
-      states</dfn>, which are used to manage the lifecycle of request for a
-      digital credential, be it either a [=digital credential/presentation
+      states</dfn>, which are used to manage the lifecycle of a request for a
+      digital credential, whether it is a [=digital credential/presentation
       request=] or an [=digital credential/issuance request=]. The states are:
     </p>
     <dl>
       <dt>
-        <dfn data-dfn-for="credential request coordinator">idle</dfn>:
+        <dfn data-dfn-for="credential request coordinator">Idle</dfn>:
       </dt>
       <dd>
         No credential interaction is currently in progress.
       </dd>
       <dt>
-        <dfn data-dfn-for="credential request coordinator">requesting</dfn>:
+        <dfn data-dfn-for="credential request coordinator">Requesting</dfn>:
       </dt>
       <dd>
         A credential interaction is currently in progress and the user
         interface is being presented to the user.
       </dd>
       <dt>
-        <dfn data-dfn-for="credential request coordinator">aborting</dfn>:
+        <dfn data-dfn-for="credential request coordinator">Aborting</dfn>:
       </dt>
       <dd>
-        A credential interaction is being canceled, either because of an error,
-        user cancellation, or a [=AbortController/signal abort=]. The
+        A credential interaction is being canceled, because of an error,
+        a user cancellation, or a [=AbortController/signal abort=]. The
         coordinator is in the process of cleaning up the interaction in order
         to return to the [=credential request coordinator/idle=] state.
       </dd>
@@ -561,12 +561,12 @@
       <li>Validates and transforms presentation or issuance inputs and outputs.
       </li>
       <li>Interprets each individual request in the input list as targeting a
-      specific [=holder=], and prepares [=holder=] options accordingly.
+        specific [=holder=], and prepares [=holder=] options accordingly.
       </li>
       <li>Presents the available [=holders=] to the user for selection.
       </li>
       <li>Returns the result — the user's selected [=digital credential=] or a
-      cancellation — to the [=credential request coordinator=].
+        cancellation — to the [=credential request coordinator=].
       </li>
     </ul>
     <aside class="note">
@@ -596,17 +596,18 @@
     </p>
     <ul>
       <li>Requesting a [=digital credential=], including mechanisms for secure
-      presentation.
+        presentation.
       </li>
       <li>Requesting issuance of a [=digital credential=].
       </li>
       <li>Ensuring that when an API call is made, the website does not learn
-      anything about the a holder's [=digital credentials=] or their software
-      unless the [=user agent=] has previously received user consent.
+        anything about the a holder's [=digital credentials=] or their software
+        unless the [=user agent=] has previously received user consent to reveal
+        that information.
       </li>
       <li>Ensuring that any installed application software will not learn
-      anything about a given [=request=] unless the [=holder=] explicitly
-      consents to use that software.
+        anything about a given [=request=] unless the [=holder=] explicitly
+        consents to reveal the [=request=] to that software.
       </li>
     </ul>
     <p>
@@ -614,8 +615,8 @@
     </p>
     <ul>
       <li>UI/UX considerations, with the exception of privacy considerations,
-      which are addressed to ensure the protection of user data during the
-      request process.
+        which are addressed to ensure the protection of user data during the
+        request process.
       </li>
     </ul><!--
     // MARK: The Digital Credentials API
