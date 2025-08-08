@@ -282,18 +282,37 @@
         Requesting a digital credential across origins
       </h3>
       <p>
-        The specification allows usage of the API from a remote/third-party
-        origin via the <a>"digital-credentials-get"</a> Permissions Policy.
-        This is useful for scenarios where a website wants to request digital
-        credentials from a wallet provider that is hosted on a different
-        origin. The Permissions Policy can be set on an iframe that embeds the
-        website that wants to use the API. Here is an example of how the
-        Permissions Policy can be set on an iframe:
+        The specification allows usage of the API for presenting credentials
+        from a remote/third-party origin via the
+        <a>"digital-credentials-get"</a> Permissions Policy. This is useful for
+        scenarios where a website wants to request digital credentials from a
+        wallet provider that is hosted on a different origin. The Permissions
+        Policy can be set on an iframe that embeds the website that wants to
+        use the API. Here is an example of how the Permissions Policy can be
+        set on an iframe:
       </p>
       <pre class="example html" title=
       "Requesting a digital credential across origins">
         &lt;iframe src="https://wallet-provider.example.com"
                 allow="digital-credentials-get"&gt;
+        &lt;/iframe&gt;
+      </pre>
+      <h3>
+        Issuing a digital credential across origins
+      </h3>
+      <p>
+        Similarly, the specification allows usage of the API for issuing
+        credentials from a remote/third-party origin via the
+        <a>"digital-credentials-create"</a> Permissions Policy. This is useful
+        for scenarios where a website (e.g., an issuer) needs to interact with
+        a wallet provider on a different origin to issue a credential. The
+        Permissions Policy can be set on an iframe embedding the issuer's
+        interface. Here is an example:
+      </p>
+      <pre class="example html" title=
+      "Issuing a digital credential across origins">
+        &lt;iframe src="https://issuer.example.com"
+                allow="digital-credentials-create"&gt;
         &lt;/iframe&gt;
       </pre>
     </section>
@@ -863,11 +882,30 @@
         Permissions Policy integration
       </h2>
       <p>
-        This specification defines a [=policy-controlled feature=] identified
-        by the string <dfn class="permission">"digital-credentials-get"</dfn>.
-        Its [=policy-controlled feature/default allowlist=] is [=default
-        allowlist/'self'=].
+        This specification defines two [=policy-controlled features=]:
       </p>
+      <dl>
+        <dt>
+          <dfn class="permission">"digital-credentials-get"</dfn>
+        </dt>
+        <dd>
+          A [=policy-controlled feature=] that allows a [=document=] to
+          [=digital credential/presentation request|request=] digital
+          credentials. Its [=policy-controlled feature/default allowlists=] is
+          [=default allowlist/'self'=]. The [=request a `Credential`=]
+          algorithm serves as the policy enforcement point.
+        </dd>
+        <dt>
+          <dfn class="permission">"digital-credentials-create"</dfn>
+        </dt>
+        <dd>
+          A [=policy-controlled feature=] that allows a [=document=] to
+          [=digital credential/issuance request|issue=] digital credentials.
+          Its [=policy-controlled feature/default allowlists=] is [=default
+          allowlist/'self'=]. The [=create a `Credential`=] algorithm serves as
+          the policy enforcement point.
+        </dd>
+      </dl>
     </section>
     <h2 id="protocol-registry">
       Registry of protocols
