@@ -544,11 +544,9 @@
       Credential request client
     </h2>
     <p>
-      A <dfn data-local-lt="client">credential request client</dfn> is a
-      user-agent-defined component responsible for managing the credential
-      presentation or issuance flow, which includes allowing the user to select
-      from available [=holders=] and coordinating the request.
-    </p>
+A <dfn data-local-lt="client">credential request client</dfn> is a component responsible for managing the credential presentation or issuance flow, as defined or delegated by the user agent. The credential request client may be implemented by the user agent itself, by an installed wallet, by platform-provided software, or by another trusted component.    
+</p>
+<aside class="note"> <p>The user agent can delegate some or all credential request client responsibilities to external wallet applications, platform components, or other trusted entities, according to user or platform policy. </p> </aside>
     <p>
       Each [=credential request coordinator=] uses a single associated
       [=credential request client=] to fulfill credential presentation and
