@@ -315,7 +315,9 @@
                 allow="digital-credentials-create"&gt;
         &lt;/iframe&gt;
       </pre>
-    </section>
+    </section><!--
+    // MARK: Scope
+    -->
     <h2>
       Scope
     </h2>
@@ -323,27 +325,30 @@
       The following items are within the scope of this specification:
     </p>
     <ul>
-      <li>Requesting a [=digital credential=], including mechanisms for secure
-      presentation.
+      <li>[=digital credential/presentation|Presentation requests=], including
+      mechanisms for [=digital credential/presentation|secure presentation=] of
+      a [=digital credential=].
       </li>
-      <li>Requesting issuance of a [=digital credential=].
+      <li>[=digital credential/issuance|Issuance requests=] for a [=digital
+      credential=].
       </li>
-      <li>Ensuring that when an API call is made, the website does not learn
-      anything about the a holder's [=digital credentials=] or their software
-      unless the [=user agent=] has previously received user consent.
+      <li>Mechanisms ensuring that, when an API call is made, the website does
+      not learn anything about [=holders=] or the [=digital credentials=] they
+      hold, unless the [=user agent=] has received user consent.
       </li>
-      <li>Ensuring that any installed application software will not learn
-      anything about a given [=request=] unless the [=holder=] explicitly
-      consents to use that software.
+      <li>Mechanisms ensuring that any installed application software will not
+      learn anything about a given [=digital credential/presentation request=]
+      unless the [=holder=] explicitly consents to use that software.
       </li>
     </ul>
     <p>
       The following items are out of scope:
     </p>
     <ul>
-      <li>UI/UX considerations, with the exception of privacy considerations,
-      which are addressed to ensure the protection of user data during the
-      request process.
+      <li>UI/UX considerations, except for accessibility and privacy aspects,
+      which are addressed to ensure access to and protection of user data
+      during [=digital credential/presentation=] and [=digital
+      credential/issuance=] processes.
       </li>
     </ul><!--
     // MARK: Model
