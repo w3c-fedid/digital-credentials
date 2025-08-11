@@ -782,8 +782,14 @@
           <li>Let |protocol| be |request|'s
           {{DigitalCredentialGetRequest/protocol}}.
           </li>
+          <li>If |protocol| is unknown to the user agent, [=exception/throw=] a
+          {{TypeError}}.
+          </li>
+          <li>If |protocol| is not supported by the user agent,
+          [=exception/throw=] a {{"NotSupportedError"}} {{DOMException}}.
+          </li>
           <li>If |protocol| is not allowed by the user agent,
-          [=exception/throw=] a {{NotSupportedError}} {{DOMException}}.
+          [=exception/throw=] a {{"SecurityError"}} {{DOMException}}.
           </li>
           <li>If the [=registry/link|specification=] corresponding to
           |protocol| defines an IDL [=dictionary=] for [=converted to an idl
