@@ -1,6 +1,11 @@
 # Digital Credentials
 
-📄 The [Digital Credentials API](https://www.w3.org/TR/digital-credentials/) builds upon the [Credential Management API](https://www.w3.org/TR/credential-management-1/) to enable secure and privacy-preserving issuance and exchange of digital credentials, such as identity documents. It facilitates authenticated interactions by representing digital credentials as instances of [`DigitalCredential`](https://www.w3.org/TR/digital-credentials/#dom-digitalcredential) — cryptographically verifiable claims about an individual's identity. These credentials can include government-issued documents like driver's licenses, with support for additional types envisioned in the future.
+📄 [Digital Credentials](https://www.w3.org/TR/digital-credentials/) builds upon the [Credential Management API](https://www.w3.org/TR/credential-management-1/) to enable secure and privacy-preserving issuance and exchange of digital credentials, such as identity documents. It facilitates authenticated interactions by representing digital credentials as instances of [`DigitalCredential`](https://www.w3.org/TR/digital-credentials/#dom-digitalcredential) — cryptographically verifiable claims about an individual's identity. These credentials can include government-issued documents like driver's licenses, with support for additional types envisioned in the future.
+
+## Useful links
+
+* [Latast published spec](https://www.w3.org/TR/digital-credentials/)
+* [Horizontal reviews](https://github.com/w3c-fedid/digital-credentials/wiki/Horizontal-reviews)
 
 ## Scope
 
