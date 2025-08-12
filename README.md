@@ -4,7 +4,7 @@
 
 ## Useful links
 
-* [Latast published spec](https://www.w3.org/TR/digital-credentials/)
+* [Latest published spec](https://www.w3.org/TR/digital-credentials/)
 * [Horizontal reviews](https://github.com/w3c-fedid/digital-credentials/wiki/Horizontal-reviews)
 
 ## Scope
