@@ -769,10 +769,6 @@
       </li>
       <li>If |requests| [=list/is empty=], [=exception/throw=] a {{TypeError}}.
       </li>
-      <li>Let |range| be [=list/get the indices|the indices=] of |requests|.
-      </li>
-      <li>Let |validatedRequests| be an empty [=list=].
-      </li>
       <li>[=List/For each=] |request| of |requests|:
         <ol>
           <li>[=serialize a JavaScript value to a JSON string|Serialize=]
@@ -782,14 +778,21 @@
           <li>Let |protocol| be |request|'s
           {{DigitalCredentialGetRequest/protocol}}.
           </li>
-          <li>If |protocol| is unknown to the user agent, [=exception/throw=] a
-          {{TypeError}}.
+          <li>Optionally, if |protocol| is unknown to the user agent,
+          [=exception/throw=] a {{TypeError}}.
+            <aside class="note">
+              <p>
+                Implementations can represent [=digital credential/exchange
+                protocols=] as an [=enumeration=], which by the processing
+                rules of WebIDL results in a {{TypeError}}.
+              </p>
+            </aside>
           </li>
           <li>If |protocol| is not supported by the user agent,
           [=exception/throw=] a {{"NotSupportedError"}} {{DOMException}}.
           </li>
-          <li>If |protocol| is not allowed by the user agent,
-          [=exception/throw=] a {{"SecurityError"}} {{DOMException}}.
+          <li>If |protocol| is not allowed by the user agent for security
+          reasons, [=exception/throw=] a {{"SecurityError"}} {{DOMException}}.
           </li>
           <li>If the [=registry/link|specification=] corresponding to
           |protocol| defines an IDL [=dictionary=] for [=converted to an idl
@@ -805,14 +808,9 @@
           <li>Otherwise, let |data| be |request|'s
           {{DigitalCredentialGetRequest/data}}.
           </li>
-          <li>Validate |data| against any validation rules set forth in the
-          corresponding [=registry/link|specification=]. If any of |data|'s
-          members are invalid, [=exception/throw=] a {{TypeError}}.
-          </li>
-          <li>Let |validatedRequest| be an internal representation of the
-          request using |protocol| and |data|.
-          </li>
-          <li>Append |validatedRequest| to |validatedRequests|.
+          <li>Optionally, validate |data| against any validation rules set
+          forth in the corresponding [=registry/link|specification=]. If any of
+          |data|'s members are invalid, [=exception/throw=] a {{TypeError}}.
           </li>
         </ol>
       </li>
