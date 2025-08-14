@@ -449,7 +449,185 @@
         issuance protocol is identified by a [=digital credential/protocol
         identifier=]. See also section [[[#protocol-registry]]].
       </dd>
+      <dt>
+        Digital credential coordinator
+      </dt>
+      <dd>
+        See [=credential request coordinator=].
+      </dd>
+      <dt>
+        Digital credential client
+      </dt>
+      <dd>
+        See [=credential request client=].
+      </dd>
     </dl><!--
+    // MARK: Credential Request Coordinator
+    -->
+    <h2>
+      Credential Request Coordinator
+    </h2>
+    <p>
+      The <dfn data-local-lt="coordinator">credential request coordinator</dfn>
+      is a user-agent-defined component responsible for mediating [=digital
+      credential=] interactions within a given [=top-level traversable=]. It
+      ensures that only one interaction is active at any time across [=child
+      navigables=], and it manages the state transitions between different
+      [=credential request coordinator/interaction states=].
+    </p>
+    <p>
+      Each [=top-level traversable=] has a single associated [=credential
+      request coordinator=].
+    </p>
+    <p>
+      The coordinator manages the lifecycle of the current interaction's
+      {{Promise}}, including its resolution or rejection and integrates with an
+      {{AbortSignal}} to allow for both user-initiated and programmatic
+      cancellation.
+    </p>
+    <p>
+      A [=credential request coordinator=] has an associated [=credential
+      request client=], which it interacts with.
+    </p>
+    <h3>
+      Interaction states
+    </h3>
+    <p>
+      The [=credential request coordinator=] has a finite set of
+      <dfn data-dfn-for="credential request coordinator">interaction
+      states</dfn>, which are used to manage the lifecycle of a request for a
+      digital credential, whether it is a [=digital credential/presentation
+      request=] or an [=digital credential/issuance request=]. The states are:
+    </p>
+    <dl>
+      <dt>
+        <dfn data-dfn-for="credential request coordinator">Idle</dfn>:
+      </dt>
+      <dd>
+        No credential interaction is currently in progress.
+      </dd>
+      <dt>
+        <dfn data-dfn-for="credential request coordinator">Requesting</dfn>:
+      </dt>
+      <dd>
+        A credential interaction is currently in progress and the user
+        interface is being presented to the user.
+      </dd>
+      <dt>
+        <dfn data-dfn-for="credential request coordinator">Aborting</dfn>:
+      </dt>
+      <dd>
+        A credential interaction is being canceled, because of an error, a user
+        cancellation, or a [=AbortController/signal abort=]. The coordinator is
+        in the process of cleaning up the interaction in order to return to the
+        [=credential request coordinator/idle=] state.
+      </dd>
+    </dl>
+    <p>
+      The [=credential request coordinator=] is initialized in the [=credential
+      request coordinator/idle=] [=credential request coordinator/interaction
+      state=].
+    </p>
+    <h3>
+      Prepare credential requests
+    </h3>
+    <p>
+      To be written.
+    </p>
+    <h3>
+      Abort the credential request
+    </h3>
+    <p>
+      To be written.
+    </p>
+    <h2>
+      Credential request client
+    </h2>
+    <p>
+      A <dfn data-local-lt="client">credential request client</dfn> is a
+      component responsible for managing the credential presentation or
+      issuance flow, as defined or delegated by the user agent. The credential
+      request client may be implemented by the user agent itself, by an
+      installed wallet, by platform-provided software, or by another trusted
+      component.
+    </p>
+    <aside class="note">
+      <p>
+        The user agent can delegate some or all credential request client
+        responsibilities to external wallet applications, platform components,
+        or other trusted entities, according to user or platform policy.
+      </p>
+    </aside>
+    <p>
+      Each [=credential request coordinator=] uses a single associated
+      [=credential request client=] to fulfill credential presentation and
+      issuance operations.
+    </p>
+    <p>
+      The [=credential request client=]:
+    </p>
+    <ul>
+      <li>Validates and transforms presentation or issuance inputs and outputs.
+      </li>
+      <li>Interprets each individual request in the input list as targeting a
+      specific [=holder=], and prepares [=holder=] options accordingly.
+      </li>
+      <li>Presents the available [=holders=] to the user for selection.
+      </li>
+      <li>Returns the result — the user's selected [=digital credential=] or a
+      cancellation — to the [=credential request coordinator=].
+      </li>
+    </ul>
+    <aside class="note">
+      <p>
+        Although the [=credential request client=] coordinates the user
+        interaction with respect to inputs and outputs, it is the [=holder=]
+        selected by the user that typically acts as the [=credential chooser=].
+      </p>
+    </aside>
+    <h3>
+      Dismiss credentials chooser
+    </h3>
+    <p>
+      To be written.
+    </p>
+    <h3>
+      Present credentials chooser
+    </h3>
+    <p>
+      To be written.
+    </p>
+    <h2>
+      Scope
+    </h2>
+    <p>
+      The following items are within the scope of this specification:
+    </p>
+    <ul>
+      <li>Requesting a [=digital credential=], including mechanisms for secure
+      presentation.
+      </li>
+      <li>Requesting issuance of a [=digital credential=].
+      </li>
+      <li>Ensuring that when an API call is made, the website does not learn
+      anything about the holder's [=digital credentials=] or their software
+      unless the [=user agent=] has previously received user consent to reveal
+      that information.
+      </li>
+      <li>Ensuring that any installed application software will not learn
+      anything about a given [=request=] unless the [=holder=] explicitly
+      consents to reveal the [=request=] to that software.
+      </li>
+    </ul>
+    <p>
+      The following items are out of scope:
+    </p>
+    <ul>
+      <li>UI/UX considerations, with the exception of privacy considerations,
+      which are addressed to ensure the protection of user data during the
+      request process.
+      </li>
+    </ul><!--
     // MARK: The Digital Credentials API
     -->
     <h2>
