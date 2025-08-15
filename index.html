@@ -756,19 +756,24 @@
       <li>Let |requests| be |options|'s {{CredentialRequestOptions/digital}}'s
       {{DigitalCredentialRequestOptions/requests}} member.
       </li>
-      <li>If |requests| is empty, [=exception/throw=] a {{TypeError}}.
-      </li>
+      <li>Let |validRequests| be a new empty [=list=].
       <li>[=List/For each=] |request| of |requests|:
         <ol>
-          <li>[=serialize a JavaScript value to a JSON string|Serialize=]
-          |request| to a JSON string. [=exception/throw|Re-throw=] any
-          [=exception=].
+          <li>[=serialize a JavaScript value to a JSON string|Serialize=] |request|. [=exception/throw|Rethrow=] any exception.</li>.
+          </li>
+          <li>Let |protocol| be |requests|'s {{DigitalCredentialGetRequest/protocol}}.
+          </li>
+          <li>If |protocol| is not allowed by the user agent, [=exception/throw=] a {{NotSupportedError}} {{DOMException}}.
+          </li>
+          <li>[=list/Append=] |request| to |validRequests|.
           </li>
         </ol>
       </li>
+      <li>If |validRequests| [=list/is empty=], [=exception/throw=] a {{TypeError}}.
+      </li>
       <li>
         <aside class="issue">
-          Details of how to actually get the [=digital credential=] are
+          Details of how to actually get the [=digital credential=] using the items in |validRequests|  are
           forthcoming.
         </aside>
       </li>
