@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"><head>
 <meta charset="utf-8">
-<meta name="generator" content="ReSpec 35.4.3">
+<meta name="generator" content="ReSpec 35.5.1">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <style>
 span.example-title{text-transform:none}
@@ -121,7 +121,7 @@ dd{margin-left:0}
     
   
 <meta name="color-scheme" content="light">
-<meta name="revision" content="fb88564b2581120db9b768fce4cdf07fb462e527">
+<meta name="revision" content="81dca41a970010de6253b0710b9d2cde27d18dd5">
 <meta name="description" content="This document specifies an API to enable user agents to mediate
         presentation and issuance of digital credentials such as a driver's
         license, government-issued identification card, and/or other types of digital credential. The API builds on
@@ -252,16 +252,16 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "fb88564b2581120db9b768fce4cdf07fb462e527",
-  "publishISODate": "2025-08-12T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 12 August 2025"
+  "gitRevision": "81dca41a970010de6253b0710b9d2cde27d18dd5",
+  "publishISODate": "2025-08-19T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 19 August 2025"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED"></head>
   <body data-cite="WEBIDL credential-management-1 vc-data-model HTML INFRA URL WEBIDL DOM FETCH" class="h-entry"><div class="head">
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Digital Credentials</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2025-08-12">12 August 2025</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2025-08-19">19 August 2025</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -362,7 +362,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         
   </p><p>
                       This document is governed by the
-                      <a id="w3c_process_revision" href="https://www.w3.org/policies/process/20231103/">03 November 2023 <abbr title="World Wide Web Consortium">W3C</abbr> Process Document</a>.
+                      <a id="w3c_process_revision" href="https://www.w3.org/policies/process/20250818/">18 August 2025 <abbr title="World Wide Web Consortium">W3C</abbr> Process Document</a>.
                     </p></section><nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><ol class="toc"><li class="tocline"><a class="tocxref" href="#abstract">Abstract</a></li><li class="tocline"><a class="tocxref" href="#sotd">Status of This Document</a></li><li class="tocline"><a class="tocxref" href="#introduction"><bdi class="secno">1. </bdi>
       Introduction
     </a></li><li class="tocline"><a class="tocxref" href="#examples-of-usage"><bdi class="secno">2. </bdi>
@@ -525,7 +525,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           Permission vs. Consent
         </a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#accessibility-considerations"><bdi class="secno">11. </bdi>
         Accessibility Considerations
-      </a></li><li class="tocline"><a class="tocxref" href="#idl-index"><bdi class="secno">12. </bdi>IDL Index</a></li><li class="tocline"><a class="tocxref" href="#conformance"><bdi class="secno">13. </bdi>Conformance</a></li><li class="tocline"><a class="tocxref" href="#references"><bdi class="secno">A. </bdi>References</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#normative-references"><bdi class="secno">A.1 </bdi>Normative references</a></li><li class="tocline"><a class="tocxref" href="#informative-references"><bdi class="secno">A.2 </bdi>Informative references</a></li></ol></li></ol></nav>
+      </a></li><li class="tocline"><a class="tocxref" href="#idl-index"><bdi class="secno">12. </bdi>IDL Index</a></li><li class="tocline"><a class="tocxref" href="#conformance"><bdi class="secno">13. </bdi>Conformance</a></li><li class="tocline"><a class="tocxref" href="#acknowledgements"><bdi class="secno">A. </bdi>
+      Acknowledgements
+    </a></li><li class="tocline"><a class="tocxref" href="#references"><bdi class="secno">B. </bdi>References</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#normative-references"><bdi class="secno">B.1 </bdi>Normative references</a></li><li class="tocline"><a class="tocxref" href="#informative-references"><bdi class="secno">B.2 </bdi>Informative references</a></li></ol></li></ol></nav>
     <section id="introduction"><div class="header-wrapper"><h2 id="x1-introduction"><bdi class="secno">1. </bdi>
       Introduction
     </h2><a class="self-link" href="#introduction" aria-label="Permalink for Section 1."></a></div>
@@ -2365,9 +2367,28 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         when, and only when, they appear in all
         capitals, as shown here.
       </p></section>
+    <section class="appendix" id="acknowledgements"><div class="header-wrapper"><h2 class="appendix" id="a-acknowledgements"><bdi class="secno">A. </bdi>
+      Acknowledgements
+    </h2><a class="self-link" href="#acknowledgements" aria-label="Permalink for Appendix A."></a></div>
+    <p>
+      The Editors would like to thank the <a href="https://www.w3.org/groups/wg/fedid/participants/">participants</a> and
+      <a href="https://www.w3.org/groups/wg/fedid/former-participants/">former
+      participants</a> of the <a href="https://www.w3.org/groups/wg/fedid/">Federated ID Working Group</a> for
+      their contributions throughout the standardization process of this
+      specification. Thanks also to folks that made <a href="https://github.com/w3c-fedid/digital-credentials/graphs/contributors">direct
+      contributions</a> to the specification in the form of pull requests.
+    </p>
+    <p>
+      The Working Group would also like to acknowledge the following
+      individuals for going above and beyond and graciously contributing their
+      time to significantly improve the specification: Manu Sporny for
+      integration with the Verifiable Credentials work, Johann Hofmann and Nick
+      Dotty for their work on the Privacy Considerations, and Ted Thibodeau Jr.
+      for improving the legibility of all incoming pull requests.
+    </p>
   
 
-<section id="references" class="appendix"><div class="header-wrapper"><h2 id="a-references"><bdi class="secno">A. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix A."></a></div><section id="normative-references"><div class="header-wrapper"><h3 id="a-1-normative-references"><bdi class="secno">A.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix A.1"></a></div>
+</section><section id="references" class="appendix"><div class="header-wrapper"><h2 id="b-references"><bdi class="secno">B. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix B."></a></div><section id="normative-references"><div class="header-wrapper"><h3 id="b-1-normative-references"><bdi class="secno">B.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix B.1"></a></div>
     
     <dl class="bibliography"><dt id="bib-credential-management">[credential-management]</dt><dd>
       <a href="https://www.w3.org/TR/credential-management-1/"><cite>Credential Management Level 1</cite></a>. Nina Satragno; Marcos Caceres.  W3C. 13 August 2024. W3C Working Draft. URL: <a href="https://www.w3.org/TR/credential-management-1/">https://www.w3.org/TR/credential-management-1/</a>
@@ -2392,7 +2413,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </dd><dt id="bib-webidl">[WebIDL]</dt><dd>
       <a href="https://webidl.spec.whatwg.org/"><cite>Web IDL Standard</cite></a>. Edgar Chen; Timothy Gu.  WHATWG. Living Standard. URL: <a href="https://webidl.spec.whatwg.org/">https://webidl.spec.whatwg.org/</a>
     </dd></dl>
-  </section><section id="informative-references"><div class="header-wrapper"><h3 id="a-2-informative-references"><bdi class="secno">A.2 </bdi>Informative references</h3><a class="self-link" href="#informative-references" aria-label="Permalink for Appendix A.2"></a></div>
+  </section><section id="informative-references"><div class="header-wrapper"><h3 id="b-2-informative-references"><bdi class="secno">B.2 </bdi>Informative references</h3><a class="self-link" href="#informative-references" aria-label="Permalink for Appendix B.2"></a></div>
     
     <dl class="bibliography"><dt id="bib-credential-considerations">[credential-considerations]</dt><dd>
       <a href="https://github.com/w3c/credential-considerations/blob/main/credentials-considerations.md"><cite>User considerations for credentials on the Web</cite></a>. Nick Doty; Rick Byers.  W3C. 2025-03-26. URL: <a href="https://github.com/w3c/credential-considerations/blob/main/credentials-considerations.md">https://github.com/w3c/credential-considerations/blob/main/credentials-considerations.md</a>
