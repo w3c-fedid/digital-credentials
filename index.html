@@ -121,7 +121,7 @@ dd{margin-left:0}
     
   
 <meta name="color-scheme" content="light">
-<meta name="revision" content="81dca41a970010de6253b0710b9d2cde27d18dd5">
+<meta name="revision" content="6b1272cd77af0e71a50cc7e107043e4f21e8ee90">
 <meta name="description" content="This document specifies an API to enable user agents to mediate
         presentation and issuance of digital credentials such as a driver's
         license, government-issued identification card, and/or other types of digital credential. The API builds on
@@ -252,7 +252,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "81dca41a970010de6253b0710b9d2cde27d18dd5",
+  "gitRevision": "6b1272cd77af0e71a50cc7e107043e4f21e8ee90",
   "publishISODate": "2025-08-19T00:00:00.000Z",
   "generatedSubtitle": "W3C Editor's Draft 19 August 2025"
 }</script>
@@ -432,8 +432,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </a></li><li class="tocline"><a class="tocxref" href="#discovery-internal-slot"><bdi class="secno">6.5 </bdi>
       [[discovery]] internal slot
     </a></li><li class="tocline"><a class="tocxref" href="#user-permission"><bdi class="secno">6.6 </bdi>
-        User permission
-      </a></li></ol></li><li class="tocline"><a class="tocxref" href="#permissions-policy"><bdi class="secno">7. </bdi>
+      User permission
+    </a></li></ol></li><li class="tocline"><a class="tocxref" href="#permissions-policy"><bdi class="secno">7. </bdi>
         Permissions Policy integration
       </a></li><li class="tocline"><a class="tocxref" href="#protocol-registry"><bdi class="secno">8. </bdi>
       Registry of protocols
@@ -1203,19 +1203,16 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <dfn class="export" data-dfn-for="DigitalCredential" data-idl="" data-dfn-type="attribute" data-export="" id="dfn-discovery" tabindex="0" aria-haspopup="dialog">[[discovery]]</dfn>
       whose value is "remote".
     </p>
-    </section><section class="informative" id="user-permission"><div class="header-wrapper"><h3 id="x6-6-user-permission"><bdi class="secno">6.6 </bdi>
-        User permission
-      </h3><a class="self-link" href="#user-permission" aria-label="Permalink for Section 6.6"></a></div><p><em>This section is non-normative.</em></p>
-      
-      
-      <p data-cite="permissions">
-        The <cite>Digital Credential API</cite> is a <a data-link-type="dfn" href="https://www.w3.org/TR/permissions/#dfn-powerful-feature">powerful feature</a> that
-        requires <a data-link-type="dfn" href="https://www.w3.org/TR/permissions/#dfn-express-permission">express permission</a> from an end-user. This requirement is
-        normatively enforced when calling <a data-link-type="interface" data-lt="CredentialsContainer" href="https://www.w3.org/TR/credential-management-1/#credentialscontainer"><code>CredentialsContainer</code></a>'s
-        <a data-link-type="method" data-lt="get()" href="https://www.w3.org/TR/credential-management-1/#dom-credentialscontainer-get"><code>get</code></a><code>()</code> method.
-      </p>
-    </section>
-    </section><section id="permissions-policy" data-cite="permissions-policy"><div class="header-wrapper"><h2 id="x7-permissions-policy-integration"><bdi class="secno">7. </bdi>
+    </section><section class="informative" id="user-permission"><div class="header-wrapper"><h3 class="informative" id="x6-6-user-permission"><bdi class="secno">6.6 </bdi>
+      User permission
+    </h3><a class="self-link" href="#user-permission" aria-label="Permalink for Section 6.6"></a></div><p><em>This section is non-normative.</em></p>
+    <p data-cite="permissions">
+      The <cite>Digital Credential API</cite> is a <a data-link-type="dfn" href="https://www.w3.org/TR/permissions/#dfn-powerful-feature">powerful feature</a> that
+      requires <a data-link-type="dfn" href="https://www.w3.org/TR/permissions/#dfn-express-permission">express permission</a> from an end-user. This requirement is
+      normatively enforced when calling <a data-link-type="interface" data-lt="CredentialsContainer" href="https://www.w3.org/TR/credential-management-1/#credentialscontainer"><code>CredentialsContainer</code></a>'s
+      <a data-link-type="method" data-lt="get()" href="https://www.w3.org/TR/credential-management-1/#dom-credentialscontainer-get"><code>get</code></a><code>()</code> method.
+    </p>
+    </section></section><section id="permissions-policy" data-cite="permissions-policy"><div class="header-wrapper"><h2 id="x7-permissions-policy-integration"><bdi class="secno">7. </bdi>
         Permissions Policy integration
       </h2><a class="self-link" href="#permissions-policy" aria-label="Permalink for Section 7."></a></div>
       
@@ -2400,6 +2397,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="https://html.spec.whatwg.org/multipage/"><cite>HTML Standard</cite></a>. Anne van Kesteren; Domenic Denicola; Dominic Farolino; Ian Hickson; Philip Jägenstedt; Simon Pieters.  WHATWG. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
     </dd><dt id="bib-infra">[infra]</dt><dd>
       <a href="https://infra.spec.whatwg.org/"><cite>Infra Standard</cite></a>. Anne van Kesteren; Domenic Denicola.  WHATWG. Living Standard. URL: <a href="https://infra.spec.whatwg.org/">https://infra.spec.whatwg.org/</a>
+    </dd><dt id="bib-permissions">[permissions]</dt><dd>
+      <a href="https://www.w3.org/TR/permissions/"><cite>Permissions</cite></a>. Marcos Caceres; Mike Taylor.  W3C. 24 June 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/permissions/">https://www.w3.org/TR/permissions/</a>
     </dd><dt id="bib-permissions-policy">[permissions-policy]</dt><dd>
       <a href="https://www.w3.org/TR/permissions-policy-1/"><cite>Permissions Policy</cite></a>. Ian Clelland.  W3C. 6 August 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/permissions-policy-1/">https://www.w3.org/TR/permissions-policy-1/</a>
     </dd><dt id="bib-rfc2119">[RFC2119]</dt><dd>
@@ -2423,8 +2422,6 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="https://www.w3.org/TR/design-principles/"><cite>Web Platform Design Principles</cite></a>. Martin Thomson; Jeffrey Yasskin.  W3C. 2 July 2025. W3C Working Group Note. URL: <a href="https://www.w3.org/TR/design-principles/">https://www.w3.org/TR/design-principles/</a>
     </dd><dt id="bib-identity-web-impact">[identity-web-impact]</dt><dd>
       <a href="https://www.w3.org/reports/identity-web-impact"><cite>Identity &amp; the Web</cite></a>. Simone Onofri.  W3C. 2025-02-25. URL: <a href="https://www.w3.org/reports/identity-web-impact">https://www.w3.org/reports/identity-web-impact</a>
-    </dd><dt id="bib-permissions">[permissions]</dt><dd>
-      <a href="https://www.w3.org/TR/permissions/"><cite>Permissions</cite></a>. Marcos Caceres; Mike Taylor.  W3C. 24 June 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/permissions/">https://www.w3.org/TR/permissions/</a>
     </dd><dt id="bib-presenting-credentials-on-the-web">[presenting-credentials-on-the-web]</dt><dd>
       <a href="https://docs.google.com/document/d/1Ppaz_EnhzHqPOz5UusRJvbSunh-RXPWgJ3Np_TM2EE0/"><cite>Presenting Credentials on the Web</cite></a>. Simone Onofri. URL: <a href="https://docs.google.com/document/d/1Ppaz_EnhzHqPOz5UusRJvbSunh-RXPWgJ3Np_TM2EE0/">https://docs.google.com/document/d/1Ppaz_EnhzHqPOz5UusRJvbSunh-RXPWgJ3Np_TM2EE0/</a>
     </dd><dt id="bib-privacy-principles">[privacy-principles]</dt><dd>
