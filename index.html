@@ -121,7 +121,7 @@ dd{margin-left:0}
     
   
 <meta name="color-scheme" content="light">
-<meta name="revision" content="ab0e508ef5cc2ec417b957e6b0a0a7dce98c905a">
+<meta name="revision" content="1ed442b8e1f8f0a506a8fdc6bb47db30258fb7b2">
 <meta name="description" content="This document specifies an API to enable user agents to mediate
         presentation and issuance of digital credentials such as a driver's
         license, government-issued identification card, and/or other types of digital credential. The API builds on
@@ -252,7 +252,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "ab0e508ef5cc2ec417b957e6b0a0a7dce98c905a",
+  "gitRevision": "1ed442b8e1f8f0a506a8fdc6bb47db30258fb7b2",
   "publishISODate": "2025-08-22T00:00:00.000Z",
   "generatedSubtitle": "W3C Editor's Draft 22 August 2025"
 }</script>
@@ -1866,8 +1866,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           against dangerous content and permission requests on the Web and
           could intervene on their behalf, proactively rejecting requests or
           requiring pre-authorization. To support this, the Digital Credentials
-          API requires that credential requests be readable by the [=user
-          API requires credential requests to be readable by the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent">user agent</a> (i.e., not end-to-end encrypted to the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifier</a>).
+          API requires that credential requests be readable by the [=user API
+          requires credential requests to be readable by the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent">user agent</a>
+          (i.e., not end-to-end encrypted to the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifier</a>).
           </li>
           <li><a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-issuers">issuers</a> and lawmakers might decide to restrict use of
           (particularly government-issued) credentials to specific
