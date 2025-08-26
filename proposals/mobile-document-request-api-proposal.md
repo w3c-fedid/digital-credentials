@@ -1,6 +1,6 @@
 # ⚠️ This proposal has been superseded ⚠️
 
-- Please refer to the [Digital Credentials API spec](https://www.w3.org/TR/digital-credentials/) instead. It represents the community's consensus.
+- Please refer to the [Digital Credentials spec](https://www.w3.org/TR/digital-credentials/) instead. It represents the community's consensus.
 
 ## Mobile Document Request API
 
