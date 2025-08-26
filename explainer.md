@@ -8,11 +8,11 @@ Government-recognized documents play a big and constructive role in society (e.g
 
 Along with all of their potential from the physical world, the presentation of government recognized  digital credentials also brings their associated risks of abuse, such as the potential for an increase in [surveillance](https://github.com/w3cping/credential-considerations/blob/main/credentials-considerations.md#no-phoning-home), [censorship](https://github.com/w3cping/credential-considerations/blob/main/risks.md#censorship-and-reduction-in-access-to-free-information), [discrimination](https://github.com/w3cping/credential-considerations/blob/main/credentials-considerations.md#free-expression), and intrusion to the online world.
 
-The most recent online presentation protocols (e.g. [OpenID4VP](https://openid.github.io/OpenID4VP/openid-4-verifiable-presentations-wg-draft.html)) and regulations (e.g. eIDAS) were designed around a Web that lacked the intentional support for such a critical task; depending instead on general purpose primitives such as custom schemes. Unfortunately, the use of [custom schemes](https://github.com/WICG/digital-identities/blob/main/custom-schemes.md#concerns-with-custom-schemes-for-identity-presentment) left us with two problems:
+The most recent online presentation protocols (e.g., [OpenID4VP](https://openid.net/specs/openid-4-verifiable-presentations-1_0.html)) and regulations (e.g., eIDAS) were designed around a Web that lacked intentional support for such critical tasks, depending instead on general purpose primitives such as custom schemes. Unfortunately, the use of [custom schemes](https://github.com/w3c-fedid/digital-credentials/blob/main/custom-schemes.md#concerns-with-custom-schemes-for-identity-presentment) left us with two problems:
 
 Because custom schemes can be largely opaque to user agents, they substantially limit the user agent’s ability to exercise its agency in reducing the risk of abuse. Users rely on their browser to help provide transparency and control over the use of their data. From the subtle, like providing [UI](https://chromium.googlesource.com/chromium/src/+/HEAD/docs/security/url_display_guidelines/url_display_guidelines.md) [cues](https://blog.chromium.org/2023/05/an-update-on-lock-icon.html) as to the privacy and security risks of various operations. To the more severe, like [warning](https://blog.google/products/chrome/google-chrome-safe-browsing-real-time/) about interacting with known phishing sites.
 
-Even in highly-regulated and non-abusive use cases (e.g. eIDAS), custom schemes have  [security](https://github.com/WICG/digital-identities/blob/main/custom-schemes.md#can-wallets-limit-requests-to-secure-contexts) and [privacy](https://github.com/WICG/digital-identities/blob/main/custom-schemes.md#what-are-the-privacy-implications-of-a-wallet-accepting-custom-schemes) risks, as well as a series of suboptimal [user experiences. We posit that these limitations](https://github.com/WICG/digital-identities/blob/main/custom-schemes.md#user-experience-concerns) can be addressed by a purpose-built browser API. While some have reasonably argued that these limitations will slow-down and limit the deployment (and so, the abuse) of such technology, it seems more advantageous  to rely on intentional design choices to manage this tradeoff than such accidents. 
+Even in highly-regulated and non-abusive use cases (e.g. eIDAS), custom schemes have  [security](https://github.com/w3c-fedid/digital-credentials/blob/main/custom-schemes.md#can-wallets-limit-requests-to-secure-contexts) and [privacy](https://github.com/w3c-fedid/digital-credentials/blob/main/custom-schemes.md#what-are-the-privacy-implications-of-a-wallet-accepting-custom-schemes) risks, as well as a series of suboptimal [user experiences. We posit that these limitations](https://github.com/w3c-fedid/digital-credentials/blob/main/custom-schemes.md#user-experience-concerns) can be addressed by a purpose-built browser API. While some have reasonably argued that these limitations will slow-down and limit the deployment (and so, the abuse) of such technology, it seems more advantageous  to rely on intentional design choices to manage this tradeoff than such accidents. 
 
 In the pursuit of establishing a standard for web-based identity sharing, it is paramount that we not only strive for ease of use but also exercise utmost caution to uphold high standards of security and privacy. This is essential to safeguard users from potential identity theft and ensure they are fully informed about the implications of online identity sharing before providing their consent. We firmly believe that relying on a browser API and the mobile platform is the most reliable approach for identity digital credentials to be shared securely online.
 
@@ -36,11 +36,7 @@ For an [example of how to use the API](https://w3c-fedid.github.io/digital-crede
 
 ### Using the API from another origin
 
-The specification allows usage of the API from a remote/third-party origin via the "digital-credentials-get" Permissions Policy. This is useful for scenarios where a website wants to request digital credentials from a wallet provider that is hosted on a different origin. The Permissions Policy can be set on an iframe that embeds the website that wants to use the API. Here is an example of how the Permissions Policy can be set on an iframe:
-
-```HTML
-<iframe allow="digital-credentials-get"></iframe>
-```
+Please see the  [requesting a digital credential across origins](https://www.w3.org/TR/digital-credentials/#requesting-a-digital-credential-across-origins)
 
 ## Horizontal reviews
 
@@ -50,7 +46,7 @@ The specification allows usage of the API from a remote/third-party origin via t
 
 There are many alternatives that were considered, most notably:
 
-- [Do nothing](https://github.com/w3cping/credential-considerations/blob/main/risks.md#the-consequences-of-a-failure-to-act-are-as-valid-as-those-of-acting) (the intentional status quo in browsers for the past several years)
+- [Do nothing](https://github.com/w3c/credential-considerations/blob/main/credentials-considerations.md#risks) (the intentional status quo in browsers for the past several years)
 - Various different [API proposals](https://github.com/WICG/digital-identities/tree/main/proposals): [an mDoc-specific API](https://github.com/WICG/digital-identities/blob/main/proposals/mobile-document-request-api-proposal.md), [extending the Credential Management API](https://github.com/WICG/digital-identities/blob/main/proposals/digital-credential-proposal.md), [extending the FedCM API](https://github.com/WICG/digital-identities/blob/main/proposals/identity-credential-proposal.md) and [introducing navigator.identity](https://github.com/WICG/digital-identities/blob/main/proposals/navigator-identity-proposal.md)
 
 # Open Questions
@@ -61,17 +57,14 @@ There are still many open questions, but a few big ones:
 - Will existing protocols ([example](https://github.com/openid/OpenID4VP/issues/125)) adopt this API?
 - Will regulation ([example](https://digital-strategy.ec.europa.eu/en/library/european-digital-identity-architecture-and-reference-framework-outline)) adopt this API?
 
-# Out of Scope
+# Scope
 
-The following topics are currently out of scope for the API:
-
-- A website (issuer) requesting the issuance of a digital credential to a digital wallet
-- A website (verifier) explicitly requesting multiple digital credentials from multiple wallets in the same request
+Please see [Scope](https://www.w3.org/TR/digital-credentials/#scope)
 
 # Related Work
 
 - [Real-world identity on the web - risks and mitigations](https://github.com/w3cping/credential-considerations/blob/main/risks.md#the-consequences-of-a-failure-to-act-are-as-valid-as-those-of-acting), Rick Byers
-- [Concerns with custom schemes for identity presentment](https://github.com/WICG/digital-identities/blob/main/custom-schemes.md), Rick Byers
+- [Concerns with custom schemes for identity presentment](https://github.com/w3c-fedid/digital-credentials/blob/main/custom-schemes.md), Rick Byers
 - [Digital Credentials API Standards Position](https://github.com/WebKit/standards-positions/issues/332#issuecomment-2019400609), Marcos Caceres
 - [User considerations for credential presentation on the Web](https://github.com/w3cping/credential-considerations/blob/main/credentials-considerations.md), Nick Doty
 - [Privacy Principles](https://w3ctag.github.io/privacy-principles/#identity), Jeffrey Yasskin and Robin Berjon
