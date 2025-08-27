@@ -1983,6 +1983,14 @@
           We need to describe concerns, tradeoffs and possible mitigations of
           handling multiple requests and responses for credential presentation.
         </p>
+        <p>
+          Verifiers may wish to define a single credential request
+          using multiple [=digital credential/exchange protocols=],
+          for example to achieve maximum compatibility across [=user agent | user agents=]
+          or when migrating to a newer version of a protocol. When doing so,
+          verifiers SHOULD ensure that all requests are semantically equivalent to avoid confusing
+          the user, the user agent, and the wallet during processing of the request.
+        </p>
         <h4 id="multiple-user-agents">
           Integrating Multiple User Agents
         </h4>
