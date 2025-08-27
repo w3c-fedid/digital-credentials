@@ -354,7 +354,78 @@
       request data=] and [=digital credential/request data|credential request
       data=] to and from such software.
       </li>
-    </ul><!--
+    </ul>
+    <!--
+    // MARK: Terminology
+    -->
+    <h2>
+      Terminology
+    </h2>
+    <!--
+      // NOTE: these will eventually reference the VDC Architecture spec from IETF
+    -->
+    <dl class="definitions" data-sort="ascending" data-cite="">
+      <dt>
+        <dfn>credential manager</dfn>
+      </dt>
+      <dd>
+        An application, hardware device, or service which securely stores,
+        organizes, manages, and enables presentation of credentials. Digital
+        wallets, password managers, and passkeys managers are examples of
+        credential managers.
+      </dd>
+      <dt>
+        <dfn>wallet</dfn>
+      </dt>
+      <dd>
+        A user friendly term for a credential manager for verifiable digital
+        credentials and other objects like payment cards and tickets.
+      </dd>
+      <dt>
+        <dfn>issuance service</dfn>
+      </dt>
+      <dd>
+        An entity that performs the act of creating and delivering a verifiable
+        digital credential on behalf of the issuer. In many cases, the
+        [=issuer=] and issuance service are the same entity or component.
+      </dd>
+      <dt>
+        <dfn>issuer</dfn>
+      </dt>
+      <dd>
+        See <a href="#issuer" data-cite="vc-data-model-2.0">issuer</a> (W3C Verifiable Credentials Data Model v2.0).
+      </dd>
+      <dt>
+        <dfn>verification service</dfn>
+      </dt>
+      <dd>
+        An entity that performs the cryptographic validation of a 
+        [=verifiable presentation=] on behalf of the [=verifier=]. In many
+        cases, the [=verifier=] and verification service are the same entity or
+        component.
+      </dd>
+      <dt>
+        <dfn>verifier</dfn>
+      </dt>
+      <dd>
+        See <a href="#verifier" data-cite="vc-data-model-2.0">verifier</a> (W3C Verifiable Credentials Data Model v2.0).
+      </dd>
+      <dt>
+        <dfn>holder</dfn>
+      </dt>
+      <dd>
+        See <a href="#holder" data-cite="vc-data-model-2.0">holder</a> (W3C Verifiable Credentials Data Model v2.0). 
+      </dd>
+      <dt>
+        <dfn>relying party</dfn>
+      </dt>
+      <dd>
+        The entity which consumes and/or stores [=claims=] from a
+        [=verifiable presentation=]. In many cases, the relying party and
+        [=verifier=] are the same entity or component.
+      </dd>
+    </dl>
+    <!--
     // MARK: Model
     -->
     <h2>
