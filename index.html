@@ -777,11 +777,12 @@
               The following guidance on handling multiple requests will need to be relocated once
               this entire section of the algorithm is defined.
             </aside>
-            When multiple [=digital credential/presentation requests=] are present
-            in {{DigitalCredentialRequestOptions/requests}},
-            [=user agents=] MUST NOT return more than one
-            [=digital credential/presentation responses | presentation response=].
-            Multiple credentials MAY be present in this one response depending on the capabilities
+            When multiple [=digital credential/presentation request | presentation requests=]
+            are present in |requests|,
+            a [=user agent=] MUST NOT return more than one
+            [=digital credential/presentation response=].
+            However, multiple credentials MAY be included in this single response
+            depending on the capabilities
             of the corresponding [=digital credential/exchange protocol=].
           </li>
         </ol>
