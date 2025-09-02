@@ -353,6 +353,15 @@
       user's permission to forward a request to the user-selected 
       wallet.
       </li>
+      <li>Implementation of credential managers, specifically in the role of
+      [=holder=] software (commonly known as "digital wallets"), including how
+      they securely store or manage [=digital credentials=] or advertise
+      capabilities to [=digital credential/presentation|present=] or [=digital
+      credential/issuance|issue=] them to the [=user agent=], is out of scope.
+      The only exception is the transmission of [=digital credential/issuance
+      request data=] and [=digital credential/request data|credential request
+      data=] to and from such software.
+      </li>
     </ul><!--
     // MARK: Model
     -->
@@ -1583,8 +1592,7 @@
           against dangerous content and permission requests on the Web and
           could intervene on their behalf, proactively rejecting requests or
           requiring pre-authorization. To support this, the Digital Credentials
-          API requires that credential requests be readable by the [=user API
-          requires credential requests to be readable by the [=user agent=]
+          API requires credential requests to be readable by the [=user agent=]
           (i.e., not end-to-end encrypted to the [=verifier=]).
           </li>
           <li>[=issuers=] and lawmakers might decide to restrict use of
