@@ -199,7 +199,7 @@
         using the following code:
       </p>
       <pre class="example js" title="Checking for API support">
-        if (DigitalCredential) {
+        if (typeof DigitalCredential !== "undefined") {
           // Digital Credentials API is supported
         } else {
           // Digital Credentials API is not supported
