@@ -208,7 +208,7 @@
           const button = document.querySelector("button");
           button.addEventListener("click", async () => {
             // Check for DC API and protocol support
-            if (window.DigitalCredential && DigitalCredential.userAgentAllowsProtocol('example-protocol')) {
+            if (DigitalCredential?.userAgentAllowsProtocol("example-protocol")) {
               try {
                 const credential = await navigator.credentials.get({
                   digital: {
