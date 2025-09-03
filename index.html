@@ -369,11 +369,11 @@
       "Using the userAgentAllowsProtocol() static method">
         const protocols = [
           "example-issuance-protocol",
-          "example-request-protocol"
+          "another-issuance-protocol"
         ];
         const supportedProtocols = protocols.filter(DigitalCredential.userAgentAllowsProtocol);
         if (supportedProtocols.length &gt; 0) {
-          // At least one DC API supported. Proceed with issuance.
+          // At least one protocol is supported. Proceed with issuance.
         } else {
           // No DC API supported. Fall back to a different issuance method.
         }
