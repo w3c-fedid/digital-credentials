@@ -223,7 +223,7 @@
           const button = document.querySelector("button");
           button.addEventListener("click", async () =&gt; {
             // Check for DC API and protocol support
-            if (DigitalCredential?.userAgentAllowsProtocol("example-protocol")) {
+            if (!DigitalCredential?.userAgentAllowsProtocol("example-protocol")) {
               // DC API not supported. Fall back to a different verification method.
               showTraditionalVerificationForm();
               return;
@@ -354,7 +354,7 @@
       </p>
       <pre class="example javascript" title=
       "Using the userAgentAllowsProtocol() static method">
-        if (DigitalCredential?.userAgentAllowsProtocol("example-issuance-protocol")) {
+        if (DigitalCredential.userAgentAllowsProtocol("example-issuance-protocol")) {
           // DC API supported. Proceed with issuance or presentation.
         } else {
           // DC API not supported. Fall back to a different issuance method.
@@ -371,7 +371,7 @@
           "example-issuance-protocol",
           "example-request-protocol"
         ];
-        const supportedProtocols = protocols.filter(DigitalCredential?.userAgentAllowsProtocol);
+        const supportedProtocols = protocols.filter(DigitalCredential.userAgentAllowsProtocol);
         if (supportedProtocols.length &gt; 0) {
           // At least one DC API supported. Proceed with issuance.
         } else {
