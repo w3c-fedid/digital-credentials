@@ -191,6 +191,21 @@
         be used to request and issue digital credentials.
       </p>
       <h3>
+        Feature Detection
+      </h3>
+      <p>
+        Before using the Digital Credentials API, it's important to check if
+        the user's browser supports the necessary features. This can be done
+        using the following code:
+      </p>
+      <pre class="example js" title="Checking for API support">
+        if (DigitalCredential) {
+          // Digital Credentials API is supported
+        } else {
+          // Digital Credentials API is not supported
+        }
+      </pre>
+      <h3>
         Requesting a digital credential
       </h3>
       <p>
@@ -206,41 +221,42 @@
         &lt;button&gt;Verify Identity&lt;/button&gt;
         &lt;script&gt;
           const button = document.querySelector("button");
-          button.addEventListener("click", async () => {
+          button.addEventListener("click", async () =&gt; {
             // Check for DC API and protocol support
             if (DigitalCredential?.userAgentAllowsProtocol("example-protocol")) {
-              try {
-                const credential = await navigator.credentials.get({
-                  digital: {
-                    requests: [{
-                      protocol: "example-protocol",
-                      data: { /* request data */ }
-                    }]
-                  }
-                });
-      
-                // Post it back to the verifier server for decryption and verification
-                const response = await fetch("/verify-credential", {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json"
-                  },
-                  body: JSON.stringify(credential, null, 2)
-                });
-      
-                // Check response
-                if (!response.ok) {
-                  throw new Error("Failed to verify credential");
-                }
-      
-                // Render the verification result
-                displayVerificationResult(await response.json());
-      
-              } catch (error) {
-                console.error("Error requesting digital credential:", error);
-              }
-            } else {
               // DC API not supported. Fall back to a different verification method.
+              showTraditionalVerificationForm();
+              return;
+            }
+            try {
+              const credential = await navigator.credentials.get({
+                digital: {
+                  requests: [{
+                    protocol: "example-protocol",
+                    data: { /* request data */ }
+                  }]
+                }
+              });
+
+              // Post it back to the verifier server for decryption and verification
+              const response = await fetch("/verify-credential", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify(credential, null, 2)
+              });
+
+              // Check response
+              if (!response.ok) {
+                throw new Error("Failed to verify credential");
+              }
+
+              // Render the verification result
+              displayVerificationResult(await response.json());
+
+            } catch (error) {
+              console.error("Error requesting digital credential:", error);
             }
           });
         &lt;/script&gt;
@@ -269,21 +285,22 @@
           const button = document.querySelector("button");
           button.addEventListener("click", async () =&gt; {
             // Check for DC API and protocol support
-            if (DigitalCredential?.userAgentAllowsProtocol("example-issuance-protocol")) {
-              try {
-                const credential = await navigator.credentials.create({
-                  digital: {
-                    requests: [{
-                      protocol: "example-issuance-protocol",
-                      data: { /* issuance request data */ }
-                    }]
-                  }
-                });
-              } catch (error) {
-                console.error("Error issuing digital credential:", error);
-              }
-            } else {
+            if (!DigitalCredential?.userAgentAllowsProtocol("example-issuance-protocol")) {
               // DC API not supported. Fall back to a different issuance method.
+              showTraditionalIssuanceForm();
+              return;
+            }
+            try {
+              const credential = await navigator.credentials.create({
+                digital: {
+                  requests: [{
+                    protocol: "example-issuance-protocol",
+                    data: { /* issuance request data */ }
+                  }]
+                }
+              });
+            } catch (error) {
+              console.error("Error issuing digital credential:", error);
             }
           });
         &lt;/script&gt;
@@ -324,6 +341,42 @@
         &lt;iframe src="https://issuer.example.com"
                 allow="digital-credentials-create"&gt;
         &lt;/iframe&gt;
+      </pre>
+      <h3>
+        Using the `userAgentAllowsProtocol()` static method
+      </h3>
+      <p>
+        The `userAgentAllowsProtocol()` static method can be used to check if
+        the user agent (browser) allows a specific protocol for digital
+        credential issuance or presentation. This is useful for feature
+        detection and ensuring that the appropriate methods are used based on
+        the capabilities of the user's browser.
+      </p>
+      <pre class="example javascript" title=
+      "Using the userAgentAllowsProtocol() static method">
+        if (DigitalCredential?.userAgentAllowsProtocol("example-issuance-protocol")) {
+          // DC API supported. Proceed with issuance or presentation.
+        } else {
+          // DC API not supported. Fall back to a different issuance method.
+          // For example, use a traditional HTML form-based approach.
+          showTraditionalIssuanceForm();
+        }
+      </pre>
+      <p>
+        Alternatively, one can check for support of multiple protocols:
+      </p>
+      <pre class="example javascript" title=
+      "Using the userAgentAllowsProtocol() static method">
+        const protocols = [
+          "example-issuance-protocol",
+          "example-request-protocol"
+        ];
+        const supportedProtocols = protocols.filter(DigitalCredential?.userAgentAllowsProtocol);
+        if (supportedProtocols.length &gt; 0) {
+          // At least one DC API supported. Proceed with issuance.
+        } else {
+          // No DC API supported. Fall back to a different issuance method.
+        }
       </pre>
     </section><!--
     // MARK: Scope
@@ -749,17 +802,6 @@
       `false`.
       </li>
     </ol>
-    <p id="protocol-allowed-examples">
-      <pre class="example js" title="Using the userAgentAllowsProtocol() method">
-        // Check if the user agent allows the protocol `example-protocol`
-        
-        if (DigitalCredential.userAgentAllowsProtocol('example-protocol')) {
-          // Protocol is allowed, call .create or .get with a protocol-specific request
-        } else {
-          // Protocol is not allowed, fall back to another method
-        }
-      </pre>
-    </p>
     <h2 id="credential-management-integration">
       Integration with Credential Management API
     </h2>
