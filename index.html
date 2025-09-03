@@ -749,6 +749,17 @@
       `false`.
       </li>
     </ol>
+    <p id="protocol-allowed-examples">
+      <pre class="example js" title="Using the userAgentAllowsProtocol() method">
+        // Check if the user agent allows the protocol `example-protocol`
+        
+        if (DigitalCredential.userAgentAllowsProtocol('example-protocol')) {
+          // Protocol is allowed, call .create or .get with a protocol-specific request
+        } else {
+          // Protocol is not allowed, fall back to another method
+        }
+      </pre>
+    </p>
     <h2 id="credential-management-integration">
       Integration with Credential Management API
     </h2>
