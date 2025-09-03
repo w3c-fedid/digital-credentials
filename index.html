@@ -206,36 +206,41 @@
         &lt;button&gt;Verify Identity&lt;/button&gt;
         &lt;script&gt;
           const button = document.querySelector("button");
-          button.addEventListener("click", async () =&gt; {
-            try {
-              const credential = await navigator.credentials.get({
-                digital: {
-                  requests: [{
-                    protocol: "example-protocol",
-                    data: { /* request data */ }
-                  }]
+          button.addEventListener("click", async () => {
+            // Check for DC API and protocol support
+            if (window.DigitalCredential && DigitalCredential.userAgentAllowsProtocol('example-protocol')) {
+              try {
+                const credential = await navigator.credentials.get({
+                  digital: {
+                    requests: [{
+                      protocol: "example-protocol",
+                      data: { /* request data */ }
+                    }]
+                  }
+                });
+      
+                // Post it back to the verifier server for decryption and verification
+                const response = await fetch("/verify-credential", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json"
+                  },
+                  body: JSON.stringify(credential, null, 2)
+                });
+      
+                // Check response
+                if (!response.ok) {
+                  throw new Error("Failed to verify credential");
                 }
-              });
-
-              // Post it back to the server for decryption and verification
-              const response = await fetch("/verify-credential", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json"
-                },
-                body: JSON.stringify(credential, null, 2)
-              });
-
-              // Check response
-              if (!response.ok) {
-                throw new Error("Failed to verify credential");
+      
+                // Render the verification result
+                displayVerificationResult(await response.json());
+      
+              } catch (error) {
+                console.error("Error requesting digital credential:", error);
               }
-
-              // Render the verification result
-              displayVerificationResult(await response.json());
-
-            } catch (error) {
-              console.error("Error requesting digital credential:", error);
+            } else {
+              // DC API not supported. Fall back to a different verification method.
             }
           });
         &lt;/script&gt;
@@ -263,17 +268,22 @@
         &lt;script&gt;
           const button = document.querySelector("button");
           button.addEventListener("click", async () =&gt; {
-            try {
-              const credential = await navigator.credentials.create({
-                digital: {
-                  requests: [{
-                    protocol: "example-issuance-protocol",
-                    data: { /* issuance request data */ }
-                  }]
-                }
-              });
-            } catch (error) {
-              console.error("Error issuing digital credential:", error);
+            // Check for DC API and protocol support
+            if (window.DigitalCredential && DigitalCredential.userAgentAllowsProtocol('example-issuance-protocol')) {
+              try {
+                const credential = await navigator.credentials.create({
+                  digital: {
+                    requests: [{
+                      protocol: "example-issuance-protocol",
+                      data: { /* issuance request data */ }
+                    }]
+                  }
+                });
+              } catch (error) {
+                console.error("Error issuing digital credential:", error);
+              }
+            } else {
+              // DC API not supported. Fall back to a different issuance method.
             }
           });
         &lt;/script&gt;
