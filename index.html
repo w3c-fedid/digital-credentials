@@ -286,7 +286,7 @@
           button.addEventListener("click", async () =&gt; {
             // Check for DC API and protocol support
             if (!window.DigitalCredential?.userAgentAllowsProtocol("example-issuance-protocol")) {
-              // DC API not supported. Fall back to a different issuance method.
+              // DC API not supported or protocol not allowed. Fall back to a different issuance method.
               showTraditionalIssuanceForm();
               return;
             }
@@ -376,7 +376,7 @@
         if (supportedProtocols.length &gt; 0) {
           // At least one protocol is supported. Proceed with issuance.
         } else {
-          // No DC API supported. Fall back to a different issuance method.
+          // No protocols are supported. Fall back to a different issuance method.
         }
       </pre>
     </section><!--
