@@ -223,7 +223,7 @@
           const button = document.querySelector("button");
           button.addEventListener("click", async () =&gt; {
             // Check for DC API and protocol support
-            if (!DigitalCredential?.userAgentAllowsProtocol("example-protocol")) {
+            if (!window.DigitalCredential?.userAgentAllowsProtocol("example-protocol")) {
               // DC API not supported. Fall back to a different verification method.
               showTraditionalVerificationForm();
               return;
@@ -285,7 +285,7 @@
           const button = document.querySelector("button");
           button.addEventListener("click", async () =&gt; {
             // Check for DC API and protocol support
-            if (!DigitalCredential?.userAgentAllowsProtocol("example-issuance-protocol")) {
+            if (!window.DigitalCredential?.userAgentAllowsProtocol("example-issuance-protocol")) {
               // DC API not supported. Fall back to a different issuance method.
               showTraditionalIssuanceForm();
               return;
