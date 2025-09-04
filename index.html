@@ -347,10 +347,10 @@
       </h3>
       <p>
         The {{DigitalCredentials/userAgentAllowsProtocol()}} static method can
-        be used to check if the user agent (browser) allows a specific protocol
-        for digital credential issuance or presentation. This is useful for
-        feature detection and ensuring that the appropriate methods are used
-        based on the capabilities of the user's browser.
+        be used to check if the user agent allows a specific protocol for
+        digital credential issuance or presentation. This is useful for
+        checking which protocols are allowed by the user's browsers prior to
+        making an API call.
       </p>
       <pre class="example javascript" title=
       "Using the userAgentAllowsProtocol() static method">
@@ -363,7 +363,8 @@
         }
       </pre>
       <p>
-        Alternatively, one can check for support of multiple protocols:
+        Alternatively, one can check for support of multiple protocols,
+        filtering out those that are not supported:
       </p>
       <pre class="example javascript" title=
       "Using the userAgentAllowsProtocol() static method">
