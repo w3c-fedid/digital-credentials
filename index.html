@@ -121,7 +121,7 @@ dd{margin-left:0}
     
   
 <meta name="color-scheme" content="light">
-<meta name="revision" content="4fb55abb1725a4cffed36ebff43415a8df6ac3c0">
+<meta name="revision" content="f07df9def525e016f0c52a44a826bed174487be6">
 <meta name="description" content="This document specifies an API to enable user agents to mediate
         presentation and issuance of digital credentials such as a driver's
         license, government-issued identification card, and/or other types of digital credential. The API builds on
@@ -252,16 +252,16 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "4fb55abb1725a4cffed36ebff43415a8df6ac3c0",
-  "publishISODate": "2025-09-03T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 03 September 2025"
+  "gitRevision": "f07df9def525e016f0c52a44a826bed174487be6",
+  "publishISODate": "2025-09-04T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 04 September 2025"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED"></head>
   <body data-cite="WEBIDL credential-management-1 vc-data-model HTML INFRA URL WEBIDL DOM FETCH" class="h-entry"><div class="head">
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Digital Credentials</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2025-09-03">03 September 2025</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2025-09-04">04 September 2025</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -652,7 +652,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         Simliarly, when a site needs to <a data-link-type="dfn|abstract-op" data-lt="issuance" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-7">issue</a> a
         digital credential, the Digital Credentials API mediates the issuance
         of a digital credential between the site, the user agent, and the
-        <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-holders">holder</a>.
+        <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders">holder</a>.
       </p>
       </section><section id="issuing-a-digital-credential"><div class="header-wrapper"><h3 id="x2-2-issuing-a-digital-credential"><bdi class="secno">2.2 </bdi>
         Issuing a digital credential
@@ -741,12 +741,12 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <li><a data-link-type="dfn|abstract-op" data-lt="issuance" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-8">Issuance requests</a> for <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-5">digital credentials</a>.
       </li>
       <li>Mechanisms ensuring that, when an API call is made, the website does
-      not learn anything about the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-holders">holder</a> nor any <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-6">digital credentials</a>
+      not learn anything about the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders">holder</a> nor any <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-6">digital credentials</a>
       they hold, without explicit user consent.
       </li>
       <li>Ensuring that any installed application software will not learn
       anything about a given <a data-link-type="dfn|abstract-op" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-9">issuance request</a> or
-      <a data-link-type="dfn|abstract-op" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-10">presentation request</a> unless the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-holders">holder</a>
+      <a data-link-type="dfn|abstract-op" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-10">presentation request</a> unless the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders">holder</a>
       explicitly consents to use that software.
       </li>
     </ul>
@@ -758,9 +758,17 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       which are addressed to ensure access to and protection of user data
       during <a data-link-type="dfn|abstract-op" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-11">presentation</a> and <a data-link-type="dfn|abstract-op" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-10">issuance</a> processes.
       </li>
+      <li>Functionality outside the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent">user agent</a> is out of scope, including
+      platform-specific frameworks, native operating system APIs, standalone
+      applications, and hardware components that store, manage, or process
+      <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-7">digital credentials</a>. This includes the user interface and user
+      interactions for selecting a specific credential and obtaining the
+      user's permission to forward a request to the user-selected 
+      wallet.
+      </li>
       <li>Implementation of credential managers, specifically in the role of
-      <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-holders">holder</a> software (commonly known as "digital wallets"), including how
-      they securely store or manage <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-7">digital credentials</a> or advertise
+      <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders">holder</a> software (commonly known as "digital wallets"), including how
+      they securely store or manage <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-8">digital credentials</a> or advertise
       capabilities to <a data-link-type="dfn|abstract-op" data-lt="presentation" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-12">present</a> or <a data-link-type="dfn|abstract-op" data-lt="issuance" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-11">issue</a> them to the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent">user agent</a>, is out of scope.
       The only exception is the transmission of <a data-link-type="dfn|abstract-op" href="#dfn-issuance-request-data" class="internalDFN" id="ref-for-dfn-issuance-request-data-1">issuance request data</a> and <a data-link-type="dfn|abstract-op" data-lt="request data" href="#dfn-request-data" class="internalDFN" id="ref-for-dfn-request-data-1">credential request data</a> to and from such software.
       </li>
@@ -789,7 +797,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         <dfn data-dfn-for="digital credential" data-local-lt="exchange protocol" data-plurals="exchange protocols" id="dfn-exchange-protocol" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">Exchange protocol</dfn>
       </dt>
       <dd data-defines="#dfn-exchange-protocol">
-        A standardized protocol used for exchanging a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-8">digital credential</a>
+        A standardized protocol used for exchanging a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-9">digital credential</a>
         between a <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders">holder</a> and a <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifier</a>. A protocol is identified by a
         <a data-link-type="dfn|abstract-op" href="#dfn-protocol-identifier" class="internalDFN" id="ref-for-dfn-protocol-identifier-1">protocol identifier</a>. See section also
         <a href="#protocol-registry" data-matched-text="[[[#protocol-registry]]]" class="sec-ref"><bdi class="secno">8. </bdi>
@@ -800,14 +808,14 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       </dt>
       <dd data-defines="#dfn-issuance-protocol">
         A standardized protocol used for communication between an <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers">issuer</a>
-        and a <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders">holder</a> during the issuance of a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-9">digital credential</a>. The
+        and a <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders">holder</a> during the issuance of a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-10">digital credential</a>. The
         issuance protocol is identified by a <a data-link-type="dfn|abstract-op" href="#dfn-protocol-identifier" class="internalDFN" id="ref-for-dfn-protocol-identifier-2">protocol identifier</a>. See also section <a href="#protocol-registry" data-matched-text="[[[#protocol-registry]]]" class="sec-ref"><bdi class="secno">8. </bdi>
       Registry of protocols</a>.
       </dd><dt>
         <dfn data-dfn-for="digital credential" data-local-lt="issuance" data-plurals="issuance requests" id="dfn-issuance-request" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">Issuance request</dfn>
       </dt>
       <dd data-defines="#dfn-issuance-request">
-        An issuance request is a request to issue a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-10">digital credential</a>
+        An issuance request is a request to issue a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-11">digital credential</a>
         composed of some <a data-link-type="dfn|abstract-op" href="#dfn-issuance-request-data" class="internalDFN" id="ref-for-dfn-issuance-request-data-2">issuance request data</a> and an
         <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-3">issuance protocol</a>.
       </dd>
@@ -817,7 +825,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <dd data-defines="#dfn-issuance-request-data">
         A data structure that an <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers">issuer</a> or a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent">user agent</a>, via an
         <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-4">issuance protocol</a>, to request the issuance of a
-        <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-11">digital credential</a> by an <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers">issuer</a>.
+        <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-12">digital credential</a> by an <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers">issuer</a>.
       </dd>
       <dt>
         <dfn data-dfn-for="digital credential" data-plurals="issuance responses" id="dfn-issuance-response" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">Issuance response</dfn>
@@ -830,7 +838,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         <dfn data-dfn-for="digital credential" data-local-lt="presentation" data-plurals="presentation requests" id="dfn-presentation-request" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">Presentation request</dfn>
       </dt>
       <dd data-defines="#dfn-presentation-request">
-        A presentation request is a request for a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-12">digital credential</a>
+        A presentation request is a request for a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-13">digital credential</a>
         composed of <a data-link-type="dfn|abstract-op" href="#dfn-request-data" class="internalDFN" id="ref-for-dfn-request-data-2">request data</a> and a <a data-link-type="dfn|abstract-op" href="#dfn-exchange-protocol" class="internalDFN" id="ref-for-dfn-exchange-protocol-3">exchange protocol</a>.
       </dd>
       <dt>
@@ -854,7 +862,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       </dt>
       <dd data-defines="#dfn-request-data">
         A format that <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifier</a> software or a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent">user agent</a> uses, via an
-        <a data-link-type="dfn|abstract-op" href="#dfn-exchange-protocol" class="internalDFN" id="ref-for-dfn-exchange-protocol-5">exchange protocol</a>, to request a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-13">digital credential</a> from a <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders">holder</a>.
+        <a data-link-type="dfn|abstract-op" href="#dfn-exchange-protocol" class="internalDFN" id="ref-for-dfn-exchange-protocol-5">exchange protocol</a>, to request a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-14">digital credential</a> from a <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders">holder</a>.
       </dd>
       </dl>
     </section><section id="the-digital-credentials-api"><div class="header-wrapper"><h2 id="x5-the-digital-credentials-api"><bdi class="secno">5. </bdi>
@@ -863,12 +871,12 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <p>
       The Digital Credentials API leverages the <cite><a data-matched-text="[[[credential-management]]]" href="https://www.w3.org/TR/credential-management-1/">Credential Management Level 1</a></cite>
       specificaion, allowing <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent">user agents</a> to mediate the <a data-link-type="dfn|abstract-op" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-13">issuance</a> and <a data-link-type="dfn|abstract-op" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-14">presentation</a> of
-      <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-14">digital credentials</a>.
+      <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-15">digital credentials</a>.
     </p>
     <p>
       The API allows <a data-link-type="dfn|abstract-op" data-lt="presentation request" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-15">requesting</a> a
-      <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-15">digital credential</a> from the user agent, which in turn presents a
-      <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-chooser">credential chooser</a> to the user, allowing them to select a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-16">digital credential</a> that can fulfill the request. This is done by the website
+      <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-16">digital credential</a> from the user agent, which in turn presents a
+      <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-chooser">credential chooser</a> to the user, allowing them to select a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-17">digital credential</a> that can fulfill the request. This is done by the website
       calling the <code>navigator.credentials.</code><a data-link-type="method" data-lt="get()" href="https://www.w3.org/TR/credential-management-1/#dom-credentialscontainer-get"><code>get</code></a><code>()</code>
       method, which runs the <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#abstract-opdef-request-a-credential">request a <code>Credential</code></a> algorithm of
       <cite><a data-matched-text="[[[credential-management]]]" href="https://www.w3.org/TR/credential-management-1/">Credential Management Level 1</a></cite>. That algorithm then calls back into this
@@ -876,9 +884,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <a data-link-type="method" data-lt="[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)" href="#dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors" class="internalDFN" id="ref-for-dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors-1"><code>[[DiscoverFromExternalSource]](<var>origin</var>, <var>options</var>, <var>sameOriginWithAncestors</var>)</code></a> internal method.
     </p>
     <p>
-      Additionally, the API also allows <a data-link-type="dfn|abstract-op" data-lt="Issuance request" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-14">requesting issuance</a> of a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-17">digital credential</a>, which
+      Additionally, the API also allows <a data-link-type="dfn|abstract-op" data-lt="Issuance request" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-14">requesting issuance</a> of a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-18">digital credential</a>, which
       initiates an mediated issuance flow between the user agent and/or a
-      <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-holders">holder</a>. This is done by calling the
+      <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders">holder</a>. This is done by calling the
       <code>navigator.credentials.</code><a data-link-type="method" data-lt="create()" href="https://www.w3.org/TR/credential-management-1/#dom-credentialscontainer-create"><code>create</code></a><code>()</code> method, which
       runs the <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#abstract-opdef-create-a-credential">create a credential</a> algorithm of
       <cite><a data-matched-text="[[[credential-management]]]" href="https://www.w3.org/TR/credential-management-1/">Credential Management Level 1</a></cite>. That algorithm then calls back into this
@@ -902,7 +910,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </h4><a class="self-link" href="#the-digital-member" aria-label="Permalink for Section 5.1.1"></a></div>
     <p>
       The <dfn data-dfn-for="CredentialRequestOptions" data-export="" data-dfn-type="dict-member" id="dom-credentialrequestoptions-digital" data-idl="field" data-title="digital" data-type="DigitalCredentialRequestOptions" tabindex="0" aria-haspopup="dialog"><code>digital</code></dfn> member
-      allows for options to configure the request for a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-18">digital credential</a>.
+      allows for options to configure the request for a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-19">digital credential</a>.
     </p>
     </section></section><section id="the-digitalcredentialrequestoptions-dictionary"><div class="header-wrapper"><h3 id="x5-2-the-digitalcredentialrequestoptions-dictionary"><bdi class="secno">5.2 </bdi>
       The <code>DigitalCredentialRequestOptions</code> dictionary
@@ -961,7 +969,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </h4><a class="self-link" href="#the-digital-member-0" aria-label="Permalink for Section 5.4.1"></a></div>
     <p>
       The <dfn data-dfn-for="CredentialCreationOptions" data-export="" data-dfn-type="dict-member" id="dom-credentialcreationoptions-digital" data-idl="field" data-title="digital" data-type="DigitalCredentialCreationOptions" tabindex="0" aria-haspopup="dialog"><code>digital</code></dfn> member
-      allows for options to configure the issuance of a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-19">digital credential</a>.
+      allows for options to configure the issuance of a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-20">digital credential</a>.
     </p>
     </section></section><section id="the-digitalcredentialcreationoptions-dictionary"><div class="header-wrapper"><h3 id="x5-5-the-digitalcredentialcreationoptions-dictionary"><bdi class="secno">5.5 </bdi>
       The <code>DigitalCredentialCreationOptions</code> dictionary
@@ -975,7 +983,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <p>
       The <dfn data-dfn-for="DigitalCredentialCreationOptions" data-plurals="request" data-export="" data-dfn-type="dict-member" id="dom-digitalcredentialcreationoptions-requests" data-idl="field" data-title="requests" data-type="sequence" tabindex="0" aria-haspopup="dialog"><code>requests</code></dfn>
       specify an <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-6">issuance protocol</a> and <a data-link-type="dfn|abstract-op" href="#dfn-request-data" class="internalDFN" id="ref-for-dfn-request-data-6">request data</a>, which the user agent <em class="rfc2119">MAY</em> forward to a
-      <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-holders">holder</a>.
+      <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders">holder</a>.
     </p>
     </section></section><section id="the-digitalcredentialcreaterequest-dictionary"><div class="header-wrapper"><h3 id="x5-6-the-digitalcredentialcreaterequest-dictionary"><bdi class="secno">5.6 </bdi>
       The <code>DigitalCredentialCreateRequest</code> dictionary
@@ -1014,7 +1022,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </h3><a class="self-link" href="#the-digitalcredential-interface" aria-label="Permalink for Section 5.7"></a></div>
     <p>
       The <dfn data-export="" data-dfn-type="interface" id="dom-digitalcredential" data-idl="interface" data-title="DigitalCredential" data-dfn-for="" tabindex="0" aria-haspopup="dialog"><code>DigitalCredential</code></dfn> interface represents a conceptual
-      <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-20">digital credential</a>.
+      <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-21">digital credential</a>.
     </p>
     <p>
       <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#user-mediated">User mediation</a> is always
@@ -1042,8 +1050,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <p>
       The <dfn data-dfn-for="DigitalCredential" data-plurals="protocols" data-export="" data-dfn-type="attribute" id="dom-digitalcredential-protocol" data-idl="attribute" data-title="protocol" data-type="DOMString" data-lt="protocol" data-local-lt="DigitalCredential.protocol" tabindex="0" aria-haspopup="dialog"><code>protocol</code></dfn> member is the
       <a data-link-type="dfn|abstract-op" href="#dfn-exchange-protocol" class="internalDFN" id="ref-for-dfn-exchange-protocol-9">exchange protocol</a> that was used to request the
-      <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-21">digital credential</a>, or the <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-9">issuance protocol</a>
-      that was used to issue the <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-22">digital credential</a>.
+      <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-22">digital credential</a>, or the <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-9">issuance protocol</a>
+      that was used to issue the <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-23">digital credential</a>.
     </p>
     </section><section id="the-data-member-1"><div class="header-wrapper"><h4 id="x5-7-2-the-data-member"><bdi class="secno">5.7.2 </bdi>
       The <code>data</code> member
@@ -1059,7 +1067,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </h4><a class="self-link" href="#the-useragentallowsprotocol-method" aria-label="Permalink for Section 5.7.3"></a></div>
     <p>
       The <a data-link-type="idl" data-lt="userAgentAllowsProtocol()" href="#dom-digitalcredential-useragentallowsprotocol" class="internalDFN" id="ref-for-dom-digitalcredential-useragentallowsprotocol-2"><code>userAgentAllowsProtocol</code></a><code>()</code> method allows digital
-      credential <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifiers</a> to determine which <a data-link-type="dfn|abstract-op" href="#dfn-exchange-protocol" class="internalDFN" id="ref-for-dfn-exchange-protocol-10">exchange protocols</a> and <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-10">issuance protocols</a> the user agent
+      credential <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifiers</a> to determine which <a data-link-type="dfn|abstract-op" href="#dfn-exchange-protocol" class="internalDFN" id="ref-for-dfn-exchange-protocol-10">exchange protocols</a> and <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-10">issuance protocols</a> the user agent
       allows.
     </p>
     <div class="note" role="note" id="issue-container-generatedID-1"><div role="heading" class="note-title marker" id="h-note-1" aria-level="2"><span>Note</span></div><p class="">
@@ -1131,7 +1139,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       </li>
       <li>
         <div class="issue" id="issue-container-generatedID-2"><div role="heading" class="issue-title marker" id="h-issue-0" aria-level="2"><span>Issue</span></div><aside class="">
-          Details of how to actually get the <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-23">digital credential</a> are
+          Details of how to actually get the <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-24">digital credential</a> are
           forthcoming.
         </aside></div>
       </li>
@@ -1185,7 +1193,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       </li>
       <li>
         <div class="issue" id="issue-container-generatedID-3"><div role="heading" class="issue-title marker" id="h-issue-1" aria-level="2"><span>Issue</span></div><aside class="">
-          Details of how to actually issue the <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-24">digital credential</a> are
+          Details of how to actually issue the <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-25">digital credential</a> are
           forthcoming.
         </aside></div>
       </li>
@@ -1531,7 +1539,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p>
         The Digital Credentials API integrates into a complex ecosystem with
         multiple technology layers and various participants (including but not
-        limited to <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifiers</a>, <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-holders">holders</a>, and <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-issuers">issuers</a>), each of which
+        limited to <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifiers</a>, <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders">holders</a>, and <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers">issuers</a>), each of which
         have to consider different aspects of user privacy. This specification
         does not attempt to exhaustively list all considerations for the
         different participants. We would like to refer these parties to a
@@ -1544,7 +1552,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         <li><cite><a data-matched-text="[[[threat-model-decentralized-identities]]]" href="https://github.com/w3c-cg/threat-modeling/blob/main/models/decentralized-identities.md">Threat Model for Decentralized Identities</a></cite>
         </li>
         <li>
-          <a href="https://www.w3.org/TR/vc-data-model/#privacy-considerations">VC Data Model
+          <a href="https://www.w3.org/TR/vc-data-model-2.0/#privacy-considerations">VC Data Model
           Privacy Considerations</a>
         </li>
         <li>...
@@ -1585,9 +1593,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           protocols for ease of adoption.
         </p>
         <p>
-          The API provides the connection interface between <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifiers</a> and
-          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-holders">holders</a>, i.e. the means by which a <a data-link-type="dfn|abstract-op" data-lt="exchange protocol" href="#dfn-exchange-protocol" class="internalDFN" id="ref-for-dfn-exchange-protocol-20">credential exchange protocol</a> is initiated and the user
-          switches to the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-holders">holder</a> application to select a credential.
+          The API provides the connection interface between <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifiers</a> and
+          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders">holders</a>, i.e. the means by which a <a data-link-type="dfn|abstract-op" data-lt="exchange protocol" href="#dfn-exchange-protocol" class="internalDFN" id="ref-for-dfn-exchange-protocol-20">credential exchange protocol</a> is initiated and the user
+          switches to the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders">holder</a> application to select a credential.
           Solutions that have been used for this purpose in the past include QR
           codes and custom URL schemes. As documented in
           <cite><a data-matched-text="[[[presenting-credentials-on-the-web]]]" href="https://docs.google.com/document/d/1Ppaz_EnhzHqPOz5UusRJvbSunh-RXPWgJ3Np_TM2EE0/">Presenting Credentials on the Web</a></cite> and <cite><a data-matched-text="[[[custom-schemes]]]" href="https://github.com/w3c-fedid/digital-credentials/blob/main/custom-schemes.md">Concerns with custom schemes for identity presentment</a></cite>,
@@ -1685,9 +1693,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         <p>
           <a href="https://github.com/w3c/credential-considerations/blob/main/credentials-considerations.md#selective-disclosure">Selective
           disclosure</a> is a fundamental technique for <a href="https://www.w3.org/TR/privacy-principles/#data-minimization">data minimization</a> that
-          allows <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-holders">holders</a> to share the minimum required information that is
-          requested by a <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifier</a>. Protocols are expected to facilitate
-          selective disclosure by allowing the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifier</a> to specify the
+          allows <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders">holders</a> to share the minimum required information that is
+          requested by a <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifier</a>. Protocols are expected to facilitate
+          selective disclosure by allowing the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifier</a> to specify the
           exact claims needed.
         </p>
         </section><section id="unlinkable-presentations"><div class="header-wrapper"><h5 id="x10-3-1-2-unlinkable-presentations"><bdi class="secno">10.3.1.2 </bdi>
@@ -1696,17 +1704,17 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         <p>
           <a href="https://github.com/w3c/credential-considerations/blob/main/credentials-considerations.md#unlinkable-presentations">Unlinkability</a>
           is a property that ensures that, if a user presents attributes from a
-          credential multiple times, <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifiers</a> cannot link these separate
+          credential multiple times, <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifiers</a> cannot link these separate
           presentations to conclude they concern the same user
-          (verifier-verifier linkability), or that <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifiers</a> cannot collude
-          with <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-issuers">issuers</a> to report the exchange of a credential from a
-          digital wallet to the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-issuers">issuer</a> (verifier-issuer linkability). The
-          former is a property that can be maintained by the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-holders">holder</a> and
-          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-issuers">issuer</a>, e.g. through issuing fresh credentials for individual
-          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifiers</a>.
+          (verifier-verifier linkability), or that <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifiers</a> cannot collude
+          with <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers">issuers</a> to report the exchange of a credential from a
+          digital wallet to the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers">issuer</a> (verifier-issuer linkability). The
+          former is a property that can be maintained by the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders">holder</a> and
+          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers">issuer</a>, e.g. through issuing fresh credentials for individual
+          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifiers</a>.
         </p>
         <p>
-          While the latter is achievable, e.g. through <a href="https://www.w3.org/TR/vc-data-model/#zero-knowledge-proofs">Zero-Knowledge Proofs</a>,
+          While the latter is achievable, e.g. through <a href="https://www.w3.org/TR/vc-data-model-2.0/#zero-knowledge-proofs">Zero-Knowledge Proofs</a>,
           design choices of the API such as encrypted responses make it
           impossible for a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent">user agent</a> to prove that verifier-issuer
           unlinkability was achieved in practice. Nonetheless, protocols are
@@ -1720,9 +1728,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         </p>
         <p>
           Through the Digital Credentials API, the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent">user agent</a> can help
-          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifiers</a> and digital wallets exchange unlinkable attributes,
+          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifiers</a> and digital wallets exchange unlinkable attributes,
           but, because of response encryption, it cannot guarantee that no
-          linkable information is passed between <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifiers</a> and digital
+          linkable information is passed between <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifiers</a> and digital
           wallets. It is recommended that <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent">user agents</a> account for this fact
           in their user permission experience.
         </p>
@@ -1738,12 +1746,12 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           <a href="https://github.com/w3c/credential-considerations/blob/main/credentials-considerations.md#no-phoning-home">"Phoning
           home"</a> refers to scenarios where the presentation or verification
           of a digital credential causes a notification or communication back
-          to the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-issuers">issuer</a> or another central entity, which can lead to
+          to the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers">issuer</a> or another central entity, which can lead to
           tracking and profiling of individuals.
         </p>
         <p>
           Similar to unlinkability, it is impossible for <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent">user agents</a> to
-          ensure that an <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-issuers">issuer</a> isn't actively involved in the creation or
+          ensure that an <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers">issuer</a> isn't actively involved in the creation or
           validation of credential presentations after a user has given
           permission to proceed with a credential request. From that point on,
           the digital wallet application owns this decision. While some digital
@@ -1755,26 +1763,26 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           multiple cooperating user agents</a>).
         </p>
         <p>
-          Protocols are required to support mechanisms that allow <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-issuers">issuers</a>,
-          digital wallets, and <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifiers</a> to avoid or reduce the dependence
+          Protocols are required to support mechanisms that allow <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers">issuers</a>,
+          digital wallets, and <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifiers</a> to avoid or reduce the dependence
           on "phone home" mechanisms.
         </p>
         <div class="issue" id="issue-container-number-279-0"><div role="heading" class="issue-title marker" id="h-issue-13" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/279"><span class="issue-number">Issue 279</span></a><span class="issue-label">: Linkability and issuer involvement as a protocol requirement <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a></span></div><p class="">
           Which level of unlinkability is the goal for this API? To what degree
-          can the spec mandate restrictions to <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-issuers">issuer</a> involvement?
+          can the spec mandate restrictions to <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers">issuer</a> involvement?
         </p></div>
         </section><section id="unlinkable-revocation"><div class="header-wrapper"><h5 id="x10-3-1-4-unlinkable-revocation"><bdi class="secno">10.3.1.4 </bdi>
           Unlinkable revocation
         </h5><a class="self-link" href="#unlinkable-revocation" aria-label="Permalink for Section 10.3.1.4"></a></div>
         <p>
-          A common instance of <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-issuers">issuer</a> involvement in a credential exchange
+          A common instance of <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers">issuer</a> involvement in a credential exchange
           is for credential revocation checks. This is particularly challenging
           when presentations are intended to be verifier-issuer unlinkable.
           When credential presentations are made unlinkable through the use of
           e.g. Zero-Knowledge Proofs, the credential formats used in protocols
           are expected to support offline revocation methods such as <a href="https://eprint.iacr.org/2024/657.pdf">Cryptographic
           Accumulators</a>. It is further expected that protocol design and
-          specification discourages the involvement of <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifiers</a> for the
+          specification discourages the involvement of <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifiers</a> for the
           purpose of revocation where possible.
         </p>
         <div class="issue" id="issue-container-number-280"><div role="heading" class="issue-title marker" id="h-issue-14" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/280"><span class="issue-number">Issue 280</span></a><span class="issue-label">: Can we require protocols to support unlinkable revocation? <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22registry%22" style="background-color: rgb(52, 215, 156); color: rgb(0, 0, 0);" aria-label="GitHub label: registry">registry</a></span></div><p class="">
@@ -1794,12 +1802,12 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           Support for verifier authorization
         </h5><a class="self-link" href="#support-for-verifier-authorization" aria-label="Permalink for Section 10.3.1.6"></a></div>
         <p>
-          Verifier authorization refers to the process by which a <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifier</a>
+          Verifier authorization refers to the process by which a <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifier</a>
           proves its identity and demonstrates that it is legitimately entitled
           to request specific attributes or credentials. This is particularly
           useful when exchanging sensitive data, such as from government-issued
           credentials. Verifier authorization can limit unnecessary or abusive
-          credential requests, and ensure that a <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifier</a>'s access is
+          credential requests, and ensure that a <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifier</a>'s access is
           restricted to the specific credential attributes it registered for.
         </p>
         <p>
@@ -1816,9 +1824,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         </h5><a class="self-link" href="#encrypting-credential-responses" aria-label="Permalink for Section 10.3.1.7"></a></div>
         <p>
           To prevent exposure of user information to other parties in
-          "transit", for example browser extensions loaded on <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifier</a>
+          "transit", for example browser extensions loaded on <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifier</a>
           pages, and to encourage secure storage of user credentials by the
-          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifier</a>, protocols are required to support and mandate encrypted
+          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifier</a>, protocols are required to support and mandate encrypted
           responses in a credential exchange.
         </p>
         <div class="issue" id="issue-container-number-109"><div role="heading" class="issue-title marker" id="h-issue-16" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/109"><span class="issue-number">Issue 109</span></a><span class="issue-label">: Should response encryption be required <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22discussion%22" style="background-color: rgb(75, 158, 238); color: rgb(0, 0, 0);" aria-label="GitHub label: discussion">discussion</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a></span></div><p dir="auto">Related to <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2024260424" data-permission-text="Title is private" data-url="https://github.com/w3c-fedid/digital-credentials/issues/49" data-hovercard-type="issue" data-hovercard-url="/w3c-fedid/digital-credentials/issues/49/hovercard" href="https://github.com/w3c-fedid/digital-credentials/issues/49">#49</a> and several other discussions we've had: do we want to say that the response must always be encrypted (and if so, by which algorithms), or are we OK leaving that as optional?</p></div>
@@ -1862,11 +1870,11 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           participation from all parties involved in the credential exchange.
         </p>
         <ul>
-          <li>Ideally, <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifiers</a> would self-regulate their requests for
+          <li>Ideally, <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifiers</a> would self-regulate their requests for
           credentials. However, from a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent">user agent</a>'s perspective,
-          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifiers</a> are potential attackers, and might not consider the
+          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifiers</a> are potential attackers, and might not consider the
           user's best interest in their designs. The Digital Credentials API
-          needs to operate from an assumption that all <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifiers</a> might have
+          needs to operate from an assumption that all <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifiers</a> might have
           incentives that motivate unnecessary requests and abuse, and protect
           users accordingly.
           </li>
@@ -1875,11 +1883,11 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           could intervene on their behalf, proactively rejecting requests or
           requiring pre-authorization. To support this, the Digital Credentials
           API requires credential requests to be readable by the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent">user agent</a>
-          (i.e., not end-to-end encrypted to the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifier</a>).
+          (i.e., not end-to-end encrypted to the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifier</a>).
           </li>
-          <li><a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-issuers">issuers</a> and lawmakers might decide to restrict use of
+          <li><a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers">issuers</a> and lawmakers might decide to restrict use of
           (particularly government-issued) credentials to specific
-          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifiers</a> with purpose attestations. Digital wallets might be
+          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifiers</a> with purpose attestations. Digital wallets might be
           expected to enforce these restrictions by law or policy.
           </li>
           <li>The ultimate decision of whether or not to share their personal
@@ -1955,8 +1963,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           prompted by a large number of websites to share personal information.
           </li>
           <li>Increased potential for <a href="https://www.rfc-editor.org/rfc/rfc6973#section-5.1.1">surveillance</a> and restrictions on
-          pseudonymous use of online services. Collusion between <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifiers</a>
-          and <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-issuers">issuers</a>, or other parties, might result in the ability to
+          pseudonymous use of online services. Collusion between <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifiers</a>
+          and <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers">issuers</a>, or other parties, might result in the ability to
           closely monitor a user's activity on the Web and take adverse action
           against this individual. Even when no action is taken, the
           possibility of surveillance alone can cause anxiety, discomfort, and
@@ -1986,7 +1994,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           also enact laws and regulations that clearly define how and for what
           purposes those credentials are able to be used. All parties involved
           in the exchange, whether they are legally obliged to do so or not,
-          are advised to support any government <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifier</a> authentication
+          are advised to support any government <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifier</a> authentication
           schemes, if they exist. The support for (and integration of) verifier
           authentication schemes such as <a href="https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/blob/main/docs/annexes/annex-2/annex-2-high-level-requirements.md#a2327-topic-27---registration-of-pid-providers-providers-of-qeaas-pub-eaas-and-non-qualified-eaas-and-relying-parties">
           EUDI access and registration certificates</a> can mitigate risks of
@@ -2006,8 +2014,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           users in permission and consent flows.
           </li>
           <li>Support for protocols that allow unlinkability mechanisms such as
-          Zero-Knowledge Proofs can prevent <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifier</a>-based surveillance and
-          potential discrimination, by hiding the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-issuers">issuer</a>.
+          Zero-Knowledge Proofs can prevent <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifier</a>-based surveillance and
+          potential discrimination, by hiding the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers">issuer</a>.
           </li>
           <li>Offering useful context and a clearly understandable permission
           flow will help users make better decisions on whether or not to
@@ -2019,7 +2027,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           It is further critical that <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent">user agents</a> design a permission
           experience that accounts for the lack of these mitigations, e.g., the
           exchange of personal information from government credentials without
-          any <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifier</a> authentication scheme. It is recommended that a
+          any <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifier</a> authentication scheme. It is recommended that a
           higher level of friction and clear user messaging that highlights the
           involved risk be applied to these types of exchanges.
         </p>
@@ -2054,7 +2062,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           The flexibility and lack of regulation of non-government credentials
           carries potential for abuse for the purpose of cross-site tracking
           and linking identities through long-lived identifiers, such as email
-          address or phone number. <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifiers</a> participating in a tracking
+          address or phone number. <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifiers</a> participating in a tracking
           scheme based on digital credentials could create user incentives to
           accept sharing identifier credentials across many sites ("loyalty
           cards" for the Web), without fully understanding the implications on
@@ -2136,27 +2144,27 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         <p>
           Even with selective disclosure, attackers might combine data from a
           digital credential (such as the user's age, or the credential
-          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-issuers">issuer</a>, timestamps, see <a href="#leaking-incidental-data" data-matched-text="[[[#leaking-incidental-data]]]" class="sec-ref"><bdi class="secno">10.5.2 </bdi>
+          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers">issuer</a>, timestamps, see <a href="#leaking-incidental-data" data-matched-text="[[[#leaking-incidental-data]]]" class="sec-ref"><bdi class="secno">10.5.2 </bdi>
           Leaking incidental data with credential presentations</a>) to
           reidentify and/or fingerprint users.
         </p>
         <p>
           This attack might be harder for third-party attackers (such as
-          scripts embedded on the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifier</a>'s pages but not actively
+          scripts embedded on the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifier</a>'s pages but not actively
           collaborating with them for the purpose of tracking) because response
           encryption is mandatory and responses should be decrypted on the
-          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifier</a>'s server. The <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifier</a> could thus ensure not to
+          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifier</a>'s server. The <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifier</a> could thus ensure not to
           reflect back decrypted information to client-side JavaScript. Not all
-          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifiers</a> will choose to do so, however.
+          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifiers</a> will choose to do so, however.
         </p>
         </section><section id="leaking-incidental-data-with-credential-presentations"><div class="header-wrapper"><h4 id="leaking-incidental-data"><bdi class="secno">10.5.2 </bdi>
           Leaking incidental data with credential presentations
         </h4><a class="self-link" href="#leaking-incidental-data" aria-label="Permalink for Section 10.5.2"></a></div>
         <p>
           To ensure authenticity of a credential, its presentation to
-          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifiers</a> generally includes more information than the content
-          the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifier</a> is requesting access to. It will usually contain at
-          least a signature of the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-issuers">issuer</a> and the digital wallet, and
+          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifiers</a> generally includes more information than the content
+          the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifier</a> is requesting access to. It will usually contain at
+          least a signature of the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers">issuer</a> and the digital wallet, and
           potentially other metadata.
         </p>
         <p>
@@ -2168,9 +2176,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           While the Digital Credentials API does not control the content of a
           credential response, <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent">user agents</a> can help protect users against
           this type of tracking through clearly highlighting which information
-          likely gets shared with the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifier</a> beyond what was requested,
+          likely gets shared with the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifier</a> beyond what was requested,
           and, more broadly, by identifying and blocking fingerprinting through
-          the API by <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifiers</a>.
+          the API by <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifiers</a>.
         </p>
         </section><section id="revealing-device-properties-through-protocol-availability"><div class="header-wrapper"><h4 id="x10-5-3-revealing-device-properties-through-protocol-availability"><bdi class="secno">10.5.3 </bdi>
           Revealing device properties through protocol availability
@@ -2224,7 +2232,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           the following:
         </p>
         <ul>
-          <li>The origin of the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifier</a> that requests the credential.
+          <li>The origin of the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifier</a> that requests the credential.
           </li>
           <li>The information that is being requested, or that would be
           revealed by responding to the request.
@@ -2297,16 +2305,16 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           The permission mediated by the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent">user agent</a> is not consent, which
           has specific legal definitions that can vary among different legal
           and regulatory environments and may need to be collected by the
-          digital wallet before sharing information with the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifier</a>, or
-          by the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifier</a> itself before initiating the request. With
+          digital wallet before sharing information with the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifier</a>, or
+          by the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifier</a> itself before initiating the request. With
           frameworks and regulations for obtaining consent still being
           developed, this API aims to enable the exchange of the necessary
           information, which could include the following:
         </p>
         <ul>
-          <li>The privacy policy of the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifier</a> receiving the credential.
+          <li>The privacy policy of the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifier</a> receiving the credential.
           </li>
-          <li>The purpose for which the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifier</a> is requesting the
+          <li>The purpose for which the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifier</a> is requesting the
           information.
           </li>
           <li>What the information will be used for.
@@ -2316,7 +2324,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           <li>Any evaluations and attestations of this information, if
           available.
           </li>
-          <li>Assertions of the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifier</a>'s legitimacy and registration for
+          <li>Assertions of the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifier</a>'s legitimacy and registration for
           accessing the credential, such as <a href="https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/blob/main/docs/annexes/annex-2/annex-2-high-level-requirements.md#a2327-topic-27---registration-of-pid-providers-providers-of-qeaas-pub-eaas-and-non-qualified-eaas-and-relying-parties">
             EUDI access and registration certificates</a>.
           </li>
@@ -2418,8 +2426,6 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </dd><dt id="bib-rfc8174">[RFC8174]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc8174"><cite>Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</cite></a>. B. Leiba.  IETF. May 2017. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>
     </dd><dt id="bib-vc-data-model">[vc-data-model]</dt><dd>
-      <a href="https://www.w3.org/TR/vc-data-model/"><cite>Verifiable Credentials Data Model v1.1</cite></a>. Manu Sporny; Grant Noble; Dave Longley; Daniel Burnett; Brent Zundel; Kyle Den Hartog.  W3C. 3 March 2022. W3C Recommendation. URL: <a href="https://www.w3.org/TR/vc-data-model/">https://www.w3.org/TR/vc-data-model/</a>
-    </dd><dt id="bib-vc-data-model-2.0">[vc-data-model-2.0]</dt><dd>
       <a href="https://www.w3.org/TR/vc-data-model-2.0/"><cite>Verifiable Credentials Data Model v2.0</cite></a>. Ivan Herman; Michael Jones; Manu Sporny; Ted Thibodeau Jr; Gabe Cohen.  W3C. 15 May 2025. W3C Recommendation. URL: <a href="https://www.w3.org/TR/vc-data-model-2.0/">https://www.w3.org/TR/vc-data-model-2.0/</a>
     </dd><dt id="bib-webidl">[WebIDL]</dt><dd>
       <a href="https://webidl.spec.whatwg.org/"><cite>Web IDL Standard</cite></a>. Edgar Chen; Timothy Gu.  WHATWG. Living Standard. URL: <a href="https://webidl.spec.whatwg.org/">https://webidl.spec.whatwg.org/</a>
@@ -2474,23 +2480,23 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-dfn-digital-credential-3" title="§ 2.1 Requesting a digital credential">§ 2.1 Requesting a digital credential</a> 
     </li><li>
-      <a href="#ref-for-dfn-digital-credential-4" title="§ 3. Scope">§ 3. Scope</a> <a href="#ref-for-dfn-digital-credential-5" title="Reference 2">(2)</a> <a href="#ref-for-dfn-digital-credential-6" title="Reference 3">(3)</a> <a href="#ref-for-dfn-digital-credential-7" title="Reference 4">(4)</a> 
+      <a href="#ref-for-dfn-digital-credential-4" title="§ 3. Scope">§ 3. Scope</a> <a href="#ref-for-dfn-digital-credential-5" title="Reference 2">(2)</a> <a href="#ref-for-dfn-digital-credential-6" title="Reference 3">(3)</a> <a href="#ref-for-dfn-digital-credential-7" title="Reference 4">(4)</a> <a href="#ref-for-dfn-digital-credential-8" title="Reference 5">(5)</a> 
     </li><li>
-      <a href="#ref-for-dfn-digital-credential-8" title="§ 4. Model">§ 4. Model</a> <a href="#ref-for-dfn-digital-credential-9" title="Reference 2">(2)</a> <a href="#ref-for-dfn-digital-credential-10" title="Reference 3">(3)</a> <a href="#ref-for-dfn-digital-credential-11" title="Reference 4">(4)</a> <a href="#ref-for-dfn-digital-credential-12" title="Reference 5">(5)</a> <a href="#ref-for-dfn-digital-credential-13" title="Reference 6">(6)</a> 
+      <a href="#ref-for-dfn-digital-credential-9" title="§ 4. Model">§ 4. Model</a> <a href="#ref-for-dfn-digital-credential-10" title="Reference 2">(2)</a> <a href="#ref-for-dfn-digital-credential-11" title="Reference 3">(3)</a> <a href="#ref-for-dfn-digital-credential-12" title="Reference 4">(4)</a> <a href="#ref-for-dfn-digital-credential-13" title="Reference 5">(5)</a> <a href="#ref-for-dfn-digital-credential-14" title="Reference 6">(6)</a> 
     </li><li>
-      <a href="#ref-for-dfn-digital-credential-14" title="§ 5. The Digital Credentials API">§ 5. The Digital Credentials API</a> <a href="#ref-for-dfn-digital-credential-15" title="Reference 2">(2)</a> <a href="#ref-for-dfn-digital-credential-16" title="Reference 3">(3)</a> <a href="#ref-for-dfn-digital-credential-17" title="Reference 4">(4)</a> 
+      <a href="#ref-for-dfn-digital-credential-15" title="§ 5. The Digital Credentials API">§ 5. The Digital Credentials API</a> <a href="#ref-for-dfn-digital-credential-16" title="Reference 2">(2)</a> <a href="#ref-for-dfn-digital-credential-17" title="Reference 3">(3)</a> <a href="#ref-for-dfn-digital-credential-18" title="Reference 4">(4)</a> 
     </li><li>
-      <a href="#ref-for-dfn-digital-credential-18" title="§ 5.1.1 The digital member">§ 5.1.1 The digital member</a> 
+      <a href="#ref-for-dfn-digital-credential-19" title="§ 5.1.1 The digital member">§ 5.1.1 The digital member</a> 
     </li><li>
-      <a href="#ref-for-dfn-digital-credential-19" title="§ 5.4.1 The digital member">§ 5.4.1 The digital member</a> 
+      <a href="#ref-for-dfn-digital-credential-20" title="§ 5.4.1 The digital member">§ 5.4.1 The digital member</a> 
     </li><li>
-      <a href="#ref-for-dfn-digital-credential-20" title="§ 5.7 The DigitalCredential interface">§ 5.7 The DigitalCredential interface</a> 
+      <a href="#ref-for-dfn-digital-credential-21" title="§ 5.7 The DigitalCredential interface">§ 5.7 The DigitalCredential interface</a> 
     </li><li>
-      <a href="#ref-for-dfn-digital-credential-21" title="§ 5.7.1 The protocol member">§ 5.7.1 The protocol member</a> <a href="#ref-for-dfn-digital-credential-22" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-digital-credential-22" title="§ 5.7.1 The protocol member">§ 5.7.1 The protocol member</a> <a href="#ref-for-dfn-digital-credential-23" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-dfn-digital-credential-23" title="§ 6.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 6.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
+      <a href="#ref-for-dfn-digital-credential-24" title="§ 6.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 6.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
     </li><li>
-      <a href="#ref-for-dfn-digital-credential-24" title="§ 6.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 6.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
+      <a href="#ref-for-dfn-digital-credential-25" title="§ 6.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 6.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-exchange-protocol" aria-label="Links in this document to definition: Exchange protocol">
