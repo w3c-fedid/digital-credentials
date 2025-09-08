@@ -315,7 +315,9 @@
                 allow="digital-credentials-create"&gt;
         &lt;/iframe&gt;
       </pre>
-    </section>
+    </section><!--
+    // MARK: Scope
+    -->
     <h2 class="informative">
       Scope
     </h2>
@@ -323,27 +325,38 @@
       The following items are within the scope of this specification:
     </p>
     <ul>
-      <li>Requesting a [=digital credential=], including mechanisms for secure
-      presentation.
+      <li>[=digital credential/presentation|Presentation requests=] including
+      mechanisms for [=digital credential/presentation|presentation=] of
+      [=digital credentials=].
       </li>
-      <li>Requesting issuance of a [=digital credential=].
+      <li>[=digital credential/issuance|Issuance requests=] for [=digital
+      credentials=].
       </li>
-      <li>Ensuring that when an API call is made, the website does not learn
-      anything about the a holder's [=digital credentials=] or their software
-      unless the [=user agent=] has previously received user consent.
+      <li>Mechanisms ensuring that, when an API call is made, the website does
+      not learn anything about the [=holder=] nor any [=digital credentials=]
+      they hold, without explicit user consent.
       </li>
       <li>Ensuring that any installed application software will not learn
-      anything about a given [=request=] unless the [=holder=] explicitly
-      consents to use that software.
+      anything about a given [=digital credential/issuance request=] or
+      [=digital credential/presentation request=] unless the [=holder=]
+      explicitly consents to use that software.
       </li>
     </ul>
     <p>
       The following items are out of scope:
     </p>
     <ul>
-      <li>UI/UX considerations, with the exception of privacy considerations,
-      which are addressed to ensure the protection of user data during the
-      request process.
+      <li>UI/UX considerations, except for accessibility and privacy aspects,
+      which are addressed to ensure access to and protection of user data
+      during [=digital credential/presentation=] and [=digital
+      credential/issuance=] processes.
+      </li>
+      <li>Functionality outside the [=user agent=] is out of scope, including
+      platform-specific frameworks, native operating system APIs, standalone
+      applications, and hardware components that store, manage, or process
+      [=digital credentials=]. This includes the user interface and user
+      interactions for selecting a specific credential and obtaining the user's
+      permission to forward a request to the user-selected wallet.
       </li>
       <li>Implementation of credential managers, specifically in the role of
       [=holder=] software (commonly known as "digital wallets"), including how
