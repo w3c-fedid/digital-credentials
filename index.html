@@ -206,6 +206,43 @@
         }
       </pre>
       <h3>
+        Checking if protocol is allowed
+      </h3>
+      <p>
+        The {{DigitalCredentials/userAgentAllowsProtocol()}} static method can
+        be used to check if the user agent allows a specific protocol for
+        digital credential issuance or presentation. This is useful for
+        checking which protocols are allowed by the user's browsers prior to
+        making an API call.
+      </p>
+      <pre class="example javascript" title=
+      "Using the userAgentAllowsProtocol() static method">
+        if (DigitalCredential.userAgentAllowsProtocol("example-issuance-protocol")) {
+          // DC API supported. Proceed with issuance or presentation.
+        } else {
+          // DC API not supported. Fall back to a different issuance method.
+          // For example, use a traditional HTML form-based approach.
+          showTraditionalIssuanceForm();
+        }
+      </pre>
+      <p>
+        Alternatively, one can check for support of multiple protocols,
+        filtering out those that are not supported:
+      </p>
+      <pre class="example javascript" title=
+      "Using the userAgentAllowsProtocol() static method">
+        const protocols = [
+          "example-issuance-protocol",
+          "another-issuance-protocol"
+        ];
+        const supportedProtocols = protocols.filter(DigitalCredential.userAgentAllowsProtocol);
+        if (supportedProtocols.length &gt; 0) {
+          // At least one protocol is supported. Proceed with issuance.
+        } else {
+          // No protocols are supported. Fall back to a different issuance method.
+        }
+      </pre>
+      <h3>
         Requesting a digital credential
       </h3>
       <p>
@@ -341,43 +378,6 @@
         &lt;iframe src="https://issuer.example.com"
                 allow="digital-credentials-create"&gt;
         &lt;/iframe&gt;
-      </pre>
-      <h3>
-        Using the `userAgentAllowsProtocol()` static method
-      </h3>
-      <p>
-        The {{DigitalCredentials/userAgentAllowsProtocol()}} static method can
-        be used to check if the user agent allows a specific protocol for
-        digital credential issuance or presentation. This is useful for
-        checking which protocols are allowed by the user's browsers prior to
-        making an API call.
-      </p>
-      <pre class="example javascript" title=
-      "Using the userAgentAllowsProtocol() static method">
-        if (DigitalCredential.userAgentAllowsProtocol("example-issuance-protocol")) {
-          // DC API supported. Proceed with issuance or presentation.
-        } else {
-          // DC API not supported. Fall back to a different issuance method.
-          // For example, use a traditional HTML form-based approach.
-          showTraditionalIssuanceForm();
-        }
-      </pre>
-      <p>
-        Alternatively, one can check for support of multiple protocols,
-        filtering out those that are not supported:
-      </p>
-      <pre class="example javascript" title=
-      "Using the userAgentAllowsProtocol() static method">
-        const protocols = [
-          "example-issuance-protocol",
-          "another-issuance-protocol"
-        ];
-        const supportedProtocols = protocols.filter(DigitalCredential.userAgentAllowsProtocol);
-        if (supportedProtocols.length &gt; 0) {
-          // At least one protocol is supported. Proceed with issuance.
-        } else {
-          // No protocols are supported. Fall back to a different issuance method.
-        }
       </pre>
     </section><!--
     // MARK: Scope
