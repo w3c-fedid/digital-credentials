@@ -217,12 +217,12 @@
       </p>
       <pre class="example javascript" title=
       "Using the userAgentAllowsProtocol() static method">
-        if (DigitalCredential.userAgentAllowsProtocol("example-issuance-protocol")) {
+        if (DigitalCredential.userAgentAllowsProtocol("example-protocol")) {
           // DC API supported. Proceed with issuance or presentation.
         } else {
-          // DC API not supported. Fall back to a different issuance method.
-          // For example, use a traditional HTML form-based approach.
-          showTraditionalIssuanceForm();
+          // DC API not supported. Fall back to, for example,
+          // a traditional HTML form-based approach.
+          showHTMLForm();
         }
       </pre>
       <p>
@@ -259,8 +259,9 @@
         &lt;script&gt;
           const button = document.querySelector("button");
           button.addEventListener("click", async () =&gt; {
+            const protocol = "example-request-protocol";
             // Check for DC API and protocol support
-            if (!DigitalCredential.userAgentAllowsProtocol("example-protocol")) {
+            if (!DigitalCredential.userAgentAllowsProtocol(protocol)) {
               // Protocol not allowed. Fall back to a different verification method.
               showTraditionalVerificationForm();
               return;
@@ -269,7 +270,7 @@
               const credential = await navigator.credentials.get({
                 digital: {
                   requests: [{
-                    protocol: "example-protocol",
+                    protocol,
                     data: { /* request data */ }
                   }]
                 }
@@ -281,7 +282,7 @@
                 headers: {
                   "Content-Type": "application/json"
                 },
-                body: JSON.stringify(credential, null, 2)
+                body: JSON.stringify(credential)
               });
 
               // Check response
@@ -321,8 +322,9 @@
         &lt;script&gt;
           const button = document.querySelector("button");
           button.addEventListener("click", async () =&gt; {
+            const protocol = "example-issuance-protocol";
             // Check for DC API and protocol support
-            if (!DigitalCredential.userAgentAllowsProtocol("example-issuance-protocol")) {
+            if (!DigitalCredential.userAgentAllowsProtocol(protocol)) {
               // Protocol not allowed. Fall back to a different issuance method.
               showTraditionalIssuanceForm();
               return;
@@ -331,7 +333,7 @@
               const credential = await navigator.credentials.create({
                 digital: {
                   requests: [{
-                    protocol: "example-issuance-protocol",
+                    protocol,
                     data: { /* issuance request data */ }
                   }]
                 }
