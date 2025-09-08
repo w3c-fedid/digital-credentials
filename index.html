@@ -215,7 +215,7 @@
         checking which protocols are allowed by the user's browsers prior to
         making an API call.
       </p>
-      <pre class="example javascript" title=
+      <pre class="example js" title=
       "Using the userAgentAllowsProtocol() static method">
         if (DigitalCredential.userAgentAllowsProtocol("example-protocol")) {
           // DC API supported. Proceed with issuance or presentation.
@@ -230,7 +230,7 @@
         filtering out those that are not supported:
       </p>
       <pre class="example javascript" title=
-      "Using the userAgentAllowsProtocol() static method">
+      "Checking multiple protocols with userAgentAllowsProtocol()">
         const protocols = [
           "example-issuance-protocol",
           "another-issuance-protocol"
