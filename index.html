@@ -471,7 +471,120 @@
         issuance protocol is identified by a [=digital credential/protocol
         identifier=]. See also section [[[#protocol-registry]]].
       </dd>
+      <dt>
+        Digital credential coordinator
+      </dt>
+      <dd>
+        See [=credential request coordinator=].
+      </dd>
     </dl><!--
+    // MARK: Credential Request Coordinator
+    -->
+    <h2>
+      Credential Request Coordinator
+    </h2>
+    <p>
+      The <dfn data-local-lt="coordinator">credential request coordinator</dfn>
+      is a user-agent-defined component that mediates [=digital credential=]
+      interactions within a [=top-level traversable=]. Each [=top-level
+      traversable=] has exactly one associated coordinator. The coordinator
+      ensures that at most one interaction is active across all [=child
+      navigables=], orchestrates the end-to-end flow of presentation or
+      issuance, and manages transitions between [=credential request
+      coordinator/interaction states=]. A user agent may delegate some or all
+      coordinator responsibilities to external wallet applications, platform
+      components, or other trusted entities according to user or platform
+      policy.
+    </p>
+    <p>
+      The coordinator manages the lifecycle of the interaction's {{Promise}}
+      and its associated {{AbortSignal}}, including resolution with the user's
+      selected [=digital credential/digital credential|digital credential(s)=]
+      or rejection due to errors or cancellation by user or program.
+    </p>
+    <p>
+      The [=credential request coordinator=]:
+    </p>
+    <ul>
+      <li>Validates and transforms presentation or issuance inputs and outputs.
+      </li>
+      <li>Interprets each individual request in the input list as targeting a
+      specific [=holder=], and prepares [=holder=] options accordingly.
+      </li>
+      <li>Presents the available [=holders=] to the user for selection.
+      </li>
+      <li>Resolves the interaction's {{Promise}} with the selected [=digital
+      credential=] or rejects it to indicate cancellation.
+      </li>
+    </ul>
+    <aside class="note">
+      <p>
+        Although the coordinator handles input/output coordination, the
+        user-selected [=holder=] typically acts as the [=credential chooser=].
+      </p>
+    </aside>
+    <h3>
+      Interaction states
+    </h3>
+    <p>
+      The [=credential request coordinator=] has a finite set of
+      <dfn data-dfn-for="credential request coordinator">interaction
+      states</dfn>, which are used to manage the lifecycle of a [=digital
+      credential/presentation request=] or [=digital credential/issuance
+      request=]:
+    </p>
+    <dl>
+      <dt>
+        "<dfn data-dfn-for="credential request coordinator">idle</dfn>":
+      </dt>
+      <dd>
+        No credential interaction is currently in progress.
+      </dd>
+      <dt>
+        "<dfn data-dfn-for="credential request coordinator">requesting</dfn>":
+      </dt>
+      <dd>
+        A credential interaction is in progress and the user interface is
+        presented.
+      </dd>
+      <dt>
+        "<dfn data-dfn-for="credential request coordinator">aborting</dfn>":
+      </dt>
+      <dd>
+        The active interaction is being canceled due to an error, a user
+        action, or a [=AbortController/signal abort=]; the coordinator is
+        cleaning up before returning to [=credential request
+        coordinator/idle=].
+      </dd>
+    </dl>
+    <p>
+      The coordinator is initialized in the [=credential request
+      coordinator/idle=] [=credential request coordinator/interaction state=].
+    </p>
+    <h3>
+      Prepare credential requests
+    </h3>
+    <p>
+      To be written.
+    </p>
+    <h3>
+      Abort the credential request
+    </h3>
+    <p>
+      To be written.
+    </p>
+    <h3>
+      Dismiss holder chooser
+    </h3>
+    <p>
+      To be written.
+    </p>
+    <h3>
+      Present holder chooser
+    </h3>
+    <p>
+      To be written.
+    </p><!--
     // MARK: The Digital Credentials API
     -->
     <h2>
