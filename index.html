@@ -262,7 +262,8 @@
             const protocol = "example-request-protocol";
             // Check for DC API and protocol support
             if (!DigitalCredential.userAgentAllowsProtocol(protocol)) {
-              // Protocol not allowed. Fall back to a different verification method.
+              // The browser doesn't allow the use of this protocol.
+              // Fall back to a different verification method.
               showTraditionalVerificationForm();
               return;
             }
@@ -325,7 +326,8 @@
             const protocol = "example-issuance-protocol";
             // Check for DC API and protocol support
             if (!DigitalCredential.userAgentAllowsProtocol(protocol)) {
-              // Protocol not allowed. Fall back to a different issuance method.
+              // The browser doesn't allow the use of this protocol.
+              // Fall back to a different issuance method.
               showTraditionalIssuanceForm();
               return;
             }
