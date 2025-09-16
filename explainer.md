@@ -30,7 +30,7 @@ To balance this tension we propose an API with the following key properties:
 - Assume response opacity (encrypted responses), enabling verifiers and holders to control where potentially sensitive PII is exposed
 - Websites cannot access any information without user interaction. This API ensures that sites cannot silently query for digital credentials or communicate with wallet providers without the user's active participation and confirmation of each action.
 
-At its core, the API is designed for a website ("verifier") to request the [selective disclosure](https://github.com/w3cping/credential-considerations/blob/main/credentials-considerations.md#selective-disclosure) of attributes from (issued) digital credentials that were provisioned, ahead of time, to wallets ("holders"). The API aims to align with existing architectural choices, such as [OpenID4VP integration](https://github.com/openid/OpenID4VP/issues/125), and is being developed with the goal of enabling user transparency.
+At its core, the API is designed for a website ("verifier") to request the [selective disclosure](https://github.com/w3cping/credential-considerations/blob/main/credentials-considerations.md#selective-disclosure) of attributes from (issued) digital credentials that were provisioned, ahead of time, to wallets ("holders"). The API aims to align with existing architectural choices, such as [OpenID4VP integration](https://openid.net/specs/openid-4-verifiable-presentations-1_0.html), and is being developed with the goal of enabling user transparency.
 
 For an [example of how to use the API](https://w3c-fedid.github.io/digital-credentials/#example-requesting-a-digital-credential) and a more detailed technical description, please refer to the [specification draft](https://www.w3.org/TR/digital-credentials/).
 
@@ -54,7 +54,7 @@ There are many alternatives that were considered, most notably:
 There are still many open questions, but a few big ones:
 
 - To what extent does the browser introspect the request to wallets (for privacy and security reasons)? How much of that needs to interoperate between browsers, vs. be browser-specific points of differentiation in offering privacy features to users?
-- Will existing protocols ([example](https://github.com/openid/OpenID4VP/issues/125)) adopt this API?
+- Will existing protocols ([example](https://openid.net/specs/openid-4-verifiable-presentations-1_0.html)) adopt this API?
 - Will regulation ([example](https://digital-strategy.ec.europa.eu/en/library/european-digital-identity-architecture-and-reference-framework-outline)) adopt this API?
 
 # Scope
