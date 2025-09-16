@@ -1,6 +1,6 @@
 # Digital Credentials API
 
-Government recognized digital credentials (e.g., driver’s licenses, passports) and other digital attestations are being increasingly utilized on the web. We propose a deliberate and flexible API to enable browsers to mediate both the *presentation* and *issuance* of these credentials, aiming to continuously improve the balance of benefits and risks for users and the entire online community.
+Government-recognized digital credentials (e.g., driver’s licenses, passports) and other digital attestations are being increasingly utilized on the web. We propose a deliberate and flexible API to enable browsers to mediate both the *presentation* and *issuance* of these credentials, aiming to continuously improve the balance of benefits and risks for users and the entire online community.
 
 # Why?
 
@@ -30,7 +30,7 @@ To balance this tension we propose an API with the following key properties:
 - Assume response opacity (encrypted responses), enabling verifiers and holders to control where potentially sensitive PII is exposed
 - Websites cannot access any information without user interaction. This API ensures that sites cannot silently query for or issue digital credentials or communicate with wallet providers without the user's active participation and confirmation of each action.
 
-At its core, the API is designed for a website ("verifier") to request the [selective disclosure](https://github.com/w3cping/credential-considerations/blob/main/credentials-considerations.md#selective-disclosure) of attributes from (issued) digital credentials that were provisioned, ahead of time, to wallets ("holders"). The API aims to align with existing architectural choices, such as [OpenID4VP integration](https://openid.net/specs/openid-4-verifiable-presentations-1_0.html), and is being developed with the goal of enabling user transparency.
+At its core, the API is designed for a website ("verifier") to request the [selective disclosure](https://github.com/w3cping/credential-considerations/blob/main/credentials-considerations.md#selective-disclosure) of attributes from (issued) digital credentials that were provisioned, ahead of time, to wallets ("holders"), and for a website ("issuer") to initiate the issuance of new credentials to a user's wallet. The API aims to align with existing architectural choices, such as [OpenID4VP integration](https://openid.net/specs/openid-4-verifiable-presentations-1_0.html), and is being developed with the goal of enabling user transparency.
 
 For example of how to use the API to [request](https://w3c-fedid.github.io/digital-credentials/#example-requesting-a-digital-credential) or [issue](https://w3c-fedid.github.io/digital-credentials/#example-issuing-a-digital-credential) a digital credential and a more detailed technical description, please refer to the [specification draft](https://www.w3.org/TR/digital-credentials/).
 
