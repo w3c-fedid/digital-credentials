@@ -1,6 +1,6 @@
 # Digital Credentials API
 
-Government recognized digital credentials (e.g. driver’s licenses) are being increasingly utilized on the web. We propose a deliberate and flexible API to enable browsers to continuously improve the balance of benefits and risks for users and the entire online community.
+Government-recognized digital credentials (e.g. driver’s licenses) are being increasingly utilized on the web. We propose a deliberate and flexible API to enable browsers to continuously improve the balance of benefits and risks for users and the entire online community.
 
 # Why?
 
@@ -14,7 +14,7 @@ Because custom schemes can be largely opaque to user agents, they substantially 
 
 Even in highly-regulated and non-abusive use cases (e.g. eIDAS), custom schemes have  [security](https://github.com/w3c-fedid/digital-credentials/blob/main/custom-schemes.md#can-wallets-limit-requests-to-secure-contexts) and [privacy](https://github.com/w3c-fedid/digital-credentials/blob/main/custom-schemes.md#what-are-the-privacy-implications-of-a-wallet-accepting-custom-schemes) risks, as well as a series of suboptimal [user experiences. We posit that these limitations](https://github.com/w3c-fedid/digital-credentials/blob/main/custom-schemes.md#user-experience-concerns) can be addressed by a purpose-built browser API. While some have reasonably argued that these limitations will slow-down and limit the deployment (and so, the abuse) of such technology, it seems more advantageous  to rely on intentional design choices to manage this tradeoff than such accidents. 
 
-In the pursuit of establishing a standard for web-based identity sharing, it is paramount that we not only strive for ease of use but also exercise utmost caution to uphold high standards of security and privacy. This is essential to safeguard users from potential identity theft and ensure they are fully informed about the implications of online identity sharing before providing their consent. We firmly believe that relying on a browser API and the mobile platform is the most reliable approach for identity digital credentials to be shared securely online.
+In the pursuit of establishing a standard for web-based identity sharing, it's important to strive for ease of use while also exercising caution to uphold security and privacy standards. This may help mitigate risks like identity theft, so long as relying parties refrain from storing unencrypted credentials on their servers and take care to not needlessly render privacy-sensitive decrypted information on their websites. We believe that a DOM API offers a promising approach for digital credentials to be used on the Web.
 
 
 # What?
@@ -30,7 +30,7 @@ To balance this tension we propose an API with the following key properties:
 - Assume response opacity (encrypted responses), enabling verifiers and holders to control where potentially sensitive PII is exposed
 - Websites cannot access any information without user interaction. This API ensures that sites cannot silently query for digital credentials or communicate with wallet providers without the user's active participation and confirmation of each action.
 
-At its core, the API is designed for a website ("verifier") to [transparently](https://github.com/w3cping/credential-considerations/blob/main/credentials-considerations.md#in-context-explanations) request the [selective disclosure](https://github.com/w3cping/credential-considerations/blob/main/credentials-considerations.md#selective-disclosure) of attributes from (issued) digital credentials that were provisioned - ahead of time - to wallets ("holders"), in a manner that is seamlessly compatible with existing architectural choices (such as [OpenID4VP integration](https://github.com/openid/OpenID4VP/issues/125)).
+At its core, the API is designed for a website ("verifier") to request the [selective disclosure](https://github.com/w3cping/credential-considerations/blob/main/credentials-considerations.md#selective-disclosure) of attributes from (issued) digital credentials that were provisioned, ahead of time, to wallets ("holders"). The API aims to align with existing architectural choices, such as [OpenID4VP integration](https://openid.net/specs/openid-4-verifiable-presentations-1_0.html), and is being developed with the goal of enabling user transparency.
 
 For an [example of how to use the API](https://w3c-fedid.github.io/digital-credentials/#example-requesting-a-digital-credential) and a more detailed technical description, please refer to the [specification draft](https://www.w3.org/TR/digital-credentials/).
 
@@ -54,7 +54,7 @@ There are many alternatives that were considered, most notably:
 There are still many open questions, but a few big ones:
 
 - To what extent does the browser introspect the request to wallets (for privacy and security reasons)? How much of that needs to interoperate between browsers, vs. be browser-specific points of differentiation in offering privacy features to users?
-- Will existing protocols ([example](https://github.com/openid/OpenID4VP/issues/125)) adopt this API?
+- Will existing protocols ([example](https://openid.net/specs/openid-4-verifiable-presentations-1_0.html)) adopt this API?
 - Will regulation ([example](https://digital-strategy.ec.europa.eu/en/library/european-digital-identity-architecture-and-reference-framework-outline)) adopt this API?
 
 # Scope
