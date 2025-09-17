@@ -121,7 +121,7 @@ dd{margin-left:0}
     
   
 <meta name="color-scheme" content="light">
-<meta name="revision" content="63e55750df14d783af390e1821baab2615050d85">
+<meta name="revision" content="02acde03aecef9dbee4ce1339f28d1ae40003edd">
 <meta name="description" content="This document specifies an API to enable user agents to mediate
         presentation and issuance of digital credentials such as a driver's
         license, government-issued identification card, and/or other types of digital credential. The API builds on
@@ -252,16 +252,16 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "63e55750df14d783af390e1821baab2615050d85",
-  "publishISODate": "2025-09-16T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 16 September 2025"
+  "gitRevision": "02acde03aecef9dbee4ce1339f28d1ae40003edd",
+  "publishISODate": "2025-09-17T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 17 September 2025"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED"></head>
   <body data-cite="WEBIDL credential-management-1 vc-data-model HTML INFRA URL WEBIDL DOM FETCH" class="h-entry"><div class="head">
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Digital Credentials</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2025-09-16">16 September 2025</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2025-09-17">17 September 2025</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -367,13 +367,17 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       Introduction
     </a></li><li class="tocline"><a class="tocxref" href="#examples-of-usage"><bdi class="secno">2. </bdi>
         Examples of usage
-      </a><ol class="toc"><li class="tocline"><a class="tocxref" href="#requesting-a-digital-credential"><bdi class="secno">2.1 </bdi>
+      </a><ol class="toc"><li class="tocline"><a class="tocxref" href="#feature-detection"><bdi class="secno">2.1 </bdi>
+        Feature Detection
+      </a></li><li class="tocline"><a class="tocxref" href="#checking-if-protocol-is-allowed"><bdi class="secno">2.2 </bdi>
+        Checking if protocol is allowed
+      </a></li><li class="tocline"><a class="tocxref" href="#requesting-a-digital-credential"><bdi class="secno">2.3 </bdi>
         Requesting a digital credential
-      </a></li><li class="tocline"><a class="tocxref" href="#issuing-a-digital-credential"><bdi class="secno">2.2 </bdi>
+      </a></li><li class="tocline"><a class="tocxref" href="#issuing-a-digital-credential"><bdi class="secno">2.4 </bdi>
         Issuing a digital credential
-      </a></li><li class="tocline"><a class="tocxref" href="#requesting-a-digital-credential-across-origins"><bdi class="secno">2.3 </bdi>
+      </a></li><li class="tocline"><a class="tocxref" href="#requesting-a-digital-credential-across-origins"><bdi class="secno">2.5 </bdi>
         Requesting a digital credential across origins
-      </a></li><li class="tocline"><a class="tocxref" href="#issuing-a-digital-credential-across-origins"><bdi class="secno">2.4 </bdi>
+      </a></li><li class="tocline"><a class="tocxref" href="#issuing-a-digital-credential-across-origins"><bdi class="secno">2.6 </bdi>
         Issuing a digital credential across origins
       </a></li></ol></li><li class="tocline"><a class="tocxref" href="#scope"><bdi class="secno">3. </bdi>
       Scope
@@ -597,9 +601,65 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         The following examples illustrate how the Digital Credentials API can
         be used to request and issue digital credentials.
       </p>
-      <section id="requesting-a-digital-credential"><div class="header-wrapper"><h3 id="x2-1-requesting-a-digital-credential"><bdi class="secno">2.1 </bdi>
+      <section id="feature-detection"><div class="header-wrapper"><h3 id="x2-1-feature-detection"><bdi class="secno">2.1 </bdi>
+        Feature Detection
+      </h3><a class="self-link" href="#feature-detection" aria-label="Permalink for Section 2.1"></a></div>
+      <p>
+        Before using the Digital Credentials API, it's important to check if
+        the user agent supports the necessary features. This can be done using
+        the following code:
+      </p>
+      <div class="example" id="example-checking-for-api-support">
+        <div class="marker">
+    <a class="self-link" href="#example-checking-for-api-support">Example<bdi> 1</bdi></a><span class="example-title">: Checking for API support</span>
+  </div> <pre aria-busy="false"><code class="hljs js"><span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-title class_">DigitalCredential</span> !== <span class="hljs-string">"undefined"</span>) {
+  <span class="hljs-comment">// Digital Credentials API is supported</span>
+} <span class="hljs-keyword">else</span> {
+  <span class="hljs-comment">// Digital Credentials API is not supported</span>
+}</code></pre>
+      </div>
+      </section><section id="checking-if-protocol-is-allowed"><div class="header-wrapper"><h3 id="x2-2-checking-if-protocol-is-allowed"><bdi class="secno">2.2 </bdi>
+        Checking if protocol is allowed
+      </h3><a class="self-link" href="#checking-if-protocol-is-allowed" aria-label="Permalink for Section 2.2"></a></div>
+      <p>
+        The <a data-link-type="idl" data-lt="userAgentAllowsProtocol()" href="#dom-digitalcredential-useragentallowsprotocol" class="internalDFN" id="ref-for-dom-digitalcredential-useragentallowsprotocol-1"><code>userAgentAllowsProtocol</code></a><code>()</code> static method can
+        be used to check if the user agent allows a specific protocol for
+        digital credential issuance or presentation. This is useful for
+        checking which protocols are allowed by the user's browsers prior to
+        making an API call.
+      </p>
+      <div class="example" id="example-using-the-useragentallowsprotocol-static-method">
+        <div class="marker">
+    <a class="self-link" href="#example-using-the-useragentallowsprotocol-static-method">Example<bdi> 2</bdi></a><span class="example-title">: Using the userAgentAllowsProtocol() static method</span>
+  </div> <pre aria-busy="false"><code class="hljs js"><span class="hljs-keyword">if</span> (<span class="hljs-title class_">DigitalCredential</span>.<span class="hljs-title function_">userAgentAllowsProtocol</span>(<span class="hljs-string">"example-protocol"</span>)) {
+  <span class="hljs-comment">// DC API supported. Proceed with issuance or presentation.</span>
+} <span class="hljs-keyword">else</span> {
+  <span class="hljs-comment">// DC API not supported. Fall back to, for example,</span>
+  <span class="hljs-comment">// a traditional HTML form-based approach.</span>
+  <span class="hljs-title function_">showHTMLForm</span>();
+}</code></pre>
+      </div>
+      <p>
+        Alternatively, one can check for support of multiple protocols,
+        filtering out those that are not supported:
+      </p>
+      <div class="example" id="example-checking-multiple-protocols-with-useragentallowsprotocol">
+        <div class="marker">
+    <a class="self-link" href="#example-checking-multiple-protocols-with-useragentallowsprotocol">Example<bdi> 3</bdi></a><span class="example-title">: Checking multiple protocols with userAgentAllowsProtocol()</span>
+  </div> <pre aria-busy="false"><code class="hljs js"><span class="hljs-keyword">const</span> protocols = [
+  <span class="hljs-string">"example-issuance-protocol"</span>,
+  <span class="hljs-string">"another-issuance-protocol"</span>
+];
+<span class="hljs-keyword">const</span> supportedProtocols = protocols.<span class="hljs-title function_">filter</span>(<span class="hljs-title class_">DigitalCredential</span>.<span class="hljs-property">userAgentAllowsProtocol</span>);
+<span class="hljs-keyword">if</span> (supportedProtocols.<span class="hljs-property">length</span> &gt; <span class="hljs-number">0</span>) {
+  <span class="hljs-comment">// At least one protocol is supported. Proceed with issuance.</span>
+} <span class="hljs-keyword">else</span> {
+  <span class="hljs-comment">// No protocols are supported. Fall back to a different issuance method.</span>
+}</code></pre>
+      </div>
+      </section><section id="requesting-a-digital-credential"><div class="header-wrapper"><h3 id="x2-3-requesting-a-digital-credential"><bdi class="secno">2.3 </bdi>
         Requesting a digital credential
-      </h3><a class="self-link" href="#requesting-a-digital-credential" aria-label="Permalink for Section 2.1"></a></div>
+      </h3><a class="self-link" href="#requesting-a-digital-credential" aria-label="Permalink for Section 2.3"></a></div>
       <p>
         The following example shows how to request a digital credential using
         the Digital Credentials API. The entry point for the API is the
@@ -610,28 +670,36 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       </p>
       <div class="example" id="example-requesting-a-digital-credential">
         <div class="marker">
-    <a class="self-link" href="#example-requesting-a-digital-credential">Example<bdi> 1</bdi></a><span class="example-title">: Requesting a digital credential</span>
+    <a class="self-link" href="#example-requesting-a-digital-credential">Example<bdi> 4</bdi></a><span class="example-title">: Requesting a digital credential</span>
   </div> <pre aria-busy="false"><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">button</span>&gt;</span>Verify Identity<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript">
   <span class="hljs-keyword">const</span> button = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">"button"</span>);
   button.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">"click"</span>, <span class="hljs-title function_">async</span> () =&gt; {
+    <span class="hljs-keyword">const</span> protocol = <span class="hljs-string">"example-request-protocol"</span>;
+    <span class="hljs-comment">// Check for DC API and protocol support</span>
+    <span class="hljs-keyword">if</span> (!<span class="hljs-title class_">DigitalCredential</span>.<span class="hljs-title function_">userAgentAllowsProtocol</span>(protocol)) {
+      <span class="hljs-comment">// The browser doesn't allow the use of this protocol.</span>
+      <span class="hljs-comment">// Fall back to a different verification method.</span>
+      <span class="hljs-title function_">showTraditionalVerificationForm</span>();
+      <span class="hljs-keyword">return</span>;
+    }
     <span class="hljs-keyword">try</span> {
       <span class="hljs-keyword">const</span> credential = <span class="hljs-keyword">await</span> navigator.<span class="hljs-property">credentials</span>.<span class="hljs-title function_">get</span>({
         <span class="hljs-attr">digital</span>: {
           <span class="hljs-attr">requests</span>: [{
-            <span class="hljs-attr">protocol</span>: <span class="hljs-string">"example-protocol"</span>,
+            protocol,
             <span class="hljs-attr">data</span>: { <span class="hljs-comment">/* request data */</span> }
           }]
         }
       });
 
-      <span class="hljs-comment">// Post it back to the server for decryption and verification</span>
+      <span class="hljs-comment">// Post it back to the verifier server for decryption and verification</span>
       <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">"/verify-credential"</span>, {
         <span class="hljs-attr">method</span>: <span class="hljs-string">"POST"</span>,
         <span class="hljs-attr">headers</span>: {
           <span class="hljs-string">"Content-Type"</span>: <span class="hljs-string">"application/json"</span>
         },
-        <span class="hljs-attr">body</span>: <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(credential, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>)
+        <span class="hljs-attr">body</span>: <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(credential)
       });
 
       <span class="hljs-comment">// Check response</span>
@@ -654,9 +722,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         of a digital credential between the site, the user agent, and the
         <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders">holder</a>.
       </p>
-      </section><section id="issuing-a-digital-credential"><div class="header-wrapper"><h3 id="x2-2-issuing-a-digital-credential"><bdi class="secno">2.2 </bdi>
+      </section><section id="issuing-a-digital-credential"><div class="header-wrapper"><h3 id="x2-4-issuing-a-digital-credential"><bdi class="secno">2.4 </bdi>
         Issuing a digital credential
-      </h3><a class="self-link" href="#issuing-a-digital-credential" aria-label="Permalink for Section 2.2"></a></div>
+      </h3><a class="self-link" href="#issuing-a-digital-credential" aria-label="Permalink for Section 2.4"></a></div>
       <p>
         The following example shows how to request the issuance of a digital
         credential using the Digital Credentials API. To issue a digital
@@ -667,16 +735,24 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       </p>
       <div class="example" id="example-requesting-issuance-of-a-digital-credential">
         <div class="marker">
-    <a class="self-link" href="#example-requesting-issuance-of-a-digital-credential">Example<bdi> 2</bdi></a><span class="example-title">: Requesting issuance of a digital credential</span>
+    <a class="self-link" href="#example-requesting-issuance-of-a-digital-credential">Example<bdi> 5</bdi></a><span class="example-title">: Requesting issuance of a digital credential</span>
   </div> <pre aria-busy="false"><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">button</span>&gt;</span>Request Digital Credential Issuance<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript">
   <span class="hljs-keyword">const</span> button = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">"button"</span>);
   button.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">"click"</span>, <span class="hljs-title function_">async</span> () =&gt; {
+    <span class="hljs-keyword">const</span> protocol = <span class="hljs-string">"example-issuance-protocol"</span>;
+    <span class="hljs-comment">// Check for DC API and protocol support</span>
+    <span class="hljs-keyword">if</span> (!<span class="hljs-title class_">DigitalCredential</span>.<span class="hljs-title function_">userAgentAllowsProtocol</span>(protocol)) {
+      <span class="hljs-comment">// The browser doesn't allow the use of this protocol.</span>
+      <span class="hljs-comment">// Fall back to a different issuance method.</span>
+      <span class="hljs-title function_">showTraditionalIssuanceForm</span>();
+      <span class="hljs-keyword">return</span>;
+    }
     <span class="hljs-keyword">try</span> {
       <span class="hljs-keyword">const</span> credential = <span class="hljs-keyword">await</span> navigator.<span class="hljs-property">credentials</span>.<span class="hljs-title function_">create</span>({
         <span class="hljs-attr">digital</span>: {
           <span class="hljs-attr">requests</span>: [{
-            <span class="hljs-attr">protocol</span>: <span class="hljs-string">"example-issuance-protocol"</span>,
+            protocol,
             <span class="hljs-attr">data</span>: { <span class="hljs-comment">/* issuance request data */</span> }
           }]
         }
@@ -687,9 +763,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   });
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
       </div>
-      </section><section id="requesting-a-digital-credential-across-origins"><div class="header-wrapper"><h3 id="x2-3-requesting-a-digital-credential-across-origins"><bdi class="secno">2.3 </bdi>
+      </section><section id="requesting-a-digital-credential-across-origins"><div class="header-wrapper"><h3 id="x2-5-requesting-a-digital-credential-across-origins"><bdi class="secno">2.5 </bdi>
         Requesting a digital credential across origins
-      </h3><a class="self-link" href="#requesting-a-digital-credential-across-origins" aria-label="Permalink for Section 2.3"></a></div>
+      </h3><a class="self-link" href="#requesting-a-digital-credential-across-origins" aria-label="Permalink for Section 2.5"></a></div>
       <p>
         The specification allows usage of the API for presenting credentials
         from a remote/third-party origin via the
@@ -702,14 +778,14 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       </p>
       <div class="example" id="example-requesting-a-digital-credential-across-origins">
         <div class="marker">
-    <a class="self-link" href="#example-requesting-a-digital-credential-across-origins">Example<bdi> 3</bdi></a><span class="example-title">: Requesting a digital credential across origins</span>
+    <a class="self-link" href="#example-requesting-a-digital-credential-across-origins">Example<bdi> 6</bdi></a><span class="example-title">: Requesting a digital credential across origins</span>
   </div> <pre aria-busy="false"><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">iframe</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://wallet-provider.example.com"</span>
         <span class="hljs-attr">allow</span>=<span class="hljs-string">"digital-credentials-get"</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">iframe</span>&gt;</span></code></pre>
       </div>
-      </section><section id="issuing-a-digital-credential-across-origins"><div class="header-wrapper"><h3 id="x2-4-issuing-a-digital-credential-across-origins"><bdi class="secno">2.4 </bdi>
+      </section><section id="issuing-a-digital-credential-across-origins"><div class="header-wrapper"><h3 id="x2-6-issuing-a-digital-credential-across-origins"><bdi class="secno">2.6 </bdi>
         Issuing a digital credential across origins
-      </h3><a class="self-link" href="#issuing-a-digital-credential-across-origins" aria-label="Permalink for Section 2.4"></a></div>
+      </h3><a class="self-link" href="#issuing-a-digital-credential-across-origins" aria-label="Permalink for Section 2.6"></a></div>
       <p>
         Similarly, the specification allows usage of the API for issuing
         credentials from a remote/third-party origin via the
@@ -721,7 +797,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       </p>
       <div class="example" id="example-issuing-a-digital-credential-across-origins">
         <div class="marker">
-    <a class="self-link" href="#example-issuing-a-digital-credential-across-origins">Example<bdi> 4</bdi></a><span class="example-title">: Issuing a digital credential across origins</span>
+    <a class="self-link" href="#example-issuing-a-digital-credential-across-origins">Example<bdi> 7</bdi></a><span class="example-title">: Issuing a digital credential across origins</span>
   </div> <pre aria-busy="false"><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">iframe</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://issuer.example.com"</span>
         <span class="hljs-attr">allow</span>=<span class="hljs-string">"digital-credentials-create"</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">iframe</span>&gt;</span></code></pre>
@@ -1038,7 +1114,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
   [<span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Default">Default</a></span>]<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-object">object</a></span> <a data-link-type="dfn" data-lt="default toJSON steps" class="idlName" href="https://webidl.spec.whatwg.org/#default-tojson-steps">toJSON</a>();</span><span data-idl="" class="idlAttribute" id="idl-def-digitalcredential-protocol" data-title="protocol" data-dfn-for="DigitalCredential">
   readonly attribute<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString">DOMString</a></span> <a class="internalDFN idlName" data-link-type="attribute" href="#dom-digitalcredential-protocol" id="ref-for-dom-digitalcredential-protocol-1"><code>protocol</code></a>;</span><span data-idl="" class="idlAttribute" id="idl-def-digitalcredential-data" data-title="data" data-dfn-for="DigitalCredential">
   [<span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SameObject">SameObject</a></span>] readonly attribute<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-object">object</a></span> <a class="internalDFN idlName" data-link-type="attribute" href="#dom-digitalcredential-data" id="ref-for-dom-digitalcredential-data-1"><code>data</code></a>;</span><span data-idl="" class="idlMethod" id="idl-def-digitalcredential-useragentallowsprotocol-protocol" data-title="userAgentAllowsProtocol" data-dfn-for="DigitalCredential">
-  static<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean">boolean</a></span> <a class="internalDFN idlName" data-link-type="method" href="#dom-digitalcredential-useragentallowsprotocol" id="ref-for-dom-digitalcredential-useragentallowsprotocol-1"><code>userAgentAllowsProtocol</code></a>(<span class="idlType"><a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString">DOMString</a></span> <span class="idlParamName">protocol</span>);</span>
+  static<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean">boolean</a></span> <a class="internalDFN idlName" data-link-type="method" href="#dom-digitalcredential-useragentallowsprotocol" id="ref-for-dom-digitalcredential-useragentallowsprotocol-2"><code>userAgentAllowsProtocol</code></a>(<span class="idlType"><a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString">DOMString</a></span> <span class="idlParamName">protocol</span>);</span>
 };</span></code></pre>
     <p>
       <a data-link-type="idl" data-lt="DigitalCredential" href="#dom-digitalcredential" class="internalDFN" id="ref-for-dom-digitalcredential-4"><code>DigitalCredential</code></a> instances are <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-origin-bound">origin bound</a>.
@@ -1065,7 +1141,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       method
     </h4><a class="self-link" href="#the-useragentallowsprotocol-method" aria-label="Permalink for Section 5.7.3"></a></div>
     <p>
-      The <a data-link-type="idl" data-lt="userAgentAllowsProtocol()" href="#dom-digitalcredential-useragentallowsprotocol" class="internalDFN" id="ref-for-dom-digitalcredential-useragentallowsprotocol-2"><code>userAgentAllowsProtocol</code></a><code>()</code> method allows digital
+      The <a data-link-type="idl" data-lt="userAgentAllowsProtocol()" href="#dom-digitalcredential-useragentallowsprotocol" class="internalDFN" id="ref-for-dom-digitalcredential-useragentallowsprotocol-3"><code>userAgentAllowsProtocol</code></a><code>()</code> method allows digital
       credential <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier">verifiers</a> to determine which <a data-link-type="dfn|abstract-op" href="#dfn-exchange-protocol" class="internalDFN" id="ref-for-dfn-exchange-protocol-10">exchange protocols</a> and <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-10">issuance protocols</a> the user agent
       allows.
     </p>
@@ -2185,7 +2261,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         <p>
           The Digital Credentials API exposes information about which
           credential exchange protocols are supported by the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent">user agent</a>
-          through <a data-link-type="idl" data-lt="userAgentAllowsProtocol()" href="#dom-digitalcredential-useragentallowsprotocol" class="internalDFN" id="ref-for-dom-digitalcredential-useragentallowsprotocol-3"><code>userAgentAllowsProtocol</code></a><code>()</code>. It mitigates
+          through <a data-link-type="idl" data-lt="userAgentAllowsProtocol()" href="#dom-digitalcredential-useragentallowsprotocol" class="internalDFN" id="ref-for-dom-digitalcredential-useragentallowsprotocol-4"><code>userAgentAllowsProtocol</code></a><code>()</code>. It mitigates
           browser fingerprinting and revealing information about the user's
           device configuration by not customizing its response based on, for
           example, which digital wallet applications are installed on a user's
@@ -2375,7 +2451,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
   [<span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Default">Default</a></span>]<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-object">object</a></span> <a data-link-type="dfn" data-lt="default toJSON steps" class="idlName" href="https://webidl.spec.whatwg.org/#default-tojson-steps">toJSON</a>();</span><span data-idl="" class="idlAttribute" data-title="protocol" data-dfn-for="DigitalCredential">
   readonly attribute<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString">DOMString</a></span> <a class="internalDFN idlName" data-link-type="attribute" href="#dom-digitalcredential-protocol" id="ref-for-dom-digitalcredential-protocol-3"><code>protocol</code></a>;</span><span data-idl="" class="idlAttribute" data-title="data" data-dfn-for="DigitalCredential">
   [<span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SameObject">SameObject</a></span>] readonly attribute<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-object">object</a></span> <a class="internalDFN idlName" data-link-type="attribute" href="#dom-digitalcredential-data" id="ref-for-dom-digitalcredential-data-4"><code>data</code></a>;</span><span data-idl="" class="idlMethod" data-title="userAgentAllowsProtocol" data-dfn-for="DigitalCredential">
-  static<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean">boolean</a></span> <a class="internalDFN idlName" data-link-type="method" href="#dom-digitalcredential-useragentallowsprotocol" id="ref-for-dom-digitalcredential-useragentallowsprotocol-4"><code>userAgentAllowsProtocol</code></a>(<span class="idlType"><a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString">DOMString</a></span> <span class="idlParamName">protocol</span>);</span>
+  static<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean">boolean</a></span> <a class="internalDFN idlName" data-link-type="method" href="#dom-digitalcredential-useragentallowsprotocol" id="ref-for-dom-digitalcredential-useragentallowsprotocol-5"><code>userAgentAllowsProtocol</code></a>(<span class="idlType"><a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString">DOMString</a></span> <span class="idlParamName">protocol</span>);</span>
 };</span></code></pre></section>
     <section id="conformance"><div class="header-wrapper"><h2 id="x13-conformance"><bdi class="secno">13. </bdi>Conformance</h2><a class="self-link" href="#conformance" aria-label="Permalink for Section 13."></a></div><p>As well as sections marked as non-normative, all authoring guidelines, diagrams, examples, and notes in this specification are non-normative. Everything else in this specification is normative.</p><p>
         The key words <em class="rfc2119">MAY</em>, <em class="rfc2119">MUST</em>, <em class="rfc2119">MUST NOT</em>, and <em class="rfc2119">SHOULD</em> in this document
@@ -2477,7 +2553,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <li>
       <a href="#ref-for-dfn-digital-credential-1" title="§ 1. Introduction">§ 1. Introduction</a> <a href="#ref-for-dfn-digital-credential-2" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-dfn-digital-credential-3" title="§ 2.1 Requesting a digital credential">§ 2.1 Requesting a digital credential</a> 
+      <a href="#ref-for-dfn-digital-credential-3" title="§ 2.3 Requesting a digital credential">§ 2.3 Requesting a digital credential</a> 
     </li><li>
       <a href="#ref-for-dfn-digital-credential-4" title="§ 3. Scope">§ 3. Scope</a> <a href="#ref-for-dfn-digital-credential-5" title="Reference 2">(2)</a> <a href="#ref-for-dfn-digital-credential-6" title="Reference 3">(3)</a> <a href="#ref-for-dfn-digital-credential-7" title="Reference 4">(4)</a> <a href="#ref-for-dfn-digital-credential-8" title="Reference 5">(5)</a> 
     </li><li>
@@ -2573,7 +2649,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <li>
       <a href="#ref-for-dfn-issuance-request-1" title="§ 1. Introduction">§ 1. Introduction</a> <a href="#ref-for-dfn-issuance-request-2" title="Reference 2">(2)</a> <a href="#ref-for-dfn-issuance-request-3" title="Reference 3">(3)</a> <a href="#ref-for-dfn-issuance-request-4" title="Reference 4">(4)</a> <a href="#ref-for-dfn-issuance-request-5" title="Reference 5">(5)</a> <a href="#ref-for-dfn-issuance-request-6" title="Reference 6">(6)</a> 
     </li><li>
-      <a href="#ref-for-dfn-issuance-request-7" title="§ 2.1 Requesting a digital credential">§ 2.1 Requesting a digital credential</a> 
+      <a href="#ref-for-dfn-issuance-request-7" title="§ 2.3 Requesting a digital credential">§ 2.3 Requesting a digital credential</a> 
     </li><li>
       <a href="#ref-for-dfn-issuance-request-8" title="§ 3. Scope">§ 3. Scope</a> <a href="#ref-for-dfn-issuance-request-9" title="Reference 2">(2)</a> <a href="#ref-for-dfn-issuance-request-10" title="Reference 3">(3)</a> <a href="#ref-for-dfn-issuance-request-11" title="Reference 4">(4)</a> 
     </li><li>
@@ -2625,7 +2701,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <li>
       <a href="#ref-for-dfn-presentation-request-1" title="§ 1. Introduction">§ 1. Introduction</a> <a href="#ref-for-dfn-presentation-request-2" title="Reference 2">(2)</a> <a href="#ref-for-dfn-presentation-request-3" title="Reference 3">(3)</a> <a href="#ref-for-dfn-presentation-request-4" title="Reference 4">(4)</a> <a href="#ref-for-dfn-presentation-request-5" title="Reference 5">(5)</a> <a href="#ref-for-dfn-presentation-request-6" title="Reference 6">(6)</a> 
     </li><li>
-      <a href="#ref-for-dfn-presentation-request-7" title="§ 2.1 Requesting a digital credential">§ 2.1 Requesting a digital credential</a> 
+      <a href="#ref-for-dfn-presentation-request-7" title="§ 2.3 Requesting a digital credential">§ 2.3 Requesting a digital credential</a> 
     </li><li>
       <a href="#ref-for-dfn-presentation-request-8" title="§ 3. Scope">§ 3. Scope</a> <a href="#ref-for-dfn-presentation-request-9" title="Reference 2">(2)</a> <a href="#ref-for-dfn-presentation-request-10" title="Reference 3">(3)</a> <a href="#ref-for-dfn-presentation-request-11" title="Reference 4">(4)</a> <a href="#ref-for-dfn-presentation-request-12" title="Reference 5">(5)</a> 
     </li><li>
@@ -2953,13 +3029,15 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-dom-digitalcredential-useragentallowsprotocol-1" title="§ 5.7 The DigitalCredential interface">§ 5.7 The DigitalCredential interface</a> 
+      <a href="#ref-for-dom-digitalcredential-useragentallowsprotocol-1" title="§ 2.2 Checking if protocol is allowed">§ 2.2 Checking if protocol is allowed</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredential-useragentallowsprotocol-2" title="§ 5.7.3 The userAgentAllowsProtocol() method">§ 5.7.3 The userAgentAllowsProtocol() method</a> 
+      <a href="#ref-for-dom-digitalcredential-useragentallowsprotocol-2" title="§ 5.7 The DigitalCredential interface">§ 5.7 The DigitalCredential interface</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredential-useragentallowsprotocol-3" title="§ 10.5.3 Revealing device properties through protocol availability">§ 10.5.3 Revealing device properties through protocol availability</a> 
+      <a href="#ref-for-dom-digitalcredential-useragentallowsprotocol-3" title="§ 5.7.3 The userAgentAllowsProtocol() method">§ 5.7.3 The userAgentAllowsProtocol() method</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredential-useragentallowsprotocol-4" title="§ 12. IDL Index">§ 12. IDL Index</a> 
+      <a href="#ref-for-dom-digitalcredential-useragentallowsprotocol-4" title="§ 10.5.3 Revealing device properties through protocol availability">§ 10.5.3 Revealing device properties through protocol availability</a> 
+    </li><li>
+      <a href="#ref-for-dom-digitalcredential-useragentallowsprotocol-5" title="§ 12. IDL Index">§ 12. IDL Index</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors" aria-label="Links in this document to definition: [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)">
@@ -3023,7 +3101,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-dfn-digital-credentials-get-1" title="§ 2.3 Requesting a digital credential across origins">§ 2.3 Requesting a digital credential across origins</a> 
+      <a href="#ref-for-dfn-digital-credentials-get-1" title="§ 2.5 Requesting a digital credential across origins">§ 2.5 Requesting a digital credential across origins</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-digital-credentials-create" aria-label="Links in this document to definition: &quot;digital-credentials-create&quot;">
@@ -3035,7 +3113,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-dfn-digital-credentials-create-1" title="§ 2.4 Issuing a digital credential across origins">§ 2.4 Issuing a digital credential across origins</a> 
+      <a href="#ref-for-dfn-digital-credentials-create-1" title="§ 2.6 Issuing a digital credential across origins">§ 2.6 Issuing a digital credential across origins</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-protocol-type" aria-label="Links in this document to definition: protocol type">
