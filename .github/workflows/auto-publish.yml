@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: w3c/spec-prod@v2
+      - uses: w3c/spec-prod@v2.12.0
         with:
           TOOLCHAIN: respec
           VALIDATE_LINKS: true
