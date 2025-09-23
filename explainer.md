@@ -19,7 +19,7 @@ In the pursuit of establishing a standard for web-based identity sharing, it's i
 
 # What?
 
-First we must acknowledge, architecturally, that this is a rapidly evolving space with a large number of moving parts at various different levels of maturity. Users, regulations (e.g. eIDAS), wallets, verifiers, issuers, formats (e.g. [ISO mDocs](https://www.iso.org/obp/ui/en/#iso:std:iso-iec:18013:-5:ed-1:v1:en) and [W3C VCs](https://verifiablecredentials.dev/), just to name a few) and protocols (e.g. [OpenID4VP](https://openid.github.io/OpenID4VP/openid-4-verifiable-presentations-wg-draft.html), [OpenID4VCI](https://openid.github.io/OpenID4VCI/openid-4-verifiable-credential-issuance-wg-draft.html), ISO REST’s API, [VC API](https://github.com/w3c-ccg/vc-api)), operating systems and browsers (e.g. evolving mitigation strategies, for [example](https://docs.google.com/document/d/1L68tmNXCQXucsCV8eS8CBd_F9FZ6TNwKNOaFkA8RfwI/edit#heading=h.8gq5f7p3it8q)) are all still in various stages of formation and need the space and autonomy to evolve efficiently.
+First we must acknowledge, architecturally, that this is a rapidly evolving space with a large number of moving parts at various different levels of maturity. Users, regulations (e.g. eIDAS), wallets, verifiers, issuers, formats (e.g. [ISO mDocs](https://www.iso.org/obp/ui/en/#iso:std:iso-iec:18013:-5:ed-1:v1:en) and [W3C VCs](https://verifiablecredentials.dev/), just to name a few) and protocols (e.g. [OpenID4VP](https://openid.net/specs/openid-4-verifiable-presentations-1_0.html), [OpenID4VCI](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html), ISO REST’s API, [VC API](https://github.com/w3c-ccg/vc-api)), operating systems and browsers (e.g. evolving mitigation strategies, for [example](https://docs.google.com/document/d/1L68tmNXCQXucsCV8eS8CBd_F9FZ6TNwKNOaFkA8RfwI/edit#heading=h.8gq5f7p3it8q)) are all still in various stages of formation and need the space and autonomy to evolve efficiently.
 
 So, to the extent that we can, it is important to leave levels of indirection that would allow us to extend the API without having to redesign it. Sometimes, extensibility, autonomy (eg. of different standards bodies) and the abilities/incentives of ecosystem adoption are in tension with other goals, such as the user’s privacy and security, so we often have to find a good and principled balance (e.g. more often than not, [users first, developers second, and browser engines third](https://www.w3.org/TR/design-principles/#priority-of-constituencies), guides our choices at the W3C). 
 
@@ -40,7 +40,7 @@ Please see the [requesting](https://www.w3.org/TR/digital-credentials/#requestin
 
 ## Horizontal reviews
 
-* [Security and privacy TAG Questionnaire](horizontal-reviews/security-privacy.md)
+* [Security and privacy TAG Questionnaire](https://github.com/w3c-fedid/digital-credentials/wiki/Horizontal-reviews)
 
 # Alternatives Considered
 
