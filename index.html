@@ -1387,11 +1387,7 @@
           </li>
         </ol>
       </li>
-      <li>If |global| does not have [=transient activation=], return [=a
-      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
-      </li>
-      <li>[=Consume user activation=] of |global|.
-      <li>If the session's "next wallet behavior" is set:
+      <li>If the session's [=next wallet behavior=] is set:
       </li>
         <ol>
           <li>If the mode is "respond", resolve the promise with a new `DigitalCredential` object whose `data` member is set to the stored `data`.
@@ -1401,7 +1397,7 @@
           <li>If the mode is "decline", reject the promise with a "NotAllowedError" `DOMException`.
           </il>
         </ol>
-      <li>Otherwise (if "next wallet behavior" is not set), proceed with the normal user-interactive flow to select and use a digital credential. 
+      <li>Otherwise (if [=next wallet behavior=] is not set), proceed with the normal user-interactive flow to select and use a digital credential. 
       </li>
       <li>Let |promise| be [=a new promise=] in [=this=]'s [=relevant realm=].
       </li>
@@ -1468,11 +1464,7 @@
           </li>
         </ol>
       </li>
-      <li>If |global| does not have [=transient activation=], return [=a
-      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
-      </li>
-      <li>[=Consume user activation=] of |global|.
-      <li>If the session's "next wallet behavior" is set:
+      <li>If the session's [=next wallet behavior=] is set:
       </li>
         <ol>
           <li>If the mode is "respond", resolve the promise with a new `DigitalCredential` object whose `data` member is set to the stored `data`.
@@ -1482,7 +1474,7 @@
           <li>If the mode is "decline", reject the promise with a "NotAllowedError" `DOMException`.
           </il>
         </ol>
-      <li>Otherwise (if "next wallet behavior" is not set), proceed with the normal user-interactive flow to select and use a digital credential. 
+      <li>Otherwise (if [=next wallet behavior=] is not set), proceed with the normal user-interactive flow to select and use a digital credential. 
       </li>
       <li>Let |promise| be [=a new promise=].
       </li>
@@ -2521,7 +2513,7 @@
       <section id="virtual-wallet-commands">
         <h3>Virtual Wallet Commands</h3>
         <p>
-          The following commands allow controlling the behavior of a virtual wallet for testing purposes. These commands affect the behavior of the next <code>navigator.credentials.get({digital: ...})</code> or <code>navigator.credentials.create({digital: ...})</code> call.
+          The following commands allow controlling the behavior of a virtual wallet for testing purposes. These commands affect the <dfn>next wallet behavior</dfn> of the next <code>navigator.credentials.get({digital: ...})</code> or <code>navigator.credentials.create({digital: ...})</code> call.
         </p>
         <section id="set-wallet-response">
           <h4><dfn>Set Wallet Response</dfn></h4>
@@ -2562,7 +2554,7 @@
           <p>The [=remote end steps=] are:</p>
           <ol class="algorithm">
             <li>If <code>parameters</code> is not a JSON <a data-cite="webdriver#dfn-object">Object</a>, or if it does not contain a <code>data</code> property of type string, return a [=error|WebDriver error=] with [=error code|WebDriver error code=] [=invalid argument=].</li>
-            <li>Set the session's "next wallet behavior" to <code>{ "mode": "respond", "data": parameters.data }</code>.</li>
+            <li>Set the session's [=next wallet behavior=] to <code>{ "mode": "respond", "data": parameters.data }</code>.</li>
             <li>Return [=success=].</li>
           </ol>
         </section>
@@ -2587,7 +2579,7 @@
             </table>
             <p>The [=remote end steps=] are:</p>
             <ol class="algorithm">
-                <li>Set the session's "next wallet behavior" to <code>{ "mode": "wait" }</code>.</li>
+                <li>Set the session's [=next wallet behavior=] to <code>{ "mode": "wait" }</code>.</li>
                 <li>Return [=success=].</li>
             </ol>
         </section>
@@ -2612,7 +2604,7 @@
             </table>
             <p>The [=remote end steps=] are:</p>
             <ol class="algorithm">
-                <li>Set the session's "next wallet behavior" to <code>{ "mode": "decline" }</code>.</li>
+                <li>Set the session's [=next wallet behavior=] to <code>{ "mode": "decline" }</code>.</li>
                 <li>Return [=success=].</li>
             </ol>
         </section>
