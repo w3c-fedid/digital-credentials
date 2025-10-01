@@ -191,6 +191,58 @@
         be used to request and issue digital credentials.
       </p>
       <h3>
+        Feature Detection
+      </h3>
+      <p>
+        Before using the Digital Credentials API, it's important to check if
+        the user agent supports the necessary features. This can be done using
+        the following code:
+      </p>
+      <pre class="example js" title="Checking for API support">
+        if (typeof DigitalCredential !== "undefined") {
+          // Digital Credentials API is supported
+        } else {
+          // Digital Credentials API is not supported
+        }
+      </pre>
+      <h3>
+        Checking if protocol is allowed
+      </h3>
+      <p>
+        The {{DigitalCredential/userAgentAllowsProtocol()}} static method can
+        be used to check if the user agent allows a specific protocol for
+        digital credential issuance or presentation. This is useful for
+        checking which protocols are allowed by the user's browsers prior to
+        making an API call.
+      </p>
+      <pre class="example js" title=
+      "Using the userAgentAllowsProtocol() static method">
+        if (DigitalCredential.userAgentAllowsProtocol("example-protocol")) {
+          // DC API supported. Proceed with issuance or presentation.
+        } else {
+          // DC API not supported. Fall back to, for example,
+          // a traditional HTML form-based approach.
+          showHTMLForm();
+        }
+      </pre>
+      <p>
+        Alternatively, one can check for support of multiple protocols,
+        filtering out those that are not supported:
+      </p>
+      <pre class="example js" title=
+      "Checking multiple protocols with userAgentAllowsProtocol()">
+        const protocols = [
+          "example-issuance-protocol",
+          "another-issuance-protocol"
+        ];
+        const supportedProtocols = protocols.filter(DigitalCredential.userAgentAllowsProtocol);
+        if (supportedProtocols.length &gt; 0) {
+          // At least one protocol is supported. Proceed with issuance.
+        } else {
+          // No protocols are supported. Fall back to a different issuance method.
+        }
+      </pre>
+      <h3>
         Requesting a digital credential
       </h3>
       <p>
@@ -207,23 +259,31 @@
         &lt;script&gt;
           const button = document.querySelector("button");
           button.addEventListener("click", async () =&gt; {
+            const protocol = "example-request-protocol";
+            // Check for DC API and protocol support
+            if (!DigitalCredential.userAgentAllowsProtocol(protocol)) {
+              // The browser doesn't allow the use of this protocol.
+              // Fall back to a different verification method.
+              showTraditionalVerificationForm();
+              return;
+            }
             try {
               const credential = await navigator.credentials.get({
                 digital: {
                   requests: [{
-                    protocol: "example-protocol",
+                    protocol,
                     data: { /* request data */ }
                   }]
                 }
               });
 
-              // Post it back to the server for decryption and verification
+              // Post it back to the verifier server for decryption and verification
               const response = await fetch("/verify-credential", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json"
                 },
-                body: JSON.stringify(credential, null, 2)
+                body: JSON.stringify(credential)
               });
 
               // Check response
@@ -263,11 +323,19 @@
         &lt;script&gt;
           const button = document.querySelector("button");
           button.addEventListener("click", async () =&gt; {
+            const protocol = "example-issuance-protocol";
+            // Check for DC API and protocol support
+            if (!DigitalCredential.userAgentAllowsProtocol(protocol)) {
+              // The browser doesn't allow the use of this protocol.
+              // Fall back to a different issuance method.
+              showTraditionalIssuanceForm();
+              return;
+            }
             try {
               const credential = await navigator.credentials.create({
                 digital: {
                   requests: [{
-                    protocol: "example-issuance-protocol",
+                    protocol,
                     data: { /* issuance request data */ }
                   }]
                 }
@@ -2192,23 +2260,17 @@
       Acknowledgements
     </h2>
     <p>
-      The Editors would like to thank the <a href=
-      "https://www.w3.org/groups/wg/fedid/participants/">participants</a> and
-      <a href="https://www.w3.org/groups/wg/fedid/former-participants/">former
-      participants</a> of the <a href=
-      "https://www.w3.org/groups/wg/fedid/">Federated ID Working Group</a> for
-      their contributions throughout the standardization process of this
-      specification. Thanks also to folks that made <a href=
-      "https://github.com/w3c-fedid/digital-credentials/graphs/contributors">direct
-      contributions</a> to the specification in the form of pull requests.
-    </p>
-    <p>
-      The Working Group would also like to acknowledge the following
-      individuals for going above and beyond and graciously contributing their
-      time to significantly improve the specification: Manu Sporny for
-      integration with the Verifiable Credentials work, Johann Hofmann and Nick
-      Dotty for their work on the Privacy Considerations, and Ted Thibodeau Jr.
-      for improving the legibility of all incoming pull requests.
+      Some of the Editors would like to thank the following individuals for
+      their feedback and contributions to this specification: Christian Bormann
+      (SPRIND), John Bradley (Yubico), Rick Byers (Google), Brian Campbell
+      (Ping Identity), Lee Campbell (Google), Nick Doty (CDT), Heather Flanagan
+      (Spherical Cow Consulting), Ryan Galluzzo (NIST), Dominique
+      Hazael-Massieux (W3C), Bjorn Hjelm (Yubico), Johann Hofmann (Google),
+      Mike Jones (Self-Issued Consulting), Tobias Looker (MATTR), Matthew
+      Miller (Cisco), Theresa O'Connor (Apple Inc.), Simone Onofri (W3C), Helen
+      Qin (Google), Wendy Seltzer (Invited Expert), Manu Sporny (Digital
+      Bazaar), Orie Steele (Transmute), Ted Thibodeau Jr (OpenLink Software),
+      and David Waite (Ping Identity).
     </p>
   </body>
 </html>
