@@ -2180,53 +2180,51 @@
         <p>
           When <a data-cite="webdriver#dfn-validate-capabilities">validating
           capabilities</a>, the extension-specific substeps to validate
-          `digital-credentials:virtualWallet` with
-          `value` are the following:
+          `digital-credentials:virtualWallet` with `value` are the following:
         </p>
         <ol class="algorithm">
-          <li>If `value` is not a [=boolean=], return a
-          [=error|WebDriver error=] with a [=error code|WebDriver error code=]
-          [=invalid argument=].
+          <li>If `value` is not a [=boolean=], return a [=error|WebDriver
+          error=] with a [=error code|WebDriver error code=] [=invalid
+          argument=].
           </li>
-          <li>Otherwise, let `deserialized` be set to
-          `value`.
+          <li>Otherwise, let `deserialized` be set to `value`.
           </li>
         </ol>
         <p>
           When <a data-cite="webdriver#dfn-matching-capabilities">matching
           capabilities</a>, the extension-specific steps to match
-          `digital-credentials:virtualWallet` with
-          `value` are the following:
+          `digital-credentials:virtualWallet` with `value` are the following:
         </p>
         <ol class="algorithm">
-          <li>If `value</code> is <code>true` and the
-            <a data-cite="webdriver#dfn-endpoint-node">endpoint node</a> does
-            not support any of the Virtual Wallet commands, the match is
-            unsuccessful.
+          <li>If `value is <code>true` and the <a data-cite=
+          "webdriver#dfn-endpoint-node">endpoint node</a> does not support any
+          of the Virtual Wallet commands, the match is unsuccessful.</code>
           </li>
-          <li>Otherwise, the match is successful.
+          <li>
+            <code>Otherwise, the match is successful.</code>
           </li>
         </ol>
       </section>
       <section id="virtual-wallet-commands">
         <h3>
-          Virtual Wallet Commands
+          <code>Virtual Wallet Commands</code>
         </h3>
         <p>
-          The following commands allow controlling the behavior of a virtual
-          wallet for testing purposes. These commands affect the <dfn>next
-          wallet behavior</dfn> of the next
+          <code>The following commands allow controlling the behavior of a
+          virtual wallet for testing purposes. These commands affect the
+          <dfn>next wallet behavior</dfn> of the next
           `navigator.credentials.get({digital: ...})` or
-          `navigator.credentials.create({digital: ...})` call.
+          `navigator.credentials.create({digital: ...})` call.</code>
         </p>
         <section id="set-wallet-response">
           <h4>
-            <dfn>Set Wallet Response</dfn>
+            <code><dfn>Set Wallet Response</dfn></code>
           </h4>
           <p>
-            The [=Set Wallet Response=] [[WebDriver]] [=extension command=]
-            configures the virtual wallet to respond with a specific data
-            payload, simulating a user successfully completing the flow.
+            <code>The [=Set Wallet Response=] [[WebDriver]] [=extension
+            command=] configures the virtual wallet to respond with a specific
+            data payload, simulating a user successfully completing the
+            flow.</code>
           </p>
           <table class="data">
             <thead>
@@ -2289,9 +2287,8 @@
           <ol class="algorithm">
             <li>If `parameters` is not a JSON <a data-cite=
             "webdriver#dfn-object">Object</a>, or if it does not contain a
-            `data` property of type string, return a
-            [=error|WebDriver error=] with [=error code|WebDriver error code=]
-            [=invalid argument=].
+            `data` property of type string, return a [=error|WebDriver error=]
+            with [=error code|WebDriver error code=] [=invalid argument=].
             </li>
             <li>Set the session's [=next wallet behavior=] to <code>{ "mode":
             "respond", "data": parameters.data }</code>.
