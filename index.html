@@ -1131,22 +1131,6 @@
           </li>
         </ol>
       </li>
-      <li>If the session's [=next wallet behavior=] is set:
-        <ol>
-          <li>If the mode is "respond", resolve the promise with a new
-          `DigitalCredential` object whose `data` member is set to the stored
-          `data`.
-          </li>
-          <li>If the mode is "wait", the promise never resolves.
-          </li>
-          <li>If the mode is "decline", reject the promise with a
-          "NotAllowedError" `DOMException`.
-          </li>
-        </ol>
-      </li>
-      <li>Otherwise (if [=next wallet behavior=] is not set), proceed with the
-      normal user-interactive flow to select and use a digital credential.
-      </li>
       <li>
         <aside class="issue">
           Details of how to actually get the [=digital credential=] are
@@ -1206,22 +1190,6 @@
           rejected with=] that [=exception=].
           </li>
         </ol>
-      </li>
-      <li>If the session's [=next wallet behavior=] is set:
-        <ol>
-          <li>If the mode is "respond", resolve the promise with a new
-          `DigitalCredential` object whose `data` member is set to the stored
-          `data`.
-          </li>
-          <li>If the mode is "wait", the promise never resolves.
-          </li>
-          <li>If the mode is "decline", reject the promise with a
-          "NotAllowedError" `DOMException`.
-          </li>
-        </ol>
-      </li>
-      <li>Otherwise (if [=next wallet behavior=] is not set), proceed with the
-      normal user-interactive flow to select and use a digital credential.
       </li>
       <li>
         <aside class="issue">
@@ -2197,7 +2165,7 @@
                 Virtual Wallet Support
               </td>
               <td>
-                <code>digital-credentials:virtualWallet</code>
+                `digital-credentials:virtualWallet`
               </td>
               <td>
                 [=boolean=]
@@ -2212,26 +2180,26 @@
         <p>
           When <a data-cite="webdriver#dfn-validate-capabilities">validating
           capabilities</a>, the extension-specific substeps to validate
-          <code>digital-credentials:virtualWallet</code> with
-          <code>value</code> are the following:
+          `digital-credentials:virtualWallet` with
+          `value` are the following:
         </p>
         <ol class="algorithm">
-          <li>If <code>value</code> is not a [=boolean=], return a
+          <li>If `value` is not a [=boolean=], return a
           [=error|WebDriver error=] with a [=error code|WebDriver error code=]
           [=invalid argument=].
           </li>
-          <li>Otherwise, let <code>deserialized</code> be set to
-          <code>value</code>.
+          <li>Otherwise, let `deserialized` be set to
+          `value`.
           </li>
         </ol>
         <p>
           When <a data-cite="webdriver#dfn-matching-capabilities">matching
           capabilities</a>, the extension-specific steps to match
-          <code>digital-credentials:virtualWallet</code> with
-          <code>value</code> are the following:
+          `digital-credentials:virtualWallet` with
+          `value` are the following:
         </p>
         <ol class="algorithm">
-          <li>If <code>value</code> is <code>true</code> and the
+          <li>If `value</code> is <code>true` and the
             <a data-cite="webdriver#dfn-endpoint-node">endpoint node</a> does
             not support any of the Virtual Wallet commands, the match is
             unsuccessful.
@@ -2248,8 +2216,8 @@
           The following commands allow controlling the behavior of a virtual
           wallet for testing purposes. These commands affect the <dfn>next
           wallet behavior</dfn> of the next
-          <code>navigator.credentials.get({digital: ...})</code> or
-          <code>navigator.credentials.create({digital: ...})</code> call.
+          `navigator.credentials.get({digital: ...})` or
+          `navigator.credentials.create({digital: ...})` call.
         </p>
         <section id="set-wallet-response">
           <h4>
@@ -2274,7 +2242,7 @@
             <tbody>
               <tr>
                 <td>
-                  <code>POST</code>
+                  `POST`
                 </td>
                 <td>
                   <code>/session/{session
@@ -2304,7 +2272,7 @@
             <tbody>
               <tr>
                 <td>
-                  <code>data</code>
+                  `data`
                 </td>
                 <td>
                   string
@@ -2319,9 +2287,9 @@
             The [=remote end steps=] are:
           </p>
           <ol class="algorithm">
-            <li>If <code>parameters</code> is not a JSON <a data-cite=
+            <li>If `parameters` is not a JSON <a data-cite=
             "webdriver#dfn-object">Object</a>, or if it does not contain a
-            <code>data</code> property of type string, return a
+            `data` property of type string, return a
             [=error|WebDriver error=] with [=error code|WebDriver error code=]
             [=invalid argument=].
             </li>
@@ -2355,7 +2323,7 @@
             <tbody>
               <tr>
                 <td>
-                  <code>POST</code>
+                  `POST`
                 </td>
                 <td>
                   <code>/session/{session
@@ -2398,7 +2366,7 @@
             <tbody>
               <tr>
                 <td>
-                  <code>POST</code>
+                  `POST`
                 </td>
                 <td>
                   <code>/session/{session
