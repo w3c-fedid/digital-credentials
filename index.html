@@ -576,7 +576,7 @@
     <p>
       The coordinator manages the lifecycle of the interaction's {{Promise}}
       and its associated {{AbortSignal}} (if any), including resolution with
-      the user's selected [=digital credential=], the [=holder=]'s response or rejection due to errors or
+      the user's selected [=digital credential=], the [=holder=]'s response, or rejection due to errors or
       the user or program aborting the [=credential request=].
     </p>
     <p>
@@ -591,9 +591,7 @@
       is determined by matching the request parameters, user consent, and
       platform policy.
       </li>
-      <li>[=Resolves=] the interaction's {{Promise}} with the selected
-      [=digital credential=]. [=holder=]'s response or [=rejects=] it to indicate that the
-      [=credential request=] was aborted.
+      <li>[=Resolves=] the interaction's {{Promise}} with the selected [=digital credential=] or [=holder=]'s response, or [=rejects=] it to indicate that the [=credential request=] was aborted.
       </li>
     </ul>
     <aside class="note">
