@@ -489,7 +489,7 @@
         <dfn data-for="digital credential">Credential request</dfn>
       </dt>
       <dd>
-        Is either a [=digital credential/presentation request=] or an [=digital
+        A [=digital credential/presentation request=] or an [=digital
         credential/issuance request=].
       </dd>
       <dt>
@@ -547,7 +547,7 @@
         identifier=]. See also section [[[#protocol-registry]]].
       </dd>
       <dt>
-        Digital credential coordinator
+        Request coordinator
       </dt>
       <dd>
         See [=credential request coordinator=].
@@ -576,7 +576,7 @@
     <p>
       The coordinator manages the lifecycle of the interaction's {{Promise}}
       and its associated {{AbortSignal}} (if any), including resolution with
-      the user's selected [=digital credential=] or rejection due to errors or
+      the user's selected [=digital credential=], the [=holder=]'s response or rejection due to errors or
       the user or program aborting the [=credential request=].
     </p>
     <p>
@@ -592,7 +592,7 @@
       platform policy.
       </li>
       <li>[=Resolves=] the interaction's {{Promise}} with the selected
-      [=digital credential=] or [=rejects=] it to indicate that the
+      [=digital credential=]. [=holder=]'s response or [=rejects=] it to indicate that the
       [=credential request=] was aborted.
       </li>
     </ul>
@@ -600,7 +600,7 @@
       <p>
         Although the coordinator handles input/output coordination, it is the
         responsibility of the platform together with available [=holders=], to
-        present the UI that allows the user to choose a [=digital credential=].
+        present the UI that allows the user to choose a [=digital credential=] and/or a [=holder].
       </p>
     </aside>
     <h3>
@@ -609,16 +609,14 @@
     <p>
       The [=credential request coordinator=] has a finite set of
       <dfn data-dfn-for="credential request coordinator">interaction
-      states</dfn>, which are used to manage the lifecycle of a [=digital
-      credential/presentation request=] or [=digital credential/issuance
-      request=]:
+      states</dfn>, which are used to manage the lifecycle of a [=credential request=]:
     </p>
     <dl>
       <dt>
         "<dfn data-dfn-for="credential request coordinator">idle</dfn>":
       </dt>
       <dd>
-        No credential request is currently in progress.
+        No [=credential request=] is currently in progress.
       </dd>
       <dt>
         "<dfn data-dfn-for="credential request coordinator">requesting</dfn>":
