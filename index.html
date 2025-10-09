@@ -121,7 +121,7 @@ dd{margin-left:0}
     
   
 <meta name="color-scheme" content="light">
-<meta name="revision" content="78e1e65c66db10feca603e2e77893926f3449b6a">
+<meta name="revision" content="aaa49f40089b1ec99b6a1ede57e635f7445ac77b">
 <meta name="description" content="This document specifies an API to enable user agents to mediate
         presentation and issuance of digital credentials such as a driver's
         license, government-issued identification card, and/or other types of digital credential. The API builds on
@@ -252,7 +252,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "78e1e65c66db10feca603e2e77893926f3449b6a",
+  "gitRevision": "aaa49f40089b1ec99b6a1ede57e635f7445ac77b",
   "publishISODate": "2025-10-09T00:00:00.000Z",
   "generatedSubtitle": "W3C Editor's Draft 09 October 2025"
 }</script>
@@ -982,8 +982,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <p>
       The coordinator manages the lifecycle of the interaction's <a data-link-type="interface" data-lt="Promise" href="https://webidl.spec.whatwg.org/#idl-promise"><code>Promise</code></a>
       and its associated <a data-link-type="interface" data-lt="AbortSignal" href="https://dom.spec.whatwg.org/#abortsignal"><code>AbortSignal</code></a> (if any), including resolution with
-      the user's selected <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-16">digital credential</a>, the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders">holder</a>'s response, or rejection due to errors or
-      the user or program aborting the <a data-link-type="dfn|abstract-op" href="#dfn-credential-request" class="internalDFN" id="ref-for-dfn-credential-request-1">credential request</a>.
+      the user's selected <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-16">digital credential</a>, the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders">holder</a>'s response, or
+      rejection due to errors or the user or program aborting the <a data-link-type="dfn|abstract-op" href="#dfn-credential-request" class="internalDFN" id="ref-for-dfn-credential-request-1">credential request</a>.
     </p>
     <p>
       The <a data-link-type="dfn|abstract-op" href="#dfn-credential-request-coordinator" class="internalDFN" id="ref-for-dfn-credential-request-coordinator-2">credential request coordinator</a>:
@@ -997,14 +997,17 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       is determined by matching the request parameters, user consent, and
       platform policy.
       </li>
-      <li><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve">Resolves</a> the interaction's <a data-link-type="interface" data-lt="Promise" href="https://webidl.spec.whatwg.org/#idl-promise"><code>Promise</code></a> with the selected <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-17">digital credential</a> or <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders">holder</a>'s response, or <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject">rejects</a> it to indicate that the <a data-link-type="dfn|abstract-op" href="#dfn-credential-request" class="internalDFN" id="ref-for-dfn-credential-request-2">credential request</a> was aborted.
+      <li><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve">Resolves</a> the interaction's <a data-link-type="interface" data-lt="Promise" href="https://webidl.spec.whatwg.org/#idl-promise"><code>Promise</code></a> with the selected
+      <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-17">digital credential</a> or <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders">holder</a>'s response, or <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject">rejects</a> it to
+      indicate that the <a data-link-type="dfn|abstract-op" href="#dfn-credential-request" class="internalDFN" id="ref-for-dfn-credential-request-2">credential request</a> was aborted.
       </li>
     </ul>
     <div class="note" role="note" id="issue-container-generatedID-1"><div role="heading" class="note-title marker" id="h-note-1" aria-level="2"><span>Note</span></div><aside class="">
       <p>
         Although the coordinator handles input/output coordination, it is the
         responsibility of the platform together with available <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders">holders</a>, to
-        present the UI that allows the user to choose a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-18">digital credential</a> and/or a [=holder].
+        present the UI that allows the user to choose a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-18">digital credential</a>
+        and/or a [=holder].
       </p>
     </aside></div>
     <section id="interaction-states"><div class="header-wrapper"><h3 id="x5-1-interaction-states"><bdi class="secno">5.1 </bdi>
