@@ -576,8 +576,9 @@
     <p>
       The coordinator manages the lifecycle of the interaction's {{Promise}}
       and its associated {{AbortSignal}} (if any), including resolution with
-      the user's selected [=digital credential=], the [=holder=]'s response, or rejection due to errors or
-      the user or program aborting the [=credential request=].
+      the user's selected [=digital credential=], the [=holder=]'s response, or
+      rejection due to errors or the user or program aborting the [=credential
+      request=].
     </p>
     <p>
       The [=credential request coordinator=]:
@@ -591,14 +592,17 @@
       is determined by matching the request parameters, user consent, and
       platform policy.
       </li>
-      <li>[=Resolves=] the interaction's {{Promise}} with the selected [=digital credential=] or [=holder=]'s response, or [=rejects=] it to indicate that the [=credential request=] was aborted.
+      <li>[=Resolves=] the interaction's {{Promise}} with the selected
+      [=digital credential=] or [=holder=]'s response, or [=rejects=] it to
+      indicate that the [=credential request=] was aborted.
       </li>
     </ul>
     <aside class="note">
       <p>
         Although the coordinator handles input/output coordination, it is the
         responsibility of the platform together with available [=holders=], to
-        present the UI that allows the user to choose a [=digital credential=] and/or a [=holder].
+        present the UI that allows the user to choose a [=digital credential=]
+        and/or a [=holder].
       </p>
     </aside>
     <h3>
@@ -607,7 +611,8 @@
     <p>
       The [=credential request coordinator=] has a finite set of
       <dfn data-dfn-for="credential request coordinator">interaction
-      states</dfn>, which are used to manage the lifecycle of a [=credential request=]:
+      states</dfn>, which are used to manage the lifecycle of a [=credential
+      request=]:
     </p>
     <dl>
       <dt>
