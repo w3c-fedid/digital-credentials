@@ -554,21 +554,23 @@
     <p>
       The <dfn data-local-lt="coordinator">credential request coordinator</dfn>
       is a user-agent-defined component that mediates [=digital credential=]
-      interactions within a [=top-level traversable=]. Each [=top-level
+      interactions through the [=top-level traversable=]. Each [=top-level
       traversable=] has exactly one associated coordinator. The coordinator
       ensures that at most one interaction is active across all [=child
       navigables=], orchestrates the end-to-end flow of presentation or
       issuance, and manages transitions between [=credential request
-      coordinator/interaction states=]. A user agent may delegate some or all
+      coordinator/interaction states=]. 
+      </p>
+      <p>A user agent MAY delegate some or all
       coordinator responsibilities to external wallet applications, platform
       components, or other trusted entities according to user or platform
       policy.
     </p>
     <p>
       The coordinator manages the lifecycle of the interaction's {{Promise}}
-      and its associated {{AbortSignal}}, including resolution with the user's
-      selected [=digital credential/digital credential|digital credential(s)=]
-      or rejection due to errors or cancellation by user or program.
+      and its associated {{AbortSignal}} (if any), including resolution with the user's
+      selected [=digital credential=]
+      or rejection due to errors or the user or program aborting the credential request.
     </p>
     <p>
       The [=credential request coordinator=]:
@@ -576,14 +578,11 @@
     <ul>
       <li>Validates and transforms presentation or issuance inputs and outputs.
       </li>
-      <li>Interprets each individual request in the input list as targeting a
-      specific [=holder=], and prepares [=holder=] options accordingly.
-      </li>
       <li>Requests the platform to display the available credentials and/or
-      holders for user selection.
+      [=holders=] for user selection.
       </li>
       <li>Resolves the interaction's {{Promise}} with the selected [=digital
-      credential=] or rejects it to indicate cancellation.
+      credential=] or [=rejects=] it to indicate that the credential request was aborted.
       </li>
     </ul>
     <aside class="note">
@@ -608,13 +607,13 @@
         "<dfn data-dfn-for="credential request coordinator">idle</dfn>":
       </dt>
       <dd>
-        No credential interaction is currently in progress.
+        No credential request is currently in progress.
       </dd>
       <dt>
         "<dfn data-dfn-for="credential request coordinator">requesting</dfn>":
       </dt>
       <dd>
-        A credential interaction is in progress and the user interface is
+        A credential request is in progress and the user interface is
         presented.
       </dd>
       <dt>
@@ -623,8 +622,8 @@
       <dd>
         The active interaction is being canceled due to an error, a user
         action, or a [=AbortController/signal abort=]; the coordinator is
-        cleaning up before returning to [=credential request
-        coordinator/idle=].
+        cleaning up before returning to "[=credential request
+        coordinator/idle=]".
       </dd>
     </dl>
     <p>
