@@ -566,18 +566,18 @@
       ensures that at most one interaction is active across all [=child
       navigables=], orchestrates the end-to-end flow of presentation or
       issuance, and manages transitions between [=credential request
-      coordinator/interaction states=]. 
-      </p>
-      <p>A user agent MAY delegate some or all
-      coordinator responsibilities to external wallet applications, platform
-      components, or other trusted entities according to user or platform
-      policy.
+      coordinator/interaction states=].
+    </p>
+    <p>
+      A user agent MAY delegate some or all coordinator responsibilities to
+      external wallet applications, platform components, or other trusted
+      entities according to user or platform policy.
     </p>
     <p>
       The coordinator manages the lifecycle of the interaction's {{Promise}}
-      and its associated {{AbortSignal}} (if any), including resolution with the user's
-      selected [=digital credential=]
-      or rejection due to errors or the user or program aborting the credential request.
+      and its associated {{AbortSignal}} (if any), including resolution with
+      the user's selected [=digital credential=] or rejection due to errors or
+      the user or program aborting the credential request.
     </p>
     <p>
       The [=credential request coordinator=]:
@@ -589,7 +589,8 @@
       [=holders=] for user selection.
       </li>
       <li>Resolves the interaction's {{Promise}} with the selected [=digital
-      credential=] or [=rejects=] it to indicate that the credential request was aborted.
+      credential=] or [=rejects=] it to indicate that the credential request
+      was aborted.
       </li>
     </ul>
     <aside class="note">
