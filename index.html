@@ -143,14 +143,14 @@
       <li>Require [=transient activation=] to perform [=digital
       credential/presentation requests=] or [=digital credential/issuance
       requests=], ensuring that sites cannot silently query for nor issue
-      digital credentials, nor communicate with wallet providers, without the
-      user's active participation and confirmation of each action.
+      digital credentials, nor communicate with [=wallet=] providers, without
+      the user's active participation and confirmation of each action.
       </li>
       <li>Enable platform-provided credential selection UX when multiple wallet
       applications have credentials that match a [=digital
       credential/presentation request=].
       </li>
-      <li>Enable platform-provided wallet selection UX when multiple wallet
+      <li>Enable platform-provided [=wallet=] selection UX when multiple wallet
       applications support an [=digital credential/issuance request=].
       </li>
       <li>Enable platforms to provide secure cross-device [=digital
@@ -427,9 +427,9 @@
       permission to forward a request to the user-selected wallet.
       </li>
       <li>Implementation of credential managers, specifically in the role of
-      [=holder=] software (commonly known as "digital wallets"), including how
-      they securely store or manage [=digital credentials=] or advertise
-      capabilities to [=digital credential/presentation|present=] or [=digital
+      [=digital wallets=], including how they securely store or manage
+      [=digital credentials=] or advertise capabilities to [=digital
+      credential/presentation|present=] or [=digital
       credential/issuance|issue=] them to the [=user agent=], is out of scope.
       The only exception is the transmission of [=digital credential/issuance
       request data=] and [=digital credential/request data|credential request
@@ -481,8 +481,8 @@
         "presentation response">Presentation response</dfn>
       </dt>
       <dd>
-        A format that a [=holder's=] software, such as a digital wallet, uses,
-        via an [=digital credential/exchange protocol=], to respond to a
+        A format that a [=holder's=] software, such as a [=digital wallet=],
+        uses, via an [=digital credential/exchange protocol=], to respond to a
         [=digital credential/presentation request=] by a [=verifier=].
       </dd>
       <dt>
@@ -553,7 +553,7 @@
         See [=credential request coordinator=].
       </dd>
       <dt>
-        Digital Wallet
+        <dfn class="export" data-local-lt="wallet">Digital Wallet</dfn>
       </dt>
       <dd>
         Software that acts as a [=holder=], and manages the user's interaction
@@ -580,7 +580,7 @@
     </p>
     <p>
       A user agent MAY delegate some or all coordinator responsibilities to
-      external wallet applications, platform components, or other trusted
+      external [=wallet=] applications, platform components, or other trusted
       entities according to user or platform policy.
     </p>
     <p>
@@ -749,7 +749,7 @@
       The <dfn data-dfn-for="DigitalCredentialRequestOptions">requests</dfn>
       specify an [=digital credential/exchange protocol=] and [=digital
       credential/request data=], which the user agent MAY match against a
-      holder's software, such as a digital wallet.
+      holder's software, such as a [=digital wallet=].
     </p><!--
     // MARK: DigitalCredentialGetRequest
     -->
@@ -761,7 +761,7 @@
       credential/presentation request=]. It is used to specify an [=digital
       credential/exchange protocol=] and some [=digital credential/request
       data=], which the user agent MAY match against software used by a holder,
-      such as a digital wallet.
+      such as a [=digital wallet=].
     </p>
     <pre class="idl">
       dictionary DigitalCredentialGetRequest {
@@ -1400,7 +1400,7 @@
         </h3>
         <p class="issue" title="Work in progress">
           Explain that authentication (such as a PIN code to unlock) to a
-          particular app, such as a digital wallet, that responds to an API
+          particular app, such as a [=digital wallet=], that responds to an API
           request is crucial in high-risk use cases.
         </p>
       </section>
@@ -1620,8 +1620,8 @@
           presentations to conclude they concern the same user
           (verifier-verifier linkability), or that [=verifiers=] cannot collude
           with [=issuers=] to report the exchange of a credential from a
-          digital wallet to the [=issuer=] (verifier-issuer linkability). The
-          former is a property that can be maintained by the [=holder=] and
+          [=digital wallet=] to the [=issuer=] (verifier-issuer linkability).
+          The former is a property that can be maintained by the [=holder=] and
           [=issuer=], e.g. through issuing fresh credentials for individual
           [=verifiers=].
         </p>
@@ -1641,7 +1641,7 @@
         </p>
         <p>
           Through the Digital Credentials API, the [=user agent=] can help
-          [=verifiers=] and digital wallets exchange unlinkable attributes,
+          [=verifiers=] and [=digital wallets=] exchange unlinkable attributes,
           but, because of response encryption, it cannot guarantee that no
           linkable information is passed between [=verifiers=] and digital
           wallets. It is recommended that [=user agents=] account for this fact
@@ -1667,19 +1667,19 @@
           ensure that an [=issuer=] isn't actively involved in the creation or
           validation of credential presentations after a user has given
           permission to proceed with a credential request. From that point on,
-          the digital wallet application owns this decision. While some digital
-          wallets can be considered [=user agents=], it is generally
+          the [=digital wallet=] application owns this decision. While some
+          digital wallets can be considered [=user agents=], it is generally
           recommended that the [=user agent=] implementing the Digital
           Credentials API designs its permission experience to prevent <a href=
           "#permission-prior-to-wallet-selection">exposure of a request to the
-          digital wallet application</a> before user confirmation (keeping in
-          mind <a href="#multiple-user-agents">considerations for integrating
-          multiple cooperating user agents</a>).
+          [=digital wallet=] application</a> before user confirmation (keeping
+          in mind <a href="#multiple-user-agents">considerations for
+          integrating multiple cooperating user agents</a>).
         </p>
         <p>
           Protocols are required to support mechanisms that allow [=issuers=],
-          digital wallets, and [=verifiers=] to avoid or reduce the dependence
-          on "phone home" mechanisms.
+          [=digital wallets=], and [=verifiers=] to avoid or reduce the
+          dependence on "phone home" mechanisms.
         </p>
         <p class="issue" data-number="279">
           Which level of unlinkability is the goal for this API? To what degree
@@ -1806,7 +1806,7 @@
           </li>
           <li>[=issuers=] and lawmakers might decide to restrict use of
           (particularly government-issued) credentials to specific
-          [=verifiers=] with purpose attestations. Digital wallets might be
+          [=verifiers=] with purpose attestations. [=Digital wallets=] might be
           expected to enforce these restrictions by law or policy.
           </li>
           <li>The ultimate decision of whether or not to share their personal
@@ -2028,7 +2028,7 @@
           "#multiple-user-agents">different user agents</a> to apply
           appropriate levels of friction and transparency. For example, a
           browser might delegate knowledge about credential requests to the
-          operating system, which might require digital wallets to register
+          operating system, which might require [=digital wallets=] to register
           known credential types and reject an exchange request for an unknown
           credential type.
         </p>
@@ -2090,7 +2090,7 @@
           To ensure authenticity of a credential, its presentation to
           [=verifiers=] generally includes more information than the content
           the [=verifier=] is requesting access to. It will usually contain at
-          least a signature of the [=issuer=] and the digital wallet, and
+          least a signature of the [=issuer=] and the [=digital wallet=], and
           potentially other metadata.
         </p>
         <p>
@@ -2115,9 +2115,9 @@
           through {{DigitalCredential/userAgentAllowsProtocol()}}. It mitigates
           browser fingerprinting and revealing information about the user's
           device configuration by not customizing its response based on, for
-          example, which digital wallet applications are installed on a user's
-          device. The returned information is thus, at best, equivalent to a
-          [=user agent=] version.
+          example, which [=digital wallet=] applications are installed on a
+          user's device. The returned information is thus, at best, equivalent
+          to a [=user agent=] version.
         </p>
         <h4>
           Avoiding leaks of credential availability
@@ -2168,7 +2168,7 @@
           </li>
           <li>Whether presenting this information will enable tracking.
           </li>
-          <li>Which digital wallets can be used to fulfill the credential
+          <li>Which [=digital wallets=] can be used to fulfill the credential
           request.
           </li>
           <li>Which credential would be used to share the requested
@@ -2222,10 +2222,11 @@
         <p>
           As part of the user permission flow, the [=user agent=] needs to
           ensure that users retain the power to choose whether to forward a
-          credential request to a digital wallet, and which digital wallet to
-          select. This is due to the information disclosure that happens as
-          part of the request, and the ability of digital wallets to retain or
-          share this information at the time of the request.
+          credential request to a [=digital wallet=], and which [=digital
+          wallet=] to select. This is due to the information disclosure that
+          happens as part of the request, and the ability of [=digital
+          wallets=] to retain or share this information at the time of the
+          request.
         </p>
         <h4>
           Permission vs. Consent
@@ -2234,8 +2235,8 @@
           The permission mediated by the [=user agent=] is not consent, which
           has specific legal definitions that can vary among different legal
           and regulatory environments and may need to be collected by the
-          digital wallet before sharing information with the [=verifier=], or
-          by the [=verifier=] itself before initiating the request. With
+          [=digital wallet=] before sharing information with the [=verifier=],
+          or by the [=verifier=] itself before initiating the request. With
           frameworks and regulations for obtaining consent still being
           developed, this API aims to enable the exchange of the necessary
           information, which could include the following:
