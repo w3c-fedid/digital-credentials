@@ -457,61 +457,6 @@
         credential managers.
       </dd>
       <dt>
-        <dfn>Wallet</dfn>
-        <dfn>Digital wallet</dfn>
-      </dt>
-      <dd>
-        A user friendly term for a [=credential manager=] for verifiable digital
-        credentials and other objects like payment cards and tickets.
-      </dd>
-      <dt>
-        <dfn>Issuance service</dfn>
-      </dt>
-      <dd>
-        An entity that performs the act of creating and delivering a verifiable
-        digital credential on behalf of the issuer. In many cases, the
-        [=issuer=] and issuance service are the same entity or component.
-      </dd>
-      <dt>
-        <dfn>Verification service</dfn>
-      </dt>
-      <dd>
-        An entity that performs the cryptographic validation of a 
-        [=verifiable presentation=] on behalf of the [=verifier=]. In many
-        cases, the [=verifier=] and verification service are the same entity or
-        component.
-      </dd>
-      <dt>
-        <dfn>Relying party</dfn>
-      </dt>
-      <dd>
-        The entity which consumes and/or stores [=claims=] from a
-        [=verifiable presentation=]. In many cases, the relying party and
-        [=verifier=] are the same entity or component.
-      </dd>
-    </dl>
-
-    <h3>Defined by other specifications</h3>
-    <ul>
-      <li>Holder: <a href="https://www.w3.org/TR/vc-data-model-2.0/#holder">W3C Verifiable Credentials Data Model v2.0</a></li>
-      <li>Issuer: <a href="https://www.w3.org/TR/vc-data-model-2.0/#issuer">W3C Verifiable Credentials Data Model v2.0</a></li>
-      <li>Verifier: <a href="https://www.w3.org/TR/vc-data-model-2.0/#verifier">W3C Verifiable Credentials Data Model v2.0</a></li>
-    </ul>
-
-    <!--
-    // MARK: Model
-    -->
-    <h2>
-      Model
-    </h2>
-    <p class="note" title="Definitions under discussion">
-      The goal of the definitions in this section is to reuse or establish
-      terminology that is common across a variety of digital credential formats
-      and protocols. Discussions surrounding these definitions are active and
-      the definitions are likely to change over the next several months.
-    </p>
-    <dl class="definitions" data-sort="" data-cite="vc-data-model-2.0">
-      <dt>
         <dfn>Digital credential</dfn>
       </dt>
       <dd>
@@ -523,30 +468,32 @@
         </p>
       </dd>
       <dt>
-        <dfn data-dfn-for="digital credential" data-local-lt=
-        "presentation">Presentation request</dfn>
+        <dfn>Wallet</dfn>
+        <dfn>Digital wallet</dfn>
       </dt>
       <dd>
-        A presentation request is a request for a [=digital credential=]
-        composed of [=digital credential/request data=] and a [=digital
-        credential/exchange protocol=].
-      </dd>
-      <dt>
-        <dfn data-dfn-for="digital credential">Request data</dfn>
-      </dt>
-      <dd>
-        A format that [=verifier=] software or a [=user agent=] uses, via an
-        [=digital credential/exchange protocol=], to request a [=digital
-        credential=] from a [=holder=].
+        A user friendly term for a [=credential manager=] for verifiable digital
+        credentials and other objects like payment cards and tickets.
       </dd>
       <dt>
         <dfn data-dfn-for="digital credential" data-local-lt=
-        "presentation response">Presentation response</dfn>
+        "exchange protocol">Exchange protocol</dfn>
       </dt>
       <dd>
-        A format that a [=holder's=] software, such as a digital wallet, uses,
-        via an [=digital credential/exchange protocol=], to respond to a
-        [=digital credential/presentation request=] by a [=verifier=].
+        A standardized protocol used for exchanging a [=digital credential=]
+        between a [=holder=] and a [=verifier=]. A protocol is identified by a
+        [=digital credential/protocol identifier=]. See section also
+        [[[#protocol-registry]]].
+      </dd>
+      <dt>
+        <dfn data-dfn-for="digital credential" data-local-lt=
+        "issuance protocol">Issuance protocol</dfn>
+      </dt>
+      <dd>
+        A standardized protocol used for communication between an [=issuer=]
+        and a [=holder=] during the issuance of a [=digital credential=]. The
+        issuance protocol is identified by a [=digital credential/protocol
+        identifier=]. See also section [[[#protocol-registry]]].
       </dd>
       <dt>
         <dfn data-dfn-for="digital credential" data-local-lt=
@@ -574,14 +521,38 @@
         an [=issuer=].
       </dd>
       <dt>
-        <dfn data-dfn-for="digital credential" data-local-lt=
-        "exchange protocol">Exchange protocol</dfn>
+        <dfn>Issuance service</dfn>
       </dt>
       <dd>
-        A standardized protocol used for exchanging a [=digital credential=]
-        between a [=holder=] and a [=verifier=]. A protocol is identified by a
-        [=digital credential/protocol identifier=]. See section also
-        [[[#protocol-registry]]].
+        An entity that performs the act of creating and delivering a verifiable
+        digital credential on behalf of the issuer. In many cases, the
+        [=issuer=] and issuance service are the same entity or component.
+      </dd>
+      <dt>
+        <dfn data-dfn-for="digital credential" data-local-lt=
+        "presentation response">Presentation response</dfn>
+      </dt>
+      <dd>
+        A format that a [=holder's=] software, such as a digital wallet, uses,
+        via an [=digital credential/exchange protocol=], to respond to a
+        [=digital credential/presentation request=] by a [=verifier=].
+      </dd>
+      <dt>
+        <dfn>Relying party</dfn>
+      </dt>
+      <dd>
+        The entity which consumes and/or stores [=claims=] from a
+        [=verifiable presentation=]. In many cases, the relying party and
+        [=verifier=] are the same entity or component.
+      </dd>
+      <dt>
+        <dfn data-dfn-for="digital credential" data-local-lt=
+        "presentation">Presentation request</dfn>
+      </dt>
+      <dd>
+        A presentation request is a request for a [=digital credential=]
+        composed of [=digital credential/request data=] and a [=digital
+        credential/exchange protocol=].
       </dd>
       <dt>
         <dfn data-dfn-for="digital credential">Protocol identifier</dfn>
@@ -593,15 +564,31 @@
         "123a-protocol", "abc", or simply "a".
       </dd>
       <dt>
-        <dfn data-dfn-for="digital credential" data-local-lt=
-        "issuance protocol">Issuance protocol</dfn>
+        <dfn data-dfn-for="digital credential">Request data</dfn>
       </dt>
       <dd>
-        A standardized protocol used for communication between an [=issuer=]
-        and a [=holder=] during the issuance of a [=digital credential=]. The
-        issuance protocol is identified by a [=digital credential/protocol
-        identifier=]. See also section [[[#protocol-registry]]].
+        A format that [=verifier=] software or a [=user agent=] uses, via an
+        [=digital credential/exchange protocol=], to request a [=digital
+        credential=] from a [=holder=].
       </dd>
+      <dt>
+        <dfn>Verification service</dfn>
+      </dt>
+      <dd>
+        An entity that performs the cryptographic validation of a 
+        [=verifiable presentation=] on behalf of the [=verifier=]. In many
+        cases, the [=verifier=] and verification service are the same entity or
+        component.
+      </dd>
+    </dl>
+
+    <h3>Defined by other specifications</h3>
+    <ul>
+      <li>Holder: <a href="https://www.w3.org/TR/vc-data-model-2.0/#holder">W3C Verifiable Credentials Data Model v2.0</a></li>
+      <li>Issuer: <a href="https://www.w3.org/TR/vc-data-model-2.0/#issuer">W3C Verifiable Credentials Data Model v2.0</a></li>
+      <li>Verifier: <a href="https://www.w3.org/TR/vc-data-model-2.0/#verifier">W3C Verifiable Credentials Data Model v2.0</a></li>
+    </ul>
+
     </dl><!--
     // MARK: The Digital Credentials API
     -->
