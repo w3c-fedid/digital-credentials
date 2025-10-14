@@ -91,14 +91,14 @@
     };
     </script>
   </head>
-  <body data-cite="credential-management-1 vc-data-model">
+  <body data-cite="credential-management vc-data-model">
     <section id="abstract">
       <p>
         This document specifies an API to enable [=user agents=] to mediate
         presentation and issuance of digital credentials such as a driver's
         license, government-issued identification card, and/or [=credential
         type examples|other types of digital credential=]. The API builds on
-        [[[credential-management-1]]] as a means by which to request or issue a
+        [[[credential-management]]] as a means by which to request or issue a
         digital credential from a user agent or underlying platform.
       </p>
     </section>
@@ -447,7 +447,7 @@
       and protocols. Discussions surrounding these definitions are active and
       the definitions are likely to change over the next several months.
     </p>
-    <dl class="definitions" data-sort="" data-cite="vc-data-model-2.0">
+    <dl class="definitions" data-sort="" data-cite="vc-data-model">
       <dt>
         <dfn>Digital credential</dfn>
       </dt>
@@ -586,9 +586,9 @@
     <p>
       The coordinator manages the lifecycle of the interaction's {{Promise}}
       and its associated {{AbortSignal}} (if any), including resolution with
-      the user's selected [=digital credential=], the [=holder=]'s response, or
-      rejection due to errors or the user or program aborting the [=credential
-      request=].
+      the user's selected [=digital credential=] or the [=holder=]'s response,
+      or rejection due to errors or the user or program aborting the
+      [=credential request=].
     </p>
     <p>
       The [=credential request coordinator=]:
@@ -2278,6 +2278,7 @@
         This section is a work in progress as this document evolves.
       </p>
     </section>
+    <section class="prefer-full-spec-title" id="index"></section>
     <section id="idl-index"></section>
     <section id="conformance"></section>
     <h2 class="appendix">
