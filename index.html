@@ -1016,12 +1016,12 @@
     <p>
       When invoked, the <dfn class="export" data-dfn-for=
       "DigitalCredential">[[\Create]](origin, options,
-      sameOriginWithAncestors)</dfn> internal method, if the user agent doesn't
-      support issuance, call the default implementation of {{Credential}}'s
-      {{Credential/[[Create]](origin,options, sameOriginWithAncestors)}}
-      internal method with the same arguments. Otherwise:
+      sameOriginWithAncestors)</dfn> internal method:
     </p>
     <ol class="algorithm">
+      <li>If the user agent doesn't support [=digital credential/issuance
+      requests=], throw {{NotSupportedError}} {{DOMException}}.
+      </li>
       <li>Let |global| be [=this=]'s [=relevant global object=].
       </li>
       <li>Let |document| be |global|'s [=associated `Document`=].
