@@ -91,14 +91,14 @@
     };
     </script>
   </head>
-  <body data-cite="credential-management-1 vc-data-model">
+  <body data-cite="credential-management vc-data-model">
     <section id="abstract">
       <p>
         This document specifies an API to enable [=user agents=] to mediate
         presentation and issuance of digital credentials such as a driver's
         license, government-issued identification card, and/or [=credential
         type examples|other types of digital credential=]. The API builds on
-        [[[credential-management-1]]] as a means by which to request or issue a
+        [[[credential-management]]] as a means by which to request or issue a
         digital credential from a user agent or underlying platform.
       </p>
     </section>
@@ -447,7 +447,7 @@
       and protocols. Discussions surrounding these definitions are active and
       the definitions are likely to change over the next several months.
     </p>
-    <dl class="definitions" data-sort="" data-cite="vc-data-model-2.0">
+    <dl class="definitions" data-sort="" data-cite="vc-data-model">
       <dt>
         <dfn>Digital credential</dfn>
       </dt>
@@ -484,6 +484,13 @@
         A format that a [=holder's=] software, such as a digital wallet, uses,
         via an [=digital credential/exchange protocol=], to respond to a
         [=digital credential/presentation request=] by a [=verifier=].
+      </dd>
+      <dt>
+        <dfn data-for="digital credential">Credential request</dfn>
+      </dt>
+      <dd>
+        A [=digital credential/presentation request=] or an [=digital
+        credential/issuance request=].
       </dd>
       <dt>
         <dfn data-dfn-for="digital credential" data-local-lt=
@@ -539,7 +546,126 @@
         issuance protocol is identified by a [=digital credential/protocol
         identifier=]. See also section [[[#protocol-registry]]].
       </dd>
+      <dt>
+        Request coordinator
+      </dt>
+      <dd>
+        See [=credential request coordinator=].
+      </dd>
     </dl><!--
+    // MARK: Credential Request Coordinator
+    -->
+    <h2>
+      Credential Request Coordinator
+    </h2>
+    <p>
+      The <dfn data-local-lt="coordinator">credential request coordinator</dfn>
+      is a user-agent-defined component that mediates [=digital credential=]
+      interactions through the [=top-level traversable=]. Each [=top-level
+      traversable=] has exactly one associated coordinator. The coordinator
+      ensures that at most one interaction is active across all [=child
+      navigables=], orchestrates the end-to-end flow of presentation or
+      issuance, and manages transitions between [=credential request
+      coordinator/interaction states=].
+    </p>
+    <p>
+      A user agent MAY delegate some or all coordinator responsibilities to
+      external wallet applications, platform components, or other trusted
+      entities according to user or platform policy.
+    </p>
+    <p>
+      The coordinator manages the lifecycle of the interaction's {{Promise}}
+      and its associated {{AbortSignal}} (if any), including resolution with
+      the user's selected [=digital credential=] or the [=holder=]'s response,
+      or rejection due to errors or the user or program aborting the
+      [=credential request=].
+    </p>
+    <p>
+      The [=credential request coordinator=]:
+    </p>
+    <ul>
+      <li>Validates and transforms presentation or issuance inputs and outputs.
+      </li>
+      <li>Requests the platform to display, for user selection, the credentials
+      that are available for the current request and/or the holders that can
+      handle the current request. The availability of credentials and holders
+      is determined by matching the request parameters, user consent, and
+      platform policy.
+      </li>
+      <li>[=Resolves=] the interaction's {{Promise}} with the selected
+      [=digital credential=] or [=holder=]'s response, or [=rejects=] it to
+      indicate that the [=credential request=] was aborted.
+      </li>
+    </ul>
+    <aside class="note">
+      <p>
+        Although the coordinator handles input/output coordination, it is the
+        responsibility of the platform together with available [=holders=], to
+        present the UI that allows the user to choose a [=digital credential=]
+        and/or a [=holder].
+      </p>
+    </aside>
+    <h3>
+      Interaction states
+    </h3>
+    <p>
+      The [=credential request coordinator=] has a finite set of
+      <dfn data-dfn-for="credential request coordinator">interaction
+      states</dfn>, which are used to manage the lifecycle of a [=credential
+      request=]:
+    </p>
+    <dl>
+      <dt>
+        "<dfn data-dfn-for="credential request coordinator">idle</dfn>":
+      </dt>
+      <dd>
+        No [=credential request=] is currently in progress.
+      </dd>
+      <dt>
+        "<dfn data-dfn-for="credential request coordinator">requesting</dfn>":
+      </dt>
+      <dd>
+        A [=credential request=] is in progress and the user interface is
+        presented.
+      </dd>
+      <dt>
+        "<dfn data-dfn-for="credential request coordinator">aborting</dfn>":
+      </dt>
+      <dd>
+        The active interaction is being canceled due to an error, a user
+        action, or a [=AbortController/signal abort=]; the coordinator is
+        cleaning up before returning to "[=credential request
+        coordinator/idle=]".
+      </dd>
+    </dl>
+    <p>
+      The coordinator is initialized in the [=credential request
+      coordinator/idle=] [=credential request coordinator/interaction state=].
+    </p>
+    <h3>
+      Prepare credential requests
+    </h3>
+    <p>
+      To be written.
+    </p>
+    <h3>
+      Abort the credential request
+    </h3>
+    <p>
+      To be written.
+    </p>
+    <h3>
+      Dismiss the credential request
+    </h3>
+    <p>
+      To be written.
+    </p>
+    <h3>
+      Present the credential request
+    </h3>
+    <p>
+      To be written.
+    </p><!--
     // MARK: The Digital Credentials API
     -->
     <h2>
@@ -2152,29 +2278,24 @@
         MUST be operable in a device-independent manner.
       </p>
     </section>
+    <section class="prefer-full-spec-title" id="index"></section>
     <section id="idl-index"></section>
     <section id="conformance"></section>
     <h2 class="appendix">
       Acknowledgements
     </h2>
     <p>
-      The Editors would like to thank the <a href=
-      "https://www.w3.org/groups/wg/fedid/participants/">participants</a> and
-      <a href="https://www.w3.org/groups/wg/fedid/former-participants/">former
-      participants</a> of the <a href=
-      "https://www.w3.org/groups/wg/fedid/">Federated ID Working Group</a> for
-      their contributions throughout the standardization process of this
-      specification. Thanks also to folks that made <a href=
-      "https://github.com/w3c-fedid/digital-credentials/graphs/contributors">direct
-      contributions</a> to the specification in the form of pull requests.
-    </p>
-    <p>
-      The Working Group would also like to acknowledge the following
-      individuals for going above and beyond and graciously contributing their
-      time to significantly improve the specification: Manu Sporny for
-      integration with the Verifiable Credentials work, Johann Hofmann and Nick
-      Dotty for their work on the Privacy Considerations, and Ted Thibodeau Jr.
-      for improving the legibility of all incoming pull requests.
+      Some of the Editors would like to thank the following individuals for
+      their feedback and contributions to this specification: Christian Bormann
+      (SPRIND), John Bradley (Yubico), Rick Byers (Google), Brian Campbell
+      (Ping Identity), Lee Campbell (Google), Nick Doty (CDT), Heather Flanagan
+      (Spherical Cow Consulting), Ryan Galluzzo (NIST), Dominique
+      Hazael-Massieux (W3C), Bjorn Hjelm (Yubico), Johann Hofmann (Google),
+      Mike Jones (Self-Issued Consulting), Tobias Looker (MATTR), Matthew
+      Miller (Cisco), Theresa O'Connor (Apple Inc.), Simone Onofri (W3C), Helen
+      Qin (Google), Wendy Seltzer (Invited Expert), Manu Sporny (Digital
+      Bazaar), Orie Steele (Transmute), Ted Thibodeau Jr (OpenLink Software),
+      and David Waite (Ping Identity).
     </p>
   </body>
 </html>
