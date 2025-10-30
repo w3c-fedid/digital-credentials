@@ -956,6 +956,9 @@
       sameOriginWithAncestors)</dfn> internal method MUST:
     </p>
     <ol class="algorithm">
+      <li>If the user agent doesn't support [=digital credential/presentation
+      requests=], throw {{NotSupportedError}} {{DOMException}}.
+      </li>
       <li>Let |global| be [=this=]'s [=relevant global object=].
       </li>
       <li>Let |document| be |global|'s [=associated `Document`=].
