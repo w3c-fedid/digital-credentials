@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"><head>
 <meta charset="utf-8">
-<meta name="generator" content="ReSpec 35.5.1">
+<meta name="generator" content="ReSpec 35.6.0">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <style>
 span.example-title{text-transform:none}
@@ -132,7 +132,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="5de949ce9872f8bd6348d4416343802bd0444be9">
+<meta name="revision" content="92c632aa728131eaf2c97151371f90c40dd22b81">
 <meta name="description" content="This document specifies an API to enable user agents to mediate
         presentation and issuance of digital credentials such as a driver's
         license, government-issued identification card, and/or other types of digital credential. The API builds on
@@ -263,16 +263,16 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "5de949ce9872f8bd6348d4416343802bd0444be9",
-  "publishISODate": "2025-10-11T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 11 October 2025"
+  "gitRevision": "92c632aa728131eaf2c97151371f90c40dd22b81",
+  "publishISODate": "2025-11-08T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 08 November 2025"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED"></head>
   <body data-cite="WEBIDL credential-management vc-data-model HTML INFRA URL WEBIDL DOM FETCH" class="h-entry"><div class="head">
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Digital Credentials</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2025-10-11">11 October 2025</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2025-11-08">08 November 2025</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -2551,14 +2551,25 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         </p>
       </section></section>
     </section>
-    <section class="informative" id="accessibility-considerations"><div class="header-wrapper"><h2 id="x12-accessibility-considerations"><bdi class="secno">12. </bdi>
+    <section id="accessibility-considerations"><div class="header-wrapper"><h2 id="x12-accessibility-considerations"><bdi class="secno">12. </bdi>
         Accessibility Considerations
-      </h2><a class="self-link" href="#accessibility-considerations" aria-label="Permalink for Section 12."></a></div><p><em>This section is non-normative.</em></p>
+      </h2><a class="self-link" href="#accessibility-considerations" aria-label="Permalink for Section 12."></a></div>
       
       
-      <div class="issue" id="issue-container-generatedID-19"><div role="heading" class="issue-title marker" id="h-issue-24" aria-level="3"><span>Issue</span><span class="issue-label">: Work in Progress</span></div><p class="">
-        This section is a work in progress as this document evolves.
-      </p></div>
+      <p>
+        Implementers need to consider accessibility when designing <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-chooser" id="ref-for-index-term-credential-chooser-4">credential choosers</a>
+        specifically for this API. The content of modal dialogs
+        presented during <a data-link-type="dfn|abstract-op" data-lt="issuance request" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-18">issuance</a>
+        or <a data-link-type="dfn|abstract-op" data-lt="presentation requests" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-19">presentation</a>,
+        which can include text, QR codes, and other visual media,
+        <em class="rfc2119">SHOULD</em> be labelled and exposed to assistive technologies.
+      </p>
+      <p>
+        Interactive elements, particularly those that allow the user
+        to continue or abort <a data-link-type="dfn|abstract-op" data-lt="issuance request" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-19">issuance</a>
+        or <a data-link-type="dfn|abstract-op" data-lt="presentation requests" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-20">presentation</a> requests,
+        <em class="rfc2119">MUST</em> be operable in a device-independent manner.
+      </p>
     </section>
     <section class="prefer-full-spec-title appendix" id="index"><div class="header-wrapper"><h2 id="a-index"><bdi class="secno">A. </bdi>Index</h2><a class="self-link" href="#index" aria-label="Permalink for Appendix A."></a></div><section id="index-defined-here"><div class="header-wrapper"><h3 id="a-1-terms-defined-by-this-specification"><bdi class="secno">A.1 </bdi>Terms defined by this specification</h3><a class="self-link" href="#index-defined-here" aria-label="Permalink for Appendix A.1"></a></div>
     
@@ -2734,7 +2745,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
   </li>
         </ul>
       </li><li>
-        [<cite><a class="bibref" data-link-type="biblio" href="#bib-dom">DOM</a></cite>] defines the following:
+        <cite><a class="bibref" data-link-type="biblio" href="#bib-dom">DOM Standard</a></cite> defines the following:
         <ul>
           <li>
     <span class="index-term" data-href="https://dom.spec.whatwg.org/#abortsignal" id="index-term-abortsignal-interface" tabindex="0" aria-haspopup="dialog"><code>AbortSignal</code> interface</span>
@@ -2745,7 +2756,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
   </li>
         </ul>
       </li><li>
-        [<cite><a class="bibref" data-link-type="biblio" href="#bib-html">HTML</a></cite>] defines the following:
+        <cite><a class="bibref" data-link-type="biblio" href="#bib-html">HTML Standard</a></cite> defines the following:
         <ul>
           <li>
     <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#concept-document-window" id="index-term-associated-document" tabindex="0" aria-haspopup="dialog">associated Document</span>
@@ -2773,7 +2784,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
   </li>
         </ul>
       </li><li>
-        [<cite><a class="bibref" data-link-type="biblio" href="#bib-infra">INFRA</a></cite>] defines the following:
+        <cite><a class="bibref" data-link-type="biblio" href="#bib-infra">Infra Standard</a></cite> defines the following:
         <ul>
           <li>
     <span class="index-term" data-href="https://infra.spec.whatwg.org/#ascii-digit" id="index-term-ascii-digit" tabindex="0" aria-haspopup="dialog">ASCII digit</span>
@@ -2856,7 +2867,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
   </li>
         </ul>
       </li><li>
-        [<cite><a class="bibref" data-link-type="biblio" href="#bib-webidl">WEBIDL</a></cite>] defines the following:
+        <cite><a class="bibref" data-link-type="biblio" href="#bib-webidl">Web IDL Standard</a></cite> defines the following:
         <ul>
           <li>
     <span class="index-term" data-href="https://webidl.spec.whatwg.org/#idl-boolean" id="index-term-boolean-type" tabindex="0" aria-haspopup="dialog"><code>boolean</code> type</span>
@@ -2965,7 +2976,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
 </section><section id="references" class="appendix"><div class="header-wrapper"><h2 id="e-references"><bdi class="secno">E. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix E."></a></div><section id="normative-references"><div class="header-wrapper"><h3 id="e-1-normative-references"><bdi class="secno">E.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix E.1"></a></div>
     
     <dl class="bibliography"><dt id="bib-credential-management">[credential-management]</dt><dd>
-      <a href="https://www.w3.org/TR/credential-management-1/"><cite>Credential Management Level 1</cite></a>. Nina Satragno; Marcos Caceres.  W3C. 13 August 2024. W3C Working Draft. URL: <a href="https://www.w3.org/TR/credential-management-1/">https://www.w3.org/TR/credential-management-1/</a>
+      <a href="https://www.w3.org/TR/credential-management-1/"><cite>Credential Management Level 1</cite></a>. Nina Satragno; Marcos Caceres.  W3C. 28 October 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/credential-management-1/">https://www.w3.org/TR/credential-management-1/</a>
     </dd><dt id="bib-dom">[dom]</dt><dd>
       <a href="https://dom.spec.whatwg.org/"><cite>DOM Standard</cite></a>. Anne van Kesteren.  WHATWG. Living Standard. URL: <a href="https://dom.spec.whatwg.org/">https://dom.spec.whatwg.org/</a>
     </dd><dt id="bib-html">[html]</dt><dd>
@@ -2992,7 +3003,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </dd><dt id="bib-custom-schemes">[custom-schemes]</dt><dd>
       <a href="https://github.com/w3c-fedid/digital-credentials/blob/main/custom-schemes.md"><cite>Concerns with custom schemes for identity presentment</cite></a>. Rick Byers.  W3C. 2024-05-01. URL: <a href="https://github.com/w3c-fedid/digital-credentials/blob/main/custom-schemes.md">https://github.com/w3c-fedid/digital-credentials/blob/main/custom-schemes.md</a>
     </dd><dt id="bib-design-principles">[design-principles]</dt><dd>
-      <a href="https://www.w3.org/TR/design-principles/"><cite>Web Platform Design Principles</cite></a>. Martin Thomson; Jeffrey Yasskin.  W3C. 7 October 2025. W3C Working Group Note. URL: <a href="https://www.w3.org/TR/design-principles/">https://www.w3.org/TR/design-principles/</a>
+      <a href="https://www.w3.org/TR/design-principles/"><cite>Web Platform Design Principles</cite></a>. Martin Thomson; Jeffrey Yasskin.  W3C. 29 October 2025. W3C Working Group Note. URL: <a href="https://www.w3.org/TR/design-principles/">https://www.w3.org/TR/design-principles/</a>
     </dd><dt id="bib-identity-web-impact">[identity-web-impact]</dt><dd>
       <a href="https://www.w3.org/reports/identity-web-impact"><cite>Identity &amp; the Web</cite></a>. Simone Onofri.  W3C. 2025-02-25. URL: <a href="https://www.w3.org/reports/identity-web-impact">https://www.w3.org/reports/identity-web-impact</a>
     </dd><dt id="bib-presenting-credentials-on-the-web">[presenting-credentials-on-the-web]</dt><dd>
@@ -3156,6 +3167,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-dfn-issuance-request-16" title="§ 6.6 The DigitalCredentialCreateRequest dictionary">§ 6.6 The DigitalCredentialCreateRequest dictionary</a> 
     </li><li>
       <a href="#ref-for-dfn-issuance-request-17" title="§ 8. Permissions Policy integration">§ 8. Permissions Policy integration</a> 
+    </li><li>
+      <a href="#ref-for-dfn-issuance-request-18" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> <a href="#ref-for-dfn-issuance-request-19" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-issuance-request-data" aria-label="Links in this document to definition: Issuance request data">
@@ -3208,6 +3221,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-dfn-presentation-request-17" title="§ 6.3 The DigitalCredentialGetRequest dictionary">§ 6.3 The DigitalCredentialGetRequest dictionary</a> 
     </li><li>
       <a href="#ref-for-dfn-presentation-request-18" title="§ 8. Permissions Policy integration">§ 8. Permissions Policy integration</a> 
+    </li><li>
+      <a href="#ref-for-dfn-presentation-request-19" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> <a href="#ref-for-dfn-presentation-request-20" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-presentation-response" aria-label="Links in this document to definition: Presentation response">
@@ -3856,6 +3871,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-credential-chooser-2" title="§ 6. The Digital Credentials API">§ 6. The Digital Credentials API</a> 
     </li><li>
       <a href="#ref-for-index-term-credential-chooser-3" title="§ 11.1 Design Considerations and Alternatives">§ 11.1 Design Considerations and Alternatives</a> 
+    </li><li>
+      <a href="#ref-for-index-term-credential-chooser-4" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-credentialcreationoptions" aria-label="Links in this document to definition: CredentialCreationOptions">
