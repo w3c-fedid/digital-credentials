@@ -2256,15 +2256,26 @@
         </p>
       </section>
     </section>
-    <section class="informative">
+    <section>
       <!--
       // MARK: Accessibility Considerations
       -->
       <h2>
         Accessibility Considerations
       </h2>
-      <p class="issue" title="Work in Progress">
-        This section is a work in progress as this document evolves.
+      <p>
+        Implementers need to consider accessibility when designing [=credential choosers=]
+        specifically for this API. The content of modal dialogs
+        presented during [=digital credential/issuance request|issuance=]
+        or [=digital credential/presentation requests|presentation=],
+        which can include text, QR codes, and other visual media,
+        SHOULD be labelled and exposed to assistive technologies.
+      </p>
+      <p>
+        Interactive elements, particularly those that allow the user
+        to continue or abort [=digital credential/issuance request|issuance=]
+        or [=digital credential/presentation requests|presentation=] requests,
+        MUST be operable in a device-independent manner.
       </p>
     </section>
     <section class="prefer-full-spec-title" id="index"></section>
