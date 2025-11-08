@@ -132,7 +132,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="92c632aa728131eaf2c97151371f90c40dd22b81">
+<meta name="revision" content="cb6b3e9604c372956717f95c66f1103a93b18ccd">
 <meta name="description" content="This document specifies an API to enable user agents to mediate
         presentation and issuance of digital credentials such as a driver's
         license, government-issued identification card, and/or other types of digital credential. The API builds on
@@ -263,7 +263,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "92c632aa728131eaf2c97151371f90c40dd22b81",
+  "gitRevision": "cb6b3e9604c372956717f95c66f1103a93b18ccd",
   "publishISODate": "2025-11-08T00:00:00.000Z",
   "generatedSubtitle": "W3C Editor's Draft 08 November 2025"
 }</script>
@@ -2557,17 +2557,16 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       
       
       <p>
-        Implementers need to consider accessibility when designing <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-chooser" id="ref-for-index-term-credential-chooser-4">credential choosers</a>
-        specifically for this API. The content of modal dialogs
-        presented during <a data-link-type="dfn|abstract-op" data-lt="issuance request" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-18">issuance</a>
-        or <a data-link-type="dfn|abstract-op" data-lt="presentation requests" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-19">presentation</a>,
-        which can include text, QR codes, and other visual media,
-        <em class="rfc2119">SHOULD</em> be labelled and exposed to assistive technologies.
+        Implementers need to consider accessibility when designing <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-chooser" id="ref-for-index-term-credential-chooser-4">credential choosers</a> specifically for this API. The content of modal dialogs
+        presented during <a data-link-type="dfn|abstract-op" data-lt="issuance request" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-18">issuance</a> or
+        <a data-link-type="dfn|abstract-op" data-lt="presentation requests" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-19">presentation</a>, which can
+        include text, QR codes, and other visual media, <em class="rfc2119">SHOULD</em> be labelled and
+        exposed to assistive technologies.
       </p>
       <p>
-        Interactive elements, particularly those that allow the user
-        to continue or abort <a data-link-type="dfn|abstract-op" data-lt="issuance request" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-19">issuance</a>
-        or <a data-link-type="dfn|abstract-op" data-lt="presentation requests" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-20">presentation</a> requests,
+        Interactive elements, particularly those that allow the user to
+        continue or abort <a data-link-type="dfn|abstract-op" data-lt="issuance request" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-19">issuance</a> or
+        <a data-link-type="dfn|abstract-op" data-lt="presentation requests" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-20">presentation</a> requests,
         <em class="rfc2119">MUST</em> be operable in a device-independent manner.
       </p>
     </section>
