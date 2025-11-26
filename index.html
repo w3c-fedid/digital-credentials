@@ -91,14 +91,14 @@
     };
     </script>
   </head>
-  <body data-cite="credential-management-1 vc-data-model">
+  <body data-cite="credential-management vc-data-model">
     <section id="abstract">
       <p>
         This document specifies an API to enable [=user agents=] to mediate
         presentation and issuance of digital credentials such as a driver's
         license, government-issued identification card, and/or [=credential
         type examples|other types of digital credential=]. The API builds on
-        [[[credential-management-1]]] as a means by which to request or issue a
+        [[[credential-management]]] as a means by which to request or issue a
         digital credential from a user agent or underlying platform.
       </p>
     </section>
@@ -447,7 +447,7 @@
       and protocols. Discussions surrounding these definitions are active and
       the definitions are likely to change over the next several months.
     </p>
-    <dl class="definitions" data-sort="" data-cite="vc-data-model-2.0">
+    <dl class="definitions" data-sort="" data-cite="vc-data-model">
       <dt>
         <dfn>Digital credential</dfn>
       </dt>
@@ -2261,17 +2261,29 @@
         </p>
       </section>
     </section>
-    <section class="informative">
+    <section>
       <!--
       // MARK: Accessibility Considerations
       -->
       <h2>
         Accessibility Considerations
       </h2>
-      <p class="issue" title="Work in Progress">
-        This section is a work in progress as this document evolves.
+      <p>
+        Implementers need to consider accessibility when designing [=credential
+        choosers=] specifically for this API. The content of modal dialogs
+        presented during [=digital credential/issuance request|issuance=] or
+        [=digital credential/presentation requests|presentation=], which can
+        include text, QR codes, and other visual media, SHOULD be labelled and
+        exposed to assistive technologies.
+      </p>
+      <p>
+        Interactive elements, particularly those that allow the user to
+        continue or abort [=digital credential/issuance request|issuance=] or
+        [=digital credential/presentation requests|presentation=] requests,
+        MUST be operable in a device-independent manner.
       </p>
     </section>
+    <section class="prefer-full-spec-title" id="index"></section>
     <section id="idl-index"></section>
     <section id="conformance"></section>
     <h2 class="appendix">
