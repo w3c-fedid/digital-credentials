@@ -863,15 +863,20 @@
       [=digital credential=].
     </p>
     <p>
-      [=User mediation=] is always
-      {{CredentialMediationRequirement/"required"}}. [=Request a
-      credential|Requesting a DigitalCredential credential=] does not support
-      {{CredentialMediationRequirement/"conditional"}},
-      {{CredentialMediationRequirement/"optional"}}, or
-      {{CredentialMediationRequirement/"silent"}} [=user mediation=]. If
-      {{CredentialsContainer/get()}} is called with anything other than
-      {{CredentialMediationRequirement/"required"}}, a {{TypeError}} will be
-      thrown.
+      The {{DigitalCredential}} interface mandates [=user mediation=] for all
+      operations to ensure user control and consent.
+    </p>
+    <p>
+      To simplify the developer experience of {{CredentialsContainer/get()}}
+      calls involving a {{DigitalCredential}}, [=user agents=] MUST NOT throw
+      an error if the {{CredentialRequestOptions/mediation}} member is absent
+      or has a value other than {{CredentialMediationRequirement/"required"}}.
+      Similarly, in {{CredentialsContainer/create()}} calls involving a
+      {{DigitalCredential}}, [=user agents=] MUST NOT throw an error if the
+      {{CredentialCreationOptions/mediation}} member is absent or has a value
+      other than {{CredentialMediationRequirement/"required"}}. This makes
+      {{CredentialMediationRequirement/"required"}} mediation an implicit and
+      non-overridable behavior of the API.
     </p>
     <pre class="idl">
     [Exposed=Window, SecureContext]
