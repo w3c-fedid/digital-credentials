@@ -567,7 +567,97 @@
       <dd>
         See [=credential request coordinator=].
       </dd>
-    </dl><!--
+    </dl>
+    <!--
+    // MARK: Supported Protocols
+    -->
+    <h2 id="supported-protocols">
+      Supported protocols
+    </h2>
+    <p>
+      The following [=digital credential/exchange protocols=] are supported
+      by this specification.
+    </p>
+    <table class="data">
+      <caption>
+        Table of supported [=digital credential/exchange protocols=]
+      </caption>
+      <thead>
+        <tr>
+          <th>
+            Name
+          </th>
+          <th>
+            Type
+          </th>
+          <th>
+            [=digital credential/Protocol identifier=]
+          </th>
+          <th>
+            Spec Details
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            [[[openid4vp-1_0]]] (Unsigned Requests)
+          </td>
+          <td>
+            [=digital credential/Exchange Protocol=]
+          </td>
+          <td>
+            `openid4vp-v1-unsigned`
+          </td>
+          <td>
+            Appendix A
+          </td>
+        </tr>
+        <tr>
+          <td>
+            [[[openid4vp-1_0]]] (Signed Requests)
+          </td>
+          <td>
+            [=digital credential/Exchange Protocol=]
+          </td>
+          <td>
+            `openid4vp-v1-signed`
+          </td>
+          <td>
+            Appendix A
+          </td>
+        </tr>
+        <tr>
+          <td>
+            [[[openid4vp-1_0]]] (Multi-signed Requests)
+          </td>
+          <td>
+            [=digital credential/Exchange Protocol=]
+          </td>
+          <td>
+            `openid4vp-v1-multisigned`
+          </td>
+          <td>
+            Appendix A
+          </td>
+        </tr>
+        <tr>
+          <td>
+            [[[iso-18013-7-2025]]] (Annex C)
+          </td>
+          <td>
+            [=digital credential/Exchange Protocol=]
+          </td>
+          <td>
+            `org-iso-mdoc`
+          </td>
+          <td>
+            Annex C
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!--
     // MARK: Credential Request Coordinator
     -->
     <h2>
@@ -1138,92 +1228,6 @@
         </dd>
       </dl>
     </section>
-    <h2 id="supported-protocols">
-      Supported protocols
-    </h2>
-    <p>
-      The following [=digital credential/exchange protocols=] are supported
-      by this specification.
-    </p>
-    <table class="data">
-      <caption>
-        Table of supported [=digital credential/exchange protocols=]
-      </caption>
-      <thead>
-        <tr>
-          <th>
-            Name
-          </th>
-          <th>
-            Type
-          </th>
-          <th>
-            [=digital credential/Protocol identifier=]
-          </th>
-          <th>
-            Spec Details
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            [[[openid4vp-1_0]]] (Unsigned Requests)
-          </td>
-          <td>
-            [=digital credential/Exchange Protocol=]
-          </td>
-          <td>
-            `openid4vp-v1-unsigned`
-          </td>
-          <td>
-            Appendix A
-          </td>
-        </tr>
-        <tr>
-          <td>
-            [[[openid4vp-1_0]]] (Signed Requests)
-          </td>
-          <td>
-            [=digital credential/Exchange Protocol=]
-          </td>
-          <td>
-            `openid4vp-v1-signed`
-          </td>
-          <td>
-            Appendix A
-          </td>
-        </tr>
-        <tr>
-          <td>
-            [[[openid4vp-1_0]]] (Multi-signed Requests)
-          </td>
-          <td>
-            [=digital credential/Exchange Protocol=]
-          </td>
-          <td>
-            `openid4vp-v1-multisigned`
-          </td>
-          <td>
-            Appendix A
-          </td>
-        </tr>
-        <tr>
-          <td>
-            [[[iso-18013-7-2025]]] (Annex C)
-          </td>
-          <td>
-            [=digital credential/Exchange Protocol=]
-          </td>
-          <td>
-            `org-iso-mdoc`
-          </td>
-          <td>
-            Annex C
-          </td>
-        </tr>
-      </tbody>
-    </table>
     <section class="informative">
       <!--
       // MARK: Security Considerations
