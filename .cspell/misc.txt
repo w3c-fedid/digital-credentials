@@ -9,3 +9,5 @@ linkability
 fingerprinters
 birthdates
 reidentify
+multisigned
+licence
