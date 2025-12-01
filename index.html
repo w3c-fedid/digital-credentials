@@ -992,6 +992,21 @@
           Details of how to actually get the [=digital credential=] are
           forthcoming.
         </aside>
+        <ol class="algorithm" >
+          <li>
+            <aside class="issue">
+              The following guidance on handling multiple requests will need to be relocated once
+              this entire section of the algorithm is defined.
+            </aside>
+            When multiple [=digital credential/presentation request | presentation requests=]
+            are present in |requests|,
+            a [=user agent=] MUST NOT return more than one
+            [=digital credential/presentation response=].
+            However, multiple credentials MAY be included in this single response
+            depending on the capabilities
+            of the corresponding [=digital credential/exchange protocol=].
+          </li>
+        </ol>
       </li>
       <li>Return a {{DigitalCredential}}.
       </li>
@@ -2188,6 +2203,14 @@
         <p class="issue" data-number="286">
           We need to describe concerns, tradeoffs and possible mitigations of
           handling multiple requests and responses for credential presentation.
+        </p>
+        <p>
+          Verifiers may wish to define a single credential request
+          using multiple [=digital credential/exchange protocols=],
+          for example to achieve maximum compatibility across [=user agent | user agents=]
+          or when migrating to a newer version of a protocol. When doing so,
+          verifiers SHOULD ensure that all requests are semantically equivalent to avoid confusing
+          the user, the user agent, and the wallet during processing of the request.
         </p>
         <h4 id="multiple-user-agents">
           Integrating Multiple User Agents
