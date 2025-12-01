@@ -84,6 +84,26 @@
           date: "2025-02-25",
           publisher: "W3C"
         },
+        "openid4vp-1_0": {
+          title: "OpenID for Verifiable Presentations 1.0",
+          href: "https://openid.net/specs/openid-4-verifiable-presentations-1_0.html",
+          authors: ["Oliver Terbu", "Torsten Lodderstedt", "Kristina Yasuda", "Daniel Fett", "Joseph Heenan"],
+          date: "2025-07-09",
+          publisher: "OpenID Foundation"
+        },
+        "openid4vci-1_0": {
+          title: "OpenID for Verifiable Credential Issuance 1.0",
+          href: "https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html",
+          authors: ["Torsten Lodderstedt", "Kristina Yasuda", "Tobias Looker", "Paul Bastian"],
+          date: "2025-09-16",
+          publisher: "OpenID Foundation"
+        },
+        "iso-18013-7-2025": {
+          title: "ISO/IEC TS 18013-7:2025 Personal identification — ISO-compliant driving licence Part 7: Mobile driving licence (mDL) add-on functions",
+          href: "https://www.iso.org/standard/91154.html",
+          date: "2025-05-01",
+          publisher: "International Organization for Standardization"
+        },
       },
       xref: {
         profile: "web-platform",
@@ -113,12 +133,8 @@
       and issuance of a [=digital credential=].
     </p>
     <p>
-      The API design is agnostic to both credential [=digital
-      credential/presentation requests|presentation=] [=digital
-      credential/exchange protocols=], credential [=digital credential/issuance
-      request|issuance=] [=digital credential/issuance protocols|protocols=]
-      and credential formats. However, to promote interoperability this
-      document includes a [[[#protocol-registry]]].
+      The API design is agnostic to credential formats and includes support for
+      multiple [=digital credential/exchange protocols=]. See [[[#supported-protocols]]].
     </p>
     <p>
       The API is designed to support the following goals:
@@ -524,8 +540,7 @@
       <dd>
         A standardized protocol used for exchanging a [=digital credential=]
         between a [=holder=] and a [=verifier=]. A protocol is identified by a
-        [=digital credential/protocol identifier=]. See section also
-        [[[#protocol-registry]]].
+        [=digital credential/protocol identifier=]. See [[[#supported-protocols]]].
       </dd>
       <dt>
         <dfn data-dfn-for="digital credential">Protocol identifier</dfn>
@@ -544,7 +559,7 @@
         A standardized protocol used for communication between an [=issuer=]
         and a [=holder=] during the issuance of a [=digital credential=]. The
         issuance protocol is identified by a [=digital credential/protocol
-        identifier=]. See also section [[[#protocol-registry]]].
+        identifier=]. See [[[#supported-protocols]]].
       </dd>
       <dt>
         Request coordinator
@@ -768,8 +783,7 @@
     </p>
     <p>
       The {{DigitalCredentialCreateRequest/protocol}} member's value can be one
-      of the well-defined protocol identifiers defined in
-      [[[#protocol-registry]]] or a custom protocol identifier.
+      of the well-defined protocol identifiers defined in [[[#supported-protocols]]].
     </p>
     <h4>
       The `data` member
@@ -842,8 +856,7 @@
     </p>
     <p>
       The {{DigitalCredentialCreateRequest/protocol}} member's value is be one
-      of the well-defined keys defined in [[[#protocol-registry]]] or any other
-      custom one.
+      of the well-defined keys defined in [[[#supported-protocols]]].
     </p>
     <h4>
       The `data` member
@@ -1125,181 +1138,88 @@
         </dd>
       </dl>
     </section>
-    <h2 id="protocol-registry">
-      Registry of protocols
+    <h2 id="supported-protocols">
+      Supported protocols
     </h2>
     <p>
-      Initiating the registration a protocol is done by <a href=
-      "https://github.com/w3c-fedid/digital-credentials/issues">filing an
-      issue</a> in our GitHub repository.
-    </p>
-    <p>
-      The following is the registry of [=digital credential/exchange
-      protocols=] and [=digital credential/issuance protocols=] that are
-      supported by this specification.
-    </p>
-    <p class="note" title="Official Registry" data-cite="w3c-process">
-      It is expected that this registry will be become a [=W3C registry=] in
-      the future.
-    </p><!--
-    // MARK: General inclusion criteria
-    -->
-    <h3>
-      General inclusion criteria
-    </h3>
-    <aside class="note">
-      The below criteria are a work in progress and are likely to change as
-      this document evolves.
-    </aside>
-    <p>
-      To be included in the registry, the [=digital credential/exchange
-      protocol=]:
-    </p>
-    <ol>
-      <li>MUST be standardized at a <a href=
-      "https://www.w3.org/liaisons/">consortium the W3C liaises with</a>
-      </li>
-      <li>MUST be defined in a specification which is freely and publicly
-      available at the stable URL listed in the registry.
-      </li>
-      <li>MUST define a representation, as either a [[WebIDL]] [=dictionary=]
-      or a JSON object, of the [=digital credential/exchange protocol=] request
-      structure (i.e., the [=dictionary=] which defines the semantics and
-      validation of the {{DigitalCredentialGetRequest}}'s
-      {{DigitalCredentialGetRequest/data}} member) and the [=digital
-      credential/issuance protocol=] request structure (i.e., the
-      [=dictionary=] which defines the semantics and validation of the
-      {{DigitalCredentialCreateRequest}}'s
-      {{DigitalCredentialCreateRequest/data}} member).
-      </li>
-      <li>MUST define a representation, as either a [[WebIDL]] [=dictionary=]
-      or a JSON object, of the [=digital credential/exchange protocol=]
-      response structure (i.e., the [=dictionary=] which defines the semantics
-      and validation of the {{DigitalCredential}}'s {{DigitalCredential/data}}
-      member.
-      </li>
-      <li>MUST define validation rules for members of the request and response
-      structures.
-      </li>
-      <li>MUST have undergone privacy review by the W3C's <a href=
-      "https://www.w3.org/groups/wg/privacy/">Privacy Working Group</a> and
-      <a href="https://www.w3.org/groups/wg/fedid/">Federated Identity Working
-      Group</a>.
-        <aside class="note" title="Organizing reviews">
-          Once an expression of registration is received via GitHub, the
-          registry maintainers will organize the privacy review with the
-          <a href="https://www.w3.org/groups/wg/privacy/">Privacy Working
-          Group</a> . Please see the [[[security-privacy-questionnaire]]] for
-          the kind of questions that will be asked of the protocol you are
-          registering.
-        </aside>
-      </li>
-      <li>MUST have undergone security review by the <a href=
-      "https://www.w3.org/groups/ig/security/">Security Interest Group</a>.
-      </li>
-      <li>MUST have implementation commitment from at least one browser engine,
-      one credential provider/wallet, and one issuer or verifier (depending on
-      the protocol type). Each component MUST be from independent
-      organizations.
-      </li>
-      <li>MUST have formally recorded consensus by the Federated Identity
-      Working Group to be included in the registry.
-      </li>
-    </ol>
-    <h4>
-      Presentation-specific inclusion criteria
-    </h4>
-    <p>
-      To be included as a presentation protocol in the registry (used with
-      `navigator.credentials.get`), the [=digital credential/exchange
-      protocol=]:
-    </p>
-    <ol>
-      <li>MUST support response encryption.
-      </li>
-      <li>MUST encrypt any response containing personally identifiable
-      information (PII).
-      </li>
-    </ol><!--
-    // MARK: Change process
-    -->
-    <h3>
-      Change process
-    </h3>
-    <p>
-      To add a new [=digital credential/exchange protocol=] to the registry, or
-      to update an existing one:
-    </p>
-    <dl>
-      <dt>
-        Define a [=digital credential/protocol identifier=].
-      </dt>
-      <dd>
-        The [=digital credential/protocol identifier=] MUST be a unique string
-        that is not already in use in the registry. The [=digital
-        credential/protocol identifier=] MUST uniquely define the set of
-        required parameters and/or behavior that a digital credential provider
-        implementation needs to support to successfully handle the request. If
-        the set of required parameters or behaviors is updated in a way which
-        would require a digital credential provider to also require an update
-        to remain functional, a new protocol identifier MUST be assigned and be
-        added to the registry.
-      </dd>
-      <dt>
-        Specify a <dfn data-dfn-for="registry" data-local-lt="type">protocol
-        type</dfn>.
-      </dt>
-      <dd>
-        The protocol type is either "Presentation" for presentation protocols
-        used with `navigator.credentials.get` or "Issuance" for issuance
-        protocols used with `navigator.credentials.create`.
-      </dd>
-      <dt>
-        <dfn data-dfn-for="registry" data-local-lt="description">Describe the
-        protocol</dfn>.
-      </dt>
-      <dd>
-        The description MUST be a brief summary of the protocol's purpose and
-        use case.
-      </dd>
-      <dt>
-        Provide a <dfn data-dfn-for="registry" data-local-lt="link">link to the
-        specification</dfn>.
-      </dt>
-      <dd>
-        The specification MUST be a stable URL that points to the authoritative
-        source for the protocol, including validation rules.
-      </dd>
-    </dl>
-    <p>
-      [=User agents=] MUST support the following [=digital credential/exchange
-      protocols=]:
+      The following [=digital credential/exchange protocols=] are supported
+      by this specification.
     </p>
     <table class="data">
       <caption>
-        Table of officially registered [=digital credential/exchange
-        protocols=].
+        Table of supported [=digital credential/exchange protocols=]
       </caption>
       <thead>
         <tr>
           <th>
+            Name
+          </th>
+          <th>
+            Type
+          </th>
+          <th>
             [=digital credential/Protocol identifier=]
           </th>
           <th>
-            [=registry/Type=]
-          </th>
-          <th>
-            [=registry/Description=]
-          </th>
-          <th>
-            [=registry/link|Specification=]
+            Spec Details
           </th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td colspan="4">
-            Coming soon...
+          <td>
+            [[[openid4vp-1_0]]] (Unsigned Requests)
+          </td>
+          <td>
+            [=digital credential/Exchange Protocol=]
+          </td>
+          <td>
+            `openid4vp-v1-unsigned`
+          </td>
+          <td>
+            Appendix A
+          </td>
+        </tr>
+        <tr>
+          <td>
+            [[[openid4vp-1_0]]] (Signed Requests)
+          </td>
+          <td>
+            [=digital credential/Exchange Protocol=]
+          </td>
+          <td>
+            `openid4vp-v1-signed`
+          </td>
+          <td>
+            Appendix A
+          </td>
+        </tr>
+        <tr>
+          <td>
+            [[[openid4vp-1_0]]] (Multi-signed Requests)
+          </td>
+          <td>
+            [=digital credential/Exchange Protocol=]
+          </td>
+          <td>
+            `openid4vp-v1-multisigned`
+          </td>
+          <td>
+            Appendix A
+          </td>
+        </tr>
+        <tr>
+          <td>
+            [[[iso-18013-7-2025]]] (Annex C)
+          </td>
+          <td>
+            [=digital credential/Exchange Protocol=]
+          </td>
+          <td>
+            `org-iso-mdoc`
+          </td>
+          <td>
+            Annex C
           </td>
         </tr>
       </tbody>
