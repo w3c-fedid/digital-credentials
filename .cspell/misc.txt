@@ -6,3 +6,6 @@ quishing
 unlinkable
 linkable
 linkability
+fingerprinters
+birthdates
+reidentify
