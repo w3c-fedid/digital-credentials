@@ -955,6 +955,17 @@
       [[\DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)
       internal method
     </h3>
+    <aside class="note" title=
+    "How is the DiscoverFromExternalSource() internal method invoked?">
+      <p>
+        The [[[credential-management-1]]] specification defines the
+        {{CredentialsContainer/get()}} method, which runs the [=request a
+        credential=] algorithm. If no exceptions are raised, that algorithm
+        eventualy invokes the {{DigitalCredential}}'s
+        {{DigitalCredential/[[DiscoverFromExternalSource]](origin, options,
+        sameOriginWithAncestors)}} internal method.
+      </p>
+    </aside>
     <p>
       When invoked, the <dfn class="export" data-dfn-for=
       "DigitalCredential">[[\DiscoverFromExternalSource]](origin, options,
@@ -977,7 +988,7 @@
       <li>Let |requests| be |options|'s {{CredentialRequestOptions/digital}}'s
       {{DigitalCredentialRequestOptions/requests}} member.
       </li>
-      <li>If |requests| is empty, [=exception/throw=] a {{TypeError}}.
+      <li>If |requests| [=list/is empty=], [=exception/throw=] a {{TypeError}}.
       </li>
       <li>[=List/For each=] |request| of |requests|:
         <ol>
@@ -985,15 +996,57 @@
           |request| to a JSON string. [=exception/throw|Re-throw=] any
           [=exception=].
           </li>
+          <li>Let |protocol| be |request|'s
+          {{DigitalCredentialGetRequest/protocol}}.
+          </li>
+          <li>Optionally, if |protocol| is unknown to the user agent,
+          [=exception/throw=] a {{TypeError}}.
+            <aside class="note">
+              <p>
+                Implementations can represent [=digital credential/exchange
+                protocols=] as an [=enumeration=], which by the processing
+                rules of WebIDL results in a {{TypeError}}.
+              </p>
+            </aside>
+          </li>
+          <li>If |protocol| is not supported by the user agent,
+          [=exception/throw=] a {{"NotSupportedError"}} {{DOMException}}.
+          </li>
+          <li>If |protocol| is not allowed by the user agent for security
+          reasons, [=exception/throw=] a {{"SecurityError"}} {{DOMException}}.
+          </li>
+          <li>If the [=registry/link|specification=] corresponding to
+          |protocol| defines an IDL [=dictionary=] for [=converted to an idl
+          value|conversion=]:
+            <ol>
+              <li>Let |converted| be |request|'s
+              {{DigitalCredentialGetRequest/data}} [=converted to an idl
+              value|converted=] to that dictionary. [=exception/throw|Rethrow=]
+              any exceptions.
+              </li>
+            </ol>
+          </li>
+          <li>Otherwise, let |data| be |request|'s
+          {{DigitalCredentialGetRequest/data}}.
+          </li>
+          <li>Optionally, validate |data| against any validation rules set
+          forth in the corresponding [=registry/link|specification=]. If any of
+          |data|'s members are invalid, [=exception/throw=] a {{TypeError}}.
+          </li>
         </ol>
       </li>
-      <li>
-        <aside class="issue">
-          Details of how to actually get the [=digital credential=] are
-          forthcoming.
-        </aside>
+      <li>Let |coordinator| be the [=credential request coordinator=]
+      associated with |document|'s [=top-level traversable=].
       </li>
-      <li>Return a {{DigitalCredential}}.
+      <li>Let |signal| be |options|'s {{CredentialRequestOptions/signal}}, if
+      present.
+      </li>
+      <li>Let |result| be the result of awaiting the [=present credential
+      request UI=] algorithm, passing |document|, |requests|, and |signal|.
+      </li>
+      <li>If |result| is an [=exception=], [=exception/throw=] that exception.
+      </li>
+      <li>Return |result|.
       </li>
     </ol><!--
     // MARK: [[Store]]()
