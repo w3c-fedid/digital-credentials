@@ -46,7 +46,7 @@ Please see the [requesting](https://www.w3.org/TR/digital-credentials/#requestin
 
 There are many alternatives that were considered, most notably:
 
-- [Do nothing](https://github.com/w3c/credential-considerations/blob/main/credentials-considerations.md#risks) (the intentional status quo in browsers for the past several years)
+- [Do nothing and accept the risk](https://github.com/w3c/credential-considerations/blob/main/credentials-considerations.md#risks) (the intentional status quo in browsers for the past several years)
 - Various different [API proposals](https://github.com/WICG/digital-identities/tree/main/proposals): [an mDoc-specific API](https://github.com/WICG/digital-identities/blob/main/proposals/mobile-document-request-api-proposal.md), [extending the Credential Management API](https://github.com/WICG/digital-identities/blob/main/proposals/digital-credential-proposal.md), [extending the FedCM API](https://github.com/WICG/digital-identities/blob/main/proposals/identity-credential-proposal.md) and [introducing navigator.identity](https://github.com/WICG/digital-identities/blob/main/proposals/navigator-identity-proposal.md)
 
 # Open Questions
