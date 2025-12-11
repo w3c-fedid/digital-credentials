@@ -13,10 +13,9 @@ See the [Scope section of the specification](https://www.w3.org/TR/digital-crede
 
 This specification defines how digital credentials are securely represented, requested, and issued by user agents. It standardizes an interface for interoperable credential exchange on the web.
 
-## Trying out the API
+## Developer Resources
 
-- [Try the API in Chrome](https://digitalcredentials.dev/docs/requirements/)
-- Supported in Safari 26
+- [digitalcredentials.dev](https://digitalcredentials.dev)
 
 ## Contributing
 
