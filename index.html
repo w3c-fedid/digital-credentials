@@ -1011,26 +1011,26 @@
       top-level traversable with user attention=], return [=a promise rejected
       with=] a {{"NotAllowedError"}} {{DOMException}}.
       </li>
-      <li>If |window| does not have [=transient activation=], return [=a
-      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
-      </li>
-      <li>[=Consume user activation=] of |window|.
-      </li>
       <li>Let |requests| be |options|'s {{CredentialRequestOptions/digital}}'s
       {{DigitalCredentialRequestOptions/requests}} member.
       </li>
-      <li>If |requests| is empty, return [=a promise rejected with=] a
+      <li>If |requests| [=list/is empty=], return [=a promise rejected with=] a
       {{TypeError}}.
       </li>
       <li>[=List/For each=] |request| of |requests|:
         <ol>
           <li>[=serialize a JavaScript value to a JSON string|Serialize=]
-          |request| to a JSON string.
+          |request|'s {{DigitalCredentialGetRequest/data}} to a JSON string.
           </li>
           <li>If serialization results in an [=exception=], return [=a promise
           rejected with=] that [=exception=].
           </li>
         </ol>
+      </li>
+      <li>If |global| does not have [=transient activation=], return [=a
+      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
+      </li>
+      <li>[=Consume user activation=] of |global|.
       </li>
       <li>
         <aside class="issue">
@@ -1076,26 +1076,26 @@
       top-level traversable with user attention=], return [=a promise rejected
       with=] a {{"NotAllowedError"}} {{DOMException}}.
       </li>
-      <li>If |window| does not have [=transient activation=], return [=a
-      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
-      </li>
-      <li>[=Consume user activation=] of |window|.
-      </li>
       <li>Let |requests| be |options|'s {{CredentialCreationOptions/digital}}'s
       {{DigitalCredentialCreationOptions/requests}} member.
       </li>
-      <li>If |requests| is empty, return [=a promise rejected with=] a
-      {{TypeError}}.
+      <li>If |requests| is [=list/is empty=], return [=a promise rejected
+      with=] a {{TypeError}}.
       </li>
       <li>[=List/For each=] |request| of |requests|:
         <ol>
           <li>[=serialize a JavaScript value to a JSON string|Serialize=]
-          |request| to a JSON string.
+          |request|'s {{DigitalCredentialGetRequest/data}} to a JSON string.
           </li>
           <li>If serialization results in an [=exception=], return [=a promise
           rejected with=] that [=exception=].
           </li>
         </ol>
+      </li>
+      <li>If |global| does not have [=transient activation=], return [=a
+      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
+      </li>
+      <li>[=Consume user activation=] of |global|.
       </li>
       <li>
         <aside class="issue">
