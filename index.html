@@ -969,31 +969,34 @@
       top-level traversable with user attention=], [=exception/throw=]
       {{"NotAllowedError"}} {{DOMException}}.
       </li>
-      <li>If |window| does not have [=transient activation=],
-      [=exception/throw=] {{"NotAllowedError"}} {{DOMException}}.
-      </li>
-      <li>[=Consume user activation=] of |window|.
-      </li>
       <li>Let |requests| be |options|'s {{CredentialRequestOptions/digital}}'s
       {{DigitalCredentialRequestOptions/requests}} member.
       </li>
-      <li>If |requests| is empty, [=exception/throw=] a {{TypeError}}.
+      <li>If |requests| [=list/is empty=], [=exception/throw=] a {{TypeError}}.
       </li>
       <li>[=List/For each=] |request| of |requests|:
         <ol>
           <li>[=serialize a JavaScript value to a JSON string|Serialize=]
-          |request| to a JSON string. [=exception/throw|Re-throw=] any
-          [=exception=].
+          |request|'s {{DigitalCredentialGetRequest/data}} to a JSON string. If
+          serializing [=exception/throws=] an [=exception=],
+          [=exception/throw|re-throw=] it.
           </li>
         </ol>
       </li>
-      <li>
-        <aside class="issue">
-          Details of how to actually get the [=digital credential=] are
-          forthcoming.
-        </aside>
+      <li>If |global| does not have [=transient activation=],
+      [=exception/throw=] {{"NotAllowedError"}} {{DOMException}}.
       </li>
-      <li>Return a {{DigitalCredential}}.
+      <li>[=Consume user activation=] of |global|.
+      </li>
+      <li>Let |promise| be [=a new promise=].
+      </li>
+      <li>Let |signal| be |options|'s {{CredentialRequestOptions/signal}} if
+      present.
+      </li>
+      <li>[=credential request coordinator/Prepare credential requests=] with
+      |document|, |requests|, |promise|, and |signal|.
+      </li>
+      <li>Return |promise|.
       </li>
     </ol><!--
     // MARK: [[Store]]()
@@ -1030,35 +1033,34 @@
       top-level traversable with user attention=], [=exception/throw=]
       {{"NotAllowedError"}} {{DOMException}}.
       </li>
-      <li>If |window| does not have [=transient activation=],
-      [=exception/throw=] {{"NotAllowedError"}} {{DOMException}}.
-      </li>
-      <li>[=Consume user activation=] of |window|.
-      </li>
       <li>Let |requests| be |options|'s {{CredentialCreationOptions/digital}}'s
       {{DigitalCredentialCreationOptions/requests}} member.
       </li>
-      <li>If |requests| is empty, [=exception/throw=] a {{TypeError}}.
+      <li>If |requests| [=list/is empty=], [=exception/throw=] a {{TypeError}}.
       </li>
       <li>[=List/For each=] |request| of |requests|:
         <ol>
           <li>[=serialize a JavaScript value to a JSON string|Serialize=]
-          |request| to a JSON string. [=exception/throw|Re-throw=] any
-          [=exception=].
+          |request|'s {{DigitalCredentialGetRequest/data}} to a JSON string. If
+          serializing [=exception/throw=] an [=exception=],
+          [=exception/throw|re-throw=] it.
           </li>
         </ol>
       </li>
-      <li>
-        <aside class="issue">
-          Details of how to actually issue the [=digital credential=] are
-          forthcoming.
-        </aside>
+      <li>If |global| does not have [=transient activation=],
+      [=exception/throw=] {{"NotAllowedError"}} {{DOMException}}.
       </li>
-      <li>Return a newly constructed {{DigitalCredential}} with
-      {{DigitalCredential/protocol}} initialized to the protocol that was used
-      to issue this credential, and {{DigitalCredential/data}} initialized to
-      an [=digital credential/issuance response=] defined by that [=digital
-      credential/issuance protocol=].
+      <li>[=Consume user activation=] of |global|.
+      </li>
+      <li>Let |promise| be [=a new promise=].
+      </li>
+      <li>Let |signal| be |options|'s {{CredentialCreationOptions/signal}} if
+      present.
+      </li>
+      <li>[=credential request coordinator/Prepare credential requests=] with
+      |document|, |requests|, |promise|, and |signal|.
+      </li>
+      <li>Return |promise|.
       </li>
     </ol><!--
     // MARK: [[type]] internal slot
