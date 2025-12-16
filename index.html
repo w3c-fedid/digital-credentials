@@ -580,11 +580,11 @@
       entities according to user or platform policy.
     </p>
     <p>
-      The coordinator manages the lifecycle of the interaction's {{Promise}}
-      and its associated {{AbortSignal}} (if any), including resolution with
-      the user's selected [=digital credential=] or the [=holder=]'s response,
-      or rejection due to errors or the user or program aborting the
-      [=credential request=].
+      The coordinator manages the lifecycle of the interaction's [=credential
+      request coordinator/active promise=] and its associated {{AbortSignal}}
+      (if any), including resolution with the user's selected [=digital
+      credential=] or the [=holder=]'s response, or [=reject|rejection=] due to
+      errors or the user or program aborting the [=credential request=].
     </p>
     <p>
       The [=credential request coordinator=]:
