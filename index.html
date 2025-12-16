@@ -740,8 +740,116 @@
       Prepare credential requests
     </h3>
     <p>
-      To be written.
+      To <dfn data-dfn-for="credential request coordinator">prepare credential
+      requests</dfn> given a [=Document=] |document|, a sequence of
+      {{DigitalCredentialGetRequest}} or {{DigitalCredentialCreateRequest}}
+      objects |requests|, a {{Promise}} |promise|, and an optional
+      {{AbortSignal}} |signal|:
     </p>
+    <ol class="algorithm">
+      <li>Let |global| be |document|'s [=relevant global object=].
+      </li>
+      <li>If the [=credential request coordinator=] is not in the "[=credential
+      request coordinator/idle=]" [=credential request coordinator/interaction
+      state=]:
+        <ol>
+          <li>[=Queue a global task=] on the [=DOM manipulation task source=]
+          given |global| to [=reject=] |promise| with an
+          {{"InvalidStateError"}} {{DOMException}}.
+          </li>
+          <li>Return.
+          </li>
+        </ol>
+      </li>
+      <li>Assert: the [=credential request coordinator=]'s [=credential request
+      coordinator/active promise=] is `null`.
+      </li>
+      <li>Set the [=credential request coordinator=]'s [=credential request
+      coordinator/active promise=] to |promise|.
+      </li>
+      <li>Let |validatedRequests| be a new empty [=list=].
+      </li>
+      <li>[=List/For each=] |request| of |requests|:
+        <ol>
+          <li>If the [=user agent=] does not support |request|'s [=digital
+          credential/exchange protocol=], [=iteration/continue=].
+          </li>
+          <li>Let |validatedRequestOrError| be the result of validating
+          |request|'s [=digital credential/request data=] according to
+          |request|'s [=digital credential/exchange protocol=]. Validation
+          requirements are protocol-specific and are outside the scope of this
+          specification.
+            <aside class="note" title="Validation details outside scope">
+              <p>
+                Validation includes verifying |request|'s [=digital
+                credential/request data=] conforms to the requirements of the
+                specified [=digital credential/exchange protocol=]. Please
+                refer to the specification of the specific [=digital
+                credential/exchange protocol=] for details, including potential
+                reasons for validation failure, and any security and privacy
+                considerations that need to be considered by implementers
+                during validation.
+              </p>
+            </aside>
+          </li>
+          <li>If |validatedRequestOrError| is an [=exception=]:
+            <ol>
+              <li>[=credential request coordinator/Complete credential request
+              with=] |validatedRequestOrError|.
+              </li>
+              <li>Return.
+              </li>
+            </ol>
+          </li>
+          <li>[=list/Append=] |validatedRequestOrError| to |validatedRequests|.
+          </li>
+        </ol>
+      </li>
+      <li>If |validatedRequests| [=list/is empty=]:
+        <ol>
+          <li>[=credential request coordinator/Complete credential request
+          with=] a newly created {{TypeError}}.
+          </li>
+          <li>Return.
+          </li>
+        </ol>
+      </li>
+      <li>If |signal| was passed:
+        <ol>
+          <li>Assert: |signal| is not [=AbortSignal/aborted=].
+          </li>
+          <li>[=AbortSignal/Add=] the following algorithm to |signal|:
+            <ol>
+              <li>If the [=credential request coordinator=] is not in the
+              "[=credential request coordinator/requesting=]" [=credential
+              request coordinator/interaction state=], return.
+              </li>
+              <li>Set the [=credential request coordinator=] [=credential
+              request coordinator/interaction state=] to "[=credential request
+              coordinator/aborting=]".
+              </li>
+              <li>Request that the platform dismiss the [=credential chooser=]
+              and await confirmation of dismissal.
+              </li>
+              <li>Let |error| be either |signal|'s [=AbortSignal/abort reason=]
+              if one was given, or a newly created {{"AbortError"}}
+              {{DOMException}} otherwise.
+              </li>
+              <li>[=credential request coordinator/Complete credential request
+              with=] |error|.
+              </li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+      <li>Set the [=credential request coordinator=] [=credential request
+      coordinator/interaction state=] to "[=credential request
+      coordinator/requesting=]".
+      </li>
+      <li>[=credential request coordinator/Present the credential request=]
+      with |document|, |validatedRequests|, and |signal|.
+      </li>
+    </ol>
     <h3>
       Abort the credential request
     </h3>
@@ -783,7 +891,8 @@
       Present the credential request
     </h3>
     <p>
-      To be written.
+      <dfn data-dfn-for="credential request coordinator">Present the credential
+      request</dfn> to be written.
     </p><!--
     // MARK: The Digital Credentials API
     -->
@@ -1142,7 +1251,15 @@
           forthcoming.
         </aside>
       </li>
-      <li>Return a {{DigitalCredential}}.
+      <li>Let |promise| be [=a new promise=].
+      </li>
+      <li>Let |signal| be |options|'s {{CredentialRequestOptions/signal}} if
+      present.
+      </li>
+      <li>[=credential request coordinator/Prepare credential requests=] with
+      |document|, |requests|, |promise|, and |signal|.
+      </li>
+      <li>Return |promise|.
       </li>
     </ol><!--
     // MARK: [[Store]]()
@@ -1207,11 +1324,15 @@
           forthcoming.
         </aside>
       </li>
-      <li>Return a newly constructed {{DigitalCredential}} with
-      {{DigitalCredential/protocol}} initialized to the protocol that was used
-      to issue this credential, and {{DigitalCredential/data}} initialized to
-      an [=digital credential/issuance response=] defined by that [=digital
-      credential/issuance protocol=].
+      <li>Let |promise| be [=a new promise=].
+      </li>
+      <li>Let |signal| be |options|'s {{CredentialRequestOptions/signal}} if
+      present.
+      </li>
+      <li>[=credential request coordinator/Prepare credential requests=] with
+      |document|, |requests|, |promise|, and |signal|.
+      </li>
+      <li>Return |promise|.
       </li>
     </ol><!--
     // MARK: [[type]] internal slot
