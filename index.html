@@ -569,6 +569,12 @@
       coordinator/interaction states=].
     </p>
     <p>
+      The [=credential request coordinator=] has an <dfn data-dfn-for=
+      "credential request coordinator">active promise</dfn> that is initially
+      `null`. This {{Promise}} represents the current [=credential request=] in
+      progress, if any.
+    </p>
+    <p>
       A user agent MAY delegate some or all coordinator responsibilities to
       external wallet applications, platform components, or other trusted
       entities according to user or platform policy.
