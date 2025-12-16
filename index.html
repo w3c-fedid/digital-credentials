@@ -661,11 +661,115 @@
       To be written.
     </p>
     <h3>
-      Abort the credential request
+      Present the credential request
     </h3>
     <p>
-      To be written.
+      To <dfn data-dfn-for="credential request coordinator">present the
+      credential request</dfn> given a [=Document=] |document|, a [=sequence=]
+      of validated credential requests |validatedRequests|, and an optional
+      {{AbortSignal}} |signal|:
     </p>
+    <ol class="algorithm">
+      <li>Let |requestData| be [=struct=] consisting of |validatedRequests|,
+      |document|'s [=relevant settings object=]'s [=environment settings
+      object/origin=], and |document|'s [=Document/origin=].
+      </li>
+      <li>Present a [=credential chooser=] with |requestData| and wait for the
+      user to either:
+        <ul>
+          <li>Select a [=digital credential=] and [=holder=] that can fulfill
+          the request, or
+          </li>
+          <li>Cancel the operation.
+          </li>
+        </ul>
+      </li>
+      <li>If |signal| was passed and |signal| is [=AbortSignal/aborted=]:
+        <ol>
+          <li>Return.
+            <p class="note" title="Abort already handled">
+              The [=abort steps=] added to |signal| handle tearing down the
+              [=credential chooser=].
+            </p>
+          </li>
+        </ol>
+      </li>
+      <li>If the user cancels the operation or no credential was selected:
+        <ol>
+          <li>[=credential request coordinator/Complete credential request with
+          error=] with |document| and {{"AbortError"}} {{DOMException}}.
+          </li>
+          <li>Return.
+          </li>
+        </ol>
+      </li>
+      <li>If the platform returns a platform-specific |error|:
+        <ol>
+          <li>Let |exception| be the appropriate {{DOMException}} for that
+          |error|.
+          </li>
+          <li>[=credential request coordinator/Complete credential request with
+          error=] with |document| and |exception|.
+          </li>
+          <li>Return.
+          </li>
+        </ol>
+      </li>
+      <li>If a [=digital credential=] was selected by the user:
+        <ol>
+          <li>Let |responseData| be a [=string=] [=digital
+          credential/presentation response=] or [=string=] [=digital
+          credential/issuance response=] returned by the [=holder=].
+          </li>
+          <li>Let |protocol| be the [=digital credential/exchange protocol=] or
+          [=digital credential/issuance protocol=] identifier used in the
+          exchange.
+          </li>
+          <li>Let |parsedData| be the result of [=parse a JSON string to a
+          JavaScript value=] passing |responseData|.
+          </li>
+          <li>If |parsedData| is an [=exception=]:
+            <ol>
+              <li>[=credential request coordinator/Complete credential request
+              with error=] with |document| and |parsedData|.
+              </li>
+              <li>Return.
+              </li>
+            </ol>
+          </li>
+          <li>If |parsedData| is not an [=object=]:
+            <ol>
+              <li>[=credential request coordinator/Complete credential request
+              with error=] with |document| and {{TypeError}}.
+              </li>
+              <li>Return.
+              </li>
+            </ol>
+          </li>
+          <li>Let |credential| be a new {{DigitalCredential}} object with its
+          {{DigitalCredential/data}} set to |parsedData| and its
+          {{DigitalCredential/protocol}} set to |protocol|.
+          </li>
+          <li>[=Queue a global task=] on the [=DOM manipulation task source=]
+          given |document|'s [=relevant global object=] to perform the
+          following steps:
+            <ol>
+              <li>Set the [=credential request coordinator=] [=credential
+              request coordinator/interaction state=] to "[=credential request
+              coordinator/idle=]".
+              </li>
+              <li>[=Resolve=] the [=credential request coordinator=]'s
+              [=credential request coordinator/active promise=] with
+              |credential|.
+              </li>
+              <li>Set the [=credential request coordinator=]'s [=credential
+              request coordinator/active promise=] to `null`.
+              </li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+    </ol>
     <h3>
       Complete credential request with error
     </h3>
