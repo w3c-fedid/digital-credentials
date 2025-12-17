@@ -301,7 +301,7 @@
         &lt;/script&gt;
       </pre>
       <p>
-        Simliarly, when a site needs to [=digital credential/issuance|issue=] a
+        Similarly, when a site needs to [=digital credential/issuance|issue=] a
         digital credential, the Digital Credentials API mediates the issuance
         of a digital credential between the site, the user agent, and the
         [=holder=].
@@ -673,7 +673,7 @@
     </h2>
     <p>
       The Digital Credentials API leverages the [[[credential-management]]]
-      specificaion, allowing [=user agents=] to mediate the [=digital
+      specification, allowing [=user agents=] to mediate the [=digital
       credential/issuance=] and [=digital credential/presentation=] of
       [=digital credentials=].
     </p>
@@ -863,15 +863,20 @@
       [=digital credential=].
     </p>
     <p>
-      [=User mediation=] is always
-      {{CredentialMediationRequirement/"required"}}. [=Request a
-      credential|Requesting a DigitalCredential credential=] does not support
-      {{CredentialMediationRequirement/"conditional"}},
-      {{CredentialMediationRequirement/"optional"}}, or
-      {{CredentialMediationRequirement/"silent"}} [=user mediation=]. If
-      {{CredentialsContainer/get()}} is called with anything other than
-      {{CredentialMediationRequirement/"required"}}, a {{TypeError}} will be
-      thrown.
+      The {{DigitalCredential}} interface mandates [=user mediation=] for all
+      operations to ensure user control and consent.
+    </p>
+    <p>
+      To simplify the developer experience of {{CredentialsContainer/get()}}
+      calls involving a {{DigitalCredential}}, [=user agents=] MUST NOT throw
+      an error if the {{CredentialRequestOptions/mediation}} member is absent
+      or has a value other than {{CredentialMediationRequirement/"required"}}.
+      Similarly, in {{CredentialsContainer/create()}} calls involving a
+      {{DigitalCredential}}, [=user agents=] MUST NOT throw an error if the
+      {{CredentialCreationOptions/mediation}} member is absent or has a value
+      other than {{CredentialMediationRequirement/"required"}}. This makes
+      {{CredentialMediationRequirement/"required"}} mediation an implicit and
+      non-overridable behavior of the API.
     </p>
     <pre class="idl">
     [Exposed=Window, SecureContext]
@@ -2259,15 +2264,26 @@
         </p>
       </section>
     </section>
-    <section class="informative">
+    <section>
       <!--
       // MARK: Accessibility Considerations
       -->
       <h2>
         Accessibility Considerations
       </h2>
-      <p class="issue" title="Work in Progress">
-        This section is a work in progress as this document evolves.
+      <p>
+        Implementers need to consider accessibility when designing [=credential
+        choosers=] specifically for this API. The content of modal dialogs
+        presented during [=digital credential/issuance request|issuance=] or
+        [=digital credential/presentation requests|presentation=], which can
+        include text, QR codes, and other visual media, SHOULD be labelled and
+        exposed to assistive technologies.
+      </p>
+      <p>
+        Interactive elements, particularly those that allow the user to
+        continue or abort [=digital credential/issuance request|issuance=] or
+        [=digital credential/presentation requests|presentation=] requests,
+        MUST be operable in a device-independent manner.
       </p>
     </section>
     <section class="prefer-full-spec-title" id="index"></section>
