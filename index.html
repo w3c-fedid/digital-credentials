@@ -641,7 +641,7 @@
       <dfn>Protocols</dfn> enum
     </h3>
       <pre class="idl">
-      enum Protocols {
+      enum Protocol {
         "openid4vp-v1-unsigned",
         "openid4vp-v1-signed",
         "openid4vp-v1-multisigned",
@@ -978,7 +978,7 @@
       [Default] object toJSON();
       readonly attribute DOMString protocol;
       [SameObject] readonly attribute object data;
-      static boolean userAgentAllowsProtocol(DOMString protocol);
+      static boolean userAgentAllowsProtocol(Protocol protocol);
     };
     </pre>
     <p>
@@ -1032,9 +1032,6 @@
       algorithm:
     </p>
     <ol class="algorithm">
-      <li>If |protocol| is not a [=digital credential/protocol identifier=],
-      return `false`.
-      </li>
       <li>Return `true` if the user agent allows |protocol|, otherwise return
       `false`.
       </li>
