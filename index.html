@@ -1360,9 +1360,123 @@
       <h2>
         Security Considerations
       </h2>
+      <div class="issue" title=
+      "Security Considerations section is a work in progress">
+        <p>
+          This section is a work in progress as this document evolves.
+        </p>
+      </div>
       <p>
-        To be written.
+        The Security Considerations section describes the API's security
+        properties, the threats in scope, the assumptions on which security
+        depends, and the residual threats that remain after the mitigations are
+        applied. This specification defines requirements for the User Agent's
+        behavior only when mediating [=digital credential/presentation
+        responses=] and [=digital credential/issuance responses=].
       </p>
+      <p>
+        Other security considerations that depend on protocols, Wallet
+        implementations, operating systems, or transport security are described
+        as expectations or preconditions, but are not normative requirements of
+        this specification unless already normatively specified.
+      </p>
+      <section>
+        <h3>
+          Threat Model
+        </h3>
+        <p>
+          The Threat Model for the W3C Digital Credentials API includes threats
+          to this API and to adjacent levels of the ecosystem.
+        </p>
+        <p class="issue" data-number="440"></p>
+        <p>
+          Further analysis and threats are specified in related Threat Models
+          and the FIDO Security Reference, since the FIDO's Client to
+          Authenticator Protocol (CTAP) is used for cross-device flow.
+        </p>
+        <p>
+          For this specification, threats fall into two categories:
+        </p>
+        <ul>
+          <li>In-scope threats introduced or addressed by the DC API itself.
+            <ul>
+              <li>To be written...
+              </li>
+            </ul>
+          </li>
+          <li>Out-of-scope threats handled by protocols, wallets, OS platform
+          security, or transport layers. Even if "out of scope", they are
+          relevant because they influence the end-to-end security of credential
+          presentation and issuance.
+            <ul>
+              <li>To be written...
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+      <section>
+        <h3>
+          Security properties and threat responses defined by this
+          specification
+        </h3>
+        <p>
+          The following mitigations derive from normative requirements already
+          present in the specification.
+        </p>
+        <p>
+          To be written...
+        </p>
+      </section>
+      <section>
+        <h3>
+          Assumptions and transferred security responsibilities
+        </h3>
+        <p>
+          Correct and secure operation of the API depends on multiple
+          components not defined in this specification. These are assumed to be
+          trusted or expected to meet certain security properties.
+        </p>
+        <p>
+          To be written...
+        </p>
+      </section>
+      <section>
+        <h3>
+          Denial of service considerations
+        </h3>
+        <p>
+          To be written...
+        </p>
+      </section>
+      <section>
+        <h3>
+          Residual Threats
+        </h3>
+        <p>
+          Even with all mitigations in place, the following threats remain:
+        </p>
+        <ul>
+          <li>To be written...
+          </li>
+        </ul>
+      </section>
+      <section>
+        <h3>
+          Misuse considerations
+        </h3>
+        <p>
+          To be written...
+        </p>
+      </section>
+      <section>
+        <h3>
+          Applicability considerations
+        </h3>
+        <p>
+          To be written...
+        </p>
+      </section>
     </section>
     <section class="informative" data-cite="privacy-principles">
       <!--
