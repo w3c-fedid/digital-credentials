@@ -993,13 +993,13 @@
               The following guidance on handling multiple requests will need to be relocated once
               this entire section of the algorithm is defined.
             </aside>
-            When multiple [=digital credential/presentation request | presentation requests=]
-            are present in |requests|,
-            a [=user agent=] MUST NOT return more than one
-            [=digital credential/presentation response=].
-            However, multiple credentials MAY be included in this single response
-            depending on the capabilities
-            of the corresponding [=digital credential/exchange protocol=].
+            A [=user agent=] cannot return more than one
+            [=digital credential/presentation response=]
+            even when |requests| contains multiple
+            [=digital credential/presentation request | presentation requests=].
+            However, a [=user agent=] MAY include multiple credentials in this
+            single response if the [=digital credential/exchange protocol=]
+            in use supports doing so.
           </li>
         </ol>
       </li>
