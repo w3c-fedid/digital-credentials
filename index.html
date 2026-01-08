@@ -665,11 +665,8 @@
       <li>Assert: the [=credential request coordinator=]'s [=credential request
       coordinator/active promise=] is not `null`.
       </li>
-      <li>Let |document| be |error|'s [=relevant global object=]'s [=associated
-      Document=].
-      </li>
       <li>[=Queue a global task=] on the [=DOM manipulation task source=] given
-      |document|'s [=relevant global object=] to perform the following steps:
+      |error|'s [=relevant global object=] to perform the following steps:
         <ol>
           <li>If the [=credential request coordinator=]'s [=credential request
           coordinator/active promise=] is `null`, then return.
