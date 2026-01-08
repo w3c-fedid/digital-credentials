@@ -659,18 +659,23 @@
     </h3>
     <p>
       To <dfn data-dfn-for="credential request coordinator">complete credential
-      request with error</dfn> given a [=Document=] |document| and an
-      [=exception=] |exception|:
+      request with error</dfn> given an [=exception=] |error|:
     </p>
     <ol class="algorithm">
       <li>Assert: the [=credential request coordinator=]'s [=credential request
       coordinator/active promise=] is not `null`.
       </li>
+      <li>Let |document| be |error|'s [=relevant global object=]'s [=associated
+      Document=].
+      </li>
       <li>[=Queue a global task=] on the [=DOM manipulation task source=] given
       |document|'s [=relevant global object=] to perform the following steps:
         <ol>
+          <li>If the [=credential request coordinator=]'s [=credential request
+          coordinator/active promise=] is `null`, then return.
+          </li>
           <li>[=Reject=] the [=credential request coordinator=]'s [=credential
-          request coordinator/active promise=] with |exception|.
+          request coordinator/active promise=] with |error|.
           </li>
           <li>Set the [=credential request coordinator=]'s [=credential request
           coordinator/active promise=] to `null`.
