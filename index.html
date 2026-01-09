@@ -2215,7 +2215,20 @@
     </section>
     <section class="prefer-full-spec-title" id="index"></section>
     <section id="idl-index"></section>
-    <section id="conformance"></section>
+    <section id="conformance">
+      <h2>
+        Enumerations as DOMString types
+      </h2>
+      <p>
+        Enumeration types are not referenced by other parts of the Web IDL because that
+        would preclude other values from being used without updating this specification
+        and its implementations. It is important for backwards compatibility that
+        user agents handle unknown values. Enumerations for this specification exist
+        here for documentation and as a registry. Where the enumerations are represented
+        elsewhere, they are typed as {{DOMString}}s, for example in
+        {{DigitalCredentialGetRequest/protocol}}.
+      </p>
+    </section>
     <h2 class="appendix">
       Acknowledgements
     </h2>
