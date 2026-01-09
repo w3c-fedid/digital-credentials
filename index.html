@@ -723,10 +723,6 @@
           credential/presentation response=] or [=string=] [=digital
           credential/issuance response=] returned by the [=holder=].
           </li>
-          <li>Let |protocol| be the [=digital credential/exchange protocol=] or
-          [=digital credential/issuance protocol=] identifier used in the
-          exchange.
-          </li>
           <li>Let |parsedDataOrError| be the result of [=parse a JSON string to
           a JavaScript value=] passing |responseData|.
           </li>
@@ -750,8 +746,12 @@
               </li>
             </ol>
           </li>
+          <li>Let |protocol| be the [=digital credential/exchange protocol=] or
+          [=digital credential/issuance protocol=] identifier used in the
+          exchange.
+          </li>
           <li>Let |credential| be a new {{DigitalCredential}} object with its
-          {{DigitalCredential/data}} set to |parsedData| and its
+          {{DigitalCredential/data}} set to |parsedDataOrError| and its
           {{DigitalCredential/protocol}} set to |protocol|.
           </li>
           <li>[=Queue a global task=] on the [=DOM manipulation task source=]
