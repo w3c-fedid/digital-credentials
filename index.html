@@ -555,12 +555,14 @@
       Supported protocols
     </h2>
     <p>
-      The following [=digital credential/exchange protocols=] are supported
+      The following presentation and [=digital credential/issuance protocols|issuance=] protocols are supported
       by this specification.
+      <!-- TODO: replace with new dfn from 434" -->
     </p>
     <table class="data">
       <caption>
-        <dfn class="export">Table of supported [=digital credential/exchange protocols=]</dfn>
+        <dfn class="export">Table of supported presentation and [=digital credential/issuance protocol|issuance=] protocols</dfn>
+        <!-- TODO: replace with new dfn from 434" -->
       </caption>
       <thead>
         <tr>
@@ -584,7 +586,7 @@
             [[[OPENID4VP]]] - Unsigned Requests
           </td>
           <td>
-            [=digital credential/Exchange Protocol=]
+            Presentation Protocol <!-- TODO: replace with new dfn from 434" -->
           </td>
           <td>
             `openid4vp-v1-unsigned`
@@ -598,7 +600,7 @@
             [[[OPENID4VP]]] - Signed Requests
           </td>
           <td>
-            [=digital credential/Exchange Protocol=]
+            Presentation Protocol <!-- TODO: replace with new dfn from 434" -->
           </td>
           <td>
             `openid4vp-v1-signed`
@@ -612,7 +614,7 @@
             [[[OPENID4VP]]] - Multi-signed Requests
           </td>
           <td>
-            [=digital credential/Exchange Protocol=]
+            Presentation Protocol <!-- TODO: replace with new dfn from 434" -->
           </td>
           <td>
             `openid4vp-v1-multisigned`
@@ -626,7 +628,7 @@
             [[[ISO18013-7]]] - Annex C
           </td>
           <td>
-            [=digital credential/Exchange Protocol=]
+            Presentation Protocol <!-- TODO: replace with new dfn from 434" -->
           </td>
           <td>
             `org-iso-mdoc`
@@ -642,10 +644,10 @@
     </h3>
       <p>
         This enumeration's values correspond to the supported
-        [=digital credential/exchange protocols=].
+        presentation protocols. <!-- TODO: replace with new dfn from 434" -->
       </p>
       <pre class="idl">
-      enum Protocol {
+      enum DigitalCredentialPresentationProtocol {
         "openid4vp-v1-unsigned",
         "openid4vp-v1-signed",
         "openid4vp-v1-multisigned",
