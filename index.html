@@ -688,8 +688,9 @@
         <ol>
           <li>Return.
             <p class="note" title="Abort already handled">
-              The [=abort steps=] added to |signal| handle tearing down the
-              [=credential chooser=].
+              The algorithm [=AbortSignal/add|added=] to |signal| by the
+              [=credential request coordinator/prepare credential requests=]
+              steps handle tearing down the [=credential chooser=].
             </p>
           </li>
         </ol>
@@ -698,8 +699,8 @@
         <ol>
           <li>Let |error| be a newly created {{"AbortError"}} {{DOMException}}.
           </li>
-          <li>[=credential request coordinator/Complete credential request with
-          error=] |error|.
+          <li>[=credential request coordinator/Complete credential request
+          with=] |error|.
           </li>
           <li>Return.
           </li>
@@ -709,8 +710,8 @@
         <ol>
           <li>Let |error| be the appropriate {{DOMException}} for that error.
           </li>
-          <li>[=credential request coordinator/Complete credential request with
-          error=] |error|.
+          <li>[=credential request coordinator/Complete credential request
+          with=] |error|.
           </li>
           <li>Return.
           </li>
@@ -726,24 +727,24 @@
           [=digital credential/issuance protocol=] identifier used in the
           exchange.
           </li>
-          <li>Let |parsedData| be the result of [=parse a JSON string to a
-          JavaScript value=] passing |responseData|.
+          <li>Let |parsedDataOrError| be the result of [=parse a JSON string to
+          a JavaScript value=] passing |responseData|.
           </li>
-          <li>If |parsedData| is an [=exception=]:
+          <li>If |parsedDataOrError| is an [=exception=]:
             <ol>
               <li>[=credential request coordinator/Complete credential request
-              with error=] with |parsedData|.
+              with=] |parsedDataOrError|.
               </li>
               <li>Return.
               </li>
             </ol>
           </li>
-          <li>If |parsedData| is not an [=object=]:
+          <li>If |parsedDataOrError| is not an [=object=]:
             <ol>
               <li>Let |error| be a newly created {{TypeError}}.
               </li>
               <li>[=credential request coordinator/Complete credential request
-              with error=] |error|.
+              with=] |error|.
               </li>
               <li>Return.
               </li>
