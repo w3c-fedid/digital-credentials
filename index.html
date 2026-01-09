@@ -639,33 +639,6 @@
         </tr>
       </tbody>
     </table>
-    <h3>
-      Presentation Protocols enum
-    </h3>
-      <p>
-        This enumeration's values correspond to the supported
-        presentation protocols. <!-- TODO: replace with new dfn from 434" -->
-      </p>
-      <pre class="idl">
-      enum DigitalCredentialPresentationProtocol {
-        "openid4vp-v1-unsigned",
-        "openid4vp-v1-signed",
-        "openid4vp-v1-multisigned",
-        "org-iso-mdoc"
-      };
-      </pre>
-    <h3>
-      Issuance Protocols enum
-    </h3>
-      <p>
-        This enumeration's values correspond to the supported
-        [=digital credential/issuance protocols=]. 
-      </p>
-      <pre class="idl">
-      enum DigitalCredentialIssuanceProtocol {
-        "placeholder-protocol"
-      };
-      </pre>
     <!--
     // MARK: Credential Request Coordinator
     -->
@@ -869,7 +842,7 @@
     </p>
     <pre class="idl">
       dictionary DigitalCredentialGetRequest {
-        required Protocol protocol;
+        required DOMString protocol;
         required object data;
       };
     </pre>
@@ -884,6 +857,28 @@
       The {{DigitalCredentialCreateRequest/protocol}} member's value MUST be one
       of the protocol identifiers defined in [[[#supported-protocols]]].
     </p>
+    <h5>
+      Presentation protocol enumeration
+    </h5>
+      <p>
+        This enumeration's values correspond to the supported
+        presentation protocols. <!-- TODO: replace with new dfn from 434" -->
+      </p>
+      <pre class="idl">
+      enum DigitalCredentialPresentationProtocol {
+        "openid4vp-v1-unsigned",
+        "openid4vp-v1-signed",
+        "openid4vp-v1-multisigned",
+        "org-iso-mdoc"
+      };
+      </pre>
+      <aside class="note">
+        <p>
+          Note: The {{DigitalCredentialPresentationProtocol}} enumeration is
+          deliberately not referenced, see [[[#enumerations-as-domstring-types]]].
+        </p>
+      </aside>
+    </h5>
     <h4>
       The `data` member
     </h4>
@@ -957,6 +952,24 @@
       The {{DigitalCredentialCreateRequest/protocol}} member's value MUST be one
       of the protocol identifiers defined in [[[#supported-protocols]]].
     </p>
+    <h5>
+      Issuance protocol enumeration
+    </h5>
+      <p>
+        This enumeration's values correspond to the supported
+        [=digital credential/issuance protocols=]. 
+      </p>
+      <pre class="idl">
+      enum DigitalCredentialIssuanceProtocol {
+        "placeholder-protocol"
+      };
+      </pre>
+      <aside class="note">
+        <p>
+          Note: The {{DigitalCredentialPresentationProtocol}} enumeration is
+          deliberately not referenced, see [[[#enumerations-as-domstring-types]]].
+        </p>
+      </aside>
     <h4>
       The `data` member
     </h4>
