@@ -132,7 +132,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="97eb9f87141f1f3809fb37ce60d6d8637ee66d4f">
+<meta name="revision" content="8fda5826d40f8d069c1ba2c5b34741aaa9945c2e">
 <meta name="description" content="This document specifies an API to enable user agents to mediate
         presentation and issuance of digital credentials such as a driver's
         license, government-issued identification card, and/or other types of digital credential. The API builds on
@@ -270,7 +270,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "97eb9f87141f1f3809fb37ce60d6d8637ee66d4f",
+  "gitRevision": "8fda5826d40f8d069c1ba2c5b34741aaa9945c2e",
   "publishISODate": "2026-01-13T00:00:00.000Z",
   "generatedSubtitle": "W3C Editor's Draft 13 January 2026"
 }</script>
@@ -1369,24 +1369,24 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       </li>
       <li>Let <var>document</var> be <var>global</var>'s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#concept-document-window" id="ref-for-index-term-associated-document-1">associated <code>Document</code></a>.
       </li>
-      <li>If <var>document</var> is not a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#fully-active-descendant-of-a-top-level-traversable-with-user-attention" id="ref-for-index-term-fully-active-descendant-of-a-top-level-traversable-with-user-attention-for-document-1">fully active descendant of a top-level traversable with user attention</a>, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw" id="ref-for-index-term-throw-for-exception-1">throw</a>
-      "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-1"><code>NotAllowedError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-1"><code>DOMException</code></a>.
+      <li>If <var>document</var> is not a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#fully-active-descendant-of-a-top-level-traversable-with-user-attention" id="ref-for-index-term-fully-active-descendant-of-a-top-level-traversable-with-user-attention-for-document-1">fully active descendant of a top-level traversable with user attention</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-1">a promise rejected with</a> a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-1"><code>NotAllowedError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-1"><code>DOMException</code></a>.
       </li>
-      <li>If <var>window</var> does not have <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-index-term-transient-activation-2">transient activation</a>,
-      <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw" id="ref-for-index-term-throw-for-exception-2">throw</a> "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-2"><code>NotAllowedError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-2"><code>DOMException</code></a>.
+      <li>If <var>window</var> does not have <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-index-term-transient-activation-2">transient activation</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-2">a promise rejected with</a> a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-2"><code>NotAllowedError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-2"><code>DOMException</code></a>.
       </li>
       <li><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation" id="ref-for-index-term-consume-user-activation-1">Consume user activation</a> of <var>window</var>.
       </li>
       <li>Let <var>requests</var> be <var>options</var>'s <a data-link-type="idl" href="#dom-credentialrequestoptions-digital" class="internalDFN" id="ref-for-dom-credentialrequestoptions-digital-2"><code>digital</code></a>'s
       <a data-link-type="idl" href="#dom-digitalcredentialrequestoptions-requests" class="internalDFN" id="ref-for-dom-digitalcredentialrequestoptions-requests-2"><code>requests</code></a> member.
       </li>
-      <li>If <var>requests</var> is empty, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw" id="ref-for-index-term-throw-for-exception-3">throw</a> a <a data-link-type="exception" data-lt="TypeError" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-index-term-typeerror-exception-1"><code>TypeError</code></a>.
+      <li>If <var>requests</var> is empty, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-3">a promise rejected with</a> a
+      <a data-link-type="exception" data-lt="TypeError" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-index-term-typeerror-exception-1"><code>TypeError</code></a>.
       </li>
       <li><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate" id="ref-for-index-term-for-each-for-list-1">For each</a> <var>request</var> of <var>requests</var>:
         <ol>
           <li><a data-link-type="dfn" data-lt="serialize a JavaScript value to a JSON string" href="https://infra.spec.whatwg.org/#serialize-a-javascript-value-to-a-json-string" id="ref-for-index-term-serialize-a-javascript-value-to-a-json-string-1">Serialize</a>
-          <var>request</var> to a JSON string. <a data-link-type="dfn" data-lt="throw" href="https://webidl.spec.whatwg.org/#dfn-throw" id="ref-for-index-term-throw-for-exception-4">Re-throw</a> any
-          <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-exception" id="ref-for-index-term-exception-1">exception</a>.
+          <var>request</var> to a JSON string.
+          </li>
+          <li>If serialization results in an <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-exception" id="ref-for-index-term-exception-1">exception</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-4">a promise rejected with</a> that <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-exception" id="ref-for-index-term-exception-2">exception</a>.
           </li>
         </ol>
       </li>
@@ -1423,24 +1423,24 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       </li>
       <li>Let <var>document</var> be <var>global</var>'s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#concept-document-window" id="ref-for-index-term-associated-document-2">associated <code>Document</code></a>.
       </li>
-      <li>If <var>document</var> is not a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#fully-active-descendant-of-a-top-level-traversable-with-user-attention" id="ref-for-index-term-fully-active-descendant-of-a-top-level-traversable-with-user-attention-for-document-2">fully active descendant of a top-level traversable with user attention</a>, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw" id="ref-for-index-term-throw-for-exception-5">throw</a>
-      "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-3"><code>NotAllowedError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-3"><code>DOMException</code></a>.
+      <li>If <var>document</var> is not a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#fully-active-descendant-of-a-top-level-traversable-with-user-attention" id="ref-for-index-term-fully-active-descendant-of-a-top-level-traversable-with-user-attention-for-document-2">fully active descendant of a top-level traversable with user attention</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-5">a promise rejected with</a> a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-3"><code>NotAllowedError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-3"><code>DOMException</code></a>.
       </li>
-      <li>If <var>window</var> does not have <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-index-term-transient-activation-3">transient activation</a>,
-      <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw" id="ref-for-index-term-throw-for-exception-6">throw</a> "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-4"><code>NotAllowedError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-4"><code>DOMException</code></a>.
+      <li>If <var>window</var> does not have <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-index-term-transient-activation-3">transient activation</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-6">a promise rejected with</a> a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-4"><code>NotAllowedError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-4"><code>DOMException</code></a>.
       </li>
       <li><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation" id="ref-for-index-term-consume-user-activation-2">Consume user activation</a> of <var>window</var>.
       </li>
       <li>Let <var>requests</var> be <var>options</var>'s <a data-link-type="idl" href="#dom-credentialcreationoptions-digital" class="internalDFN" id="ref-for-dom-credentialcreationoptions-digital-2"><code>digital</code></a>'s
       <a data-link-type="idl" href="#dom-digitalcredentialcreationoptions-requests" class="internalDFN" id="ref-for-dom-digitalcredentialcreationoptions-requests-2"><code>requests</code></a> member.
       </li>
-      <li>If <var>requests</var> is empty, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw" id="ref-for-index-term-throw-for-exception-7">throw</a> a <a data-link-type="exception" data-lt="TypeError" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-index-term-typeerror-exception-2"><code>TypeError</code></a>.
+      <li>If <var>requests</var> is empty, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-7">a promise rejected with</a> a
+      <a data-link-type="exception" data-lt="TypeError" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-index-term-typeerror-exception-2"><code>TypeError</code></a>.
       </li>
       <li><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate" id="ref-for-index-term-for-each-for-list-2">For each</a> <var>request</var> of <var>requests</var>:
         <ol>
           <li><a data-link-type="dfn" data-lt="serialize a JavaScript value to a JSON string" href="https://infra.spec.whatwg.org/#serialize-a-javascript-value-to-a-json-string" id="ref-for-index-term-serialize-a-javascript-value-to-a-json-string-2">Serialize</a>
-          <var>request</var> to a JSON string. <a data-link-type="dfn" data-lt="throw" href="https://webidl.spec.whatwg.org/#dfn-throw" id="ref-for-index-term-throw-for-exception-8">Re-throw</a> any
-          <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-exception" id="ref-for-index-term-exception-2">exception</a>.
+          <var>request</var> to a JSON string.
+          </li>
+          <li>If serialization results in an <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-exception" id="ref-for-index-term-exception-3">exception</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-8">a promise rejected with</a> that <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-exception" id="ref-for-index-term-exception-4">exception</a>.
           </li>
         </ol>
       </li>
@@ -2915,6 +2915,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         <cite><a class="bibref" data-link-type="biblio" href="#bib-webidl">Web IDL Standard</a></cite> defines the following:
         <ul>
           <li>
+    <span class="index-term" data-href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="index-term-a-promise-rejected-with" tabindex="0" aria-haspopup="dialog">a promise rejected with</span>
+  </li><li>
     <span class="index-term" data-href="https://webidl.spec.whatwg.org/#idl-boolean" id="index-term-boolean-type" tabindex="0" aria-haspopup="dialog"><code>boolean</code> type</span>
   </li><li>
     <span class="index-term" data-href="https://webidl.spec.whatwg.org/#Default" id="index-term-default-extended-attribute" tabindex="0" aria-haspopup="dialog"><code>[Default]</code> extended attribute</span>
@@ -2950,8 +2952,6 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <span class="index-term" data-href="https://webidl.spec.whatwg.org/#idl-sequence" id="index-term-sequence" tabindex="0" aria-haspopup="dialog">sequence</span>
   </li><li>
     <span class="index-term" data-href="https://webidl.spec.whatwg.org/#this" id="index-term-this" tabindex="0" aria-haspopup="dialog">this</span>
-  </li><li>
-    <span class="index-term" data-href="https://webidl.spec.whatwg.org/#dfn-throw" id="index-term-throw-for-exception" tabindex="0" aria-haspopup="dialog">throw (for <code>exception</code>)</span>
   </li><li>
     <span class="index-term" data-href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="index-term-typeerror-exception" tabindex="0" aria-haspopup="dialog"><code>TypeError</code> exception</span>
   </li>
@@ -4689,6 +4689,20 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-w3c-registry-1" title="§ 9. Registry of protocols">§ 9. Registry of protocols</a> 
     </li>
   </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-a-promise-rejected-with" aria-label="Links in this document to definition: a promise rejected with">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" aria-label="Permalink for definition: a promise rejected with. Activate to close this dialog.">Permalink</a>
+         
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-index-term-a-promise-rejected-with-1" title="§ 7.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 7.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> <a href="#ref-for-index-term-a-promise-rejected-with-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-a-promise-rejected-with-3" title="Reference 3">(3)</a> <a href="#ref-for-index-term-a-promise-rejected-with-4" title="Reference 4">(4)</a> 
+    </li><li>
+      <a href="#ref-for-index-term-a-promise-rejected-with-5" title="§ 7.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 7.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> <a href="#ref-for-index-term-a-promise-rejected-with-6" title="Reference 2">(2)</a> <a href="#ref-for-index-term-a-promise-rejected-with-7" title="Reference 3">(3)</a> <a href="#ref-for-index-term-a-promise-rejected-with-8" title="Reference 4">(4)</a> 
+    </li>
+  </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-boolean-type" aria-label="Links in this document to definition: boolean type">
       <span class="caret"></span>
       <div>
@@ -4784,9 +4798,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-exception-1" title="§ 7.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 7.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
+      <a href="#ref-for-index-term-exception-1" title="§ 7.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 7.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> <a href="#ref-for-index-term-exception-2" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-index-term-exception-2" title="§ 7.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 7.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
+      <a href="#ref-for-index-term-exception-3" title="§ 7.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 7.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> <a href="#ref-for-index-term-exception-4" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-exposed-extended-attribute" aria-label="Links in this document to definition: [Exposed] extended attribute">
@@ -4943,20 +4957,6 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-this-1" title="§ 7.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 7.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
     </li><li>
       <a href="#ref-for-index-term-this-2" title="§ 7.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 7.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
-    </li>
-  </ul>
-    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-throw-for-exception" aria-label="Links in this document to definition: throw (for exception)">
-      <span class="caret"></span>
-      <div>
-        <a class="self-link" href="https://webidl.spec.whatwg.org/#dfn-throw" aria-label="Permalink for definition: throw (for exception). Activate to close this dialog.">Permalink</a>
-         
-      </div>
-      <p><b>Referenced in:</b></p>
-      <ul>
-    <li>
-      <a href="#ref-for-index-term-throw-for-exception-1" title="§ 7.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 7.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> <a href="#ref-for-index-term-throw-for-exception-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-throw-for-exception-3" title="Reference 3">(3)</a> <a href="#ref-for-index-term-throw-for-exception-4" title="Reference 4">(4)</a> 
-    </li><li>
-      <a href="#ref-for-index-term-throw-for-exception-5" title="§ 7.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 7.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> <a href="#ref-for-index-term-throw-for-exception-6" title="Reference 2">(2)</a> <a href="#ref-for-index-term-throw-for-exception-7" title="Reference 3">(3)</a> <a href="#ref-for-index-term-throw-for-exception-8" title="Reference 4">(4)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-typeerror-exception" aria-label="Links in this document to definition: TypeError exception">
