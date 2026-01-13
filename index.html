@@ -1009,24 +1009,27 @@
       <li>Let |document| be |global|'s [=associated `Document`=].
       </li>
       <li>If |document| is not a [=Document/fully active descendant of a
-      top-level traversable with user attention=], [=exception/throw=]
-      {{"NotAllowedError"}} {{DOMException}}.
+      top-level traversable with user attention=], return [=a promise rejected
+      with=] a {{"NotAllowedError"}} {{DOMException}}.
       </li>
-      <li>If |window| does not have [=transient activation=],
-      [=exception/throw=] {{"NotAllowedError"}} {{DOMException}}.
+      <li>If |window| does not have [=transient activation=], return [=a
+      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
       </li>
       <li>[=Consume user activation=] of |window|.
       </li>
       <li>Let |requests| be |options|'s {{CredentialRequestOptions/digital}}'s
       {{DigitalCredentialRequestOptions/requests}} member.
       </li>
-      <li>If |requests| is empty, [=exception/throw=] a {{TypeError}}.
+      <li>If |requests| is empty, return [=a promise rejected with=] a
+      {{TypeError}}.
       </li>
       <li>[=List/For each=] |request| of |requests|:
         <ol>
           <li>[=serialize a JavaScript value to a JSON string|Serialize=]
-          |request| to a JSON string. [=exception/throw|Re-throw=] any
-          [=exception=].
+          |request| to a JSON string.
+          </li>
+          <li>If serialization results in an [=exception=], return [=a promise
+          rejected with=] that [=exception=].
           </li>
         </ol>
       </li>
@@ -1071,24 +1074,27 @@
       <li>Let |document| be |global|'s [=associated `Document`=].
       </li>
       <li>If |document| is not a [=Document/fully active descendant of a
-      top-level traversable with user attention=], [=exception/throw=]
-      {{"NotAllowedError"}} {{DOMException}}.
+      top-level traversable with user attention=], return [=a promise rejected
+      with=] a {{"NotAllowedError"}} {{DOMException}}.
       </li>
-      <li>If |window| does not have [=transient activation=],
-      [=exception/throw=] {{"NotAllowedError"}} {{DOMException}}.
+      <li>If |window| does not have [=transient activation=], return [=a
+      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
       </li>
       <li>[=Consume user activation=] of |window|.
       </li>
       <li>Let |requests| be |options|'s {{CredentialCreationOptions/digital}}'s
       {{DigitalCredentialCreationOptions/requests}} member.
       </li>
-      <li>If |requests| is empty, [=exception/throw=] a {{TypeError}}.
+      <li>If |requests| is empty, return [=a promise rejected with=] a
+      {{TypeError}}.
       </li>
       <li>[=List/For each=] |request| of |requests|:
         <ol>
           <li>[=serialize a JavaScript value to a JSON string|Serialize=]
-          |request| to a JSON string. [=exception/throw|Re-throw=] any
-          [=exception=].
+          |request| to a JSON string.
+          </li>
+          <li>If serialization results in an [=exception=], return [=a promise
+          rejected with=] that [=exception=].
           </li>
         </ol>
       </li>
