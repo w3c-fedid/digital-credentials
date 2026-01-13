@@ -132,7 +132,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="8fda5826d40f8d069c1ba2c5b34741aaa9945c2e">
+<meta name="revision" content="b4aa7b0e61a9678817bfaa8662938a453717aefe">
 <meta name="description" content="This document specifies an API to enable user agents to mediate
         presentation and issuance of digital credentials such as a driver's
         license, government-issued identification card, and/or other types of digital credential. The API builds on
@@ -270,7 +270,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "8fda5826d40f8d069c1ba2c5b34741aaa9945c2e",
+  "gitRevision": "b4aa7b0e61a9678817bfaa8662938a453717aefe",
   "publishISODate": "2026-01-13T00:00:00.000Z",
   "generatedSubtitle": "W3C Editor's Draft 13 January 2026"
 }</script>
@@ -1362,7 +1362,12 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </h3><a class="self-link" href="#discoverfromexternalsource-origin-options-sameoriginwithancestors-internal-method" aria-label="Permalink for Section 7.1"></a></div>
     <p>
       When invoked, the <dfn class="export" data-dfn-for="DigitalCredential" data-idl="" data-dfn-type="method" data-export="" id="dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors" tabindex="0" aria-haspopup="dialog">[[DiscoverFromExternalSource]](origin, options,
-      sameOriginWithAncestors)</dfn> internal method <em class="rfc2119">MUST</em>:
+      sameOriginWithAncestors)</dfn> internal method, if the user agent doesn't
+      support <a data-link-type="dfn|abstract-op" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-18">presentation requests</a> (e.g., the platform
+      cannot provide a <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-chooser" id="ref-for-index-term-credential-chooser-3">credential chooser</a>), call the default implementation
+      of <a data-link-type="interface" data-lt="Credential" href="https://www.w3.org/TR/credential-management-1/#credential" id="ref-for-index-term-credential-interface-2"><code>Credential</code></a>'s
+      <a data-link-type="method" data-lt="[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)" href="https://www.w3.org/TR/credential-management-1/#dom-credential-discoverfromexternalsource-slot" id="ref-for-index-term-discoverfromexternalsource-origin-options-sameoriginwithancestors-for-credential-1"><code>[[DiscoverFromExternalSource]](<var>origin</var>, <var>options</var>, <var>sameOriginWithAncestors</var>)</code></a> internal method with the same arguments.
+      Otherwise:
     </p>
     <ol class="algorithm">
       <li>Let <var>global</var> be <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-index-term-this-1">this</a>'s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-index-term-relevant-global-object-2">relevant global object</a>.
@@ -1404,7 +1409,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </h3><a class="self-link" href="#store-credential-sameoriginwithancestors-internal-method" aria-label="Permalink for Section 7.2"></a></div>
     <p>
       When invoked, the <dfn class="export" data-dfn-for="DigitalCredential" data-idl="" data-dfn-type="method" data-export="" id="dfn-store-credential-sameoriginwithancestors" tabindex="0" aria-haspopup="dialog">[[Store]](credential, sameOriginWithAncestors)</dfn>
-      <em class="rfc2119">MUST</em> call the default implementation of <a data-link-type="interface" data-lt="Credential" href="https://www.w3.org/TR/credential-management-1/#credential" id="ref-for-index-term-credential-interface-2"><code>Credential</code></a>'s
+      <em class="rfc2119">MUST</em> call the default implementation of <a data-link-type="interface" data-lt="Credential" href="https://www.w3.org/TR/credential-management-1/#credential" id="ref-for-index-term-credential-interface-3"><code>Credential</code></a>'s
       <a data-link-type="method" data-lt="[[Store]](credential, sameOriginWithAncestors)" href="https://www.w3.org/TR/credential-management-1/#dom-credential-store-slot" id="ref-for-index-term-store-credential-sameoriginwithancestors-for-credential-1"><code>[[Store]](<var>credential</var>, <var>sameOriginWithAncestors</var>)</code></a> internal
       method with the same arguments.
     </p>
@@ -1414,7 +1419,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <p>
       When invoked, the <dfn class="export" data-dfn-for="DigitalCredential" data-idl="" data-dfn-type="method" data-export="" id="dfn-create-origin-options-sameoriginwithancestors" tabindex="0" aria-haspopup="dialog">[[Create]](origin, options,
       sameOriginWithAncestors)</dfn> internal method, if the user agent doesn't
-      support issuance, call the default implementation of <a data-link-type="interface" data-lt="Credential" href="https://www.w3.org/TR/credential-management-1/#credential" id="ref-for-index-term-credential-interface-3"><code>Credential</code></a>'s
+      support <a data-link-type="dfn|abstract-op" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-17">issuance requests</a>, call the default
+      implementation of <a data-link-type="interface" data-lt="Credential" href="https://www.w3.org/TR/credential-management-1/#credential" id="ref-for-index-term-credential-interface-4"><code>Credential</code></a>'s
       <a data-link-type="method" data-lt="[[Create]](origin, options, sameOriginWithAncestors)" href="https://www.w3.org/TR/credential-management-1/#dom-credential-create-slot" id="ref-for-index-term-create-origin-options-sameoriginwithancestors-for-credential-2"><code>[[Create]](<var>origin</var>, <var>options</var>, <var>sameOriginWithAncestors</var>)</code></a>
       internal method with the same arguments. Otherwise:
     </p>
@@ -1495,7 +1501,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         </dt>
         <dd>
           A <a data-link-type="dfn" href="https://www.w3.org/TR/permissions-policy-1/#policy-controlled-feature" id="ref-for-index-term-policy-controlled-features-2">policy-controlled feature</a> that allows a <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-document" id="ref-for-index-term-document-1">document</a> to
-          <a data-link-type="dfn|abstract-op" data-lt="presentation request" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-18">request</a> digital
+          <a data-link-type="dfn|abstract-op" data-lt="presentation request" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-19">request</a> digital
           credentials. Its <a data-link-type="dfn" href="https://www.w3.org/TR/permissions-policy-1/#policy-controlled-feature-default-allowlist" id="ref-for-index-term-default-allowlists-for-policy-controlled-feature-1">default allowlists</a> is
           <a data-link-type="dfn" href="https://www.w3.org/TR/permissions-policy-1/#default-allowlist-self" id="ref-for-index-term-self-for-default-allowlist-1">'self'</a>. The <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#abstract-opdef-request-a-credential" id="ref-for-index-term-request-a-credential-2">request a <code>Credential</code></a>
           algorithm serves as the policy enforcement point.
@@ -1505,7 +1511,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         </dt>
         <dd>
           A <a data-link-type="dfn" href="https://www.w3.org/TR/permissions-policy-1/#policy-controlled-feature" id="ref-for-index-term-policy-controlled-features-3">policy-controlled feature</a> that allows a <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-document" id="ref-for-index-term-document-2">document</a> to
-          <a data-link-type="dfn|abstract-op" data-lt="issuance request" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-17">issue</a> digital credentials.
+          <a data-link-type="dfn|abstract-op" data-lt="issuance request" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-18">issue</a> digital credentials.
           Its <a data-link-type="dfn" href="https://www.w3.org/TR/permissions-policy-1/#policy-controlled-feature-default-allowlist" id="ref-for-index-term-default-allowlists-for-policy-controlled-feature-2">default allowlists</a> is <a data-link-type="dfn" href="https://www.w3.org/TR/permissions-policy-1/#default-allowlist-self" id="ref-for-index-term-self-for-default-allowlist-2">'self'</a>. The <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#abstract-opdef-create-a-credential" id="ref-for-index-term-create-a-credential-2">create a <code>Credential</code></a> algorithm serves as
           the policy enforcement point.
         </dd>
@@ -1865,7 +1871,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         <p>
           The Digital Credentials API offers the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-0-11">user agent</a> the ability to
           intermediate on behalf of the user (e.g. in the form of a
-          <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-chooser" id="ref-for-index-term-credential-chooser-3">credential chooser</a>) to contextualize requests and <a href="#permission-prior-to-wallet-selection">prevent immediate exposure to
+          <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-chooser" id="ref-for-index-term-credential-chooser-4">credential chooser</a>) to contextualize requests and <a href="#permission-prior-to-wallet-selection">prevent immediate exposure to
           holder applications</a>. It also enforces certain minimum
           requirements on supported protocols, such as <a href="#encrypting-credential-responses">response encryption</a>.
         </p>
@@ -2595,16 +2601,16 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       
       
       <p>
-        Implementers need to consider accessibility when designing <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-chooser" id="ref-for-index-term-credential-chooser-4">credential choosers</a> specifically for this API. The content of modal dialogs
-        presented during <a data-link-type="dfn|abstract-op" data-lt="issuance request" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-18">issuance</a> or
-        <a data-link-type="dfn|abstract-op" data-lt="presentation requests" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-19">presentation</a>, which can
+        Implementers need to consider accessibility when designing <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-chooser" id="ref-for-index-term-credential-chooser-5">credential choosers</a> specifically for this API. The content of modal dialogs
+        presented during <a data-link-type="dfn|abstract-op" data-lt="issuance request" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-19">issuance</a> or
+        <a data-link-type="dfn|abstract-op" data-lt="presentation requests" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-20">presentation</a>, which can
         include text, QR codes, and other visual media, <em class="rfc2119">SHOULD</em> be labelled and
         exposed to assistive technologies.
       </p>
       <p>
         Interactive elements, particularly those that allow the user to
-        continue or abort <a data-link-type="dfn|abstract-op" data-lt="issuance request" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-19">issuance</a> or
-        <a data-link-type="dfn|abstract-op" data-lt="presentation requests" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-20">presentation</a> requests,
+        continue or abort <a data-link-type="dfn|abstract-op" data-lt="issuance request" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-20">issuance</a> or
+        <a data-link-type="dfn|abstract-op" data-lt="presentation requests" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-21">presentation</a> requests,
         <em class="rfc2119">MUST</em> be operable in a device-independent manner.
       </p>
     </section>
@@ -2746,6 +2752,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         <ul>
           <li>
     <span class="index-term" data-href="https://www.w3.org/TR/credential-management-1/#dom-credential-create-slot" id="index-term-create-origin-options-sameoriginwithancestors-for-credential" tabindex="0" aria-haspopup="dialog"><code>[[Create]](origin, options, sameOriginWithAncestors)</code> (for <code>Credential</code>)</span>
+  </li><li>
+    <span class="index-term" data-href="https://www.w3.org/TR/credential-management-1/#dom-credential-discoverfromexternalsource-slot" id="index-term-discoverfromexternalsource-origin-options-sameoriginwithancestors-for-credential" tabindex="0" aria-haspopup="dialog"><code>[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)</code> (for <code>Credential</code>)</span>
   </li><li>
     <span class="index-term" data-href="https://www.w3.org/TR/credential-management-1/#dom-credential-store-slot" id="index-term-store-credential-sameoriginwithancestors-for-credential" tabindex="0" aria-haspopup="dialog"><code>[[Store]](credential, sameOriginWithAncestors)</code> (for <code>Credential</code>)</span>
   </li><li>
@@ -2986,7 +2994,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
 };</span>
 
 <span data-idl="" class="idlInterface" data-title="DigitalCredential">[<span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-index-term-exposed-extended-attribute-2">Exposed</a>=Window</span>, <span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext" id="ref-for-index-term-securecontext-extended-attribute-2">SecureContext</a></span>]
-interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-digitalcredential" id="ref-for-dom-digitalcredential-13"><code>DigitalCredential</code></a> : <span class="idlSuperclass"><a data-link-type="interface" href="https://www.w3.org/TR/credential-management-1/#credential" id="ref-for-index-term-credential-interface-4">Credential</a></span> {<span data-idl="" class="idlMethod" data-title="toJSON" data-dfn-for="DigitalCredential">
+interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-digitalcredential" id="ref-for-dom-digitalcredential-13"><code>DigitalCredential</code></a> : <span class="idlSuperclass"><a data-link-type="interface" href="https://www.w3.org/TR/credential-management-1/#credential" id="ref-for-index-term-credential-interface-5">Credential</a></span> {<span data-idl="" class="idlMethod" data-title="toJSON" data-dfn-for="DigitalCredential">
   [<span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Default" id="ref-for-index-term-default-extended-attribute-2">Default</a></span>]<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-object" id="ref-for-index-term-object-type-7">object</a></span> <a data-link-type="dfn" data-lt="default toJSON steps" class="idlName" href="https://webidl.spec.whatwg.org/#default-tojson-steps" id="ref-for-index-term-default-tojson-steps-2">toJSON</a>();</span><span data-idl="" class="idlAttribute" data-title="protocol" data-dfn-for="DigitalCredential">
   readonly attribute<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-index-term-domstring-interface-7">DOMString</a></span> <a class="internalDFN idlName" data-link-type="attribute" href="#dom-digitalcredential-protocol" id="ref-for-dom-digitalcredential-protocol-3"><code>protocol</code></a>;</span><span data-idl="" class="idlAttribute" data-title="data" data-dfn-for="DigitalCredential">
   [<span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SameObject" id="ref-for-index-term-sameobject-extended-attribute-2">SameObject</a></span>] readonly attribute<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-object" id="ref-for-index-term-object-type-8">object</a></span> <a class="internalDFN idlName" data-link-type="attribute" href="#dom-digitalcredential-data" id="ref-for-dom-digitalcredential-data-4"><code>data</code></a>;</span><span data-idl="" class="idlMethod" data-title="userAgentAllowsProtocol" data-dfn-for="DigitalCredential">
@@ -3224,9 +3232,11 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-dfn-issuance-request-16" title="§ 6.6 The DigitalCredentialCreateRequest dictionary">§ 6.6 The DigitalCredentialCreateRequest dictionary</a> 
     </li><li>
-      <a href="#ref-for-dfn-issuance-request-17" title="§ 8. Permissions Policy integration">§ 8. Permissions Policy integration</a> 
+      <a href="#ref-for-dfn-issuance-request-17" title="§ 7.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 7.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
     </li><li>
-      <a href="#ref-for-dfn-issuance-request-18" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> <a href="#ref-for-dfn-issuance-request-19" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-issuance-request-18" title="§ 8. Permissions Policy integration">§ 8. Permissions Policy integration</a> 
+    </li><li>
+      <a href="#ref-for-dfn-issuance-request-19" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> <a href="#ref-for-dfn-issuance-request-20" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-issuance-request-data" aria-label="Links in this document to definition: Issuance request data">
@@ -3280,9 +3290,11 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-dfn-presentation-request-17" title="§ 6.3 The DigitalCredentialGetRequest dictionary">§ 6.3 The DigitalCredentialGetRequest dictionary</a> 
     </li><li>
-      <a href="#ref-for-dfn-presentation-request-18" title="§ 8. Permissions Policy integration">§ 8. Permissions Policy integration</a> 
+      <a href="#ref-for-dfn-presentation-request-18" title="§ 7.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 7.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
     </li><li>
-      <a href="#ref-for-dfn-presentation-request-19" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> <a href="#ref-for-dfn-presentation-request-20" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-presentation-request-19" title="§ 8. Permissions Policy integration">§ 8. Permissions Policy integration</a> 
+    </li><li>
+      <a href="#ref-for-dfn-presentation-request-20" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> <a href="#ref-for-dfn-presentation-request-21" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-presentation-response" aria-label="Links in this document to definition: Presentation response">
@@ -3879,6 +3891,18 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-create-origin-options-sameoriginwithancestors-for-credential-2" title="§ 7.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 7.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
     </li>
   </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-discoverfromexternalsource-origin-options-sameoriginwithancestors-for-credential" aria-label="Links in this document to definition: [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) (for Credential)">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="https://www.w3.org/TR/credential-management-1/#dom-credential-discoverfromexternalsource-slot" aria-label="Permalink for definition: [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) (for Credential). Activate to close this dialog.">Permalink</a>
+         
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-index-term-discoverfromexternalsource-origin-options-sameoriginwithancestors-for-credential-1" title="§ 7.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 7.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
+    </li>
+  </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-store-credential-sameoriginwithancestors-for-credential" aria-label="Links in this document to definition: [[Store]](credential, sameOriginWithAncestors) (for Credential)">
       <span class="caret"></span>
       <div>
@@ -3932,11 +3956,13 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <li>
       <a href="#ref-for-index-term-credential-interface-1" title="§ 6.7 The DigitalCredential interface">§ 6.7 The DigitalCredential interface</a> 
     </li><li>
-      <a href="#ref-for-index-term-credential-interface-2" title="§ 7.2 [[Store]](credential, sameOriginWithAncestors) internal method">§ 7.2 [[Store]](credential, sameOriginWithAncestors) internal method</a> 
+      <a href="#ref-for-index-term-credential-interface-2" title="§ 7.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 7.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
     </li><li>
-      <a href="#ref-for-index-term-credential-interface-3" title="§ 7.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 7.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
+      <a href="#ref-for-index-term-credential-interface-3" title="§ 7.2 [[Store]](credential, sameOriginWithAncestors) internal method">§ 7.2 [[Store]](credential, sameOriginWithAncestors) internal method</a> 
     </li><li>
-      <a href="#ref-for-index-term-credential-interface-4" title="§ B. IDL Index">§ B. IDL Index</a> 
+      <a href="#ref-for-index-term-credential-interface-4" title="§ 7.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 7.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
+    </li><li>
+      <a href="#ref-for-index-term-credential-interface-5" title="§ B. IDL Index">§ B. IDL Index</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-credential-chooser" aria-label="Links in this document to definition: credential chooser">
@@ -3952,9 +3978,11 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-index-term-credential-chooser-2" title="§ 6. The Digital Credentials API">§ 6. The Digital Credentials API</a> 
     </li><li>
-      <a href="#ref-for-index-term-credential-chooser-3" title="§ 11.1 Design Considerations and Alternatives">§ 11.1 Design Considerations and Alternatives</a> 
+      <a href="#ref-for-index-term-credential-chooser-3" title="§ 7.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 7.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
     </li><li>
-      <a href="#ref-for-index-term-credential-chooser-4" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> 
+      <a href="#ref-for-index-term-credential-chooser-4" title="§ 11.1 Design Considerations and Alternatives">§ 11.1 Design Considerations and Alternatives</a> 
+    </li><li>
+      <a href="#ref-for-index-term-credential-chooser-5" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-credentialcreationoptions" aria-label="Links in this document to definition: CredentialCreationOptions">
