@@ -132,7 +132,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="b4aa7b0e61a9678817bfaa8662938a453717aefe">
+<meta name="revision" content="088018b0b774bf01746381d9029cc82272d1855a">
 <meta name="description" content="This document specifies an API to enable user agents to mediate
         presentation and issuance of digital credentials such as a driver's
         license, government-issued identification card, and/or other types of digital credential. The API builds on
@@ -270,7 +270,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "b4aa7b0e61a9678817bfaa8662938a453717aefe",
+  "gitRevision": "088018b0b774bf01746381d9029cc82272d1855a",
   "publishISODate": "2026-01-13T00:00:00.000Z",
   "generatedSubtitle": "W3C Editor's Draft 13 January 2026"
 }</script>
@@ -1365,9 +1365,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       sameOriginWithAncestors)</dfn> internal method, if the user agent doesn't
       support <a data-link-type="dfn|abstract-op" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-18">presentation requests</a> (e.g., the platform
       cannot provide a <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-chooser" id="ref-for-index-term-credential-chooser-3">credential chooser</a>), call the default implementation
-      of <a data-link-type="interface" data-lt="Credential" href="https://www.w3.org/TR/credential-management-1/#credential" id="ref-for-index-term-credential-interface-2"><code>Credential</code></a>'s
-      <a data-link-type="method" data-lt="[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)" href="https://www.w3.org/TR/credential-management-1/#dom-credential-discoverfromexternalsource-slot" id="ref-for-index-term-discoverfromexternalsource-origin-options-sameoriginwithancestors-for-credential-1"><code>[[DiscoverFromExternalSource]](<var>origin</var>, <var>options</var>, <var>sameOriginWithAncestors</var>)</code></a> internal method with the same arguments.
-      Otherwise:
+      of <a data-link-type="interface" data-lt="Credential" href="https://www.w3.org/TR/credential-management-1/#credential" id="ref-for-index-term-credential-interface-2"><code>Credential</code></a>'s <a data-link-type="method" data-lt="[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)" href="https://www.w3.org/TR/credential-management-1/#dom-credential-discoverfromexternalsource-slot" id="ref-for-index-term-discoverfromexternalsource-origin-options-sameoriginwithancestors-for-credential-1"><code>[[DiscoverFromExternalSource]](<var>origin</var>, <var>options</var>, <var>sameOriginWithAncestors</var>)</code></a> internal method with the same
+      arguments. Otherwise:
     </p>
     <ol class="algorithm">
       <li>Let <var>global</var> be <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-index-term-this-1">this</a>'s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-index-term-relevant-global-object-2">relevant global object</a>.
@@ -1420,9 +1419,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       When invoked, the <dfn class="export" data-dfn-for="DigitalCredential" data-idl="" data-dfn-type="method" data-export="" id="dfn-create-origin-options-sameoriginwithancestors" tabindex="0" aria-haspopup="dialog">[[Create]](origin, options,
       sameOriginWithAncestors)</dfn> internal method, if the user agent doesn't
       support <a data-link-type="dfn|abstract-op" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-17">issuance requests</a>, call the default
-      implementation of <a data-link-type="interface" data-lt="Credential" href="https://www.w3.org/TR/credential-management-1/#credential" id="ref-for-index-term-credential-interface-4"><code>Credential</code></a>'s
-      <a data-link-type="method" data-lt="[[Create]](origin, options, sameOriginWithAncestors)" href="https://www.w3.org/TR/credential-management-1/#dom-credential-create-slot" id="ref-for-index-term-create-origin-options-sameoriginwithancestors-for-credential-2"><code>[[Create]](<var>origin</var>, <var>options</var>, <var>sameOriginWithAncestors</var>)</code></a>
-      internal method with the same arguments. Otherwise:
+      implementation of <a data-link-type="interface" data-lt="Credential" href="https://www.w3.org/TR/credential-management-1/#credential" id="ref-for-index-term-credential-interface-4"><code>Credential</code></a>'s <a data-link-type="method" data-lt="[[Create]](origin, options, sameOriginWithAncestors)" href="https://www.w3.org/TR/credential-management-1/#dom-credential-create-slot" id="ref-for-index-term-create-origin-options-sameoriginwithancestors-for-credential-2"><code>[[Create]](<var>origin</var>, <var>options</var>, <var>sameOriginWithAncestors</var>)</code></a> internal method with the same
+      arguments. Otherwise:
     </p>
     <ol class="algorithm">
       <li>Let <var>global</var> be <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-index-term-this-2">this</a>'s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-index-term-relevant-global-object-3">relevant global object</a>.
