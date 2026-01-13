@@ -486,6 +486,14 @@
         [=digital credential/presentation request=] by a [=verifier=].
       </dd>
       <dt>
+        <dfn data-dfn-for="digital credential" data-local-lt=
+        "credential response">Credential response</dfn>
+      </dt>
+      <dd>
+        A [=digital credential/presentation response=] or an [=digital
+        credential/issuance response=].
+      </dd>
+      <dt>
         <dfn data-for="digital credential">Credential request</dfn>
       </dt>
       <dd>
@@ -569,16 +577,15 @@
       coordinator/interaction states=].
     </p>
     <p>
-      A user agent MAY delegate some or all coordinator responsibilities to
-      external wallet applications, platform components, or other trusted
-      entities according to user or platform policy.
-    </p>
-    <p>
-      The coordinator manages the lifecycle of the interaction's {{Promise}}
-      and its associated {{AbortSignal}} (if any), including resolution with
-      the user's selected [=digital credential=] or the [=holder=]'s response,
-      or rejection due to errors or the user or program aborting the
-      [=credential request=].
+      The [=credential request coordinator=] maintains an <dfn data-dfn-for=
+      "credential request coordinator">active promise</dfn>, which the user
+      agent initializes as `null`. Through this {{Promise}}, the
+      [=coordinator=] reflects the state of the asynchronous [=credential
+      request=] workflow to script and either [=resolves=] with a [=digital
+      credential/credential response=] when the interaction completes
+      successfully, or [=rejects=] when processing fails, when the user cancels
+      the request via the UI, or when script aborts the operation via an
+      {{AbortSignal}}.
     </p>
     <p>
       The [=credential request coordinator=]:
@@ -592,11 +599,16 @@
       is determined by matching the request parameters, user consent, and
       platform policy.
       </li>
-      <li>[=Resolves=] the interaction's {{Promise}} with the selected
-      [=digital credential=] or [=holder=]'s response, or [=rejects=] it to
-      indicate that the [=credential request=] was aborted.
+      <li>Manages [=resolve|resolution=] or [=reject|rejection=] of the
+      [=credential request coordinator/active promise=] based on the
+      interaction outcome.
       </li>
     </ul>
+    <p>
+      A user agent MAY delegate some or all coordinator responsibilities to
+      external wallet applications, platform components, or other trusted
+      entities according to user or platform policy.
+    </p>
     <aside class="note">
       <p>
         Although the coordinator handles input/output coordination, it is the
@@ -655,11 +667,36 @@
       To be written.
     </p>
     <h3>
-      Dismiss the credential request
+      Complete credential request with error
     </h3>
     <p>
-      To be written.
+      To <dfn data-dfn-for="credential request coordinator" data-local-lt=
+      "complete credential request with">complete credential request with
+      error</dfn> (a JavaScript Value) |error|:
     </p>
+    <ol class="algorithm">
+      <li>Assert: the [=credential request coordinator=]'s [=credential request
+      coordinator/active promise=] is not `null`.
+      </li>
+      <li>[=Queue a global task=] on the [=DOM manipulation task source=] given
+      |error|'s [=relevant global object=] to perform the following steps:
+        <ol>
+          <li>If the [=credential request coordinator=]'s [=credential request
+          coordinator/active promise=] is `null`, then return.
+          </li>
+          <li>[=Reject=] the [=credential request coordinator=]'s [=credential
+          request coordinator/active promise=] with |error|.
+          </li>
+          <li>Set the [=credential request coordinator=]'s [=credential request
+          coordinator/active promise=] to `null`.
+          </li>
+          <li>Set the [=credential request coordinator=] [=credential request
+          coordinator/interaction state=] to "[=credential request
+          coordinator/idle=]".
+          </li>
+        </ol>
+      </li>
+    </ol>
     <h3>
       Present the credential request
     </h3>
