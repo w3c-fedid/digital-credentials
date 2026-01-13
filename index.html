@@ -1359,114 +1359,65 @@
         <p>
           This section is a work in progress as this document evolves.
         </p>
-        <p>
-          The documents listed below outline initial security considerations
-          for Digital Credentials, both broadly and for presentation on the
-          web. Their contents will be integrated into this document gradually.
-        </p>
-        <ul>
-          <li>
-            <a href=
-            "https://github.com/w3c-fedid/digital-credentials/wiki/Horizontal-reviews#self-review-questionnaire-security-and-privacy">
-            TAG Security and Privacy Considerations Questionnaire (WIP)</a>
-          </li>
-          <li>
-            <a href=
-            "https://github.com/w3c-cg/threat-modeling/blob/main/models/decentralized-identities.md">
-            Threat Model for Decentralized Identities</a>
-          </li>
-        </ul>
-      </div>
-      <section>
-        <!---->
-        <h3>
-          Credential Protocols
-        </h3>
-        <p class="issue" title="Work in progress">
-          Explain that while the API provides security at the browser API
-          level, that security for the underlying credential issuance or
-          presentation protocol is a separate concern and that developers need
-          to understand that layer of the stack to get a total picture of the
-          protections that are in place during any given transaction.
-        </p>
-      </section>
-      <section>
-        <!--
-        // MARK: Cross-device Protocols
-        -->
-        <h3>
-          Cross-device Protocols
-        </h3>
-        <p class="issue" title="Work in progress">
-          Explain that cross-device issuance or presentation uses a separate
-          protocol that has its own security characteristics.
-        </p>
-      </section>
-      <section>
-        <!--
-        // MARK: Quishing
-        -->
-        <h3>
-          Quishing
-        </h3>
-        <p class="issue" title="Work in progress">
-          Explain that the API is designed to avoid the problem of quishing
-          (phishing via QR Codes) and other QR Code and non-browser API-based
-          attacks and to be aware of exposure of QR Codes during digital
-          credential interactions.
-        </p>
-      </section>
-      <section>
-        <!--
-        // MARK: Data Integrity
-        -->
-        <h3>
-          Data Integrity
-        </h3>
-        <p class="issue" title="Work in progress">
-          Explain that the API does not provide data integrity on the digital
-          credential requests or responses and that responsibility is up to the
-          underlying protocol used for the request or response.
-        </p>
-      </section>
-      <section>
-        <!--
-        // MARK: Authentication
-        -->
-        <h3>
-          Authentication
-        </h3>
-        <p class="issue" title="Work in progress">
-          Explain that authentication (such as a PIN code to unlock) to a
-          particular app, such as a digital wallet, that responds to an API
-          request is crucial in high-risk use cases.
-        </p>
-      </section>
-      <section>
-        <!--
-        // MARK: Cross-Site Scripting (XSS) and Cross-Site
-        -->
-        <h3>
-          Cross-Site Scripting (XSS) and Cross-Site Request Forgery (CSRF)
-        </h3>
-        <p class="issue" title="Work in progress">
-          Explain what attacks are possible via XSS and CSRF, if any.
-        </p>
-      </section>
-      <section>
-        <!--
-        // MARK: Session Security
-        -->
-        <h3>
-          Session Security
-        </h3>
-        <p class="issue" title="Work in progress">
-          Explain that once a secure session is established at a website using
-          credentials exchanged over this API, that the subsequent security is
-          no longer a function of the credential used or this API and is up to
-          the session management utilized on the website.
-        </p>
-      </section>
+       <section>
+            <h3>Threat Model</h3>
+            <p>The Threat Model for the Digital Credentials API includes threats to this API and to adjacent levels of the
+                ecosystem. </p>
+            <p>Further analysis and threats are specified in related Threat Models, such as the Threat Model for
+                Decentralized Credentials (at the ecosystem level for Decentralized Identities), the Threat Model for the
+                Web (at the web ecosystem level), RFC 3552 (at the internet level), and the FIDO Security Reference (since
+                the CTAP protocol is used for cross-device flow).</p>
+            <p>For this specification, threats fall into two categories:</p>
+            <ul>
+                <li>In-scope threats introduced or addressed by the DC API itself (e.g., T1–T9). </li>
+                <li>Out-of-Scope threats handled by protocols, Wallets, OS platform security, or transport layers (e.g.,
+                    T10–T14). Even if Out-of-Scope, they are relevant because they are assumed or transferred, influencing
+                    the end-to-end security of credential presentation and issuance.</li>
+            </ul>
+            <section>
+                <h4>In-scope threats</h4>
+                <p>The following attacks arise directly from the API’s mediation role:</p>
+                <ul>
+                    <li>T1: Presentation Request Modification (Tampering) — A malicious script or compromised page attempts
+                        to alter a DigitalCredentialGetRequest before processing.<br> The API reduces this risk through
+                        SecureContext requirements and origin checks. </li>
+                    <li>T2: Malicious Browser Extension — An adversarial extension may inject, observe, or alter
+                        request/response data.<br> This threat is inherent to the Web Platform; extensions with
+                        script-injection privileges can compromise any Web security boundary. () </li>
+                    <li>T3: API Flooding / Prompt Fatigue — An attacker abuses user-activation or a misconfigured
+                        Permissions Policy to generate repeated prompts or degrade usability. </li>
+                    <li>T4: Credential-Manager Leakage — Timing or error-class differences during request matching may
+                        reveal information about the presence or absence of credentials. </li>
+                    <li>T5: Improper Verifier Authorization — A Verifier may request sensitive credentials without
+                        sufficient indication of the user&#39;s authorization. </li>
+                    <li>T6: Cross-Origin Request Initiation via Misconfigured Permissions Policy — An embedded third-party
+                        frame may attempt to invoke the API under a misleading context if permissions are not correctly
+                        constrained. </li>
+                    <li>T7: Verifier Spoofing — A malicious origin attempts to trick a user into producing a valid
+                        presentation response for a different, legitimate Verifier by imitating request parameters. </li>
+                    <li>T8–T9: Wallet-selection confusion, and presentation-response tampering are considered
+                        in-scope as part of the broader API flow.<br> However, mitigation depends heavily on the Wallet,
+                        Credential Manager, and exchange protocols, which are outside the normative domain of this
+                        specification; these threats are therefore treated as transferred.</li>
+                </ul>
+            </section>
+            <section>
+                <h4>Out-of-scope threats</h4>
+                <p>The following attacks are out of scope for this specification but are addressed by dependent systems:</p>
+                <ul>
+                    <li>Protocol-layer attacks (T9.1, T10–T12) such as cryptographic forgery, replay outside the browser
+                        boundary, use of expired or revoked credentials, and tampering with signed credential contents.</li>
+                    <li>Transport-layer MITM (T11), where HTTPS, TLS certificate validation, and protocol-level encryption
+                        are responsible for confidentiality and integrity.</li>
+                    <li>OS-level compromise (T2, T11), including privilege escalation, rogue system processes, or
+                        compromised IPC channels. </li>
+                    <li>Wallet compromise (T8, T12–T13), including stolen keys, insecure storage, and user-consent spoofing.
+                    </li>
+                </ul>
+                <p>This specification does not directly address these threats; instead, they are mitigated by the security
+                    properties of the underlying credential protocols, the wallet, platform attestation, and secure
+                    transport mechanisms.</p>
+            </section>
     </section>
     <section class="informative" data-cite="privacy-principles">
       <!--
