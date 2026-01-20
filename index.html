@@ -1109,7 +1109,12 @@
     <p>
       When invoked, the <dfn class="export" data-dfn-for=
       "DigitalCredential">[[\DiscoverFromExternalSource]](origin, options,
-      sameOriginWithAncestors)</dfn> internal method MUST:
+      sameOriginWithAncestors)</dfn> internal method, if the user agent doesn't
+      support [=digital credential/presentation requests=] (e.g., the platform
+      cannot provide a [=credential chooser=]), call the default implementation
+      of {{Credential}}'s {{Credential/[[DiscoverFromExternalSource]](origin,
+      options, sameOriginWithAncestors)}} internal method with the same
+      arguments. Otherwise:
     </p>
     <ol class="algorithm">
       <li>Let |global| be [=this=]'s [=relevant global object=].
@@ -1117,24 +1122,27 @@
       <li>Let |document| be |global|'s [=associated `Document`=].
       </li>
       <li>If |document| is not a [=Document/fully active descendant of a
-      top-level traversable with user attention=], [=exception/throw=]
-      {{"NotAllowedError"}} {{DOMException}}.
+      top-level traversable with user attention=], return [=a promise rejected
+      with=] a {{"NotAllowedError"}} {{DOMException}}.
       </li>
-      <li>If |window| does not have [=transient activation=],
-      [=exception/throw=] {{"NotAllowedError"}} {{DOMException}}.
+      <li>If |window| does not have [=transient activation=], return [=a
+      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
       </li>
       <li>[=Consume user activation=] of |window|.
       </li>
       <li>Let |requests| be |options|'s {{CredentialRequestOptions/digital}}'s
       {{DigitalCredentialRequestOptions/requests}} member.
       </li>
-      <li>If |requests| is empty, [=exception/throw=] a {{TypeError}}.
+      <li>If |requests| is empty, return [=a promise rejected with=] a
+      {{TypeError}}.
       </li>
       <li>[=List/For each=] |request| of |requests|:
         <ol>
           <li>[=serialize a JavaScript value to a JSON string|Serialize=]
-          |request| to a JSON string. [=exception/throw|Re-throw=] any
-          [=exception=].
+          |request| to a JSON string.
+          </li>
+          <li>If serialization results in an [=exception=], return [=a promise
+          rejected with=] that [=exception=].
           </li>
         </ol>
       </li>
@@ -1168,9 +1176,10 @@
       When invoked, the <dfn class="export" data-dfn-for=
       "DigitalCredential">[[\Create]](origin, options,
       sameOriginWithAncestors)</dfn> internal method, if the user agent doesn't
-      support issuance, call the default implementation of {{Credential}}'s
-      {{Credential/[[Create]](origin,options, sameOriginWithAncestors)}}
-      internal method with the same arguments. Otherwise:
+      support [=digital credential/issuance requests=], call the default
+      implementation of {{Credential}}'s {{Credential/[[Create]](origin,
+      options, sameOriginWithAncestors)}} internal method with the same
+      arguments. Otherwise:
     </p>
     <ol class="algorithm">
       <li>Let |global| be [=this=]'s [=relevant global object=].
@@ -1178,24 +1187,27 @@
       <li>Let |document| be |global|'s [=associated `Document`=].
       </li>
       <li>If |document| is not a [=Document/fully active descendant of a
-      top-level traversable with user attention=], [=exception/throw=]
-      {{"NotAllowedError"}} {{DOMException}}.
+      top-level traversable with user attention=], return [=a promise rejected
+      with=] a {{"NotAllowedError"}} {{DOMException}}.
       </li>
-      <li>If |window| does not have [=transient activation=],
-      [=exception/throw=] {{"NotAllowedError"}} {{DOMException}}.
+      <li>If |window| does not have [=transient activation=], return [=a
+      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
       </li>
       <li>[=Consume user activation=] of |window|.
       </li>
       <li>Let |requests| be |options|'s {{CredentialCreationOptions/digital}}'s
       {{DigitalCredentialCreationOptions/requests}} member.
       </li>
-      <li>If |requests| is empty, [=exception/throw=] a {{TypeError}}.
+      <li>If |requests| is empty, return [=a promise rejected with=] a
+      {{TypeError}}.
       </li>
       <li>[=List/For each=] |request| of |requests|:
         <ol>
           <li>[=serialize a JavaScript value to a JSON string|Serialize=]
-          |request| to a JSON string. [=exception/throw|Re-throw=] any
-          [=exception=].
+          |request| to a JSON string.
+          </li>
+          <li>If serialization results in an [=exception=], return [=a promise
+          rejected with=] that [=exception=].
           </li>
         </ol>
       </li>
@@ -1462,119 +1474,9 @@
       <h2>
         Security Considerations
       </h2>
-      <div class="issue" title=
-      "Security Considerations section is a work in progress">
-        <p>
-          This section is a work in progress as this document evolves.
-        </p>
-        <p>
-          The documents listed below outline initial security considerations
-          for Digital Credentials, both broadly and for presentation on the
-          web. Their contents will be integrated into this document gradually.
-        </p>
-        <ul>
-          <li>
-            <a href=
-            "https://github.com/w3c-fedid/digital-credentials/wiki/Horizontal-reviews#self-review-questionnaire-security-and-privacy">
-            TAG Security and Privacy Considerations Questionnaire (WIP)</a>
-          </li>
-          <li>
-            <a href=
-            "https://github.com/w3c-cg/threat-modeling/blob/main/models/decentralized-identities.md">
-            Threat Model for Decentralized Identities</a>
-          </li>
-        </ul>
-      </div>
-      <section>
-        <!---->
-        <h3>
-          Credential Protocols
-        </h3>
-        <p class="issue" title="Work in progress">
-          Explain that while the API provides security at the browser API
-          level, that security for the underlying credential issuance or
-          presentation protocol is a separate concern and that developers need
-          to understand that layer of the stack to get a total picture of the
-          protections that are in place during any given transaction.
-        </p>
-      </section>
-      <section>
-        <!--
-        // MARK: Cross-device Protocols
-        -->
-        <h3>
-          Cross-device Protocols
-        </h3>
-        <p class="issue" title="Work in progress">
-          Explain that cross-device issuance or presentation uses a separate
-          protocol that has its own security characteristics.
-        </p>
-      </section>
-      <section>
-        <!--
-        // MARK: Quishing
-        -->
-        <h3>
-          Quishing
-        </h3>
-        <p class="issue" title="Work in progress">
-          Explain that the API is designed to avoid the problem of quishing
-          (phishing via QR Codes) and other QR Code and non-browser API-based
-          attacks and to be aware of exposure of QR Codes during digital
-          credential interactions.
-        </p>
-      </section>
-      <section>
-        <!--
-        // MARK: Data Integrity
-        -->
-        <h3>
-          Data Integrity
-        </h3>
-        <p class="issue" title="Work in progress">
-          Explain that the API does not provide data integrity on the digital
-          credential requests or responses and that responsibility is up to the
-          underlying protocol used for the request or response.
-        </p>
-      </section>
-      <section>
-        <!--
-        // MARK: Authentication
-        -->
-        <h3>
-          Authentication
-        </h3>
-        <p class="issue" title="Work in progress">
-          Explain that authentication (such as a PIN code to unlock) to a
-          particular app, such as a digital wallet, that responds to an API
-          request is crucial in high-risk use cases.
-        </p>
-      </section>
-      <section>
-        <!--
-        // MARK: Cross-Site Scripting (XSS) and Cross-Site
-        -->
-        <h3>
-          Cross-Site Scripting (XSS) and Cross-Site Request Forgery (CSRF)
-        </h3>
-        <p class="issue" title="Work in progress">
-          Explain what attacks are possible via XSS and CSRF, if any.
-        </p>
-      </section>
-      <section>
-        <!--
-        // MARK: Session Security
-        -->
-        <h3>
-          Session Security
-        </h3>
-        <p class="issue" title="Work in progress">
-          Explain that once a secure session is established at a website using
-          credentials exchanged over this API, that the subsequent security is
-          no longer a function of the credential used or this API and is up to
-          the session management utilized on the website.
-        </p>
-      </section>
+      <p>
+        To be written.
+      </p>
     </section>
     <section class="informative" data-cite="privacy-principles">
       <!--
