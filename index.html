@@ -729,7 +729,7 @@
           credential/presentation response=] or [=string=] [=digital
           credential/issuance response=] returned by the [=holder=].
           </li>
-          <li>Let |parsedDataOrError| be the result of [=parse a JSON string to
+          <li>Let |parsedResponseDataOrError| be the result of [=parse a JSON string to
           a JavaScript value=] passing |responseData|.
           </li>
           <li>If |parsedDataOrError| is an [=exception=]:
@@ -743,10 +743,8 @@
           </li>
           <li>If |parsedDataOrError| is not an [=object=]:
             <ol>
-              <li>Let |error| be a newly created {{TypeError}}.
-              </li>
               <li>[=credential request coordinator/Complete credential request
-              with=] |error|.
+              with=] a {{TypeError}}.
               </li>
               <li>Return.
               </li>
