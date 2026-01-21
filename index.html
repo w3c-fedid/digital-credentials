@@ -831,9 +831,7 @@
               <li>Request that the platform dismiss the [=credential chooser=]
               and await confirmation of dismissal.
               </li>
-              <li>Let |error| be either |signal|'s [=AbortSignal/abort reason=]
-              if one was given, or a newly created {{"AbortError"}}
-              {{DOMException}} otherwise.
+              <li>Let |error| be |signal|'s [=AbortSignal/abort reason=].
               </li>
               <li>[=credential request coordinator/Complete credential request
               with=] |error|.
