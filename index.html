@@ -895,21 +895,6 @@
       The {{DigitalCredentialCreateRequest/protocol}} member's value is one
       of the protocol identifiers defined in [[[#protocols]]].
     </p>
-    <h5>
-      The {{DigitalCredentialPresentationProtocol}} enumeration
-    </h5>
-      <p>
-        This enumeration's values correspond to the supported
-        presentation protocols. <!-- TODO: replace with new dfn from 434" -->
-      </p>
-      <pre class="idl">
-      enum DigitalCredentialPresentationProtocol {
-        "openid4vp-v1-unsigned",
-        "openid4vp-v1-signed",
-        "openid4vp-v1-multisigned",
-        "org-iso-mdoc"
-      };
-      </pre>
     <h4>
       The `data` member
     </h4>
@@ -983,18 +968,6 @@
       The {{DigitalCredentialCreateRequest/protocol}} member's value is one
       of the protocol identifiers defined in [[[#protocols]]].
     </p>
-    <h5>
-      The {{DigitalCredentialIssuanceProtocol}} enumeration
-    </h5>
-      <p>
-        This enumeration's values correspond to the supported
-        [=digital credential/issuance protocols=]. 
-      </p>
-      <pre class="idl">
-      enum DigitalCredentialIssuanceProtocol {
-        "placeholder-protocol"
-      };
-      </pre>
     <h4>
       The `data` member
     </h4>
@@ -1092,6 +1065,39 @@
       `false`.
       </li>
     </ol>
+    <h3>
+      Supporting Data Structures
+    </h3>
+    <p>Data structures, such as enumerations, which support {{DigitalCredential}}
+      in this specification.
+    </p>
+    <h4>
+      The {{DigitalCredentialPresentationProtocol}} enumeration
+    </h4>
+      <p>
+        This enumeration's values correspond to the supported
+        presentation protocols. <!-- TODO: replace with new dfn from 434" -->
+      </p>
+      <pre class="idl">
+      enum DigitalCredentialPresentationProtocol {
+        "openid4vp-v1-unsigned",
+        "openid4vp-v1-signed",
+        "openid4vp-v1-multisigned",
+        "org-iso-mdoc"
+      };
+      </pre>
+    <h4>
+      The {{DigitalCredentialIssuanceProtocol}} enumeration
+    </h4>
+      <p>
+        This enumeration's values correspond to the supported
+        [=digital credential/issuance protocols=]. 
+      </p>
+      <pre class="idl">
+      enum DigitalCredentialIssuanceProtocol {
+        "placeholder-protocol"
+      };
+      </pre>
     <h2 id="credential-management-integration">
       Integration with Credential Management API
     </h2>
