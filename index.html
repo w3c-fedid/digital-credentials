@@ -486,6 +486,14 @@
         [=digital credential/presentation request=] by a [=verifier=].
       </dd>
       <dt>
+        <dfn data-dfn-for="digital credential" data-local-lt=
+        "credential response">Credential response</dfn>
+      </dt>
+      <dd>
+        A [=digital credential/presentation response=] or an [=digital
+        credential/issuance response=].
+      </dd>
+      <dt>
         <dfn data-for="digital credential">Credential request</dfn>
       </dt>
       <dd>
@@ -569,16 +577,15 @@
       coordinator/interaction states=].
     </p>
     <p>
-      A user agent MAY delegate some or all coordinator responsibilities to
-      external wallet applications, platform components, or other trusted
-      entities according to user or platform policy.
-    </p>
-    <p>
-      The coordinator manages the lifecycle of the interaction's {{Promise}}
-      and its associated {{AbortSignal}} (if any), including resolution with
-      the user's selected [=digital credential=] or the [=holder=]'s response,
-      or rejection due to errors or the user or program aborting the
-      [=credential request=].
+      The [=credential request coordinator=] maintains an <dfn data-dfn-for=
+      "credential request coordinator">active promise</dfn>, which the user
+      agent initializes as `null`. Through this {{Promise}}, the
+      [=coordinator=] reflects the state of the asynchronous [=credential
+      request=] workflow to script and either [=resolves=] with a [=digital
+      credential/credential response=] when the interaction completes
+      successfully, or [=rejects=] when processing fails, when the user cancels
+      the request via the UI, or when script aborts the operation via an
+      {{AbortSignal}}.
     </p>
     <p>
       The [=credential request coordinator=]:
@@ -592,11 +599,16 @@
       is determined by matching the request parameters, user consent, and
       platform policy.
       </li>
-      <li>[=Resolves=] the interaction's {{Promise}} with the selected
-      [=digital credential=] or [=holder=]'s response, or [=rejects=] it to
-      indicate that the [=credential request=] was aborted.
+      <li>Manages [=resolve|resolution=] or [=reject|rejection=] of the
+      [=credential request coordinator/active promise=] based on the
+      interaction outcome.
       </li>
     </ul>
+    <p>
+      A user agent MAY delegate some or all coordinator responsibilities to
+      external wallet applications, platform components, or other trusted
+      entities according to user or platform policy.
+    </p>
     <aside class="note">
       <p>
         Although the coordinator handles input/output coordination, it is the
@@ -655,11 +667,36 @@
       To be written.
     </p>
     <h3>
-      Dismiss the credential request
+      Complete credential request with error
     </h3>
     <p>
-      To be written.
+      To <dfn data-dfn-for="credential request coordinator" data-local-lt=
+      "complete credential request with">complete credential request with
+      error</dfn> (a JavaScript Value) |error|:
     </p>
+    <ol class="algorithm">
+      <li>Assert: the [=credential request coordinator=]'s [=credential request
+      coordinator/active promise=] is not `null`.
+      </li>
+      <li>[=Queue a global task=] on the [=DOM manipulation task source=] given
+      |error|'s [=relevant global object=] to perform the following steps:
+        <ol>
+          <li>If the [=credential request coordinator=]'s [=credential request
+          coordinator/active promise=] is `null`, then return.
+          </li>
+          <li>[=Reject=] the [=credential request coordinator=]'s [=credential
+          request coordinator/active promise=] with |error|.
+          </li>
+          <li>Set the [=credential request coordinator=]'s [=credential request
+          coordinator/active promise=] to `null`.
+          </li>
+          <li>Set the [=credential request coordinator=] [=credential request
+          coordinator/interaction state=] to "[=credential request
+          coordinator/idle=]".
+          </li>
+        </ol>
+      </li>
+    </ol>
     <h3>
       Present the credential request
     </h3>
@@ -958,7 +995,12 @@
     <p>
       When invoked, the <dfn class="export" data-dfn-for=
       "DigitalCredential">[[\DiscoverFromExternalSource]](origin, options,
-      sameOriginWithAncestors)</dfn> internal method MUST:
+      sameOriginWithAncestors)</dfn> internal method, if the user agent doesn't
+      support [=digital credential/presentation requests=] (e.g., the platform
+      cannot provide a [=credential chooser=]), call the default implementation
+      of {{Credential}}'s {{Credential/[[DiscoverFromExternalSource]](origin,
+      options, sameOriginWithAncestors)}} internal method with the same
+      arguments. Otherwise:
     </p>
     <ol class="algorithm">
       <li>Let |global| be [=this=]'s [=relevant global object=].
@@ -966,26 +1008,29 @@
       <li>Let |document| be |global|'s [=associated `Document`=].
       </li>
       <li>If |document| is not a [=Document/fully active descendant of a
-      top-level traversable with user attention=], [=exception/throw=]
-      {{"NotAllowedError"}} {{DOMException}}.
-      </li>
-      <li>If |window| does not have [=transient activation=],
-      [=exception/throw=] {{"NotAllowedError"}} {{DOMException}}.
-      </li>
-      <li>[=Consume user activation=] of |window|.
+      top-level traversable with user attention=], return [=a promise rejected
+      with=] a {{"NotAllowedError"}} {{DOMException}}.
       </li>
       <li>Let |requests| be |options|'s {{CredentialRequestOptions/digital}}'s
       {{DigitalCredentialRequestOptions/requests}} member.
       </li>
-      <li>If |requests| is empty, [=exception/throw=] a {{TypeError}}.
+      <li>If |requests| [=list/is empty=], return [=a promise rejected with=] a
+      {{TypeError}}.
       </li>
       <li>[=List/For each=] |request| of |requests|:
         <ol>
           <li>[=serialize a JavaScript value to a JSON string|Serialize=]
-          |request| to a JSON string. [=exception/throw|Re-throw=] any
-          [=exception=].
+          |request|'s {{DigitalCredentialGetRequest/data}} to a JSON string.
+          </li>
+          <li>If serialization results in an [=exception=], return [=a promise
+          rejected with=] that [=exception=].
           </li>
         </ol>
+      </li>
+      <li>If |global| does not have [=transient activation=], return [=a
+      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
+      </li>
+      <li>[=Consume user activation=] of |global|.
       </li>
       <li>
         <aside class="issue">
@@ -1017,9 +1062,10 @@
       When invoked, the <dfn class="export" data-dfn-for=
       "DigitalCredential">[[\Create]](origin, options,
       sameOriginWithAncestors)</dfn> internal method, if the user agent doesn't
-      support issuance, call the default implementation of {{Credential}}'s
-      {{Credential/[[Create]](origin,options, sameOriginWithAncestors)}}
-      internal method with the same arguments. Otherwise:
+      support [=digital credential/issuance requests=], call the default
+      implementation of {{Credential}}'s {{Credential/[[Create]](origin,
+      options, sameOriginWithAncestors)}} internal method with the same
+      arguments. Otherwise:
     </p>
     <ol class="algorithm">
       <li>Let |global| be [=this=]'s [=relevant global object=].
@@ -1027,26 +1073,29 @@
       <li>Let |document| be |global|'s [=associated `Document`=].
       </li>
       <li>If |document| is not a [=Document/fully active descendant of a
-      top-level traversable with user attention=], [=exception/throw=]
-      {{"NotAllowedError"}} {{DOMException}}.
-      </li>
-      <li>If |window| does not have [=transient activation=],
-      [=exception/throw=] {{"NotAllowedError"}} {{DOMException}}.
-      </li>
-      <li>[=Consume user activation=] of |window|.
+      top-level traversable with user attention=], return [=a promise rejected
+      with=] a {{"NotAllowedError"}} {{DOMException}}.
       </li>
       <li>Let |requests| be |options|'s {{CredentialCreationOptions/digital}}'s
       {{DigitalCredentialCreationOptions/requests}} member.
       </li>
-      <li>If |requests| is empty, [=exception/throw=] a {{TypeError}}.
+      <li>If |requests| is [=list/is empty=], return [=a promise rejected
+      with=] a {{TypeError}}.
       </li>
       <li>[=List/For each=] |request| of |requests|:
         <ol>
           <li>[=serialize a JavaScript value to a JSON string|Serialize=]
-          |request| to a JSON string. [=exception/throw|Re-throw=] any
-          [=exception=].
+          |request|'s {{DigitalCredentialGetRequest/data}} to a JSON string.
+          </li>
+          <li>If serialization results in an [=exception=], return [=a promise
+          rejected with=] that [=exception=].
           </li>
         </ol>
+      </li>
+      <li>If |global| does not have [=transient activation=], return [=a
+      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
+      </li>
+      <li>[=Consume user activation=] of |global|.
       </li>
       <li>
         <aside class="issue">
@@ -1366,32 +1415,55 @@
           </li>
         </ul>
       </section>
-      <section>
-        <h3>
-          Security properties and threat responses defined by this
-          specification
-        </h3>
-        <p>
-          The following mitigations derive from normative requirements already
-          present in the specification.
-        </p>
-        <p>
-          To be written...
-        </p>
-      </section>
-      <section>
-        <h3>
-          Assumptions and transferred security responsibilities
-        </h3>
-        <p>
-          Correct and secure operation of the API depends on multiple
-          components not defined in this specification. These are assumed to be
-          trusted or expected to meet certain security properties.
-        </p>
-        <p>
-          To be written...
-        </p>
-      </section>
+      <h3>
+        Security properties and threat responses defined by this specification
+      </h3>
+      <p>
+        The following mitigations derive from normative requirements already
+        present in the specification.
+      </p>
+      <p>
+        To be written...
+      </p>
+      <h3>
+        Assumptions and transferred security responsibilities
+      </h3>
+      <p>
+        Correct and secure operation of the API depends on multiple components
+        not defined in this specification. These are assumed to be trusted or
+        expected to meet certain security properties.
+      </p>
+      <p>
+        To be written...
+      </p>
+      <h3>
+        Denial of service considerations
+      </h3>
+      <p>
+        To be written...
+      </p>
+      <h3>
+        Residual Threats
+      </h3>
+      <p>
+        Even with all mitigations in place, the following threats remain:
+      </p>
+      <ul>
+        <li>To be written...
+        </li>
+      </ul>
+      <h3>
+        Misuse considerations
+      </h3>
+      <p>
+        To be written...
+      </p>
+      <h3>
+        Applicability considerations
+      </h3>
+      <p>
+        To be written...
+      </p>
     </section>
     <section class="informative" data-cite="privacy-principles">
       <!--
