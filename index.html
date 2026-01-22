@@ -892,8 +892,8 @@
       denotes the [=digital credential/exchange protocol=].
     </p>
     <p>
-      The {{DigitalCredentialCreateRequest/protocol}} member's value is one
-      of the protocol identifiers defined in [[[#protocols]]].
+      The {{DigitalCredentialGetRequest/protocol}} member's value is one
+      of the protocol identifiers defined in {{DigitalCredentialPresentationProtocol}}.
     </p>
     <h4>
       The `data` member
@@ -966,7 +966,7 @@
     </p>
     <p>
       The {{DigitalCredentialCreateRequest/protocol}} member's value is one
-      of the protocol identifiers defined in [[[#protocols]]].
+      of the protocol identifiers defined in {{DigitalCredentialIssuanceProtocol}}.
     </p>
     <h4>
       The `data` member
@@ -1076,7 +1076,7 @@
     </h4>
       <p>
         This enumeration's values correspond to the supported
-        presentation protocols. <!-- TODO: replace with new dfn from 434" -->
+        presentation protocols listed in [[[#protocols]]]. <!-- TODO: replace with new dfn from 434" -->
       </p>
       <pre class="idl">
       enum DigitalCredentialPresentationProtocol {
@@ -1091,7 +1091,7 @@
     </h4>
       <p>
         This enumeration's values correspond to the supported
-        [=digital credential/issuance protocols=]. 
+        [=digital credential/issuance protocols=] listed in [[[#protocols]]]. 
       </p>
       <pre class="idl">
       enum DigitalCredentialIssuanceProtocol {
