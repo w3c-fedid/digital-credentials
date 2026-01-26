@@ -1082,10 +1082,10 @@
     </p>
     <pre class="idl">
     enum DigitalCredentialPresentationProtocol {
-      "openid4vp-v1-unsigned",
-      "openid4vp-v1-signed",
       "openid4vp-v1-multisigned",
-      "org-iso-mdoc"
+      "openid4vp-v1-signed",
+      "openid4vp-v1-unsigned",
+      "org-iso-mdoc",
     };
     </pre>
     <h3>
@@ -1097,7 +1097,7 @@
     </p>
     <pre class="idl">
     enum DigitalCredentialIssuanceProtocol {
-      "openid4vci-v1"
+      "openid4vci-v1",
     };
     </pre>
     <h2 id="credential-management-integration">
@@ -1368,8 +1368,7 @@
           The Digital Credentials API is designed to mediate requests for
           digital credentials from websites, being agnostic to the credential
           format and the information contained in it, as well as the protocol
-          used to exchange it (within the bounds on the protocol registry
-          inclusion criteria). This and other key design choices are derived
+          used to exchange it. This and other key design choices are derived
           from the goal of providing a more secure and private credential
           exchange experience for users than the existing alternatives (e.g.,
           [[custom-schemes]]), that is still compatible with common exchange
@@ -1458,13 +1457,6 @@
           information are crucial to the [=user agent=]'s goal of protecting
           user privacy.
         </p>
-        <p>
-          The protocol registry for the Digital Credentials API is designed to
-          ensure that, among other requirements, supported protocols facilitate
-          specific privacy-enhancing capabilities. Protocols are required to
-          undergo privacy review by the W3C's <a href=
-          "https://www.w3.org/groups/wg/privacy/">Privacy Working Group</a>.
-        </p>
         <h4>
           Exchange Protocol Considerations for User Privacy
         </h4>
@@ -1523,7 +1515,7 @@
         <p class="issue" data-number="279">
           Which level of unlinkability is the goal for this API? Can we
           normatively enforce support for any particular unlinkability features
-          as part of the protocol registry inclusion criteria?
+          as part of the protocol inclusion process?
         </p>
         <h5>
           "Phone home" mechanisms
@@ -1909,12 +1901,6 @@
           The need to provide users with appropriate transparency conflicts
           with the desire to enable the ecosystem to develop new credential
           formats without explicit [=user agent=] buy-in.
-        </p>
-        <p class="issue" data-number="117">
-          Is it a good idea for the group to maintain a registry of request
-          types and/or <a href=
-          "https://github.com/w3c-fedid/digital-credentials/issues/85">credential
-          types</a>?
         </p>
         <h5>
           Reporting abuse
