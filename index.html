@@ -114,7 +114,8 @@
     </p>
     <p>
       The API design is agnostic to credential formats and includes support for
-      multiple [=digital credential/exchange protocols=]. See [[[#protocols]]].
+      multiple [=digital credential/exchange protocols=] and [=digital
+      credential/issuance protocols=]. See [[[#protocols]]].
     </p>
     <p>
       The API is designed to support the following goals:
@@ -563,15 +564,15 @@
       Protocols
     </h2>
     <p>
-      Use of the following presentation and issuance protocols are defined by this specification.
-      <!-- TODO: replace with new dfn from 434" -->
+      Use of the following presentation protocols is defined by this specification.
+      <!-- TODO: replace with new dfn from 434 -->
     </p>
     <aside class="issue" data-number="439">
     </aside>
     <table class="data">
       <caption>
         <dfn class="export">Table of supported presentation and [=digital credential/issuance protocol|issuance=] protocols</dfn>
-        <!-- TODO: replace with new dfn from 434" -->
+        <!-- TODO: replace with new dfn from 434 -->
       </caption>
       <thead>
         <tr>
@@ -595,7 +596,7 @@
             [[[OPENID4VP]]] - Unsigned Requests
           </td>
           <td>
-            Presentation Protocol <!-- TODO: replace with new dfn from 434" -->
+            Presentation Protocol <!-- TODO: replace with new dfn from 434 -->
           </td>
           <td>
             <dfn data-dfn-for="DigitalCredentialPresentationProtocol">`openid4vp-v1-unsigned`</dfn>
@@ -609,7 +610,7 @@
             [[[OPENID4VP]]] - Signed Requests
           </td>
           <td>
-            Presentation Protocol <!-- TODO: replace with new dfn from 434" -->
+            Presentation Protocol <!-- TODO: replace with new dfn from 434 -->
           </td>
           <td>
             <dfn data-dfn-for="DigitalCredentialPresentationProtocol">`openid4vp-v1-signed`</dfn>
@@ -623,7 +624,7 @@
             [[[OPENID4VP]]] - Multi-signed Requests
           </td>
           <td>
-            Presentation Protocol <!-- TODO: replace with new dfn from 434" -->
+            Presentation Protocol <!-- TODO: replace with new dfn from 434 -->
           </td>
           <td>
             <dfn data-dfn-for="DigitalCredentialPresentationProtocol">`openid4vp-v1-multisigned`</dfn>
@@ -637,7 +638,7 @@
             [[[ISO18013-7]]] - Annex C
           </td>
           <td>
-            Presentation Protocol <!-- TODO: replace with new dfn from 434" -->
+            Presentation Protocol <!-- TODO: replace with new dfn from 434 -->
           </td>
           <td>
             <dfn data-dfn-for="DigitalCredentialPresentationProtocol">`org-iso-mdoc`</dfn>
@@ -966,7 +967,7 @@
     </p>
     <p>
       The {{DigitalCredentialCreateRequest/protocol}} member's value is one
-      of the protocol identifiers defined in [[#protocols]].
+      of the protocol identifiers defined in [[[#protocols]]].
     </p>
     <h4>
       The `data` member
@@ -1061,6 +1062,9 @@
       algorithm:
     </p>
     <ol class="algorithm">
+      <li>If |protocol| is not a member of {{DigitalCredentialPresentationProtocol}},
+      return `false`.
+      </li>
       <li>Return `true` if the user agent allows |protocol|, otherwise return
       `false`.
       </li>
@@ -1076,7 +1080,7 @@
     </h4>
       <p>
         This enumeration's values correspond to the supported
-        presentation protocols listed in [[[#protocols]]]. <!-- TODO: replace with new dfn from 434" -->
+        presentation protocols listed in [[[#protocols]]]. <!-- TODO: replace with new dfn from 434 -->
       </p>
       <pre class="idl">
       enum DigitalCredentialPresentationProtocol {
