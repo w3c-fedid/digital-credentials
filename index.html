@@ -1069,6 +1069,11 @@
       algorithm:
     </p>
     <ol class="algorithm">
+      <li>If |protocol| is not one of the
+      {{DigitalCredentialPresentationProtocol}} [=enumeration values=] or one
+      of the {{DigitalCredentialIssuanceProtocol}} [=enumeration values=],
+      return `false`.
+      </li>
       <li>Return `true` if the user agent allows |protocol|, otherwise return
       `false`.
       </li>
