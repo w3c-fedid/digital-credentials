@@ -556,22 +556,21 @@
       <dd>
         See [=credential request coordinator=].
       </dd>
-    </dl>
-    <!--
+    </dl><!--
     // MARK: Protocols
     -->
     <h2 id="protocols">
       Protocols
     </h2>
     <p>
-      Use of the following presentation protocols is defined by this specification.
-      <!-- TODO: replace with new dfn from 434 -->
+      Use of the following presentation protocols is defined by this
+      specification. <!-- TODO: replace with new dfn from 434 -->
     </p>
-    <aside class="issue" data-number="439">
-    </aside>
+    <aside class="issue" data-number="439"></aside>
     <table class="data">
       <caption>
-        <dfn class="export">Table of supported presentation and [=digital credential/issuance protocol|issuance=] protocols</dfn>
+        <dfn class="export">Table of supported presentation and [=digital
+        credential/issuance protocol|issuance=] protocols</dfn> 
         <!-- TODO: replace with new dfn from 434 -->
       </caption>
       <thead>
@@ -599,10 +598,12 @@
             Presentation Protocol <!-- TODO: replace with new dfn from 434 -->
           </td>
           <td>
-            <dfn data-dfn-for="DigitalCredentialPresentationProtocol">`openid4vp-v1-unsigned`</dfn>
+            <dfn data-dfn-for=
+            "DigitalCredentialPresentationProtocol">`openid4vp-v1-unsigned`</dfn>
           </td>
           <td>
-            [[OPENID4VP]] <a data-cite="OPENID4VP#name-unsigned-request">Appendix A: 3.1</a>
+            [[OPENID4VP]] <a data-cite=
+            "OPENID4VP#name-unsigned-request">Appendix A: 3.1</a>
           </td>
         </tr>
         <tr>
@@ -613,10 +614,12 @@
             Presentation Protocol <!-- TODO: replace with new dfn from 434 -->
           </td>
           <td>
-            <dfn data-dfn-for="DigitalCredentialPresentationProtocol">`openid4vp-v1-signed`</dfn>
+            <dfn data-dfn-for=
+            "DigitalCredentialPresentationProtocol">`openid4vp-v1-signed`</dfn>
           </td>
           <td>
-            [[OPENID4VP]] <a data-cite="OPENID4VP#name-signed-request">Appendix A: 3.2</a>
+            [[OPENID4VP]] <a data-cite="OPENID4VP#name-signed-request">Appendix
+            A: 3.2</a>
           </td>
         </tr>
         <tr>
@@ -627,10 +630,12 @@
             Presentation Protocol <!-- TODO: replace with new dfn from 434 -->
           </td>
           <td>
-            <dfn data-dfn-for="DigitalCredentialPresentationProtocol">`openid4vp-v1-multisigned`</dfn>
+            <dfn data-dfn-for=
+            "DigitalCredentialPresentationProtocol">`openid4vp-v1-multisigned`</dfn>
           </td>
           <td>
-            [[OPENID4VP]] <a data-cite="OPENID4VP#name-jws-json-serialization">Appendix A: 3.2.2</a>
+            [[OPENID4VP]] <a data-cite=
+            "OPENID4VP#name-jws-json-serialization">Appendix A: 3.2.2</a>
           </td>
         </tr>
         <tr>
@@ -641,15 +646,15 @@
             Presentation Protocol <!-- TODO: replace with new dfn from 434 -->
           </td>
           <td>
-            <dfn data-dfn-for="DigitalCredentialPresentationProtocol">`org-iso-mdoc`</dfn>
+            <dfn data-dfn-for=
+            "DigitalCredentialPresentationProtocol">`org-iso-mdoc`</dfn>
           </td>
           <td>
             [[ISO18013-7]] Annex C
           </td>
         </tr>
       </tbody>
-    </table>
-    <!--
+    </table><!--
     // MARK: Credential Request Coordinator
     -->
     <h2>
@@ -893,8 +898,9 @@
       denotes the [=digital credential/exchange protocol=].
     </p>
     <p>
-      The {{DigitalCredentialGetRequest/protocol}} member's value is one
-      of the protocol identifiers defined in {{DigitalCredentialPresentationProtocol}}.
+      The {{DigitalCredentialGetRequest/protocol}} member's value is one of the
+      protocol identifiers defined in
+      {{DigitalCredentialPresentationProtocol}}.
     </p>
     <h4>
       The `data` member
@@ -966,8 +972,8 @@
       member denotes the [=digital credential/issuance protocol=].
     </p>
     <p>
-      The {{DigitalCredentialCreateRequest/protocol}} member's value is one
-      of the protocol identifiers defined in [[[#protocols]]].
+      The {{DigitalCredentialCreateRequest/protocol}} member's value is one of
+      the protocol identifiers defined in [[[#protocols]]].
     </p>
     <h4>
       The `data` member
@@ -1062,8 +1068,8 @@
       algorithm:
     </p>
     <ol class="algorithm">
-      <li>If |protocol| is not a member of {{DigitalCredentialPresentationProtocol}},
-      return `false`.
+      <li>If |protocol| is not a member of
+      {{DigitalCredentialPresentationProtocol}}, return `false`.
       </li>
       <li>Return `true` if the user agent allows |protocol|, otherwise return
       `false`.
@@ -1072,17 +1078,19 @@
     <h3>
       Supporting Data Structures
     </h3>
-    <p>Data structures, such as enumerations, which support {{DigitalCredential}}
-      in this specification.
+    <p>
+      Data structures, such as enumerations, which support
+      {{DigitalCredential}} in this specification.
     </p>
     <h4>
       The {{DigitalCredentialPresentationProtocol}} enumeration
     </h4>
-      <p>
-        This enumeration's values correspond to the supported
-        presentation protocols listed in [[[#protocols]]]. <!-- TODO: replace with new dfn from 434 -->
-      </p>
-      <pre class="idl">
+    <p>
+      This enumeration's values correspond to the supported presentation
+      protocols listed in [[[#protocols]]]. 
+      <!-- TODO: replace with new dfn from 434 -->
+    </p>
+    <pre class="idl">
       enum DigitalCredentialPresentationProtocol {
         "openid4vp-v1-unsigned",
         "openid4vp-v1-signed",
@@ -2153,8 +2161,7 @@
     </section>
     <section class="prefer-full-spec-title" id="index"></section>
     <section id="idl-index"></section>
-    <section id="conformance">
-    </section>
+    <section id="conformance"></section>
     <h2 class="appendix">
       Acknowledgements
     </h2>
