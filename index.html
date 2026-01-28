@@ -1009,10 +1009,12 @@
       non-overridable behavior of the API.
     </p>
     <pre class="idl">
+    typedef DigitalCredentialPresentationProtocol DigitalCredentialsProtocol;
+
     [Exposed=Window, SecureContext]
     interface DigitalCredential : Credential {
       [Default] object toJSON();
-      readonly attribute DOMString protocol;
+      readonly attribute DigitalCredentialsProtocol protocol;
       [SameObject] readonly attribute object data;
       static boolean userAgentAllowsProtocol(DOMString protocol);
     };
@@ -1068,8 +1070,8 @@
       algorithm:
     </p>
     <ol class="algorithm">
-      <li>If |protocol| is not a member of
-      {{DigitalCredentialPresentationProtocol}}, return `false`.
+      <li>If |protocol| is not an [=enumeration value=] of
+      {{DigitalCredentialsProtocol}}, return `false`.
       </li>
       <li>Return `true` if the user agent allows |protocol|, otherwise return
       `false`.
