@@ -839,6 +839,18 @@
                 considerations that need to be considered by implementers
                 during validation.
               </p>
+              <p>
+                In addition to protocol-defined requirements, a [=user agent=]
+                might apply additional validation criteria based on local
+                policy, configuration, or evolving security considerations. For
+                example, a [=user agent=] might reject a request that (a) seeks
+                particular credential attributes, (b) uses or requires
+                cryptographic algorithms the [=user agent=] is configured not
+                to accept (e.g., as part of algorithm agility or a transition
+                to post-quantum schemes), or (c) relies on certificates or
+                trust anchors that are not accepted by the [=user agent=]'s
+                configured trust decisions.
+              </p>
             </aside>
           </li>
           <li>If |validatedRequest| is an [=exception=]:
