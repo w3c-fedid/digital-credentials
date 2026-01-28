@@ -132,7 +132,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="32c606728578734ff236605678eeaeb23b90a266">
+<meta name="revision" content="a54aa7c69fbea162969818fab7edfd63cd0c8a23">
 <meta name="description" content="This document specifies an API to enable user agents to mediate
         presentation and issuance of digital credentials such as a driver's
         license, government-issued identification card, and/or other types of digital credential. The API builds on
@@ -270,7 +270,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "32c606728578734ff236605678eeaeb23b90a266",
+  "gitRevision": "a54aa7c69fbea162969818fab7edfd63cd0c8a23",
   "publishISODate": "2026-01-28T00:00:00.000Z",
   "generatedSubtitle": "W3C Editor's Draft 28 January 2026"
 }</script>
@@ -970,13 +970,12 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         <a data-link-type="dfn|abstract-op" href="#dfn-exchange-protocol" class="internalDFN" id="ref-for-dfn-exchange-protocol-5">exchange protocol</a>, to request a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-14">digital credential</a> from a <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders" id="ref-for-index-term-holder-9">holder</a>.
       </dd>
       </dl>
-    
     </section><section id="protocols-0"><div class="header-wrapper"><h2 id="protocols"><bdi class="secno">5. </bdi>
       Protocols
     </h2><a class="self-link" href="#protocols" aria-label="Permalink for Section 5."></a></div>
     <p>
-      Use of the following presentation protocols is defined by this specification.
-      
+      Use of the following presentation protocols is defined by this
+      specification. 
     </p>
     <div class="issue" id="issue-container-number-439"><div role="heading" class="issue-title marker" id="h-issue" aria-level="2"><a href="https://github.com/w3c-fedid/digital-credentials/issues/439"><span class="issue-number">Issue 439</span></a><span class="issue-label">: What protocols should a user agent implement? <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22agenda%2B%22" style="background-color: rgb(194, 224, 198); color: rgb(0, 0, 0);" aria-label="GitHub label: agenda+">agenda+</a></span></div><p dir="auto">In <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="3681058329" data-permission-text="Title is private" data-url="https://github.com/w3c-fedid/digital-credentials/issues/401" data-hovercard-type="pull_request" data-hovercard-url="/w3c-fedid/digital-credentials/pull/401/hovercard" href="https://github.com/w3c-fedid/digital-credentials/pull/401">#401</a>, I suggested we add the following:</p>
 <div class="highlight highlight-text-html-basic notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="    &lt;p&gt;
@@ -1006,7 +1005,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
 </ol></div>
     <table class="data">
       <caption>
-        <dfn class="export" data-export="" id="dfn-table-of-supported-presentation-and-issuance-protocols" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">Table of supported presentation and <a data-link-type="dfn|abstract-op" data-lt="issuance protocol" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-6">issuance</a> protocols</dfn>
+        <dfn class="export" data-export="" id="dfn-table-of-supported-presentation-and-issuance-protocols" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">Table of supported presentation and <a data-link-type="dfn|abstract-op" data-lt="issuance protocol" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-6">issuance</a> protocols</dfn> 
         
       </caption>
       <thead>
@@ -1051,7 +1050,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
             <dfn data-dfn-for="DigitalCredentialPresentationProtocol" data-export="" data-dfn-type="enum-value" id="dom-digitalcredentialpresentationprotocol-openid4vp-v1-signed" data-idl="enum-value" data-title="openid4vp-v1-signed" tabindex="0" aria-haspopup="dialog"><code>openid4vp-v1-signed</code></dfn>
           </td>
           <td>
-            [<cite><a class="bibref" data-link-type="biblio" href="#bib-openid4vp" title="OpenID for Verifiable Presentations 1.0">OPENID4VP</a></cite>] <a href="https://openid.net/specs/openid-4-verifiable-presentations-1_0.html#name-signed-request" id="ref-for-index-term-appendix-a-3-2-1">Appendix A: 3.2</a>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-openid4vp" title="OpenID for Verifiable Presentations 1.0">OPENID4VP</a></cite>] <a href="https://openid.net/specs/openid-4-verifiable-presentations-1_0.html#name-signed-request" id="ref-for-index-term-appendix-a-3-2-1">Appendix
+            A: 3.2</a>
           </td>
         </tr>
         <tr>
@@ -1084,7 +1084,6 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         </tr>
       </tbody>
     </table>
-    
     </section><section id="credential-request-coordinator"><div class="header-wrapper"><h2 id="x6-credential-request-coordinator"><bdi class="secno">6. </bdi>
       Credential Request Coordinator
     </h2><a class="self-link" href="#credential-request-coordinator" aria-label="Permalink for Section 6."></a></div>
@@ -1289,8 +1288,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       denotes the <a data-link-type="dfn|abstract-op" href="#dfn-exchange-protocol" class="internalDFN" id="ref-for-dfn-exchange-protocol-8">exchange protocol</a>.
     </p>
     <p>
-      The <a data-link-type="idl" href="#dom-digitalcredentialgetrequest-protocol" class="internalDFN" id="ref-for-dom-digitalcredentialgetrequest-protocol-2"><code>protocol</code></a> member's value is one
-      of the protocol identifiers defined in <a data-link-type="idl" data-lt="DigitalCredentialPresentationProtocol" href="#dom-digitalcredentialpresentationprotocol" class="internalDFN" id="ref-for-dom-digitalcredentialpresentationprotocol-1"><code>DigitalCredentialPresentationProtocol</code></a>.
+      The <a data-link-type="idl" href="#dom-digitalcredentialgetrequest-protocol" class="internalDFN" id="ref-for-dom-digitalcredentialgetrequest-protocol-2"><code>protocol</code></a> member's value is one of the
+      protocol identifiers defined in
+      <a data-link-type="idl" data-lt="DigitalCredentialPresentationProtocol" href="#dom-digitalcredentialpresentationprotocol" class="internalDFN" id="ref-for-dom-digitalcredentialpresentationprotocol-1"><code>DigitalCredentialPresentationProtocol</code></a>.
     </p>
     </section><section id="the-data-member"><div class="header-wrapper"><h4 id="x7-3-2-the-data-member"><bdi class="secno">7.3.2 </bdi>
       The <code>data</code> member
@@ -1346,8 +1346,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       member denotes the <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-9">issuance protocol</a>.
     </p>
     <p>
-      The <a data-link-type="idl" href="#dom-digitalcredentialcreaterequest-protocol" class="internalDFN" id="ref-for-dom-digitalcredentialcreaterequest-protocol-2"><code>protocol</code></a> member's value is one
-      of the protocol identifiers defined in <a href="#protocols" data-matched-text="[[[#protocols]]]" class="sec-ref"><bdi class="secno">5. </bdi>
+      The <a data-link-type="idl" href="#dom-digitalcredentialcreaterequest-protocol" class="internalDFN" id="ref-for-dom-digitalcredentialcreaterequest-protocol-2"><code>protocol</code></a> member's value is one of
+      the protocol identifiers defined in <a href="#protocols" data-matched-text="[[[#protocols]]]" class="sec-ref"><bdi class="secno">5. </bdi>
       Protocols</a>.
     </p>
     </section><section id="the-data-member-0"><div class="header-wrapper"><h4 id="x7-6-2-the-data-member"><bdi class="secno">7.6.2 </bdi>
@@ -1438,8 +1438,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       algorithm:
     </p>
     <ol class="algorithm">
-      <li>If <var>protocol</var> is not a member of <a data-link-type="idl" data-lt="DigitalCredentialPresentationProtocol" href="#dom-digitalcredentialpresentationprotocol" class="internalDFN" id="ref-for-dom-digitalcredentialpresentationprotocol-2"><code>DigitalCredentialPresentationProtocol</code></a>,
-      return <code>false</code>.
+      <li>If <var>protocol</var> is not a member of
+      <a data-link-type="idl" data-lt="DigitalCredentialPresentationProtocol" href="#dom-digitalcredentialpresentationprotocol" class="internalDFN" id="ref-for-dom-digitalcredentialpresentationprotocol-2"><code>DigitalCredentialPresentationProtocol</code></a>, return <code>false</code>.
       </li>
       <li>Return <code>true</code> if the user agent allows <var>protocol</var>, otherwise return
       <code>false</code>.
@@ -1448,18 +1448,20 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </section></section><section id="supporting-data-structures"><div class="header-wrapper"><h3 id="x7-8-supporting-data-structures"><bdi class="secno">7.8 </bdi>
       Supporting Data Structures
     </h3><a class="self-link" href="#supporting-data-structures" aria-label="Permalink for Section 7.8"></a></div>
-    <p>Data structures, such as enumerations, which support <a data-link-type="idl" data-lt="DigitalCredential" href="#dom-digitalcredential" class="internalDFN" id="ref-for-dom-digitalcredential-8"><code>DigitalCredential</code></a>
-      in this specification.
+    <p>
+      Data structures, such as enumerations, which support
+      <a data-link-type="idl" data-lt="DigitalCredential" href="#dom-digitalcredential" class="internalDFN" id="ref-for-dom-digitalcredential-8"><code>DigitalCredential</code></a> in this specification.
     </p>
     <section id="the-digitalcredentialpresentationprotocol-enumeration"><div class="header-wrapper"><h4 id="x7-8-1-the-digitalcredentialpresentationprotocol-enumeration"><bdi class="secno">7.8.1 </bdi>
       The <a data-link-type="idl" data-lt="DigitalCredentialPresentationProtocol" href="#dom-digitalcredentialpresentationprotocol" class="internalDFN" id="ref-for-dom-digitalcredentialpresentationprotocol-3"><code>DigitalCredentialPresentationProtocol</code></a> enumeration
     </h4><a class="self-link" href="#the-digitalcredentialpresentationprotocol-enumeration" aria-label="Permalink for Section 7.8.1"></a></div>
-      <p>
-        This enumeration's values correspond to the supported
-        presentation protocols listed in <a href="#protocols" data-matched-text="[[[#protocols]]]" class="sec-ref"><bdi class="secno">5. </bdi>
+    <p>
+      This enumeration's values correspond to the supported presentation
+      protocols listed in <a href="#protocols" data-matched-text="[[[#protocols]]]" class="sec-ref"><bdi class="secno">5. </bdi>
       Protocols</a>. 
-      </p>
-      <pre class="idl def" id="webidl-1346526641"><span class="idlHeader"><a class="self-link" href="#webidl-1346526641">WebIDL</a></span><code><span data-idl="" class="idlEnum" id="idl-def-digitalcredentialpresentationprotocol" data-title="DigitalCredentialPresentationProtocol">enum <dfn data-export="" data-dfn-type="enum" id="dom-digitalcredentialpresentationprotocol" data-idl="enum" data-title="DigitalCredentialPresentationProtocol" data-dfn-for="" class="idlID" tabindex="0" aria-haspopup="dialog"><code>DigitalCredentialPresentationProtocol</code></dfn> {
+      
+    </p>
+    <pre class="idl def" id="webidl-1346526641"><span class="idlHeader"><a class="self-link" href="#webidl-1346526641">WebIDL</a></span><code><span data-idl="" class="idlEnum" id="idl-def-digitalcredentialpresentationprotocol" data-title="DigitalCredentialPresentationProtocol">enum <dfn data-export="" data-dfn-type="enum" id="dom-digitalcredentialpresentationprotocol" data-idl="enum" data-title="DigitalCredentialPresentationProtocol" data-dfn-for="" class="idlID" tabindex="0" aria-haspopup="dialog"><code>DigitalCredentialPresentationProtocol</code></dfn> {
   <span class="idlEnumItem">"<a class="internalDFN" data-link-type="enum-value" href="#dom-digitalcredentialpresentationprotocol-openid4vp-v1-unsigned" id="ref-for-dom-digitalcredentialpresentationprotocol-openid4vp-v1-unsigned-1"><code>openid4vp-v1-unsigned</code></a>"</span>,
   <span class="idlEnumItem">"<a class="internalDFN" data-link-type="enum-value" href="#dom-digitalcredentialpresentationprotocol-openid4vp-v1-signed" id="ref-for-dom-digitalcredentialpresentationprotocol-openid4vp-v1-signed-1"><code>openid4vp-v1-signed</code></a>"</span>,
   <span class="idlEnumItem">"<a class="internalDFN" data-link-type="enum-value" href="#dom-digitalcredentialpresentationprotocol-openid4vp-v1-multisigned" id="ref-for-dom-digitalcredentialpresentationprotocol-openid4vp-v1-multisigned-1"><code>openid4vp-v1-multisigned</code></a>"</span>,
@@ -2876,8 +2878,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc2119" title="Key words for use in RFCs to Indicate Requirement Levels">RFC2119</a></cite>] [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc8174" title="Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words">RFC8174</a></cite>]
         when, and only when, they appear in all
         capitals, as shown here.
-      </p>
-    </section>
+      </p></section>
     <section class="appendix" id="acknowledgements"><div class="header-wrapper"><h2 class="appendix" id="d-acknowledgements"><bdi class="secno">D. </bdi>
       Acknowledgements
     </h2><a class="self-link" href="#acknowledgements" aria-label="Permalink for Appendix D."></a></div>
