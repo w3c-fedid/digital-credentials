@@ -752,13 +752,13 @@
               </li>
             </ol>
           </li>
-          <li>Let |protocol| be the [=digital credential/exchange protocol=] or
-          [=digital credential/issuance protocol=] identifier used in the
-          exchange.
+          <li>Let |protocol:DigitalCredentialProtocol| be the
+          {{DigitalCredentialProtocol}} [=enumeration value=] that matches the
+          [=digital credential/protocol identifier=] used in the exchange.
           </li>
-          <li>Let |credential| be a new {{DigitalCredential}} object with its
-          {{DigitalCredential/data}} set to |parsedDataOrError| and its
-          {{DigitalCredential/protocol}} set to |protocol|.
+          <li>Let |credential| be a newly created {{DigitalCredential}} instance with its
+          {{DigitalCredential/data}} initialized to |parsedDataOrError| and its
+          {{DigitalCredential/protocol}} initialized to |protocol|.
           </li>
           <li>[=Queue a global task=] on the [=DOM manipulation task source=]
           given |document|'s [=relevant global object=] to perform the
@@ -1033,7 +1033,7 @@
     [Exposed=Window, SecureContext]
     interface DigitalCredential : Credential {
       [Default] object toJSON();
-      readonly attribute DOMString protocol;
+      readonly attribute DigitalCredentialProtocol protocol;
       [SameObject] readonly attribute object data;
       static boolean userAgentAllowsProtocol(DOMString protocol);
     };
