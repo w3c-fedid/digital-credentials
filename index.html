@@ -132,7 +132,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="2345a5bac46ccab8a2b9d6c901e32cbd0eb10b06">
+<meta name="revision" content="440cdc027407001393fa43b4dcd788748545e21f">
 <meta name="description" content="This document specifies an API to enable user agents to mediate
         presentation and issuance of digital credentials such as a driver's
         license, government-issued identification card, and/or other types of digital credential. The API builds on
@@ -270,7 +270,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "2345a5bac46ccab8a2b9d6c901e32cbd0eb10b06",
+  "gitRevision": "440cdc027407001393fa43b4dcd788748545e21f",
   "publishISODate": "2026-01-29T00:00:00.000Z",
   "generatedSubtitle": "W3C Editor's Draft 29 January 2026"
 }</script>
@@ -1692,8 +1692,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           The Digital Credentials API is designed to mediate requests for
           digital credentials from websites, being agnostic to the credential
           format and the information contained in it, as well as the protocol
-          used to present it (within the bounds on the protocol registry
-          inclusion criteria). This and other key design choices are derived
+          used to exchange it. This and other key design choices are derived
           from the goal of providing a more secure and private credential
           exchange experience for users than the existing alternatives (e.g.,
           [<cite><a class="bibref" data-link-type="biblio" href="#bib-custom-schemes" title="Concerns with custom schemes for identity presentment">custom-schemes</a></cite>]), that is still compatible with common exchange
@@ -1774,12 +1773,6 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           these parties for exchanging user information are crucial to the
           <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-0-14">user agent</a>'s goal of protecting user privacy.
         </p>
-        <p>
-          The protocol registry for the Digital Credentials API is designed to
-          ensure that, among other requirements, supported protocols facilitate
-          specific privacy-enhancing capabilities. Protocols are required to
-          undergo privacy review by the <abbr title="World Wide Web Consortium">W3C</abbr>'s <a href="https://www.w3.org/groups/wg/privacy/">Privacy Working Group</a>.
-        </p>
         <section id="presentation-protocol-considerations-for-user-privacy"><div class="header-wrapper"><h4 id="x11-3-1-presentation-protocol-considerations-for-user-privacy"><bdi class="secno">11.3.1 </bdi>
           Presentation Protocol Considerations for User Privacy
         </h4><a class="self-link" href="#presentation-protocol-considerations-for-user-privacy" aria-label="Permalink for Section 11.3.1"></a></div>
@@ -1843,8 +1836,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         </p>
         <div class="issue" id="issue-container-number-279"><div role="heading" class="issue-title marker" id="h-issue-4" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/279"><span class="issue-number">Issue 279</span></a><span class="issue-label">: Linkability and issuer involvement as a protocol requirement <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a></span></div><p class="">
           Which level of unlinkability is the goal for this API? Can we
-          normatively enforce support for any particular unlinkability features
-          as part of the protocol registry inclusion criteria?
+          normatively enforce support for any particular unlinkability features?
         </p></div>
         </section><section id="phone-home-mechanisms"><div class="header-wrapper"><h5 id="x11-3-1-3-phone-home-mechanisms"><bdi class="secno">11.3.1.3 </bdi>
           "Phone home" mechanisms
@@ -2219,15 +2211,10 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           with the desire to enable the ecosystem to develop new credential
           formats without explicit <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-0-37">user agent</a> buy-in.
         </p></div>
-        <div class="issue" id="issue-container-number-117"><div role="heading" class="issue-title marker" id="h-issue-10" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/117"><span class="issue-number">Issue 117</span></a><span class="issue-label">: Should we have a common and interoperable definition of request types and their privacy properties? <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22discussion%22" style="background-color: rgb(75, 158, 238); color: rgb(0, 0, 0);" aria-label="GitHub label: discussion">discussion</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a></span></div><p class="">
-          Is it a good idea for the group to maintain a registry of request
-          types and/or <a href="https://github.com/w3c-fedid/digital-credentials/issues/85">credential
-          types</a>?
-        </p></div>
         </section><section id="reporting-abuse"><div class="header-wrapper"><h5 id="x11-4-2-4-reporting-abuse"><bdi class="secno">11.4.2.4 </bdi>
           Reporting abuse
         </h5><a class="self-link" href="#reporting-abuse" aria-label="Permalink for Section 11.4.2.4"></a></div>
-        <div class="issue" id="issue-container-number-267"><div role="heading" class="issue-title marker" id="h-issue-11" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/267"><span class="issue-number">Issue 267</span></a><span class="issue-label">: reporting abuse of credential requests <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a></span></div><p class="">
+        <div class="issue" id="issue-container-number-267"><div role="heading" class="issue-title marker" id="h-issue-10" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/267"><span class="issue-number">Issue 267</span></a><span class="issue-label">: reporting abuse of credential requests <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a></span></div><p class="">
           Consider an interoperable abuse reporting system for verifiers making
           unnecessary and abusive requests.
         </p></div>
@@ -2320,7 +2307,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         </h3><a class="self-link" href="#user-permission-and-transparency" aria-label="Permalink for Section 11.6"></a></div>
         
         
-        <div class="issue" id="issue-container-generatedID-7"><div role="heading" class="issue-title marker" id="h-issue-12" aria-level="4"><span>Issue</span><span class="issue-label">: Work in progress</span></div><p class=""></p></div>
+        <div class="issue" id="issue-container-generatedID-7"><div role="heading" class="issue-title marker" id="h-issue-11" aria-level="4"><span>Issue</span><span class="issue-label">: Work in progress</span></div><p class=""></p></div>
         <p>
           The Digital Credentials API enables the sharing of highly personal,
           sensitive, and at-risk user information with websites via
@@ -2357,17 +2344,17 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           that the details listed are fully disclosed to the user before an
           exchange of any user-related information occurs.
         </p>
-        <div class="issue" id="issue-container-number-252"><div role="heading" class="issue-title marker" id="h-issue-13" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/252"><span class="issue-number">Issue 252</span></a><span class="issue-label">: Should we normatively define elements of a permission prompt? <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a></span></div><p class="">
+        <div class="issue" id="issue-container-number-252"><div role="heading" class="issue-title marker" id="h-issue-12" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/252"><span class="issue-number">Issue 252</span></a><span class="issue-label">: Should we normatively define elements of a permission prompt? <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a></span></div><p class="">
           Should these be normative in the spec?
         </p></div>
-        <div class="issue" id="issue-container-number-44"><div role="heading" class="issue-title marker" id="h-issue-14" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/44"><span class="issue-number">Issue 44</span></a><span class="issue-label">: API requests should provide the site with what they need to explain why and how requested credential information will be used <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22enhancement%22" style="background-color: rgb(162, 238, 239); color: rgb(0, 0, 0);" aria-label="GitHub label: enhancement">enhancement</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22dc2-proposal%22" style="background-color: rgb(60, 103, 134); color: rgb(255, 255, 255);" aria-label="GitHub label: dc2-proposal">dc2-proposal</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a></span></div><p class="">
+        <div class="issue" id="issue-container-number-44"><div role="heading" class="issue-title marker" id="h-issue-13" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/44"><span class="issue-number">Issue 44</span></a><span class="issue-label">: API requests should provide the site with what they need to explain why and how requested credential information will be used <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22enhancement%22" style="background-color: rgb(162, 238, 239); color: rgb(0, 0, 0);" aria-label="GitHub label: enhancement">enhancement</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22dc2-proposal%22" style="background-color: rgb(60, 103, 134); color: rgb(255, 255, 255);" aria-label="GitHub label: dc2-proposal">dc2-proposal</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a></span></div><p class="">
           Should the API be designed so the site can provide in-context
           explanations?
         </p></div>
         <section id="handling-multiple-credential-requests"><div class="header-wrapper"><h4 id="x11-6-1-handling-multiple-credential-requests"><bdi class="secno">11.6.1 </bdi>
           Handling multiple credential requests
         </h4><a class="self-link" href="#handling-multiple-credential-requests" aria-label="Permalink for Section 11.6.1"></a></div>
-        <div class="issue" id="issue-container-number-286"><div role="heading" class="issue-title marker" id="h-issue-15" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/286"><span class="issue-number">Issue 286</span></a><span class="issue-label">: Privacy Considerations for multiple presentation requests (and responses) <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a></span></div><p class="">
+        <div class="issue" id="issue-container-number-286"><div role="heading" class="issue-title marker" id="h-issue-14" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/286"><span class="issue-number">Issue 286</span></a><span class="issue-label">: Privacy Considerations for multiple presentation requests (and responses) <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a></span></div><p class="">
           We need to describe concerns, tradeoffs and possible mitigations of
           handling multiple requests and responses for credential presentation.
         </p></div>
