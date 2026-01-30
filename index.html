@@ -114,7 +114,7 @@
     </p>
     <p>
       The API design is agnostic to credential formats and includes support for
-      multiple [=digital credential/exchange protocols=] and [=digital
+      multiple [=digital credential/presentation protocols=] and [=digital
       credential/issuance protocols=]. See [[[#protocols]]].
     </p>
     <p>
@@ -124,7 +124,7 @@
       <li>Keep the acts of [=digital credential/presentation
       requests|requesting=] and [=digital credential/issuance
       requests|issuing=] separate from the specific [=digital
-      credential/exchange protocol=] and [=digital credential/issuance
+      credential/presentation protocol=] and [=digital credential/issuance
       protocol=] respectively; thereby enabling the extensibility of such
       protocols and credential formats.
       </li>
@@ -463,14 +463,14 @@
       <dd>
         A presentation request is a request for a [=digital credential=]
         composed of [=digital credential/request data=] and a [=digital
-        credential/exchange protocol=].
+        credential/presentation protocol=].
       </dd>
       <dt>
         <dfn data-dfn-for="digital credential">Request data</dfn>
       </dt>
       <dd>
         A format that [=verifier=] software or a [=user agent=] uses, via an
-        [=digital credential/exchange protocol=], to request a [=digital
+        [=digital credential/presentation protocol=], to request a [=digital
         credential=] from a [=holder=].
       </dd>
       <dt>
@@ -479,7 +479,7 @@
       </dt>
       <dd>
         A format that a [=holder's=] software, such as a digital wallet, uses,
-        via an [=digital credential/exchange protocol=], to respond to a
+        via an [=digital credential/presentation protocol=], to respond to a
         [=digital credential/presentation request=] by a [=verifier=].
       </dd>
       <dt>
@@ -524,10 +524,10 @@
       </dd>
       <dt>
         <dfn data-dfn-for="digital credential" data-local-lt=
-        "exchange protocol">Exchange protocol</dfn>
+        "presentation protocol">Presentation protocol</dfn>
       </dt>
       <dd>
-        A standardized protocol used for exchanging a [=digital credential=]
+        A standardized protocol used for presenting a [=digital credential=]
         between a [=holder=] and a [=verifier=]. A protocol is identified by a
         [=digital credential/protocol identifier=]. See [[[#protocols]]].
       </dd>
@@ -563,8 +563,8 @@
       Protocols
     </h2>
     <p>
-      Use of the following presentation protocols is defined by this
-      specification. <!-- TODO: replace with new dfn from 434 -->
+      Use of the following [=digital credential/presentation protocols=] is
+      defined by this specification.
     </p>
     <p>
       A [=user agent=] MUST implement at least one of the [=digital
@@ -586,9 +586,9 @@
     </aside>
     <table class="data">
       <caption>
-        <dfn class="export">Table of supported presentation and [=digital
-        credential/issuance protocol|issuance=] protocols</dfn> 
-        <!-- TODO: replace with new dfn from 434 -->
+        <dfn class="export">Table of supported [=digital
+        credential/presentation protocols=] and [=digital credential/issuance
+        protocol|issuance=] protocols</dfn>
       </caption>
       <thead>
         <tr>
@@ -612,7 +612,7 @@
             [[[OPENID4VP]]] - Unsigned Requests
           </td>
           <td>
-            Presentation Protocol <!-- TODO: replace with new dfn from 434 -->
+            [=digital credential/presentation protocol|Presentation=]
           </td>
           <td>
             <dfn data-dfn-for=
@@ -628,7 +628,7 @@
             [[[OPENID4VP]]] - Signed Requests
           </td>
           <td>
-            Presentation Protocol <!-- TODO: replace with new dfn from 434 -->
+            [=digital credential/presentation protocol|Presentation=]
           </td>
           <td>
             <dfn data-dfn-for=
@@ -644,7 +644,7 @@
             [[[OPENID4VP]]] - Multi-signed Requests
           </td>
           <td>
-            Presentation Protocol <!-- TODO: replace with new dfn from 434 -->
+            [=digital credential/presentation protocol|Presentation=]
           </td>
           <td>
             <dfn data-dfn-for=
@@ -660,7 +660,7 @@
             [[[ISO18013-7]]] - Annex C
           </td>
           <td>
-            Presentation Protocol <!-- TODO: replace with new dfn from 434 -->
+            [=digital credential/presentation protocol|Presentation=]
           </td>
           <td>
             <dfn data-dfn-for=
@@ -885,7 +885,7 @@
     </h4>
     <p>
       The <dfn data-dfn-for="DigitalCredentialRequestOptions">requests</dfn>
-      specify an [=digital credential/exchange protocol=] and [=digital
+      specify an [=digital credential/presentation protocol=] and [=digital
       credential/request data=], which the user agent MAY match against a
       holder's software, such as a digital wallet.
     </p><!--
@@ -897,7 +897,7 @@
     <p>
       The {{DigitalCredentialGetRequest}} dictionary represents a [=digital
       credential/presentation request=]. It is used to specify an [=digital
-      credential/exchange protocol=] and some [=digital credential/request
+      credential/presentation protocol=] and some [=digital credential/request
       data=], which the user agent MAY match against software used by a holder,
       such as a digital wallet.
     </p>
@@ -912,7 +912,7 @@
     </h4>
     <p>
       The <dfn data-dfn-for="DigitalCredentialGetRequest">protocol</dfn> member
-      denotes the [=digital credential/exchange protocol=].
+      denotes the [=digital credential/presentation protocol=].
     </p>
     <p>
       The {{DigitalCredentialGetRequest/protocol}} member's value is one of the
@@ -1042,7 +1042,7 @@
     </h4>
     <p>
       The <dfn data-dfn-for="DigitalCredential">protocol</dfn> member is the
-      [=digital credential/exchange protocol=] that was used to request the
+      [=digital credential/presentation protocol=] that was used to request the
       [=digital credential=], or the [=digital credential/issuance protocol=]
       that was used to issue the [=digital credential=].
     </p>
@@ -1060,13 +1060,13 @@
     </h4>
     <p>
       The {{DigitalCredential/userAgentAllowsProtocol()}} method allows digital
-      credential [=verifiers=] to determine which [=digital credential/exchange
-      protocols=] and [=digital credential/issuance protocols=] the user agent
-      allows.
+      credential [=verifiers=] to determine which [=digital
+      credential/presentation protocols=] and [=digital credential/issuance
+      protocols=] the user agent allows.
     </p>
     <p class="note">
-      This method does not convey [=digital credential/exchange protocol=] or
-      [=digital credential/issuance protocol=] support in the underlying
+      This method does not convey [=digital credential/presentation protocol=]
+      or [=digital credential/issuance protocol=] support in the underlying
       OS/platform.
     </p>
     <p>
@@ -1103,9 +1103,8 @@
       The {{DigitalCredentialPresentationProtocol}} enumeration
     </h4>
     <p>
-      This enumeration's values correspond to the supported presentation
-      protocols listed in [[[#protocols]]]. 
-      <!-- TODO: replace with new dfn from 434 -->
+      This enumeration's values correspond to the supported [=digital
+      credential/presentation protocols=] listed in [[[#protocols]]].
     </p>
     <pre class="idl">
       enum DigitalCredentialPresentationProtocol {
@@ -1116,9 +1115,8 @@
       };
       </pre>
     <h2 id="credential-management-integration">
-      Integration with Credential Management API
-    </h2>
-    <aside class="issue" data-number="65"></aside><!--
+      Integration with [[[credential-management]]]
+    </h2><!--
     // MARK: [[\DiscoverFromExternalSource]]
     -->
     <h3>
@@ -1383,8 +1381,7 @@
           The Digital Credentials API is designed to mediate requests for
           digital credentials from websites, being agnostic to the credential
           format and the information contained in it, as well as the protocol
-          used to exchange it (within the bounds on the protocol registry
-          inclusion criteria). This and other key design choices are derived
+          used to exchange it. This and other key design choices are derived
           from the goal of providing a more secure and private credential
           exchange experience for users than the existing alternatives (e.g.,
           [[custom-schemes]]), that is still compatible with common exchange
@@ -1392,11 +1389,11 @@
         </p>
         <p>
           The API provides the connection interface between [=verifiers=] and
-          [=holders=], i.e. the means by which a [=digital credential/exchange
-          protocol|credential exchange protocol=] is initiated and the user
-          switches to the [=holder=] application to select a credential.
-          Solutions that have been used for this purpose in the past include QR
-          codes and custom URL schemes. As documented in
+          [=holders=], i.e. the means by which a [=digital
+          credential/presentation protocol|credential presentation protocol=]
+          is initiated and the user switches to the [=holder=] application to
+          select a credential. Solutions that have been used for this purpose
+          in the past include QR codes and custom URL schemes. As documented in
           [[[presenting-credentials-on-the-web]]] and [[[custom-schemes]]],
           those solutions have security, privacy, and accessibility concerns.
         </p>
@@ -1405,8 +1402,9 @@
           ecosystem demand and regulatory mandates, the Web platform offers an
           alternative to the aforementioned less-desirable technologies that is
           easy to use for developers, is compatible with existing credential
-          exchange protocols and, most importantly, has better user privacy,
-          security, and accessibility properties than these alternatives.
+          [=digital credential/presentation protocols=] and, most importantly,
+          has better user privacy, security, and accessibility properties than
+          these alternatives.
         </p>
         <p>
           The Digital Credentials API offers the [=user agent=] the ability to
@@ -1461,27 +1459,20 @@
       </section>
       <section>
         <!--
-        // MARK: Exchange Protocol and Credential Format
+        // MARK: Presentation Protocol and Credential Format
         -->
         <h3>
-          Exchange Protocol and Credential Format
+          Presentation Protocol and Credential Format
         </h3>
         <p>
           Because the Digital Credentials API sits at the center of an exchange
-          that involves multiple independent parties, the exchange protocol and
-          credential format used by these parties for exchanging user
-          information are crucial to the [=user agent=]'s goal of protecting
-          user privacy.
-        </p>
-        <p>
-          The protocol registry for the Digital Credentials API is designed to
-          ensure that, among other requirements, supported protocols facilitate
-          specific privacy-enhancing capabilities. Protocols are required to
-          undergo privacy review by the W3C's <a href=
-          "https://www.w3.org/groups/wg/privacy/">Privacy Working Group</a>.
+          that involves multiple independent parties, the [=digital
+          credential/presentation protocol=] and credential format used by
+          these parties for exchanging user information are crucial to the
+          [=user agent=]'s goal of protecting user privacy.
         </p>
         <h4>
-          Exchange Protocol Considerations for User Privacy
+          Presentation Protocol Considerations for User Privacy
         </h4>
         <aside class="issue" data-number="255"></aside>
         <h5>
@@ -1537,8 +1528,8 @@
         </p>
         <p class="issue" data-number="279">
           Which level of unlinkability is the goal for this API? Can we
-          normatively enforce support for any particular unlinkability features
-          as part of the protocol registry inclusion criteria?
+          normatively enforce support for any particular unlinkability
+          features?
         </p>
         <h5>
           "Phone home" mechanisms
@@ -1597,9 +1588,9 @@
         </h5>
         <p>
           User understanding and participation are non-negotiable properties of
-          a credential exchange. The protocol is expected to help all involved
-          parties enable user participation by providing the information vital
-          for informed permission and/or consent.
+          a credential presentation. The protocol is expected to help all
+          involved parties enable user participation by providing the
+          information vital for informed permission and/or consent.
         </p>
         <h5>
           Support for verifier authorization
@@ -1715,8 +1706,8 @@
           applies to both types of credentials is the [=user agent=]'s ability
           to inspect the credential request metadata and make decisions or UI
           presentation based on it. The DC API ensures this [=user agent=]
-          access to the exchange through requirements placed on protocols to
-          transmit requests unencrypted and to include relevant information.
+          access to the presentation through requirements placed on protocols
+          to transmit requests unencrypted and to include relevant information.
         </p>
         <h4>
           Government-issued credentials
@@ -1925,12 +1916,6 @@
           with the desire to enable the ecosystem to develop new credential
           formats without explicit [=user agent=] buy-in.
         </p>
-        <p class="issue" data-number="117">
-          Is it a good idea for the group to maintain a registry of request
-          types and/or <a href=
-          "https://github.com/w3c-fedid/digital-credentials/issues/85">credential
-          types</a>?
-        </p>
         <h5>
           Reporting abuse
         </h5>
@@ -1998,14 +1983,16 @@
           Revealing device properties through protocol availability
         </h4>
         <p>
-          The Digital Credentials API exposes information about which
-          credential exchange protocols are supported by the [=user agent=]
-          through {{DigitalCredential/userAgentAllowsProtocol()}}. It mitigates
-          browser fingerprinting and revealing information about the user's
-          device configuration by not customizing its response based on, for
-          example, which digital wallet applications are installed on a user's
-          device. The returned information is thus, at best, equivalent to a
-          [=user agent=] version.
+          The Digital Credentials API exposes information about which [=digital
+          credential/presentation protocol|presentation=] and [=digital
+          credential/issuance protocol|issuance=] protocols are supported by
+          the [=user agent=] through
+          {{DigitalCredential/userAgentAllowsProtocol()}}. It mitigates browser
+          fingerprinting and revealing information about the user's device
+          configuration by not customizing its response based on, for example,
+          which digital wallet applications are installed on a user's device.
+          The returned information is thus, at best, equivalent to a [=user
+          agent=] version.
         </p>
         <h4>
           Avoiding leaks of credential availability
