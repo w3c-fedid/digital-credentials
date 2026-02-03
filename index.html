@@ -570,87 +570,75 @@
     <table class="data">
       <caption>
         <dfn class="export">Table of supported [=digital
-        credential/presentation protocols=] and [=digital credential/issuance
-        protocol|issuance=] protocols</dfn>
+        credential/presentation protocol|presentation=] and [=digital
+        credential/issuance protocol|issuance=] protocols</dfn>
       </caption>
       <thead>
         <tr>
-          <th>
-            Name
+          <th scope="col">
+            [=digital credential/Protocol identifier|Identifier=]
           </th>
-          <th>
-            Type
-          </th>
-          <th>
-            [=digital credential/Protocol identifier=]
-          </th>
-          <th>
-            Reference
+          <th scope="col">
+            Specification
           </th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>
-            [[[OPENID4VP]]] - Unsigned Requests
-          </td>
-          <td>
-            [=digital credential/presentation protocol|Presentation=]
-          </td>
-          <td>
+          <th scope="rowgroup" colspan="2">
+            [=digital credential/Presentation protocols=]
+          </th>
+        </tr>
+        <tr>
+          <th scope="row">
             <dfn data-dfn-for=
             "DigitalCredentialPresentationProtocol">openid4vp-v1-unsigned</dfn>
-          </td>
+          </th>
           <td>
-            [[OPENID4VP]] <a data-cite=
-            "OPENID4VP#name-unsigned-request">Appendix A: 3.1</a>
+            [[[OPENID4VP]]] § <a data-cite=
+            "OPENID4VP#name-unsigned-request">A.3.1. Unsigned Request</a>
           </td>
         </tr>
         <tr>
-          <td>
-            [[[OPENID4VP]]] - Signed Requests
-          </td>
-          <td>
-            [=digital credential/presentation protocol|Presentation=]
-          </td>
-          <td>
+          <th scope="row">
             <dfn data-dfn-for=
             "DigitalCredentialPresentationProtocol">openid4vp-v1-signed</dfn>
-          </td>
+          </th>
           <td>
-            [[OPENID4VP]] <a data-cite="OPENID4VP#name-signed-request">Appendix
-            A: 3.2</a>
+            [[[OPENID4VP]]] § <a data-cite=
+            "OPENID4VP#name-signed-request">A.3.2. Signed Request</a>
           </td>
         </tr>
         <tr>
-          <td>
-            [[[OPENID4VP]]] - Multi-signed Requests
-          </td>
-          <td>
-            [=digital credential/presentation protocol|Presentation=]
-          </td>
-          <td>
+          <th scope="row">
             <dfn data-dfn-for=
             "DigitalCredentialPresentationProtocol">openid4vp-v1-multisigned</dfn>
-          </td>
+          </th>
           <td>
-            [[OPENID4VP]] <a data-cite=
-            "OPENID4VP#name-jws-json-serialization">Appendix A: 3.2.2</a>
+            [[[OPENID4VP]]] § <a data-cite=
+            "OPENID4VP#name-jws-json-serialization">A.3.2.2. JWS JSON
+            Serialization</a> (Multi-signed requests)
           </td>
         </tr>
         <tr>
-          <td>
-            [[[ISO18013-7]]] - Annex C
-          </td>
-          <td>
-            [=digital credential/presentation protocol|Presentation=]
-          </td>
-          <td>
+          <th scope="row">
             <dfn data-dfn-for=
             "DigitalCredentialPresentationProtocol">org-iso-mdoc</dfn>
-          </td>
+          </th>
           <td>
-            [[ISO18013-7]] Annex C
+            [[[ISO18013-7]]] § Annex C
+          </td>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr>
+          <th scope="rowgroup" colspan="2">
+            [=digital credential/Issuance protocols=]
+          </th>
+        </tr>
+        <tr>
+          <td colspan="2">
+            No issuance protocols are currently defined.
           </td>
         </tr>
       </tbody>
