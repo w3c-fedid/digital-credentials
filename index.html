@@ -756,9 +756,10 @@
           {{DigitalCredentialProtocol}} [=enumeration value=] that matches the
           [=digital credential/protocol identifier=] used in the exchange.
           </li>
-          <li>Let |credential| be a newly created {{DigitalCredential}} instance with its
-          {{DigitalCredential/data}} initialized to |parsedDataOrError| and its
-          {{DigitalCredential/protocol}} initialized to |protocol|.
+          <li>Let |credential| be a newly created {{DigitalCredential}}
+          instance with its {{DigitalCredential/data}} initialized to
+          |parsedDataOrError| and its {{DigitalCredential/protocol}}
+          initialized to |protocol|.
           </li>
           <li>[=Queue a global task=] on the [=DOM manipulation task source=]
           given |document|'s [=relevant global object=] to perform the
