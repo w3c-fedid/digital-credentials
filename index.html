@@ -781,10 +781,8 @@
               request coordinator/interaction state=] to "[=credential request
               coordinator/aborting=]".
               </li>
-              <li>Have the request coordinator dismiss the [=credential
-              chooser=] and await confirmation of dismissal before it returns
-              to the [=credential request coordinator/idle=] [=credential
-              request coordinator/interaction state=].
+              <li>Dismiss the [=credential chooser=] and await confirmation of
+              dismissal.
               </li>
               <li>Let |error| be |signal|'s [=AbortSignal/abort reason=].
               </li>
@@ -869,6 +867,20 @@
       </li>
       <li>[=credential request coordinator/Present the credential request=]
       with |document|, |validatedRequests|, and |signal|.
+      </li>
+      <li>If |document| stops being [=document/fully active=]:
+        <ol>
+          <li>If the [=credential request coordinator=] is not in the
+          "[=credential request coordinator/requesting=]" [=credential request
+          coordinator/interaction state=], return.
+          </li>
+          <li>Dismiss the [=credential chooser=] and await confirmation of
+          dismissal.
+          </li>
+          <li>[=credential request coordinator/Complete credential request
+          with=] an {{"AbortError"}} {{DOMException}}.
+          </li>
+        </ol>
       </li>
     </ol>
     <h3>
