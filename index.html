@@ -767,16 +767,16 @@
       <li>Set the [=credential request coordinator=]'s [=credential request
       coordinator/active promise=] to |promise|.
       </li>
-      <li>If |signal| was passed:
+      <li>If |signal| was passed, [=AbortSignal/Add=] the following algorithm
+      to |signal|:
         <ol>
-          <li>Assert: |signal| is not [=AbortSignal/aborted=].
+          <li>If the [=credential request coordinator=]'s [=credential request
+          coordinator/active promise=] is not |promise|, return.
           </li>
-          <li>[=AbortSignal/Add=] the following algorithm to |signal|:
+          <li>If the [=credential request coordinator=] is in the "[=credential
+          request coordinator/requesting=]" [=credential request
+          coordinator/interaction state=]:
             <ol>
-              <li>If the [=credential request coordinator=] is not in the
-              "[=credential request coordinator/requesting=]" [=credential
-              request coordinator/interaction state=], return.
-              </li>
               <li>Set the [=credential request coordinator=] [=credential
               request coordinator/interaction state=] to "[=credential request
               coordinator/aborting=]".
@@ -784,12 +784,12 @@
               <li>Dismiss the [=credential chooser=] and await confirmation of
               dismissal.
               </li>
-              <li>Let |error| be |signal|'s [=AbortSignal/abort reason=].
-              </li>
-              <li>[=credential request coordinator/Complete credential request
-              with=] |error|.
-              </li>
             </ol>
+          </li>
+          <li>Let |error| be |signal|'s [=AbortSignal/abort reason=].
+          </li>
+          <li>[=credential request coordinator/Complete credential request
+          with=] |error|.
           </li>
         </ol>
       </li>
@@ -856,6 +856,17 @@
         <ol>
           <li>[=credential request coordinator/Complete credential request
           with=] a newly created {{TypeError}}.
+          </li>
+          <li>Return.
+          </li>
+        </ol>
+      </li>
+      <li>If |signal| was passed and |signal| is [=AbortSignal/aborted=]:
+        <ol>
+          <li>Let |error| be |signal|'s [=AbortSignal/abort reason=].
+          </li>
+          <li>[=credential request coordinator/Complete credential request
+          with=] |error|.
           </li>
           <li>Return.
           </li>
@@ -1289,6 +1300,9 @@
       <li>Let |signal| be |options|'s {{CredentialRequestOptions/signal}} if
       present.
       </li>
+      <li>If |signal| was set and |signal| is [=AbortSignal/aborted=], return
+      [=a promise rejected with=] |signal|'s [=AbortSignal/abort reason=].
+      </li>
       <li>[=credential request coordinator/Prepare credential requests=] with
       |document|, |requests|, |promise|, and |signal|.
       </li>
@@ -1361,6 +1375,9 @@
       </li>
       <li>Let |signal| be |options|'s {{CredentialCreationOptions/signal}} if
       present.
+      </li>
+      <li>If |signal| was set and |signal| is [=AbortSignal/aborted=], return
+      [=a promise rejected with=] |signal|'s [=AbortSignal/abort reason=].
       </li>
       <li>[=credential request coordinator/Prepare credential requests=] with
       |document|, |requests|, |promise|, and |signal|.
