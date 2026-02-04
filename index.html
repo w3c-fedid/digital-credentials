@@ -670,6 +670,16 @@
       {{AbortSignal}}.
     </p>
     <p>
+      The [=credential request coordinator=] maintains an <dfn data-dfn-for=
+      "credential request coordinator">abort signal</dfn>, which the user agent
+      initializes as `null`.
+    </p>
+    <p>
+      The [=credential request coordinator=] maintains an <dfn data-dfn-for=
+      "credential request coordinator">abort algorithm</dfn>, which the user
+      agent initializes as `null`.
+    </p>
+    <p>
       The [=credential request coordinator=]:
     </p>
     <ul>
@@ -767,14 +777,26 @@
       <li>Set the [=credential request coordinator=]'s [=credential request
       coordinator/active promise=] to |promise|.
       </li>
-      <li>If |signal| was passed, [=AbortSignal/Add=] the following algorithm
-      to |signal|:
+      <li>If |signal| was passed:
         <ol>
-          <li>If the [=credential request coordinator=]'s [=credential request
-          coordinator/active promise=] is not |promise|, return.
+          <li>Set the [=credential request coordinator=]'s [=credential request
+          coordinator/abort signal=] to |signal|.
           </li>
-          <li>[=credential request coordinator/Abort the credential request=]
-          with |document| and |signal|'s [=AbortSignal/abort reason=].
+          <li>Let |abortAlgorithm| be the following algorithm:
+            <ol>
+              <li>If the [=credential request coordinator=]'s [=credential
+              request coordinator/active promise=] is not |promise|, return.
+              </li>
+              <li>[=credential request coordinator/Abort the credential
+              request=] with |document| and |signal|'s [=AbortSignal/abort
+              reason=].
+              </li>
+            </ol>
+          </li>
+          <li>Set the [=credential request coordinator=]'s [=credential request
+          coordinator/abort algorithm=] to |abortAlgorithm|.
+          </li>
+          <li>[=AbortSignal/Add=] |abortAlgorithm| to |signal|.
           </li>
         </ol>
       </li>
