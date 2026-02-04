@@ -740,8 +740,21 @@
       Prepare credential requests
     </h3>
     <p>
-      To be written.
+      To <dfn data-dfn-for="credential request coordinator">prepare credential
+      requests</dfn> given a [=Document=] |document:Document|, a sequence of
+      {{DigitalCredentialGetRequest}} or {{DigitalCredentialCreateRequest}}
+      objects |requests|, a {{Promise}} |promise:Promise|, and an optional
+      {{AbortSignal}} |signal:AbortSignal|:
     </p>
+    <ol>
+      <li>
+        <aside class="issue">
+          See <a href=
+          "https://github.com/w3c-fedid/digital-credentials/pull/420">Pull
+          request #420</a>.
+        </aside>
+      </li>
+    </ol>
     <h3>
       Abort the credential request
     </h3>
@@ -1136,13 +1149,18 @@
       </li>
       <li>[=Consume user activation=] of |global|.
       </li>
-      <li>
-        <aside class="issue">
-          Details of how to actually get the [=digital credential=] are
-          forthcoming.
-        </aside>
+      <li>Let |promise| be [=a new promise=].
       </li>
-      <li>Return a {{DigitalCredential}}.
+      <li>Let |signal| be |options|'s {{CredentialRequestOptions/signal}} if
+      present.
+      </li>
+      <li>If |signal| was set and |signal| is [=AbortSignal/aborted=], return
+      [=a promise rejected with=] |signal|'s [=AbortSignal/abort reason=].
+      </li>
+      <li>[=credential request coordinator/Prepare credential requests=] with
+      |document|, |requests|, |promise|, and |signal|.
+      </li>
+      <li>Return |promise|.
       </li>
     </ol><!--
     // MARK: [[Store]]()
@@ -1201,17 +1219,18 @@
       </li>
       <li>[=Consume user activation=] of |global|.
       </li>
-      <li>
-        <aside class="issue">
-          Details of how to actually issue the [=digital credential=] are
-          forthcoming.
-        </aside>
+      <li>Let |promise| be [=a new promise=].
       </li>
-      <li>Return a newly constructed {{DigitalCredential}} with
-      {{DigitalCredential/protocol}} initialized to the protocol that was used
-      to issue this credential, and {{DigitalCredential/data}} initialized to
-      an [=digital credential/issuance response=] defined by that [=digital
-      credential/issuance protocol=].
+      <li>Let |signal| be |options|'s {{CredentialCreationOptions/signal}} if
+      present.
+      </li>
+      <li>If |signal| was set and |signal| is [=AbortSignal/aborted=], return
+      [=a promise rejected with=] |signal|'s [=AbortSignal/abort reason=].
+      </li>
+      <li>[=credential request coordinator/Prepare credential requests=] with
+      |document|, |requests|, |promise|, and |signal|.
+      </li>
+      <li>Return |promise|.
       </li>
     </ol><!--
     // MARK: [[type]] internal slot
