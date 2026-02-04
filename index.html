@@ -788,8 +788,7 @@
               request coordinator/active promise=] is not |promise|, return.
               </li>
               <li>[=credential request coordinator/Abort the credential
-              request=] with |document| and |signal|'s [=AbortSignal/abort
-              reason=].
+              request=] |signal|'s [=AbortSignal/abort reason=].
               </li>
             </ol>
           </li>
@@ -887,8 +886,8 @@
       with |document|, |validatedRequests|, and |signal|.
       </li>
       <li>If |document| stops being [=Document/fully active=], [=credential
-      request coordinator/Abort the credential request=] with |document| and an
-      {{"AbortError"}} {{DOMException}}.
+      request coordinator/Abort the credential request=] an {{"AbortError"}}
+      {{DOMException}}.
       </li>
     </ol>
     <h3>
