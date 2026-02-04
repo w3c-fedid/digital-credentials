@@ -997,12 +997,12 @@
       non-overridable behavior of the API.
     </p>
     <pre class="idl">
-    typedef DigitalCredentialPresentationProtocol DigitalCredentialsProtocol;
+    typedef DigitalCredentialPresentationProtocol DigitalCredentialProtocol;
 
     [Exposed=Window, SecureContext]
     interface DigitalCredential : Credential {
       [Default] object toJSON();
-      readonly attribute DigitalCredentialsProtocol protocol;
+      readonly attribute DigitalCredentialProtocol protocol;
       [SameObject] readonly attribute object data;
       static boolean userAgentAllowsProtocol(DOMString protocol);
     };
@@ -1059,7 +1059,7 @@
     </p>
     <ol class="algorithm">
       <li>If |protocol| is not an [=enumeration value=] of
-      {{DigitalCredentialsProtocol}}, return `false`.
+      {{DigitalCredentialProtocol}}, return `false`.
       </li>
       <li>Return `true` if the user agent allows |protocol|, otherwise return
       `false`.
