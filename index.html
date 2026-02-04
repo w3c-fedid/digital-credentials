@@ -742,12 +742,43 @@
     <p>
       To be written.
     </p>
+    <ol class="algorithm">
+      <li>If |document| stops being [=Document/fully active=], [=credential
+      request coordinator/abort the credential request=] an {{"AbortError"}}
+      {{DOMException}}.
+      </li>
+    </ol>
     <h3>
       Abort the credential request
     </h3>
     <p>
-      To be written.
+      To <dfn data-dfn-for="credential request coordinator">abort the
+      credential request</dfn> a JavaScript value or {{DOMException}} |error|:
     </p>
+    <ol class="algorithm">
+      <li>If the [=credential request coordinator=]'s [=credential request
+      coordinator/active promise=] is `null`, return.
+      </li>
+      <li>Let |activePromise| be the [=credential request coordinator=]'s
+      [=credential request coordinator/active promise=].
+      </li>
+      <li>If the [=credential request coordinator=] is in the "[=credential
+      request coordinator/requesting=]" [=credential request
+      coordinator/interaction state=]:
+        <ol>
+          <li>Set the [=credential request coordinator=] [=credential request
+          coordinator/interaction state=] to "[=credential request
+          coordinator/aborting=]".
+          </li>
+          <li>Dismiss the [=credential chooser=] and await confirmation of
+          dismissal.
+          </li>
+        </ol>
+      </li>
+      <li>[=credential request coordinator/Complete credential request with=]
+      |activePromise| and |error|.
+      </li>
+    </ol>
     <h3>
       Complete credential request with error
     </h3>
