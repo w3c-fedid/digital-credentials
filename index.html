@@ -132,7 +132,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="aa211286bb24eb0f2827f4e0f5ed8da13df3ed70">
+<meta name="revision" content="07a24b03627652ab5ed6958b407fcbbfb1143a32">
 <meta name="description" content="This document specifies an API to enable user agents to mediate
         presentation and issuance of digital credentials such as a driver's
         license, government-issued identification card, and/or other types of digital credential. The API builds on
@@ -270,16 +270,16 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "aa211286bb24eb0f2827f4e0f5ed8da13df3ed70",
-  "publishISODate": "2026-02-04T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 04 February 2026"
+  "gitRevision": "07a24b03627652ab5ed6958b407fcbbfb1143a32",
+  "publishISODate": "2026-02-05T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 05 February 2026"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED"></head>
   <body data-cite="WEBIDL credential-management vc-data-model HTML INFRA URL WEBIDL DOM FETCH" class="h-entry"><div class="head">
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Digital Credentials</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-02-04">04 February 2026</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-02-05">05 February 2026</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -1169,21 +1169,22 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </h3><a class="self-link" href="#complete-credential-request-with-error" aria-label="Permalink for Section 6.4"></a></div>
     <p>
       To <dfn data-dfn-for="credential request coordinator" data-local-lt="complete credential request with" id="dfn-complete-credential-request-with-error" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn" class="respec-offending-element" title="Found definition for &quot;complete credential request with error&quot;, but nothing links to it. This is usually a spec bug!">complete credential request with
-      error</dfn> (a JavaScript Value) <var>error</var>:
+      error</dfn> given a <a data-link-type="interface" data-lt="Promise" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-index-term-promise-interface-2"><code>Promise</code></a> <var data-type="Promise">promise</var> and (a JavaScript Value)
+      <var>error</var>:
     </p>
     <ol class="algorithm">
-      <li class="assert"><a href="https://infra.spec.whatwg.org/#assert">Assert</a>: the <a data-link-type="dfn|abstract-op" href="#dfn-credential-request-coordinator" class="internalDFN" id="ref-for-dfn-credential-request-coordinator-6">credential request coordinator</a>'s <a data-link-type="dfn|abstract-op" href="#dfn-active-promise" class="internalDFN" id="ref-for-dfn-active-promise-2">active promise</a> is not <code>null</code>.
+      <li class="assert"><a href="https://infra.spec.whatwg.org/#assert">Assert</a>: the <a data-link-type="dfn|abstract-op" href="#dfn-credential-request-coordinator" class="internalDFN" id="ref-for-dfn-credential-request-coordinator-6">credential request coordinator</a>'s <a data-link-type="dfn|abstract-op" href="#dfn-active-promise" class="internalDFN" id="ref-for-dfn-active-promise-2">active promise</a> is <var data-type="Promise">promise</var>.
       </li>
       <li><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task" id="ref-for-index-term-queue-a-global-task-1">Queue a global task</a> on the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#dom-manipulation-task-source" id="ref-for-index-term-dom-manipulation-task-source-1">DOM manipulation task source</a> given
-      <var>error</var>'s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-index-term-relevant-global-object-1">relevant global object</a> to perform the following steps:
+      <var data-type="Promise">promise</var>'s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-index-term-relevant-global-object-1">relevant global object</a> to perform the following steps:
         <ol>
-          <li>If the <a data-link-type="dfn|abstract-op" href="#dfn-credential-request-coordinator" class="internalDFN" id="ref-for-dfn-credential-request-coordinator-7">credential request coordinator</a>'s <a data-link-type="dfn|abstract-op" href="#dfn-active-promise" class="internalDFN" id="ref-for-dfn-active-promise-3">active promise</a> is <code>null</code>, then return.
+          <li>If the <a data-link-type="dfn|abstract-op" href="#dfn-credential-request-coordinator" class="internalDFN" id="ref-for-dfn-credential-request-coordinator-7">credential request coordinator</a>'s <a data-link-type="dfn|abstract-op" href="#dfn-active-promise" class="internalDFN" id="ref-for-dfn-active-promise-3">active promise</a> is not <var data-type="Promise">promise</var>, then return.
           </li>
-          <li><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-index-term-rejects-3">Reject</a> the <a data-link-type="dfn|abstract-op" href="#dfn-credential-request-coordinator" class="internalDFN" id="ref-for-dfn-credential-request-coordinator-8">credential request coordinator</a>'s <a data-link-type="dfn|abstract-op" href="#dfn-active-promise" class="internalDFN" id="ref-for-dfn-active-promise-4">active promise</a> with <var>error</var>.
+          <li><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-index-term-rejects-3">Reject</a> <var data-type="Promise">promise</var> with <var>error</var>.
           </li>
-          <li>Set the <a data-link-type="dfn|abstract-op" href="#dfn-credential-request-coordinator" class="internalDFN" id="ref-for-dfn-credential-request-coordinator-9">credential request coordinator</a>'s <a data-link-type="dfn|abstract-op" href="#dfn-active-promise" class="internalDFN" id="ref-for-dfn-active-promise-5">active promise</a> to <code>null</code>.
+          <li>Set the <a data-link-type="dfn|abstract-op" href="#dfn-credential-request-coordinator" class="internalDFN" id="ref-for-dfn-credential-request-coordinator-8">credential request coordinator</a>'s <a data-link-type="dfn|abstract-op" href="#dfn-active-promise" class="internalDFN" id="ref-for-dfn-active-promise-4">active promise</a> to <code>null</code>.
           </li>
-          <li>Set the <a data-link-type="dfn|abstract-op" href="#dfn-credential-request-coordinator" class="internalDFN" id="ref-for-dfn-credential-request-coordinator-10">credential request coordinator</a> <a data-link-type="dfn|abstract-op" href="#dfn-interaction-states" class="internalDFN" id="ref-for-dfn-interaction-states-3">interaction state</a> to "<a data-link-type="dfn|abstract-op" href="#dfn-idle" class="internalDFN" id="ref-for-dfn-idle-3">idle</a>".
+          <li>Set the <a data-link-type="dfn|abstract-op" href="#dfn-credential-request-coordinator" class="internalDFN" id="ref-for-dfn-credential-request-coordinator-9">credential request coordinator</a> <a data-link-type="dfn|abstract-op" href="#dfn-interaction-states" class="internalDFN" id="ref-for-dfn-interaction-states-3">interaction state</a> to "<a data-link-type="dfn|abstract-op" href="#dfn-idle" class="internalDFN" id="ref-for-dfn-idle-3">idle</a>".
           </li>
         </ol>
       </li>
@@ -3279,7 +3280,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-dfn-credential-request-coordinator-5" title="§ 6.1 Interaction states">§ 6.1 Interaction states</a> 
     </li><li>
-      <a href="#ref-for-dfn-credential-request-coordinator-6" title="§ 6.4 Complete credential request with error">§ 6.4 Complete credential request with error</a> <a href="#ref-for-dfn-credential-request-coordinator-7" title="Reference 2">(2)</a> <a href="#ref-for-dfn-credential-request-coordinator-8" title="Reference 3">(3)</a> <a href="#ref-for-dfn-credential-request-coordinator-9" title="Reference 4">(4)</a> <a href="#ref-for-dfn-credential-request-coordinator-10" title="Reference 5">(5)</a> 
+      <a href="#ref-for-dfn-credential-request-coordinator-6" title="§ 6.4 Complete credential request with error">§ 6.4 Complete credential request with error</a> <a href="#ref-for-dfn-credential-request-coordinator-7" title="Reference 2">(2)</a> <a href="#ref-for-dfn-credential-request-coordinator-8" title="Reference 3">(3)</a> <a href="#ref-for-dfn-credential-request-coordinator-9" title="Reference 4">(4)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-active-promise" aria-label="Links in this document to definition: active promise">
@@ -3293,7 +3294,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <li>
       <a href="#ref-for-dfn-active-promise-1" title="§ 6. Credential Request Coordinator">§ 6. Credential Request Coordinator</a> 
     </li><li>
-      <a href="#ref-for-dfn-active-promise-2" title="§ 6.4 Complete credential request with error">§ 6.4 Complete credential request with error</a> <a href="#ref-for-dfn-active-promise-3" title="Reference 2">(2)</a> <a href="#ref-for-dfn-active-promise-4" title="Reference 3">(3)</a> <a href="#ref-for-dfn-active-promise-5" title="Reference 4">(4)</a> 
+      <a href="#ref-for-dfn-active-promise-2" title="§ 6.4 Complete credential request with error">§ 6.4 Complete credential request with error</a> <a href="#ref-for-dfn-active-promise-3" title="Reference 2">(2)</a> <a href="#ref-for-dfn-active-promise-4" title="Reference 3">(3)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-interaction-states" aria-label="Links in this document to definition: interaction states">
@@ -4840,6 +4841,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <ul>
     <li>
       <a href="#ref-for-index-term-promise-interface-1" title="§ 6. Credential Request Coordinator">§ 6. Credential Request Coordinator</a> 
+    </li><li>
+      <a href="#ref-for-index-term-promise-interface-2" title="§ 6.4 Complete credential request with error">§ 6.4 Complete credential request with error</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-rejects" aria-label="Links in this document to definition: rejects">
