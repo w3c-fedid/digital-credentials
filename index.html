@@ -566,7 +566,23 @@
       Use of the following [=digital credential/presentation protocols=] is
       defined by this specification.
     </p>
-    <aside class="issue" data-number="439"></aside>
+    <p>
+      A [=user agent=] MUST implement at least one of the [=digital
+      credential/presentation protocols=] listed in the [=table of supported
+      presentation and issuance protocols=]. It is RECOMMENDED that [=user
+      agents=] implement all of the protocols listed in the [=table of
+      supported presentation and issuance protocols=].
+    </p>
+    <aside class="note" title="Checking which protocols a user agent allows">
+      <p>
+        Developers can check which [=digital credential/presentation
+        protocols=] or [=digital credential/issuance protocols=] a user agent
+        allows by calling the
+        `DigitalCredential.`{{DigitalCredential.userAgentAllowsProtocol()}}
+        static method. See [[[#checking-if-protocol-is-allowed]]] for a usage
+        example.
+      </p>
+    </aside>
     <table class="data">
       <caption>
         <dfn class="export">Table of supported [=digital
