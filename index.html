@@ -1224,8 +1224,9 @@
       <li>Let |signal| be |options|'s {{CredentialCreationOptions/signal}} if
       present.
       </li>
-      <li>If |signal| was set and |signal| is [=AbortSignal/aborted=], return
-      [=a promise rejected with=] |signal|'s [=AbortSignal/abort reason=].
+      <li>If |signal| is not undefined and |signal| is [=AbortSignal/aborted=],
+      return [=a promise rejected with=] |signal|'s [=AbortSignal/abort
+      reason=].
       </li>
       <li>[=credential request coordinator/Prepare credential requests=] with
       |document|, |requests|, |promise|, and |signal|.
