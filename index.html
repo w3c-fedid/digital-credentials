@@ -113,12 +113,9 @@
       and issuance of a [=digital credential=].
     </p>
     <p>
-      The API design is agnostic to both credential [=digital
-      credential/presentation requests|presentation=] [=digital
-      credential/exchange protocols=], credential [=digital credential/issuance
-      request|issuance=] [=digital credential/issuance protocols|protocols=]
-      and credential formats. However, to promote interoperability this
-      document includes a [[[#protocol-registry]]].
+      The API design is agnostic to credential formats and includes support for
+      multiple [=digital credential/presentation protocols=] and [=digital
+      credential/issuance protocols=]. See [[[#protocols]]].
     </p>
     <p>
       The API is designed to support the following goals:
@@ -127,7 +124,7 @@
       <li>Keep the acts of [=digital credential/presentation
       requests|requesting=] and [=digital credential/issuance
       requests|issuing=] separate from the specific [=digital
-      credential/exchange protocol=] and [=digital credential/issuance
+      credential/presentation protocol=] and [=digital credential/issuance
       protocol=] respectively; thereby enabling the extensibility of such
       protocols and credential formats.
       </li>
@@ -466,14 +463,14 @@
       <dd>
         A presentation request is a request for a [=digital credential=]
         composed of [=digital credential/request data=] and a [=digital
-        credential/exchange protocol=].
+        credential/presentation protocol=].
       </dd>
       <dt>
         <dfn data-dfn-for="digital credential">Request data</dfn>
       </dt>
       <dd>
         A format that [=verifier=] software or a [=user agent=] uses, via an
-        [=digital credential/exchange protocol=], to request a [=digital
+        [=digital credential/presentation protocol=], to request a [=digital
         credential=] from a [=holder=].
       </dd>
       <dt>
@@ -482,7 +479,7 @@
       </dt>
       <dd>
         A format that a [=holder's=] software, such as a digital wallet, uses,
-        via an [=digital credential/exchange protocol=], to respond to a
+        via an [=digital credential/presentation protocol=], to respond to a
         [=digital credential/presentation request=] by a [=verifier=].
       </dd>
       <dt>
@@ -527,13 +524,12 @@
       </dd>
       <dt>
         <dfn data-dfn-for="digital credential" data-local-lt=
-        "exchange protocol">Exchange protocol</dfn>
+        "presentation protocol">Presentation protocol</dfn>
       </dt>
       <dd>
-        A standardized protocol used for exchanging a [=digital credential=]
+        A standardized protocol used for presenting a [=digital credential=]
         between a [=holder=] and a [=verifier=]. A protocol is identified by a
-        [=digital credential/protocol identifier=]. See section also
-        [[[#protocol-registry]]].
+        [=digital credential/protocol identifier=]. See [[[#protocols]]].
       </dd>
       <dt>
         <dfn data-dfn-for="digital credential">Protocol identifier</dfn>
@@ -552,7 +548,7 @@
         A standardized protocol used for communication between an [=issuer=]
         and a [=holder=] during the issuance of a [=digital credential=]. The
         issuance protocol is identified by a [=digital credential/protocol
-        identifier=]. See also section [[[#protocol-registry]]].
+        identifier=]. See [[[#protocols]]].
       </dd>
       <dt>
         Request coordinator
@@ -561,6 +557,92 @@
         See [=credential request coordinator=].
       </dd>
     </dl><!--
+    // MARK: Protocols
+    -->
+    <h2 id="protocols">
+      Protocols
+    </h2>
+    <p>
+      Use of the following [=digital credential/presentation protocols=] is
+      defined by this specification.
+    </p>
+    <aside class="issue" data-number="439"></aside>
+    <table class="data">
+      <caption>
+        <dfn class="export">Table of supported [=digital
+        credential/presentation protocol|presentation=] and [=digital
+        credential/issuance protocol|issuance=] protocols</dfn>
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">
+            [=digital credential/Protocol identifier|Identifier=]
+          </th>
+          <th scope="col">
+            Specification
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="rowgroup" colspan="2">
+            [=digital credential/Presentation protocols=]
+          </th>
+        </tr>
+        <tr>
+          <th scope="row">
+            <dfn data-dfn-for=
+            "DigitalCredentialPresentationProtocol">openid4vp-v1-unsigned</dfn>
+          </th>
+          <td>
+            [[[OPENID4VP]]] § <a data-cite=
+            "OPENID4VP#name-unsigned-request">A.3.1. Unsigned Request</a>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <dfn data-dfn-for=
+            "DigitalCredentialPresentationProtocol">openid4vp-v1-signed</dfn>
+          </th>
+          <td>
+            [[[OPENID4VP]]] § <a data-cite=
+            "OPENID4VP#name-signed-request">A.3.2. Signed Request</a>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <dfn data-dfn-for=
+            "DigitalCredentialPresentationProtocol">openid4vp-v1-multisigned</dfn>
+          </th>
+          <td>
+            [[[OPENID4VP]]] § <a data-cite=
+            "OPENID4VP#name-jws-json-serialization">A.3.2.2. JWS JSON
+            Serialization</a> (Multi-signed requests)
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <dfn data-dfn-for=
+            "DigitalCredentialPresentationProtocol">org-iso-mdoc</dfn>
+          </th>
+          <td>
+            [[[ISO18013-7]]] § Annex C
+          </td>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr>
+          <th scope="rowgroup" colspan="2">
+            [=digital credential/Issuance protocols=]
+          </th>
+        </tr>
+        <tr>
+          <td colspan="2">
+            No issuance protocols are currently defined.
+          </td>
+        </tr>
+      </tbody>
+    </table><!--
     // MARK: Credential Request Coordinator
     -->
     <h2>
@@ -787,20 +869,20 @@
     <p>
       To <dfn data-dfn-for="credential request coordinator" data-local-lt=
       "complete credential request with">complete credential request with
-      error</dfn> (a JavaScript Value) |error|:
+      error</dfn> given a {{Promise}} |promise:Promise| and (a JavaScript Value)
+      |error|:
     </p>
     <ol class="algorithm">
       <li>Assert: the [=credential request coordinator=]'s [=credential request
-      coordinator/active promise=] is not `null`.
+      coordinator/active promise=] is |promise|.
       </li>
       <li>[=Queue a global task=] on the [=DOM manipulation task source=] given
-      |error|'s [=relevant global object=] to perform the following steps:
+      |promise|'s [=relevant global object=] to perform the following steps:
         <ol>
           <li>If the [=credential request coordinator=]'s [=credential request
-          coordinator/active promise=] is `null`, then return.
+          coordinator/active promise=] is not |promise|, then return.
           </li>
-          <li>[=Reject=] the [=credential request coordinator=]'s [=credential
-          request coordinator/active promise=] with |error|.
+          <li>[=Reject=] |promise| with |error|.
           </li>
           <li>Set the [=credential request coordinator=]'s [=credential request
           coordinator/active promise=] to `null`.
@@ -889,7 +971,7 @@
     </h4>
     <p>
       The <dfn data-dfn-for="DigitalCredentialRequestOptions">requests</dfn>
-      specify an [=digital credential/exchange protocol=] and [=digital
+      specify an [=digital credential/presentation protocol=] and [=digital
       credential/request data=], which the user agent MAY match against a
       holder's software, such as a digital wallet.
     </p><!--
@@ -901,7 +983,7 @@
     <p>
       The {{DigitalCredentialGetRequest}} dictionary represents a [=digital
       credential/presentation request=]. It is used to specify an [=digital
-      credential/exchange protocol=] and some [=digital credential/request
+      credential/presentation protocol=] and some [=digital credential/request
       data=], which the user agent MAY match against software used by a holder,
       such as a digital wallet.
     </p>
@@ -916,12 +998,12 @@
     </h4>
     <p>
       The <dfn data-dfn-for="DigitalCredentialGetRequest">protocol</dfn> member
-      denotes the [=digital credential/exchange protocol=].
+      denotes the [=digital credential/presentation protocol=].
     </p>
     <p>
-      The {{DigitalCredentialCreateRequest/protocol}} member's value can be one
-      of the well-defined protocol identifiers defined in
-      [[[#protocol-registry]]] or a custom protocol identifier.
+      The {{DigitalCredentialGetRequest/protocol}} member's value is one of the
+      protocol identifiers defined in
+      {{DigitalCredentialPresentationProtocol}}.
     </p>
     <h4>
       The `data` member
@@ -993,9 +1075,8 @@
       member denotes the [=digital credential/issuance protocol=].
     </p>
     <p>
-      The {{DigitalCredentialCreateRequest/protocol}} member's value is be one
-      of the well-defined keys defined in [[[#protocol-registry]]] or any other
-      custom one.
+      The {{DigitalCredentialCreateRequest/protocol}} member's value is one of
+      the protocol identifiers defined in [[[#protocols]]].
     </p>
     <h4>
       The `data` member
@@ -1031,6 +1112,8 @@
       non-overridable behavior of the API.
     </p>
     <pre class="idl">
+    typedef DigitalCredentialPresentationProtocol DigitalCredentialProtocol;
+
     [Exposed=Window, SecureContext]
     interface DigitalCredential : Credential {
       [Default] object toJSON();
@@ -1047,7 +1130,7 @@
     </h4>
     <p>
       The <dfn data-dfn-for="DigitalCredential">protocol</dfn> member is the
-      [=digital credential/exchange protocol=] that was used to request the
+      [=digital credential/presentation protocol=] that was used to request the
       [=digital credential=], or the [=digital credential/issuance protocol=]
       that was used to issue the [=digital credential=].
     </p>
@@ -1065,13 +1148,13 @@
     </h4>
     <p>
       The {{DigitalCredential/userAgentAllowsProtocol()}} method allows digital
-      credential [=verifiers=] to determine which [=digital credential/exchange
-      protocols=] and [=digital credential/issuance protocols=] the user agent
-      allows.
+      credential [=verifiers=] to determine which [=digital
+      credential/presentation protocols=] and [=digital credential/issuance
+      protocols=] the user agent allows.
     </p>
     <p class="note">
-      This method does not convey [=digital credential/exchange protocol=] or
-      [=digital credential/issuance protocol=] support in the underlying
+      This method does not convey [=digital credential/presentation protocol=]
+      or [=digital credential/issuance protocol=] support in the underlying
       OS/platform.
     </p>
     <p>
@@ -1090,17 +1173,38 @@
       algorithm:
     </p>
     <ol class="algorithm">
-      <li>If |protocol| is not a [=digital credential/protocol identifier=],
-      return `false`.
+      <li>If |protocol| is not an [=enumeration value=] of
+      {{DigitalCredentialProtocol}}, return `false`.
       </li>
       <li>Return `true` if the user agent allows |protocol|, otherwise return
       `false`.
       </li>
     </ol>
+    <h3>
+      Supporting Data Structures
+    </h3>
+    <p>
+      Data structures, such as enumerations, which support
+      {{DigitalCredential}} in this specification.
+    </p>
+    <h4>
+      The {{DigitalCredentialPresentationProtocol}} enumeration
+    </h4>
+    <p>
+      This enumeration's values correspond to the supported [=digital
+      credential/presentation protocols=] listed in [[[#protocols]]].
+    </p>
+    <pre class="idl">
+      enum DigitalCredentialPresentationProtocol {
+        "openid4vp-v1-unsigned",
+        "openid4vp-v1-signed",
+        "openid4vp-v1-multisigned",
+        "org-iso-mdoc"
+      };
+      </pre>
     <h2 id="credential-management-integration">
-      Integration with Credential Management API
-    </h2>
-    <aside class="issue" data-number="65"></aside><!--
+      Integration with [[[credential-management]]]
+    </h2><!--
     // MARK: [[\DiscoverFromExternalSource]]
     -->
     <h3>
@@ -1126,26 +1230,26 @@
       top-level traversable with user attention=], return [=a promise rejected
       with=] a {{"NotAllowedError"}} {{DOMException}}.
       </li>
-      <li>If |window| does not have [=transient activation=], return [=a
-      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
-      </li>
-      <li>[=Consume user activation=] of |window|.
-      </li>
       <li>Let |requests| be |options|'s {{CredentialRequestOptions/digital}}'s
       {{DigitalCredentialRequestOptions/requests}} member.
       </li>
-      <li>If |requests| is empty, return [=a promise rejected with=] a
+      <li>If |requests| [=list/is empty=], return [=a promise rejected with=] a
       {{TypeError}}.
       </li>
       <li>[=List/For each=] |request| of |requests|:
         <ol>
           <li>[=serialize a JavaScript value to a JSON string|Serialize=]
-          |request| to a JSON string.
+          |request|'s {{DigitalCredentialGetRequest/data}} to a JSON string.
           </li>
           <li>If serialization results in an [=exception=], return [=a promise
           rejected with=] that [=exception=].
           </li>
         </ol>
+      </li>
+      <li>If |global| does not have [=transient activation=], return [=a
+      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
+      </li>
+      <li>[=Consume user activation=] of |global|.
       </li>
       <li>
         <aside class="issue">
@@ -1191,26 +1295,26 @@
       top-level traversable with user attention=], return [=a promise rejected
       with=] a {{"NotAllowedError"}} {{DOMException}}.
       </li>
-      <li>If |window| does not have [=transient activation=], return [=a
-      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
-      </li>
-      <li>[=Consume user activation=] of |window|.
-      </li>
       <li>Let |requests| be |options|'s {{CredentialCreationOptions/digital}}'s
       {{DigitalCredentialCreationOptions/requests}} member.
       </li>
-      <li>If |requests| is empty, return [=a promise rejected with=] a
-      {{TypeError}}.
+      <li>If |requests| is [=list/is empty=], return [=a promise rejected
+      with=] a {{TypeError}}.
       </li>
       <li>[=List/For each=] |request| of |requests|:
         <ol>
           <li>[=serialize a JavaScript value to a JSON string|Serialize=]
-          |request| to a JSON string.
+          |request|'s {{DigitalCredentialGetRequest/data}} to a JSON string.
           </li>
           <li>If serialization results in an [=exception=], return [=a promise
           rejected with=] that [=exception=].
           </li>
         </ol>
+      </li>
+      <li>If |global| does not have [=transient activation=], return [=a
+      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
+      </li>
+      <li>[=Consume user activation=] of |global|.
       </li>
       <li>
         <aside class="issue">
@@ -1289,185 +1393,6 @@
         </dd>
       </dl>
     </section>
-    <h2 id="protocol-registry">
-      Registry of protocols
-    </h2>
-    <p>
-      Initiating the registration a protocol is done by <a href=
-      "https://github.com/w3c-fedid/digital-credentials/issues">filing an
-      issue</a> in our GitHub repository.
-    </p>
-    <p>
-      The following is the registry of [=digital credential/exchange
-      protocols=] and [=digital credential/issuance protocols=] that are
-      supported by this specification.
-    </p>
-    <p class="note" title="Official Registry" data-cite="w3c-process">
-      It is expected that this registry will be become a [=W3C registry=] in
-      the future.
-    </p><!--
-    // MARK: General inclusion criteria
-    -->
-    <h3>
-      General inclusion criteria
-    </h3>
-    <aside class="note">
-      The below criteria are a work in progress and are likely to change as
-      this document evolves.
-    </aside>
-    <p>
-      To be included in the registry, the [=digital credential/exchange
-      protocol=]:
-    </p>
-    <ol>
-      <li>MUST be standardized at a <a href=
-      "https://www.w3.org/liaisons/">consortium the W3C liaises with</a>
-      </li>
-      <li>MUST be defined in a specification which is freely and publicly
-      available at the stable URL listed in the registry.
-      </li>
-      <li>MUST define a representation, as either a [[WebIDL]] [=dictionary=]
-      or a JSON object, of the [=digital credential/exchange protocol=] request
-      structure (i.e., the [=dictionary=] which defines the semantics and
-      validation of the {{DigitalCredentialGetRequest}}'s
-      {{DigitalCredentialGetRequest/data}} member) and the [=digital
-      credential/issuance protocol=] request structure (i.e., the
-      [=dictionary=] which defines the semantics and validation of the
-      {{DigitalCredentialCreateRequest}}'s
-      {{DigitalCredentialCreateRequest/data}} member).
-      </li>
-      <li>MUST define a representation, as either a [[WebIDL]] [=dictionary=]
-      or a JSON object, of the [=digital credential/exchange protocol=]
-      response structure (i.e., the [=dictionary=] which defines the semantics
-      and validation of the {{DigitalCredential}}'s {{DigitalCredential/data}}
-      member.
-      </li>
-      <li>MUST define validation rules for members of the request and response
-      structures.
-      </li>
-      <li>MUST have undergone privacy review by the W3C's <a href=
-      "https://www.w3.org/groups/wg/privacy/">Privacy Working Group</a> and
-      <a href="https://www.w3.org/groups/wg/fedid/">Federated Identity Working
-      Group</a>.
-        <aside class="note" title="Organizing reviews">
-          Once an expression of registration is received via GitHub, the
-          registry maintainers will organize the privacy review with the
-          <a href="https://www.w3.org/groups/wg/privacy/">Privacy Working
-          Group</a> . Please see the [[[security-privacy-questionnaire]]] for
-          the kind of questions that will be asked of the protocol you are
-          registering.
-        </aside>
-      </li>
-      <li>MUST have undergone security review by the <a href=
-      "https://www.w3.org/groups/ig/security/">Security Interest Group</a>.
-      </li>
-      <li>MUST have implementation commitment from at least one browser engine,
-      one credential provider/wallet, and one issuer or verifier (depending on
-      the protocol type). Each component MUST be from independent
-      organizations.
-      </li>
-      <li>MUST have formally recorded consensus by the Federated Identity
-      Working Group to be included in the registry.
-      </li>
-    </ol>
-    <h4>
-      Presentation-specific inclusion criteria
-    </h4>
-    <p>
-      To be included as a presentation protocol in the registry (used with
-      `navigator.credentials.get`), the [=digital credential/exchange
-      protocol=]:
-    </p>
-    <ol>
-      <li>MUST support response encryption.
-      </li>
-      <li>MUST encrypt any response containing personally identifiable
-      information (PII).
-      </li>
-    </ol><!--
-    // MARK: Change process
-    -->
-    <h3>
-      Change process
-    </h3>
-    <p>
-      To add a new [=digital credential/exchange protocol=] to the registry, or
-      to update an existing one:
-    </p>
-    <dl>
-      <dt>
-        Define a [=digital credential/protocol identifier=].
-      </dt>
-      <dd>
-        The [=digital credential/protocol identifier=] MUST be a unique string
-        that is not already in use in the registry. The [=digital
-        credential/protocol identifier=] MUST uniquely define the set of
-        required parameters and/or behavior that a digital credential provider
-        implementation needs to support to successfully handle the request. If
-        the set of required parameters or behaviors is updated in a way which
-        would require a digital credential provider to also require an update
-        to remain functional, a new protocol identifier MUST be assigned and be
-        added to the registry.
-      </dd>
-      <dt>
-        Specify a <dfn data-dfn-for="registry" data-local-lt="type">protocol
-        type</dfn>.
-      </dt>
-      <dd>
-        The protocol type is either "Presentation" for presentation protocols
-        used with `navigator.credentials.get` or "Issuance" for issuance
-        protocols used with `navigator.credentials.create`.
-      </dd>
-      <dt>
-        <dfn data-dfn-for="registry" data-local-lt="description">Describe the
-        protocol</dfn>.
-      </dt>
-      <dd>
-        The description MUST be a brief summary of the protocol's purpose and
-        use case.
-      </dd>
-      <dt>
-        Provide a <dfn data-dfn-for="registry" data-local-lt="link">link to the
-        specification</dfn>.
-      </dt>
-      <dd>
-        The specification MUST be a stable URL that points to the authoritative
-        source for the protocol, including validation rules.
-      </dd>
-    </dl>
-    <p>
-      [=User agents=] MUST support the following [=digital credential/exchange
-      protocols=]:
-    </p>
-    <table class="data">
-      <caption>
-        Table of officially registered [=digital credential/exchange
-        protocols=].
-      </caption>
-      <thead>
-        <tr>
-          <th>
-            [=digital credential/Protocol identifier=]
-          </th>
-          <th>
-            [=registry/Type=]
-          </th>
-          <th>
-            [=registry/Description=]
-          </th>
-          <th>
-            [=registry/link|Specification=]
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td colspan="4">
-            Coming soon...
-          </td>
-        </tr>
-      </tbody>
-    </table>
     <section class="informative">
       <!--
       // MARK: Security Considerations
@@ -1544,8 +1469,7 @@
           The Digital Credentials API is designed to mediate requests for
           digital credentials from websites, being agnostic to the credential
           format and the information contained in it, as well as the protocol
-          used to exchange it (within the bounds on the protocol registry
-          inclusion criteria). This and other key design choices are derived
+          used to exchange it. This and other key design choices are derived
           from the goal of providing a more secure and private credential
           exchange experience for users than the existing alternatives (e.g.,
           [[custom-schemes]]), that is still compatible with common exchange
@@ -1553,11 +1477,11 @@
         </p>
         <p>
           The API provides the connection interface between [=verifiers=] and
-          [=holders=], i.e. the means by which a [=digital credential/exchange
-          protocol|credential exchange protocol=] is initiated and the user
-          switches to the [=holder=] application to select a credential.
-          Solutions that have been used for this purpose in the past include QR
-          codes and custom URL schemes. As documented in
+          [=holders=], i.e. the means by which a [=digital
+          credential/presentation protocol|credential presentation protocol=]
+          is initiated and the user switches to the [=holder=] application to
+          select a credential. Solutions that have been used for this purpose
+          in the past include QR codes and custom URL schemes. As documented in
           [[[presenting-credentials-on-the-web]]] and [[[custom-schemes]]],
           those solutions have security, privacy, and accessibility concerns.
         </p>
@@ -1566,8 +1490,9 @@
           ecosystem demand and regulatory mandates, the Web platform offers an
           alternative to the aforementioned less-desirable technologies that is
           easy to use for developers, is compatible with existing credential
-          exchange protocols and, most importantly, has better user privacy,
-          security, and accessibility properties than these alternatives.
+          [=digital credential/presentation protocols=] and, most importantly,
+          has better user privacy, security, and accessibility properties than
+          these alternatives.
         </p>
         <p>
           The Digital Credentials API offers the [=user agent=] the ability to
@@ -1622,27 +1547,20 @@
       </section>
       <section>
         <!--
-        // MARK: Exchange Protocol and Credential Format
+        // MARK: Presentation Protocol and Credential Format
         -->
         <h3>
-          Exchange Protocol and Credential Format
+          Presentation Protocol and Credential Format
         </h3>
         <p>
           Because the Digital Credentials API sits at the center of an exchange
-          that involves multiple independent parties, the exchange protocol and
-          credential format used by these parties for exchanging user
-          information are crucial to the [=user agent=]'s goal of protecting
-          user privacy.
-        </p>
-        <p>
-          The protocol registry for the Digital Credentials API is designed to
-          ensure that, among other requirements, supported protocols facilitate
-          specific privacy-enhancing capabilities. Protocols are required to
-          undergo privacy review by the W3C's <a href=
-          "https://www.w3.org/groups/wg/privacy/">Privacy Working Group</a>.
+          that involves multiple independent parties, the [=digital
+          credential/presentation protocol=] and credential format used by
+          these parties for exchanging user information are crucial to the
+          [=user agent=]'s goal of protecting user privacy.
         </p>
         <h4>
-          Exchange Protocol Considerations for User Privacy
+          Presentation Protocol Considerations for User Privacy
         </h4>
         <aside class="issue" data-number="255"></aside>
         <h5>
@@ -1698,8 +1616,8 @@
         </p>
         <p class="issue" data-number="279">
           Which level of unlinkability is the goal for this API? Can we
-          normatively enforce support for any particular unlinkability features
-          as part of the protocol registry inclusion criteria?
+          normatively enforce support for any particular unlinkability
+          features?
         </p>
         <h5>
           "Phone home" mechanisms
@@ -1758,9 +1676,9 @@
         </h5>
         <p>
           User understanding and participation are non-negotiable properties of
-          a credential exchange. The protocol is expected to help all involved
-          parties enable user participation by providing the information vital
-          for informed permission and/or consent.
+          a credential presentation. The protocol is expected to help all
+          involved parties enable user participation by providing the
+          information vital for informed permission and/or consent.
         </p>
         <h5>
           Support for verifier authorization
@@ -1876,8 +1794,8 @@
           applies to both types of credentials is the [=user agent=]'s ability
           to inspect the credential request metadata and make decisions or UI
           presentation based on it. The DC API ensures this [=user agent=]
-          access to the exchange through requirements placed on protocols to
-          transmit requests unencrypted and to include relevant information.
+          access to the presentation through requirements placed on protocols
+          to transmit requests unencrypted and to include relevant information.
         </p>
         <h4>
           Government-issued credentials
@@ -2086,12 +2004,6 @@
           with the desire to enable the ecosystem to develop new credential
           formats without explicit [=user agent=] buy-in.
         </p>
-        <p class="issue" data-number="117">
-          Is it a good idea for the group to maintain a registry of request
-          types and/or <a href=
-          "https://github.com/w3c-fedid/digital-credentials/issues/85">credential
-          types</a>?
-        </p>
         <h5>
           Reporting abuse
         </h5>
@@ -2159,14 +2071,16 @@
           Revealing device properties through protocol availability
         </h4>
         <p>
-          The Digital Credentials API exposes information about which
-          credential exchange protocols are supported by the [=user agent=]
-          through {{DigitalCredential/userAgentAllowsProtocol()}}. It mitigates
-          browser fingerprinting and revealing information about the user's
-          device configuration by not customizing its response based on, for
-          example, which digital wallet applications are installed on a user's
-          device. The returned information is thus, at best, equivalent to a
-          [=user agent=] version.
+          The Digital Credentials API exposes information about which [=digital
+          credential/presentation protocol|presentation=] and [=digital
+          credential/issuance protocol|issuance=] protocols are supported by
+          the [=user agent=] through
+          {{DigitalCredential/userAgentAllowsProtocol()}}. It mitigates browser
+          fingerprinting and revealing information about the user's device
+          configuration by not customizing its response based on, for example,
+          which digital wallet applications are installed on a user's device.
+          The returned information is thus, at best, equivalent to a [=user
+          agent=] version.
         </p>
         <h4>
           Avoiding leaks of credential availability
