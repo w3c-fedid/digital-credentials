@@ -928,20 +928,20 @@
     <p>
       To <dfn data-dfn-for="credential request coordinator" data-local-lt=
       "complete credential request with">complete credential request with
-      error</dfn> (a JavaScript Value) |error|:
+      error</dfn> given a {{Promise}} |promise:Promise| and (a JavaScript
+      Value) |error|:
     </p>
     <ol class="algorithm">
       <li>Assert: the [=credential request coordinator=]'s [=credential request
-      coordinator/active promise=] is not `null`.
+      coordinator/active promise=] is |promise|.
       </li>
       <li>[=Queue a global task=] on the [=DOM manipulation task source=] given
-      |error|'s [=relevant global object=] to perform the following steps:
+      |promise|'s [=relevant global object=] to perform the following steps:
         <ol>
           <li>If the [=credential request coordinator=]'s [=credential request
-          coordinator/active promise=] is `null`, then return.
+          coordinator/active promise=] is not |promise|, then return.
           </li>
-          <li>[=Reject=] the [=credential request coordinator=]'s [=credential
-          request coordinator/active promise=] with |error|.
+          <li>[=Reject=] |promise| with |error|.
           </li>
           <li>Set the [=credential request coordinator=]'s [=credential request
           coordinator/active promise=] to `null`.
