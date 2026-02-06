@@ -1400,8 +1400,10 @@
           </li>
         </ol>
       </li>
-      <li>Otherwise (if [=next wallet behavior=] is not set), proceed with the
-      normal user-interactive flow to select and use a digital credential.
+      <li>If |global| does not have [=transient activation=], return [=a
+      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
+      </li>
+      <li>[=Consume user activation=] of |global|.
       </li>
       <li>Let |promise| be [=a new promise=] in [=this=]'s [=relevant realm=].
       </li>
@@ -1481,8 +1483,10 @@
           </li>
         </ol>
       </li>
-      <li>Otherwise (if [=next wallet behavior=] is not set), proceed with the
-      normal user-interactive flow to select and use a digital credential.
+      <li>If |global| does not have [=transient activation=], return [=a
+      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
+      </li>
+      <li>[=Consume user activation=] of |global|.
       </li>
       <li>Let |promise| be [=a new promise=].
       </li>
