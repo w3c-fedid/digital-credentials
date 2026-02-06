@@ -1131,6 +1131,11 @@
           </li>
         </ol>
       </li>
+      <li>If |global| does not have [=transient activation=], return [=a
+      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
+      </li>
+      <li>[=Consume user activation=] of |global|.
+      </li>
       <li>
         <aside class="issue">
           Details of how to actually get the [=digital credential=] are
@@ -1190,6 +1195,11 @@
           rejected with=] that [=exception=].
           </li>
         </ol>
+      </li>
+      <li>If |global| does not have [=transient activation=], return [=a
+      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
+      </li>
+      <li>[=Consume user activation=] of |global|.
       </li>
       <li>
         <aside class="issue">
