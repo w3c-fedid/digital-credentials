@@ -2126,7 +2126,7 @@
         MUST be operable in a device-independent manner.
       </p>
     </section>
-    <section id="user-agent-automation" data-cite="webdriver">
+    <section data-cite="webdriver">
       <h2>
         User Agent Automation
       </h2>
@@ -2134,20 +2134,118 @@
         For the purposes of user agent automation and web application testing,
         this document defines a number of [[WebDriver]] [=extension commands=].
       </p>
-      <section id="webdriver-extension-capability">
-        <h3>
-          Digital Credentials WebDriver Extension Capability
-        </h3>
+      <h3>
+        Digital Credentials WebDriver Extension Capability
+      </h3>
+      <p>
+        In order to advertise the availability of [=extension commands=]
+        defined below, a new extension capability is defined.
+      </p>
+      <table class="data">
+        <thead>
+          <tr>
+            <th>
+              Capability
+            </th>
+            <th>
+              Key
+            </th>
+            <th>
+              Value Type
+            </th>
+            <th>
+              Description
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              Virtual Wallet Support
+            </td>
+            <td>
+              `digital-credentials:virtualWallet`
+            </td>
+            <td>
+              [=boolean=]
+            </td>
+            <td>
+              Indicates whether the endpoint node supports all Virtual Wallet
+              commands.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        When <a data-cite="webdriver#dfn-validate-capabilities">validating
+        capabilities</a>, the extension-specific substeps to validate
+        `digital-credentials:virtualWallet` with |value| are the following:
+      </p>
+      <ol class="algorithm">
+        <li>If |value| is not a [=boolean=], return a [=error|WebDriver error=]
+        with a [=error code|WebDriver error code=] [=invalid argument=].
+        </li>
+        <li>Otherwise, let |deserialized| be set to |value|.
+        </li>
+      </ol>
+      <p>
+        When <a data-cite="webdriver#dfn-matching-capabilities">matching
+        capabilities</a>, the extension-specific steps to match
+        `digital-credentials:virtualWallet` with |value| are the following:
+      </p>
+      <ol class="algorithm">
+        <li>If |value| is `true` and the <a data-cite=
+        "webdriver#dfn-endpoint-node">endpoint node</a> does not support any of
+        the Virtual Wallet commands, the match is unsuccessful.
+        </li>
+        <li>Otherwise, the match is successful.
+        </li>
+      </ol>
+      <h3>
+        Virtual Wallet Commands
+      </h3>
+      <p>
+        The following commands allow controlling the behavior of a virtual
+        wallet for testing purposes. These commands affect the <dfn>next wallet
+        behavior</dfn> of the next `navigator.credentials.get({digital: ...})`
+        or `navigator.credentials.create({digital: ...})` call.
+      </p>
+      <section id="set-wallet-response">
+        <h4>
+          <dfn>Set Wallet Response</dfn>
+        </h4>
         <p>
-          In order to advertise the availability of [=extension commands=]
-          defined below, a new extension capability is defined.
+          The [=Set Wallet Response=] [[WebDriver]] [=extension command=]
+          configures the virtual wallet to respond with a specific data
+          payload, simulating a user successfully completing the flow.
         </p>
         <table class="data">
           <thead>
             <tr>
               <th>
-                Capability
+                HTTP Method
               </th>
+              <th>
+                URI Template
+              </th>
+            </tr>
+          </thead>
+          <tr>
+            <td>
+              `POST`
+            </td>
+            <td>
+              <code>/session/{session id}/digital-credentials/response</code>
+            </td>
+          </tr>
+        </table>
+        <p>
+          The parameters object is a JSON <a data-cite=
+          "webdriver#dfn-object">Object</a> with the following key:
+        </p>
+        <table class="data">
+          <thead>
+            <tr>
               <th>
                 Key
               </th>
@@ -2159,230 +2257,115 @@
               </th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>
-                Virtual Wallet Support
-              </td>
-              <td>
-                `digital-credentials:virtualWallet`
-              </td>
-              <td>
-                [=boolean=]
-              </td>
-              <td>
-                Indicates whether the endpoint node supports all Virtual Wallet
-                commands.
-              </td>
-            </tr>
-          </tbody>
+          <tr>
+            <td>
+              `data`
+            </td>
+            <td>
+              string
+            </td>
+            <td>
+              The data to be returned by the wallet.
+            </td>
+          </tr>
         </table>
         <p>
-          When <a data-cite="webdriver#dfn-validate-capabilities">validating
-          capabilities</a>, the extension-specific substeps to validate
-          `digital-credentials:virtualWallet` with `value` are the following:
+          The [=remote end steps=] are:
         </p>
         <ol class="algorithm">
-          <li>If `value` is not a [=boolean=], return a [=error|WebDriver
-          error=] with a [=error code|WebDriver error code=] [=invalid
-          argument=].
+          <li>If |parameters| is not a JSON <a data-cite=
+          "webdriver#dfn-object">Object</a>, or if it does not contain a |data|
+          property of type string, return a [=error|WebDriver error=] with
+          [=error code|WebDriver error code=] [=invalid argument=].
           </li>
-          <li>Otherwise, let `deserialized` be set to `value`.
+          <li>Set the session's [=next wallet behavior=] to <code>{ "mode":
+          "respond", "data": parameters.data }</code>.
           </li>
-        </ol>
-        <p>
-          When <a data-cite="webdriver#dfn-matching-capabilities">matching
-          capabilities</a>, the extension-specific steps to match
-          `digital-credentials:virtualWallet` with `value` are the following:
-        </p>
-        <ol class="algorithm">
-          <li>If `value is <code>true` and the <a data-cite=
-          "webdriver#dfn-endpoint-node">endpoint node</a> does not support any
-          of the Virtual Wallet commands, the match is unsuccessful.</code>
-          </li>
-          <li>
-            <code>Otherwise, the match is successful.</code>
+          <li>Return [=success=].
           </li>
         </ol>
       </section>
-      <section id="virtual-wallet-commands">
-        <h3>
-          <code>Virtual Wallet Commands</code>
-        </h3>
+      <section id="set-wallet-to-wait">
+        <h4>
+          <dfn>Set Wallet to Wait</dfn>
+        </h4>
         <p>
-          <code>The following commands allow controlling the behavior of a
-          virtual wallet for testing purposes. These commands affect the
-          <dfn>next wallet behavior</dfn> of the next
-          `navigator.credentials.get({digital: ...})` or
-          `navigator.credentials.create({digital: ...})` call.</code>
+          The [=Set Wallet to Wait=] [[WebDriver]] [=extension command=]
+          configures the virtual wallet to simulate a user waiting indefinitely
+          in the wallet UI.
         </p>
-        <section id="set-wallet-response">
-          <h4>
-            <code><dfn>Set Wallet Response</dfn></code>
-          </h4>
-          <p>
-            <code>The [=Set Wallet Response=] [[WebDriver]] [=extension
-            command=] configures the virtual wallet to respond with a specific
-            data payload, simulating a user successfully completing the
-            flow.</code>
-          </p>
-          <table class="data">
-            <thead>
-              <tr>
-                <th>
-                  HTTP Method
-                </th>
-                <th>
-                  URI Template
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  `POST`
-                </td>
-                <td>
-                  <code>/session/{session
-                  id}/digital-credentials/response</code>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <p>
-            The parameters object is a JSON <a data-cite=
-            "webdriver#dfn-object">Object</a> with the following key:
-          </p>
-          <table class="data">
-            <thead>
-              <tr>
-                <th>
-                  Key
-                </th>
-                <th>
-                  Value Type
-                </th>
-                <th>
-                  Description
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  `data`
-                </td>
-                <td>
-                  string
-                </td>
-                <td>
-                  The data to be returned by the wallet.
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <p>
-            The [=remote end steps=] are:
-          </p>
-          <ol class="algorithm">
-            <li>If `parameters` is not a JSON <a data-cite=
-            "webdriver#dfn-object">Object</a>, or if it does not contain a
-            `data` property of type string, return a [=error|WebDriver error=]
-            with [=error code|WebDriver error code=] [=invalid argument=].
-            </li>
-            <li>Set the session's [=next wallet behavior=] to <code>{ "mode":
-            "respond", "data": parameters.data }</code>.
-            </li>
-            <li>Return [=success=].
-            </li>
-          </ol>
-        </section>
-        <section id="set-wallet-to-wait">
-          <h4>
-            <dfn>Set Wallet to Wait</dfn>
-          </h4>
-          <p>
-            The [=Set Wallet to Wait=] [[WebDriver]] [=extension command=]
-            configures the virtual wallet to simulate a user waiting
-            indefinitely in the wallet UI.
-          </p>
-          <table class="data">
-            <thead>
-              <tr>
-                <th>
-                  HTTP Method
-                </th>
-                <th>
-                  URI Template
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  `POST`
-                </td>
-                <td>
-                  <code>/session/{session
-                  id}/digital-credentials/response_wait</code>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <p>
-            The [=remote end steps=] are:
-          </p>
-          <ol class="algorithm">
-            <li>Set the session's [=next wallet behavior=] to <code>{ "mode":
-            "wait" }</code>.
-            </li>
-            <li>Return [=success=].
-            </li>
-          </ol>
-        </section>
-        <section id="set-wallet-to-decline">
-          <h4>
-            <dfn>Set Wallet to Decline</dfn>
-          </h4>
-          <p>
-            The [=Set Wallet to Decline=] [[WebDriver]] [=extension command=]
-            configures the virtual wallet to simulate a user declining the
-            request.
-          </p>
-          <table class="data">
-            <thead>
-              <tr>
-                <th>
-                  HTTP Method
-                </th>
-                <th>
-                  URI Template
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  `POST`
-                </td>
-                <td>
-                  <code>/session/{session
-                  id}/digital-credentials/response_decline</code>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <p>
-            The [=remote end steps=] are:
-          </p>
-          <ol class="algorithm">
-            <li>Set the session's [=next wallet behavior=] to <code>{ "mode":
-            "decline" }</code>.
-            </li>
-            <li>Return [=success=].
-            </li>
-          </ol>
-        </section>
+        <table class="data">
+          <thead>
+            <tr>
+              <th>
+                HTTP Method
+              </th>
+              <th>
+                URI Template
+              </th>
+            </tr>
+          </thead>
+          <tr>
+            <td>
+              `POST`
+            </td>
+            <td>
+              <code>/session/{session
+              id}/digital-credentials/response_wait</code>
+            </td>
+          </tr>
+        </table>
+        <p>
+          The [=remote end steps=] are:
+        </p>
+        <ol class="algorithm">
+          <li>Set the session's [=next wallet behavior=] to <code>{ "mode":
+          "wait" }</code>.
+          </li>
+          <li>Return [=success=].
+          </li>
+        </ol>
+      </section>
+      <section id="set-wallet-to-decline">
+        <h4>
+          <dfn>Set Wallet to Decline</dfn>
+        </h4>
+        <p>
+          The [=Set Wallet to Decline=] [[WebDriver]] [=extension command=]
+          configures the virtual wallet to simulate a user declining the
+          request.
+        </p>
+        <table class="data">
+          <thead>
+            <tr>
+              <th>
+                HTTP Method
+              </th>
+              <th>
+                URI Template
+              </th>
+            </tr>
+          </thead>
+          <tr>
+            <td>
+              `POST`
+            </td>
+            <td>
+              <code>/session/{session
+              id}/digital-credentials/response_decline</code>
+            </td>
+          </tr>
+        </table>
+        <p>
+          The [=remote end steps=] are:
+        </p>
+        <ol class="algorithm">
+          <li>Set the session's [=next wallet behavior=] to <code>{ "mode":
+          "decline" }</code>.
+          </li>
+          <li>Return [=success=].
+          </li>
+        </ol>
       </section>
     </section>
     <section class="prefer-full-spec-title" id="index"></section>
