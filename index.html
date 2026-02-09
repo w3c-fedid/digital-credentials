@@ -2222,8 +2222,10 @@
       <p>
         The following commands allow controlling the behavior of a virtual
         wallet for testing purposes. These commands affect the <dfn>next wallet
-        behavior</dfn> of the next `navigator.credentials.get({digital: ...})`
-        or `navigator.credentials.create({digital: ...})` call.
+        behavior</dfn> of the next
+        {{DigitalCredential/[[DiscoverFromExternalSource]](origin, options,
+        sameOriginWithAncestors)}} or {{DigitalCredential/[[Create]](origin,
+        options,sameOriginWithAncestors)}} call.
       </p>
       <section id="set-wallet-response">
         <h5>
