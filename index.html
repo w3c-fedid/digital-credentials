@@ -2141,12 +2141,19 @@
         User Agent Automation
       </h2>
       <p>
+        This section describes how to automate User Agent interactions for
+        testing.
+      </p>
+      <h3>
+        WebDriver Classic
+      </h3>
+      <p>
         For the purposes of user agent automation and web application testing,
         this document defines a number of [[WebDriver]] [=extension commands=].
       </p>
-      <h3>
+      <h4>
         Digital Credentials WebDriver Extension Capability
-      </h3>
+      </h4>
       <p>
         In order to advertise the availability of [=extension commands=]
         defined below, a new extension capability is defined.
@@ -2209,9 +2216,9 @@
         <li>Otherwise, the match is successful.
         </li>
       </ol>
-      <h3>
+      <h4>
         Virtual Wallet Commands
-      </h3>
+      </h4>
       <p>
         The following commands allow controlling the behavior of a virtual
         wallet for testing purposes. These commands affect the <dfn>next wallet
@@ -2219,9 +2226,9 @@
         or `navigator.credentials.create({digital: ...})` call.
       </p>
       <section id="set-wallet-response">
-        <h4>
+        <h5>
           <dfn>Set Wallet Response</dfn>
-        </h4>
+        </h5>
         <p>
           The [=Set Wallet Response=] [[WebDriver]] [=extension command=]
           configures the virtual wallet to respond with a specific data
@@ -2292,9 +2299,9 @@
         </ol>
       </section>
       <section id="set-wallet-to-wait">
-        <h4>
+        <h5>
           <dfn>Set Wallet to Wait</dfn>
-        </h4>
+        </h5>
         <p>
           The [=Set Wallet to Wait=] [[WebDriver]] [=extension command=]
           configures the virtual wallet to simulate a user waiting indefinitely
@@ -2333,9 +2340,9 @@
         </ol>
       </section>
       <section id="set-wallet-to-decline">
-        <h4>
+        <h5>
           <dfn>Set Wallet to Decline</dfn>
-        </h4>
+        </h5>
         <p>
           The [=Set Wallet to Decline=] [[WebDriver]] [=extension command=]
           configures the virtual wallet to simulate a user declining the
@@ -2373,6 +2380,13 @@
           </li>
         </ol>
       </section>
+      <h3>
+        WebDriver BiDi
+      </h3>
+      <p>
+        Support for [[WebDriver-BiDi]] may be defined in a future version of
+        this specification.
+      </p>
     </section>
     <section class="prefer-full-spec-title" id="index"></section>
     <section id="idl-index"></section>
