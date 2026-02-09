@@ -2187,9 +2187,9 @@
         </tbody>
       </table>
       <p>
-        When <a data-cite="webdriver#dfn-validate-capabilities">validating
-        capabilities</a>, the extension-specific sub-steps to validate
-        `digital-credentials:virtualWallet` with |value| are the following:
+        When required to [=validate capabilities=], the extension-specific
+        sub-steps to validate `digital-credentials:virtualWallet` with |value|
+        are the following:
       </p>
       <ol class="algorithm">
         <li>If |value| is not a [=boolean=], return a [=error|WebDriver error=]
@@ -2199,14 +2199,12 @@
         </li>
       </ol>
       <p>
-        When <a data-cite="webdriver#dfn-matching-capabilities">matching
-        capabilities</a>, the extension-specific steps to match
+        When [=matching capabilities=], the extension-specific steps to match
         `digital-credentials:virtualWallet` with |value| are the following:
       </p>
       <ol class="algorithm">
-        <li>If |value| is `true` and the <a data-cite=
-        "webdriver#dfn-endpoint-node">endpoint node</a> does not support any of
-        the Virtual Wallet commands, the match is unsuccessful.
+        <li>If |value| is `true` and the [=endpoint node=] does not support any
+        of the Virtual Wallet commands, the match is unsuccessful.
         </li>
         <li>Otherwise, the match is successful.
         </li>
@@ -2250,8 +2248,7 @@
           </tr>
         </table>
         <p>
-          The parameters object is a JSON <a data-cite=
-          "webdriver#dfn-object">Object</a> with the following key:
+          The parameters object is a JSON Object with the following key:
         </p>
         <table class="data">
           <thead>
@@ -2283,10 +2280,9 @@
           The [=remote end steps=] are:
         </p>
         <ol class="algorithm">
-          <li>If |parameters| is not a JSON <a data-cite=
-          "webdriver#dfn-object">Object</a>, or if it does not contain a |data|
-          property of type string, return a [=error|WebDriver error=] with
-          [=error code|WebDriver error code=] [=invalid argument=].
+          <li>If |parameters| is not a JSON Object, or if it does not contain a
+          |data| property of type string, return a [=error|WebDriver error=]
+          with [=error code|WebDriver error code=] [=invalid argument=].
           </li>
           <li>Set the session's [=next wallet behavior=] to <code>{ "mode":
           "respond", "data": parameters.data }</code>.
