@@ -2136,7 +2136,7 @@
         MUST be operable in a device-independent manner.
       </p>
     </section>
-    <section data-cite="webdriver">
+    <section data-cite="webdriver-bidi">
       <h2>
         User Agent Automation
       </h2>
@@ -2144,15 +2144,12 @@
         This section describes how to automate User Agent interactions for
         testing.
       </p>
-      <h3>
-        WebDriver Classic
-      </h3>
       <p>
         For the purposes of user agent automation and web application testing,
-        this document defines a number of [[WebDriver]] [=extension commands=].
+        this document defines a number of [[WebDriver-BiDi]] [=extension commands=].
       </p>
       <h4>
-        Digital Credentials WebDriver Extension Capability
+        Digital Credentials WebDriver BiDi Extension Capability
       </h4>
       <p>
         In order to advertise the availability of [=extension commands=]
@@ -2181,7 +2178,7 @@
               Virtual Wallet Support
             </td>
             <td>
-              `digital-credentials:virtualWallet`
+              `digitalCredentials:virtualWallet`
             </td>
             <td>
               [=boolean=]
@@ -2195,7 +2192,7 @@
       </table>
       <p>
         When required to [=validate capabilities=], the extension-specific
-        sub-steps to validate `digital-credentials:virtualWallet` with |value|
+        sub-steps to validate `digitalCredentials:virtualWallet` with |value|
         are the following:
       </p>
       <ol class="algorithm">
@@ -2207,7 +2204,7 @@
       </ol>
       <p>
         When [=matching capabilities=], the extension-specific steps to match
-        `digital-credentials:virtualWallet` with |value| are the following:
+        `digitalCredentials:virtualWallet` with |value| are the following:
       </p>
       <ol class="algorithm">
         <li>If |value| is `true` and the [=endpoint node=] does not support any
@@ -2232,7 +2229,7 @@
           <dfn>Set Wallet Response</dfn>
         </h5>
         <p>
-          The [=Set Wallet Response=] [[WebDriver]] [=extension command=]
+          The [=Set Wallet Response=] [[WebDriver-BiDi]] [=extension command=]
           configures the virtual wallet to respond with a specific data
           payload, simulating a user successfully completing the flow.
         </p>
@@ -2240,19 +2237,13 @@
           <thead>
             <tr>
               <th>
-                HTTP Method
-              </th>
-              <th>
-                URI Template
+                Method
               </th>
             </tr>
           </thead>
           <tr>
             <td>
-              `POST`
-            </td>
-            <td>
-              <code>/session/{session id}/digital-credentials/response</code>
+              `digitalCredentials.setResponse`
             </td>
           </tr>
         </table>
@@ -2305,7 +2296,7 @@
           <dfn>Set Wallet to Wait</dfn>
         </h5>
         <p>
-          The [=Set Wallet to Wait=] [[WebDriver]] [=extension command=]
+          The [=Set Wallet to Wait=] [[WebDriver-BiDi]] [=extension command=]
           configures the virtual wallet to simulate a user waiting indefinitely
           in the wallet UI.
         </p>
@@ -2313,20 +2304,13 @@
           <thead>
             <tr>
               <th>
-                HTTP Method
-              </th>
-              <th>
-                URI Template
+                Method
               </th>
             </tr>
           </thead>
           <tr>
             <td>
-              `POST`
-            </td>
-            <td>
-              <code>/session/{session
-              id}/digital-credentials/response_wait</code>
+              `digitalCredentials.setWait`
             </td>
           </tr>
         </table>
@@ -2346,7 +2330,7 @@
           <dfn>Set Wallet to Decline</dfn>
         </h5>
         <p>
-          The [=Set Wallet to Decline=] [[WebDriver]] [=extension command=]
+          The [=Set Wallet to Decline=] [[WebDriver-BiDi]] [=extension command=]
           configures the virtual wallet to simulate a user declining the
           request.
         </p>
@@ -2354,20 +2338,13 @@
           <thead>
             <tr>
               <th>
-                HTTP Method
-              </th>
-              <th>
-                URI Template
+                Method
               </th>
             </tr>
           </thead>
           <tr>
             <td>
-              `POST`
-            </td>
-            <td>
-              <code>/session/{session
-              id}/digital-credentials/response_decline</code>
+              `digitalCredentials.setDecline`
             </td>
           </tr>
         </table>
@@ -2382,13 +2359,6 @@
           </li>
         </ol>
       </section>
-      <h3>
-        WebDriver BiDi
-      </h3>
-      <p>
-        Support for [[WebDriver-BiDi]] may be defined in a future version of
-        this specification.
-      </p>
     </section>
     <section class="prefer-full-spec-title" id="index"></section>
     <section id="idl-index"></section>
