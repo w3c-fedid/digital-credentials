@@ -1120,10 +1120,10 @@
       arguments. Otherwise:
     </p>
     <ol class="algorithm">
-      <li>Let |signal| be |options|'s {{CredentialRequestOptions/signal}} if
+      <li>Let |signal| be |options|'s {{CredentialRequestOptions/signal}}, if
       present.
       </li>
-      <li>If |signal| is not undefined and |signal| is [=AbortSignal/aborted=],
+      <li>If |signal| is [=AbortSignal/aborted=],
       return [=a promise rejected with=] |signal|'s [=AbortSignal/abort
       reason=].
       </li>
@@ -1191,10 +1191,10 @@
       arguments. Otherwise:
     </p>
     <ol class="algorithm">
-      <li>Let |signal| be |options|'s {{CredentialCreationOptions/signal}} if
+      <li>Let |signal| be |options|'s {{CredentialCreationOptions/signal}}, if
       present.
       </li>
-      <li>If |signal| is not undefined and |signal| is [=AbortSignal/aborted=],
+      <li>If |signal| is [=AbortSignal/aborted=],
       return [=a promise rejected with=] |signal|'s [=AbortSignal/abort
       reason=].
       </li>
