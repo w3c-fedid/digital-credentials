@@ -132,7 +132,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="c35a8a8bfd7cdda26042677808e220a805103720">
+<meta name="revision" content="5baf83fafb1407819e772883aec1400ccef34b74">
 <meta name="description" content="This document specifies an API to enable user agents to mediate
         presentation and issuance of digital credentials such as a driver's
         license, government-issued identification card, and/or other types of digital credential. The API builds on
@@ -270,7 +270,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "c35a8a8bfd7cdda26042677808e220a805103720",
+  "gitRevision": "5baf83fafb1407819e772883aec1400ccef34b74",
   "publishISODate": "2026-02-18T00:00:00.000Z",
   "generatedSubtitle": "W3C Editor's Draft 18 February 2026"
 }</script>
@@ -458,6 +458,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       Supporting Data Structures
     </a><ol class="toc"><li class="tocline"><a class="tocxref" href="#the-digitalcredentialpresentationprotocol-enumeration"><bdi class="secno">7.8.1 </bdi>
       The <span data-xref-type="_IDL_" data-link-type="idl" data-lt="DigitalCredentialPresentationProtocol" class="formerLink"><code>DigitalCredentialPresentationProtocol</code></span> enumeration
+    </a></li><li class="tocline"><a class="tocxref" href="#the-digitalcredentialissuanceprotocol-enumeration"><bdi class="secno">7.8.2 </bdi>
+      The <span data-xref-type="_IDL_" data-link-type="idl" data-lt="DigitalCredentialIssuanceProtocol" class="formerLink"><code>DigitalCredentialIssuanceProtocol</code></span> enumeration
     </a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#credential-management-integration"><bdi class="secno">8. </bdi>
       Integration with <cite><span data-cite="credential-management" data-matched-text="[[[credential-management]]]" class="formerLink">Credential Management Level 1</span></cite>
     </a><ol class="toc"><li class="tocline"><a class="tocxref" href="#discoverfromexternalsource-origin-options-sameoriginwithancestors-internal-method"><bdi class="secno">8.1 </bdi>
@@ -1068,8 +1070,16 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           </th>
         </tr>
         <tr>
-          <td colspan="2">
-            No issuance protocols are currently defined.
+          <th scope="row">
+            <dfn data-dfn-for="DigitalCredentialIssuanceProtocol" data-export="" data-dfn-type="enum-value" id="dom-digitalcredentialissuanceprotocol-openid4vci-v1" data-idl="enum-value" data-title="openid4vci-v1" tabindex="0" aria-haspopup="dialog"><code>openid4vci-v1</code></dfn>
+          </th>
+          <td>
+            <cite><a data-matched-text="[[[OPENID4VCI]]]" href="https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html">OpenID for Verifiable Credential Issuance 1.0</a></cite> § Coming Soon
+            <div class="issue" id="issue-container-generatedID-1"><div role="heading" class="issue-title marker" id="h-issue-0" aria-level="2"><span>Issue</span><span class="issue-label">: API Integration</span></div><aside class="">
+              The OpenID Foundation is working on integration with Digital Credentials API.
+              You can track progress at <a href="https://github.com/openid/OpenID4VCI/issues/410">
+              OpenID4VCI#410</a>.
+            </aside></div> 
           </td>
         </tr>
       </tbody>
@@ -1114,7 +1124,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       external wallet applications, platform components, or other trusted
       entities according to user or platform policy.
     </p>
-    <div class="note" role="note" id="issue-container-generatedID-1"><div role="heading" class="note-title marker" id="h-note-1" aria-level="2"><span>Note</span></div><aside class="">
+    <div class="note" role="note" id="issue-container-generatedID-2"><div role="heading" class="note-title marker" id="h-note-1" aria-level="2"><span>Note</span></div><aside class="">
       <p>
         Although the coordinator handles input/output coordination, it is the
         responsibility of the platform together with available <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders" id="ref-for-index-term-holder-10">holders</a>, to
@@ -1338,8 +1348,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </p>
     <p>
       The <a data-link-type="idl" href="#dom-digitalcredentialcreaterequest-protocol" class="internalDFN" id="ref-for-dom-digitalcredentialcreaterequest-protocol-2"><code>protocol</code></a> member's value is one of
-      the protocol identifiers defined in <a href="#protocols" data-matched-text="[[[#protocols]]]" class="sec-ref"><bdi class="secno">5. </bdi>
-      Protocols</a>.
+      the protocol identifiers defined in
+      <a data-link-type="idl" data-lt="DigitalCredentialIssuanceProtocol" href="#dom-digitalcredentialissuanceprotocol" class="internalDFN" id="ref-for-dom-digitalcredentialissuanceprotocol-1"><code>DigitalCredentialIssuanceProtocol</code></a>.
     </p>
     </section><section id="the-data-member-0"><div class="header-wrapper"><h4 id="x7-6-2-the-data-member"><bdi class="secno">7.6.2 </bdi>
       The <code>data</code> member
@@ -1372,7 +1382,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       "<a data-link-type="enum-value" href="https://www.w3.org/TR/credential-management-1/#dom-credentialmediationrequirement-required" id="ref-for-index-term-required-for-credentialmediationrequirement-3"><code>required</code></a>" mediation an implicit and
       non-overridable behavior of the API.
     </p>
-    <pre class="idl def" id="webidl-469951694"><span class="idlHeader"><a class="self-link" href="#webidl-469951694">WebIDL</a></span><code><span data-idl="" class="idlTypedef" id="idl-def-digitalcredentialprotocol" data-title="DigitalCredentialProtocol">typedef<span class="idlType"> <a data-link-type="idl" href="#dom-digitalcredentialpresentationprotocol" class="internalDFN" id="ref-for-dom-digitalcredentialpresentationprotocol-2"><code>DigitalCredentialPresentationProtocol</code></a></span> <dfn data-export="" data-dfn-type="typedef" id="dom-digitalcredentialprotocol" data-idl="typedef" data-title="DigitalCredentialProtocol" data-dfn-for="" class="idlID" tabindex="0" aria-haspopup="dialog"><code>DigitalCredentialProtocol</code></dfn>;</span><span data-idl="" class="idlInterface" id="idl-def-digitalcredential" data-title="DigitalCredential">
+    <pre class="idl def" id="webidl-245360792"><span class="idlHeader"><a class="self-link" href="#webidl-245360792">WebIDL</a></span><code><span data-idl="" class="idlTypedef" id="idl-def-digitalcredentialprotocol" data-title="DigitalCredentialProtocol">typedef<span class="idlType"> (<a data-link-type="idl" href="#dom-digitalcredentialpresentationprotocol" class="internalDFN" id="ref-for-dom-digitalcredentialpresentationprotocol-2"><code>DigitalCredentialPresentationProtocol</code></a> or <a data-link-type="idl" href="#dom-digitalcredentialissuanceprotocol" class="internalDFN" id="ref-for-dom-digitalcredentialissuanceprotocol-2"><code>DigitalCredentialIssuanceProtocol</code></a>)</span> <dfn data-export="" data-dfn-type="typedef" id="dom-digitalcredentialprotocol" data-idl="typedef" data-title="DigitalCredentialProtocol" data-dfn-for="" class="idlID" tabindex="0" aria-haspopup="dialog"><code>DigitalCredentialProtocol</code></dfn>;</span><span data-idl="" class="idlInterface" id="idl-def-digitalcredential" data-title="DigitalCredential">
 
 [<span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-index-term-exposed-extended-attribute-1">Exposed</a>=Window</span>, <span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext" id="ref-for-index-term-securecontext-extended-attribute-1">SecureContext</a></span>]
 interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-digitalcredential" id="ref-for-dom-digitalcredential-6"><code>DigitalCredential</code></a> : <span class="idlSuperclass"><a data-link-type="interface" href="https://www.w3.org/TR/credential-management-1/#credential" id="ref-for-index-term-credential-interface-1">Credential</a></span> {<span data-idl="" class="idlMethod" id="idl-def-digitalcredential-tojson" data-title="toJSON" data-dfn-for="DigitalCredential">
@@ -1409,7 +1419,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       The <a data-link-type="idl" data-lt="userAgentAllowsProtocol()" href="#dom-digitalcredential-useragentallowsprotocol" class="internalDFN" id="ref-for-dom-digitalcredential-useragentallowsprotocol-3"><code>userAgentAllowsProtocol</code></a><code>()</code> method allows digital
       credential <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifier-4">verifiers</a> to determine which <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-13">presentation protocols</a> and <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-12">issuance protocols</a> the user agent allows.
     </p>
-    <div class="note" role="note" id="issue-container-generatedID-2"><div role="heading" class="note-title marker" id="h-note-2" aria-level="2"><span>Note</span></div><p class="">
+    <div class="note" role="note" id="issue-container-generatedID-3"><div role="heading" class="note-title marker" id="h-note-2" aria-level="2"><span>Note</span></div><p class="">
       This method does not convey <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-14">presentation protocol</a>
       or <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-13">issuance protocol</a> support in the underlying
       OS/platform.
@@ -1457,6 +1467,16 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
   <span class="idlEnumItem">"<a class="internalDFN" data-link-type="enum-value" href="#dom-digitalcredentialpresentationprotocol-openid4vp-v1-multisigned" id="ref-for-dom-digitalcredentialpresentationprotocol-openid4vp-v1-multisigned-1"><code>openid4vp-v1-multisigned</code></a>"</span>,
   <span class="idlEnumItem">"<a class="internalDFN" data-link-type="enum-value" href="#dom-digitalcredentialpresentationprotocol-org-iso-mdoc" id="ref-for-dom-digitalcredentialpresentationprotocol-org-iso-mdoc-1"><code>org-iso-mdoc</code></a>"</span>
 };</span></code></pre>
+    </section><section id="the-digitalcredentialissuanceprotocol-enumeration"><div class="header-wrapper"><h4 id="x7-8-2-the-digitalcredentialissuanceprotocol-enumeration"><bdi class="secno">7.8.2 </bdi>
+      The <a data-link-type="idl" data-lt="DigitalCredentialIssuanceProtocol" href="#dom-digitalcredentialissuanceprotocol" class="internalDFN" id="ref-for-dom-digitalcredentialissuanceprotocol-3"><code>DigitalCredentialIssuanceProtocol</code></a> enumeration
+    </h4><a class="self-link" href="#the-digitalcredentialissuanceprotocol-enumeration" aria-label="Permalink for Section 7.8.2"></a></div>
+    <p>
+      This enumeration's values correspond to the supported <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-14">issuance protocols</a> listed in <a href="#protocols" data-matched-text="[[[#protocols]]]" class="sec-ref"><bdi class="secno">5. </bdi>
+      Protocols</a>.
+    </p>
+    <pre class="idl def" id="webidl-1572165639"><span class="idlHeader"><a class="self-link" href="#webidl-1572165639">WebIDL</a></span><code><span data-idl="" class="idlEnum" id="idl-def-digitalcredentialissuanceprotocol" data-title="DigitalCredentialIssuanceProtocol">enum <dfn data-export="" data-dfn-type="enum" id="dom-digitalcredentialissuanceprotocol" data-idl="enum" data-title="DigitalCredentialIssuanceProtocol" data-dfn-for="" class="idlID" tabindex="0" aria-haspopup="dialog"><code>DigitalCredentialIssuanceProtocol</code></dfn> {
+  <span class="idlEnumItem">"<a class="internalDFN" data-link-type="enum-value" href="#dom-digitalcredentialissuanceprotocol-openid4vci-v1" id="ref-for-dom-digitalcredentialissuanceprotocol-openid4vci-v1-1"><code>openid4vci-v1</code></a>"</span>,
+};</span></code></pre>
     </section></section></section><section id="integration-with-credential-management-level-1"><div class="header-wrapper"><h2 id="credential-management-integration"><bdi class="secno">8. </bdi>
       Integration with <cite><a data-matched-text="[[[credential-management]]]" href="https://www.w3.org/TR/credential-management-1/">Credential Management Level 1</a></cite>
     </h2><a class="self-link" href="#credential-management-integration" aria-label="Permalink for Section 8."></a></div>
@@ -1499,7 +1519,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <li><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation" id="ref-for-index-term-consume-user-activation-1">Consume user activation</a> of <var>global</var>.
       </li>
       <li>
-        <div class="issue" id="issue-container-generatedID-3"><div role="heading" class="issue-title marker" id="h-issue-0" aria-level="2"><span>Issue</span></div><aside class="">
+        <div class="issue" id="issue-container-generatedID-4"><div role="heading" class="issue-title marker" id="h-issue-1" aria-level="2"><span>Issue</span></div><aside class="">
           Details of how to actually get the <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-26">digital credential</a> are
           forthcoming.
         </aside></div>
@@ -1552,7 +1572,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <li><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation" id="ref-for-index-term-consume-user-activation-2">Consume user activation</a> of <var>global</var>.
       </li>
       <li>
-        <div class="issue" id="issue-container-generatedID-4"><div role="heading" class="issue-title marker" id="h-issue-1" aria-level="2"><span>Issue</span></div><aside class="">
+        <div class="issue" id="issue-container-generatedID-5"><div role="heading" class="issue-title marker" id="h-issue-2" aria-level="2"><span>Issue</span></div><aside class="">
           Details of how to actually issue the <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-27">digital credential</a> are
           forthcoming.
         </aside></div>
@@ -1560,7 +1580,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <li>Return a newly constructed <a data-link-type="idl" data-lt="DigitalCredential" href="#dom-digitalcredential" class="internalDFN" id="ref-for-dom-digitalcredential-10"><code>DigitalCredential</code></a> with
       <a data-link-type="idl" href="#dom-digitalcredential-protocol" class="internalDFN" id="ref-for-dom-digitalcredential-protocol-2"><code>protocol</code></a> initialized to the protocol that was used
       to issue this credential, and <a data-link-type="idl" href="#dom-digitalcredential-data" class="internalDFN" id="ref-for-dom-digitalcredential-data-2"><code>data</code></a> initialized to
-      an <a data-link-type="dfn|abstract-op" href="#dfn-issuance-response" class="internalDFN" id="ref-for-dfn-issuance-response-3">issuance response</a> defined by that <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-14">issuance protocol</a>.
+      an <a data-link-type="dfn|abstract-op" href="#dfn-issuance-response" class="internalDFN" id="ref-for-dfn-issuance-response-3">issuance response</a> defined by that <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-15">issuance protocol</a>.
       </li>
     </ol>
     </section><section id="type-internal-slot"><div class="header-wrapper"><h3 id="x8-4-type-internal-slot"><bdi class="secno">8.4 </bdi>
@@ -1630,7 +1650,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         specification defines requirements for the user agent's behavior only
         when mediating <a data-link-type="dfn|abstract-op" href="#dfn-credential-response" class="internalDFN" id="ref-for-dfn-credential-response-2">credential responses</a>.
       </p>
-      <div class="note" role="note" id="issue-container-generatedID-5"><div role="heading" class="note-title marker" id="h-note-3" aria-level="3"><span>Note</span></div><p class="">
+      <div class="note" role="note" id="issue-container-generatedID-6"><div role="heading" class="note-title marker" id="h-note-3" aria-level="3"><span>Note</span></div><p class="">
         Other security considerations that depend on protocols, wallet
         implementations, operating systems, or transport security are described
         as expectations or preconditions, but these are not normatively
@@ -1643,7 +1663,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         The <dfn id="dfn-threat-model" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn" class="respec-offending-element" title="Found definition for &quot;threat model&quot;, but nothing links to it. This is usually a spec bug!">threat model</dfn> for this specification includes threats to
         this API and to adjacent standards of the ecosystem.
       </p>
-      <div class="issue" id="issue-container-number-440"><div role="heading" class="issue-title marker" id="h-issue-2" aria-level="3"><a href="https://github.com/w3c-fedid/digital-credentials/issues/440"><span class="issue-number">Issue 440</span></a><span class="issue-label">: Publish and link the Threat Model for Digital Credentials API</span></div><p dir="auto">As <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/marcoscaceres/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/marcoscaceres">@marcoscaceres</a> <a href="https://github.com/w3c-fedid/digital-credentials/pull/424#discussion_r2693373288" data-hovercard-type="pull_request" data-hovercard-url="/w3c-fedid/digital-credentials/pull/424/hovercard">suggested</a>, an issue to remember is to publish the Threat Model and reference it. <a href="https://github.com/w3c/securityig/blob/main/meetings/2026/2026-01-20_minutes.md#call-for-consensus-for-adoption-and-first-note-draft-of-threat-model-for-digital-credentials-api-and-vulnerability-disclosure">CfC has already been done at SING</a>.</p></div>
+      <div class="issue" id="issue-container-number-440"><div role="heading" class="issue-title marker" id="h-issue-3" aria-level="3"><a href="https://github.com/w3c-fedid/digital-credentials/issues/440"><span class="issue-number">Issue 440</span></a><span class="issue-label">: Publish and link the Threat Model for Digital Credentials API</span></div><p dir="auto">As <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/marcoscaceres/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/marcoscaceres">@marcoscaceres</a> <a href="https://github.com/w3c-fedid/digital-credentials/pull/424#discussion_r2693373288" data-hovercard-type="pull_request" data-hovercard-url="/w3c-fedid/digital-credentials/pull/424/hovercard">suggested</a>, an issue to remember is to publish the Threat Model and reference it. <a href="https://github.com/w3c/securityig/blob/main/meetings/2026/2026-01-20_minutes.md#call-for-consensus-for-adoption-and-first-note-draft-of-threat-model-for-digital-credentials-api-and-vulnerability-disclosure">CfC has already been done at SING</a>.</p></div>
       <p>
         For this specification, threats fall into two categories:
       </p>
@@ -1692,7 +1712,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       </h2><a class="self-link" href="#privacy-considerations" aria-label="Permalink for Section 11."></a></div><p><em>This section is non-normative.</em></p>
       
       
-      <div class="issue" id="issue-container-generatedID-6"><div role="heading" class="issue-title marker" id="h-issue-3" aria-level="3"><span>Issue</span><span class="issue-label">: Privacy Considerations section is a work in progress</span></div><div class="">
+      <div class="issue" id="issue-container-generatedID-7"><div role="heading" class="issue-title marker" id="h-issue-4" aria-level="3"><span>Issue</span><span class="issue-label">: Privacy Considerations section is a work in progress</span></div><div class="">
         <p>
           This section is a work in progress as this document evolves.
         </p>
@@ -1777,7 +1797,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           holder applications</a>. It also enforces certain minimum
           requirements on supported protocols, such as <a href="#encrypting-credential-responses">response encryption</a>.
         </p>
-        <div class="note" role="note" id="issue-container-generatedID-7"><div role="heading" class="note-title marker" id="h-note-4" aria-level="4"><span>Note</span></div><aside class="">
+        <div class="note" role="note" id="issue-container-generatedID-8"><div role="heading" class="note-title marker" id="h-note-4" aria-level="4"><span>Note</span></div><aside class="">
           The Digital Credentials API is not intended to inhibit the
           development of other standardized solutions that enhance user
           privacy. For example, an API could be standardized that more strictly
@@ -1830,7 +1850,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         <section id="presentation-protocol-considerations-for-user-privacy"><div class="header-wrapper"><h4 id="x11-3-1-presentation-protocol-considerations-for-user-privacy"><bdi class="secno">11.3.1 </bdi>
           Presentation Protocol Considerations for User Privacy
         </h4><a class="self-link" href="#presentation-protocol-considerations-for-user-privacy" aria-label="Permalink for Section 11.3.1"></a></div>
-        <div class="issue" id="issue-container-number-255"><div role="heading" class="issue-title marker" id="h-issue-4" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/255"><span class="issue-number">Issue 255</span></a><span class="issue-label">: Protocol registry: Reviewing is not sufficient <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22security-tracker%22" style="background-color: rgb(255, 255, 0); color: rgb(0, 0, 0);" aria-label="GitHub label: security-tracker">security-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22registry%22" style="background-color: rgb(52, 215, 156); color: rgb(0, 0, 0);" aria-label="GitHub label: registry">registry</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22agenda%2B%22" style="background-color: rgb(194, 224, 198); color: rgb(0, 0, 0);" aria-label="GitHub label: agenda+">agenda+</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22security-considerations%22" style="background-color: rgb(255, 255, 0); color: rgb(0, 0, 0);" aria-label="GitHub label: security-considerations">security-considerations</a></span></div><p dir="auto">There are two requirements for protocols that I think need further elaboration:</p>
+        <div class="issue" id="issue-container-number-255"><div role="heading" class="issue-title marker" id="h-issue-5" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/255"><span class="issue-number">Issue 255</span></a><span class="issue-label">: Protocol registry: Reviewing is not sufficient <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22security-tracker%22" style="background-color: rgb(255, 255, 0); color: rgb(0, 0, 0);" aria-label="GitHub label: security-tracker">security-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22registry%22" style="background-color: rgb(52, 215, 156); color: rgb(0, 0, 0);" aria-label="GitHub label: registry">registry</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22agenda%2B%22" style="background-color: rgb(194, 224, 198); color: rgb(0, 0, 0);" aria-label="GitHub label: agenda+">agenda+</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22security-considerations%22" style="background-color: rgb(255, 255, 0); color: rgb(0, 0, 0);" aria-label="GitHub label: security-considerations">security-considerations</a></span></div><p dir="auto">There are two requirements for protocols that I think need further elaboration:</p>
 <blockquote>
 <p dir="auto">MUST have undergone privacy review [...]</p>
 </blockquote>
@@ -1888,7 +1908,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           wallets. It is recommended that <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-0-17">user agents</a> account for this fact
           in their user permission experience.
         </p>
-        <div class="issue" id="issue-container-number-279"><div role="heading" class="issue-title marker" id="h-issue-5" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/279"><span class="issue-number">Issue 279</span></a><span class="issue-label">: Linkability and issuer involvement as a protocol requirement <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a></span></div><p class="">
+        <div class="issue" id="issue-container-number-279"><div role="heading" class="issue-title marker" id="h-issue-6" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/279"><span class="issue-number">Issue 279</span></a><span class="issue-label">: Linkability and issuer involvement as a protocol requirement <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a></span></div><p class="">
           Which level of unlinkability is the goal for this API? Can we
           normatively enforce support for any particular unlinkability
           features?
@@ -1921,7 +1941,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           digital wallets, and <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifier-14">verifiers</a> to avoid or reduce the dependence
           on "phone home" mechanisms.
         </p>
-        <div class="issue" id="issue-container-number-279-0"><div role="heading" class="issue-title marker" id="h-issue-6" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/279"><span class="issue-number">Issue 279</span></a><span class="issue-label">: Linkability and issuer involvement as a protocol requirement <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a></span></div><p class="">
+        <div class="issue" id="issue-container-number-279-0"><div role="heading" class="issue-title marker" id="h-issue-7" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/279"><span class="issue-number">Issue 279</span></a><span class="issue-label">: Linkability and issuer involvement as a protocol requirement <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a></span></div><p class="">
           Which level of unlinkability is the goal for this API? To what degree
           can the spec mandate restrictions to <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers" id="ref-for-index-term-issuer-13">issuer</a> involvement?
         </p></div>
@@ -1939,7 +1959,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           specification discourages the involvement of <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifier-15">verifiers</a> for the
           purpose of revocation where possible.
         </p>
-        <div class="issue" id="issue-container-number-280"><div role="heading" class="issue-title marker" id="h-issue-7" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/280"><span class="issue-number">Issue 280</span></a><span class="issue-label">: Can we require protocols to support unlinkable revocation? <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22registry%22" style="background-color: rgb(52, 215, 156); color: rgb(0, 0, 0);" aria-label="GitHub label: registry">registry</a></span></div><p class="">
+        <div class="issue" id="issue-container-number-280"><div role="heading" class="issue-title marker" id="h-issue-8" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/280"><span class="issue-number">Issue 280</span></a><span class="issue-label">: Can we require protocols to support unlinkable revocation? <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22registry%22" style="background-color: rgb(52, 215, 156); color: rgb(0, 0, 0);" aria-label="GitHub label: registry">registry</a></span></div><p class="">
           We should discuss whether unlinkable revocation techniques are
           practical enough to be required normatively.
         </p></div>
@@ -1970,7 +1990,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           helpful in preventing API abuse and designing a well-informed user
           permission experience.
         </p>
-        <div class="issue" id="issue-container-number-281"><div role="heading" class="issue-title marker" id="h-issue-8" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/281"><span class="issue-number">Issue 281</span></a><span class="issue-label">: User agents that only support authorized verifiers (for government credentials) <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a></span></div><p class="">
+        <div class="issue" id="issue-container-number-281"><div role="heading" class="issue-title marker" id="h-issue-9" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/281"><span class="issue-number">Issue 281</span></a><span class="issue-label">: User agents that only support authorized verifiers (for government credentials) <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a></span></div><p class="">
           Should we require protocols to include provisions that allow <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-0-22">user agents</a> to understand verifier authorization?
         </p></div>
         </section><section id="encrypting-credential-responses"><div class="header-wrapper"><h5 id="x11-3-1-7-encrypting-credential-responses"><bdi class="secno">11.3.1.7 </bdi>
@@ -1983,7 +2003,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifier-19">verifier</a>, protocols are required to support and mandate encrypted
           responses in a credential exchange.
         </p>
-        <div class="issue" id="issue-container-number-109"><div role="heading" class="issue-title marker" id="h-issue-9" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/109"><span class="issue-number">Issue 109</span></a><span class="issue-label">: Should response encryption be required <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22discussion%22" style="background-color: rgb(75, 158, 238); color: rgb(0, 0, 0);" aria-label="GitHub label: discussion">discussion</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22security-tracker%22" style="background-color: rgb(255, 255, 0); color: rgb(0, 0, 0);" aria-label="GitHub label: security-tracker">security-tracker</a></span></div><p dir="auto">Related to <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2024260424" data-permission-text="Title is private" data-url="https://github.com/w3c-fedid/digital-credentials/issues/49" data-hovercard-type="issue" data-hovercard-url="/w3c-fedid/digital-credentials/issues/49/hovercard" href="https://github.com/w3c-fedid/digital-credentials/issues/49">#49</a> and several other discussions we've had: do we want to say that the response must always be encrypted (and if so, by which algorithms), or are we OK leaving that as optional?</p></div>
+        <div class="issue" id="issue-container-number-109"><div role="heading" class="issue-title marker" id="h-issue-10" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/109"><span class="issue-number">Issue 109</span></a><span class="issue-label">: Should response encryption be required <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22discussion%22" style="background-color: rgb(75, 158, 238); color: rgb(0, 0, 0);" aria-label="GitHub label: discussion">discussion</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22security-tracker%22" style="background-color: rgb(255, 255, 0); color: rgb(0, 0, 0);" aria-label="GitHub label: security-tracker">security-tracker</a></span></div><p dir="auto">Related to <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2024260424" data-permission-text="Title is private" data-url="https://github.com/w3c-fedid/digital-credentials/issues/49" data-hovercard-type="issue" data-hovercard-url="/w3c-fedid/digital-credentials/issues/49/hovercard" href="https://github.com/w3c-fedid/digital-credentials/issues/49">#49</a> and several other discussions we've had: do we want to say that the response must always be encrypted (and if so, by which algorithms), or are we OK leaving that as optional?</p></div>
       </section></section></section>
       <section id="unnecessary-requests-for-credentials"><div class="header-wrapper"><h3 id="x11-4-unnecessary-requests-for-credentials"><bdi class="secno">11.4 </bdi>
           Unnecessary Requests for Credentials
@@ -2261,7 +2281,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           known credential types and reject an exchange request for an unknown
           credential type.
         </p>
-        <div class="issue" id="issue-container-number-100"><div role="heading" class="issue-title marker" id="h-issue-10" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/100"><span class="issue-number">Issue 100</span></a><span class="issue-label">: Consider applying the robustness principle with regard to user agent request validation <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22discussion%22" style="background-color: rgb(75, 158, 238); color: rgb(0, 0, 0);" aria-label="GitHub label: discussion">discussion</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a></span></div><p class="">
+        <div class="issue" id="issue-container-number-100"><div role="heading" class="issue-title marker" id="h-issue-11" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/100"><span class="issue-number">Issue 100</span></a><span class="issue-label">: Consider applying the robustness principle with regard to user agent request validation <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22discussion%22" style="background-color: rgb(75, 158, 238); color: rgb(0, 0, 0);" aria-label="GitHub label: discussion">discussion</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a></span></div><p class="">
           The need to provide users with appropriate transparency conflicts
           with the desire to enable the ecosystem to develop new credential
           formats without explicit <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-0-37">user agent</a> buy-in.
@@ -2269,7 +2289,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         </section><section id="reporting-abuse"><div class="header-wrapper"><h5 id="x11-4-2-4-reporting-abuse"><bdi class="secno">11.4.2.4 </bdi>
           Reporting abuse
         </h5><a class="self-link" href="#reporting-abuse" aria-label="Permalink for Section 11.4.2.4"></a></div>
-        <div class="issue" id="issue-container-number-267"><div role="heading" class="issue-title marker" id="h-issue-11" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/267"><span class="issue-number">Issue 267</span></a><span class="issue-label">: reporting abuse of credential requests <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a></span></div><p class="">
+        <div class="issue" id="issue-container-number-267"><div role="heading" class="issue-title marker" id="h-issue-12" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/267"><span class="issue-number">Issue 267</span></a><span class="issue-label">: reporting abuse of credential requests <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a></span></div><p class="">
           Consider an interoperable abuse reporting system for verifiers making
           unnecessary and abusive requests.
         </p></div>
@@ -2333,7 +2353,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           Revealing device properties through protocol availability
         </h4><a class="self-link" href="#revealing-device-properties-through-protocol-availability" aria-label="Permalink for Section 11.5.3"></a></div>
         <p>
-          The Digital Credentials API exposes information about which <a data-link-type="dfn|abstract-op" data-lt="presentation protocol" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-19">presentation</a> and <a data-link-type="dfn|abstract-op" data-lt="issuance protocol" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-15">issuance</a> protocols are supported by
+          The Digital Credentials API exposes information about which <a data-link-type="dfn|abstract-op" data-lt="presentation protocol" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-19">presentation</a> and <a data-link-type="dfn|abstract-op" data-lt="issuance protocol" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-16">issuance</a> protocols are supported by
           the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-0-39">user agent</a> through
           <a data-link-type="idl" data-lt="userAgentAllowsProtocol()" href="#dom-digitalcredential-useragentallowsprotocol" class="internalDFN" id="ref-for-dom-digitalcredential-useragentallowsprotocol-4"><code>userAgentAllowsProtocol</code></a><code>()</code>. It mitigates browser
           fingerprinting and revealing information about the user's device
@@ -2362,7 +2382,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         </h3><a class="self-link" href="#user-permission-and-transparency" aria-label="Permalink for Section 11.6"></a></div>
         
         
-        <div class="issue" id="issue-container-generatedID-8"><div role="heading" class="issue-title marker" id="h-issue-12" aria-level="4"><span>Issue</span><span class="issue-label">: Work in progress</span></div><p class=""></p></div>
+        <div class="issue" id="issue-container-generatedID-9"><div role="heading" class="issue-title marker" id="h-issue-13" aria-level="4"><span>Issue</span><span class="issue-label">: Work in progress</span></div><p class=""></p></div>
         <p>
           The Digital Credentials API enables the sharing of highly personal,
           sensitive, and at-risk user information with websites via
@@ -2399,17 +2419,17 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           that the details listed are fully disclosed to the user before an
           exchange of any user-related information occurs.
         </p>
-        <div class="issue" id="issue-container-number-252"><div role="heading" class="issue-title marker" id="h-issue-13" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/252"><span class="issue-number">Issue 252</span></a><span class="issue-label">: Should we normatively define elements of a permission prompt? <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a></span></div><p class="">
+        <div class="issue" id="issue-container-number-252"><div role="heading" class="issue-title marker" id="h-issue-14" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/252"><span class="issue-number">Issue 252</span></a><span class="issue-label">: Should we normatively define elements of a permission prompt? <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a></span></div><p class="">
           Should these be normative in the spec?
         </p></div>
-        <div class="issue" id="issue-container-number-44"><div role="heading" class="issue-title marker" id="h-issue-14" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/44"><span class="issue-number">Issue 44</span></a><span class="issue-label">: API requests should provide the site with what they need to explain why and how requested credential information will be used <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22enhancement%22" style="background-color: rgb(162, 238, 239); color: rgb(0, 0, 0);" aria-label="GitHub label: enhancement">enhancement</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22dc2-proposal%22" style="background-color: rgb(60, 103, 134); color: rgb(255, 255, 255);" aria-label="GitHub label: dc2-proposal">dc2-proposal</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a></span></div><p class="">
+        <div class="issue" id="issue-container-number-44"><div role="heading" class="issue-title marker" id="h-issue-15" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/44"><span class="issue-number">Issue 44</span></a><span class="issue-label">: API requests should provide the site with what they need to explain why and how requested credential information will be used <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22enhancement%22" style="background-color: rgb(162, 238, 239); color: rgb(0, 0, 0);" aria-label="GitHub label: enhancement">enhancement</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22dc2-proposal%22" style="background-color: rgb(60, 103, 134); color: rgb(255, 255, 255);" aria-label="GitHub label: dc2-proposal">dc2-proposal</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a></span></div><p class="">
           Should the API be designed so the site can provide in-context
           explanations?
         </p></div>
         <section id="handling-multiple-credential-requests"><div class="header-wrapper"><h4 id="x11-6-1-handling-multiple-credential-requests"><bdi class="secno">11.6.1 </bdi>
           Handling multiple credential requests
         </h4><a class="self-link" href="#handling-multiple-credential-requests" aria-label="Permalink for Section 11.6.1"></a></div>
-        <div class="issue" id="issue-container-number-286"><div role="heading" class="issue-title marker" id="h-issue-15" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/286"><span class="issue-number">Issue 286</span></a><span class="issue-label">: Privacy Considerations for multiple presentation requests (and responses) <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a></span></div><p class="">
+        <div class="issue" id="issue-container-number-286"><div role="heading" class="issue-title marker" id="h-issue-16" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/286"><span class="issue-number">Issue 286</span></a><span class="issue-label">: Privacy Considerations for multiple presentation requests (and responses) <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a></span></div><p class="">
           We need to describe concerns, tradeoffs and possible mitigations of
           handling multiple requests and responses for credential presentation.
         </p></div>
@@ -2555,6 +2575,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <span class="print-only">§7.5</span></li><li>
       <a class="index-term" href="#dom-digitalcredentialgetrequest"><code>DigitalCredentialGetRequest</code></a> dictionary
     <span class="print-only">§7.3</span></li><li>
+      <a class="index-term" href="#dom-digitalcredentialissuanceprotocol"><code>DigitalCredentialIssuanceProtocol</code></a> enum
+    <span class="print-only">§7.8.2</span></li><li>
       <a class="index-term" href="#dom-digitalcredentialpresentationprotocol"><code>DigitalCredentialPresentationProtocol</code></a> enum
     <span class="print-only">§7.8.1</span></li><li>
       <a class="index-term" href="#dom-digitalcredentialprotocol"><code>DigitalCredentialProtocol</code></a> 
@@ -2581,6 +2603,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <span class="print-only">§4.</span></li><li>
       <a class="index-term" href="#dfn-issuance-response">Issuance response</a> 
     <span class="print-only">§4.</span></li><li>
+      <a class="index-term" href="#dom-digitalcredentialissuanceprotocol-openid4vci-v1"><code>"openid4vci-v1"</code></a> enum value for <code>DigitalCredentialIssuanceProtocol</code>
+    <span class="print-only">§5.</span></li><li>
       <a class="index-term" href="#dom-digitalcredentialpresentationprotocol-openid4vp-v1-multisigned"><code>"openid4vp-v1-multisigned"</code></a> enum value for <code>DigitalCredentialPresentationProtocol</code>
     <span class="print-only">§5.</span></li><li>
       <a class="index-term" href="#dom-digitalcredentialpresentationprotocol-openid4vp-v1-signed"><code>"openid4vp-v1-signed"</code></a> enum value for <code>DigitalCredentialPresentationProtocol</code>
@@ -2902,7 +2926,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
   required<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-object" id="ref-for-index-term-object-type-6">object</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialcreaterequest-data" id="ref-for-dom-digitalcredentialcreaterequest-data-2"><code>data</code></a>;</span>
 };</span>
 
-<span data-idl="" class="idlTypedef" data-title="DigitalCredentialProtocol">typedef<span class="idlType"> <a data-link-type="idl" href="#dom-digitalcredentialpresentationprotocol" class="internalDFN" id="ref-for-dom-digitalcredentialpresentationprotocol-4"><code>DigitalCredentialPresentationProtocol</code></a></span> <dfn data-export="" data-dfn-type="typedef" data-idl="typedef" data-title="DigitalCredentialProtocol" data-dfn-for="" class="idlID"><code>DigitalCredentialProtocol</code></dfn>;</span><span data-idl="" class="idlInterface" data-title="DigitalCredential">
+<span data-idl="" class="idlTypedef" data-title="DigitalCredentialProtocol">typedef<span class="idlType"> (<a data-link-type="idl" href="#dom-digitalcredentialpresentationprotocol" class="internalDFN" id="ref-for-dom-digitalcredentialpresentationprotocol-4"><code>DigitalCredentialPresentationProtocol</code></a> or <a data-link-type="idl" href="#dom-digitalcredentialissuanceprotocol" class="internalDFN" id="ref-for-dom-digitalcredentialissuanceprotocol-4"><code>DigitalCredentialIssuanceProtocol</code></a>)</span> <dfn data-export="" data-dfn-type="typedef" data-idl="typedef" data-title="DigitalCredentialProtocol" data-dfn-for="" class="idlID"><code>DigitalCredentialProtocol</code></dfn>;</span><span data-idl="" class="idlInterface" data-title="DigitalCredential">
 
 [<span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-index-term-exposed-extended-attribute-2">Exposed</a>=Window</span>, <span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext" id="ref-for-index-term-securecontext-extended-attribute-2">SecureContext</a></span>]
 interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-digitalcredential" id="ref-for-dom-digitalcredential-13"><code>DigitalCredential</code></a> : <span class="idlSuperclass"><a data-link-type="interface" href="https://www.w3.org/TR/credential-management-1/#credential" id="ref-for-index-term-credential-interface-5">Credential</a></span> {<span data-idl="" class="idlMethod" data-title="toJSON" data-dfn-for="DigitalCredential">
@@ -2917,6 +2941,10 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
   <span class="idlEnumItem">"<a class="internalDFN" data-link-type="enum-value" href="#dom-digitalcredentialpresentationprotocol-openid4vp-v1-signed" id="ref-for-dom-digitalcredentialpresentationprotocol-openid4vp-v1-signed-2"><code>openid4vp-v1-signed</code></a>"</span>,
   <span class="idlEnumItem">"<a class="internalDFN" data-link-type="enum-value" href="#dom-digitalcredentialpresentationprotocol-openid4vp-v1-multisigned" id="ref-for-dom-digitalcredentialpresentationprotocol-openid4vp-v1-multisigned-2"><code>openid4vp-v1-multisigned</code></a>"</span>,
   <span class="idlEnumItem">"<a class="internalDFN" data-link-type="enum-value" href="#dom-digitalcredentialpresentationprotocol-org-iso-mdoc" id="ref-for-dom-digitalcredentialpresentationprotocol-org-iso-mdoc-2"><code>org-iso-mdoc</code></a>"</span>
+};</span>
+
+<span data-idl="" class="idlEnum" data-title="DigitalCredentialIssuanceProtocol">enum <dfn data-export="" data-dfn-type="enum" data-idl="enum" data-title="DigitalCredentialIssuanceProtocol" data-dfn-for="" class="idlID"><code>DigitalCredentialIssuanceProtocol</code></dfn> {
+  <span class="idlEnumItem">"<a class="internalDFN" data-link-type="enum-value" href="#dom-digitalcredentialissuanceprotocol-openid4vci-v1" id="ref-for-dom-digitalcredentialissuanceprotocol-openid4vci-v1-2"><code>openid4vci-v1</code></a>"</span>,
 };</span></code></pre></section>
     <section id="conformance"><div class="header-wrapper"><h2 id="c-conformance"><bdi class="secno">C. </bdi>Conformance</h2><a class="self-link" href="#conformance" aria-label="Permalink for Section C."></a></div><p>As well as sections marked as non-normative, all authoring guidelines, diagrams, examples, and notes in this specification are non-normative. Everything else in this specification is normative.</p><p>
         The key words <em class="rfc2119">MAY</em>, <em class="rfc2119">MUST</em>, <em class="rfc2119">MUST NOT</em>, and <em class="rfc2119">SHOULD</em> in this document
@@ -2957,6 +2985,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="https://infra.spec.whatwg.org/"><cite>Infra Standard</cite></a>. Anne van Kesteren; Domenic Denicola.  WHATWG. Living Standard. URL: <a href="https://infra.spec.whatwg.org/">https://infra.spec.whatwg.org/</a>
     </dd><dt id="bib-iso18013-7">[ISO18013-7]</dt><dd>
       <a href="https://www.iso.org/standard/91154.html"><cite>ISO/IEC 18013-7:2025 ISO-compliant driving licence, Part 7: Mobile driving licence (mDL) add-on functions</cite></a>. ISO/IEC JTC 1/SC 17.  International Organization for Standardization. May 2025. URL: <a href="https://www.iso.org/standard/91154.html">https://www.iso.org/standard/91154.html</a>
+    </dd><dt id="bib-openid4vci">[OPENID4VCI]</dt><dd>
+      <a href="https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html"><cite>OpenID for Verifiable Credential Issuance 1.0</cite></a>. Torsten Lodderstedt; Kristina Yasuda; Tobias Looker; Paul Bastian.  OpenID Foundation. 16 September 2025. Final. URL: <a href="https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html">https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html</a>
     </dd><dt id="bib-openid4vp">[OPENID4VP]</dt><dd>
       <a href="https://openid.net/specs/openid-4-verifiable-presentations-1_0.html"><cite>OpenID for Verifiable Presentations 1.0</cite></a>. Oliver Terbu; Torsten Lodderstedt; Kristina Yasuda; Daniel Fett; Joseph Heenan.  OpenID Foundation. 9 July 2025. Final. URL: <a href="https://openid.net/specs/openid-4-verifiable-presentations-1_0.html">https://openid.net/specs/openid-4-verifiable-presentations-1_0.html</a>
     </dd><dt id="bib-permissions">[permissions]</dt><dd>
@@ -3092,9 +3122,11 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-dfn-issuance-protocol-12" title="§ 7.7.3 The userAgentAllowsProtocol() method">§ 7.7.3 The userAgentAllowsProtocol() method</a> <a href="#ref-for-dfn-issuance-protocol-13" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-dfn-issuance-protocol-14" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
+      <a href="#ref-for-dfn-issuance-protocol-14" title="§ 7.8.2 The DigitalCredentialIssuanceProtocol enumeration">§ 7.8.2 The DigitalCredentialIssuanceProtocol enumeration</a> 
     </li><li>
-      <a href="#ref-for-dfn-issuance-protocol-15" title="§ 11.5.3 Revealing device properties through protocol availability">§ 11.5.3 Revealing device properties through protocol availability</a> 
+      <a href="#ref-for-dfn-issuance-protocol-15" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
+    </li><li>
+      <a href="#ref-for-dfn-issuance-protocol-16" title="§ 11.5.3 Revealing device properties through protocol availability">§ 11.5.3 Revealing device properties through protocol availability</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-issuance-request" aria-label="Links in this document to definition: Issuance request">
@@ -3335,6 +3367,20 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-dom-digitalcredentialpresentationprotocol-org-iso-mdoc-1" title="§ 7.8.1 The DigitalCredentialPresentationProtocol enumeration">§ 7.8.1 The DigitalCredentialPresentationProtocol enumeration</a> 
     </li><li>
       <a href="#ref-for-dom-digitalcredentialpresentationprotocol-org-iso-mdoc-2" title="§ B. IDL Index">§ B. IDL Index</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dom-digitalcredentialissuanceprotocol-openid4vci-v1" aria-label="Links in this document to definition: openid4vci-v1">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dom-digitalcredentialissuanceprotocol-openid4vci-v1" aria-label="Permalink for definition: openid4vci-v1. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-1572165639">IDL</a>
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-dom-digitalcredentialissuanceprotocol-openid4vci-v1-1" title="§ 7.8.2 The DigitalCredentialIssuanceProtocol enumeration">§ 7.8.2 The DigitalCredentialIssuanceProtocol enumeration</a> 
+    </li><li>
+      <a href="#ref-for-dom-digitalcredentialissuanceprotocol-openid4vci-v1-2" title="§ B. IDL Index">§ B. IDL Index</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-credential-request-coordinator" aria-label="Links in this document to definition: credential request coordinator">
@@ -3621,7 +3667,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <span class="caret"></span>
       <div>
         <a class="self-link" href="#dom-digitalcredential" aria-label="Permalink for definition: DigitalCredential. Activate to close this dialog.">Permalink</a>
-        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-469951694">IDL</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-245360792">IDL</a>
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3663,7 +3709,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <span class="caret"></span>
       <div>
         <a class="self-link" href="#dom-digitalcredential-protocol" aria-label="Permalink for definition: protocol. Activate to close this dialog.">Permalink</a>
-        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-469951694">IDL</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-245360792">IDL</a>
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3679,7 +3725,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <span class="caret"></span>
       <div>
         <a class="self-link" href="#dom-digitalcredential-data" aria-label="Permalink for definition: data. Activate to close this dialog.">Permalink</a>
-        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-469951694">IDL</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-245360792">IDL</a>
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3695,7 +3741,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <span class="caret"></span>
       <div>
         <a class="self-link" href="#dom-digitalcredential-useragentallowsprotocol" aria-label="Permalink for definition: userAgentAllowsProtocol(). Activate to close this dialog.">Permalink</a>
-        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-469951694">IDL</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-245360792">IDL</a>
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3727,6 +3773,24 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-dom-digitalcredentialpresentationprotocol-3" title="§ 7.8.1 The DigitalCredentialPresentationProtocol enumeration">§ 7.8.1 The DigitalCredentialPresentationProtocol enumeration</a> 
     </li><li>
       <a href="#ref-for-dom-digitalcredentialpresentationprotocol-4" title="§ B. IDL Index">§ B. IDL Index</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dom-digitalcredentialissuanceprotocol" aria-label="Links in this document to definition: DigitalCredentialIssuanceProtocol">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dom-digitalcredentialissuanceprotocol" aria-label="Permalink for definition: DigitalCredentialIssuanceProtocol. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-dom-digitalcredentialissuanceprotocol-1" title="§ 7.6.1 The protocol member">§ 7.6.1 The protocol member</a> 
+    </li><li>
+      <a href="#ref-for-dom-digitalcredentialissuanceprotocol-2" title="§ 7.7 The DigitalCredential interface">§ 7.7 The DigitalCredential interface</a> 
+    </li><li>
+      <a href="#ref-for-dom-digitalcredentialissuanceprotocol-3" title="§ 7.8.2 The DigitalCredentialIssuanceProtocol enumeration">§ 7.8.2 The DigitalCredentialIssuanceProtocol enumeration</a> 
+    </li><li>
+      <a href="#ref-for-dom-digitalcredentialissuanceprotocol-4" title="§ B. IDL Index">§ B. IDL Index</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors" aria-label="Links in this document to definition: [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)">
