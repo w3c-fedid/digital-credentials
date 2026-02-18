@@ -637,8 +637,17 @@
           </th>
         </tr>
         <tr>
-          <td colspan="2">
-            No issuance protocols are currently defined.
+          <th scope="row">
+            <dfn data-dfn-for=
+            "DigitalCredentialIssuanceProtocol">openid4vci-v1</dfn>
+          </th>
+          <td>
+            [[[OPENID4VCI]]] § Coming Soon
+            <aside class="issue" title="API Integration">
+              The OpenID Foundation is working on integration with Digital Credentials API.
+              You can track progress at <a href="https://github.com/openid/OpenID4VCI/issues/410">
+              OpenID4VCI#410</a>.
+            </aside> 
           </td>
         </tr>
       </tbody>
@@ -961,7 +970,8 @@
     </p>
     <p>
       The {{DigitalCredentialCreateRequest/protocol}} member's value is one of
-      the protocol identifiers defined in [[[#protocols]]].
+      the protocol identifiers defined in
+      {{DigitalCredentialIssuanceProtocol}}.
     </p>
     <h4>
       The `data` member
@@ -997,7 +1007,7 @@
       non-overridable behavior of the API.
     </p>
     <pre class="idl">
-    typedef DigitalCredentialPresentationProtocol DigitalCredentialProtocol;
+    typedef (DigitalCredentialPresentationProtocol or DigitalCredentialIssuanceProtocol) DigitalCredentialProtocol;
 
     [Exposed=Window, SecureContext]
     interface DigitalCredential : Credential {
@@ -1087,6 +1097,18 @@
         "org-iso-mdoc"
       };
       </pre>
+    <h4>
+      The {{DigitalCredentialIssuanceProtocol}} enumeration
+    </h4>
+    <p>
+      This enumeration's values correspond to the supported [=digital
+      credential/issuance protocols=] listed in [[[#protocols]]].
+    </p>
+    <pre class="idl">
+      enum DigitalCredentialIssuanceProtocol {
+        "openid4vci-v1",
+      };
+    </pre>
     <h2 id="credential-management-integration">
       Integration with [[[credential-management]]]
     </h2><!--
