@@ -679,6 +679,16 @@
       {{AbortSignal}}.
     </p>
     <p>
+      The [=credential request coordinator=] maintains an <dfn data-dfn-for=
+      "credential request coordinator">abort signal</dfn>, which the user agent
+      initializes as `null`.
+    </p>
+    <p>
+      The [=credential request coordinator=] maintains an <dfn data-dfn-for=
+      "credential request coordinator">abort algorithm</dfn>, which the user
+      agent initializes as `null`.
+    </p>
+    <p>
       The [=credential request coordinator=]:
     </p>
     <ul>
@@ -775,6 +785,24 @@
         <ol>
           <li>If the [=credential request coordinator=]'s [=credential request
           coordinator/active promise=] is not |promise|, then return.
+          </li>
+          <li>Let |signal| be the [=credential request coordinator=]'s
+          [=credential request coordinator/abort signal=].
+          </li>
+          <li>Let |abortAlgorithm| be the [=credential request coordinator=]'s
+          [=credential request coordinator/abort algorithm=].
+          </li>
+          <li>If |signal| is not `null` and |abortAlgorithm| is not `null`:
+            <ol>
+              <li>[=AbortSignal/Remove=] |abortAlgorithm| from |signal|.
+              </li>
+            </ol>
+          </li>
+          <li>Set the [=credential request coordinator=]'s [=credential request
+          coordinator/abort signal=] to `null`.
+          </li>
+          <li>Set the [=credential request coordinator=]'s [=credential request
+          coordinator/abort algorithm=] to `null`.
           </li>
           <li>[=Reject=] |promise| with |error|.
           </li>
