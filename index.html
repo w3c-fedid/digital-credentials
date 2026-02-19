@@ -132,7 +132,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="5baf83fafb1407819e772883aec1400ccef34b74">
+<meta name="revision" content="fbe166147710e5ebce47286c2c56fa1907fb910e">
 <meta name="description" content="This document specifies an API to enable user agents to mediate
         presentation and issuance of digital credentials such as a driver's
         license, government-issued identification card, and/or other types of digital credential. The API builds on
@@ -270,16 +270,16 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "5baf83fafb1407819e772883aec1400ccef34b74",
-  "publishISODate": "2026-02-18T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 18 February 2026"
+  "gitRevision": "fbe166147710e5ebce47286c2c56fa1907fb910e",
+  "publishISODate": "2026-02-19T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 19 February 2026"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED"></head>
   <body data-cite="WEBIDL credential-management vc-data-model HTML INFRA URL WEBIDL DOM FETCH" class="h-entry"><div class="head">
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Digital Credentials</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-02-18">18 February 2026</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-02-19">19 February 2026</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -481,7 +481,11 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         Security Considerations
       </a><ol class="toc"><li class="tocline"><a class="tocxref" href="#threat-model"><bdi class="secno">10.1 </bdi>
         Threat Model
-      </a></li><li class="tocline"><a class="tocxref" href="#mitigations"><bdi class="secno">10.2 </bdi>
+      </a><ol class="toc"><li class="tocline"><a class="tocxref" href="#in-scope-threats"><bdi class="secno">10.1.1 </bdi>
+        In-Scope Threats
+      </a></li><li class="tocline"><a class="tocxref" href="#out-of-scope-threats"><bdi class="secno">10.1.2 </bdi>
+        Out of Scope Threats
+      </a></li></ol></li><li class="tocline"><a class="tocxref" href="#mitigations"><bdi class="secno">10.2 </bdi>
         Mitigations
       </a></li></ol></li><li class="tocline"><a class="tocxref" href="#privacy-considerations"><bdi class="secno">11. </bdi>
         Privacy Considerations
@@ -1660,47 +1664,47 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         Threat Model
       </h3><a class="self-link" href="#threat-model" aria-label="Permalink for Section 10.1"></a></div>
       <p>
-        The <dfn id="dfn-threat-model" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn" class="respec-offending-element" title="Found definition for &quot;threat model&quot;, but nothing links to it. This is usually a spec bug!">threat model</dfn> for this specification includes threats to
-        this API and to adjacent standards of the ecosystem.
+        The threat model for this specification includes threats to this API
+        and to adjacent standards of the ecosystem.
       </p>
       <div class="issue" id="issue-container-number-440"><div role="heading" class="issue-title marker" id="h-issue-3" aria-level="3"><a href="https://github.com/w3c-fedid/digital-credentials/issues/440"><span class="issue-number">Issue 440</span></a><span class="issue-label">: Publish and link the Threat Model for Digital Credentials API</span></div><p dir="auto">As <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/marcoscaceres/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/marcoscaceres">@marcoscaceres</a> <a href="https://github.com/w3c-fedid/digital-credentials/pull/424#discussion_r2693373288" data-hovercard-type="pull_request" data-hovercard-url="/w3c-fedid/digital-credentials/pull/424/hovercard">suggested</a>, an issue to remember is to publish the Threat Model and reference it. <a href="https://github.com/w3c/securityig/blob/main/meetings/2026/2026-01-20_minutes.md#call-for-consensus-for-adoption-and-first-note-draft-of-threat-model-for-digital-credentials-api-and-vulnerability-disclosure">CfC has already been done at SING</a>.</p></div>
       <p>
-        For this specification, threats fall into two categories:
+        For this specification, threats fall into two categories: <a data-link-type="dfn|abstract-op" href="#dfn-in-scope-threats" class="internalDFN" id="ref-for-dfn-in-scope-threats-1">in-scope threats</a> and <a data-link-type="dfn|abstract-op" href="#dfn-out-of-scope-threats" class="internalDFN" id="ref-for-dfn-out-of-scope-threats-1">out-of-scope threats</a>.
+      </p>
+      <section id="in-scope-threats"><div class="header-wrapper"><h4 id="x10-1-1-in-scope-threats"><bdi class="secno">10.1.1 </bdi>
+        In-Scope Threats
+      </h4><a class="self-link" href="#in-scope-threats" aria-label="Permalink for Section 10.1.1"></a></div>
+      <p>
+        <dfn id="dfn-in-scope-threats" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">In-Scope Threats</dfn> are introduced or addressed by the DC API
+        itself. The following are <a data-link-type="dfn|abstract-op" href="#dfn-in-scope-threats" class="internalDFN" id="ref-for-dfn-in-scope-threats-2">in-scope threats</a> for this specification:
       </p>
       <dl>
         <dt>
-          <dfn id="dfn-in-scope-threats" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">In-scope threats</dfn>
+          Coming soon
         </dt>
         <dd>
-          <p>
-            In-scope threats introduced or addressed by the DC API itself.
-          </p>
-          <ul>
-            <li>To be written...
-            </li>
-          </ul>
-        </dd>
-        <dt>
-          <dfn id="dfn-out-of-scope-threats" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn" class="respec-offending-element" title="Found definition for &quot;Out-of-scope threats&quot;, but nothing links to it. This is usually a spec bug!">Out-of-scope threats</dfn>
-        </dt>
-        <dd>
-          <p>
-            Out-of-scope threats handled by protocols, wallets, OS platform
-            security, or transport layers. Even if "out of scope", they are
-            relevant because they influence the end-to-end security of
-            credential presentation and issuance.
-          </p>
-          <ul>
-            <li>To be written...
-            </li>
-          </ul>
+          To be written...
         </dd>
       </dl>
-      </section><section id="mitigations"><div class="header-wrapper"><h3 id="x10-2-mitigations"><bdi class="secno">10.2 </bdi>
+      </section><section id="out-of-scope-threats"><div class="header-wrapper"><h4 id="x10-1-2-out-of-scope-threats"><bdi class="secno">10.1.2 </bdi>
+        Out of Scope Threats
+      </h4><a class="self-link" href="#out-of-scope-threats" aria-label="Permalink for Section 10.1.2"></a></div>
+      <p>
+        <dfn id="dfn-out-of-scope-threats" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">Out-of-scope threats</dfn> are those handled by protocols,
+        wallets, OS platform security, or transport layers. Even if "out of
+        scope", they are relevant because they influence the end-to-end
+        security of credential presentation and issuance. The following defines
+        the <a data-link-type="dfn|abstract-op" href="#dfn-out-of-scope-threats" class="internalDFN" id="ref-for-dfn-out-of-scope-threats-2">out-of-scope threats</a> for this specification:
+      </p>
+      <ul>
+        <li>To be written...
+        </li>
+      </ul>
+      </section></section><section id="mitigations"><div class="header-wrapper"><h3 id="x10-2-mitigations"><bdi class="secno">10.2 </bdi>
         Mitigations
       </h3><a class="self-link" href="#mitigations" aria-label="Permalink for Section 10.2"></a></div>
       <p>
-        The following mitigations address <a data-link-type="dfn|abstract-op" href="#dfn-in-scope-threats" class="internalDFN" id="ref-for-dfn-in-scope-threats-1">in-scope threats</a> through
+        The following mitigations address <a data-link-type="dfn|abstract-op" href="#dfn-in-scope-threats" class="internalDFN" id="ref-for-dfn-in-scope-threats-3">in-scope threats</a> through
         normative requirements in the specification.
       </p>
       <p>
@@ -1850,7 +1854,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         <section id="presentation-protocol-considerations-for-user-privacy"><div class="header-wrapper"><h4 id="x11-3-1-presentation-protocol-considerations-for-user-privacy"><bdi class="secno">11.3.1 </bdi>
           Presentation Protocol Considerations for User Privacy
         </h4><a class="self-link" href="#presentation-protocol-considerations-for-user-privacy" aria-label="Permalink for Section 11.3.1"></a></div>
-        <div class="issue" id="issue-container-number-255"><div role="heading" class="issue-title marker" id="h-issue-5" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/255"><span class="issue-number">Issue 255</span></a><span class="issue-label">: Protocol registry: Reviewing is not sufficient <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22security-tracker%22" style="background-color: rgb(255, 255, 0); color: rgb(0, 0, 0);" aria-label="GitHub label: security-tracker">security-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22registry%22" style="background-color: rgb(52, 215, 156); color: rgb(0, 0, 0);" aria-label="GitHub label: registry">registry</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22agenda%2B%22" style="background-color: rgb(194, 224, 198); color: rgb(0, 0, 0);" aria-label="GitHub label: agenda+">agenda+</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22security-considerations%22" style="background-color: rgb(255, 255, 0); color: rgb(0, 0, 0);" aria-label="GitHub label: security-considerations">security-considerations</a></span></div><p dir="auto">There are two requirements for protocols that I think need further elaboration:</p>
+        <div class="issue" id="issue-container-number-255"><div role="heading" class="issue-title marker" id="h-issue-5" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/255"><span class="issue-number">Issue 255</span></a><span class="issue-label">: Protocol registry: Reviewing is not sufficient <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22security-tracker%22" style="background-color: rgb(255, 255, 0); color: rgb(0, 0, 0);" aria-label="GitHub label: security-tracker">security-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22registry%22" style="background-color: rgb(52, 215, 156); color: rgb(0, 0, 0);" aria-label="GitHub label: registry">registry</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22security-considerations%22" style="background-color: rgb(255, 255, 0); color: rgb(0, 0, 0);" aria-label="GitHub label: security-considerations">security-considerations</a></span></div><p dir="auto">There are two requirements for protocols that I think need further elaboration:</p>
 <blockquote>
 <p dir="auto">MUST have undergone privacy review [...]</p>
 </blockquote>
@@ -2591,8 +2595,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <span class="print-only">§1.</span></li><li>
       <a class="index-term" href="#dfn-idle">idle</a> 
     <span class="print-only">§6.1</span></li><li>
-      <a class="index-term" href="#dfn-in-scope-threats">In-scope threats</a> 
-    <span class="print-only">§10.1</span></li><li>
+      <a class="index-term" href="#dfn-in-scope-threats">In-Scope Threats</a> 
+    <span class="print-only">§10.1.1</span></li><li>
       <a class="index-term" href="#dfn-interaction-states">interaction states</a> 
     <span class="print-only">§6.1</span></li><li>
       <a class="index-term" href="#dfn-issuance-protocol">Issuance protocol</a> 
@@ -2614,7 +2618,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a class="index-term" href="#dom-digitalcredentialpresentationprotocol-org-iso-mdoc"><code>"org-iso-mdoc"</code></a> enum value for <code>DigitalCredentialPresentationProtocol</code>
     <span class="print-only">§5.</span></li><li>
       <a class="index-term" href="#dfn-out-of-scope-threats">Out-of-scope threats</a> 
-    <span class="print-only">§10.1</span></li><li>
+    <span class="print-only">§10.1.2</span></li><li>
       <a class="index-term" href="#dfn-presentation-protocol">Presentation protocol</a> 
     <span class="print-only">§4.</span></li><li>
       <a class="index-term" href="#dfn-presentation-request">Presentation request</a> 
@@ -2651,8 +2655,6 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <span class="print-only">§8.2</span></li><li>
       <a class="index-term" href="#dfn-table-of-supported-presentation-and-issuance-protocols">Table of supported presentation and issuance protocols</a> 
     <span class="print-only">§5.</span></li><li>
-      <a class="index-term" href="#dfn-threat-model">threat model</a> 
-    <span class="print-only">§10.1</span></li><li>
       <a class="index-term" href="#dfn-type"><code>[[type]]</code></a> internal slot for <code>DigitalCredential</code>
     <span class="print-only">§8.4</span></li><li>
       <a class="index-term" href="#dom-digitalcredential-useragentallowsprotocol"><code>userAgentAllowsProtocol()</code></a> method for <code>DigitalCredential</code>
@@ -3869,26 +3871,20 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-dfn-digital-credentials-create-1" title="§ 2.6 Issuing a digital credential across origins">§ 2.6 Issuing a digital credential across origins</a> 
     </li>
   </ul>
-    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-threat-model" aria-label="Links in this document to definition: threat model">
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-in-scope-threats" aria-label="Links in this document to definition: In-Scope Threats">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="#dfn-threat-model" aria-label="Permalink for definition: threat model. Activate to close this dialog.">Permalink</a>
-         
-      </div>
-      <p><b>Referenced in:</b></p>
-      <ul>
-      <li>Not referenced in this document.</li>
-    </ul>
-    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-in-scope-threats" aria-label="Links in this document to definition: In-scope threats">
-      <span class="caret"></span>
-      <div>
-        <a class="self-link" href="#dfn-in-scope-threats" aria-label="Permalink for definition: In-scope threats. Activate to close this dialog.">Permalink</a>
+        <a class="self-link" href="#dfn-in-scope-threats" aria-label="Permalink for definition: In-Scope Threats. Activate to close this dialog.">Permalink</a>
          
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-dfn-in-scope-threats-1" title="§ 10.2 Mitigations">§ 10.2 Mitigations</a> 
+      <a href="#ref-for-dfn-in-scope-threats-1" title="§ 10.1 Threat Model">§ 10.1 Threat Model</a> 
+    </li><li>
+      <a href="#ref-for-dfn-in-scope-threats-2" title="§ 10.1.1 In-Scope Threats">§ 10.1.1 In-Scope Threats</a> 
+    </li><li>
+      <a href="#ref-for-dfn-in-scope-threats-3" title="§ 10.2 Mitigations">§ 10.2 Mitigations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-out-of-scope-threats" aria-label="Links in this document to definition: Out-of-scope threats">
@@ -3899,8 +3895,12 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
-      <li>Not referenced in this document.</li>
-    </ul>
+    <li>
+      <a href="#ref-for-dfn-out-of-scope-threats-1" title="§ 10.1 Threat Model">§ 10.1 Threat Model</a> 
+    </li><li>
+      <a href="#ref-for-dfn-out-of-scope-threats-2" title="§ 10.1.2 Out of Scope Threats">§ 10.1.2 Out of Scope Threats</a> 
+    </li>
+  </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-phoning-home" aria-label="Links in this document to definition: &quot;Phoning home&quot;">
       <span class="caret"></span>
       <div>
