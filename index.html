@@ -2219,6 +2219,166 @@
         MUST be operable in a device-independent manner.
       </p>
     </section>
+    <section data-cite="webdriver-bidi">
+      <h2>
+        User Agent Automation
+      </h2>
+      <p>
+        This section describes how to automate User Agent interactions for
+        testing.
+      </p>
+      <p>
+        For the purposes of user agent automation and web application testing,
+        this document defines a number of [[WebDriver-BiDi]] [=extension
+        commands=].
+      </p>
+      <h3>
+        Virtual Wallet Commands
+      </h3>
+      <p>
+        The following commands allow controlling the behavior of a virtual
+        wallet for testing purposes. These commands affect the <dfn>next wallet
+        behavior</dfn> of the next
+        {{DigitalCredential/[[DiscoverFromExternalSource]](origin, options,
+        sameOriginWithAncestors)}} or {{DigitalCredential/[[Create]](origin,
+        options,sameOriginWithAncestors)}} call.
+      </p>
+      <section id="set-wallet-response">
+        <h4>
+          <dfn>Set Wallet Response</dfn>
+        </h4>
+        <p>
+          The [=Set Wallet Response=] [[WebDriver-BiDi]] [=extension command=]
+          configures the virtual wallet to respond with a specific data
+          payload, simulating a user successfully completing the flow.
+        </p>
+        <table class="data">
+          <thead>
+            <tr>
+              <th>
+                Method
+              </th>
+            </tr>
+          </thead>
+          <tr>
+            <td>
+              `digitalCredentials.setResponse`
+            </td>
+          </tr>
+        </table>
+        <p>
+          The parameters object is a JSON Object with the following key:
+        </p>
+        <table class="data">
+          <thead>
+            <tr>
+              <th>
+                Key
+              </th>
+              <th>
+                Value Type
+              </th>
+              <th>
+                Description
+              </th>
+            </tr>
+          </thead>
+          <tr>
+            <td>
+              `data`
+            </td>
+            <td>
+              string
+            </td>
+            <td>
+              The data to be returned by the wallet.
+            </td>
+          </tr>
+        </table>
+        <p>
+          The [=remote end steps=] are:
+        </p>
+        <ol class="algorithm">
+          <li>If |parameters| is not a JSON Object, or if it does not contain a
+          |data| property of type string, return a [=error|WebDriver error=]
+          with [=error code|WebDriver error code=] [=invalid argument=].
+          </li>
+          <li>Set the session's [=next wallet behavior=] to <code>{ "mode":
+          "respond", "data": parameters.data }</code>.
+          </li>
+          <li>Return [=success=].
+          </li>
+        </ol>
+      </section>
+      <section id="set-wallet-to-wait">
+        <h4>
+          <dfn>Set Wallet to Wait</dfn>
+        </h4>
+        <p>
+          The [=Set Wallet to Wait=] [[WebDriver-BiDi]] [=extension command=]
+          configures the virtual wallet to simulate a user waiting indefinitely
+          in the wallet UI.
+        </p>
+        <table class="data">
+          <thead>
+            <tr>
+              <th>
+                Method
+              </th>
+            </tr>
+          </thead>
+          <tr>
+            <td>
+              `digitalCredentials.setWait`
+            </td>
+          </tr>
+        </table>
+        <p>
+          The [=remote end steps=] are:
+        </p>
+        <ol class="algorithm">
+          <li>Set the session's [=next wallet behavior=] to <code>{ "mode":
+          "wait" }</code>.
+          </li>
+          <li>Return [=success=].
+          </li>
+        </ol>
+      </section>
+      <section id="set-wallet-to-decline">
+        <h4>
+          <dfn>Set Wallet to Decline</dfn>
+        </h4>
+        <p>
+          The [=Set Wallet to Decline=] [[WebDriver-BiDi]] [=extension
+          command=] configures the virtual wallet to simulate a user declining
+          the request.
+        </p>
+        <table class="data">
+          <thead>
+            <tr>
+              <th>
+                Method
+              </th>
+            </tr>
+          </thead>
+          <tr>
+            <td>
+              `digitalCredentials.setDecline`
+            </td>
+          </tr>
+        </table>
+        <p>
+          The [=remote end steps=] are:
+        </p>
+        <ol class="algorithm">
+          <li>Set the session's [=next wallet behavior=] to <code>{ "mode":
+          "decline" }</code>.
+          </li>
+          <li>Return [=success=].
+          </li>
+        </ol>
+      </section>
+    </section>
     <section class="prefer-full-spec-title" id="index"></section>
     <section id="idl-index"></section>
     <section id="conformance"></section>
