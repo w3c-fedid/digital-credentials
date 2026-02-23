@@ -800,8 +800,12 @@
           coordinator/interaction state=] to "[=credential request
           coordinator/aborting=]".
           </li>
-          <li>Dismiss the [=credential chooser=] and await confirmation of
-          dismissal.
+          <li>Dismiss the [=credential chooser=].
+            <p class="note">
+              Dismissal can fail (e.g., if the [=credential chooser=] was
+              destroyed due to memory pressure), but the [=coordinator=]
+              proceeds to complete the credential request regardless.
+            </p>
           </li>
         </ol>
       </li>
