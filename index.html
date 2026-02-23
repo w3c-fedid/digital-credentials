@@ -654,8 +654,17 @@
           </th>
         </tr>
         <tr>
-          <td colspan="2">
-            No issuance protocols are currently defined.
+          <th scope="row">
+            <dfn data-dfn-for=
+            "DigitalCredentialIssuanceProtocol">openid4vci-v1</dfn>
+          </th>
+          <td>
+            [[[OPENID4VCI]]] § Coming Soon
+            <aside class="issue" title="API Integration">
+              The OpenID Foundation is working on integration with Digital
+              Credentials API. You can track progress at <a href=
+              "https://github.com/openid/OpenID4VCI/issues/410">OpenID4VCI#410</a>.
+            </aside>
           </td>
         </tr>
       </tbody>
@@ -685,6 +694,16 @@
       successfully, or [=rejects=] when processing fails, when the user cancels
       the request via the UI, or when script aborts the operation via an
       {{AbortSignal}}.
+    </p>
+    <p>
+      The [=credential request coordinator=] maintains an <dfn data-dfn-for=
+      "credential request coordinator">abort signal</dfn>, which the user agent
+      initializes as `null`.
+    </p>
+    <p>
+      The [=credential request coordinator=] maintains an <dfn data-dfn-for=
+      "credential request coordinator">abort algorithm</dfn>, which the user
+      agent initializes as `null`.
     </p>
     <p>
       The [=credential request coordinator=]:
@@ -757,8 +776,21 @@
       Prepare credential requests
     </h3>
     <p>
-      To be written.
+      To <dfn data-dfn-for="credential request coordinator">prepare credential
+      requests</dfn> given a [=Document=] |document:Document|, a sequence of
+      {{DigitalCredentialGetRequest}} or {{DigitalCredentialCreateRequest}}
+      |requests|, a {{Promise}} |promise:Promise|, and an optional
+      {{AbortSignal}} |signal:AbortSignal|:
     </p>
+    <ol>
+      <li>
+        <aside class="issue">
+          See <a href=
+          "https://github.com/w3c-fedid/digital-credentials/pull/420">Pull
+          request #420</a>.
+        </aside>
+      </li>
+    </ol>
     <h3>
       Abort the credential request
     </h3>
@@ -783,6 +815,24 @@
         <ol>
           <li>If the [=credential request coordinator=]'s [=credential request
           coordinator/active promise=] is not |promise|, then return.
+          </li>
+          <li>Let |signal| be the [=credential request coordinator=]'s
+          [=credential request coordinator/abort signal=].
+          </li>
+          <li>Let |abortAlgorithm| be the [=credential request coordinator=]'s
+          [=credential request coordinator/abort algorithm=].
+          </li>
+          <li>If |signal| is not `null` and |abortAlgorithm| is not `null`:
+            <ol>
+              <li>[=AbortSignal/Remove=] |abortAlgorithm| from |signal|.
+              </li>
+            </ol>
+          </li>
+          <li>Set the [=credential request coordinator=]'s [=credential request
+          coordinator/abort signal=] to `null`.
+          </li>
+          <li>Set the [=credential request coordinator=]'s [=credential request
+          coordinator/abort algorithm=] to `null`.
           </li>
           <li>[=Reject=] |promise| with |error|.
           </li>
@@ -978,7 +1028,8 @@
     </p>
     <p>
       The {{DigitalCredentialCreateRequest/protocol}} member's value is one of
-      the protocol identifiers defined in [[[#protocols]]].
+      the protocol identifiers defined in
+      {{DigitalCredentialIssuanceProtocol}}.
     </p>
     <h4>
       The `data` member
@@ -1014,7 +1065,7 @@
       non-overridable behavior of the API.
     </p>
     <pre class="idl">
-    typedef DigitalCredentialPresentationProtocol DigitalCredentialProtocol;
+    typedef (DigitalCredentialPresentationProtocol or DigitalCredentialIssuanceProtocol) DigitalCredentialProtocol;
 
     [Exposed=Window, SecureContext]
     interface DigitalCredential : Credential {
@@ -1104,6 +1155,18 @@
         "org-iso-mdoc"
       };
       </pre>
+    <h4>
+      The {{DigitalCredentialIssuanceProtocol}} enumeration
+    </h4>
+    <p>
+      This enumeration's values correspond to the supported [=digital
+      credential/issuance protocols=] listed in [[[#protocols]]].
+    </p>
+    <pre class="idl">
+      enum DigitalCredentialIssuanceProtocol {
+        "openid4vci-v1",
+      };
+    </pre>
     <h2 id="credential-management-integration">
       Integration with [[[credential-management]]]
     </h2><!--
@@ -1124,6 +1187,12 @@
       arguments. Otherwise:
     </p>
     <ol class="algorithm">
+      <li>Let |signal| be |options|'s {{CredentialRequestOptions/signal}}, if
+      present.
+      </li>
+      <li>If |signal| is [=AbortSignal/aborted=], return [=a promise rejected
+      with=] |signal|'s [=AbortSignal/abort reason=].
+      </li>
       <li>Let |global| be [=this=]'s [=relevant global object=].
       </li>
       <li>Let |document| be |global|'s [=associated `Document`=].
@@ -1153,13 +1222,12 @@
       </li>
       <li>[=Consume user activation=] of |global|.
       </li>
-      <li>
-        <aside class="issue">
-          Details of how to actually get the [=digital credential=] are
-          forthcoming.
-        </aside>
+      <li>Let |promise| be [=a new promise=] in [=this=]'s [=relevant realm=].
       </li>
-      <li>Return a {{DigitalCredential}}.
+      <li>[=credential request coordinator/Prepare credential requests=] with
+      |document|, |requests|, |promise|, and |signal|.
+      </li>
+      <li>Return |promise|.
       </li>
     </ol><!--
     // MARK: [[Store]]()
@@ -1189,6 +1257,12 @@
       arguments. Otherwise:
     </p>
     <ol class="algorithm">
+      <li>Let |signal| be |options|'s {{CredentialCreationOptions/signal}}, if
+      present.
+      </li>
+      <li>If |signal| is [=AbortSignal/aborted=], return [=a promise rejected
+      with=] |signal|'s [=AbortSignal/abort reason=].
+      </li>
       <li>Let |global| be [=this=]'s [=relevant global object=].
       </li>
       <li>Let |document| be |global|'s [=associated `Document`=].
@@ -1218,17 +1292,12 @@
       </li>
       <li>[=Consume user activation=] of |global|.
       </li>
-      <li>
-        <aside class="issue">
-          Details of how to actually issue the [=digital credential=] are
-          forthcoming.
-        </aside>
+      <li>Let |promise| be [=a new promise=].
       </li>
-      <li>Return a newly constructed {{DigitalCredential}} with
-      {{DigitalCredential/protocol}} initialized to the protocol that was used
-      to issue this credential, and {{DigitalCredential/data}} initialized to
-      an [=digital credential/issuance response=] defined by that [=digital
-      credential/issuance protocol=].
+      <li>[=credential request coordinator/Prepare credential requests=] with
+      |document|, |requests|, |promise|, and |signal|.
+      </li>
+      <li>Return |promise|.
       </li>
     </ol><!--
     // MARK: [[type]] internal slot
@@ -1319,42 +1388,43 @@
         Threat Model
       </h3>
       <p>
-        The <dfn>threat model</dfn> for this specification includes threats to
-        this API and to adjacent standards of the ecosystem.
+        The threat model for this specification includes threats to this API
+        and to adjacent standards of the ecosystem.
       </p>
       <p class="issue" data-number="440"></p>
       <p>
-        For this specification, threats fall into two categories:
+        For this specification, threats fall into two categories: [=in-scope
+        threats=] and [=out-of-scope threats=].
+      </p>
+      <h4>
+        In-Scope Threats
+      </h4>
+      <p>
+        <dfn>In-Scope Threats</dfn> are introduced or addressed by the DC API
+        itself. The following are [=in-scope threats=] for this specification:
       </p>
       <dl>
         <dt>
-          <dfn>In-scope threats</dfn>
+          Coming soon
         </dt>
         <dd>
-          <p>
-            In-scope threats introduced or addressed by the DC API itself.
-          </p>
-          <ul>
-            <li>To be written...
-            </li>
-          </ul>
-        </dd>
-        <dt>
-          <dfn>Out-of-scope threats</dfn>
-        </dt>
-        <dd>
-          <p>
-            Out-of-scope threats handled by protocols, wallets, OS platform
-            security, or transport layers. Even if "out of scope", they are
-            relevant because they influence the end-to-end security of
-            credential presentation and issuance.
-          </p>
-          <ul>
-            <li>To be written...
-            </li>
-          </ul>
+          To be written...
         </dd>
       </dl>
+      <h4>
+        Out of Scope Threats
+      </h4>
+      <p>
+        <dfn>Out-of-scope threats</dfn> are those handled by protocols,
+        wallets, OS platform security, or transport layers. Even if "out of
+        scope", they are relevant because they influence the end-to-end
+        security of credential presentation and issuance. The following defines
+        the [=out-of-scope threats=] for this specification:
+      </p>
+      <ul>
+        <li>To be written...
+        </li>
+      </ul>
       <h3>
         Mitigations
       </h3>
