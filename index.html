@@ -637,8 +637,17 @@
           </th>
         </tr>
         <tr>
-          <td colspan="2">
-            No issuance protocols are currently defined.
+          <th scope="row">
+            <dfn data-dfn-for=
+            "DigitalCredentialIssuanceProtocol">openid4vci-v1</dfn>
+          </th>
+          <td>
+            [[[OPENID4VCI]]] § Coming Soon
+            <aside class="issue" title="API Integration">
+              The OpenID Foundation is working on integration with Digital
+              Credentials API. You can track progress at <a href=
+              "https://github.com/openid/OpenID4VCI/issues/410">OpenID4VCI#410</a>.
+            </aside>
           </td>
         </tr>
       </tbody>
@@ -974,7 +983,8 @@
     </p>
     <p>
       The {{DigitalCredentialCreateRequest/protocol}} member's value is one of
-      the protocol identifiers defined in [[[#protocols]]].
+      the protocol identifiers defined in
+      {{DigitalCredentialIssuanceProtocol}}.
     </p>
     <h4>
       The `data` member
@@ -1010,7 +1020,7 @@
       non-overridable behavior of the API.
     </p>
     <pre class="idl">
-    typedef DigitalCredentialPresentationProtocol DigitalCredentialProtocol;
+    typedef (DigitalCredentialPresentationProtocol or DigitalCredentialIssuanceProtocol) DigitalCredentialProtocol;
 
     [Exposed=Window, SecureContext]
     interface DigitalCredential : Credential {
@@ -1100,6 +1110,18 @@
         "org-iso-mdoc"
       };
       </pre>
+    <h4>
+      The {{DigitalCredentialIssuanceProtocol}} enumeration
+    </h4>
+    <p>
+      This enumeration's values correspond to the supported [=digital
+      credential/issuance protocols=] listed in [[[#protocols]]].
+    </p>
+    <pre class="idl">
+      enum DigitalCredentialIssuanceProtocol {
+        "openid4vci-v1",
+      };
+    </pre>
     <h2 id="credential-management-integration">
       Integration with [[[credential-management]]]
     </h2><!--
@@ -1307,7 +1329,68 @@
         Security Considerations
       </h2>
       <p>
-        To be written.
+        The sections that follow describe the API's security properties, the
+        threats in scope, the assumptions on which security depends, and
+        residual threats that remain after the mitigations are applied. This
+        specification defines requirements for the user agent's behavior only
+        when mediating [=digital credential/credential responses=].
+      </p>
+      <p class="note">
+        Other security considerations that depend on protocols, wallet
+        implementations, operating systems, or transport security are described
+        as expectations or preconditions, but these are not normatively
+        required by this specification unless already normatively specified.
+      </p>
+      <h3>
+        Threat Model
+      </h3>
+      <p>
+        The threat model for this specification includes threats to this API
+        and to adjacent standards of the ecosystem.
+      </p>
+      <p class="issue" data-number="440"></p>
+      <p>
+        For this specification, threats fall into two categories: [=in-scope
+        threats=] and [=out-of-scope threats=].
+      </p>
+      <h4>
+        In-Scope Threats
+      </h4>
+      <p>
+        <dfn>In-Scope Threats</dfn> are introduced or addressed by the DC API
+        itself. The following are [=in-scope threats=] for this specification:
+      </p>
+      <dl>
+        <dt>
+          Coming soon
+        </dt>
+        <dd>
+          To be written...
+        </dd>
+      </dl>
+      <h4>
+        Out of Scope Threats
+      </h4>
+      <p>
+        <dfn>Out-of-scope threats</dfn> are those handled by protocols,
+        wallets, OS platform security, or transport layers. Even if "out of
+        scope", they are relevant because they influence the end-to-end
+        security of credential presentation and issuance. The following defines
+        the [=out-of-scope threats=] for this specification:
+      </p>
+      <ul>
+        <li>To be written...
+        </li>
+      </ul>
+      <h3>
+        Mitigations
+      </h3>
+      <p>
+        The following mitigations address [=in-scope threats=] through
+        normative requirements in the specification.
+      </p>
+      <p>
+        To be written...
       </p>
     </section>
     <section class="informative" data-cite="privacy-principles">
