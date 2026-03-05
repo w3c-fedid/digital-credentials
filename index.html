@@ -792,9 +792,11 @@
       {{AbortSignal}} |signal|:
     </p>
     <ol class="algorithm">
-      <li>Let |requestData| be [=struct=] consisting of |validatedRequests|,
-      |document|'s [=relevant settings object=]'s [=environment settings
-      object/origin=], and |document|'s [=Document/origin=].
+      <li>Let |requestData| be a new [=request context=] whose [=request
+      context/requests=] is |validatedRequests|, [=request context/top origin=]
+      is |document|'s [=relevant settings object=]'s [=environment settings
+      object/origin=], and [=request context/document origin=] is |document|'s
+      [=Document/origin=].
       </li>
       <li>Present a [=credential chooser=] with |requestData| and wait for the
       user to either:
@@ -1234,6 +1236,33 @@
       Data structures, such as enumerations, which support
       {{DigitalCredential}} in this specification.
     </p>
+    <h4>
+      The request context struct
+    </h4>
+    <p>
+      A <dfn>request context</dfn> is a [=struct=] with the following
+      [=struct/items=]:
+    </p>
+    <dl>
+      <dt>
+        <dfn data-dfn-for="request context">requests</dfn>
+      </dt>
+      <dd>
+        A [=list=] of validated [=digital credential/credential requests=].
+      </dd>
+      <dt>
+        <dfn data-dfn-for="request context">top origin</dfn>
+      </dt>
+      <dd>
+        An [=origin=].
+      </dd>
+      <dt>
+        <dfn data-dfn-for="request context">document origin</dfn>
+      </dt>
+      <dd>
+        An [=origin=].
+      </dd>
+    </dl>
     <h4>
       The {{DigitalCredentialPresentationProtocol}} enumeration
     </h4>
