@@ -765,7 +765,7 @@
       |requests|, a {{Promise}} |promise:Promise|, and an optional
       {{AbortSignal}} |signal:AbortSignal|:
     </p>
-    <ol>
+    <ol class="algorithm">
       <li>
         <aside class="issue">
           See <a href=
@@ -773,13 +773,46 @@
           request #420</a>.
         </aside>
       </li>
+      <li>If |document| stops being [=Document/fully active=], [=credential
+      request coordinator/abort the credential request=] with an {{"AbortError"}}
+      {{DOMException}}.
+      </li>
     </ol>
     <h3>
       Abort the credential request
     </h3>
     <p>
-      To be written.
+      To <dfn data-dfn-for="credential request coordinator">abort the
+      credential request</dfn> given a JavaScript value or {{DOMException}} |error|:
     </p>
+    <ol class="algorithm">
+      <li>If the [=credential request coordinator=]'s [=credential request
+      coordinator/active promise=] is `null`, return.
+      </li>
+      <li>Let |activePromise| be the [=credential request coordinator=]'s
+      [=credential request coordinator/active promise=].
+      </li>
+      <li>If the [=credential request coordinator=] is in the "[=credential
+      request coordinator/requesting=]" [=credential request
+      coordinator/interaction state=]:
+        <ol>
+          <li>Set the [=credential request coordinator=] [=credential request
+          coordinator/interaction state=] to "[=credential request
+          coordinator/aborting=]".
+          </li>
+          <li>Dismiss the [=credential chooser=].
+            <p class="note">
+              Dismissal can fail (e.g., if the [=credential chooser=] was
+              destroyed due to memory pressure), but the [=coordinator=]
+              proceeds to complete the credential request regardless.
+            </p>
+          </li>
+        </ol>
+      </li>
+      <li>[=credential request coordinator/Complete credential request with=]
+      |activePromise| and |error|.
+      </li>
+    </ol>
     <h3>
       Complete credential request with error
     </h3>
