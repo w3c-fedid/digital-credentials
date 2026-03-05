@@ -874,14 +874,20 @@
           {{DigitalCredentialCreateRequest/protocol}}, if |request| is a
           {{DigitalCredentialCreateRequest}}.
           </li>
-          <li>If |protocol| does not equal any [=enumeration value=] in
-          {{DigitalCredentialProtocol}}, [=iteration/continue=].
+          <li>If |request| is a {{DigitalCredentialGetRequest}} and |protocol|
+          does not equal any [=enumeration value=] in
+          {{DigitalCredentialPresentationProtocol}}, [=iteration/continue=].
+          </li>
+          <li>If |request| is a {{DigitalCredentialCreateRequest}} and
+          |protocol| does not equal any [=enumeration value=] in
+          {{DigitalCredentialIssuanceProtocol}}, [=iteration/continue=].
           </li>
           <li>If the [=user agent=] does not allow |protocol|,
           [=iteration/continue=].
           </li>
           <li>Validate |request|'s [=digital credential/request data=]
           according to |request|'s [=digital credential/presentation protocol=]
+          or [=digital credential/issuance protocol=]
           or other criteria. Validation requirements are protocol-specific and
           are outside the scope of this specification:
             <aside class="note" title="Validation details outside scope">
@@ -910,7 +916,7 @@
       <li>Return |validatedRequests|.
       </li>
     </ol><!--
-    MARK: Abort and reject algorithms
+    // MARK: Abort and reject algorithms
     -->
     <h3>
       Abort the credential request
