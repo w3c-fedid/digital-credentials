@@ -848,6 +848,10 @@
       <li>[=credential request coordinator/Present the credential request=]
       with |document|, |validatedRequests|, and |signal|.
       </li>
+      <li>If |document| stops being [=Document/fully active=], [=credential
+      request coordinator/abort the credential request=] with an
+      {{"AbortError"}} {{DOMException}}.
+      </li>
     </ol><!--
     // MARK: Validate credential requests
     -->
@@ -904,10 +908,6 @@
         </ol>
       </li>
       <li>Return |validatedRequests|.
-      </li>
-      <li>If |document| stops being [=Document/fully active=], [=credential
-      request coordinator/abort the credential request=] with an
-      {{"AbortError"}} {{DOMException}}.
       </li>
     </ol><!--
     MARK: Abort and reject algorithms
