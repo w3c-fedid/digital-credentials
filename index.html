@@ -574,12 +574,12 @@
       supported presentation and issuance protocols=].
     </p>
     <p>
-      If a [=user agent=] does not support any {{DigitalCredentialGetRequest}}
-      or {{DigitalCredentialCreateRequest}} objects within the
-      {{DigitalCredentialRequestOptions/requests}} member, it MUST pass
-      the entire DigitalCredentialRequestOptions value to the
-      underlying client platform, or appropriate internal mechanism,
-      for cross-device handling.
+      [=User agents=] MUST pass the entire DigitalCredentialRequestOptions
+      value to the underlying client platform, or appropriate internal mechanism,
+      for cross-device handling, regardless of whether the user agent itself
+      supports the protocol(s) specified in the request options. This allows
+      the platform to determine whether the request can be handled on a different
+      device, even if the current user agent does not support the protocol(s).
     </p>
     <aside class="note" title="Checking which protocols a user agent allows">
       <p>
