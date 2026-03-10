@@ -790,6 +790,13 @@
       </li>
       <li>If |signal| was passed:
         <ol>
+          <li>Assert: |signal| is not [=AbortSignal/aborted=].
+            <p class="note">
+              [=AbortSignal/aborted|Pre-aborted=] [=AbortController/signals=]
+              are handled by [=request a `Credential`=] and [=create a
+              `Credential`=] before this algorithm is invoked.
+            </p>
+          </li>
           <li>Set the [=credential request coordinator=]'s [=credential request
           coordinator/abort signal=] to |signal|.
           </li>
