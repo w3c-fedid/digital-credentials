@@ -785,6 +785,10 @@
       <li>Assert: the [=credential request coordinator=]'s [=credential request
       coordinator/active promise=] is `null`.
       </li>
+      <li>Set the [=credential request coordinator=] [=credential request
+      coordinator/interaction state=] to "[=credential request
+      coordinator/requesting=]".
+      </li>
       <li>Set the [=credential request coordinator=]'s [=credential request
       coordinator/active promise=] to |promise|.
       </li>
@@ -847,10 +851,6 @@
           <li>Return.
           </li>
         </ol>
-      </li>
-      <li>Set the [=credential request coordinator=] [=credential request
-      coordinator/interaction state=] to "[=credential request
-      coordinator/requesting=]".
       </li>
       <li>[=credential request coordinator/Present the credential request=]
       with |document|, |validatedRequests|, and |signal|.
