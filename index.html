@@ -825,8 +825,8 @@
       coordinator/validate credential requests=] given |requests|. If that
       [=exception/throws=] an [=exception=] |error|:
         <ol>
-          <li>[=credential request coordinator/Reject request with=] |error|
-          and |promise|.
+          <li>[=credential request coordinator/Reject the credential request
+          with=] |error| and |promise|.
           </li>
           <li>Return.
           </li>
@@ -834,8 +834,8 @@
       </li>
       <li>If |validatedRequests| [=list/is empty=]:
         <ol>
-          <li>[=credential request coordinator/Reject request with=] a newly
-          created {{TypeError}} and |promise|.
+          <li>[=credential request coordinator/Reject the credential request
+          with=] a newly created {{TypeError}} and |promise|.
           </li>
           <li>Return.
           </li>
@@ -845,8 +845,8 @@
         <ol>
           <li>Let |error| be |signal|'s [=AbortSignal/abort reason=].
           </li>
-          <li>[=credential request coordinator/Reject request with=] |error|
-          and |promise|.
+          <li>[=credential request coordinator/Reject the credential request
+          with=] |error| and |promise|.
           </li>
           <li>Return.
           </li>
@@ -958,17 +958,17 @@
           </li>
         </ol>
       </li>
-      <li>[=credential request coordinator/Reject request with=] |error| and
-      |activePromise|.
+      <li>[=credential request coordinator/Reject the credential request with=]
+      |error| and |activePromise|.
       </li>
     </ol>
     <h3>
       Reject the credential request
     </h3>
     <p>
-      To <dfn data-dfn-for="credential request coordinator">reject the credential request
-      with</dfn> a (JavaScript Value) |error| and a {{Promise}}
-      |promise:Promise|:
+      To <dfn data-dfn-for="credential request coordinator">reject the
+      credential request with</dfn> a (JavaScript Value) |error| and a
+      {{Promise}} |promise:Promise|:
     </p>
     <ol class="algorithm">
       <li>Assert: the [=credential request coordinator=]'s [=credential request
