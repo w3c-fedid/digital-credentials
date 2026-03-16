@@ -1417,25 +1417,39 @@
           </li>
         </ol>
       </li>
-      <li>If the session's [=next wallet behavior=] is set:
-        <ol>
-          <li>If the mode is "respond", resolve the promise with a new
-          `DigitalCredential` object whose `data` member is set to the stored
-          `data`.
-          </li>
-          <li>If the mode is "wait", the promise never resolves.
-          </li>
-          <li>If the mode is "decline", reject the promise with a
-          "NotAllowedError" `DOMException`.
-          </li>
-        </ol>
-      </li>
       <li>If |global| does not have [=transient activation=], return [=a
       promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
       </li>
       <li>[=Consume user activation=] of |global|.
       </li>
       <li>Let |promise| be [=a new promise=] in [=this=]'s [=relevant realm=].
+      </li>
+      <li>If the [=user agent=]'s [=active virtual wallet behavior=] is not
+      `null`, let (|action|, |response|) be the [=active virtual wallet
+      behavior=].
+        <ol>
+          <li>If |action| is `"wait"`, return |promise| and leave it
+          unresolved.
+          </li>
+          <li>If |action| is `"decline"`, [=reject=] |promise| with a
+          {{"NotAllowedError"}} {{DOMException}} and return |promise|.
+          </li>
+          <li>If |action| is `"respond"`:
+            <ol>
+              <li>Let |credential| be a new {{DigitalCredential}} instance.
+              </li>
+              <li>Set |credential|'s {{DigitalCredential/data}} attribute to
+              the JSON-parseable object |response|.
+              </li>
+              <li>[=Queue a global task=] on the [=DOM manipulation task
+              source=] given |global| to [=resolve=] |promise| with
+              |credential|.
+              </li>
+              <li>Return |promise|.
+              </li>
+            </ol>
+          </li>
+        </ol>
       </li>
       <li>[=credential request coordinator/Prepare credential requests=] with
       |document|, |requests|, |promise|, and |signal|.
@@ -1502,19 +1516,6 @@
           </li>
         </ol>
       </li>
-      <li>If the session's [=next wallet behavior=] is set:
-        <ol>
-          <li>If the mode is "respond", resolve the promise with a new
-          `DigitalCredential` object whose `data` member is set to the stored
-          `data`.
-          </li>
-          <li>If the mode is "wait", the promise never resolves.
-          </li>
-          <li>If the mode is "decline", reject the promise with a
-          "NotAllowedError" `DOMException`.
-          </li>
-        </ol>
-      </li>
       <li>If |global| does not have [=transient activation=], return [=a
       promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
       </li>
@@ -1522,6 +1523,33 @@
       </li>
       <li>Let |promise| be [=a new promise=] in the [=relevant realm=] of
       [=this=].
+      </li>
+      <li>If the [=user agent=]'s [=active virtual wallet behavior=] is not
+      `null`, let (|action|, |response|) be the [=active virtual wallet
+      behavior=].
+        <ol>
+          <li>If |action| is `"wait"`, return |promise| and leave it
+          unresolved.
+          </li>
+          <li>If |action| is `"decline"`, [=reject=] |promise| with a
+          {{"NotAllowedError"}} {{DOMException}} and return |promise|.
+          </li>
+          <li>If |action| is `"respond"`:
+            <ol>
+              <li>Let |credential| be a new {{DigitalCredential}} instance.
+              </li>
+              <li>Set |credential|'s {{DigitalCredential/data}} attribute to
+              the JSON-parseable object |response|.
+              </li>
+              <li>[=Queue a global task=] on the [=DOM manipulation task
+              source=] given |global| to [=resolve=] |promise| with
+              |credential|.
+              </li>
+              <li>Return |promise|.
+              </li>
+            </ol>
+          </li>
+        </ol>
       </li>
       <li>[=credential request coordinator/Prepare credential requests=] with
       |document|, |requests|, |promise|, and |signal|.
@@ -2547,162 +2575,91 @@
     </section>
     <section data-cite="webdriver-bidi">
       <h2>
-        User Agent Automation
+        Automated Testing
       </h2>
       <p>
-        This section describes how to automate User Agent interactions for
-        testing.
+        For the purposes of user-agent automation and application testing, this
+        document defines extension modules for the [[[webdriver-bidi]]]
+        specification.
       </p>
       <p>
-        For the purposes of user agent automation and web application testing,
-        this document defines a number of [[WebDriver-BiDi]] [=extension
-        commands=].
+        It is OPTIONAL for a [=user agent=] to support them.
       </p>
-      <h3>
-        Virtual Wallet Commands
-      </h3>
-      <p>
-        The following commands allow controlling the behavior of a virtual
-        wallet for testing purposes. These commands affect the <dfn>next wallet
-        behavior</dfn> of the next
-        {{DigitalCredential/[[DiscoverFromExternalSource]](origin, options,
-        sameOriginWithAncestors)}} or {{DigitalCredential/[[Create]](origin,
-        options,sameOriginWithAncestors)}} call.
-      </p>
-      <section id="set-wallet-response">
-        <h4>
-          <dfn>Set Wallet Response</dfn>
-        </h4>
+      <section>
+        <h3>
+          The `digitalCredentials` Module
+        </h3>
         <p>
-          The [=Set Wallet Response=] [[WebDriver-BiDi]] [=extension command=]
-          configures the virtual wallet to respond with a specific data
-          payload, simulating a user successfully completing the flow.
+          The `digitalCredentials` module contains commands for managing and
+          simulating the remote end behavior of digital credential wallets
+          during {{CredentialsContainer/get()}} and
+          {{CredentialsContainer/create()}} calls.
         </p>
-        <table class="data">
-          <thead>
-            <tr>
-              <th>
-                Method
-              </th>
-            </tr>
-          </thead>
-          <tr>
-            <td>
-              `digitalCredentials.setResponse`
-            </td>
-          </tr>
-        </table>
-        <p>
-          The parameters object is a JSON Object with the following key:
-        </p>
-        <table class="data">
-          <thead>
-            <tr>
-              <th>
-                Key
-              </th>
-              <th>
-                Value Type
-              </th>
-              <th>
-                Description
-              </th>
-            </tr>
-          </thead>
-          <tr>
-            <td>
-              `data`
-            </td>
-            <td>
-              string
-            </td>
-            <td>
-              The data to be returned by the wallet.
-            </td>
-          </tr>
-        </table>
-        <p>
-          The [=remote end steps=] are:
-        </p>
-        <ol class="algorithm">
-          <li>If |parameters| is not a JSON Object, or if it does not contain a
-          |data| property of type string, return a [=error|WebDriver error=]
-          with [=error code|WebDriver error code=] [=invalid argument=].
-          </li>
-          <li>Set the session's [=next wallet behavior=] to <code>{ "mode":
-          "respond", "data": parameters.data }</code>.
-          </li>
-          <li>Return [=success=].
-          </li>
-        </ol>
-      </section>
-      <section id="set-wallet-to-wait">
-        <h4>
-          <dfn>Set Wallet to Wait</dfn>
-        </h4>
-        <p>
-          The [=Set Wallet to Wait=] [[WebDriver-BiDi]] [=extension command=]
-          configures the virtual wallet to simulate a user waiting indefinitely
-          in the wallet UI.
-        </p>
-        <table class="data">
-          <thead>
-            <tr>
-              <th>
-                Method
-              </th>
-            </tr>
-          </thead>
-          <tr>
-            <td>
-              `digitalCredentials.setWait`
-            </td>
-          </tr>
-        </table>
-        <p>
-          The [=remote end steps=] are:
-        </p>
-        <ol class="algorithm">
-          <li>Set the session's [=next wallet behavior=] to <code>{ "mode":
-          "wait" }</code>.
-          </li>
-          <li>Return [=success=].
-          </li>
-        </ol>
-      </section>
-      <section id="set-wallet-to-decline">
-        <h4>
-          <dfn>Set Wallet to Decline</dfn>
-        </h4>
-        <p>
-          The [=Set Wallet to Decline=] [[WebDriver-BiDi]] [=extension
-          command=] configures the virtual wallet to simulate a user declining
-          the request.
-        </p>
-        <table class="data">
-          <thead>
-            <tr>
-              <th>
-                Method
-              </th>
-            </tr>
-          </thead>
-          <tr>
-            <td>
-              `digitalCredentials.setDecline`
-            </td>
-          </tr>
-        </table>
-        <p>
-          The [=remote end steps=] are:
-        </p>
-        <ol class="algorithm">
-          <li>Set the session's [=next wallet behavior=] to <code>{ "mode":
-          "decline" }</code>.
-          </li>
-          <li>Return [=success=].
-          </li>
-        </ol>
+        <section>
+          <h4>
+            Types
+          </h4>
+          <pre class="cddl">
+digitalCredentials.VirtualWalletAction = "respond" / "decline" / "wait"
+
+digitalCredentials.SetVirtualWalletBehaviorParameters = {
+  action: digitalCredentials.VirtualWalletAction,
+  ? response: object,
+}
+      </pre>
+          <ul>
+            <li>`"respond"`: The virtual wallet simulates a successful user
+            interaction and returns the predefined credential response.
+            </li>
+            <li>`"decline"`: The virtual wallet simulates a user cancellation
+            or rejection, aborting the request.
+            </li>
+            <li>`"wait"`: The virtual wallet simulates an active, pending
+            prompt, effectively leaving the active promise unsettled to test
+            timeouts or concurrent request handling.
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h4>
+            Commands
+          </h4>
+          <section>
+            <h5>
+              The `digitalCredentials.setVirtualWalletBehavior` Command
+            </h5>
+            <pre class="cddl">
+digitalCredentials.SetVirtualWalletBehavior = (
+  method: "digitalCredentials.setVirtualWalletBehavior",
+  params: digitalCredentials.SetVirtualWalletBehaviorParameters
+)
+        </pre>
+            <p>
+              <strong>Return Type:</strong> `EmptyResult`
+            </p>
+            <p>
+              The [=remote end steps=]
+              for the `digitalCredentials.setVirtualWalletBehavior` command,
+              given |session| and |command parameters|, are:
+            </p>
+            <ol class="algorithm">
+              <li>Let |action| be the value of the `action` field of |command
+              parameters|.
+              </li>
+              <li>Let |response| be the value of the `response` field of
+              |command parameters|, if present, and `null` otherwise.
+              </li>
+              <li>If |action| is `"respond"` and |response| is `null`, return
+              an [=error=] with [=error code=] [=invalid argument=].
+              </li>
+              <li>Set the [=user agent=]'s <dfn>active virtual wallet
+              behavior</dfn> to a tuple of (|action|, |response|).
+              </li>
+              <li>Return [=success=] with data `null`.
+              </li>
+            </ol>
+          </section>
+        </section>
       </section>
     </section>
     <section class="prefer-full-spec-title" id="index"></section>
