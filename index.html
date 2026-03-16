@@ -2550,7 +2550,7 @@
         MUST be operable in a device-independent manner.
       </p>
     </section>
-    <section data-cite="webdriver-bidi">
+    <section data-cite="webdriver webdriver-bidi">
       <h2>
         Automated Testing
       </h2>
@@ -2569,8 +2569,10 @@
         <p>
           The `digitalCredentials` module contains commands for managing and
           simulating the remote end behavior of digital credential wallets
-          during {{CredentialsContainer/get()}} and
-          {{CredentialsContainer/create()}} calls.
+          during {{DigitalCredential/[[DiscoverFromExternalSource]](origin,
+          options, sameOriginWithAncestors)}} and
+          {{Credential/[[Create]](origin,options, sameOriginWithAncestors)}}}
+          calls.
         </p>
         <section>
           <h4>
@@ -2615,9 +2617,9 @@ digitalCredentials.SetVirtualWalletBehavior = (
               <strong>Return Type:</strong> `EmptyResult`
             </p>
             <p>
-              The [=remote end steps=]
-              for the `digitalCredentials.setVirtualWalletBehavior` command,
-              given |session| and |command parameters|, are:
+              The [=remote end steps=] for the
+              `digitalCredentials.setVirtualWalletBehavior` command, given
+              |session| and |command parameters|, are:
             </p>
             <ol class="algorithm">
               <li>Let |action| be the value of the `action` field of |command
@@ -2626,8 +2628,18 @@ digitalCredentials.SetVirtualWalletBehavior = (
               <li>Let |response| be the value of the `response` field of
               |command parameters|, if present, and `null` otherwise.
               </li>
-              <li>If |action| is `"respond"` and |response| is `null`, return
-              an [=error=] with [=error code=] [=invalid argument=].
+              <li>If |action| is `"respond"`:
+                <ol>
+                  <li>If |response| is `null`, return an [=error=] with [=error
+                  code=] [=invalid argument=].
+                  </li>
+                  <li>[=serialize a JavaScript value to a JSON
+                  string|Serialize=] |response| to a JSON string.
+                  </li>
+                  <li>If serialization results in an [=exception=], return an
+                  [=error=] with [=error code=] [=invalid argument=].
+                  </li>
+                </ol>
               </li>
               <li>Set the [=user agent=]'s <dfn>active virtual wallet
               behavior</dfn> to a tuple of (|action|, |response|).
