@@ -2562,7 +2562,7 @@ digitalCredentials.VirtualWalletAction = "respond" / "decline" / "wait"
 
 digitalCredentials.SetVirtualWalletBehaviorParameters = {
   action: digitalCredentials.VirtualWalletAction,
-  ? response: text,
+  ? response: { * text =&gt; any },
 }
     </pre>
           <ul>
@@ -2618,8 +2618,8 @@ digitalCredentials.SetVirtualWalletBehaviorResult = EmptyResult
                   <li>If |response| is `null`, return an [=error=] with [=error
                   code=] [=invalid argument=].
                   </li>
-                  <li>[=serialize a JavaScript value to a JSON
-                  string|Serialize=] |response| to a JSON string.
+                  <li>[=serialize an Infra value to a JSON string|Serialize=]
+                  |response| to a JSON string.
                   </li>
                   <li>If serialization results in an [=exception=], return an
                   [=error=] with [=error code=] [=invalid argument=].
@@ -2663,8 +2663,11 @@ digitalCredentials.SetVirtualWalletBehaviorResult = EmptyResult
           </li>
           <li>If |action| is `"respond"`:
             <ol>
-              <li>Let |js object| be the result of parsing string into a
-              JavaScript value given |response| in |global|'s [=relevant
+              <li>Let |json string| be the result of [=serialize an Infra value
+              to a JSON string|serializing=] |response|.
+              </li>
+              <li>Let |js object| be the result of parsing JSON into a
+              JavaScript value given |json string| in |global|'s [=relevant
               realm=].
               </li>
               <li>Let |credential| be a new {{DigitalCredential}} instance.
