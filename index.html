@@ -1424,13 +1424,13 @@
       </li>
       <li>Let |promise| be [=a new promise=] in [=this=]'s [=relevant realm=].
       </li>
+      <li>[=credential request coordinator/Prepare credential requests=] with
+      |document|, |requests|, |promise|, and |signal|.
+      </li>
       <li>Let |handled| be the result of running [=handle virtual wallet
       behavior=] given |promise| and |global|.
       </li>
       <li>If |handled| is `true`, return |promise|.
-      </li>
-      <li>[=credential request coordinator/Prepare credential requests=] with
-      |document|, |requests|, |promise|, and |signal|.
       </li>
       <li>Return |promise|.
       </li>
@@ -1502,13 +1502,13 @@
       <li>Let |promise| be [=a new promise=] in the [=relevant realm=] of
       [=this=].
       </li>
+      <li>[=credential request coordinator/Prepare credential requests=] with
+      |document|, |requests|, |promise|, and |signal|.
+      </li>
       <li>Let |handled| be the result of running [=handle virtual wallet
       behavior=] given |promise| and |global|.
       </li>
       <li>If |handled| is `true`, return |promise|.
-      </li>
-      <li>[=credential request coordinator/Prepare credential requests=] with
-      |document|, |requests|, |promise|, and |signal|.
       </li>
       <li>Return |promise|.
       </li>
