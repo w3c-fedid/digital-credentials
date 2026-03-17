@@ -2594,19 +2594,19 @@
           simulating the remote end behavior of digital credential wallets
           during {{DigitalCredential/[[DiscoverFromExternalSource]](origin,
           options, sameOriginWithAncestors)}} and
-          {{Credential/[[Create]](origin,options, sameOriginWithAncestors)}}}
+          {{Credential/[[Create]](origin,options, sameOriginWithAncestors)}}
           calls.
         </p>
         <section>
           <h4>
             Types
           </h4>
-          <pre class="cddl">
+          <pre class="cddl" data-cddl-module="local-cddl">
 digitalCredentials.VirtualWalletAction = "respond" / "decline" / "wait"
 
 digitalCredentials.SetVirtualWalletBehaviorParameters = {
   action: digitalCredentials.VirtualWalletAction,
-  ? response: object,
+  ? response: text,
 }
       </pre>
           <ul>
@@ -2630,15 +2630,18 @@ digitalCredentials.SetVirtualWalletBehaviorParameters = {
             <h5>
               The `digitalCredentials.setVirtualWalletBehavior` Command
             </h5>
-            <pre class="cddl">
+            <pre class="cddl" data-cddl-module="remote-cddl">
 digitalCredentials.SetVirtualWalletBehavior = (
   method: "digitalCredentials.setVirtualWalletBehavior",
   params: digitalCredentials.SetVirtualWalletBehaviorParameters
 )
         </pre>
             <p>
-              <strong>Return Type:</strong> `EmptyResult`
+              <strong>Return Type:</strong>
             </p>
+            <pre class="cddl" data-cddl-module="local-cddl">
+digitalCredentials.SetVirtualWalletBehaviorResult = EmptyResult
+        </pre>
             <p>
               The [=remote end steps=] for the
               `digitalCredentials.setVirtualWalletBehavior` command, given
