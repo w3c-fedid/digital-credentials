@@ -1394,32 +1394,10 @@
       </li>
       <li>Let |promise| be [=a new promise=] in [=this=]'s [=relevant realm=].
       </li>
-      <li>If the [=user agent=]'s [=active virtual wallet behavior=] is not
-      `null`, let (|action|, |response|) be the [=active virtual wallet
-      behavior=].
-        <ol>
-          <li>If |action| is `"wait"`, return |promise| and leave it
-          unresolved.
-          </li>
-          <li>If |action| is `"decline"`, [=reject=] |promise| with a
-          {{"NotAllowedError"}} {{DOMException}} and return |promise|.
-          </li>
-          <li>If |action| is `"respond"`:
-            <ol>
-              <li>Let |credential| be a new {{DigitalCredential}} instance.
-              </li>
-              <li>Set |credential|'s {{DigitalCredential/data}} attribute to
-              the JSON-parseable object |response|.
-              </li>
-              <li>[=Queue a global task=] on the [=DOM manipulation task
-              source=] given |global| to [=resolve=] |promise| with
-              |credential|.
-              </li>
-              <li>Return |promise|.
-              </li>
-            </ol>
-          </li>
-        </ol>
+      <li>Let |handled| be the result of running [=handle virtual wallet
+      behavior=] given |promise| and |global|.
+      </li>
+      <li>If |handled| is `true`, return |promise|.
       </li>
       <li>[=credential request coordinator/Prepare credential requests=] with
       |document|, |requests|, |promise|, and |signal|.
@@ -1491,32 +1469,10 @@
       </li>
       <li>Let |promise| be [=a new promise=].
       </li>
-      <li>If the [=user agent=]'s [=active virtual wallet behavior=] is not
-      `null`, let (|action|, |response|) be the [=active virtual wallet
-      behavior=].
-        <ol>
-          <li>If |action| is `"wait"`, return |promise| and leave it
-          unresolved.
-          </li>
-          <li>If |action| is `"decline"`, [=reject=] |promise| with a
-          {{"NotAllowedError"}} {{DOMException}} and return |promise|.
-          </li>
-          <li>If |action| is `"respond"`:
-            <ol>
-              <li>Let |credential| be a new {{DigitalCredential}} instance.
-              </li>
-              <li>Set |credential|'s {{DigitalCredential/data}} attribute to
-              the JSON-parseable object |response|.
-              </li>
-              <li>[=Queue a global task=] on the [=DOM manipulation task
-              source=] given |global| to [=resolve=] |promise| with
-              |credential|.
-              </li>
-              <li>Return |promise|.
-              </li>
-            </ol>
-          </li>
-        </ol>
+      <li>Let |handled| be the result of running [=handle virtual wallet
+      behavior=] given |promise| and |global|.
+      </li>
+      <li>If |handled| is `true`, return |promise|.
       </li>
       <li>[=credential request coordinator/Prepare credential requests=] with
       |document|, |requests|, |promise|, and |signal|.
@@ -2535,14 +2491,14 @@
           <h4>
             Types
           </h4>
-          <pre class="cddl" data-cddl-module="local-cddl">
+          <pre class="cddl" data-cddl-module="remote-cddl">
 digitalCredentials.VirtualWalletAction = "respond" / "decline" / "wait"
 
 digitalCredentials.SetVirtualWalletBehaviorParameters = {
   action: digitalCredentials.VirtualWalletAction,
   ? response: text,
 }
-      </pre>
+    </pre>
           <ul>
             <li>`"respond"`: The virtual wallet simulates a successful user
             interaction and returns the predefined credential response.
@@ -2564,18 +2520,21 @@ digitalCredentials.SetVirtualWalletBehaviorParameters = {
             <h5>
               The `digitalCredentials.setVirtualWalletBehavior` Command
             </h5>
+            <p>
+              <strong>Command Type:</strong>
+            </p>
             <pre class="cddl" data-cddl-module="remote-cddl">
 digitalCredentials.SetVirtualWalletBehavior = (
   method: "digitalCredentials.setVirtualWalletBehavior",
   params: digitalCredentials.SetVirtualWalletBehaviorParameters
 )
-        </pre>
+      </pre>
             <p>
               <strong>Return Type:</strong>
             </p>
             <pre class="cddl" data-cddl-module="local-cddl">
 digitalCredentials.SetVirtualWalletBehaviorResult = EmptyResult
-        </pre>
+      </pre>
             <p>
               The [=remote end steps=] for the
               `digitalCredentials.setVirtualWalletBehavior` command, given
@@ -2609,6 +2568,53 @@ digitalCredentials.SetVirtualWalletBehaviorResult = EmptyResult
             </ol>
           </section>
         </section>
+      </section>
+      <section>
+        <h3>
+          Handle Virtual Wallet Behavior
+        </h3>
+        <p>
+          To <dfn>handle virtual wallet behavior</dfn> given a {{Promise}}
+          |promise| and a global object |global|, run these steps:
+        </p>
+        <ol class="algorithm">
+          <li>If the [=user agent=]'s [=active virtual wallet behavior=] is
+          `null`, return `false`.
+          </li>
+          <li>Let (|action|, |response|) be the [=user agent=]'s [=active
+          virtual wallet behavior=].
+          </li>
+          <li>If |action| is `"wait"`, return `true`.
+          </li>
+          <li>If |action| is `"decline"`:
+            <ol>
+              <li>[=Reject=] |promise| with a {{"NotAllowedError"}}
+              {{DOMException}}.
+              </li>
+              <li>Return `true`.
+              </li>
+            </ol>
+          </li>
+          <li>If |action| is `"respond"`:
+            <ol>
+              <li>Let |js object| be the result of parsing string into a
+              JavaScript value given |response| in |global|'s [=relevant
+              realm=].
+              </li>
+              <li>Let |credential| be a new {{DigitalCredential}} instance.
+              </li>
+              <li>Set |credential|'s {{DigitalCredential/data}} attribute to
+              |js object|.
+              </li>
+              <li>[=Queue a global task=] on the [=DOM manipulation task
+              source=] given |global| to [=resolve=] |promise| with
+              |credential|.
+              </li>
+              <li>Return `true`.
+              </li>
+            </ol>
+          </li>
+        </ol>
       </section>
     </section>
     <section class="prefer-full-spec-title" id="index"></section>
