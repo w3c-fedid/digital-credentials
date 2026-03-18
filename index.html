@@ -1372,7 +1372,11 @@
       </p>
       <p>
         WebIDL [=interfaces=] of the Digital Credential API are only exposed in
-        a [=secure contexts=], reducing the risk of [=tampering=].
+        [=secure contexts=], reducing the risk of [=tampering=] through
+        [=secure contexts|insecure contexts=] (e.g., a malicious script being
+        injected through the network). Please refer to the
+        [Security Considerations](https://www.w3.org/TR/secure-contexts/#security-considerations)
+        of the [[[Secure Contexts]]] specification for more information.
       </p>
     </section>
     <section class="informative" data-cite="privacy-principles">
