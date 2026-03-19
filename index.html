@@ -1385,9 +1385,6 @@
       <li>Let |requests| be |options|'s {{CredentialRequestOptions/digital}}'s
       {{DigitalCredentialRequestOptions/requests}} member.
       </li>
-      <li>If |requests| [=list/is empty=], return [=a promise rejected with=] a
-      {{TypeError}}.
-      </li>
       <li>If |global| does not have [=transient activation=], return [=a
       promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
       </li>
@@ -1444,9 +1441,6 @@
       </li>
       <li>Let |requests| be |options|'s {{CredentialCreationOptions/digital}}'s
       {{DigitalCredentialCreationOptions/requests}} member.
-      </li>
-      <li>If |requests| [=list/is empty=], return [=a promise rejected with=] a
-      {{TypeError}}.
       </li>
       <li>If |global| does not have [=transient activation=], return [=a
       promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
