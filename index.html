@@ -1582,6 +1582,16 @@
           insecure context attempts to alter a {{DigitalCredentialGetRequest}}
           or {{DigitalCredentialCreateRequest}} before processing.
         </dd>
+        <dt>
+          <dfn data-local-lt="API flooding">API Flooding</dfn>
+        </dt>
+        <dd>
+          An attacker attempts to overwhelm an API by making rapid, repeated
+          requests to exhaust system resources or cause prompt fatigue that
+          degrades user experience. This includes making requests at
+          inappropriate times, such as during page load or without meaningful
+          user context.
+        </dd>
       </dl>
       <h4>
         Out of Scope Threats
@@ -1612,6 +1622,23 @@
         "https://www.w3.org/TR/secure-contexts/#security-considerations">Security
         Considerations</a> section of the [[[secure-contexts]]] specification
         for more information.
+      </p>
+      <p>
+        The Digital Credentials API mitigates [=API flooding=] by requiring
+        [=transient activation=] for all credential operations. Both
+        {{DigitalCredential/[[DiscoverFromExternalSource]](origin, options,
+        sameOriginWithAncestors)}} and {{DigitalCredential/[[Create]](origin,
+        options, sameOriginWithAncestors)}} methods [=consume user
+        activation=], preventing automated or repeated requests without user
+        interaction. Additionally, the API makes [=user mediation=] implicitly 
+        {{CredentialMediationRequirement/"required"}}, ensuring user consent 
+        is obtained through the user agent's [=credential chooser=] interface 
+        for every credential operation. Please refer to the 
+        <a data-cite="credential-management#privacy-considerations">Privacy 
+        Considerations</a> section of the [[[credential-management]]] specification 
+        for additional guidance on preventing credential request abuse. However, 
+        these protections have limitations, as sites may still employ dark patterns 
+        to encourage unnecessary user interactions that trigger credential requests.
       </p>
     </section>
     <section class="informative" data-cite="privacy-principles">
