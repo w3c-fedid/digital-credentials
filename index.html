@@ -2588,11 +2588,10 @@
               |session| and |command parameters|, are:
             </p>
             <ol class="algorithm">
-              <li>Let |action| be the value of the `action` field of |command
-              parameters|.
+              <li>Let |action| be |command parameters|["`action`"].
               </li>
-              <li>Let |response| be the value of the `response` field of
-              |command parameters|, if present, and `null` otherwise.
+              <li>Let |response| be |command parameters|["`response`"], if
+              present, and `null` otherwise.
               </li>
               <li>If |action| is `"respond"`:
                 <ol>
