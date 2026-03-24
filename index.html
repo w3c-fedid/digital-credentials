@@ -2492,11 +2492,11 @@
             Types
           </h4>
           <pre class="cddl" data-cddl-module="remote-cddl">
-digitalCredentials.VirtualWalletAction = "respond" / "decline" / "wait"
+digitalCredentials.VirtualWalletAction = "decline" / "respond" / "wait"
 
 digitalCredentials.SetVirtualWalletBehaviorParameters = {
   action: digitalCredentials.VirtualWalletAction,
-  ? response: { * text =&gt; any },
+  ? response: { * text => any },
 }
     </pre>
           <ul>
@@ -2597,17 +2597,17 @@ digitalCredentials.SetVirtualWalletBehaviorResult = EmptyResult
           </li>
           <li>If |action| is `"respond"`:
             <ol>
-              <li>Let |json string| be the result of [=serialize an Infra value
+              <li>Let |JSON string| be the result of [=serialize an Infra value
               to a JSON string|serializing=] |response|.
               </li>
-              <li>Let |js object| be the result of parsing JSON into a
-              JavaScript value given |json string| in |global|'s [=relevant
+              <li>Let |JS object| be the result of parsing JSON into a
+              JavaScript value given |JSON string| in |global|'s [=relevant
               realm=].
               </li>
               <li>Let |credential| be a new {{DigitalCredential}} instance.
               </li>
               <li>Set |credential|'s {{DigitalCredential/data}} attribute to
-              |js object|.
+              |JS object|.
               </li>
               <li>[=Queue a global task=] on the [=DOM manipulation task
               source=] given |global| to [=resolve=] |promise| with
