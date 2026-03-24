@@ -1585,10 +1585,12 @@
       </p>
       <dl>
         <dt>
-          Coming soon
+          <dfn data-local-lt="tampering">Request Tampering</dfn>
         </dt>
         <dd>
-          To be written...
+          A network attacker that can inject or modify page content in an
+          insecure context attempts to alter a {{DigitalCredentialGetRequest}}
+          or {{DigitalCredentialCreateRequest}} before processing.
         </dd>
       </dl>
       <h4>
@@ -1613,7 +1615,13 @@
         normative requirements in the specification.
       </p>
       <p>
-        To be written...
+        WebIDL [=interfaces=] of the Digital Credential API are only exposed in
+        [=secure contexts=], reducing the risk of [=tampering=] through
+        [=secure contexts|insecure contexts=] (e.g., a malicious script being
+        injected through the network). Please refer to the <a href=
+        "https://www.w3.org/TR/secure-contexts/#security-considerations">Security
+        Considerations</a> section of the [[[secure-contexts]]] specification
+        for more information.
       </p>
     </section>
     <section class="informative" data-cite="privacy-principles">
