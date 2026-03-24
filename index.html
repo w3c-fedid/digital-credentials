@@ -2535,19 +2535,19 @@
             Types
           </h4>
           <pre class="cddl" data-cddl-module="remote-cddl">
-digitalCredentials.VirtualWalletAction = "decline" / "respond" / "wait"
+              digitalCredentials.VirtualWalletAction = "decline" / "respond" / "wait"
 
-digitalCredentials.SetVirtualWalletBehaviorParameters = {
-  action: digitalCredentials.VirtualWalletAction,
-  ? response: { * text => any },
-}
-    </pre>
+              digitalCredentials.SetVirtualWalletBehaviorParameters = {
+                action: digitalCredentials.VirtualWalletAction,
+                ? response: { * text =&gt; any },
+              }
+          </pre>
           <ul>
-            <li>`"respond"`: The virtual wallet simulates a successful user
-            interaction and returns the predefined credential response.
-            </li>
             <li>`"decline"`: The virtual wallet simulates a user cancellation
             or rejection, aborting the request.
+            </li>
+            <li>`"respond"`: The virtual wallet simulates a successful user
+            interaction and returns the predefined credential response.
             </li>
             <li>`"wait"`: The virtual wallet simulates an active, pending
             prompt, effectively leaving the active promise unsettled to test
@@ -2567,17 +2567,17 @@ digitalCredentials.SetVirtualWalletBehaviorParameters = {
               <strong>Command Type:</strong>
             </p>
             <pre class="cddl" data-cddl-module="remote-cddl">
-digitalCredentials.SetVirtualWalletBehavior = (
-  method: "digitalCredentials.setVirtualWalletBehavior",
-  params: digitalCredentials.SetVirtualWalletBehaviorParameters
-)
-      </pre>
+              digitalCredentials.SetVirtualWalletBehavior = (
+                method: "digitalCredentials.setVirtualWalletBehavior",
+                params: digitalCredentials.SetVirtualWalletBehaviorParameters
+              )
+            </pre>
             <p>
               <strong>Return Type:</strong>
             </p>
             <pre class="cddl" data-cddl-module="local-cddl">
-digitalCredentials.SetVirtualWalletBehaviorResult = EmptyResult
-      </pre>
+              digitalCredentials.SetVirtualWalletBehaviorResult = EmptyResult
+            </pre>
             <p>
               The [=remote end steps=] for the
               `digitalCredentials.setVirtualWalletBehavior` command, given
