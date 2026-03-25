@@ -1659,9 +1659,9 @@
         wallet to determine that a request was not modified after creation. In
         general, this is expected to be achieved by signing the request at the
         exchange protocol layer, and wallet is expected to verify it.<br>
-        These mechanisms mitigate protocol-layer request tampering, including
-        modification of the request after creation or during transport such as
-        with @@parameter in @@protocol.
+        These mechanisms reduce [=request-tampering=], including modification
+        of the request after creation or during transport. For example using
+        @@parameter in @@protocol.
       </p>
       <h4>
         Response Integrity
@@ -1673,9 +1673,9 @@
         achieved through the integrity rotection mechanisms provided by the
         underlying protocol, and the [=verifiers=] is expected to verify
         it.<br>
-        These mechanisms mitigate protocol-layer request tampering, including
-        modification of the request after creation or during transport such as
-        with @@parameter in @@protocol.
+        These mechanisms reduce protocol-layer [=response-tampering=],
+        including modification of the response after creation or during
+        transport. For example using @@parameter in @@protocol.
       </p>
     </section>
     <section class="informative" data-cite="privacy-principles">
