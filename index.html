@@ -137,11 +137,13 @@
       issuers, verifiers, and holders to control where potentially sensitive
       personally identifiable information is exposed.
       </li>
-      <li>Require [=transient activation=] to perform [=digital
+      <li>Encourage [=transient activation=] to perform [=digital
       credential/presentation requests=] or [=digital credential/issuance
-      requests=], ensuring that sites cannot silently query for nor issue
-      digital credentials, nor communicate with wallet providers, without the
-      user's active participation and confirmation of each action.
+      requests=]. To support redirect flows, user agents allow a limited number
+      of requests to be made without user activation. In all cases, user
+      mediation ensures that sites cannot silently query for nor issue digital
+      credentials, nor communicate with wallet providers, without the user's
+      active participation and confirmation of each action.
       </li>
       <li>Enable platform-provided credential selection UX when multiple wallet
       applications have credentials that match a [=digital
@@ -1337,6 +1339,23 @@
         "openid4vci-v1",
       };
     </pre>
+    <section id="infrastructure">
+      <h2>
+        Infrastructure
+      </h2>
+      <p>
+        This section defines additional infrastructure and state required for
+        the Digital Credentials API.
+      </p>
+      <h3>
+        Digital Credential User Activation Allowance
+      </h3>
+      <p>
+        Each [=relevant global object=] has an associated <dfn>digital
+        credential user activation allowance</dfn>, which is an integer,
+        initially 1.
+      </p>
+    </section>
     <h2 id="credential-management-integration">
       Integration with [[[credential-management]]]
     </h2><!--
@@ -1387,10 +1406,22 @@
           </li>
         </ol>
       </li>
-      <li>If |global| does not have [=transient activation=], return [=a
-      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
+      <li>If |global| does not have [=transient activation=]:
+        <ol>
+          <li>If |global|'s [=digital credential user activation allowance=] is
+          0, return [=a promise rejected with=] a {{"NotAllowedError"}}
+          {{DOMException}}.
+          </li>
+          <li>Decrement |global|'s [=digital credential user activation
+          allowance=] by 1.
+          </li>
+        </ol>
       </li>
-      <li>[=Consume user activation=] of |global|.
+      <li>Else:
+        <ol>
+          <li>[=Consume user activation=] of |global|.
+          </li>
+        </ol>
       </li>
       <li>Let |promise| be [=a new promise=] in [=this=]'s [=relevant realm=].
       </li>
@@ -1457,10 +1488,22 @@
           </li>
         </ol>
       </li>
-      <li>If |global| does not have [=transient activation=], return [=a
-      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
+      <li>If |global| does not have [=transient activation=]:
+        <ol>
+          <li>If |global|'s [=digital credential user activation allowance=] is
+          0, return [=a promise rejected with=] a {{"NotAllowedError"}}
+          {{DOMException}}.
+          </li>
+          <li>Decrement |global|'s [=digital credential user activation
+          allowance=] by 1.
+          </li>
+        </ol>
       </li>
-      <li>[=Consume user activation=] of |global|.
+      <li>Else:
+        <ol>
+          <li>[=Consume user activation=] of |global|.
+          </li>
+        </ol>
       </li>
       <li>Let |promise| be [=a new promise=].
       </li>
