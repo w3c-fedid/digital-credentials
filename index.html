@@ -210,7 +210,12 @@
         be used to check if the user agent allows a specific protocol for
         digital credential issuance or presentation. This is useful for
         checking which protocols are allowed by the user's browsers prior to
-        making an API call.
+        making an API call. Because protocol identifiers are added to
+        {{DigitalCredentialProtocol}} progressively as [=user agents=] adopt
+        support for them, calling this method on an older browser with a newer
+        protocol identifier safely returns `false`. This makes it suitable for
+        feature detection without needing to guard against exceptions on legacy
+        browsers.
       </p>
       <pre class="example js" title=
       "Using the userAgentAllowsProtocol() static method">
@@ -237,6 +242,26 @@
           // At least one protocol is supported. Proceed with issuance.
         } else {
           // No protocols are supported. Fall back to a different issuance method.
+        }
+      </pre>
+      <p>
+        Because protocol identifiers are added to {{DigitalCredentialProtocol}}
+        progressively, one can use this method to prefer a newer protocol while
+        gracefully falling back to an older one on legacy browsers:
+      </p>
+      <pre class="example js" title=
+      "Preferring a newer protocol with fallback to an older one">
+        // Ordered by preference; older browsers will skip protocols they
+        // don't know about without throwing an exception.
+        const protocol = [
+          "example-new-protocol",
+          "example-legacy-protocol",
+        ].find(DigitalCredential.userAgentAllowsProtocol);
+
+        if (protocol) {
+          // Use the best protocol this browser supports.
+        } else {
+          // No supported protocol found. Fall back to another approach.
         }
       </pre>
       <h3>
