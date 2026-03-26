@@ -132,7 +132,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="06da3ebaf8b6fb32a431caaae17e05676878132b">
+<meta name="revision" content="3a22d15f43971a666e121e1357ec95438a038305">
 <meta name="description" content="This document specifies an API to enable user agents to mediate
         presentation and issuance of digital credentials such as a driver's
         license, government-issued identification card, and/or other types of digital credential. The API builds on
@@ -270,16 +270,16 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "06da3ebaf8b6fb32a431caaae17e05676878132b",
-  "publishISODate": "2026-03-20T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 20 March 2026"
+  "gitRevision": "3a22d15f43971a666e121e1357ec95438a038305",
+  "publishISODate": "2026-03-26T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 26 March 2026"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED"></head>
   <body data-cite="WEBIDL credential-management vc-data-model HTML INFRA URL WEBIDL DOM FETCH" class="h-entry"><div class="head">
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Digital Credentials</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-03-20">20 March 2026</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-03-26">26 March 2026</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -1296,6 +1296,17 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           <li>If the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-0-6">user agent</a> does not allow <var>protocol</var>,
           <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#iteration-continue" id="ref-for-index-term-continue-for-iteration-3">continue</a>.
           </li>
+          <li>Let <var>data</var> be <var>request</var>'s <a data-link-type="idl" href="#dom-digitalcredentialgetrequest-data" class="internalDFN" id="ref-for-dom-digitalcredentialgetrequest-data-1"><code>data</code></a>,
+          if <var>request</var> is a <a data-link-type="idl" data-lt="DigitalCredentialGetRequest" href="#dom-digitalcredentialgetrequest" class="internalDFN" id="ref-for-dom-digitalcredentialgetrequest-5"><code>DigitalCredentialGetRequest</code></a>, or <var>request</var>'s
+          <a data-link-type="idl" href="#dom-digitalcredentialcreaterequest-data" class="internalDFN" id="ref-for-dom-digitalcredentialcreaterequest-data-1"><code>data</code></a>, if <var>request</var> is a
+          <a data-link-type="idl" data-lt="DigitalCredentialCreateRequest" href="#dom-digitalcredentialcreaterequest" class="internalDFN" id="ref-for-dom-digitalcredentialcreaterequest-5"><code>DigitalCredentialCreateRequest</code></a>.
+          </li>
+          <li><a data-link-type="dfn" data-lt="serialize a JavaScript value to a JSON string" href="https://infra.spec.whatwg.org/#serialize-a-javascript-value-to-a-json-string" id="ref-for-index-term-serialize-a-javascript-value-to-a-json-string-1">Serialize</a>
+          <var>data</var> to a JSON string.
+          </li>
+          <li>If serialization results in an <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-exception" id="ref-for-index-term-exception-2">exception</a>, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw" id="ref-for-index-term-throws-for-exception-2">throw</a>
+          that <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-exception" id="ref-for-index-term-exception-3">exception</a>.
+          </li>
           <li>Validate <var>request</var>'s <a data-link-type="dfn|abstract-op" href="#dfn-request-data" class="internalDFN" id="ref-for-dfn-request-data-3">request data</a>
           according to <var>request</var>'s <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-9">presentation protocol</a>
           or <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-8">issuance protocol</a> or other criteria.
@@ -1318,8 +1329,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
 </blockquote>
 <p dir="auto">It would be good to expand on these.</p></div>
             <ol>
-              <li>If validation fails, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw" id="ref-for-index-term-throws-for-exception-2">throw</a> an appropriate
-              <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-exception" id="ref-for-index-term-exception-2">exception</a>.
+              <li>If validation fails, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw" id="ref-for-index-term-throws-for-exception-3">throw</a> an appropriate
+              <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-exception" id="ref-for-index-term-exception-4">exception</a>.
               </li>
               <li>Otherwise, <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-append" id="ref-for-index-term-append-for-list-1">append</a> <var>request</var> to <var>validatedRequests</var>.
               </li>
@@ -1464,7 +1475,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       The <code>DigitalCredentialRequestOptions</code> dictionary
     </h3><a class="self-link" href="#the-digitalcredentialrequestoptions-dictionary" aria-label="Permalink for Section 7.2"></a></div>
     <pre class="idl def" id="webidl-1036266394"><span class="idlHeader"><a class="self-link" href="#webidl-1036266394">WebIDL</a></span><code><span data-idl="" class="idlDictionary" id="idl-def-digitalcredentialrequestoptions" data-title="DigitalCredentialRequestOptions">dictionary <dfn data-export="" data-dfn-type="dictionary" id="dom-digitalcredentialrequestoptions" data-idl="dictionary" data-title="DigitalCredentialRequestOptions" data-dfn-for="" class="idlID" tabindex="0" aria-haspopup="dialog"><code>DigitalCredentialRequestOptions</code></dfn> {<span data-idl="" class="idlMember" id="idl-def-digitalcredentialrequestoptions-requests" data-title="requests" data-dfn-for="DigitalCredentialRequestOptions">
-  required<span class="idlType"> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-index-term-sequence-3">sequence</a>&lt;<a data-link-type="idl" href="#dom-digitalcredentialgetrequest" class="internalDFN" id="ref-for-dom-digitalcredentialgetrequest-5"><code>DigitalCredentialGetRequest</code></a>&gt;</span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialrequestoptions-requests" id="ref-for-dom-digitalcredentialrequestoptions-requests-1"><code>requests</code></a>;</span>
+  required<span class="idlType"> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-index-term-sequence-3">sequence</a>&lt;<a data-link-type="idl" href="#dom-digitalcredentialgetrequest" class="internalDFN" id="ref-for-dom-digitalcredentialgetrequest-6"><code>DigitalCredentialGetRequest</code></a>&gt;</span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialrequestoptions-requests" id="ref-for-dom-digitalcredentialrequestoptions-requests-1"><code>requests</code></a>;</span>
 };</span></code></pre>
     <section id="the-requests-member"><div class="header-wrapper"><h4 id="x7-2-1-the-requests-member"><bdi class="secno">7.2.1 </bdi>
       The <code>requests</code> member
@@ -1478,12 +1489,12 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       The <code>DigitalCredentialGetRequest</code> dictionary
     </h3><a class="self-link" href="#the-digitalcredentialgetrequest-dictionary" aria-label="Permalink for Section 7.3"></a></div>
     <p>
-      The <a data-link-type="idl" data-lt="DigitalCredentialGetRequest" href="#dom-digitalcredentialgetrequest" class="internalDFN" id="ref-for-dom-digitalcredentialgetrequest-6"><code>DigitalCredentialGetRequest</code></a> dictionary represents a <a data-link-type="dfn|abstract-op" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-16">presentation request</a>. It is used to specify an <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-13">presentation protocol</a> and some <a data-link-type="dfn|abstract-op" href="#dfn-request-data" class="internalDFN" id="ref-for-dfn-request-data-6">request data</a>, which the user agent <em class="rfc2119">MAY</em> match against software used by a holder,
+      The <a data-link-type="idl" data-lt="DigitalCredentialGetRequest" href="#dom-digitalcredentialgetrequest" class="internalDFN" id="ref-for-dom-digitalcredentialgetrequest-7"><code>DigitalCredentialGetRequest</code></a> dictionary represents a <a data-link-type="dfn|abstract-op" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-16">presentation request</a>. It is used to specify an <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-13">presentation protocol</a> and some <a data-link-type="dfn|abstract-op" href="#dfn-request-data" class="internalDFN" id="ref-for-dfn-request-data-6">request data</a>, which the user agent <em class="rfc2119">MAY</em> match against software used by a holder,
       such as a digital wallet.
     </p>
     <pre class="idl def" id="webidl-1753533423"><span class="idlHeader"><a class="self-link" href="#webidl-1753533423">WebIDL</a></span><code><span data-idl="" class="idlDictionary" id="idl-def-digitalcredentialgetrequest" data-title="DigitalCredentialGetRequest">dictionary <dfn data-export="" data-dfn-type="dictionary" id="dom-digitalcredentialgetrequest" data-idl="dictionary" data-title="DigitalCredentialGetRequest" data-dfn-for="" class="idlID" tabindex="0" aria-haspopup="dialog"><code>DigitalCredentialGetRequest</code></dfn> {<span data-idl="" class="idlMember" id="idl-def-digitalcredentialgetrequest-protocol" data-title="protocol" data-dfn-for="DigitalCredentialGetRequest">
   required<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-index-term-domstring-interface-1">DOMString</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialgetrequest-protocol" id="ref-for-dom-digitalcredentialgetrequest-protocol-2"><code>protocol</code></a>;</span><span data-idl="" class="idlMember" id="idl-def-digitalcredentialgetrequest-data" data-title="data" data-dfn-for="DigitalCredentialGetRequest">
-  required<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-object" id="ref-for-index-term-object-type-1">object</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialgetrequest-data" id="ref-for-dom-digitalcredentialgetrequest-data-1"><code>data</code></a>;</span>
+  required<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-object" id="ref-for-index-term-object-type-1">object</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialgetrequest-data" id="ref-for-dom-digitalcredentialgetrequest-data-2"><code>data</code></a>;</span>
 };</span></code></pre>
     <section id="the-protocol-member"><div class="header-wrapper"><h4 id="x7-3-1-the-protocol-member"><bdi class="secno">7.3.1 </bdi>
       The <code>protocol</code> member
@@ -1522,7 +1533,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       The <code>DigitalCredentialCreationOptions</code> dictionary
     </h3><a class="self-link" href="#the-digitalcredentialcreationoptions-dictionary" aria-label="Permalink for Section 7.5"></a></div>
     <pre class="idl def" id="webidl-185698318"><span class="idlHeader"><a class="self-link" href="#webidl-185698318">WebIDL</a></span><code><span data-idl="" class="idlDictionary" id="idl-def-digitalcredentialcreationoptions" data-title="DigitalCredentialCreationOptions">dictionary <dfn data-export="" data-dfn-type="dictionary" id="dom-digitalcredentialcreationoptions" data-idl="dictionary" data-title="DigitalCredentialCreationOptions" data-dfn-for="" class="idlID" tabindex="0" aria-haspopup="dialog"><code>DigitalCredentialCreationOptions</code></dfn> {<span data-idl="" class="idlMember" id="idl-def-digitalcredentialcreationoptions-requests" data-title="requests" data-dfn-for="DigitalCredentialCreationOptions">
-  required<span class="idlType"> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-index-term-sequence-4">sequence</a>&lt;<a data-link-type="idl" href="#dom-digitalcredentialcreaterequest" class="internalDFN" id="ref-for-dom-digitalcredentialcreaterequest-5"><code>DigitalCredentialCreateRequest</code></a>&gt;</span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialcreationoptions-requests" id="ref-for-dom-digitalcredentialcreationoptions-requests-1"><code>requests</code></a>;</span>
+  required<span class="idlType"> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-index-term-sequence-4">sequence</a>&lt;<a data-link-type="idl" href="#dom-digitalcredentialcreaterequest" class="internalDFN" id="ref-for-dom-digitalcredentialcreaterequest-6"><code>DigitalCredentialCreateRequest</code></a>&gt;</span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialcreationoptions-requests" id="ref-for-dom-digitalcredentialcreationoptions-requests-1"><code>requests</code></a>;</span>
 };</span></code></pre>
     <section id="the-requests-member-0"><div class="header-wrapper"><h4 id="x7-5-1-the-requests-member"><bdi class="secno">7.5.1 </bdi>
       The <code>requests</code> member
@@ -1536,12 +1547,12 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       The <code>DigitalCredentialCreateRequest</code> dictionary
     </h3><a class="self-link" href="#the-digitalcredentialcreaterequest-dictionary" aria-label="Permalink for Section 7.6"></a></div>
     <p>
-      The <a data-link-type="idl" data-lt="DigitalCredentialCreateRequest" href="#dom-digitalcredentialcreaterequest" class="internalDFN" id="ref-for-dom-digitalcredentialcreaterequest-6"><code>DigitalCredentialCreateRequest</code></a> dictionary represents an <a data-link-type="dfn|abstract-op" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-15">issuance request</a>. It is used to specify an <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-12">issuance protocol</a> and some <a data-link-type="dfn|abstract-op" href="#dfn-request-data" class="internalDFN" id="ref-for-dfn-request-data-9">request data</a>, to communicate the issuance request between the issuer and the
+      The <a data-link-type="idl" data-lt="DigitalCredentialCreateRequest" href="#dom-digitalcredentialcreaterequest" class="internalDFN" id="ref-for-dom-digitalcredentialcreaterequest-7"><code>DigitalCredentialCreateRequest</code></a> dictionary represents an <a data-link-type="dfn|abstract-op" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-15">issuance request</a>. It is used to specify an <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-12">issuance protocol</a> and some <a data-link-type="dfn|abstract-op" href="#dfn-request-data" class="internalDFN" id="ref-for-dfn-request-data-9">request data</a>, to communicate the issuance request between the issuer and the
       holder.
     </p>
     <pre class="idl def" id="webidl-1732532479"><span class="idlHeader"><a class="self-link" href="#webidl-1732532479">WebIDL</a></span><code><span data-idl="" class="idlDictionary" id="idl-def-digitalcredentialcreaterequest" data-title="DigitalCredentialCreateRequest">dictionary <dfn data-export="" data-dfn-type="dictionary" id="dom-digitalcredentialcreaterequest" data-idl="dictionary" data-title="DigitalCredentialCreateRequest" data-dfn-for="" class="idlID" tabindex="0" aria-haspopup="dialog"><code>DigitalCredentialCreateRequest</code></dfn> {<span data-idl="" class="idlMember" id="idl-def-digitalcredentialcreaterequest-protocol" data-title="protocol" data-dfn-for="DigitalCredentialCreateRequest">
   required<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-index-term-domstring-interface-2">DOMString</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialcreaterequest-protocol" id="ref-for-dom-digitalcredentialcreaterequest-protocol-2"><code>protocol</code></a>;</span><span data-idl="" class="idlMember" id="idl-def-digitalcredentialcreaterequest-data" data-title="data" data-dfn-for="DigitalCredentialCreateRequest">
-  required<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-object" id="ref-for-index-term-object-type-2">object</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialcreaterequest-data" id="ref-for-dom-digitalcredentialcreaterequest-data-1"><code>data</code></a>;</span>
+  required<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-object" id="ref-for-index-term-object-type-2">object</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialcreaterequest-data" id="ref-for-dom-digitalcredentialcreaterequest-data-2"><code>data</code></a>;</span>
 };</span></code></pre>
     <section id="the-protocol-member-0"><div class="header-wrapper"><h4 id="x7-6-1-the-protocol-member"><bdi class="secno">7.6.1 </bdi>
       The <code>protocol</code> member
@@ -1711,19 +1722,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <li>Let <var>requests</var> be <var>options</var>'s <a data-link-type="idl" href="#dom-credentialrequestoptions-digital" class="internalDFN" id="ref-for-dom-credentialrequestoptions-digital-2"><code>digital</code></a>'s
       <a data-link-type="idl" href="#dom-digitalcredentialrequestoptions-requests" class="internalDFN" id="ref-for-dom-digitalcredentialrequestoptions-requests-2"><code>requests</code></a> member.
       </li>
-      <li>If <var>requests</var> <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-is-empty" id="ref-for-index-term-is-empty-for-list-2">is empty</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-3">a promise rejected with</a> a
-      <a data-link-type="exception" data-lt="TypeError" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-index-term-typeerror-exception-2"><code>TypeError</code></a>.
-      </li>
-      <li><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate" id="ref-for-index-term-for-each-for-list-2">For each</a> <var>request</var> of <var>requests</var>:
-        <ol>
-          <li><a data-link-type="dfn" data-lt="serialize a JavaScript value to a JSON string" href="https://infra.spec.whatwg.org/#serialize-a-javascript-value-to-a-json-string" id="ref-for-index-term-serialize-a-javascript-value-to-a-json-string-1">Serialize</a>
-          <var>request</var>'s <a data-link-type="idl" href="#dom-digitalcredentialgetrequest-data" class="internalDFN" id="ref-for-dom-digitalcredentialgetrequest-data-2"><code>data</code></a> to a JSON string.
-          </li>
-          <li>If serialization results in an <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-exception" id="ref-for-index-term-exception-3">exception</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-4">a promise rejected with</a> that <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-exception" id="ref-for-index-term-exception-4">exception</a>.
-          </li>
-        </ol>
-      </li>
-      <li>If <var>global</var> does not have <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-index-term-transient-activation-2">transient activation</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-5">a promise rejected with</a> a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-3"><code>NotAllowedError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-5"><code>DOMException</code></a>.
+      <li>If <var>global</var> does not have <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-index-term-transient-activation-2">transient activation</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-3">a promise rejected with</a> a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-3"><code>NotAllowedError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-5"><code>DOMException</code></a>.
       </li>
       <li><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation" id="ref-for-index-term-consume-user-activation-1">Consume user activation</a> of <var>global</var>.
       </li>
@@ -1758,29 +1757,18 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <li>Let <var>signal</var> be <var>options</var>'s <a data-link-type="dict-member" href="https://www.w3.org/TR/credential-management-1/#dom-credentialcreationoptions-signal" id="ref-for-index-term-signal-for-credentialcreationoptions-1"><code>signal</code></a>, if
       present.
       </li>
-      <li>If <var>signal</var> is <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortsignal-aborted" id="ref-for-index-term-aborted-for-abortsignal-5">aborted</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-6">a promise rejected with</a> <var>signal</var>'s <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortsignal-abort-reason" id="ref-for-index-term-abort-reason-for-abortsignal-4">abort reason</a>.
+      <li>If <var>signal</var> is <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortsignal-aborted" id="ref-for-index-term-aborted-for-abortsignal-5">aborted</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-4">a promise rejected with</a> <var>signal</var>'s <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortsignal-abort-reason" id="ref-for-index-term-abort-reason-for-abortsignal-4">abort reason</a>.
       </li>
       <li>Let <var>global</var> be <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-index-term-this-3">this</a>'s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-index-term-relevant-global-object-4">relevant global object</a>.
       </li>
       <li>Let <var>document</var> be <var>global</var>'s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#concept-document-window" id="ref-for-index-term-associated-document-2">associated <code>Document</code></a>.
       </li>
-      <li>If <var>document</var> is not a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#fully-active-descendant-of-a-top-level-traversable-with-user-attention" id="ref-for-index-term-fully-active-descendant-of-a-top-level-traversable-with-user-attention-for-document-2">fully active descendant of a top-level traversable with user attention</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-7">a promise rejected with</a> a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-4"><code>NotAllowedError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-6"><code>DOMException</code></a>.
+      <li>If <var>document</var> is not a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#fully-active-descendant-of-a-top-level-traversable-with-user-attention" id="ref-for-index-term-fully-active-descendant-of-a-top-level-traversable-with-user-attention-for-document-2">fully active descendant of a top-level traversable with user attention</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-5">a promise rejected with</a> a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-4"><code>NotAllowedError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-6"><code>DOMException</code></a>.
       </li>
       <li>Let <var>requests</var> be <var>options</var>'s <a data-link-type="idl" href="#dom-credentialcreationoptions-digital" class="internalDFN" id="ref-for-dom-credentialcreationoptions-digital-2"><code>digital</code></a>'s
       <a data-link-type="idl" href="#dom-digitalcredentialcreationoptions-requests" class="internalDFN" id="ref-for-dom-digitalcredentialcreationoptions-requests-2"><code>requests</code></a> member.
       </li>
-      <li>If <var>requests</var> is <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-is-empty" id="ref-for-index-term-is-empty-for-list-3">is empty</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-8">a promise rejected with</a> a <a data-link-type="exception" data-lt="TypeError" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-index-term-typeerror-exception-3"><code>TypeError</code></a>.
-      </li>
-      <li><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate" id="ref-for-index-term-for-each-for-list-3">For each</a> <var>request</var> of <var>requests</var>:
-        <ol>
-          <li><a data-link-type="dfn" data-lt="serialize a JavaScript value to a JSON string" href="https://infra.spec.whatwg.org/#serialize-a-javascript-value-to-a-json-string" id="ref-for-index-term-serialize-a-javascript-value-to-a-json-string-2">Serialize</a>
-          <var>request</var>'s <a data-link-type="idl" href="#dom-digitalcredentialgetrequest-data" class="internalDFN" id="ref-for-dom-digitalcredentialgetrequest-data-3"><code>data</code></a> to a JSON string.
-          </li>
-          <li>If serialization results in an <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-exception" id="ref-for-index-term-exception-5">exception</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-9">a promise rejected with</a> that <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-exception" id="ref-for-index-term-exception-6">exception</a>.
-          </li>
-        </ol>
-      </li>
-      <li>If <var>global</var> does not have <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-index-term-transient-activation-3">transient activation</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-10">a promise rejected with</a> a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-5"><code>NotAllowedError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-7"><code>DOMException</code></a>.
+      <li>If <var>global</var> does not have <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-index-term-transient-activation-3">transient activation</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-6">a promise rejected with</a> a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-5"><code>NotAllowedError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-7"><code>DOMException</code></a>.
       </li>
       <li><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation" id="ref-for-index-term-consume-user-activation-2">Consume user activation</a> of <var>global</var>.
       </li>
@@ -1889,8 +1877,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         </dt>
         <dd>
           A network attacker that can inject or modify page content in an
-          insecure context attempts to alter a <a data-link-type="idl" data-lt="DigitalCredentialGetRequest" href="#dom-digitalcredentialgetrequest" class="internalDFN" id="ref-for-dom-digitalcredentialgetrequest-7"><code>DigitalCredentialGetRequest</code></a>
-          or <a data-link-type="idl" data-lt="DigitalCredentialCreateRequest" href="#dom-digitalcredentialcreaterequest" class="internalDFN" id="ref-for-dom-digitalcredentialcreaterequest-7"><code>DigitalCredentialCreateRequest</code></a> before processing.
+          insecure context attempts to alter a <a data-link-type="idl" data-lt="DigitalCredentialGetRequest" href="#dom-digitalcredentialgetrequest" class="internalDFN" id="ref-for-dom-digitalcredentialgetrequest-8"><code>DigitalCredentialGetRequest</code></a>
+          or <a data-link-type="idl" data-lt="DigitalCredentialCreateRequest" href="#dom-digitalcredentialcreaterequest" class="internalDFN" id="ref-for-dom-digitalcredentialcreaterequest-8"><code>DigitalCredentialCreateRequest</code></a> before processing.
         </dd>
       </dl>
       </section><section id="out-of-scope-threats"><div class="header-wrapper"><h4 id="x10-1-2-out-of-scope-threats"><bdi class="secno">10.1.2 </bdi>
@@ -3167,12 +3155,12 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
 };</span>
 
 <span data-idl="" class="idlDictionary" data-title="DigitalCredentialRequestOptions">dictionary <dfn data-export="" data-dfn-type="dictionary" data-idl="dictionary" data-title="DigitalCredentialRequestOptions" data-dfn-for="" class="idlID"><code>DigitalCredentialRequestOptions</code></dfn> {<span data-idl="" class="idlMember" data-title="requests" data-dfn-for="DigitalCredentialRequestOptions">
-  required<span class="idlType"> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-index-term-sequence-5">sequence</a>&lt;<a data-link-type="idl" href="#dom-digitalcredentialgetrequest" class="internalDFN" id="ref-for-dom-digitalcredentialgetrequest-8"><code>DigitalCredentialGetRequest</code></a>&gt;</span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialrequestoptions-requests" id="ref-for-dom-digitalcredentialrequestoptions-requests-3"><code>requests</code></a>;</span>
+  required<span class="idlType"> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-index-term-sequence-5">sequence</a>&lt;<a data-link-type="idl" href="#dom-digitalcredentialgetrequest" class="internalDFN" id="ref-for-dom-digitalcredentialgetrequest-9"><code>DigitalCredentialGetRequest</code></a>&gt;</span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialrequestoptions-requests" id="ref-for-dom-digitalcredentialrequestoptions-requests-3"><code>requests</code></a>;</span>
 };</span>
 
 <span data-idl="" class="idlDictionary" data-title="DigitalCredentialGetRequest">dictionary <dfn data-export="" data-dfn-type="dictionary" data-idl="dictionary" data-title="DigitalCredentialGetRequest" data-dfn-for="" class="idlID"><code>DigitalCredentialGetRequest</code></dfn> {<span data-idl="" class="idlMember" data-title="protocol" data-dfn-for="DigitalCredentialGetRequest">
   required<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-index-term-domstring-interface-4">DOMString</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialgetrequest-protocol" id="ref-for-dom-digitalcredentialgetrequest-protocol-4"><code>protocol</code></a>;</span><span data-idl="" class="idlMember" data-title="data" data-dfn-for="DigitalCredentialGetRequest">
-  required<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-object" id="ref-for-index-term-object-type-5">object</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialgetrequest-data" id="ref-for-dom-digitalcredentialgetrequest-data-4"><code>data</code></a>;</span>
+  required<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-object" id="ref-for-index-term-object-type-5">object</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialgetrequest-data" id="ref-for-dom-digitalcredentialgetrequest-data-3"><code>data</code></a>;</span>
 };</span>
 
 <span data-idl="" class="idlDictionary" data-title="CredentialCreationOptions">partial dictionary <a data-idl="partial" data-link-type="dictionary" data-title="CredentialCreationOptions" class="idlID" data-dfn-for="CredentialCreationOptions" href="https://www.w3.org/TR/credential-management-1/#dictdef-credentialcreationoptions" id="ref-for-index-term-credentialcreationoptions-2">CredentialCreationOptions</a> {<span data-idl="" class="idlMember" data-title="digital" data-dfn-for="CredentialCreationOptions"><span class="idlType">
@@ -3180,12 +3168,12 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
 };</span>
 
 <span data-idl="" class="idlDictionary" data-title="DigitalCredentialCreationOptions">dictionary <dfn data-export="" data-dfn-type="dictionary" data-idl="dictionary" data-title="DigitalCredentialCreationOptions" data-dfn-for="" class="idlID"><code>DigitalCredentialCreationOptions</code></dfn> {<span data-idl="" class="idlMember" data-title="requests" data-dfn-for="DigitalCredentialCreationOptions">
-  required<span class="idlType"> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-index-term-sequence-6">sequence</a>&lt;<a data-link-type="idl" href="#dom-digitalcredentialcreaterequest" class="internalDFN" id="ref-for-dom-digitalcredentialcreaterequest-8"><code>DigitalCredentialCreateRequest</code></a>&gt;</span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialcreationoptions-requests" id="ref-for-dom-digitalcredentialcreationoptions-requests-3"><code>requests</code></a>;</span>
+  required<span class="idlType"> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-index-term-sequence-6">sequence</a>&lt;<a data-link-type="idl" href="#dom-digitalcredentialcreaterequest" class="internalDFN" id="ref-for-dom-digitalcredentialcreaterequest-9"><code>DigitalCredentialCreateRequest</code></a>&gt;</span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialcreationoptions-requests" id="ref-for-dom-digitalcredentialcreationoptions-requests-3"><code>requests</code></a>;</span>
 };</span>
 
 <span data-idl="" class="idlDictionary" data-title="DigitalCredentialCreateRequest">dictionary <dfn data-export="" data-dfn-type="dictionary" data-idl="dictionary" data-title="DigitalCredentialCreateRequest" data-dfn-for="" class="idlID"><code>DigitalCredentialCreateRequest</code></dfn> {<span data-idl="" class="idlMember" data-title="protocol" data-dfn-for="DigitalCredentialCreateRequest">
   required<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-index-term-domstring-interface-5">DOMString</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialcreaterequest-protocol" id="ref-for-dom-digitalcredentialcreaterequest-protocol-4"><code>protocol</code></a>;</span><span data-idl="" class="idlMember" data-title="data" data-dfn-for="DigitalCredentialCreateRequest">
-  required<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-object" id="ref-for-index-term-object-type-6">object</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialcreaterequest-data" id="ref-for-dom-digitalcredentialcreaterequest-data-2"><code>data</code></a>;</span>
+  required<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-object" id="ref-for-index-term-object-type-6">object</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialcreaterequest-data" id="ref-for-dom-digitalcredentialcreaterequest-data-3"><code>data</code></a>;</span>
 };</span>
 
 <span data-idl="" class="idlTypedef" data-title="DigitalCredentialProtocol">typedef<span class="idlType"> (<a data-link-type="idl" href="#dom-digitalcredentialpresentationprotocol" class="internalDFN" id="ref-for-dom-digitalcredentialpresentationprotocol-5"><code>DigitalCredentialPresentationProtocol</code></a> or <a data-link-type="idl" href="#dom-digitalcredentialissuanceprotocol" class="internalDFN" id="ref-for-dom-digitalcredentialissuanceprotocol-5"><code>DigitalCredentialIssuanceProtocol</code></a>)</span> <dfn data-export="" data-dfn-type="typedef" data-idl="typedef" data-title="DigitalCredentialProtocol" data-dfn-for="" class="idlID"><code>DigitalCredentialProtocol</code></dfn>;</span><span data-idl="" class="idlInterface" data-title="DigitalCredential">
@@ -3896,15 +3884,15 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <li>
       <a href="#ref-for-dom-digitalcredentialgetrequest-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredentialgetrequest-2" title="§ 6.3 Validate credential requests">§ 6.3 Validate credential requests</a> <a href="#ref-for-dom-digitalcredentialgetrequest-3" title="Reference 2">(2)</a> <a href="#ref-for-dom-digitalcredentialgetrequest-4" title="Reference 3">(3)</a> 
+      <a href="#ref-for-dom-digitalcredentialgetrequest-2" title="§ 6.3 Validate credential requests">§ 6.3 Validate credential requests</a> <a href="#ref-for-dom-digitalcredentialgetrequest-3" title="Reference 2">(2)</a> <a href="#ref-for-dom-digitalcredentialgetrequest-4" title="Reference 3">(3)</a> <a href="#ref-for-dom-digitalcredentialgetrequest-5" title="Reference 4">(4)</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredentialgetrequest-5" title="§ 7.2 The DigitalCredentialRequestOptions dictionary">§ 7.2 The DigitalCredentialRequestOptions dictionary</a> 
+      <a href="#ref-for-dom-digitalcredentialgetrequest-6" title="§ 7.2 The DigitalCredentialRequestOptions dictionary">§ 7.2 The DigitalCredentialRequestOptions dictionary</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredentialgetrequest-6" title="§ 7.3 The DigitalCredentialGetRequest dictionary">§ 7.3 The DigitalCredentialGetRequest dictionary</a> 
+      <a href="#ref-for-dom-digitalcredentialgetrequest-7" title="§ 7.3 The DigitalCredentialGetRequest dictionary">§ 7.3 The DigitalCredentialGetRequest dictionary</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredentialgetrequest-7" title="§ 10.1.1 In-Scope Threats">§ 10.1.1 In-Scope Threats</a> 
+      <a href="#ref-for-dom-digitalcredentialgetrequest-8" title="§ 10.1.1 In-Scope Threats">§ 10.1.1 In-Scope Threats</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredentialgetrequest-8" title="§ B. IDL Index">§ B. IDL Index</a> 
+      <a href="#ref-for-dom-digitalcredentialgetrequest-9" title="§ B. IDL Index">§ B. IDL Index</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dom-digitalcredentialgetrequest-protocol" aria-label="Links in this document to definition: protocol">
@@ -3934,13 +3922,11 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-dom-digitalcredentialgetrequest-data-1" title="§ 7.3 The DigitalCredentialGetRequest dictionary">§ 7.3 The DigitalCredentialGetRequest dictionary</a> 
+      <a href="#ref-for-dom-digitalcredentialgetrequest-data-1" title="§ 6.3 Validate credential requests">§ 6.3 Validate credential requests</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredentialgetrequest-data-2" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
+      <a href="#ref-for-dom-digitalcredentialgetrequest-data-2" title="§ 7.3 The DigitalCredentialGetRequest dictionary">§ 7.3 The DigitalCredentialGetRequest dictionary</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredentialgetrequest-data-3" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
-    </li><li>
-      <a href="#ref-for-dom-digitalcredentialgetrequest-data-4" title="§ B. IDL Index">§ B. IDL Index</a> 
+      <a href="#ref-for-dom-digitalcredentialgetrequest-data-3" title="§ B. IDL Index">§ B. IDL Index</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dom-credentialcreationoptions-digital" aria-label="Links in this document to definition: digital">
@@ -4000,15 +3986,15 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <li>
       <a href="#ref-for-dom-digitalcredentialcreaterequest-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredentialcreaterequest-2" title="§ 6.3 Validate credential requests">§ 6.3 Validate credential requests</a> <a href="#ref-for-dom-digitalcredentialcreaterequest-3" title="Reference 2">(2)</a> <a href="#ref-for-dom-digitalcredentialcreaterequest-4" title="Reference 3">(3)</a> 
+      <a href="#ref-for-dom-digitalcredentialcreaterequest-2" title="§ 6.3 Validate credential requests">§ 6.3 Validate credential requests</a> <a href="#ref-for-dom-digitalcredentialcreaterequest-3" title="Reference 2">(2)</a> <a href="#ref-for-dom-digitalcredentialcreaterequest-4" title="Reference 3">(3)</a> <a href="#ref-for-dom-digitalcredentialcreaterequest-5" title="Reference 4">(4)</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredentialcreaterequest-5" title="§ 7.5 The DigitalCredentialCreationOptions dictionary">§ 7.5 The DigitalCredentialCreationOptions dictionary</a> 
+      <a href="#ref-for-dom-digitalcredentialcreaterequest-6" title="§ 7.5 The DigitalCredentialCreationOptions dictionary">§ 7.5 The DigitalCredentialCreationOptions dictionary</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredentialcreaterequest-6" title="§ 7.6 The DigitalCredentialCreateRequest dictionary">§ 7.6 The DigitalCredentialCreateRequest dictionary</a> 
+      <a href="#ref-for-dom-digitalcredentialcreaterequest-7" title="§ 7.6 The DigitalCredentialCreateRequest dictionary">§ 7.6 The DigitalCredentialCreateRequest dictionary</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredentialcreaterequest-7" title="§ 10.1.1 In-Scope Threats">§ 10.1.1 In-Scope Threats</a> 
+      <a href="#ref-for-dom-digitalcredentialcreaterequest-8" title="§ 10.1.1 In-Scope Threats">§ 10.1.1 In-Scope Threats</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredentialcreaterequest-8" title="§ B. IDL Index">§ B. IDL Index</a> 
+      <a href="#ref-for-dom-digitalcredentialcreaterequest-9" title="§ B. IDL Index">§ B. IDL Index</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dom-digitalcredentialcreaterequest-protocol" aria-label="Links in this document to definition: protocol">
@@ -4038,9 +4024,11 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-dom-digitalcredentialcreaterequest-data-1" title="§ 7.6 The DigitalCredentialCreateRequest dictionary">§ 7.6 The DigitalCredentialCreateRequest dictionary</a> 
+      <a href="#ref-for-dom-digitalcredentialcreaterequest-data-1" title="§ 6.3 Validate credential requests">§ 6.3 Validate credential requests</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredentialcreaterequest-data-2" title="§ B. IDL Index">§ B. IDL Index</a> 
+      <a href="#ref-for-dom-digitalcredentialcreaterequest-data-2" title="§ 7.6 The DigitalCredentialCreateRequest dictionary">§ 7.6 The DigitalCredentialCreateRequest dictionary</a> 
+    </li><li>
+      <a href="#ref-for-dom-digitalcredentialcreaterequest-data-3" title="§ B. IDL Index">§ B. IDL Index</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dom-digitalcredential" aria-label="Links in this document to definition: DigitalCredential">
@@ -4983,10 +4971,6 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <ul>
     <li>
       <a href="#ref-for-index-term-for-each-for-list-1" title="§ 6.3 Validate credential requests">§ 6.3 Validate credential requests</a> 
-    </li><li>
-      <a href="#ref-for-index-term-for-each-for-list-2" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
-    </li><li>
-      <a href="#ref-for-index-term-for-each-for-list-3" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-is-empty-for-list" aria-label="Links in this document to definition: is empty (for list)">
@@ -4999,10 +4983,6 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <ul>
     <li>
       <a href="#ref-for-index-term-is-empty-for-list-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> 
-    </li><li>
-      <a href="#ref-for-index-term-is-empty-for-list-2" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
-    </li><li>
-      <a href="#ref-for-index-term-is-empty-for-list-3" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-list" aria-label="Links in this document to definition: list">
@@ -5026,9 +5006,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-serialize-a-javascript-value-to-a-json-string-1" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
-    </li><li>
-      <a href="#ref-for-index-term-serialize-a-javascript-value-to-a-json-string-2" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
+      <a href="#ref-for-index-term-serialize-a-javascript-value-to-a-json-string-1" title="§ 6.3 Validate credential requests">§ 6.3 Validate credential requests</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-string" aria-label="Links in this document to definition: string">
@@ -5420,9 +5398,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-a-promise-rejected-with-1" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> <a href="#ref-for-index-term-a-promise-rejected-with-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-a-promise-rejected-with-3" title="Reference 3">(3)</a> <a href="#ref-for-index-term-a-promise-rejected-with-4" title="Reference 4">(4)</a> <a href="#ref-for-index-term-a-promise-rejected-with-5" title="Reference 5">(5)</a> 
+      <a href="#ref-for-index-term-a-promise-rejected-with-1" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> <a href="#ref-for-index-term-a-promise-rejected-with-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-a-promise-rejected-with-3" title="Reference 3">(3)</a> 
     </li><li>
-      <a href="#ref-for-index-term-a-promise-rejected-with-6" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> <a href="#ref-for-index-term-a-promise-rejected-with-7" title="Reference 2">(2)</a> <a href="#ref-for-index-term-a-promise-rejected-with-8" title="Reference 3">(3)</a> <a href="#ref-for-index-term-a-promise-rejected-with-9" title="Reference 4">(4)</a> <a href="#ref-for-index-term-a-promise-rejected-with-10" title="Reference 5">(5)</a> 
+      <a href="#ref-for-index-term-a-promise-rejected-with-4" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> <a href="#ref-for-index-term-a-promise-rejected-with-5" title="Reference 2">(2)</a> <a href="#ref-for-index-term-a-promise-rejected-with-6" title="Reference 3">(3)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-aborterror-exception" aria-label="Links in this document to definition: AbortError exception">
@@ -5540,11 +5518,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <li>
       <a href="#ref-for-index-term-exception-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> 
     </li><li>
-      <a href="#ref-for-index-term-exception-2" title="§ 6.3 Validate credential requests">§ 6.3 Validate credential requests</a> 
-    </li><li>
-      <a href="#ref-for-index-term-exception-3" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> <a href="#ref-for-index-term-exception-4" title="Reference 2">(2)</a> 
-    </li><li>
-      <a href="#ref-for-index-term-exception-5" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> <a href="#ref-for-index-term-exception-6" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-exception-2" title="§ 6.3 Validate credential requests">§ 6.3 Validate credential requests</a> <a href="#ref-for-index-term-exception-3" title="Reference 2">(2)</a> <a href="#ref-for-index-term-exception-4" title="Reference 3">(3)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-exposed-extended-attribute" aria-label="Links in this document to definition: [Exposed] extended attribute">
@@ -5736,7 +5710,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <li>
       <a href="#ref-for-index-term-throws-for-exception-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> 
     </li><li>
-      <a href="#ref-for-index-term-throws-for-exception-2" title="§ 6.3 Validate credential requests">§ 6.3 Validate credential requests</a> 
+      <a href="#ref-for-index-term-throws-for-exception-2" title="§ 6.3 Validate credential requests">§ 6.3 Validate credential requests</a> <a href="#ref-for-index-term-throws-for-exception-3" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-typeerror-exception" aria-label="Links in this document to definition: TypeError exception">
@@ -5749,10 +5723,6 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <ul>
     <li>
       <a href="#ref-for-index-term-typeerror-exception-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> 
-    </li><li>
-      <a href="#ref-for-index-term-typeerror-exception-2" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
-    </li><li>
-      <a href="#ref-for-index-term-typeerror-exception-3" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
     </li>
   </ul>
     </div><script id="respec-highlight-vars">(() => {
