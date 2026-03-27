@@ -1560,7 +1560,7 @@
       </p>
       <dl>
         <dt>
-          <dfn data-local-lt="tampering">Request Tampering</dfn>
+          <dfn>Network Tampering</dfn>
         </dt>
         <dd>
           A network attacker that can inject or modify page content in an
@@ -1578,12 +1578,27 @@
         security of credential presentation and issuance. The following defines
         the [=out-of-scope threats=] for this specification:
       </p>
-      <ul>
-        <li>To be written...
-        </li>
-      </ul>
+      <dl>
+        <dt>
+          <dfn>Request Tampering</dfn>
+        </dt>
+        <dd>
+          Modification of a protocol request after it is created by the
+          [=verifiers=]. This threat is expected to be addressed by the
+          underlying exchange protocol, for example through request signing and
+          validation.
+        </dd>
+        <dt>
+          <dfn>Response Tampering</dfn>
+        </dt>
+        <dd>
+          Modification of a protocol response after it is produced by the
+          wallet. This threat is expected to be addressed by the underlying
+          protocol, for example through request signing and validation.
+        </dd>
+      </dl>
       <h3>
-        Mitigations
+        Security Considerations for the API
       </h3>
       <p>
         The following mitigations address [=in-scope threats=] through
@@ -1591,12 +1606,49 @@
       </p>
       <p>
         WebIDL [=interfaces=] of the Digital Credential API are only exposed in
-        [=secure contexts=], reducing the risk of [=tampering=] through
+        [=secure contexts=], reducing the risk of [=network tampering=] through
         [=secure contexts|insecure contexts=] (e.g., a malicious script being
         injected through the network). Please refer to the <a href=
         "https://www.w3.org/TR/secure-contexts/#security-considerations">Security
         Considerations</a> section of the [[[secure-contexts]]] specification
         for more information.
+      </p>
+      <h3>
+        Security Considerations for Protocols
+      </h3>
+      <p>
+        This specification defines the user agent's mediation behavior, but it
+        does not by itself provide all of the security properties necessary to
+        guarantee the end-to-end security of digital credentials exchanged
+        through the API. Consequently, this specification assumes that
+        protocols intended to be used with this API define the additional
+        security properties, trust relationships, and mitigations needed to
+        protect the request and response beyond the user agent boundary.
+      </p>
+      <h4>
+        Request Integrity
+      </h4>
+      <p>
+        Protocols used with this API MUST define mechanisms that allow the
+        wallet to determine that a request was not modified after creation. In
+        general, this is expected to be achieved by signing the request at the
+        exchange protocol layer, and the wallet is expected to verify it.<br>
+        These mechanisms reduce [=request-tampering=], including modification
+        of the request after creation or during transport. For example using
+        @@parameter in @@protocol.
+      </p>
+      <h4>
+        Response Integrity
+      </h4>
+      <p>
+        Protocols used with this API MUST define mechanisms that allow the [=verifier=] (during presentation) or the [=issuer=] (during issuance) to determine that the returned response was not modified
+        after issuance or presentation. In general, this is expected to be
+        achieved through the integrity protection mechanisms provided by the
+        underlying protocol, and the [=verifiers=] are expected to verify
+        it.
+        These mechanisms reduce protocol-layer [=response-tampering=],
+        including modification of the response after creation or during
+        transport. For example using @@parameter in @@protocol.
       </p>
     </section>
     <section class="informative" data-cite="privacy-principles">
