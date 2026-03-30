@@ -1658,22 +1658,23 @@
         wallet to determine that a request was not modified after creation. In
         general, this is expected to be achieved by signing the request at the
         exchange protocol layer, and the wallet is expected to verify it.<br>
-        These mechanisms reduce request-tampering, including modification
-        of the request after creation or during transport. For example using
+        These mechanisms reduce request-tampering, including modification of
+        the request after creation or during transport. For example using
         @@parameter in @@protocol.
       </p>
       <h4>
         Response Integrity
       </h4>
       <p>
-        Protocols used with this API MUST define mechanisms that allow the [=verifier=] (during presentation) or the [=issuer=] (during issuance) to determine that the returned response was not modified
-        after issuance or presentation. In general, this is expected to be
-        achieved through the integrity protection mechanisms provided by the
-        underlying protocol, and the [=verifiers=] are expected to verify
-        it.
-        These mechanisms reduce protocol-layer response-tampering,
-        including modification of the response after creation or during
-        transport. For example using @@parameter in @@protocol.
+        Protocols used with this API MUST define mechanisms that allow the
+        [=verifier=] (during presentation) or the [=issuer=] (during issuance)
+        to determine that the returned response was not modified after issuance
+        or presentation. In general, this is expected to be achieved through
+        the integrity protection mechanisms provided by the underlying
+        protocol, and the [=verifiers=] are expected to verify it. These
+        mechanisms reduce protocol-layer response-tampering, including
+        modification of the response after creation or during transport. For
+        example using @@parameter in @@protocol.
       </p>
     </section>
     <section class="informative" data-cite="privacy-principles">
