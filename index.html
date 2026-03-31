@@ -892,6 +892,17 @@
           <li>If the [=user agent=] does not allow |protocol|,
           [=iteration/continue=].
           </li>
+          <li>Let |data| be |request|'s {{DigitalCredentialGetRequest/data}},
+          if |request| is a {{DigitalCredentialGetRequest}}, or |request|'s
+          {{DigitalCredentialCreateRequest/data}}, if |request| is a
+          {{DigitalCredentialCreateRequest}}.
+          </li>
+          <li>[=serialize a JavaScript value to a JSON string|Serialize=]
+          |data| to a JSON string.
+          </li>
+          <li>If serialization results in an [=exception=], [=exception/throw=]
+          that [=exception=].
+          </li>
           <li>Validate |request|'s [=digital credential/presentation request
           data=] or [=digital credential/issuance request data=] according to
           |request|'s [=digital credential/presentation protocol=] or [=digital
@@ -1377,19 +1388,6 @@
       <li>Let |requests| be |options|'s {{CredentialRequestOptions/digital}}'s
       {{DigitalCredentialRequestOptions/requests}} member.
       </li>
-      <li>If |requests| [=list/is empty=], return [=a promise rejected with=] a
-      {{TypeError}}.
-      </li>
-      <li>[=List/For each=] |request| of |requests|:
-        <ol>
-          <li>[=serialize a JavaScript value to a JSON string|Serialize=]
-          |request|'s {{DigitalCredentialGetRequest/data}} to a JSON string.
-          </li>
-          <li>If serialization results in an [=exception=], return [=a promise
-          rejected with=] that [=exception=].
-          </li>
-        </ol>
-      </li>
       <li>If |global| does not have [=transient activation=], return [=a
       promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
       </li>
@@ -1446,19 +1444,6 @@
       </li>
       <li>Let |requests| be |options|'s {{CredentialCreationOptions/digital}}'s
       {{DigitalCredentialCreationOptions/requests}} member.
-      </li>
-      <li>If |requests| is [=list/is empty=], return [=a promise rejected
-      with=] a {{TypeError}}.
-      </li>
-      <li>[=List/For each=] |request| of |requests|:
-        <ol>
-          <li>[=serialize a JavaScript value to a JSON string|Serialize=]
-          |request|'s {{DigitalCredentialGetRequest/data}} to a JSON string.
-          </li>
-          <li>If serialization results in an [=exception=], return [=a promise
-          rejected with=] that [=exception=].
-          </li>
-        </ol>
       </li>
       <li>If |global| does not have [=transient activation=], return [=a
       promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
