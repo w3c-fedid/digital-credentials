@@ -1657,10 +1657,12 @@
         Protocols used with this API MUST define mechanisms that allow the
         wallet to determine that a request was not modified after creation. In
         general, this is expected to be achieved by signing the request at the
-        exchange protocol layer, and the wallet is expected to verify it.<br>
-        These mechanisms reduce request-tampering, including modification of
-        the request after creation or during transport; for example, using
-        @@parameter in @@protocol.
+        exchange protocol layer, and the wallet is expected to verify it.
+      </p>
+      <p>
+        These mechanisms reduce [=request tampering|request-tampering=],
+        including modification of the request after creation or during
+        transport. For example using @@parameter in @@protocol.
       </p>
       <h4>
         Response Integrity
@@ -1672,9 +1674,10 @@
         or presentation. In general, this is expected to be achieved through
         the integrity protection mechanisms provided by the underlying
         protocol, and the [=verifiers=] are expected to verify it. These
-        mechanisms reduce protocol-layer response-tampering, including
-        modification of the response after creation or during transport; for
-        example, using @@parameter in @@protocol.
+        mechanisms reduce protocol-layer [=response
+        tampering|response-tampering=], including modification of the response
+        after creation or during transport. For example using @@parameter in
+        @@protocol.
       </p>
     </section>
     <section class="informative" data-cite="privacy-principles">
