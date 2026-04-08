@@ -1630,6 +1630,10 @@
         respectively serve as policy enforcement points for the
         <a>"digital-credentials-get"</a> and
         <a>"digital-credentials-create"</a> [=policy-controlled features=].
+        The two features are intentionally separate: a site may enable
+        <a>"digital-credentials-get"</a> without enabling
+        <a>"digital-credentials-create"</a>, and vice versa, limiting
+        each embedded context to only the capability it requires.
         Please refer to the <a href=
         "https://www.w3.org/TR/permissions-policy/#privacy-and-security">Privacy
         and Security Considerations</a> section of the [[[permissions-policy]]]
