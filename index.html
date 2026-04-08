@@ -1087,8 +1087,8 @@
         <ol>
           <li>Let |error| be a newly created {{"AbortError"}} {{DOMException}}.
           </li>
-          <li>[=credential request coordinator/Reject request with=] |error|
-          and |promise|.
+          <li>[=credential request coordinator/reject the credential request
+          with=] |error| and |promise|.
           </li>
           <li>Return.
           </li>
@@ -1124,8 +1124,8 @@
               </dd>
             </dl>
           </li>
-          <li>[=credential request coordinator/Reject request with=] |error|
-          and |promise|.
+          <li>[=credential request coordinator/reject the credential request
+          with=] |error| and |promise|.
           </li>
           <li>Return.
           </li>
@@ -1148,8 +1148,8 @@
           </li>
           <li>If |parsedDataOrError| is an [=exception=]:
             <ol>
-              <li>[=credential request coordinator/Reject request with=] |parsedDataOrError|
-              and |promise|.
+              <li>[=credential request coordinator/reject the credential
+              request with=] |parsedDataOrError| and |promise|.
               </li>
               <li>Return.
               </li>
@@ -1159,8 +1159,8 @@
             <ol>
               <li>Let |error| be a newly created {{TypeError}}.
               </li>
-              <li>[=credential request coordinator/Reject request with=] |error|
-              and |promise|.
+              <li>[=credential request coordinator/reject the credential
+              request with=] |error| and |promise|.
               </li>
               <li>Return.
               </li>
@@ -1183,9 +1183,8 @@
               request coordinator/active promise=] is not |promise|, then
               return.
               </li>
-              <li>Let |abortSignal| be the [=credential request
-              coordinator=]'s [=credential request coordinator/abort
-              signal=].
+              <li>Let |abortSignal| be the [=credential request coordinator=]'s
+              [=credential request coordinator/abort signal=].
               </li>
               <li>Let |abortAlgorithm| be the [=credential request
               coordinator=]'s [=credential request coordinator/abort
