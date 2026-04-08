@@ -94,12 +94,13 @@
   <body data-cite="credential-management vc-data-model">
     <section id="abstract">
       <p>
-        This document specifies an API to enable [=user agents=] to mediate
-        presentation and issuance of digital credentials such as a driver's
-        license, government-issued identification card, and/or [=credential
-        type examples|other types of digital credential=]. The API builds on
-        [[[credential-management]]] as a means by which to request or issue a
-        digital credential from a user agent or underlying platform.
+        This document specifies an API enabling [=user agents=] to mediate the
+        [=digital credential/presentation|presentation=] and [=digital
+        credential/issuance|issuance=] of [=digital credentials=], such as a
+        driver's license, government-issued identification card, or
+        [=credential type examples|other types of digital credential=]. The API
+        builds on [[[credential-management]]] and is designed to be agnostic to
+        credential formats.
       </p>
     </section>
     <section id="sotd"></section><!--
@@ -113,9 +114,9 @@
       and issuance of a [=digital credential=].
     </p>
     <p>
-      The API design is agnostic to credential formats and includes support for
-      multiple [=digital credential/presentation protocols=] and [=digital
-      credential/issuance protocols=]. See [[[#protocols]]].
+      The API is agnostic to credential formats and is designed to be
+      extensible to multiple [=digital credential/presentation protocols=] and
+      [=digital credential/issuance protocols=]. See [[[#protocols]]].
     </p>
     <p>
       The API is designed to support the following goals:
@@ -137,18 +138,19 @@
       issuers, verifiers, and holders to control where potentially sensitive
       personally identifiable information is exposed.
       </li>
+      <li>Ensure that all credential interactions are user-mediated, giving
+      users control and consent over the [=digital
+      credential/presentation|presentation=] and [=digital
+      credential/issuance|issuance=] of their [=digital credentials=].
+      </li>
       <li>Require [=transient activation=] to perform [=digital
       credential/presentation requests=] or [=digital credential/issuance
-      requests=], ensuring that sites cannot silently query for nor issue
-      digital credentials, nor communicate with wallet providers, without the
-      user's active participation and confirmation of each action.
+      requests=], ensuring that sites cannot silently request or issue digital
+      credentials without the user's active participation.
       </li>
-      <li>Enable platform-provided credential selection UX when multiple wallet
-      applications have credentials that match a [=digital
-      credential/presentation request=].
-      </li>
-      <li>Enable platform-provided wallet selection UX when multiple wallet
-      applications support an [=digital credential/issuance request=].
+      <li>Enable platform-provided UX for credential and wallet selection
+      during requests for [=digital credential/presentation|presentation=] or
+      [=digital credential/issuance|issuance=].
       </li>
       <li>Enable platforms to provide secure cross-device [=digital
       credential/presentation requests=] and [=digital credential/issuance
@@ -171,9 +173,7 @@
       <li>a proof of education or professional training issued by an
       institution
       </li>
-      <li>and many other scenarios as described in <a href=
-      "https://www.w3.org/TR/vc-use-cases/">Verifiable Credentials Use
-      Cases</a>
+      <li>many other scenarios as described in [[[vc-use-cases]]]
       </li>
     </ul>
     <section class="informative">
@@ -441,8 +441,7 @@
     <p class="note" title="Definitions under discussion">
       The goal of the definitions in this section is to reuse or establish
       terminology that is common across a variety of digital credential formats
-      and protocols. Discussions surrounding these definitions are active and
-      the definitions are likely to change over the next several months.
+      and protocols. These definitions are actively evolving.
     </p>
     <dl class="definitions" data-sort="" data-cite="vc-data-model">
       <dt>
