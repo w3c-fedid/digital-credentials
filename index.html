@@ -1583,8 +1583,7 @@
           or {{DigitalCredentialCreateRequest}} before processing.
         </dd>
         <dt>
-          <dfn data-local-lt="cross-origin abuse">Unauthorized Cross-Origin
-          Access</dfn>
+          <dfn>Unauthorized Cross-Origin Access</dfn>
         </dt>
         <dd>
           A malicious website attempts to request or issue digital credentials
@@ -1624,19 +1623,19 @@
         for more information.
       </p>
       <p data-cite="permissions-policy">
-        The Digital Credentials API reduces [=cross-origin abuse=] through
-        [[[permissions-policy]]] integration (see [[[#permissions-policy]]]).
-        The [=request a `Credential`=] and [=create a `Credential`=] algorithms
-        respectively serve as policy enforcement points for the
+        The Digital Credentials API reduces [=Unauthorized Cross-Origin
+        Access|cross-origin abuse=] through [[[permissions-policy]]]
+        integration (see [[[#permissions-policy]]]). The [=request a
+        `Credential`=] and [=create a `Credential`=] algorithms respectively
+        serve as policy enforcement points for the
         <a>"digital-credentials-get"</a> and
-        <a>"digital-credentials-create"</a> [=policy-controlled features=].
-        The two features are intentionally separate: a site may enable
+        <a>"digital-credentials-create"</a> [=policy-controlled features=]. The
+        two features are intentionally separate: a site may enable
         <a>"digital-credentials-get"</a> without enabling
-        <a>"digital-credentials-create"</a>, and vice versa, limiting
-        each embedded context to only the capability it requires.
-        Please refer to the <a href=
-        "https://www.w3.org/TR/permissions-policy/#privacy-and-security">Privacy
-        and Security Considerations</a> section of the [[[permissions-policy]]]
+        <a>"digital-credentials-create"</a>, and vice versa, limiting each
+        embedded context to only the capability it requires. Please refer to
+        the <a data-cite="permissions-policy#privacy-and-security">Privacy and
+        Security Considerations</a> section of the [[[permissions-policy]]]
         specification for additional security properties provided by this
         integration.
       </p>
