@@ -132,12 +132,13 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="72de27b9d6a516b0bb4f4cb92e165a362a5ffff5">
+<meta name="revision" content="cec79eb5a7750e6fb84520c62ea80d180b0d4d9d">
 <meta name="description" content="This document specifies an API enabling user agents to mediate the
         presentation and issuance of digital credentials, such as a
-        driver's license, government-issued identification card, or other types of digital credential. The API builds on
-        Credential Management Level 1 and is designed to be agnostic to credential
-        formats.">
+        driver's license, government-issued identification card, or
+        other types of digital credential. The API
+        builds on Credential Management Level 1 and is designed to be agnostic to
+        credential formats.">
 <style>
 .hljs{--base:#fafafa;--mono-1:#383a42;--mono-2:#686b77;--mono-3:#717277;--hue-1:#0b76c5;--hue-2:#336ae3;--hue-3:#a626a4;--hue-4:#42803c;--hue-5:#ca4706;--hue-5-2:#c91243;--hue-6:#986801;--hue-6-2:#9a6a01}
 @media (prefers-color-scheme:dark){
@@ -270,7 +271,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "72de27b9d6a516b0bb4f4cb92e165a362a5ffff5",
+  "gitRevision": "cec79eb5a7750e6fb84520c62ea80d180b0d4d9d",
   "publishISODate": "2026-04-08T00:00:00.000Z",
   "generatedSubtitle": "W3C Editor's Draft 08 April 2026"
 }</script>
@@ -342,9 +343,10 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <p>
         This document specifies an API enabling <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-0-1">user agents</a> to mediate the
         <a data-link-type="dfn|abstract-op" data-lt="presentation" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-1">presentation</a> and <a data-link-type="dfn|abstract-op" data-lt="issuance" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-1">issuance</a> of <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-1">digital credentials</a>, such as a
-        driver's license, government-issued identification card, or <a data-link-type="dfn|abstract-op" data-lt="credential type examples" href="#dfn-credential-type-examples" class="internalDFN" id="ref-for-dfn-credential-type-examples-1">other types of digital credential</a>. The API builds on
-        <cite><a data-matched-text="[[[credential-management]]]" href="https://www.w3.org/TR/credential-management-1/">Credential Management Level 1</a></cite> and is designed to be agnostic to credential
-        formats.
+        driver's license, government-issued identification card, or
+        <a data-link-type="dfn|abstract-op" data-lt="credential type examples" href="#dfn-credential-type-examples" class="internalDFN" id="ref-for-dfn-credential-type-examples-1">other types of digital credential</a>. The API
+        builds on <cite><a data-matched-text="[[[credential-management]]]" href="https://www.w3.org/TR/credential-management-1/">Credential Management Level 1</a></cite> and is designed to be agnostic to
+        credential formats.
       </p>
     </section>
     <section id="sotd" class="introductory"><h2>Status of This Document</h2><p><em>This section describes the status of this
@@ -585,16 +587,15 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       issuers, verifiers, and holders to control where potentially sensitive
       personally identifiable information is exposed.
       </li>
-      <li>Ensure that all credential interactions are user-mediated, giving users
-      control and consent over the <a data-link-type="dfn|abstract-op" data-lt="presentation" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-4">presentation</a>
-      and <a data-link-type="dfn|abstract-op" data-lt="issuance" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-4">issuance</a> of their <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-3">digital credentials</a>.
+      <li>Ensure that all credential interactions are user-mediated, giving
+      users control and consent over the <a data-link-type="dfn|abstract-op" data-lt="presentation" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-4">presentation</a> and <a data-link-type="dfn|abstract-op" data-lt="issuance" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-4">issuance</a> of their <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-3">digital credentials</a>.
       </li>
       <li>Require <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-index-term-transient-activation-1">transient activation</a> to perform <a data-link-type="dfn|abstract-op" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-5">presentation requests</a> or <a data-link-type="dfn|abstract-op" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-5">issuance requests</a>, ensuring that sites cannot silently request or issue digital
       credentials without the user's active participation.
       </li>
       <li>Enable platform-provided UX for credential and wallet selection
-      during requests for <a data-link-type="dfn|abstract-op" data-lt="presentation" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-6">presentation</a>
-      or <a data-link-type="dfn|abstract-op" data-lt="issuance" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-6">issuance</a>.
+      during requests for <a data-link-type="dfn|abstract-op" data-lt="presentation" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-6">presentation</a> or
+      <a data-link-type="dfn|abstract-op" data-lt="issuance" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-6">issuance</a>.
       </li>
       <li>Enable platforms to provide secure cross-device <a data-link-type="dfn|abstract-op" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-7">presentation requests</a> and <a data-link-type="dfn|abstract-op" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-7">issuance requests</a> with proximity checks.
       </li>
