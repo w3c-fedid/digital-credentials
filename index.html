@@ -1041,13 +1041,13 @@
     </h3>
     <p>
       To <dfn data-dfn-for="credential request coordinator">present the
-      credential request</dfn> given a [=Document=] |document|, a [=sequence=]
-      of validated credential requests |validatedRequests|, a {{Promise}}
+      credential request</dfn> given a [=Document=] |document|, a [=list=] of
+      validated credential requests |validatedRequests|, a {{Promise}}
       |promise:Promise|, and an optional {{AbortSignal}} |signal|:
     </p>
     <ol class="algorithm">
-      <li>Let |topOrigin| be |document|'s [=relevant settings object=]'s
-      [=environment settings object/origin=].
+      <li>Let |topOrigin| be |document|'s [=top-level traversable=]'s
+      [=navigable/active document=]'s [=Document/origin=].
       </li>
       <li>Let |documentOrigin| be |document|'s [=Document/origin=].
       </li>
