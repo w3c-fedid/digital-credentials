@@ -1528,15 +1528,13 @@
       <p>
         The sections that follow describe the API's security properties, the
         threats in scope, the assumptions on which security depends, and
-        residual threats that remain after the mitigations are applied. This
-        specification defines requirements for the user agent's behavior only
-        when mediating [=digital credential/credential responses=].
+        residual threats that remain after the mitigations are applied.
       </p>
       <p class="note">
-        Other security considerations that depend on protocols, wallet
-        implementations, operating systems, or transport security are described
-        as expectations or preconditions, but these are not normatively
-        required by this specification unless already normatively specified.
+        Security considerations that depend on wallet implementations,
+        operating systems, or transport security are described as expectations
+        or preconditions, but these are not normatively required by this
+        specification.
       </p>
       <h3 class="informative">
         Threat Model
@@ -1559,14 +1557,12 @@
       </p>
       <dl>
         <dt>
-          <dfn data-local-lt="tampering">Tampering requests through the
-          networks</dfn>
+          <dfn data-local-lt="tampering">Network Tampering</dfn>
         </dt>
         <dd>
-          An attacker attempts to alter attacker that can inject or modify page
-          content in an insecure context attempts to alter a
-          {{DigitalCredentialGetRequest}} or {{DigitalCredentialCreateRequest}}
-          on the wire.
+          A network attacker injects or modifies page content in an insecure
+          context, altering a {{DigitalCredentialGetRequest}} or
+          {{DigitalCredentialCreateRequest}} in transit.
         </dd>
         <dt>
           <dfn>Unauthorized Cross-Origin Access</dfn>
@@ -1593,8 +1589,8 @@
           <dfn>Request Tampering</dfn>
         </dt>
         <dd>
-          Modification of a [=digital credential/presentation protocols=] or
-          [=digital credential/issuance protocols=] request after it is
+          Modification of a [=digital credential/presentation protocol=] or
+          [=digital credential/issuance protocol=] request after it is
           created. This threat is expected to be addressed by the underlying
           exchange protocol; for example, through signing and validating
           requests.
@@ -1603,11 +1599,11 @@
           <dfn>Response Tampering</dfn>
         </dt>
         <dd>
-          Modification of a [=digital credential/presentation protocols=] or
-          [=digital credential/issuance protocols=] response after it is
+          Modification of a [=digital credential/presentation protocol=] or
+          [=digital credential/issuance protocol=] response after it is
           created. This threat is expected to be addressed by the underlying
           exchange protocol; for example, through signing and validating
-          requests.
+          responses.
         </dd>
       </dl>
       <h3 class="informative">
@@ -1659,25 +1655,27 @@
         Request Integrity
       </h4>
       <p>
-        Protocols used with this API MUST define mechanisms that allow all the
-        parties to determine that a request was not modified. In general, this
-        is expected to be achieved by signing the request at the exchange
-        protocol level, and the receiving party is expected to verify it.
+        A user agent MUST NOT support a [=digital credential/presentation
+        protocol=] or [=digital credential/issuance protocol=] unless the
+        protocol defines mechanisms that allow all parties to determine that
+        a request has not been modified after creation. In general, this is
+        achieved by signing the request at the protocol level.
       </p>
       <p>
-        These mechanisms reduce [=request tampering=] at protocol level.
+        These mechanisms reduce [=request tampering=] at the protocol level.
       </p>
       <h4>
         Response Integrity
       </h4>
       <p>
-        Protocols used with this API MUST define mechanisms that allow all the
-        parties to determine that the response was not modified. In general,
-        this is expected to be achieved by signing the response at the exchange
-        protocol level, and the receiving party is expected to verify it.
+        A user agent MUST NOT support a [=digital credential/presentation
+        protocol=] or [=digital credential/issuance protocol=] unless the
+        protocol defines mechanisms that allow all parties to determine that
+        a response has not been modified after creation. In general, this is
+        achieved by signing the response at the protocol level.
       </p>
       <p>
-        These mechanisms reduce [=Response Tampering=] at protocol level.
+        These mechanisms reduce [=response tampering=] at the protocol level.
       </p>
     </section>
     <section class="informative" data-cite="privacy-principles">
