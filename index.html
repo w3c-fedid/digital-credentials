@@ -1651,30 +1651,19 @@
         protect the request and response beyond the user agent boundary.
       </p>
       <h4>
-        Request Integrity
+        Request and Response Integrity
       </h4>
       <p>
         A user agent MUST NOT support a [=digital credential/presentation
         protocol=] or [=digital credential/issuance protocol=] unless the
         protocol defines mechanisms that allow all parties to determine that a
-        request has not been modified after creation. In general, this is
-        achieved by signing the request at the protocol level.
+        request or response has not been modified after creation. In general,
+        this is achieved by signing requests and responses at the protocol
+        level.
       </p>
       <p>
-        These mechanisms reduce [=request tampering=] at the protocol level.
-      </p>
-      <h4>
-        Response Integrity
-      </h4>
-      <p>
-        A user agent MUST NOT support a [=digital credential/presentation
-        protocol=] or [=digital credential/issuance protocol=] unless the
-        protocol defines mechanisms that allow all parties to determine that a
-        response has not been modified after creation. In general, this is
-        achieved by signing the response at the protocol level.
-      </p>
-      <p>
-        These mechanisms reduce [=response tampering=] at the protocol level.
+        These mechanisms reduce [=request tampering=] and [=response
+        tampering=] at the protocol level.
       </p>
     </section>
     <section class="informative" data-cite="privacy-principles">
