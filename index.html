@@ -1518,7 +1518,7 @@
         </dd>
       </dl>
     </section>
-    <section class="informative">
+    <section>
       <!--
       // MARK: Security Considerations
       -->
@@ -1538,7 +1538,7 @@
         as expectations or preconditions, but these are not normatively
         required by this specification unless already normatively specified.
       </p>
-      <h3>
+      <h3 class="informative">
         Threat Model
       </h3>
       <p>
@@ -1559,12 +1559,14 @@
       </p>
       <dl>
         <dt>
-          <dfn data-local-lt="tampering">Request Tampering</dfn>
+          <dfn data-local-lt="tampering">Tampering requests through the
+          networks</dfn>
         </dt>
         <dd>
-          A network attacker that can inject or modify page content in an
-          insecure context attempts to alter a {{DigitalCredentialGetRequest}}
-          or {{DigitalCredentialCreateRequest}} before processing.
+          An attacker attempts to alter attacker that can inject or modify page
+          content in an insecure context attempts to alter a
+          {{DigitalCredentialGetRequest}} or {{DigitalCredentialCreateRequest}}
+          on the wire.
         </dd>
         <dt>
           <dfn>Unauthorized Cross-Origin Access</dfn>
@@ -1586,12 +1588,30 @@
         security of credential presentation and issuance. The following defines
         the [=out-of-scope threats=] for this specification:
       </p>
-      <ul>
-        <li>To be written...
-        </li>
-      </ul>
-      <h3>
-        Mitigations
+      <dl>
+        <dt>
+          <dfn>Request Tampering</dfn>
+        </dt>
+        <dd>
+          Modification of a [=digital credential/presentation protocols=] or
+          [=digital credential/issuance protocols=] request after it is
+          created. This threat is expected to be addressed by the underlying
+          exchange protocol; for example, through signing and validating
+          requests.
+        </dd>
+        <dt>
+          <dfn>Response Tampering</dfn>
+        </dt>
+        <dd>
+          Modification of a [=digital credential/presentation protocols=] or
+          [=digital credential/issuance protocols=] response after it is
+          created. This threat is expected to be addressed by the underlying
+          exchange protocol; for example, through signing and validating
+          requests.
+        </dd>
+      </dl>
+      <h3 class="informative">
+        Security Considerations for the User Agent
       </h3>
       <p>
         The following mitigations address [=in-scope threats=] through
@@ -1622,6 +1642,42 @@
         Security Considerations</a> section of the [[[permissions-policy]]]
         specification for additional security properties provided by this
         integration.
+      </p>
+      <h3>
+        Security Considerations for Protocols
+      </h3>
+      <p>
+        This specification defines the user agent's mediation behavior, but it
+        does not by itself provide all of the security properties necessary to
+        guarantee the end-to-end security of digital credentials exchanged
+        through the API. Consequently, this specification assumes that
+        protocols intended to be used with this API define the additional
+        security properties, trust relationships, and mitigations needed to
+        protect the request and response beyond the user agent boundary.
+      </p>
+      <h4>
+        Request Integrity
+      </h4>
+      <p>
+        Protocols used with this API MUST define mechanisms that allow all the
+        parties to determine that a request was not modified. In general, this
+        is expected to be achieved by signing the request at the exchange
+        protocol level, and the receiving party is expected to verify it.
+      </p>
+      <p>
+        These mechanisms reduce [=request tampering=] at protocol level.
+      </p>
+      <h4>
+        Response Integrity
+      </h4>
+      <p>
+        Protocols used with this API MUST define mechanisms that allow all the
+        parties to determine that the response was not modified. In general,
+        this is expected to be achieved by signing the response at the exchange
+        protocol level, and the receiving party is expected to verify it.
+      </p>
+      <p>
+        These mechanisms reduce [=Response Tampering=] at protocol level.
       </p>
     </section>
     <section class="informative" data-cite="privacy-principles">
