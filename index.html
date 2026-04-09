@@ -132,7 +132,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="cec79eb5a7750e6fb84520c62ea80d180b0d4d9d">
+<meta name="revision" content="c381c8f9924f324eca3985be3ace9be1e2999df8">
 <meta name="description" content="This document specifies an API enabling user agents to mediate the
         presentation and issuance of digital credentials, such as a
         driver's license, government-issued identification card, or
@@ -271,16 +271,16 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "cec79eb5a7750e6fb84520c62ea80d180b0d4d9d",
-  "publishISODate": "2026-04-08T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 08 April 2026"
+  "gitRevision": "c381c8f9924f324eca3985be3ace9be1e2999df8",
+  "publishISODate": "2026-04-09T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 09 April 2026"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED"></head>
   <body data-cite="WEBIDL credential-management vc-data-model HTML INFRA URL WEBIDL DOM FETCH" class="h-entry"><div class="head">
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Digital Credentials</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-04-08">08 April 2026</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-04-09">09 April 2026</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -1881,6 +1881,15 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           insecure context attempts to alter a <a data-link-type="idl" data-lt="DigitalCredentialGetRequest" href="#dom-digitalcredentialgetrequest" class="internalDFN" id="ref-for-dom-digitalcredentialgetrequest-8"><code>DigitalCredentialGetRequest</code></a>
           or <a data-link-type="idl" data-lt="DigitalCredentialCreateRequest" href="#dom-digitalcredentialcreaterequest" class="internalDFN" id="ref-for-dom-digitalcredentialcreaterequest-8"><code>DigitalCredentialCreateRequest</code></a> before processing.
         </dd>
+        <dt>
+          <dfn id="dfn-unauthorized-cross-origin-access" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">Unauthorized Cross-Origin Access</dfn>
+        </dt>
+        <dd>
+          A malicious website attempts to request or issue digital credentials
+          through embedded third-party content, such as an <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#the-iframe-element" id="ref-for-index-term-iframe-element-1">iframe</a></code>, without
+          explicit permission from the embedding site, potentially enabling
+          credential harvesting or unauthorized access to sensitive user data.
+        </dd>
       </dl>
       </section><section id="out-of-scope-threats"><div class="header-wrapper"><h4 id="x10-1-2-out-of-scope-threats"><bdi class="secno">10.1.2 </bdi>
         Out of Scope Threats
@@ -1910,6 +1919,22 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         injected through the network). Please refer to the <a href="https://www.w3.org/TR/secure-contexts/#security-considerations">Security
         Considerations</a> section of the <cite><a data-matched-text="[[[secure-contexts]]]" href="https://www.w3.org/TR/secure-contexts/">Secure Contexts</a></cite> specification
         for more information.
+      </p>
+      <p data-cite="permissions-policy">
+        The Digital Credentials API reduces <a data-link-type="dfn|abstract-op" data-lt="Unauthorized Cross-Origin Access" href="#dfn-unauthorized-cross-origin-access" class="internalDFN" id="ref-for-dfn-unauthorized-cross-origin-access-1">cross-origin abuse</a> through <cite><a data-matched-text="[[[permissions-policy]]]" href="https://www.w3.org/TR/permissions-policy-1/">Permissions Policy</a></cite>
+        integration (see <a href="#permissions-policy" data-matched-text="[[[#permissions-policy]]]" class="sec-ref"><bdi class="secno">9. </bdi>
+        Permissions Policy integration</a>). The <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#abstract-opdef-request-a-credential" id="ref-for-index-term-request-a-credential-4">request a <code>Credential</code></a> and <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#abstract-opdef-create-a-credential" id="ref-for-index-term-create-a-credential-4">create a <code>Credential</code></a> algorithms respectively
+        serve as policy enforcement points for the
+        <a href="#dfn-digital-credentials-get" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-digital-credentials-get-2">"digital-credentials-get"</a> and
+        <a href="#dfn-digital-credentials-create" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-digital-credentials-create-2">"digital-credentials-create"</a> <a data-link-type="dfn" href="https://www.w3.org/TR/permissions-policy-1/#policy-controlled-feature" id="ref-for-index-term-policy-controlled-features-4">policy-controlled features</a>. The
+        two features are intentionally separate: a site may enable
+        <a href="#dfn-digital-credentials-get" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-digital-credentials-get-3">"digital-credentials-get"</a> without enabling
+        <a href="#dfn-digital-credentials-create" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-digital-credentials-create-3">"digital-credentials-create"</a>, and vice versa, limiting each
+        embedded context to only the capability it requires. Please refer to
+        the <a href="https://www.w3.org/TR/permissions-policy-1/#privacy-and-security" id="ref-for-index-term-privacy-and-security-considerations-1">Privacy and
+        Security Considerations</a> section of the <cite><a data-matched-text="[[[permissions-policy]]]" href="https://www.w3.org/TR/permissions-policy-1/">Permissions Policy</a></cite>
+        specification for additional security properties provided by this
+        integration.
       </p>
     </section></section>
     <section class="informative" data-cite="privacy-principles" id="privacy-considerations"><div class="header-wrapper"><h2 id="x11-privacy-considerations"><bdi class="secno">11. </bdi>
@@ -2870,6 +2895,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <span class="print-only">§5.</span></li><li>
       <a class="index-term" href="#dfn-type"><code>[[type]]</code></a> internal slot for <code>DigitalCredential</code>
     <span class="print-only">§8.4</span></li><li>
+      <a class="index-term" href="#dfn-unauthorized-cross-origin-access">Unauthorized Cross-Origin Access</a> 
+    <span class="print-only">§10.1.1</span></li><li>
       <a class="index-term" href="#dom-digitalcredential-useragentallowsprotocol"><code>userAgentAllowsProtocol()</code></a> method for <code>DigitalCredential</code>
     <span class="print-only">§7.7.3</span></li><li>
       <a class="index-term" href="#dfn-validate-credential-requests">validate credential requests</a> 
@@ -2978,6 +3005,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
   </li><li>
     <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/interaction.html#fully-active-descendant-of-a-top-level-traversable-with-user-attention" id="index-term-fully-active-descendant-of-a-top-level-traversable-with-user-attention-for-document" tabindex="0" aria-haspopup="dialog">fully active descendant of a top-level traversable with user attention (for <code>Document</code>)</span>
   </li><li>
+    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#the-iframe-element" id="index-term-iframe-element" tabindex="0" aria-haspopup="dialog"><code>iframe</code> element</span>
+  </li><li>
     <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task" id="index-term-queue-a-global-task" tabindex="0" aria-haspopup="dialog">Queue a global task</span>
   </li><li>
     <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="index-term-relevant-global-object" tabindex="0" aria-haspopup="dialog">relevant global object</span>
@@ -3056,6 +3085,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <span class="index-term" data-href="https://www.w3.org/TR/permissions-policy-1/#policy-controlled-feature-default-allowlist" id="index-term-default-allowlists-for-policy-controlled-feature" tabindex="0" aria-haspopup="dialog">default allowlists (for policy-controlled feature)</span>
   </li><li>
     <span class="index-term" data-href="https://www.w3.org/TR/permissions-policy-1/#policy-controlled-feature" id="index-term-policy-controlled-features" tabindex="0" aria-haspopup="dialog">policy-controlled features</span>
+  </li><li>
+    <span class="index-term" data-href="https://www.w3.org/TR/permissions-policy-1/#privacy-and-security" id="index-term-privacy-and-security-considerations" tabindex="0" aria-haspopup="dialog">Privacy and Security Considerations</span>
   </li>
         </ul>
       </li><li>
@@ -4228,6 +4259,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <ul>
     <li>
       <a href="#ref-for-dfn-digital-credentials-get-1" title="§ 2.5 Requesting a digital credential across origins">§ 2.5 Requesting a digital credential across origins</a> 
+    </li><li>
+      <a href="#ref-for-dfn-digital-credentials-get-2" title="§ 10.2 Mitigations">§ 10.2 Mitigations</a> <a href="#ref-for-dfn-digital-credentials-get-3" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-digital-credentials-create" aria-label="Links in this document to definition: &quot;digital-credentials-create&quot;">
@@ -4240,6 +4273,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <ul>
     <li>
       <a href="#ref-for-dfn-digital-credentials-create-1" title="§ 2.6 Issuing a digital credential across origins">§ 2.6 Issuing a digital credential across origins</a> 
+    </li><li>
+      <a href="#ref-for-dfn-digital-credentials-create-2" title="§ 10.2 Mitigations">§ 10.2 Mitigations</a> <a href="#ref-for-dfn-digital-credentials-create-3" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-in-scope-threats" aria-label="Links in this document to definition: In-Scope Threats">
@@ -4268,6 +4303,18 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <ul>
     <li>
       <a href="#ref-for-dfn-request-tampering-1" title="§ 10.2 Mitigations">§ 10.2 Mitigations</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-unauthorized-cross-origin-access" aria-label="Links in this document to definition: Unauthorized Cross-Origin Access">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dfn-unauthorized-cross-origin-access" aria-label="Permalink for definition: Unauthorized Cross-Origin Access. Activate to close this dialog.">Permalink</a>
+         
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-dfn-unauthorized-cross-origin-access-1" title="§ 10.2 Mitigations">§ 10.2 Mitigations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-out-of-scope-threats" aria-label="Links in this document to definition: Out-of-scope threats">
@@ -4384,6 +4431,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-create-a-credential-2" title="§ 7. The Digital Credentials API">§ 7. The Digital Credentials API</a> 
     </li><li>
       <a href="#ref-for-index-term-create-a-credential-3" title="§ 9. Permissions Policy integration">§ 9. Permissions Policy integration</a> 
+    </li><li>
+      <a href="#ref-for-index-term-create-a-credential-4" title="§ 10.2 Mitigations">§ 10.2 Mitigations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-create-for-credentialscontainer" aria-label="Links in this document to definition: create() (for CredentialsContainer)">
@@ -4552,6 +4601,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-request-a-credential-2" title="§ 7. The Digital Credentials API">§ 7. The Digital Credentials API</a> 
     </li><li>
       <a href="#ref-for-index-term-request-a-credential-3" title="§ 9. Permissions Policy integration">§ 9. Permissions Policy integration</a> 
+    </li><li>
+      <a href="#ref-for-index-term-request-a-credential-4" title="§ 10.2 Mitigations">§ 10.2 Mitigations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-required-for-credentialmediationrequirement" aria-label="Links in this document to definition: required (for CredentialMediationRequirement)">
@@ -4800,6 +4851,18 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-fully-active-descendant-of-a-top-level-traversable-with-user-attention-for-document-1" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
     </li><li>
       <a href="#ref-for-index-term-fully-active-descendant-of-a-top-level-traversable-with-user-attention-for-document-2" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-iframe-element" aria-label="Links in this document to definition: iframe element">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#the-iframe-element" aria-label="Permalink for definition: iframe element. Activate to close this dialog.">Permalink</a>
+         
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-index-term-iframe-element-1" title="§ 10.1.1 In-Scope Threats">§ 10.1.1 In-Scope Threats</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-queue-a-global-task" aria-label="Links in this document to definition: Queue a global task">
@@ -5180,6 +5243,20 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <ul>
     <li>
       <a href="#ref-for-index-term-policy-controlled-features-1" title="§ 9. Permissions Policy integration">§ 9. Permissions Policy integration</a> <a href="#ref-for-index-term-policy-controlled-features-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-policy-controlled-features-3" title="Reference 3">(3)</a> 
+    </li><li>
+      <a href="#ref-for-index-term-policy-controlled-features-4" title="§ 10.2 Mitigations">§ 10.2 Mitigations</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-privacy-and-security-considerations" aria-label="Links in this document to definition: Privacy and Security Considerations">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="https://www.w3.org/TR/permissions-policy-1/#privacy-and-security" aria-label="Permalink for definition: Privacy and Security Considerations. Activate to close this dialog.">Permalink</a>
+         
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-index-term-privacy-and-security-considerations-1" title="§ 10.2 Mitigations">§ 10.2 Mitigations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-data-minimization" aria-label="Links in this document to definition: data minimization">
