@@ -1569,6 +1569,15 @@
           insecure context attempts to alter a {{DigitalCredentialGetRequest}}
           or {{DigitalCredentialCreateRequest}} before processing.
         </dd>
+        <dt>
+          <dfn>Unauthorized Cross-Origin Access</dfn>
+        </dt>
+        <dd>
+          A malicious website attempts to request or issue digital credentials
+          through embedded third-party content, such as an [^iframe^], without
+          explicit permission from the embedding site, potentially enabling
+          credential harvesting or unauthorized access to sensitive user data.
+        </dd>
       </dl>
       <h4>
         Out of Scope Threats
@@ -1599,6 +1608,23 @@
         "https://www.w3.org/TR/secure-contexts/#security-considerations">Security
         Considerations</a> section of the [[[secure-contexts]]] specification
         for more information.
+      </p>
+      <p data-cite="permissions-policy">
+        The Digital Credentials API reduces [=Unauthorized Cross-Origin
+        Access|cross-origin abuse=] through [[[permissions-policy]]]
+        integration (see [[[#permissions-policy]]]). The [=request a
+        `Credential`=] and [=create a `Credential`=] algorithms respectively
+        serve as policy enforcement points for the
+        <a>"digital-credentials-get"</a> and
+        <a>"digital-credentials-create"</a> [=policy-controlled features=]. The
+        two features are intentionally separate: a site may enable
+        <a>"digital-credentials-get"</a> without enabling
+        <a>"digital-credentials-create"</a>, and vice versa, limiting each
+        embedded context to only the capability it requires. Please refer to
+        the <a data-cite="permissions-policy#privacy-and-security">Privacy and
+        Security Considerations</a> section of the [[[permissions-policy]]]
+        specification for additional security properties provided by this
+        integration.
       </p>
     </section>
     <section class="informative" data-cite="privacy-principles">
