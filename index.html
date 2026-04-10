@@ -1530,6 +1530,16 @@
       </dt>
       <dd>
         An [=origin=].
+        <p class="note" title=
+        "Why both origins are included in the request context">
+          The [=request context/document origin=] can differ from the [=request
+          context/top origin=] when the API is called from a cross-origin
+          [^iframe^] (e.g., an embedded verification service). Including both
+          origins allows the [=digital credential chooser=] and [=holder=] to
+          make informed trust decisions about which party is actually
+          requesting the credential, not just which top-level site is hosting
+          the request.
+        </p>
       </dd>
     </dl>
     <h4>
