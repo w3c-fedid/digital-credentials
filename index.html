@@ -1132,6 +1132,9 @@
       </li>
       <li>If a [=digital credential=] was selected by the user:
         <ol>
+          <li>Let |selectedRequest| be the item in |validatedRequests| that was
+          used to invoke the [=holder=] for this exchange.
+          </li>
           <li>Let |responseData| be a [=string=] [=digital
           credential/presentation response=] or [=string=] [=digital
           credential/issuance response=] returned by the [=holder=].
@@ -1166,8 +1169,8 @@
             </ol>
           </li>
           <li>Let |protocol:DigitalCredentialProtocol| be the [=enumeration
-          value=] of the [=digital credential/protocol identifier=] used in the
-          exchange.
+          value=] of |selectedRequest|'s [=digital credential/protocol
+          identifier=].
           </li>
           <li>Let |credential| be a newly created {{DigitalCredential}}
           instance with its {{DigitalCredential/data}} initialized to
