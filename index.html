@@ -793,7 +793,7 @@
       </li>
       <li>Let |validatedRequests| be the result of [=credential request
       coordinator/validate credential requests=] given |requests|. If that
-      [=exception/throws=] an [=exception=] |error|:
+      [=exception/throws=] an [=exception=] |error|, take the following steps:
         <ol>
           <li>[=credential request coordinator/Reject the credential request
           with=] |error| and |promise|.
@@ -802,7 +802,7 @@
           </li>
         </ol>
       </li>
-      <li>If |validatedRequests| [=list/is empty=]:
+      <li>If |validatedRequests| [=list/is empty=], take the following steps:
         <ol>
           <li>[=credential request coordinator/Reject the credential request
           with=] a newly created {{TypeError}} and |promise|.
@@ -811,7 +811,7 @@
           </li>
         </ol>
       </li>
-      <li>If |signal| was passed:
+      <li>If |signal| was passed, take the following steps:
         <ol>
           <li>Assert: |signal| is not [=AbortSignal/aborted=].
             <p class="note">
@@ -1291,8 +1291,8 @@
       underlying platform or provider.
     </p>
     <p>
-      To <dfn>user agent allows protocol</dfn> given a {{DOMString}}
-      |protocol|:
+      To check whether a <dfn>user agent allows protocol</dfn> given a {{DOMString}}
+      |protocol|, take the following steps:
     </p>
     <ol class="algorithm">
       <li>If |protocol| is not an [=enumeration value=] of
@@ -1439,7 +1439,7 @@
       </li>
       <li>[=Consume user activation=] of |global|.
       </li>
-      <li>Let |promise| be [=a new promise=] in [=this=]'s [=relevant realm=].
+      <li>Let |promise| be [=a new promise=] in the [=relevant realm=] of [=this=].
       </li>
       <li>[=credential request coordinator/Prepare credential requests=] with
       |document|, |requests|, |promise|, and |signal|.
