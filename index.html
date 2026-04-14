@@ -132,7 +132,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="d122c5fdf6f2a3766b405dfa8143ce5b318c52ea">
+<meta name="revision" content="f6f59ce099368db3dd35db1fba1f419e2ca515de">
 <meta name="description" content="This document specifies an API enabling user agents to mediate the
         presentation and issuance of digital credentials, such as a
         driver's license, government-issued identification card, or
@@ -261,7 +261,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "d122c5fdf6f2a3766b405dfa8143ce5b318c52ea",
+  "gitRevision": "f6f59ce099368db3dd35db1fba1f419e2ca515de",
   "publishISODate": "2026-04-14T00:00:00.000Z",
   "generatedSubtitle": "W3C Editor's Draft 14 April 2026"
 }</script>
@@ -705,7 +705,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         <span class="hljs-attr">digital</span>: {
           <span class="hljs-attr">requests</span>: [{
             protocol,
-            <span class="hljs-attr">data</span>: { <span class="hljs-comment">/* request data */</span> }
+            <span class="hljs-attr">data</span>: { <span class="hljs-comment">/* presentation request data */</span> }
           }]
         }
       });
@@ -862,7 +862,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders" id="ref-for-index-term-holder-4">holder</a> software (commonly known as "digital wallets"), including how
       they securely store or manage <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-10">digital credentials</a> or advertise
       capabilities to <a data-link-type="dfn|abstract-op" data-lt="presentation" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-13">present</a> or <a data-link-type="dfn|abstract-op" data-lt="issuance" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-12">issue</a> them to the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-0-3">user agent</a>, is out of scope.
-      The only exception is the transmission of <a data-link-type="dfn|abstract-op" href="#dfn-issuance-request-data" class="internalDFN" id="ref-for-dfn-issuance-request-data-1">issuance request data</a> and <a data-link-type="dfn|abstract-op" data-lt="request data" href="#dfn-request-data" class="internalDFN" id="ref-for-dfn-request-data-1">credential request data</a> to and from such software.
+      The only exception is the transmission of <a data-link-type="dfn|abstract-op" href="#dfn-issuance-request-data" class="internalDFN" id="ref-for-dfn-issuance-request-data-1">issuance request data</a> and <a data-link-type="dfn|abstract-op" href="#dfn-presentation-request-data" class="internalDFN" id="ref-for-dfn-presentation-request-data-1">presentation request data</a> to
+      and from such software.
       </li>
     </ul>
     </section><section id="model"><div class="header-wrapper"><h2 id="x4-model"><bdi class="secno">4. </bdi>
@@ -942,15 +943,23 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       </dt>
       <dd data-defines="#dfn-presentation-request">
         A presentation request is a request for a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-15">digital credential</a>
-        composed of <a data-link-type="dfn|abstract-op" href="#dfn-request-data" class="internalDFN" id="ref-for-dfn-request-data-2">request data</a> and a <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-3">presentation protocol</a>.
+        composed of <a data-link-type="dfn|abstract-op" href="#dfn-presentation-request-data" class="internalDFN" id="ref-for-dfn-presentation-request-data-2">presentation request data</a> and a
+        <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-3">presentation protocol</a>.
+      </dd>
+      <dt>
+        <dfn data-dfn-for="digital credential" id="dfn-presentation-request-data" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">Presentation request data</dfn>
+      </dt>
+      <dd data-defines="#dfn-presentation-request-data">
+        A format that <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifier-2">verifier</a> software or a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-0-5">user agent</a> uses, via an
+        <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-4">presentation protocol</a>, to request a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-16">digital credential</a> from a <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders" id="ref-for-index-term-holder-8">holder</a>.
       </dd>
       <dt>
         <dfn data-dfn-for="digital credential" data-local-lt="presentation response" data-plurals="presentation responses" id="dfn-presentation-response" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">Presentation response</dfn>
       </dt>
       <dd data-defines="#dfn-presentation-response">
-        A format that a <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders" id="ref-for-index-term-holder-8">holder's</a> software, such as a digital wallet, uses,
-        via an <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-4">presentation protocol</a>, to respond to a
-        <a data-link-type="dfn|abstract-op" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-15">presentation request</a> by a <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifier-2">verifier</a>.
+        A format that a <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders" id="ref-for-index-term-holder-9">holder's</a> software, such as a digital wallet, uses,
+        via an <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-5">presentation protocol</a>, to respond to a
+        <a data-link-type="dfn|abstract-op" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-15">presentation request</a> by a <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifier-3">verifier</a>.
       </dd>
       <dt>
         <dfn data-dfn-for="digital credential" id="dfn-protocol-identifier" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">Protocol identifier</dfn>
@@ -965,14 +974,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       </dt>
       <dd>
         See <a data-link-type="dfn|abstract-op" href="#dfn-credential-request-coordinator" class="internalDFN" id="ref-for-dfn-credential-request-coordinator-1">credential request coordinator</a>.
-      </dd><dt>
-        <dfn data-dfn-for="digital credential" id="dfn-request-data" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">Request data</dfn>
-      </dt>
-      <dd data-defines="#dfn-request-data">
-        A format that <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifier-3">verifier</a> software or a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-0-5">user agent</a> uses, via an
-        <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-5">presentation protocol</a>, to request a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-16">digital credential</a> from a <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders" id="ref-for-index-term-holder-9">holder</a>.
-      </dd>
-      </dl>
+      </dd></dl>
     </section><section id="protocols-0"><div class="header-wrapper"><h2 id="protocols"><bdi class="secno">5. </bdi>
       Protocols
     </h2><a class="self-link" href="#protocols" aria-label="Permalink for Section 5."></a></div>
@@ -1298,20 +1300,19 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           <li>If serialization results in an <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-exception" id="ref-for-index-term-exception-2">exception</a>, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw" id="ref-for-index-term-throws-for-exception-2">throw</a>
           that <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-exception" id="ref-for-index-term-exception-3">exception</a>.
           </li>
-          <li>Validate <var>request</var>'s <a data-link-type="dfn|abstract-op" href="#dfn-request-data" class="internalDFN" id="ref-for-dfn-request-data-3">request data</a>
-          according to <var>request</var>'s <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-9">presentation protocol</a>
-          or <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-8">issuance protocol</a> or other criteria.
-          Validation requirements are protocol-specific and are outside the
-          scope of this specification:
+          <li>Validate <var>request</var>'s <a data-link-type="dfn|abstract-op" href="#dfn-presentation-request-data" class="internalDFN" id="ref-for-dfn-presentation-request-data-3">presentation request data</a> or <a data-link-type="dfn|abstract-op" href="#dfn-issuance-request-data" class="internalDFN" id="ref-for-dfn-issuance-request-data-3">issuance request data</a> according to
+          <var>request</var>'s <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-9">presentation protocol</a> or <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-8">issuance protocol</a> or other criteria. Validation
+          requirements are protocol-specific and are outside the scope of this
+          specification:
             <div class="note" role="note" id="issue-container-generatedID-4"><div role="heading" class="note-title marker" id="h-note-3" aria-level="2"><span>Note</span><span class="issue-label">: Validation details outside scope</span></div><aside class="">
               <p>
-                Validation includes verifying <var>request</var>'s <a data-link-type="dfn|abstract-op" href="#dfn-request-data" class="internalDFN" id="ref-for-dfn-request-data-4">request data</a> conforms to the requirements of the
-                specified <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-10">presentation protocol</a> or
-                <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-9">issuance protocol</a>. Please refer to the
-                specification of the specific <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-11">presentation protocol</a> or <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-10">issuance protocol</a> for
-                details, including potential reasons for validation failure,
-                and any security and privacy considerations that need to be
-                considered by implementers during validation.
+                Validation includes verifying <var>request</var>'s <a data-link-type="dfn|abstract-op" href="#dfn-presentation-request-data" class="internalDFN" id="ref-for-dfn-presentation-request-data-4">presentation request data</a> or <a data-link-type="dfn|abstract-op" href="#dfn-issuance-request-data" class="internalDFN" id="ref-for-dfn-issuance-request-data-4">issuance request data</a> conforms to the requirements
+                of the specified <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-10">presentation protocol</a>
+                or <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-9">issuance protocol</a>. Please refer to
+                the specification of the specific <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-11">presentation protocol</a> or <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-10">issuance protocol</a> for details, including potential
+                reasons for validation failure, and any security and privacy
+                considerations that need to be considered by implementers
+                during validation.
               </p>
             </aside></div>
             <div class="issue" id="issue-container-number-472"><div role="heading" class="issue-title marker" id="h-issue-1" aria-level="2"><a href="https://github.com/w3c-fedid/digital-credentials/issues/472"><span class="issue-number">Issue 472</span></a><span class="issue-label">: User agent request validation and errors</span></div><p dir="auto">The prepare steps originally stated that:</p>
@@ -1473,15 +1474,15 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </h4><a class="self-link" href="#the-requests-member" aria-label="Permalink for Section 7.2.1"></a></div>
     <p>
       The <dfn data-dfn-for="DigitalCredentialRequestOptions" data-plurals="request" data-export="" data-dfn-type="dict-member" id="dom-digitalcredentialrequestoptions-requests" data-idl="field" data-title="requests" data-type="sequence" tabindex="0" aria-haspopup="dialog"><code>requests</code></dfn>
-      specify an <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-12">presentation protocol</a> and <a data-link-type="dfn|abstract-op" href="#dfn-request-data" class="internalDFN" id="ref-for-dfn-request-data-5">request data</a>, which the user agent <em class="rfc2119">MAY</em> match against a
-      holder's software, such as a digital wallet.
+      specify an <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-12">presentation protocol</a> and <a data-link-type="dfn|abstract-op" href="#dfn-presentation-request-data" class="internalDFN" id="ref-for-dfn-presentation-request-data-5">presentation request data</a>, which the user agent <em class="rfc2119">MAY</em> match
+      against a holder's software, such as a digital wallet.
     </p>
     </section></section><section id="the-digitalcredentialgetrequest-dictionary"><div class="header-wrapper"><h3 id="x7-3-the-digitalcredentialgetrequest-dictionary"><bdi class="secno">7.3 </bdi>
       The <code>DigitalCredentialGetRequest</code> dictionary
     </h3><a class="self-link" href="#the-digitalcredentialgetrequest-dictionary" aria-label="Permalink for Section 7.3"></a></div>
     <p>
-      The <a data-link-type="idl" data-lt="DigitalCredentialGetRequest" href="#dom-digitalcredentialgetrequest" class="internalDFN" id="ref-for-dom-digitalcredentialgetrequest-7"><code>DigitalCredentialGetRequest</code></a> dictionary represents a <a data-link-type="dfn|abstract-op" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-18">presentation request</a>. It is used to specify an <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-13">presentation protocol</a> and some <a data-link-type="dfn|abstract-op" href="#dfn-request-data" class="internalDFN" id="ref-for-dfn-request-data-6">request data</a>, which the user agent <em class="rfc2119">MAY</em> match against software used by a holder,
-      such as a digital wallet.
+      The <a data-link-type="idl" data-lt="DigitalCredentialGetRequest" href="#dom-digitalcredentialgetrequest" class="internalDFN" id="ref-for-dom-digitalcredentialgetrequest-7"><code>DigitalCredentialGetRequest</code></a> dictionary represents a <a data-link-type="dfn|abstract-op" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-18">presentation request</a>. It is used to specify an <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-13">presentation protocol</a> and some <a data-link-type="dfn|abstract-op" href="#dfn-presentation-request-data" class="internalDFN" id="ref-for-dfn-presentation-request-data-6">presentation request data</a>, which the user agent <em class="rfc2119">MAY</em> match
+      against software used by a holder, such as a digital wallet.
     </p>
     <pre class="idl def" id="webidl-1753533423"><span class="idlHeader"><a class="self-link" href="#webidl-1753533423">WebIDL</a></span><code><span data-idl="" class="idlDictionary" id="idl-def-digitalcredentialgetrequest" data-title="DigitalCredentialGetRequest">dictionary <dfn data-export="" data-dfn-type="dictionary" id="dom-digitalcredentialgetrequest" data-idl="dictionary" data-title="DigitalCredentialGetRequest" data-dfn-for="" class="idlID" tabindex="0" aria-haspopup="dialog"><code>DigitalCredentialGetRequest</code></dfn> {<span data-idl="" class="idlMember" id="idl-def-digitalcredentialgetrequest-protocol" data-title="protocol" data-dfn-for="DigitalCredentialGetRequest">
   required<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-index-term-domstring-interface-1">DOMString</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialgetrequest-protocol" id="ref-for-dom-digitalcredentialgetrequest-protocol-2"><code>protocol</code></a>;</span><span data-idl="" class="idlMember" id="idl-def-digitalcredentialgetrequest-data" data-title="data" data-dfn-for="DigitalCredentialGetRequest">
@@ -1504,8 +1505,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </h4><a class="self-link" href="#the-data-member" aria-label="Permalink for Section 7.3.2"></a></div>
     <p>
       The <dfn data-dfn-for="DigitalCredentialGetRequest" data-export="" data-dfn-type="dict-member" id="dom-digitalcredentialgetrequest-data" data-idl="field" data-title="data" data-type="object" tabindex="0" aria-haspopup="dialog"><code>data</code></dfn> member is
-      the <a data-link-type="dfn|abstract-op" href="#dfn-request-data" class="internalDFN" id="ref-for-dfn-request-data-7">request data</a> to be handled by the holder's
-      credential provider, such as a digital identity wallet.
+      the <a data-link-type="dfn|abstract-op" href="#dfn-presentation-request-data" class="internalDFN" id="ref-for-dfn-presentation-request-data-7">presentation request data</a> to be handled by the
+      holder's credential provider, such as a digital identity wallet.
     </p>
     </section></section><section id="extensions-to-credentialcreationoptions-dictionary"><div class="header-wrapper"><h3 id="x7-4-extensions-to-credentialcreationoptions-dictionary"><bdi class="secno">7.4 </bdi>
       Extensions to <code>CredentialCreationOptions</code> dictionary
@@ -1531,15 +1532,15 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </h4><a class="self-link" href="#the-requests-member-0" aria-label="Permalink for Section 7.5.1"></a></div>
     <p>
       The <dfn data-dfn-for="DigitalCredentialCreationOptions" data-plurals="request" data-export="" data-dfn-type="dict-member" id="dom-digitalcredentialcreationoptions-requests" data-idl="field" data-title="requests" data-type="sequence" tabindex="0" aria-haspopup="dialog"><code>requests</code></dfn>
-      specify an <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-11">issuance protocol</a> and <a data-link-type="dfn|abstract-op" href="#dfn-request-data" class="internalDFN" id="ref-for-dfn-request-data-8">request data</a>, which the user agent <em class="rfc2119">MAY</em> forward to a
+      specify an <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-11">issuance protocol</a> and <a data-link-type="dfn|abstract-op" href="#dfn-issuance-request-data" class="internalDFN" id="ref-for-dfn-issuance-request-data-5">issuance request data</a>, which the user agent <em class="rfc2119">MAY</em> forward to a
       <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders" id="ref-for-index-term-holder-12">holder</a>.
     </p>
     </section></section><section id="the-digitalcredentialcreaterequest-dictionary"><div class="header-wrapper"><h3 id="x7-6-the-digitalcredentialcreaterequest-dictionary"><bdi class="secno">7.6 </bdi>
       The <code>DigitalCredentialCreateRequest</code> dictionary
     </h3><a class="self-link" href="#the-digitalcredentialcreaterequest-dictionary" aria-label="Permalink for Section 7.6"></a></div>
     <p>
-      The <a data-link-type="idl" data-lt="DigitalCredentialCreateRequest" href="#dom-digitalcredentialcreaterequest" class="internalDFN" id="ref-for-dom-digitalcredentialcreaterequest-7"><code>DigitalCredentialCreateRequest</code></a> dictionary represents an <a data-link-type="dfn|abstract-op" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-17">issuance request</a>. It is used to specify an <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-12">issuance protocol</a> and some <a data-link-type="dfn|abstract-op" href="#dfn-request-data" class="internalDFN" id="ref-for-dfn-request-data-9">request data</a>, to communicate the issuance request between the issuer and the
-      holder.
+      The <a data-link-type="idl" data-lt="DigitalCredentialCreateRequest" href="#dom-digitalcredentialcreaterequest" class="internalDFN" id="ref-for-dom-digitalcredentialcreaterequest-7"><code>DigitalCredentialCreateRequest</code></a> dictionary represents an <a data-link-type="dfn|abstract-op" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-17">issuance request</a>. It is used to specify an <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-12">issuance protocol</a> and some <a data-link-type="dfn|abstract-op" href="#dfn-issuance-request-data" class="internalDFN" id="ref-for-dfn-issuance-request-data-6">issuance request data</a>, to communicate the issuance request between the issuer
+      and the holder.
     </p>
     <pre class="idl def" id="webidl-1732532479"><span class="idlHeader"><a class="self-link" href="#webidl-1732532479">WebIDL</a></span><code><span data-idl="" class="idlDictionary" id="idl-def-digitalcredentialcreaterequest" data-title="DigitalCredentialCreateRequest">dictionary <dfn data-export="" data-dfn-type="dictionary" id="dom-digitalcredentialcreaterequest" data-idl="dictionary" data-title="DigitalCredentialCreateRequest" data-dfn-for="" class="idlID" tabindex="0" aria-haspopup="dialog"><code>DigitalCredentialCreateRequest</code></dfn> {<span data-idl="" class="idlMember" id="idl-def-digitalcredentialcreaterequest-protocol" data-title="protocol" data-dfn-for="DigitalCredentialCreateRequest">
   required<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-index-term-domstring-interface-2">DOMString</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialcreaterequest-protocol" id="ref-for-dom-digitalcredentialcreaterequest-protocol-2"><code>protocol</code></a>;</span><span data-idl="" class="idlMember" id="idl-def-digitalcredentialcreaterequest-data" data-title="data" data-dfn-for="DigitalCredentialCreateRequest">
@@ -1562,8 +1563,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </h4><a class="self-link" href="#the-data-member-0" aria-label="Permalink for Section 7.6.2"></a></div>
     <p>
       The <dfn data-dfn-for="DigitalCredentialCreateRequest" data-export="" data-dfn-type="dict-member" id="dom-digitalcredentialcreaterequest-data" data-idl="field" data-title="data" data-type="object" tabindex="0" aria-haspopup="dialog"><code>data</code></dfn> member
-      is the <a data-link-type="dfn|abstract-op" href="#dfn-request-data" class="internalDFN" id="ref-for-dfn-request-data-10">request data</a> to be handled by the holder's
-      credential provider, such as a digital identity wallet.
+      is the <a data-link-type="dfn|abstract-op" href="#dfn-issuance-request-data" class="internalDFN" id="ref-for-dfn-issuance-request-data-7">issuance request data</a> to be handled by the
+      holder's credential provider, such as a digital identity wallet.
     </p>
     </section></section><section id="the-digitalcredential-interface"><div class="header-wrapper"><h3 id="x7-7-the-digitalcredential-interface"><bdi class="secno">7.7 </bdi>
       The <code>DigitalCredential</code> interface
@@ -2846,6 +2847,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <span class="print-only">§4.</span></li><li>
       <a class="index-term" href="#dfn-presentation-request">Presentation request</a> 
     <span class="print-only">§4.</span></li><li>
+      <a class="index-term" href="#dfn-presentation-request-data">Presentation request data</a> 
+    <span class="print-only">§4.</span></li><li>
       <a class="index-term" href="#dfn-presentation-response">Presentation response</a> 
     <span class="print-only">§4.</span></li><li>
     protocol
@@ -2863,8 +2866,6 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <span class="print-only">§4.</span></li><li>
       <a class="index-term" href="#dfn-reject-the-credential-request-with">reject the credential request with</a> 
     <span class="print-only">§6.5</span></li><li>
-      <a class="index-term" href="#dfn-request-data">Request data</a> 
-    <span class="print-only">§4.</span></li><li>
       <a class="index-term" href="#dfn-request-tampering">Request Tampering</a> 
     <span class="print-only">§10.1.1</span></li><li>
       <a class="index-term" href="#dfn-requesting">requesting</a> 
@@ -3444,6 +3445,14 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-dfn-issuance-request-data-1" title="§ 3. Scope">§ 3. Scope</a> 
     </li><li>
       <a href="#ref-for-dfn-issuance-request-data-2" title="§ 4. Model">§ 4. Model</a> 
+    </li><li>
+      <a href="#ref-for-dfn-issuance-request-data-3" title="§ 6.3 Validate credential requests">§ 6.3 Validate credential requests</a> <a href="#ref-for-dfn-issuance-request-data-4" title="Reference 2">(2)</a> 
+    </li><li>
+      <a href="#ref-for-dfn-issuance-request-data-5" title="§ 7.5.1 The requests member">§ 7.5.1 The requests member</a> 
+    </li><li>
+      <a href="#ref-for-dfn-issuance-request-data-6" title="§ 7.6 The DigitalCredentialCreateRequest dictionary">§ 7.6 The DigitalCredentialCreateRequest dictionary</a> 
+    </li><li>
+      <a href="#ref-for-dfn-issuance-request-data-7" title="§ 7.6.2 The data member">§ 7.6.2 The data member</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-issuance-response" aria-label="Links in this document to definition: Issuance response">
@@ -3526,6 +3535,28 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-dfn-presentation-request-21" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> <a href="#ref-for-dfn-presentation-request-22" title="Reference 2">(2)</a> 
     </li>
   </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-presentation-request-data" aria-label="Links in this document to definition: Presentation request data">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dfn-presentation-request-data" aria-label="Permalink for definition: Presentation request data. Activate to close this dialog.">Permalink</a>
+         
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-dfn-presentation-request-data-1" title="§ 3. Scope">§ 3. Scope</a> 
+    </li><li>
+      <a href="#ref-for-dfn-presentation-request-data-2" title="§ 4. Model">§ 4. Model</a> 
+    </li><li>
+      <a href="#ref-for-dfn-presentation-request-data-3" title="§ 6.3 Validate credential requests">§ 6.3 Validate credential requests</a> <a href="#ref-for-dfn-presentation-request-data-4" title="Reference 2">(2)</a> 
+    </li><li>
+      <a href="#ref-for-dfn-presentation-request-data-5" title="§ 7.2.1 The requests member">§ 7.2.1 The requests member</a> 
+    </li><li>
+      <a href="#ref-for-dfn-presentation-request-data-6" title="§ 7.3 The DigitalCredentialGetRequest dictionary">§ 7.3 The DigitalCredentialGetRequest dictionary</a> 
+    </li><li>
+      <a href="#ref-for-dfn-presentation-request-data-7" title="§ 7.3.2 The data member">§ 7.3.2 The data member</a> 
+    </li>
+  </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-presentation-response" aria-label="Links in this document to definition: Presentation response">
       <span class="caret"></span>
       <div>
@@ -3552,34 +3583,6 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-dfn-protocol-identifier-1" title="§ 4. Model">§ 4. Model</a> <a href="#ref-for-dfn-protocol-identifier-2" title="Reference 2">(2)</a> 
     </li><li>
       <a href="#ref-for-dfn-protocol-identifier-3" title="§ 5. Protocols">§ 5. Protocols</a> 
-    </li>
-  </ul>
-    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-request-data" aria-label="Links in this document to definition: Request data">
-      <span class="caret"></span>
-      <div>
-        <a class="self-link" href="#dfn-request-data" aria-label="Permalink for definition: Request data. Activate to close this dialog.">Permalink</a>
-         
-      </div>
-      <p><b>Referenced in:</b></p>
-      <ul>
-    <li>
-      <a href="#ref-for-dfn-request-data-1" title="§ 3. Scope">§ 3. Scope</a> 
-    </li><li>
-      <a href="#ref-for-dfn-request-data-2" title="§ 4. Model">§ 4. Model</a> 
-    </li><li>
-      <a href="#ref-for-dfn-request-data-3" title="§ 6.3 Validate credential requests">§ 6.3 Validate credential requests</a> <a href="#ref-for-dfn-request-data-4" title="Reference 2">(2)</a> 
-    </li><li>
-      <a href="#ref-for-dfn-request-data-5" title="§ 7.2.1 The requests member">§ 7.2.1 The requests member</a> 
-    </li><li>
-      <a href="#ref-for-dfn-request-data-6" title="§ 7.3 The DigitalCredentialGetRequest dictionary">§ 7.3 The DigitalCredentialGetRequest dictionary</a> 
-    </li><li>
-      <a href="#ref-for-dfn-request-data-7" title="§ 7.3.2 The data member">§ 7.3.2 The data member</a> 
-    </li><li>
-      <a href="#ref-for-dfn-request-data-8" title="§ 7.5.1 The requests member">§ 7.5.1 The requests member</a> 
-    </li><li>
-      <a href="#ref-for-dfn-request-data-9" title="§ 7.6 The DigitalCredentialCreateRequest dictionary">§ 7.6 The DigitalCredentialCreateRequest dictionary</a> 
-    </li><li>
-      <a href="#ref-for-dfn-request-data-10" title="§ 7.6.2 The data member">§ 7.6.2 The data member</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-table-of-supported-presentation-and-issuance-protocols" aria-label="Links in this document to definition: Table of supported presentation and issuance protocols">
