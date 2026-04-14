@@ -210,12 +210,15 @@
         be used to check if the user agent allows a specific protocol for
         digital credential issuance or presentation. This is useful for
         checking which protocols are allowed by the user's browsers prior to
-        making an API call. Because protocol identifiers are added to
-        {{DigitalCredentialProtocol}} progressively as [=user agents=] adopt
-        support for them, calling this method on an older browser with a newer
-        protocol identifier safely returns `false`. This makes it suitable for
-        feature detection without needing to guard against exceptions on legacy
-        browsers.
+        making an API call. On browsers that implement {{DigitalCredential}}
+        (detectable via the `typeof` check shown above), protocol identifiers
+        are added to {{DigitalCredentialProtocol}} progressively as
+        [=user agents=] adopt support for them, so calling this method with an
+        unknown protocol identifier safely returns `false` without throwing.
+        Note that calling this method on a browser where {{DigitalCredential}}
+        is not defined will throw a {{ReferenceError}}, so the
+        `typeof DigitalCredential !== "undefined"` guard shown above is still
+        required before using this method.
       </p>
       <pre class="example js" title=
       "Using the userAgentAllowsProtocol() static method">
