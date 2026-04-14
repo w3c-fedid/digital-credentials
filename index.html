@@ -58,13 +58,6 @@
           date: "2025-03-26",
           publisher: "W3C"
         },
-        "threat-model-decentralized-identities": {
-          title: "Threat Model for Decentralized Identities",
-          href: "https://github.com/w3c-cg/threat-modeling/blob/main/models/decentralized-identities.md",
-          authors: ["Simone Onofri"],
-          date: "2025-05-28",
-          publisher: "W3C"
-        },
         "custom-schemes": {
           title: "Concerns with custom schemes for identity presentment",
           href: "https://github.com/w3c-fedid/digital-credentials/blob/main/custom-schemes.md",
@@ -269,7 +262,7 @@
                 digital: {
                   requests: [{
                     protocol,
-                    data: { /* request data */ }
+                    data: { /* presentation request data */ }
                   }]
                 }
               });
@@ -429,8 +422,8 @@
       capabilities to [=digital credential/presentation|present=] or [=digital
       credential/issuance|issue=] them to the [=user agent=], is out of scope.
       The only exception is the transmission of [=digital credential/issuance
-      request data=] and [=digital credential/request data|credential request
-      data=] to and from such software.
+      request data=] and [=digital credential/presentation request data=] to
+      and from such software.
       </li>
     </ul><!--
     // MARK: Model
@@ -461,11 +454,11 @@
       </dt>
       <dd>
         A presentation request is a request for a [=digital credential=]
-        composed of [=digital credential/request data=] and a [=digital
-        credential/presentation protocol=].
+        composed of [=digital credential/presentation request data=] and a
+        [=digital credential/presentation protocol=].
       </dd>
       <dt>
-        <dfn data-dfn-for="digital credential">Request data</dfn>
+        <dfn data-dfn-for="digital credential">Presentation request data</dfn>
       </dt>
       <dd>
         A format that [=verifier=] software or a [=user agent=] uses, via an
@@ -902,22 +895,25 @@
           <li>If serialization results in an [=exception=], [=exception/throw=]
           that [=exception=].
           </li>
-          <li>Validate |request|'s [=digital credential/request data=]
-          according to |request|'s [=digital credential/presentation protocol=]
-          or [=digital credential/issuance protocol=] or other criteria.
-          Validation requirements are protocol-specific and are outside the
-          scope of this specification:
+          <li>Validate |request|'s [=digital credential/presentation request
+          data=] or [=digital credential/issuance request data=] according to
+          |request|'s [=digital credential/presentation protocol=] or [=digital
+          credential/issuance protocol=] or other criteria. Validation
+          requirements are protocol-specific and are outside the scope of this
+          specification:
             <aside class="note" title="Validation details outside scope">
               <p>
                 Validation includes verifying |request|'s [=digital
-                credential/request data=] conforms to the requirements of the
-                specified [=digital credential/presentation protocol=] or
-                [=digital credential/issuance protocol=]. Please refer to the
-                specification of the specific [=digital credential/presentation
-                protocol=] or [=digital credential/issuance protocol=] for
-                details, including potential reasons for validation failure,
-                and any security and privacy considerations that need to be
-                considered by implementers during validation.
+                credential/presentation request data=] or [=digital
+                credential/issuance request data=] conforms to the requirements
+                of the specified [=digital credential/presentation protocol=]
+                or [=digital credential/issuance protocol=]. Please refer to
+                the specification of the specific [=digital
+                credential/presentation protocol=] or [=digital
+                credential/issuance protocol=] for details, including potential
+                reasons for validation failure, and any security and privacy
+                considerations that need to be considered by implementers
+                during validation.
               </p>
             </aside>
             <aside class="issue" data-number="472"></aside>
@@ -1104,8 +1100,8 @@
     <p>
       The <dfn data-dfn-for="DigitalCredentialRequestOptions">requests</dfn>
       specify an [=digital credential/presentation protocol=] and [=digital
-      credential/request data=], which the user agent MAY match against a
-      holder's software, such as a digital wallet.
+      credential/presentation request data=], which the user agent MAY match
+      against a holder's software, such as a digital wallet.
     </p><!--
     // MARK: DigitalCredentialGetRequest
     -->
@@ -1115,9 +1111,9 @@
     <p>
       The {{DigitalCredentialGetRequest}} dictionary represents a [=digital
       credential/presentation request=]. It is used to specify an [=digital
-      credential/presentation protocol=] and some [=digital credential/request
-      data=], which the user agent MAY match against software used by a holder,
-      such as a digital wallet.
+      credential/presentation protocol=] and some [=digital
+      credential/presentation request data=], which the user agent MAY match
+      against software used by a holder, such as a digital wallet.
     </p>
     <pre class="idl">
       dictionary DigitalCredentialGetRequest {
@@ -1142,8 +1138,8 @@
     </h4>
     <p>
       The <dfn data-dfn-for="DigitalCredentialGetRequest">data</dfn> member is
-      the [=digital credential/request data=] to be handled by the holder's
-      credential provider, such as a digital identity wallet.
+      the [=digital credential/presentation request data=] to be handled by the
+      holder's credential provider, such as a digital identity wallet.
     </p><!--
     // MARK: CredentialCreationOptions
     -->
@@ -1178,7 +1174,7 @@
     <p>
       The <dfn data-dfn-for="DigitalCredentialCreationOptions">requests</dfn>
       specify an [=digital credential/issuance protocol=] and [=digital
-      credential/request data=], which the user agent MAY forward to a
+      credential/issuance request data=], which the user agent MAY forward to a
       [=holder=].
     </p><!--
     // MARK: DigitalCredentialCreateRequest
@@ -1189,9 +1185,9 @@
     <p>
       The {{DigitalCredentialCreateRequest}} dictionary represents an [=digital
       credential/issuance request=]. It is used to specify an [=digital
-      credential/issuance protocol=] and some [=digital credential/request
-      data=], to communicate the issuance request between the issuer and the
-      holder.
+      credential/issuance protocol=] and some [=digital credential/issuance
+      request data=], to communicate the issuance request between the issuer
+      and the holder.
     </p>
     <pre class="idl">
     dictionary DigitalCredentialCreateRequest {
@@ -1216,8 +1212,8 @@
     </h4>
     <p>
       The <dfn data-dfn-for="DigitalCredentialCreateRequest">data</dfn> member
-      is the [=digital credential/request data=] to be handled by the holder's
-      credential provider, such as a digital identity wallet.
+      is the [=digital credential/issuance request data=] to be handled by the
+      holder's credential provider, such as a digital identity wallet.
     </p><!--
     // MARK: DigitalCredential interface
     -->
@@ -1545,7 +1541,6 @@
         The threat model for this specification includes threats to this API
         and to adjacent standards of the ecosystem.
       </p>
-      <p class="issue" data-number="440"></p>
       <p>
         For this specification, threats fall into two categories: [=in-scope
         threats=] and [=out-of-scope threats=].
@@ -1691,7 +1686,7 @@
       <ul>
         <li>[[[credential-considerations]]]
         </li>
-        <li>[[[threat-model-decentralized-identities]]]
+        <li>[[[threat-model-decentralized-credentials]]]
         </li>
         <li>
           <a data-cite="vc-data-model#privacy-considerations">VC Data Model
