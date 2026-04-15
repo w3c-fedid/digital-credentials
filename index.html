@@ -1566,7 +1566,10 @@
         <dd>
           An attacker on the network attempts to inject or modify page content
           to alter a {{DigitalCredentialGetRequest}} or
-          {{DigitalCredentialCreateRequest}} in transit.
+          {{DigitalCredentialCreateRequest}} in transit. Transport security
+          (enforced via [=secure contexts=]) mitigates this threat. This is
+          distinct from [=data tampering=], which occurs at the protocol level
+          after message creation.
         </dd>
         <dt>
           <dfn>Unauthorized Cross-Origin Access</dfn>
@@ -1594,10 +1597,13 @@
         </dt>
         <dd>
           Modification of a [=digital credential/presentation protocol=] or
-          [=digital credential/issuance protocol=] request or response after it
-          is created. This threat is expected to be addressed by the underlying
-          exchange protocol; for example, through signing and validating
-          requests and responses.
+          [=digital credential/issuance protocol=] request or response by a
+          [=verifier=], [=issuer=], [=holder=], or other party in the exchange
+          after the message is created. Unlike [=network tampering=], this
+          threat occurs at the protocol level and is not mitigated by transport
+          security alone. This threat is expected to be addressed by the
+          underlying exchange protocol; for example, through signing and
+          validating requests and responses.
         </dd>
       </dl>
       <h3>
@@ -1644,6 +1650,17 @@
         protocols intended to be used with this API define the additional
         security properties, trust relationships, and mitigations needed to
         protect the request and response beyond the user agent boundary.
+      </p>
+      <p>
+        This API mediates access to digital credentials, including
+        government-issued documents (see [[#abstract]]). Such exchanges involve
+        [=issuers=], [=holders=], and [=verifiers=], each of which may
+        introduce integrity risks that the user agent cannot detect at runtime.
+        The user agent determines whether a protocol is supported (via
+        {{DigitalCredential/userAgentAllowsProtocol()}}), but cannot inspect
+        the cryptographic integrity of individual exchanges. The requirements
+        below address this by gating protocol support on whether the protocol
+        defines adequate integrity mechanisms.
       </p>
       <h4>
         Request and Response Integrity
