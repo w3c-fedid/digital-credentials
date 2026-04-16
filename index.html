@@ -2509,6 +2509,7 @@
 
               digitalCredentials.SetVirtualWalletBehaviorParameters = {
                 action: digitalCredentials.VirtualWalletAction,
+                ? protocol: text,
                 ? response: { * text =&gt; any },
               }
           </pre>
@@ -2560,13 +2561,16 @@
             <ol class="algorithm">
               <li>Let |action| be |command parameters|["`action`"].
               </li>
+              <li>Let |protocol| be |command parameters|["`protocol`"], if
+              present, and `null` otherwise.
+              </li>
               <li>Let |response| be |command parameters|["`response`"], if
               present, and `null` otherwise.
               </li>
               <li>If |action| is `"respond"`:
                 <ol>
-                  <li>If |response| is `null`, return an [=error=] with [=error
-                  code=] [=invalid argument=].
+                  <li>If |protocol| is `null` or |response| is `null`, return
+                  an [=error=] with [=error code=] [=invalid argument=].
                   </li>
                   <li>[=serialize an Infra value to a JSON string|Serialize=]
                   |response| to a JSON string.
@@ -2578,13 +2582,13 @@
               </li>
               <li>Else:
                 <ol>
-                  <li>If |response| is not `null`, return an [=error=] with
-                  [=error code=] [=invalid argument=].
+                  <li>If |response| is not `null` or |protocol| is not `null`,
+                  return an [=error=] with [=error code=] [=invalid argument=].
                   </li>
                 </ol>
               </li>
               <li>Set the [=user agent=]'s <dfn>active virtual wallet
-              behavior</dfn> to a tuple of (|action|, |response|).
+              behavior</dfn> to a tuple of (|action|, |protocol|, |response|).
               </li>
               <li>Return [=success=] with data `null`.
               </li>
@@ -2604,8 +2608,8 @@
           <li>If the [=user agent=]'s [=active virtual wallet behavior=] is
           `null`, return `false`.
           </li>
-          <li>Let (|action|, |response|) be the [=user agent=]'s [=active
-          virtual wallet behavior=].
+          <li>Let (|action|, |protocol|, |response|) be the [=user agent=]'s
+          [=active virtual wallet behavior=].
           </li>
           <li>If |action| is `"wait"`, return `true`.
           </li>
@@ -2628,6 +2632,9 @@
               realm=].
               </li>
               <li>Let |credential| be a new {{DigitalCredential}} instance.
+              </li>
+              <li>Set |credential|'s {{DigitalCredential/protocol}} attribute
+              to |protocol|.
               </li>
               <li>Set |credential|'s {{DigitalCredential/data}} attribute to
               |JS object|.
