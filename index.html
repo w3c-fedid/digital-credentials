@@ -1385,21 +1385,6 @@
       </li>
       <li>[=Consume user activation=] of |global|.
       </li>
-      <li>[=List/For each=] |request| of |requests|:
-        <ol>
-          <li>[=serialize a JavaScript value to a JSON string|Serialize=]
-          |request|'s {{DigitalCredentialGetRequest/data}} to a JSON string.
-          </li>
-          <li>If serialization results in an [=exception=], return [=a promise
-          rejected with=] that [=exception=].
-          </li>
-        </ol>
-      </li>
-      <li>If |global| does not have [=transient activation=], return [=a
-      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
-      </li>
-      <li>[=Consume user activation=] of |global|.
-      </li>
       <li>Let |promise| be [=a new promise=] in [=this=]'s [=relevant realm=].
       </li>
       <li>[=credential request coordinator/Prepare credential requests=] with
@@ -1456,21 +1441,6 @@
       </li>
       <li>Let |requests| be |options|'s {{CredentialCreationOptions/digital}}'s
       {{DigitalCredentialCreationOptions/requests}} member.
-      </li>
-      <li>If |global| does not have [=transient activation=], return [=a
-      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
-      </li>
-      <li>[=Consume user activation=] of |global|.
-      </li>
-      <li>[=List/For each=] |request| of |requests|:
-        <ol>
-          <li>[=serialize a JavaScript value to a JSON string|Serialize=]
-          |request|'s {{DigitalCredentialGetRequest/data}} to a JSON string.
-          </li>
-          <li>If serialization results in an [=exception=], return [=a promise
-          rejected with=] that [=exception=].
-          </li>
-        </ol>
       </li>
       <li>If |global| does not have [=transient activation=], return [=a
       promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
