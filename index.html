@@ -214,7 +214,7 @@
         (detectable via the `typeof` check shown above), protocol identifiers
         are added to {{DigitalCredentialProtocol}} progressively as
         [=user agents=] adopt support for them, so calling this method with an
-        unknown protocol identifier safely returns `false` without throwing.
+        unknown protocol identifier safely returns `false` without [exception/throw|throwing=] an [=exception=].
         Note that calling this method on a browser where {{DigitalCredential}}
         is not defined will throw a {{ReferenceError}}, so the
         `typeof DigitalCredential !== "undefined"` guard shown above is still
