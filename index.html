@@ -784,7 +784,27 @@
       <li>Set the [=credential request coordinator=]'s [=credential request
       coordinator/active promise=] to |promise|.
       </li>
-      <li>If |signal| was passed:
+      <li>Let |validatedRequests| be the result of [=credential request
+      coordinator/validate credential requests=] given |requests|. If that
+      [=exception/throws=] an [=exception=] |error|, then:
+        <ol>
+          <li>[=credential request coordinator/Reject the credential request
+          with=] |error| and |promise|.
+          </li>
+          <li>Return.
+          </li>
+        </ol>
+      </li>
+      <li>If |validatedRequests| [=list/is empty=], then:
+        <ol>
+          <li>[=credential request coordinator/Reject the credential request
+          with=] a newly created {{TypeError}} and |promise|.
+          </li>
+          <li>Return.
+          </li>
+        </ol>
+      </li>
+      <li>If |signal| was passed, then:
         <ol>
           <li>Assert: |signal| is not [=AbortSignal/aborted=].
             <p class="note">
@@ -810,37 +830,6 @@
           coordinator/abort algorithm=] to |abortAlgorithm|.
           </li>
           <li>[=AbortSignal/Add=] |abortAlgorithm| to |signal|.
-          </li>
-        </ol>
-      </li>
-      <li>Let |validatedRequests| be the result of [=credential request
-      coordinator/validate credential requests=] given |requests|. If that
-      [=exception/throws=] an [=exception=] |error|:
-        <ol>
-          <li>[=credential request coordinator/Reject the credential request
-          with=] |error| and |promise|.
-          </li>
-          <li>Return.
-          </li>
-        </ol>
-      </li>
-      <li>If |validatedRequests| [=list/is empty=]:
-        <ol>
-          <li>[=credential request coordinator/Reject the credential request
-          with=] a newly created {{TypeError}} and |promise|.
-          </li>
-          <li>Return.
-          </li>
-        </ol>
-      </li>
-      <li>If |signal| was passed and |signal| is [=AbortSignal/aborted=]:
-        <ol>
-          <li>Let |error| be |signal|'s [=AbortSignal/abort reason=].
-          </li>
-          <li>[=credential request coordinator/Reject the credential request
-          with=] |error| and |promise|.
-          </li>
-          <li>Return.
           </li>
         </ol>
       </li>
@@ -881,8 +870,8 @@
           |protocol| does not equal any [=enumeration value=] in
           {{DigitalCredentialIssuanceProtocol}}, [=iteration/continue=].
           </li>
-          <li>If the [=user agent=] does not allow |protocol|,
-          [=iteration/continue=].
+          <li>If [=user agent allows protocol=] given |protocol| returns
+          `false`, [=iteration/continue=].
           </li>
           <li>Let |data| be |request|'s {{DigitalCredentialGetRequest/data}},
           if |request| is a {{DigitalCredentialGetRequest}}, or |request|'s
@@ -1298,8 +1287,8 @@
       underlying platform or provider.
     </p>
     <p>
-      When this method is invoked, the user agent MUST execute the following
-      algorithm:
+      To check whether a <dfn>user agent allows protocol</dfn> given a {{DOMString}}
+      |protocol|, take the following steps:
     </p>
     <ol class="algorithm">
       <li>If |protocol| is not an [=enumeration value=] of
@@ -1309,6 +1298,10 @@
       `false`.
       </li>
     </ol>
+    <p>
+      When this method is invoked, the user agent MUST return the result of
+      [=user agent allows protocol=] given |protocol|.
+    </p>
     <h3>
       Supporting Data Structures
     </h3>
@@ -1442,7 +1435,7 @@
       </li>
       <li>[=Consume user activation=] of |global|.
       </li>
-      <li>Let |promise| be [=a new promise=].
+      <li>Let |promise| be [=a new promise=] in the [=relevant realm=] of [=this=].
       </li>
       <li>[=credential request coordinator/Prepare credential requests=] with
       |document|, |requests|, |promise|, and |signal|.
