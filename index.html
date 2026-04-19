@@ -203,7 +203,16 @@
         be used to check if the user agent allows a specific protocol for
         digital credential issuance or presentation. This is useful for
         checking which protocols are allowed by the user's browsers prior to
-        making an API call.
+        making an API call. On browsers that implement {{DigitalCredential}}
+        (detectable via the `typeof` check shown above), protocol identifiers
+        are added to {{DigitalCredentialProtocol}} progressively as [=user
+        agents=] adopt support for them, so calling this method with an unknown
+        protocol identifier safely returns `false` without
+        [=exception/throw|throwing=] an [=exception=]. Note that calling this
+        method on a browser where {{DigitalCredential}} is not defined will
+        throw a {{ReferenceError}}, so the `typeof DigitalCredential !==
+        "undefined"` guard shown above is still required before using this
+        method.
       </p>
       <pre class="example js" title=
       "Using the userAgentAllowsProtocol() static method">
@@ -230,6 +239,26 @@
           // At least one protocol is supported. Proceed with issuance.
         } else {
           // No protocols are supported. Fall back to a different issuance method.
+        }
+      </pre>
+      <p>
+        Because protocol identifiers are added to {{DigitalCredentialProtocol}}
+        progressively, one can use this method to prefer a newer protocol while
+        gracefully falling back to an older one on legacy browsers:
+      </p>
+      <pre class="example js" title=
+      "Preferring a newer protocol with fallback to an older one">
+        // Ordered by preference; on browsers that implement DigitalCredential,
+        // unknown protocols return false rather than throwing.
+        const protocol = [
+          "example-new-protocol",
+          "example-legacy-protocol",
+        ].find(DigitalCredential.userAgentAllowsProtocol);
+
+        if (protocol) {
+          // Use the best protocol this browser supports.
+        } else {
+          // No supported protocol found. Fall back to another approach.
         }
       </pre>
       <h3>
@@ -798,7 +827,27 @@
       <li>Set the [=credential request coordinator=]'s [=credential request
       coordinator/active promise=] to |promise|.
       </li>
-      <li>If |signal| was passed:
+      <li>Let |validatedRequests| be the result of [=credential request
+      coordinator/validate credential requests=] given |requests|. If that
+      [=exception/throws=] an [=exception=] |error|, then:
+        <ol>
+          <li>[=credential request coordinator/Reject the credential request
+          with=] |error| and |promise|.
+          </li>
+          <li>Return.
+          </li>
+        </ol>
+      </li>
+      <li>If |validatedRequests| [=list/is empty=], then:
+        <ol>
+          <li>[=credential request coordinator/Reject the credential request
+          with=] a newly created {{TypeError}} and |promise|.
+          </li>
+          <li>Return.
+          </li>
+        </ol>
+      </li>
+      <li>If |signal| was passed, then:
         <ol>
           <li>Assert: |signal| is not [=AbortSignal/aborted=].
             <p class="note">
@@ -824,37 +873,6 @@
           coordinator/abort algorithm=] to |abortAlgorithm|.
           </li>
           <li>[=AbortSignal/Add=] |abortAlgorithm| to |signal|.
-          </li>
-        </ol>
-      </li>
-      <li>Let |validatedRequests| be the result of [=credential request
-      coordinator/validate credential requests=] given |requests|. If that
-      [=exception/throws=] an [=exception=] |error|:
-        <ol>
-          <li>[=credential request coordinator/Reject the credential request
-          with=] |error| and |promise|.
-          </li>
-          <li>Return.
-          </li>
-        </ol>
-      </li>
-      <li>If |validatedRequests| [=list/is empty=]:
-        <ol>
-          <li>[=credential request coordinator/Reject the credential request
-          with=] a newly created {{TypeError}} and |promise|.
-          </li>
-          <li>Return.
-          </li>
-        </ol>
-      </li>
-      <li>If |signal| was passed and |signal| is [=AbortSignal/aborted=]:
-        <ol>
-          <li>Let |error| be |signal|'s [=AbortSignal/abort reason=].
-          </li>
-          <li>[=credential request coordinator/Reject the credential request
-          with=] |error| and |promise|.
-          </li>
-          <li>Return.
           </li>
         </ol>
       </li>
@@ -895,8 +913,8 @@
           |protocol| does not equal any [=enumeration value=] in
           {{DigitalCredentialIssuanceProtocol}}, [=iteration/continue=].
           </li>
-          <li>If the [=user agent=] does not allow |protocol|,
-          [=iteration/continue=].
+          <li>If [=user agent allows protocol=] given |protocol| returns
+          `false`, [=iteration/continue=].
           </li>
           <li>Let |data| be |request|'s {{DigitalCredentialGetRequest/data}},
           if |request| is a {{DigitalCredentialGetRequest}}, or |request|'s
@@ -1483,8 +1501,8 @@
       underlying platform or provider.
     </p>
     <p>
-      When this method is invoked, the user agent MUST execute the following
-      algorithm:
+      To check whether a <dfn>user agent allows protocol</dfn> given a
+      {{DOMString}} |protocol|, take the following steps:
     </p>
     <ol class="algorithm">
       <li>If |protocol| is not an [=enumeration value=] of
@@ -1494,6 +1512,10 @@
       `false`.
       </li>
     </ol>
+    <p>
+      When this method is invoked, the user agent MUST return the result of
+      [=user agent allows protocol=] given |protocol|.
+    </p>
     <h3>
       Supporting Data Structures
     </h3>
@@ -1665,7 +1687,8 @@
       </li>
       <li>[=Consume user activation=] of |global|.
       </li>
-      <li>Let |promise| be [=a new promise=].
+      <li>Let |promise| be [=a new promise=] in the [=relevant realm=] of
+      [=this=].
       </li>
       <li>[=credential request coordinator/Prepare credential requests=] with
       |document|, |requests|, |promise|, and |signal|.
