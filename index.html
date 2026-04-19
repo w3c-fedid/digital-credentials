@@ -1556,6 +1556,17 @@
           or {{DigitalCredentialCreateRequest}} before processing.
         </dd>
         <dt>
+          <dfn>API Flooding</dfn>
+        </dt>
+        <dd>
+          An attacker attempts to overwhelm the API by making rapid, repeated
+          requests to exhaust system resources, confuse the user, create
+          unnecessary credential interactions, or cause prompt fatigue that
+          degrades user experience. This includes making requests at
+          inappropriate times, such as during page load or without meaningful
+          user context.
+        </dd>
+        <dt>
           <dfn>Unauthorized Cross-Origin Access</dfn>
         </dt>
         <dd>
@@ -1594,6 +1605,36 @@
         "https://www.w3.org/TR/secure-contexts/#security-considerations">Security
         Considerations</a> section of the [[[secure-contexts]]] specification
         for more information.
+      </p>
+      <p>
+        The Digital Credentials API reduces [=API flooding=] through two
+        mechanisms:
+      </p>
+      <ul>
+        <li>
+          <strong>Transient activation:</strong> Both
+          {{DigitalCredential/[[DiscoverFromExternalSource]](origin, options,
+          sameOriginWithAncestors)}} and {{DigitalCredential/[[Create]](origin,
+          options, sameOriginWithAncestors)}} methods [=Consume user
+          activation=], preventing automated or repeated requests without user
+          interaction.
+        </li>
+        <li>
+          <strong>Always required mediation:</strong> The API makes [=user
+          mediation=] implicitly {{CredentialMediationRequirement/"required"}}
+          (see [[[#the-digitalcredential-interface]]]), ensuring that user
+          permission is obtained through the platform's credential chooser
+          interface for every credential operation.
+        </li>
+      </ul>
+      <p>
+        For additional guidance on preventing abuse of credential requests,
+        please refer to the <a data-cite=
+        "credential-management#privacy-considerations">Privacy
+        Considerations</a> section of the [[[credential-management]]]
+        specification. Note, however, that these protections have limitations,
+        as sites may still employ dark patterns to encourage unnecessary user
+        interactions that trigger credential requests.
       </p>
       <p data-cite="permissions-policy">
         The Digital Credentials API reduces [=Unauthorized Cross-Origin
