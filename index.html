@@ -205,13 +205,14 @@
         checking which protocols are allowed by the user's browsers prior to
         making an API call. On browsers that implement {{DigitalCredential}}
         (detectable via the `typeof` check shown above), protocol identifiers
-        are added to {{DigitalCredentialProtocol}} progressively as
-        [=user agents=] adopt support for them, so calling this method with an
-        unknown protocol identifier safely returns `false` without [=exception/throw|throwing=] an [=exception=].
-        Note that calling this method on a browser where {{DigitalCredential}}
-        is not defined will throw a {{ReferenceError}}, so the
-        `typeof DigitalCredential !== "undefined"` guard shown above is still
-        required before using this method.
+        are added to {{DigitalCredentialProtocol}} progressively as [=user
+        agents=] adopt support for them, so calling this method with an unknown
+        protocol identifier safely returns `false` without
+        [=exception/throw|throwing=] an [=exception=]. Note that calling this
+        method on a browser where {{DigitalCredential}} is not defined will
+        throw a {{ReferenceError}}, so the `typeof DigitalCredential !==
+        "undefined"` guard shown above is still required before using this
+        method.
       </p>
       <pre class="example js" title=
       "Using the userAgentAllowsProtocol() static method">
