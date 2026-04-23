@@ -862,6 +862,11 @@
           </li>
         </ol>
       </li>
+      <li>Let |handled| be the result of running [=handle virtual wallet
+      behavior=] given |promise| and |global|.
+      </li>
+      <li>If |handled| is `true`, return.
+      </li>
       <li>[=credential request coordinator/Present the credential request=]
       with |document|, |validatedRequests|, and |signal|.
       </li>
@@ -1412,11 +1417,6 @@
       <li>[=credential request coordinator/Prepare credential requests=] with
       |document|, |requests|, |promise|, and |signal|.
       </li>
-      <li>Let |handled| be the result of running [=handle virtual wallet
-      behavior=] given |promise| and |global|.
-      </li>
-      <li>If |handled| is `true`, return |promise|.
-      </li>
       <li>Return |promise|.
       </li>
     </ol><!--
@@ -1474,11 +1474,6 @@
       </li>
       <li>[=credential request coordinator/Prepare credential requests=] with
       |document|, |requests|, |promise|, and |signal|.
-      </li>
-      <li>Let |handled| be the result of running [=handle virtual wallet
-      behavior=] given |promise| and |global|.
-      </li>
-      <li>If |handled| is `true`, return |promise|.
       </li>
       <li>Return |promise|.
       </li>
@@ -2528,7 +2523,7 @@
             Types
           </h4>
           <pre class="cddl" data-cddl-module="remote-cddl">
-              digitalCredentials.VirtualWalletAction = "decline" / "respond" / "wait"
+              digitalCredentials.VirtualWalletAction = "decline" / "respond" / "wait" / "clear"
 
               digitalCredentials.SetVirtualWalletBehaviorParameters = {
                 action: digitalCredentials.VirtualWalletAction,
@@ -2537,19 +2532,25 @@
               }
           </pre>
           <p>
-            The {^ digitalCredentials.VirtualWalletAction ^} type represents the
-            different types of virtual wallet actions.
+            The {^ digitalCredentials.VirtualWalletAction ^} type represents
+            the different types of virtual wallet actions.
           </p>
           <ul>
-            <li>{^ digitalCredentials.VirtualWalletAction/"decline" ^}: The virtual wallet simulates a user cancellation
-            or rejection, aborting the request.
+            <li>{^ digitalCredentials.VirtualWalletAction/"decline" ^}: The
+            virtual wallet simulates a user cancellation or rejection, aborting
+            the request.
             </li>
-            <li>{^ digitalCredentials.VirtualWalletAction/"respond" ^}: The virtual wallet simulates a successful user
-            interaction and returns the predefined credential response.
+            <li>{^ digitalCredentials.VirtualWalletAction/"respond" ^}: The
+            virtual wallet simulates a successful user interaction and returns
+            the predefined credential response.
             </li>
-            <li>{^ digitalCredentials.VirtualWalletAction/"wait" ^}: The virtual wallet simulates an active, pending
-            prompt, effectively leaving the active promise unsettled to test
-            timeouts or concurrent request handling.
+            <li>{^ digitalCredentials.VirtualWalletAction/"wait" ^}: The
+            virtual wallet simulates an active, pending prompt, effectively
+            leaving the active promise unsettled to test timeouts or concurrent
+            request handling.
+            </li>
+            <li>{^ digitalCredentials.VirtualWalletAction/"clear" ^}: Clears
+            the active virtual wallet behavior.
             </li>
           </ul>
         </section>
@@ -2610,8 +2611,12 @@
                   </li>
                 </ol>
               </li>
-              <li>Set the [=user agent=]'s <dfn>active virtual wallet
-              behavior</dfn> to a tuple of (|action|, |protocol|, |response|).
+              <li>If |action| is `"clear"`, set the [=WebDriver session=]'s
+              [=active virtual wallet behavior=] to `null`.
+              </li>
+              <li>Else, set the [=WebDriver session=]'s <dfn>active virtual
+              wallet behavior</dfn> to a tuple of (|action|, |protocol|,
+              |response|).
               </li>
               <li>Return [=success=] with data `null`.
               </li>
@@ -2628,11 +2633,13 @@
           |promise| and a global object |global|, run these steps:
         </p>
         <ol class="algorithm">
-          <li>If the [=user agent=]'s [=active virtual wallet behavior=] is
-          `null`, return `false`.
+          <li>If the [=user agent=] is not under automation, return `false`.
           </li>
-          <li>Let (|action|, |protocol|, |response|) be the [=user agent=]'s
-          [=active virtual wallet behavior=].
+          <li>If the current [=WebDriver session=]'s [=active virtual wallet
+          behavior=] is `null`, return `false`.
+          </li>
+          <li>Let (|action|, |protocol|, |response|) be the current [=WebDriver
+          session=]'s [=active virtual wallet behavior=].
           </li>
           <li>If |action| is `"wait"`, return `true`.
           </li>
