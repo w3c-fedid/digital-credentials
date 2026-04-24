@@ -2527,6 +2527,7 @@
 
               digitalCredentials.SetVirtualWalletBehaviorParameters = {
                 action: digitalCredentials.VirtualWalletAction,
+                ? context: text,
                 ? protocol: text,
                 ? response: { * text =&gt; any },
               }
@@ -2585,6 +2586,9 @@
             <ol class="algorithm">
               <li>Let |action| be |command parameters|["`action`"].
               </li>
+              <li>Let |context| be |command parameters|["`context`"], if
+              present, and `null` otherwise.
+              </li>
               <li>Let |protocol| be |command parameters|["`protocol`"], if
               present, and `null` otherwise.
               </li>
@@ -2611,12 +2615,18 @@
                   </li>
                 </ol>
               </li>
-              <li>If |action| is `"clear"`, set the [=WebDriver session=]'s
-              [=active virtual wallet behavior=] to `null`.
+              <li>If |action| is `"clear"`:
+                <ol>
+                  <li>If |context| is not `null`, remove the entry for |context| from the [=WebDriver session=]'s [=active virtual wallet behavior=].</li>
+                  <li>Else, set the [=WebDriver session=]'s [=active virtual wallet behavior=] to `null`.</li>
+                </ol>
               </li>
-              <li>Else, set the [=WebDriver session=]'s <dfn>active virtual
-              wallet behavior</dfn> to a tuple of (|action|, |protocol|,
-              |response|).
+              <li>Else:
+                <ol>
+                  <li>Let |behavior| be a tuple of (|action|, |protocol|, |response|).</li>
+                  <li>If |context| is not `null`, set the [=WebDriver session=]'s <dfn>active virtual wallet behavior</dfn> for the browsing context ID |context| to |behavior|.</li>
+                  <li>Else, set the [=WebDriver session=]'s default [=active virtual wallet behavior=] to |behavior|.</li>
+                </ol>
               </li>
               <li>Return [=success=] with data `null`.
               </li>
@@ -2635,11 +2645,15 @@
         <ol class="algorithm">
           <li>If the [=user agent=] is not under automation, return `false`.
           </li>
-          <li>If the current [=WebDriver session=]'s [=active virtual wallet
-          behavior=] is `null`, return `false`.
+          <li>Let |context ID| be the ID of |global|'s [=browsing context=].
           </li>
-          <li>Let (|action|, |protocol|, |response|) be the current [=WebDriver
-          session=]'s [=active virtual wallet behavior=].
+          <li>Let |behavior| be the current [=WebDriver session=]'s [=active virtual wallet behavior=] for |context ID|.
+          </li>
+          <li>If |behavior| is `null`, set |behavior| to the current [=WebDriver session=]'s default [=active virtual wallet behavior=].
+          </li>
+          <li>If |behavior| is `null`, return `false`.
+          </li>
+          <li>Let (|action|, |protocol|, |response|) be |behavior|.
           </li>
           <li>If |action| is `"wait"`, return `true`.
           </li>
