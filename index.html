@@ -271,7 +271,7 @@
         used to request a [=digital credential=] from the user agent. If the
         user agent supports [=digital credential/presentation
         requests|presentation=], it allows the user to select a digital
-        credential through a [=credential chooser=]:
+        credential through a [=digital credential chooser=]:
       </p>
       <pre class="example html" title="Requesting a digital credential">
         &lt;button&gt;Verify Identity&lt;/button&gt;
@@ -577,6 +577,20 @@
       <dd>
         See [=credential request coordinator=].
       </dd>
+      <dt>
+        <dfn>Digital credential chooser</dfn>
+      </dt>
+      <dd>
+        A platform-provided user interface that presents one or more
+        [=digital credential/credential requests=] to the user, allowing them
+        to select a [=digital credential=] or [=holder=] that can fulfill the
+        request, or cancel the operation.
+        <aside class="note" title="Relationship to credential chooser">
+          The [=digital credential chooser=] may be invoked as part of a
+          broader [=credential chooser=], or as a separate platform-provided
+          user interface. The exact relationship is implementation-defined.
+        </aside>
+      </dd>
     </dl><!--
     // MARK: Protocols
     -->
@@ -863,7 +877,7 @@
         </ol>
       </li>
       <li>[=credential request coordinator/Present the credential request=]
-      with |document|, |validatedRequests|, and |signal|.
+      with |document|, |validatedRequests|, |promise|, and |signal|.
       </li>
       <li>If |document| stops being [=Document/fully active=], [=credential
       request coordinator/abort the credential request=] with an
@@ -973,10 +987,10 @@
           coordinator/interaction state=] to "[=credential request
           coordinator/aborting=]".
           </li>
-          <li>Dismiss the [=credential chooser=].
+          <li>Dismiss the [=digital credential chooser=].
             <p class="note">
-              Dismissal can fail (e.g., if the [=credential chooser=] was
-              destroyed due to memory pressure), but the [=coordinator=]
+              Dismissal can fail (e.g., if the [=digital credential chooser=]
+              was destroyed due to memory pressure), but the [=coordinator=]
               proceeds to complete the credential request regardless.
             </p>
           </li>
@@ -1033,19 +1047,187 @@
           </li>
         </ol>
       </li>
-    </ol>
+    </ol><!--
+    // MARK: Present the credential request
+    -->
     <h3>
       Present the credential request
     </h3>
     <p>
-      <dfn data-dfn-for="credential request coordinator">Present the credential
-      request</dfn> to be written.
+      To <dfn data-dfn-for="credential request coordinator">present the
+      credential request</dfn> given a [=Document=] |document|, a [=list=] of
+      validated credential requests |validatedRequests|, a {{Promise}}
+      |promise:Promise|, and an optional {{AbortSignal}} |signal|:
     </p>
-    <aside class="issue">
-      See <a href=
-      "https://github.com/w3c-fedid/digital-credentials/pull/419">Pull request
-      #419</a>.
-    </aside><!--
+    <ol class="algorithm">
+      <li>Let |topOrigin| be |document|'s [=top-level traversable=]'s
+      [=navigable/active document=]'s [=Document/origin=].
+      </li>
+      <li>Let |documentOrigin| be |document|'s [=Document/origin=].
+      </li>
+      <li>Let |requestData| be a new [=request context=] whose [=request
+      context/requests=] is |validatedRequests|, [=request context/top origin=]
+      is |topOrigin|, and [=request context/document origin=] is
+      |documentOrigin|.
+      </li>
+      <li>Present a [=digital credential chooser=] with |requestData| and wait
+        for the user to do one of the following:
+        <ul>
+          <li>Select a [=digital credential=] or [=holder=] that can fulfill
+            the request.
+          </li>
+          <li>Cancel the operation.
+          </li>
+          <li>Encounter a platform-specific error.
+          </li>
+        </ul>
+        <aside class="issue" data-number="456"></aside>
+      </li>
+      <li>If |signal| is not null and |signal| is [=AbortSignal/aborted=]:
+        <ol>
+          <li>Return.
+            <p class="note" title="Abort already handled">
+              The algorithm [=AbortSignal/add|added=] to |signal| by the
+              [=credential request coordinator/prepare credential requests=]
+              steps handle tearing down the [=digital credential chooser=].
+            </p>
+          </li>
+        </ol>
+      </li>
+      <li>If the user cancels the operation or no credential was selected:
+        <ol>
+          <li>Let |error| be a newly created {{"NotAllowedError"}} {{DOMException}}.
+          </li>
+          <li>[=credential request coordinator/reject the credential request
+          with=] |error| and |promise|.
+          </li>
+          <li>Return.
+          </li>
+        </ol>
+      </li>
+      <li>If the platform returns a platform-specific error:
+        <ol>
+          <li>Let |error| be determined as follows:
+            <dl class="switch">
+              <dt>
+                The user agent or platform does not permit the operation:
+              </dt>
+              <dd>
+                A newly created {{"NotAllowedError"}} {{DOMException}}.
+              </dd>
+              <dt>
+                The request data is malformed or invalid:
+              </dt>
+              <dd>
+                A newly created {{TypeError}}.
+              </dd>
+              <dt>
+                A credential request is already in progress:
+              </dt>
+              <dd>
+                A newly created {{"InvalidStateError"}} {{DOMException}}.
+              </dd>
+              <dt>
+                Otherwise:
+              </dt>
+              <dd>
+                A newly created {{"OperationError"}} {{DOMException}}.
+              </dd>
+            </dl>
+          </li>
+          <li>[=credential request coordinator/reject the credential request
+          with=] |error| and |promise|.
+          </li>
+          <li>Return.
+          </li>
+        </ol>
+      </li>
+      <li>If a [=digital credential=] was selected by the user:
+        <ol>
+          <li>Let |selectedRequest| be the item in |validatedRequests| that was
+          used to invoke the [=holder=] for this exchange.
+          </li>
+          <li>Let |responseData| be a [=string=] [=digital
+          credential/presentation response=] or [=string=] [=digital
+          credential/issuance response=] returned by the [=holder=].
+            <aside class="note" title="Why the response is a string">
+              The response is a string because the user agent is responsible
+              for parsing it into a JavaScript object in the correct realm,
+              verifying it is valid JSON, and confirming the parsed value is an
+              object, as required by the {{DigitalCredential/data}} attribute.
+            </aside>
+          </li>
+          <li>Let |parsedDataOrError| be the result of [=parse a JSON string to
+          a JavaScript value=] passing |responseData|.
+          </li>
+          <li>If |parsedDataOrError| is an [=exception=]:
+            <ol>
+              <li>[=credential request coordinator/reject the credential
+              request with=] |parsedDataOrError| and |promise|.
+              </li>
+              <li>Return.
+              </li>
+            </ol>
+          </li>
+          <li>If |parsedDataOrError| is not an [=object=]:
+            <ol>
+              <li>Let |error| be a newly created {{TypeError}}.
+              </li>
+              <li>[=credential request coordinator/reject the credential
+              request with=] |error| and |promise|.
+              </li>
+              <li>Return.
+              </li>
+            </ol>
+          </li>
+          <li>Let |protocol:DigitalCredentialProtocol| be the [=enumeration
+          value=] of |selectedRequest|'s [=digital credential/protocol
+          identifier=].
+          </li>
+          <li>Let |credential| be a newly created {{DigitalCredential}}
+          instance with its {{DigitalCredential/data}} initialized to
+          |parsedDataOrError| and its {{DigitalCredential/protocol}}
+          initialized to |protocol|.
+          </li>
+          <li>[=Queue a global task=] on the [=DOM manipulation task source=]
+          given |document|'s [=relevant global object=] to perform the
+          following steps:
+            <ol>
+              <li>If the [=credential request coordinator=]'s [=credential
+              request coordinator/active promise=] is not |promise|, then
+              return.
+              </li>
+              <li>Let |abortSignal| be the [=credential request coordinator=]'s
+              [=credential request coordinator/abort signal=].
+              </li>
+              <li>Let |abortAlgorithm| be the [=credential request
+              coordinator=]'s [=credential request coordinator/abort
+              algorithm=].
+              </li>
+              <li>If |abortSignal| is not `null` and |abortAlgorithm| is not
+              `null`, [=AbortSignal/Remove=] |abortAlgorithm| from
+              |abortSignal|.
+              </li>
+              <li>Set the [=credential request coordinator=]'s [=credential
+              request coordinator/abort signal=] to `null`.
+              </li>
+              <li>Set the [=credential request coordinator=]'s [=credential
+              request coordinator/abort algorithm=] to `null`.
+              </li>
+              <li>Set the [=credential request coordinator=] [=credential
+              request coordinator/interaction state=] to "[=credential request
+              coordinator/idle=]".
+              </li>
+              <li>[=Resolve=] |promise| with |credential|.
+              </li>
+              <li>Set the [=credential request coordinator=]'s [=credential
+              request coordinator/active promise=] to `null`.
+              </li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+    </ol><!--
     // MARK: The Digital Credentials API
     -->
     <h2>
@@ -1060,12 +1242,13 @@
     <p>
       The API allows [=digital credential/presentation request|requesting=] a
       [=digital credential=] from the user agent, which in turn presents a
-      [=credential chooser=] to the user, allowing them to select a [=digital
-      credential=] that can fulfill the request. This is done by the website
-      calling the `navigator.credentials.`{{CredentialsContainer/get()}}
-      method, which runs the [=request a `Credential`=] algorithm of
-      [[[credential-management]]]. That algorithm then calls back into this
-      specification's {{DigitalCredential}} interface's
+      [=digital credential chooser=] to the user, allowing them to select a
+      [=digital credential=] that can fulfill the request. This is done by the
+      website calling the
+      `navigator.credentials.`{{CredentialsContainer/get()}} method, which runs
+      the [=request a `Credential`=] algorithm of [[[credential-management]]].
+      That algorithm then calls back into this specification's
+      {{DigitalCredential}} interface's
       {{DigitalCredential/[[DiscoverFromExternalSource]](origin, options,
       sameOriginWithAncestors)}} internal method.
     </p>
@@ -1339,6 +1522,43 @@
       {{DigitalCredential}} in this specification.
     </p>
     <h4>
+      The request context struct
+    </h4>
+    <p>
+      A <dfn>request context</dfn> is a [=struct=] with the following
+      [=struct/items=]:
+    </p>
+    <dl>
+      <dt>
+        <dfn data-dfn-for="request context">requests</dfn>
+      </dt>
+      <dd>
+        A [=list=] of validated [=digital credential/credential requests=].
+      </dd>
+      <dt>
+        <dfn data-dfn-for="request context">top origin</dfn>
+      </dt>
+      <dd>
+        An [=origin=].
+      </dd>
+      <dt>
+        <dfn data-dfn-for="request context">document origin</dfn>
+      </dt>
+      <dd>
+        An [=origin=].
+        <p class="note" title=
+        "Why both origins are included in the request context">
+          The [=request context/document origin=] can differ from the [=request
+          context/top origin=] when the API is called from a cross-origin
+          [^iframe^] (e.g., an embedded verification service). Including both
+          origins allows the [=digital credential chooser=] and [=holder=] to
+          make informed trust decisions about which party is actually
+          requesting the credential, not just which top-level site is hosting
+          the request.
+        </p>
+      </dd>
+    </dl>
+    <h4>
       The {{DigitalCredentialPresentationProtocol}} enumeration
     </h4>
     <p>
@@ -1379,10 +1599,11 @@
       "DigitalCredential">[[\DiscoverFromExternalSource]](origin, options,
       sameOriginWithAncestors)</dfn> internal method, if the user agent doesn't
       support [=digital credential/presentation requests=] (e.g., the platform
-      cannot provide a [=credential chooser=]), call the default implementation
-      of {{Credential}}'s {{Credential/[[DiscoverFromExternalSource]](origin,
-      options, sameOriginWithAncestors)}} internal method with the same
-      arguments. Otherwise:
+      cannot provide a [=digital credential chooser=]), call the default
+      implementation of {{Credential}}'s
+      {{Credential/[[DiscoverFromExternalSource]](origin, options,
+      sameOriginWithAncestors)}} internal method with the same arguments.
+      Otherwise:
     </p>
     <ol class="algorithm">
       <li>Let |signal| be |options|'s {{CredentialRequestOptions/signal}}, if
@@ -1734,8 +1955,8 @@
         </p>
         <p>
           The Digital Credentials API offers the [=user agent=] the ability to
-          intermediate on behalf of the user (e.g. in the form of a
-          [=credential chooser=]) to contextualize requests and <a href=
+          intermediate on behalf of the user (e.g. in the form of a [=digital
+          credential chooser=]) to contextualize requests and <a href=
           "#permission-prior-to-wallet-selection">prevent immediate exposure to
           holder applications</a>. It also enforces certain minimum
           requirements on supported protocols, such as <a href=
