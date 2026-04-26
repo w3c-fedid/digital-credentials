@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"><head>
 <meta charset="utf-8">
-<meta name="generator" content="ReSpec 35.9.0">
+<meta name="generator" content="ReSpec 36.0.0">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <style>
 span.example-title{text-transform:none}
@@ -64,6 +64,7 @@ dfn{cursor:pointer}
 .dfn-panel .marker{padding:.1em;margin-left:.5em;border-radius:.2em;text-align:center;white-space:nowrap;font-size:90%;color:#040b1c}
 .dfn-panel .marker.dfn-exported{background:#d1edfd;box-shadow:0 0 0 .125em #1ca5f940}
 .dfn-panel .marker.idl-block{background:#8ccbf2;box-shadow:0 0 0 .125em #0670b161}
+.dfn-panel .marker.cddl-block{background:#8ccbf2;box-shadow:0 0 0 .125em #0670b161}
 .dfn-panel a:not(:hover){text-decoration:none!important;border-bottom:none!important}
 .dfn-panel a[href]:hover{border-bottom-width:1px}
 .dfn-panel ul{padding:0}
@@ -106,7 +107,7 @@ details.respec-tests-details>li{padding-left:1em}
 .self-link:hover{opacity:1;text-decoration:none;background-color:transparent}
 aside.example .marker>a.self-link{color:inherit}
 .header-wrapper{display:flex;align-items:baseline}
-:is(h2,h3,h4,h5,h6):not(#toc>h2,#abstract>h2,#sotd>h2,.head>h2){position:relative;left:-.5em}
+:is(h2,h3,h4,h5,h6):not(#toc>h2,#abstract>h2,#sotd>h2,.head>h2):has(+a.self-link){position:relative;left:-.5em}
 :is(h2,h3,h4,h5,h6):not(#toch2)+a.self-link{color:inherit;order:-1;position:relative;left:-1.1em;font-size:1rem;opacity:.5}
 :is(h2,h3,h4,h5,h6)+a.self-link::before{content:"§";text-decoration:none;color:var(--heading-text)}
 :is(h2,h3)+a.self-link{top:-.2em}
@@ -117,10 +118,19 @@ dd{margin-left:0}
 @media print{
 .removeOnSave{display:none}
 }
+body:has(input[name=color-scheme][value=light]:checked),head:not(:has(meta[name=color-scheme][content~=dark]))+body{color-scheme:light}
+body:has(input[name=color-scheme][value=dark]:checked){color-scheme:dark}
 </style>
     
   
 <meta name="color-scheme" content="light">
+<style>
+:root{--assertion-border:#aaa;--assertion-bg:#eee;--assertion-text:black}
+.assert{border-left:.5em solid #aaa;padding:.3em;border-color:#aaa;border-color:var(--assertion-border);background:#eee;background:var(--assertion-bg);color:#000;color:var(--assertion-text)}
+@media (prefers-color-scheme:dark){
+:root{--assertion-border:#444;--assertion-bg:var(--borderedblock-bg);--assertion-text:var(--text)}
+}
+</style>
 <style>
 ul.index{columns:30ch;column-gap:1.5em}
 ul.index li{list-style:inherit}
@@ -132,7 +142,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="69c495cc215d961139a5bd0696f70792487e12d8">
+<meta name="revision" content="4c1c0dfa53be5831e6abebbdfaf4e95786aa6c32">
 <meta name="description" content="This document specifies an API enabling user agents to mediate the
         presentation and issuance of digital credentials, such as a
         driver's license, government-issued identification card, or
@@ -140,9 +150,36 @@ ul.index code{color:inherit}
         builds on Credential Management Level 1 and is designed to be agnostic to
         credential formats.">
 <style>
-.hljs{--base:#fafafa;--mono-1:#383a42;--mono-2:#686b77;--mono-3:#717277;--hue-1:#0b76c5;--hue-2:#336ae3;--hue-3:#a626a4;--hue-4:#42803c;--hue-5:#ca4706;--hue-5-2:#c91243;--hue-6:#986801;--hue-6-2:#9a6a01}
+.hljs,body:has(input[name=color-scheme][value=light]:checked) .hljs,head:not(:has(meta[name=color-scheme][content~=dark]))+body .hljs{--base:#fafafa;--mono-1:#383a42;--mono-2:#686b77;--mono-3:#717277;--hue-1:#0b76c5;--hue-2:#336ae3;--hue-3:#a626a4;--hue-4:#42803c;--hue-5:#ca4706;--hue-5-2:#c91243;--hue-6:#986801;--hue-6-2:#9a6a01}
 @media (prefers-color-scheme:dark){
-.hljs{--base:#282c34;--mono-1:#abb2bf;--mono-2:#818896;--mono-3:#5c6370;--hue-1:#56b6c2;--hue-2:#61aeee;--hue-3:#c678dd;--hue-4:#98c379;--hue-5:#e06c75;--hue-5-2:#be5046;--hue-6:#d19a66;--hue-6-2:#e6c07b}
+.hljs{
+  --base: #282c34;
+  --mono-1: #abb2bf;
+  --mono-2: #818896;
+  --mono-3: #5c6370;
+  --hue-1: #56b6c2;
+  --hue-2: #61aeee;
+  --hue-3: #c678dd;
+  --hue-4: #98c379;
+  --hue-5: #e06c75;
+  --hue-5-2: #be5046;
+  --hue-6: #d19a66;
+  --hue-6-2: #e6c07b;
+}
+}
+body:has(input[name=color-scheme][value=dark]:checked) .hljs{
+  --base: #282c34;
+  --mono-1: #abb2bf;
+  --mono-2: #818896;
+  --mono-3: #5c6370;
+  --hue-1: #56b6c2;
+  --hue-2: #61aeee;
+  --hue-3: #c678dd;
+  --hue-4: #98c379;
+  --hue-5: #e06c75;
+  --hue-5-2: #be5046;
+  --hue-6: #d19a66;
+  --hue-6-2: #e6c07b;
 }
 .hljs{display:block;overflow-x:auto;padding:.5em;color:#383a42;color:var(--mono-1,#383a42);background:#fafafa;background:var(--base,#fafafa)}
 .hljs-comment,.hljs-quote{color:#717277;color:var(--mono-3,#717277);font-style:italic}
@@ -175,18 +212,11 @@ var.respec-hl{background:0 0;color:#000;box-shadow:unset}
 }
 </style>
 <style>
-var{position:relative;cursor:pointer}
+var[data-type]{position:relative}
 var[data-type]::after,var[data-type]::before{position:absolute;left:50%;top:-6px;opacity:0;transition:opacity .4s;pointer-events:none}
 var[data-type]::before{content:"";transform:translateX(-50%);border-width:4px 6px 0 6px;border-style:solid;border-color:transparent;border-top-color:#222}
 var[data-type]::after{content:attr(data-type);transform:translateX(-50%) translateY(-100%);background:#222;text-align:center;font-family:"Dank Mono","Fira Code",monospace;font-style:normal;padding:6px;border-radius:3px;color:#daca88;text-indent:0;font-weight:400}
 var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
-</style>
-<style>
-:root{--assertion-border:#aaa;--assertion-bg:#eee;--assertion-text:black}
-.assert{border-left:.5em solid #aaa;padding:.3em;border-color:#aaa;border-color:var(--assertion-border);background:#eee;background:var(--assertion-bg);color:#000;color:var(--assertion-text)}
-@media (prefers-color-scheme:dark){
-:root{--assertion-border:#444;--assertion-bg:var(--borderedblock-bg);--assertion-text:var(--text)}
-}
 </style>
 <script id="initialUserConfig" type="application/json">{
   "github": "https://github.com/w3c-fedid/digital-credentials",
@@ -261,16 +291,16 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "69c495cc215d961139a5bd0696f70792487e12d8",
-  "publishISODate": "2026-04-19T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 19 April 2026"
+  "gitRevision": "4c1c0dfa53be5831e6abebbdfaf4e95786aa6c32",
+  "publishISODate": "2026-04-26T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 26 April 2026"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED"></head>
   <body data-cite="WEBIDL credential-management vc-data-model HTML INFRA URL WEBIDL DOM FETCH" class="h-entry"><div class="head">
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Digital Credentials</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-04-19">19 April 2026</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-04-26">26 April 2026</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -291,7 +321,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         
         
         
-        <dt>Editors:</dt><dd class="editor p-author h-card vcard" data-editor-id="39125">
+        <dt>
+                Editors:
+              </dt><dd class="editor p-author h-card vcard" data-editor-id="39125">
     <span class="p-name fn">Marcos Caceres</span> (<a class="p-org org h-org" href="https://apple.com">Apple Inc.</a>)
   </dd><dd class="editor p-author h-card vcard" data-editor-id="111190">
     <span class="p-name fn">Tim Cappalli</span> (<a class="p-org org h-org" href="https://okta.com">Okta</a>)
@@ -346,8 +378,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <a href="https://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> standards and drafts index</a>.</em></p><p>
     This document was published by the <a href="https://www.w3.org/groups/wg/fedid">Federated Identity Working Group</a> as
     an Editor's Draft. 
-  </p><p>Publication as an Editor's Draft does not
-  imply endorsement by <abbr title="World Wide Web Consortium">W3C</abbr> and its Members. </p><p>
+  </p><p>Publication as
+  an Editor's Draft does not imply endorsement
+  by <abbr title="World Wide Web Consortium">W3C</abbr> and its Members. </p><p>
     This is a draft document and may be updated, replaced, or obsoleted by other
     documents at any time. It is inappropriate to cite this document as other
     than a work in progress.
@@ -898,7 +931,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </section><section id="model"><div class="header-wrapper"><h2 id="x4-model"><bdi class="secno">4. </bdi>
       Model
     </h2><a class="self-link" href="#model" aria-label="Permalink for Section 4."></a></div>
-    <div class="note" role="note" id="issue-container-generatedID"><div role="heading" class="note-title marker" id="h-note" aria-level="2"><span>Note</span><span class="issue-label">: Definitions under discussion</span></div><p class="">
+    <div class="note" role="note" id="issue-container-generatedID"><div class="note-title marker" id="h-note"><span>Note</span><span class="issue-label">: Definitions under discussion</span></div><p class="">
       The goal of the definitions in this section is to reuse or establish
       terminology that is common across a variety of digital credential formats
       and protocols. These definitions are actively evolving.
@@ -921,7 +954,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <dd data-defines="#dfn-digital-credential">
         A cryptographically signed digital document containing one or more
         <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-claims" id="ref-for-index-term-claims-1">claims</a> made by an <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers" id="ref-for-index-term-issuer-1">issuer</a> about one or more <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-subjects" id="ref-for-index-term-subjects-1">subjects</a>.
-        <div class="note" role="note" id="issue-container-generatedID-0"><div role="heading" class="note-title marker" id="h-note-0" aria-level="2"><span>Note</span><span class="issue-label">: Focus on digital credentials about people</span></div><p class="">
+        <div class="note" role="note" id="issue-container-generatedID-0"><div class="note-title marker" id="h-note-0"><span>Note</span><span class="issue-label">: Focus on digital credentials about people</span></div><p class="">
           This specification is currently focused on digital credentials
           pertaining to people.
         </p></div>
@@ -1011,7 +1044,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       Use of the following <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-6">presentation protocols</a> is
       defined by this specification.
     </p>
-    <div class="issue" id="issue-container-number-439"><div role="heading" class="issue-title marker" id="h-issue" aria-level="2"><a href="https://github.com/w3c-fedid/digital-credentials/issues/439"><span class="issue-number">Issue 439</span></a><span class="issue-label">: What protocols should a user agent implement?</span></div><p dir="auto">In <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="3681058329" data-permission-text="Title is private" data-url="https://github.com/w3c-fedid/digital-credentials/issues/401" data-hovercard-type="pull_request" data-hovercard-url="/w3c-fedid/digital-credentials/pull/401/hovercard" href="https://github.com/w3c-fedid/digital-credentials/pull/401">#401</a>, I suggested we add the following:</p>
+    <div class="issue" id="issue-container-number-439"><div class="issue-title marker" id="h-issue"><a href="https://github.com/w3c-fedid/digital-credentials/issues/439"><span class="issue-number">Issue 439</span></a><span class="issue-label">: What protocols should a user agent implement?</span></div><p dir="auto">In <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="3681058329" data-permission-text="Title is private" data-url="https://github.com/w3c-fedid/digital-credentials/issues/401" data-hovercard-type="pull_request" data-hovercard-url="/w3c-fedid/digital-credentials/pull/401/hovercard" href="https://github.com/w3c-fedid/digital-credentials/pull/401">#401</a>, I suggested we add the following:</p>
 <div class="highlight highlight-text-html-basic notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="    &lt;p&gt;
        A [=user agent=] MUST implement at least one of the [=digital credential/exchange protocol=] listed in the [=table of exchange protocols=].
        It is RECOMMENDED that user agent to implement all the [=digital credential/exchange protocols=] listed in the [=table of exchange protocols=]. 
@@ -1103,7 +1136,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           </th>
           <td>
             <cite><a data-matched-text="[[[OPENID4VCI]]]" href="https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html">OpenID for Verifiable Credential Issuance 1.0</a></cite> § Coming Soon
-            <div class="issue" id="issue-container-generatedID-1"><div role="heading" class="issue-title marker" id="h-issue-0" aria-level="2"><span>Issue</span><span class="issue-label">: API Integration</span></div><aside class="">
+            <div class="issue" id="issue-container-generatedID-1"><div class="issue-title marker" id="h-issue-0"><span>Issue</span><span class="issue-label">: API Integration</span></div><aside class="">
               The OpenID Foundation is working on integration with Digital
               Credentials API. You can track progress at <a href="https://github.com/openid/OpenID4VCI/issues/410">OpenID4VCI#410</a>.
             </aside></div>
@@ -1159,7 +1192,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       external wallet applications, platform components, or other trusted
       entities according to user or platform policy.
     </p>
-    <div class="note" role="note" id="issue-container-generatedID-2"><div role="heading" class="note-title marker" id="h-note-1" aria-level="2"><span>Note</span></div><aside class="">
+    <div class="note" role="note" id="issue-container-generatedID-2"><div class="note-title marker" id="h-note-1"><span>Note</span></div><aside class="">
       <p>
         Although the coordinator handles input/output coordination, it is the
         responsibility of the platform together with available <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders" id="ref-for-index-term-holder-10">holders</a>, to
@@ -1224,7 +1257,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           </li>
         </ol>
       </li>
-      <li class="assert"><a href="https://infra.spec.whatwg.org/#assert">Assert</a>: the <a data-link-type="dfn|abstract-op" href="#dfn-credential-request-coordinator" class="internalDFN" id="ref-for-dfn-credential-request-coordinator-9">credential request coordinator</a>'s <a data-link-type="dfn|abstract-op" href="#dfn-active-promise" class="internalDFN" id="ref-for-dfn-active-promise-2">active promise</a> is <code>null</code>.
+      <li class="assert"><a href="https://infra.spec.whatwg.org/#assert" id="ref-for-index-term-assert-1">Assert</a>: the <a data-link-type="dfn|abstract-op" href="#dfn-credential-request-coordinator" class="internalDFN" id="ref-for-dfn-credential-request-coordinator-9">credential request coordinator</a>'s <a data-link-type="dfn|abstract-op" href="#dfn-active-promise" class="internalDFN" id="ref-for-dfn-active-promise-2">active promise</a> is <code>null</code>.
       </li>
       <li>Set the <a data-link-type="dfn|abstract-op" href="#dfn-credential-request-coordinator" class="internalDFN" id="ref-for-dfn-credential-request-coordinator-10">credential request coordinator</a> <a data-link-type="dfn|abstract-op" href="#dfn-interaction-states" class="internalDFN" id="ref-for-dfn-interaction-states-4">interaction state</a> to "<a data-link-type="dfn|abstract-op" href="#dfn-requesting" class="internalDFN" id="ref-for-dfn-requesting-1">requesting</a>".
       </li>
@@ -1249,8 +1282,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       </li>
       <li>If <var data-type="AbortSignal">signal</var> was passed, then:
         <ol>
-          <li class="assert"><a href="https://infra.spec.whatwg.org/#assert">Assert</a>: <var data-type="AbortSignal">signal</var> is not <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortsignal-aborted" id="ref-for-index-term-aborted-for-abortsignal-1">aborted</a>.
-            <div class="note" role="note" id="issue-container-generatedID-3"><div role="heading" class="note-title marker" id="h-note-2" aria-level="2"><span>Note</span></div><p class="">
+          <li class="assert"><a href="https://infra.spec.whatwg.org/#assert" id="ref-for-index-term-assert-2">Assert</a>: <var data-type="AbortSignal">signal</var> is not <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortsignal-aborted" id="ref-for-index-term-aborted-for-abortsignal-1">aborted</a>.
+            <div class="note" role="note" id="issue-container-generatedID-3"><div class="note-title marker" id="h-note-2"><span>Note</span></div><p class="">
               <a data-link-type="dfn" data-lt="aborted" href="https://dom.spec.whatwg.org/#abortsignal-aborted" id="ref-for-index-term-aborted-for-abortsignal-2">Pre-aborted</a> <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortcontroller-signal" id="ref-for-index-term-signals-for-abortcontroller-1">signals</a>
               are handled by <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#abstract-opdef-request-a-credential" id="ref-for-index-term-request-a-credential-1">request a <code>Credential</code></a> and <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#abstract-opdef-create-a-credential" id="ref-for-index-term-create-a-credential-1">create a <code>Credential</code></a> before this algorithm is invoked.
             </p></div>
@@ -1323,7 +1356,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           <var>request</var>'s <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-9">presentation protocol</a> or <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-8">issuance protocol</a> or other criteria. Validation
           requirements are protocol-specific and are outside the scope of this
           specification:
-            <div class="note" role="note" id="issue-container-generatedID-4"><div role="heading" class="note-title marker" id="h-note-3" aria-level="2"><span>Note</span><span class="issue-label">: Validation details outside scope</span></div><aside class="">
+            <div class="note" role="note" id="issue-container-generatedID-4"><div class="note-title marker" id="h-note-3"><span>Note</span><span class="issue-label">: Validation details outside scope</span></div><aside class="">
               <p>
                 Validation includes verifying <var>request</var>'s <a data-link-type="dfn|abstract-op" href="#dfn-presentation-request-data" class="internalDFN" id="ref-for-dfn-presentation-request-data-4">presentation request data</a> or <a data-link-type="dfn|abstract-op" href="#dfn-issuance-request-data" class="internalDFN" id="ref-for-dfn-issuance-request-data-4">issuance request data</a> conforms to the requirements
                 of the specified <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-10">presentation protocol</a>
@@ -1334,7 +1367,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
                 during validation.
               </p>
             </aside></div>
-            <div class="issue" id="issue-container-number-472"><div role="heading" class="issue-title marker" id="h-issue-1" aria-level="2"><a href="https://github.com/w3c-fedid/digital-credentials/issues/472"><span class="issue-number">Issue 472</span></a><span class="issue-label">: User agent request validation and errors</span></div><p dir="auto">The prepare steps originally stated that:</p>
+            <div class="issue" id="issue-container-number-472"><div class="issue-title marker" id="h-issue-1"><a href="https://github.com/w3c-fedid/digital-credentials/issues/472"><span class="issue-number">Issue 472</span></a><span class="issue-label">: User agent request validation and errors</span></div><p dir="auto">The prepare steps originally stated that:</p>
 <blockquote>
 <p dir="auto">In addition to protocol-defined requirements, a [=user agent=] might apply additional validation criteria based on local policy, configuration, or evolving security considerations. For example, a [=user agent=] might reject a request that (a) seeks particular credential attributes, (b) uses or requires cryptographic algorithms the [=user agent=] is configured not to accept (e.g., as part of algorithm agility or a transition to post-quantum schemes), or (c) relies on certificates or trust anchors that are not accepted by the [=user agent=]'s configured trust decisions.</p>
 </blockquote>
@@ -1371,7 +1404,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           <li>Set the <a data-link-type="dfn|abstract-op" href="#dfn-credential-request-coordinator" class="internalDFN" id="ref-for-dfn-credential-request-coordinator-18">credential request coordinator</a> <a data-link-type="dfn|abstract-op" href="#dfn-interaction-states" class="internalDFN" id="ref-for-dfn-interaction-states-6">interaction state</a> to "<a data-link-type="dfn|abstract-op" href="#dfn-aborting" class="internalDFN" id="ref-for-dfn-aborting-1">aborting</a>".
           </li>
           <li>Dismiss the <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-chooser" id="ref-for-index-term-credential-chooser-2">credential chooser</a>.
-            <div class="note" role="note" id="issue-container-generatedID-5"><div role="heading" class="note-title marker" id="h-note-4" aria-level="2"><span>Note</span></div><p class="">
+            <div class="note" role="note" id="issue-container-generatedID-5"><div class="note-title marker" id="h-note-4"><span>Note</span></div><p class="">
               Dismissal can fail (e.g., if the <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-chooser" id="ref-for-index-term-credential-chooser-3">credential chooser</a> was
               destroyed due to memory pressure), but the <a data-link-type="dfn|abstract-op" href="#dfn-credential-request-coordinator" class="internalDFN" id="ref-for-dfn-credential-request-coordinator-19">coordinator</a>
               proceeds to complete the credential request regardless.
@@ -1392,7 +1425,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <a data-link-type="interface" data-lt="Promise" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-index-term-promise-interface-3"><code>Promise</code></a> <var data-type="Promise">promise</var>:
     </p>
     <ol class="algorithm">
-      <li class="assert"><a href="https://infra.spec.whatwg.org/#assert">Assert</a>: the <a data-link-type="dfn|abstract-op" href="#dfn-credential-request-coordinator" class="internalDFN" id="ref-for-dfn-credential-request-coordinator-20">credential request coordinator</a>'s <a data-link-type="dfn|abstract-op" href="#dfn-active-promise" class="internalDFN" id="ref-for-dfn-active-promise-7">active promise</a> is <var data-type="Promise">promise</var>.
+      <li class="assert"><a href="https://infra.spec.whatwg.org/#assert" id="ref-for-index-term-assert-3">Assert</a>: the <a data-link-type="dfn|abstract-op" href="#dfn-credential-request-coordinator" class="internalDFN" id="ref-for-dfn-credential-request-coordinator-20">credential request coordinator</a>'s <a data-link-type="dfn|abstract-op" href="#dfn-active-promise" class="internalDFN" id="ref-for-dfn-active-promise-7">active promise</a> is <var data-type="Promise">promise</var>.
       </li>
       <li><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task" id="ref-for-index-term-queue-a-global-task-2">Queue a global task</a> on the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#dom-manipulation-task-source" id="ref-for-index-term-dom-manipulation-task-source-2">DOM manipulation task source</a> given
       <var data-type="Promise">promise</var>'s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-index-term-relevant-global-object-2">relevant global object</a> to perform the following steps:
@@ -1431,7 +1464,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <dfn data-dfn-for="credential request coordinator" id="dfn-present-the-credential-request" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">Present the credential
       request</dfn> to be written.
     </p>
-    <div class="issue" id="issue-container-generatedID-6"><div role="heading" class="issue-title marker" id="h-issue-2" aria-level="2"><span>Issue</span></div><aside class="">
+    <div class="issue" id="issue-container-generatedID-6"><div class="issue-title marker" id="h-issue-2"><span>Issue</span></div><aside class="">
       See <a href="https://github.com/w3c-fedid/digital-credentials/pull/419">Pull request
       #419</a>.
     </aside></div>
@@ -1645,7 +1678,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       The <a data-link-type="idl" data-lt="userAgentAllowsProtocol()" href="#dom-digitalcredential-useragentallowsprotocol" class="internalDFN" id="ref-for-dom-digitalcredential-useragentallowsprotocol-3"><code>userAgentAllowsProtocol</code></a><code>()</code> method allows digital
       credential <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifier-4">verifiers</a> to determine which <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-16">presentation protocols</a> and <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-15">issuance protocols</a> the user agent allows.
     </p>
-    <div class="note" role="note" id="issue-container-generatedID-7"><div role="heading" class="note-title marker" id="h-note-5" aria-level="2"><span>Note</span></div><p class="">
+    <div class="note" role="note" id="issue-container-generatedID-7"><div class="note-title marker" id="h-note-5"><span>Note</span></div><p class="">
       This method does not convey <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-17">presentation protocol</a>
       or <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-16">issuance protocol</a> support in the underlying
       OS/platform.
@@ -1863,7 +1896,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         specification defines requirements for the user agent's behavior only
         when mediating <a data-link-type="dfn|abstract-op" href="#dfn-credential-response" class="internalDFN" id="ref-for-dfn-credential-response-2">credential responses</a>.
       </p>
-      <div class="note" role="note" id="issue-container-generatedID-8"><div role="heading" class="note-title marker" id="h-note-6" aria-level="3"><span>Note</span></div><p class="">
+      <div class="note" role="note" id="issue-container-generatedID-8"><div class="note-title marker" id="h-note-6"><span>Note</span></div><p class="">
         Other security considerations that depend on protocols, wallet
         implementations, operating systems, or transport security are described
         as expectations or preconditions, but these are not normatively
@@ -1956,7 +1989,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       </h2><a class="self-link" href="#privacy-considerations" aria-label="Permalink for Section 11."></a></div><p><em>This section is non-normative.</em></p>
       
       
-      <div class="issue" id="issue-container-generatedID-9"><div role="heading" class="issue-title marker" id="h-issue-3" aria-level="3"><span>Issue</span><span class="issue-label">: Privacy Considerations section is a work in progress</span></div><div class="">
+      <div class="issue" id="issue-container-generatedID-9"><div class="issue-title marker" id="h-issue-3"><span>Issue</span><span class="issue-label">: Privacy Considerations section is a work in progress</span></div><div class="">
         <p>
           This section is a work in progress as this document evolves.
         </p>
@@ -2041,7 +2074,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           holder applications</a>. It also enforces certain minimum
           requirements on supported protocols, such as <a href="#encrypting-credential-responses">response encryption</a>.
         </p>
-        <div class="note" role="note" id="issue-container-generatedID-10"><div role="heading" class="note-title marker" id="h-note-7" aria-level="4"><span>Note</span></div><aside class="">
+        <div class="note" role="note" id="issue-container-generatedID-10"><div class="note-title marker" id="h-note-7"><span>Note</span></div><aside class="">
           The Digital Credentials API is not intended to inhibit the
           development of other standardized solutions that enhance user
           privacy. For example, an API could be standardized that more strictly
@@ -2094,7 +2127,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         <section id="presentation-protocol-considerations-for-user-privacy"><div class="header-wrapper"><h4 id="x11-3-1-presentation-protocol-considerations-for-user-privacy"><bdi class="secno">11.3.1 </bdi>
           Presentation Protocol Considerations for User Privacy
         </h4><a class="self-link" href="#presentation-protocol-considerations-for-user-privacy" aria-label="Permalink for Section 11.3.1"></a></div>
-        <div class="issue" id="issue-container-number-255"><div role="heading" class="issue-title marker" id="h-issue-4" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/255"><span class="issue-number">Issue 255</span></a><span class="issue-label">: Protocol registry: Reviewing is not sufficient <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22security-tracker%22" style="background-color: rgb(255, 255, 0); color: rgb(0, 0, 0);" aria-label="GitHub label: security-tracker">security-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22registry%22" style="background-color: rgb(52, 215, 156); color: rgb(0, 0, 0);" aria-label="GitHub label: registry">registry</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22security-considerations%22" style="background-color: rgb(255, 255, 0); color: rgb(0, 0, 0);" aria-label="GitHub label: security-considerations">security-considerations</a></span></div><p dir="auto">There are two requirements for protocols that I think need further elaboration:</p>
+        <div class="issue" id="issue-container-number-255"><div class="issue-title marker" id="h-issue-4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/255"><span class="issue-number">Issue 255</span></a><span class="issue-label">: Protocol registry: Reviewing is not sufficient <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22security-tracker%22" style="background-color: rgb(255, 255, 0); color: rgb(0, 0, 0);" aria-label="GitHub label: security-tracker">security-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22registry%22" style="background-color: rgb(52, 215, 156); color: rgb(0, 0, 0);" aria-label="GitHub label: registry">registry</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22security-considerations%22" style="background-color: rgb(255, 255, 0); color: rgb(0, 0, 0);" aria-label="GitHub label: security-considerations">security-considerations</a></span></div><p dir="auto">There are two requirements for protocols that I think need further elaboration:</p>
 <blockquote>
 <p dir="auto">MUST have undergone privacy review [...]</p>
 </blockquote>
@@ -2152,7 +2185,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           wallets. It is recommended that <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-0-18">user agents</a> account for this fact
           in their user permission experience.
         </p>
-        <div class="issue" id="issue-container-number-279"><div role="heading" class="issue-title marker" id="h-issue-5" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/279"><span class="issue-number">Issue 279</span></a><span class="issue-label">: Linkability and issuer involvement as a protocol requirement <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a></span></div><p class="">
+        <div class="issue" id="issue-container-number-279"><div class="issue-title marker" id="h-issue-5"><a href="https://github.com/w3c-fedid/digital-credentials/issues/279"><span class="issue-number">Issue 279</span></a><span class="issue-label">: Linkability and issuer involvement as a protocol requirement <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a></span></div><p class="">
           Which level of unlinkability is the goal for this API? Can we
           normatively enforce support for any particular unlinkability
           features?
@@ -2185,7 +2218,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           digital wallets, and <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifier-14">verifiers</a> to avoid or reduce the dependence
           on "phone home" mechanisms.
         </p>
-        <div class="issue" id="issue-container-number-279-0"><div role="heading" class="issue-title marker" id="h-issue-6" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/279"><span class="issue-number">Issue 279</span></a><span class="issue-label">: Linkability and issuer involvement as a protocol requirement <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a></span></div><p class="">
+        <div class="issue" id="issue-container-number-279-0"><div class="issue-title marker" id="h-issue-6"><a href="https://github.com/w3c-fedid/digital-credentials/issues/279"><span class="issue-number">Issue 279</span></a><span class="issue-label">: Linkability and issuer involvement as a protocol requirement <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a></span></div><p class="">
           Which level of unlinkability is the goal for this API? To what degree
           can the spec mandate restrictions to <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers" id="ref-for-index-term-issuer-13">issuer</a> involvement?
         </p></div>
@@ -2203,7 +2236,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           specification discourages the involvement of <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifier-15">verifiers</a> for the
           purpose of revocation where possible.
         </p>
-        <div class="issue" id="issue-container-number-280"><div role="heading" class="issue-title marker" id="h-issue-7" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/280"><span class="issue-number">Issue 280</span></a><span class="issue-label">: Can we require protocols to support unlinkable revocation? <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22registry%22" style="background-color: rgb(52, 215, 156); color: rgb(0, 0, 0);" aria-label="GitHub label: registry">registry</a></span></div><p class="">
+        <div class="issue" id="issue-container-number-280"><div class="issue-title marker" id="h-issue-7"><a href="https://github.com/w3c-fedid/digital-credentials/issues/280"><span class="issue-number">Issue 280</span></a><span class="issue-label">: Can we require protocols to support unlinkable revocation? <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22registry%22" style="background-color: rgb(52, 215, 156); color: rgb(0, 0, 0);" aria-label="GitHub label: registry">registry</a></span></div><p class="">
           We should discuss whether unlinkable revocation techniques are
           practical enough to be required normatively.
         </p></div>
@@ -2234,7 +2267,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           helpful in preventing API abuse and designing a well-informed user
           permission experience.
         </p>
-        <div class="issue" id="issue-container-number-281"><div role="heading" class="issue-title marker" id="h-issue-8" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/281"><span class="issue-number">Issue 281</span></a><span class="issue-label">: User agents that only support authorized verifiers (for government credentials) <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a></span></div><p class="">
+        <div class="issue" id="issue-container-number-281"><div class="issue-title marker" id="h-issue-8"><a href="https://github.com/w3c-fedid/digital-credentials/issues/281"><span class="issue-number">Issue 281</span></a><span class="issue-label">: User agents that only support authorized verifiers (for government credentials) <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a></span></div><p class="">
           Should we require protocols to include provisions that allow <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-0-23">user agents</a> to understand verifier authorization?
         </p></div>
         </section><section id="encrypting-credential-responses"><div class="header-wrapper"><h5 id="x11-3-1-7-encrypting-credential-responses"><bdi class="secno">11.3.1.7 </bdi>
@@ -2247,7 +2280,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifier-19">verifier</a>, protocols are required to support and mandate encrypted
           responses in a credential exchange.
         </p>
-        <div class="issue" id="issue-container-number-109"><div role="heading" class="issue-title marker" id="h-issue-9" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/109"><span class="issue-number">Issue 109</span></a><span class="issue-label">: Should response encryption be required <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22discussion%22" style="background-color: rgb(75, 158, 238); color: rgb(0, 0, 0);" aria-label="GitHub label: discussion">discussion</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22security-tracker%22" style="background-color: rgb(255, 255, 0); color: rgb(0, 0, 0);" aria-label="GitHub label: security-tracker">security-tracker</a></span></div><p dir="auto">Related to <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2024260424" data-permission-text="Title is private" data-url="https://github.com/w3c-fedid/digital-credentials/issues/49" data-hovercard-type="issue" data-hovercard-url="/w3c-fedid/digital-credentials/issues/49/hovercard" href="https://github.com/w3c-fedid/digital-credentials/issues/49">#49</a> and several other discussions we've had: do we want to say that the response must always be encrypted (and if so, by which algorithms), or are we OK leaving that as optional?</p></div>
+        <div class="issue" id="issue-container-number-109"><div class="issue-title marker" id="h-issue-9"><a href="https://github.com/w3c-fedid/digital-credentials/issues/109"><span class="issue-number">Issue 109</span></a><span class="issue-label">: Should response encryption be required <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22discussion%22" style="background-color: rgb(75, 158, 238); color: rgb(0, 0, 0);" aria-label="GitHub label: discussion">discussion</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22security-tracker%22" style="background-color: rgb(255, 255, 0); color: rgb(0, 0, 0);" aria-label="GitHub label: security-tracker">security-tracker</a></span></div><p dir="auto">Related to <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2024260424" data-permission-text="Title is private" data-url="https://github.com/w3c-fedid/digital-credentials/issues/49" data-hovercard-type="issue" data-hovercard-url="/w3c-fedid/digital-credentials/issues/49/hovercard" href="https://github.com/w3c-fedid/digital-credentials/issues/49">#49</a> and several other discussions we've had: do we want to say that the response must always be encrypted (and if so, by which algorithms), or are we OK leaving that as optional?</p></div>
       </section></section></section>
       <section id="unnecessary-requests-for-credentials"><div class="header-wrapper"><h3 id="x11-4-unnecessary-requests-for-credentials"><bdi class="secno">11.4 </bdi>
           Unnecessary Requests for Credentials
@@ -2525,7 +2558,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           known credential types and reject an exchange request for an unknown
           credential type.
         </p>
-        <div class="issue" id="issue-container-number-100"><div role="heading" class="issue-title marker" id="h-issue-10" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/100"><span class="issue-number">Issue 100</span></a><span class="issue-label">: Consider applying the robustness principle with regard to user agent request validation <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22discussion%22" style="background-color: rgb(75, 158, 238); color: rgb(0, 0, 0);" aria-label="GitHub label: discussion">discussion</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a></span></div><p class="">
+        <div class="issue" id="issue-container-number-100"><div class="issue-title marker" id="h-issue-10"><a href="https://github.com/w3c-fedid/digital-credentials/issues/100"><span class="issue-number">Issue 100</span></a><span class="issue-label">: Consider applying the robustness principle with regard to user agent request validation <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22discussion%22" style="background-color: rgb(75, 158, 238); color: rgb(0, 0, 0);" aria-label="GitHub label: discussion">discussion</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a></span></div><p class="">
           The need to provide users with appropriate transparency conflicts
           with the desire to enable the ecosystem to develop new credential
           formats without explicit <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-0-38">user agent</a> buy-in.
@@ -2533,7 +2566,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         </section><section id="reporting-abuse"><div class="header-wrapper"><h5 id="x11-4-2-4-reporting-abuse"><bdi class="secno">11.4.2.4 </bdi>
           Reporting abuse
         </h5><a class="self-link" href="#reporting-abuse" aria-label="Permalink for Section 11.4.2.4"></a></div>
-        <div class="issue" id="issue-container-number-267"><div role="heading" class="issue-title marker" id="h-issue-11" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/267"><span class="issue-number">Issue 267</span></a><span class="issue-label">: reporting abuse of credential requests <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a></span></div><p class="">
+        <div class="issue" id="issue-container-number-267"><div class="issue-title marker" id="h-issue-11"><a href="https://github.com/w3c-fedid/digital-credentials/issues/267"><span class="issue-number">Issue 267</span></a><span class="issue-label">: reporting abuse of credential requests <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a></span></div><p class="">
           Consider an interoperable abuse reporting system for verifiers making
           unnecessary and abusive requests.
         </p></div>
@@ -2626,7 +2659,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         </h3><a class="self-link" href="#user-permission-and-transparency" aria-label="Permalink for Section 11.6"></a></div>
         
         
-        <div class="issue" id="issue-container-generatedID-11"><div role="heading" class="issue-title marker" id="h-issue-12" aria-level="4"><span>Issue</span><span class="issue-label">: Work in progress</span></div><p class=""></p></div>
+        <div class="issue" id="issue-container-generatedID-11"><div class="issue-title marker" id="h-issue-12"><span>Issue</span><span class="issue-label">: Work in progress</span></div><p class=""></p></div>
         <p>
           The Digital Credentials API enables the sharing of highly personal,
           sensitive, and at-risk user information with websites via
@@ -2663,17 +2696,17 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           that the details listed are fully disclosed to the user before an
           exchange of any user-related information occurs.
         </p>
-        <div class="issue" id="issue-container-number-252"><div role="heading" class="issue-title marker" id="h-issue-13" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/252"><span class="issue-number">Issue 252</span></a><span class="issue-label">: Should we normatively define elements of a permission prompt? <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a></span></div><p class="">
+        <div class="issue" id="issue-container-number-252"><div class="issue-title marker" id="h-issue-13"><a href="https://github.com/w3c-fedid/digital-credentials/issues/252"><span class="issue-number">Issue 252</span></a><span class="issue-label">: Should we normatively define elements of a permission prompt? <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a></span></div><p class="">
           Should these be normative in the spec?
         </p></div>
-        <div class="issue" id="issue-container-number-44"><div role="heading" class="issue-title marker" id="h-issue-14" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/44"><span class="issue-number">Issue 44</span></a><span class="issue-label">: API requests should provide the site with what they need to explain why and how requested credential information will be used <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22enhancement%22" style="background-color: rgb(162, 238, 239); color: rgb(0, 0, 0);" aria-label="GitHub label: enhancement">enhancement</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22dc2-proposal%22" style="background-color: rgb(60, 103, 134); color: rgb(255, 255, 255);" aria-label="GitHub label: dc2-proposal">dc2-proposal</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a></span></div><p class="">
+        <div class="issue" id="issue-container-number-44"><div class="issue-title marker" id="h-issue-14"><a href="https://github.com/w3c-fedid/digital-credentials/issues/44"><span class="issue-number">Issue 44</span></a><span class="issue-label">: API requests should provide the site with what they need to explain why and how requested credential information will be used <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22enhancement%22" style="background-color: rgb(162, 238, 239); color: rgb(0, 0, 0);" aria-label="GitHub label: enhancement">enhancement</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22dc2-proposal%22" style="background-color: rgb(60, 103, 134); color: rgb(255, 255, 255);" aria-label="GitHub label: dc2-proposal">dc2-proposal</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a></span></div><p class="">
           Should the API be designed so the site can provide in-context
           explanations?
         </p></div>
         <section id="handling-multiple-credential-requests"><div class="header-wrapper"><h4 id="x11-6-1-handling-multiple-credential-requests"><bdi class="secno">11.6.1 </bdi>
           Handling multiple credential requests
         </h4><a class="self-link" href="#handling-multiple-credential-requests" aria-label="Permalink for Section 11.6.1"></a></div>
-        <div class="issue" id="issue-container-number-286"><div role="heading" class="issue-title marker" id="h-issue-15" aria-level="4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/286"><span class="issue-number">Issue 286</span></a><span class="issue-label">: Privacy Considerations for multiple presentation requests (and responses) <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a></span></div><p class="">
+        <div class="issue" id="issue-container-number-286"><div class="issue-title marker" id="h-issue-15"><a href="https://github.com/w3c-fedid/digital-credentials/issues/286"><span class="issue-number">Issue 286</span></a><span class="issue-label">: Privacy Considerations for multiple presentation requests (and responses) <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a></span></div><p class="">
           We need to describe concerns, tradeoffs and possible mitigations of
           handling multiple requests and responses for credential presentation.
         </p></div>
@@ -3055,6 +3088,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
   </li><li>
     <span class="index-term" data-href="https://infra.spec.whatwg.org/#ascii-lower-alpha" id="index-term-ascii-lower-alpha" tabindex="0" aria-haspopup="dialog">ASCII lower alpha</span>
   </li><li>
+    <span class="index-term" data-href="https://infra.spec.whatwg.org/#assert" id="index-term-assert" tabindex="0" aria-haspopup="dialog">Assert</span>
+  </li><li>
     <span class="index-term" data-href="https://infra.spec.whatwg.org/#code-point" id="index-term-code-points" tabindex="0" aria-haspopup="dialog">code points</span>
   </li><li>
     <span class="index-term" data-href="https://infra.spec.whatwg.org/#iteration-continue" id="index-term-continue-for-iteration" tabindex="0" aria-haspopup="dialog">continue (for <code>iteration</code>)</span>
@@ -3273,65 +3308,12 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </p>
   
 
-</section><section id="references" class="appendix"><div class="header-wrapper"><h2 id="e-references"><bdi class="secno">E. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix E."></a></div><section id="normative-references"><div class="header-wrapper"><h3 id="e-1-normative-references"><bdi class="secno">E.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix E.1"></a></div>
-    
-    <dl class="bibliography"><dt id="bib-credential-management">[credential-management]</dt><dd>
-      <a href="https://www.w3.org/TR/credential-management-1/"><cite>Credential Management Level 1</cite></a>. Nina Satragno; Marcos Caceres.  W3C. 10 April 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/credential-management-1/">https://www.w3.org/TR/credential-management-1/</a>
-    </dd><dt id="bib-dom">[dom]</dt><dd>
-      <a href="https://dom.spec.whatwg.org/"><cite>DOM Standard</cite></a>. Anne van Kesteren.  WHATWG. Living Standard. URL: <a href="https://dom.spec.whatwg.org/">https://dom.spec.whatwg.org/</a>
-    </dd><dt id="bib-html">[html]</dt><dd>
-      <a href="https://html.spec.whatwg.org/multipage/"><cite>HTML Standard</cite></a>. Anne van Kesteren; Domenic Denicola; Dominic Farolino; Ian Hickson; Philip Jägenstedt; Simon Pieters.  WHATWG. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
-    </dd><dt id="bib-infra">[infra]</dt><dd>
-      <a href="https://infra.spec.whatwg.org/"><cite>Infra Standard</cite></a>. Anne van Kesteren; Domenic Denicola.  WHATWG. Living Standard. URL: <a href="https://infra.spec.whatwg.org/">https://infra.spec.whatwg.org/</a>
-    </dd><dt id="bib-iso18013-7">[ISO18013-7]</dt><dd>
-      <a href="https://www.iso.org/standard/91154.html"><cite>ISO/IEC 18013-7:2025 ISO-compliant driving licence, Part 7: Mobile driving licence (mDL) add-on functions</cite></a>. ISO/IEC JTC 1/SC 17.  International Organization for Standardization. May 2025. URL: <a href="https://www.iso.org/standard/91154.html">https://www.iso.org/standard/91154.html</a>
-    </dd><dt id="bib-openid4vci">[OPENID4VCI]</dt><dd>
-      <a href="https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html"><cite>OpenID for Verifiable Credential Issuance 1.0</cite></a>. Torsten Lodderstedt; Kristina Yasuda; Tobias Looker; Paul Bastian.  OpenID Foundation. 16 September 2025. Final. URL: <a href="https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html">https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html</a>
-    </dd><dt id="bib-openid4vp">[OPENID4VP]</dt><dd>
-      <a href="https://openid.net/specs/openid-4-verifiable-presentations-1_0.html"><cite>OpenID for Verifiable Presentations 1.0</cite></a>. Oliver Terbu; Torsten Lodderstedt; Kristina Yasuda; Daniel Fett; Joseph Heenan.  OpenID Foundation. 9 July 2025. Final. URL: <a href="https://openid.net/specs/openid-4-verifiable-presentations-1_0.html">https://openid.net/specs/openid-4-verifiable-presentations-1_0.html</a>
-    </dd><dt id="bib-permissions">[permissions]</dt><dd>
-      <a href="https://www.w3.org/TR/permissions/"><cite>Permissions</cite></a>. Marcos Caceres; Mike Taylor.  W3C. 6 October 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/permissions/">https://www.w3.org/TR/permissions/</a>
-    </dd><dt id="bib-permissions-policy">[permissions-policy]</dt><dd>
-      <a href="https://www.w3.org/TR/permissions-policy-1/"><cite>Permissions Policy</cite></a>. Ian Clelland.  W3C. 6 October 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/permissions-policy-1/">https://www.w3.org/TR/permissions-policy-1/</a>
-    </dd><dt id="bib-rfc2119">[RFC2119]</dt><dd>
-      <a href="https://www.rfc-editor.org/rfc/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. S. Bradner.  IETF. March 1997. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>
-    </dd><dt id="bib-rfc8174">[RFC8174]</dt><dd>
-      <a href="https://www.rfc-editor.org/rfc/rfc8174"><cite>Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</cite></a>. B. Leiba.  IETF. May 2017. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>
-    </dd><dt id="bib-vc-data-model">[vc-data-model]</dt><dd>
-      <a href="https://www.w3.org/TR/vc-data-model-2.0/"><cite>Verifiable Credentials Data Model v2.0</cite></a>. Ivan Herman; Michael Jones; Manu Sporny; Ted Thibodeau Jr; Gabe Cohen.  W3C. 15 May 2025. W3C Recommendation. URL: <a href="https://www.w3.org/TR/vc-data-model-2.0/">https://www.w3.org/TR/vc-data-model-2.0/</a>
-    </dd><dt id="bib-vc-use-cases">[vc-use-cases]</dt><dd>
-      <a href="https://www.w3.org/TR/vc-use-cases/"><cite>Verifiable Credentials Use Cases</cite></a>. Joe Andrieu; Kevin Dean.  W3C. 18 March 2026. W3C Working Group Note. URL: <a href="https://www.w3.org/TR/vc-use-cases/">https://www.w3.org/TR/vc-use-cases/</a>
-    </dd><dt id="bib-webidl">[webidl]</dt><dd>
-      <a href="https://webidl.spec.whatwg.org/"><cite>Web IDL Standard</cite></a>. Edgar Chen; Timothy Gu.  WHATWG. Living Standard. URL: <a href="https://webidl.spec.whatwg.org/">https://webidl.spec.whatwg.org/</a>
-    </dd></dl>
-  </section><section id="informative-references"><div class="header-wrapper"><h3 id="e-2-informative-references"><bdi class="secno">E.2 </bdi>Informative references</h3><a class="self-link" href="#informative-references" aria-label="Permalink for Appendix E.2"></a></div>
-    
-    <dl class="bibliography"><dt id="bib-credential-considerations">[credential-considerations]</dt><dd>
-      <a href="https://github.com/w3c/credential-considerations/blob/main/credentials-considerations.md"><cite>User considerations for credentials on the Web</cite></a>. Nick Doty; Rick Byers.  W3C. 2025-03-26. URL: <a href="https://github.com/w3c/credential-considerations/blob/main/credentials-considerations.md">https://github.com/w3c/credential-considerations/blob/main/credentials-considerations.md</a>
-    </dd><dt id="bib-custom-schemes">[custom-schemes]</dt><dd>
-      <a href="https://github.com/w3c-fedid/digital-credentials/blob/main/custom-schemes.md"><cite>Concerns with custom schemes for identity presentment</cite></a>. Rick Byers.  W3C. 2024-05-01. URL: <a href="https://github.com/w3c-fedid/digital-credentials/blob/main/custom-schemes.md">https://github.com/w3c-fedid/digital-credentials/blob/main/custom-schemes.md</a>
-    </dd><dt id="bib-design-principles">[design-principles]</dt><dd>
-      <a href="https://www.w3.org/TR/design-principles/"><cite>Web Platform Design Principles</cite></a>. Martin Thomson; Jeffrey Yasskin.  W3C. 24 February 2026. W3C Working Group Note. URL: <a href="https://www.w3.org/TR/design-principles/">https://www.w3.org/TR/design-principles/</a>
-    </dd><dt id="bib-identity-web-impact">[identity-web-impact]</dt><dd>
-      <a href="https://www.w3.org/reports/identity-web-impact"><cite>Identity &amp; the Web</cite></a>. Simone Onofri.  W3C. 2025-02-25. URL: <a href="https://www.w3.org/reports/identity-web-impact">https://www.w3.org/reports/identity-web-impact</a>
-    </dd><dt id="bib-presenting-credentials-on-the-web">[presenting-credentials-on-the-web]</dt><dd>
-      <a href="https://docs.google.com/document/d/1Ppaz_EnhzHqPOz5UusRJvbSunh-RXPWgJ3Np_TM2EE0/"><cite>Presenting Credentials on the Web</cite></a>. Simone Onofri. URL: <a href="https://docs.google.com/document/d/1Ppaz_EnhzHqPOz5UusRJvbSunh-RXPWgJ3Np_TM2EE0/">https://docs.google.com/document/d/1Ppaz_EnhzHqPOz5UusRJvbSunh-RXPWgJ3Np_TM2EE0/</a>
-    </dd><dt id="bib-privacy-principles">[privacy-principles]</dt><dd>
-      <a href="https://www.w3.org/TR/privacy-principles/"><cite>Privacy Principles</cite></a>. Robin Berjon; Jeffrey Yasskin.  W3C. 15 May 2025. STMT. URL: <a href="https://www.w3.org/TR/privacy-principles/">https://www.w3.org/TR/privacy-principles/</a>
-    </dd><dt id="bib-rfc6973">[rfc6973]</dt><dd>
-      <a href="https://www.rfc-editor.org/rfc/rfc6973"><cite>Privacy Considerations for Internet Protocols</cite></a>. A. Cooper; H. Tschofenig; B. Aboba; J. Peterson; J. Morris; M. Hansen; R. Smith.  IETF. July 2013. Informational. URL: <a href="https://www.rfc-editor.org/rfc/rfc6973">https://www.rfc-editor.org/rfc/rfc6973</a>
-    </dd><dt id="bib-secure-contexts">[secure-contexts]</dt><dd>
-      <a href="https://www.w3.org/TR/secure-contexts/"><cite>Secure Contexts</cite></a>. Mike West.  W3C. 10 November 2023. CRD. URL: <a href="https://www.w3.org/TR/secure-contexts/">https://www.w3.org/TR/secure-contexts/</a>
-    </dd><dt id="bib-threat-model-decentralized-credentials">[threat-model-decentralized-credentials]</dt><dd>
-      <a href="https://www.w3.org/TR/threat-model-decentralized-credentials/"><cite>Threat Model for Decentralized Credentials</cite></a>. Simone Onofri; Amir Sharif.  W3C. 20 January 2026. DNOTE. URL: <a href="https://www.w3.org/TR/threat-model-decentralized-credentials/">https://www.w3.org/TR/threat-model-decentralized-credentials/</a>
-    </dd></dl>
-  </section></section><p role="navigation" id="back-to-top">
-    <a href="#title"><abbr title="Back to Top">↑</abbr></a>
-  </p><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-credential-type-examples" aria-label="Links in this document to definition: Examples of these types">
+<div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-credential-type-examples" aria-label="Links in this document to definition: Examples of these types">
       <span class="caret"></span>
       <div>
         <a class="self-link" href="#dfn-credential-type-examples" aria-label="Permalink for definition: Examples of these types. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3344,6 +3326,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-credential-request" aria-label="Permalink for definition: Credential request. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3358,6 +3341,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-credential-response" aria-label="Permalink for definition: Credential response. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3372,6 +3356,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-digital-credential" aria-label="Permalink for definition: Digital credential. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3404,6 +3389,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-issuance-protocol" aria-label="Permalink for definition: Issuance protocol. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3436,6 +3422,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-issuance-request" aria-label="Permalink for definition: Issuance request. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3466,6 +3453,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-issuance-request-data" aria-label="Permalink for definition: Issuance request data. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3488,6 +3476,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-issuance-response" aria-label="Permalink for definition: Issuance response. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3502,6 +3491,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-presentation-protocol" aria-label="Permalink for definition: Presentation protocol. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3538,6 +3528,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-presentation-request" aria-label="Permalink for definition: Presentation request. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3568,6 +3559,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-presentation-request-data" aria-label="Permalink for definition: Presentation request data. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3590,6 +3582,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-presentation-response" aria-label="Permalink for definition: Presentation response. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3604,6 +3597,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-protocol-identifier" aria-label="Permalink for definition: Protocol identifier. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3618,6 +3612,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-table-of-supported-presentation-and-issuance-protocols" aria-label="Permalink for definition: Table of supported presentation and issuance protocols. Activate to close this dialog.">Permalink</a>
         <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3628,6 +3623,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dom-digitalcredentialpresentationprotocol-openid4vp-v1-unsigned" aria-label="Permalink for definition: openid4vp-v1-unsigned. Activate to close this dialog.">Permalink</a>
         <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-1346526641">IDL</a>
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3642,6 +3638,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dom-digitalcredentialpresentationprotocol-openid4vp-v1-signed" aria-label="Permalink for definition: openid4vp-v1-signed. Activate to close this dialog.">Permalink</a>
         <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-1346526641">IDL</a>
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3656,6 +3653,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dom-digitalcredentialpresentationprotocol-openid4vp-v1-multisigned" aria-label="Permalink for definition: openid4vp-v1-multisigned. Activate to close this dialog.">Permalink</a>
         <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-1346526641">IDL</a>
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3670,6 +3668,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dom-digitalcredentialpresentationprotocol-org-iso-mdoc" aria-label="Permalink for definition: org-iso-mdoc. Activate to close this dialog.">Permalink</a>
         <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-1346526641">IDL</a>
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3684,6 +3683,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dom-digitalcredentialissuanceprotocol-openid4vci-v1" aria-label="Permalink for definition: openid4vci-v1. Activate to close this dialog.">Permalink</a>
         <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-1572165639">IDL</a>
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3698,6 +3698,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-credential-request-coordinator" aria-label="Permalink for definition: credential request coordinator. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3720,6 +3721,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-active-promise" aria-label="Permalink for definition: active promise. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3738,6 +3740,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-abort-signal" aria-label="Permalink for definition: abort signal. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3752,6 +3755,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-abort-algorithm" aria-label="Permalink for definition: abort algorithm. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3766,6 +3770,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-interaction-states" aria-label="Permalink for definition: interaction states. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3786,6 +3791,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-idle" aria-label="Permalink for definition: idle. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3802,6 +3808,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-requesting" aria-label="Permalink for definition: requesting. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3816,6 +3823,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-aborting" aria-label="Permalink for definition: aborting. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3828,6 +3836,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-prepare-credential-requests" aria-label="Permalink for definition: prepare credential requests. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3842,6 +3851,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-validate-credential-requests" aria-label="Permalink for definition: validate credential requests. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3854,6 +3864,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-abort-the-credential-request" aria-label="Permalink for definition: abort the credential request. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3866,6 +3877,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-reject-the-credential-request-with" aria-label="Permalink for definition: reject the credential request with. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3880,6 +3892,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-present-the-credential-request" aria-label="Permalink for definition: Present the credential request. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3892,6 +3905,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dom-credentialrequestoptions-digital" aria-label="Permalink for definition: digital. Activate to close this dialog.">Permalink</a>
         <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-1336694341">IDL</a>
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3908,6 +3922,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dom-digitalcredentialrequestoptions" aria-label="Permalink for definition: DigitalCredentialRequestOptions. Activate to close this dialog.">Permalink</a>
         <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3922,6 +3937,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dom-digitalcredentialrequestoptions-requests" aria-label="Permalink for definition: requests. Activate to close this dialog.">Permalink</a>
         <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-1036266394">IDL</a>
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3938,6 +3954,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dom-digitalcredentialgetrequest" aria-label="Permalink for definition: DigitalCredentialGetRequest. Activate to close this dialog.">Permalink</a>
         <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3960,6 +3977,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dom-digitalcredentialgetrequest-protocol" aria-label="Permalink for definition: protocol. Activate to close this dialog.">Permalink</a>
         <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-1753533423">IDL</a>
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3978,6 +3996,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dom-digitalcredentialgetrequest-data" aria-label="Permalink for definition: data. Activate to close this dialog.">Permalink</a>
         <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-1753533423">IDL</a>
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -3994,6 +4013,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dom-credentialcreationoptions-digital" aria-label="Permalink for definition: digital. Activate to close this dialog.">Permalink</a>
         <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-1126267341">IDL</a>
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4010,6 +4030,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dom-digitalcredentialcreationoptions" aria-label="Permalink for definition: DigitalCredentialCreationOptions. Activate to close this dialog.">Permalink</a>
         <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4024,6 +4045,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dom-digitalcredentialcreationoptions-requests" aria-label="Permalink for definition: requests. Activate to close this dialog.">Permalink</a>
         <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-185698318">IDL</a>
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4040,6 +4062,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dom-digitalcredentialcreaterequest" aria-label="Permalink for definition: DigitalCredentialCreateRequest. Activate to close this dialog.">Permalink</a>
         <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4062,6 +4085,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dom-digitalcredentialcreaterequest-protocol" aria-label="Permalink for definition: protocol. Activate to close this dialog.">Permalink</a>
         <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-1732532479">IDL</a>
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4080,6 +4104,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dom-digitalcredentialcreaterequest-data" aria-label="Permalink for definition: data. Activate to close this dialog.">Permalink</a>
         <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-1732532479">IDL</a>
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4096,6 +4121,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dom-digitalcredential" aria-label="Permalink for definition: DigitalCredential. Activate to close this dialog.">Permalink</a>
         <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-245360792">IDL</a>
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4120,6 +4146,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dom-digitalcredentialprotocol" aria-label="Permalink for definition: DigitalCredentialProtocol. Activate to close this dialog.">Permalink</a>
         <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4138,6 +4165,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dom-digitalcredential-protocol" aria-label="Permalink for definition: protocol. Activate to close this dialog.">Permalink</a>
         <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-245360792">IDL</a>
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4152,6 +4180,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dom-digitalcredential-data" aria-label="Permalink for definition: data. Activate to close this dialog.">Permalink</a>
         <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-245360792">IDL</a>
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4166,6 +4195,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dom-digitalcredential-useragentallowsprotocol" aria-label="Permalink for definition: userAgentAllowsProtocol(). Activate to close this dialog.">Permalink</a>
         <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-245360792">IDL</a>
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4186,6 +4216,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-user-agent-allows-protocol" aria-label="Permalink for definition: user agent allows protocol. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4200,6 +4231,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dom-digitalcredentialpresentationprotocol" aria-label="Permalink for definition: DigitalCredentialPresentationProtocol. Activate to close this dialog.">Permalink</a>
         <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4220,6 +4252,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dom-digitalcredentialissuanceprotocol" aria-label="Permalink for definition: DigitalCredentialIssuanceProtocol. Activate to close this dialog.">Permalink</a>
         <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4240,6 +4273,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors" aria-label="Permalink for definition: [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors). Activate to close this dialog.">Permalink</a>
         <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4252,6 +4286,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-store-credential-sameoriginwithancestors" aria-label="Permalink for definition: [[Store]](credential, sameOriginWithAncestors). Activate to close this dialog.">Permalink</a>
         <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4262,6 +4297,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-create-origin-options-sameoriginwithancestors" aria-label="Permalink for definition: [[Create]](origin, options, sameOriginWithAncestors). Activate to close this dialog.">Permalink</a>
         <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4272,6 +4308,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-type" aria-label="Permalink for definition: [[type]]. Activate to close this dialog.">Permalink</a>
         <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4282,6 +4319,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-discovery" aria-label="Permalink for definition: [[discovery]]. Activate to close this dialog.">Permalink</a>
         <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4292,6 +4330,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-digital-credentials-get" aria-label="Permalink for definition: &quot;digital-credentials-get&quot;. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4306,6 +4345,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-digital-credentials-create" aria-label="Permalink for definition: &quot;digital-credentials-create&quot;. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4320,6 +4360,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-in-scope-threats" aria-label="Permalink for definition: In-Scope Threats. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4336,6 +4377,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-request-tampering" aria-label="Permalink for definition: Request Tampering. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4348,6 +4390,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-unauthorized-cross-origin-access" aria-label="Permalink for definition: Unauthorized Cross-Origin Access. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4360,6 +4403,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="#dfn-out-of-scope-threats" aria-label="Permalink for definition: Out-of-scope threats. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4374,6 +4418,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://github.com/w3c/credential-considerations/blob/main/credentials-considerations.md#no-phoning-home" aria-label="Permalink for definition: &quot;Phoning home&quot;. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4386,6 +4431,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://github.com/w3c/credential-considerations/blob/main/credentials-considerations.md#restrictions-of-free-expression" aria-label="Permalink for definition: Exclusion and discrimination. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4398,6 +4444,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://github.com/w3c/credential-considerations/blob/main/credentials-considerations.md#selective-disclosure" aria-label="Permalink for definition: Selective disclosure. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4410,6 +4457,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://github.com/w3c/credential-considerations/blob/main/credentials-considerations.md#unlinkable-presentations" aria-label="Permalink for definition: Unlinkability. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4422,6 +4470,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/credential-management-1/#dom-credential-create-slot" aria-label="Permalink for definition: [[Create]](origin, options, sameOriginWithAncestors) (for Credential). Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4436,6 +4485,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/credential-management-1/#dom-credential-discoverfromexternalsource-slot" aria-label="Permalink for definition: [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) (for Credential). Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4448,6 +4498,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/credential-management-1/#dom-credential-store-slot" aria-label="Permalink for definition: [[Store]](credential, sameOriginWithAncestors) (for Credential). Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4460,6 +4511,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/credential-management-1/#abstract-opdef-create-a-credential" aria-label="Permalink for definition: create a Credential. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4478,6 +4530,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/credential-management-1/#dom-credentialscontainer-create" aria-label="Permalink for definition: create() (for CredentialsContainer). Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4494,6 +4547,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/credential-management-1/#credential" aria-label="Permalink for definition: Credential interface. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4514,6 +4568,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/credential-management-1/#credential-chooser" aria-label="Permalink for definition: credential chooser. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4536,6 +4591,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/credential-management-1/#dictdef-credentialcreationoptions" aria-label="Permalink for definition: CredentialCreationOptions. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4550,6 +4606,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/credential-management-1/#dictdef-credentialrequestoptions" aria-label="Permalink for definition: CredentialRequestOptions. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4564,6 +4621,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/credential-management-1/#credentialscontainer" aria-label="Permalink for definition: CredentialsContainer interface. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4576,6 +4634,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/credential-management-1/#dom-credentialscontainer-get" aria-label="Permalink for definition: get() (for CredentialsContainer). Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4594,6 +4653,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/credential-management-1/#dom-credentialrequestoptions-mediation" aria-label="Permalink for definition: mediation (for CredentialRequestOptions). Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4606,6 +4666,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/credential-management-1/#dom-credentialcreationoptions-mediation" aria-label="Permalink for definition: mediation (for CredentialCreationOptions). Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4618,6 +4679,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/credential-management-1/#credential-origin-bound" aria-label="Permalink for definition: origin bound (for Credential). Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4630,6 +4692,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/credential-management-1/#abstract-opdef-request-a-credential" aria-label="Permalink for definition: request a Credential. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4648,6 +4711,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/credential-management-1/#dom-credentialmediationrequirement-required" aria-label="Permalink for definition: required (for CredentialMediationRequirement). Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4660,6 +4724,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/credential-management-1/#dom-credentialrequestoptions-signal" aria-label="Permalink for definition: signal (for CredentialRequestOptions). Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4672,6 +4737,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/credential-management-1/#dom-credentialcreationoptions-signal" aria-label="Permalink for definition: signal (for CredentialCreationOptions). Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4684,6 +4750,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/credential-management-1/#user-mediated" aria-label="Permalink for definition: user mediation. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4696,6 +4763,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/design-principles/#high-level-low-level" aria-label="Permalink for definition: user agents. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4708,6 +4776,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://dom.spec.whatwg.org/#abortsignal-abort-reason" aria-label="Permalink for definition: abort reason (for AbortSignal). Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4724,6 +4793,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://dom.spec.whatwg.org/#abortsignal-aborted" aria-label="Permalink for definition: aborted (for AbortSignal). Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4740,6 +4810,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://dom.spec.whatwg.org/#abortsignal" aria-label="Permalink for definition: AbortSignal interface. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4754,6 +4825,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://dom.spec.whatwg.org/#abortsignal-add" aria-label="Permalink for definition: Add (for AbortSignal). Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4766,6 +4838,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://dom.spec.whatwg.org/#concept-document" aria-label="Permalink for definition: Document. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4780,6 +4853,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://dom.spec.whatwg.org/#abortsignal-remove" aria-label="Permalink for definition: Remove (for AbortSignal). Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4792,6 +4866,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://dom.spec.whatwg.org/#abortcontroller-signal-abort" aria-label="Permalink for definition: signal abort (for AbortController). Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4804,6 +4879,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://dom.spec.whatwg.org/#abortcontroller-signal" aria-label="Permalink for definition: signals (for AbortController). Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4816,6 +4892,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#concept-document-window" aria-label="Permalink for definition: associated Document. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4830,6 +4907,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://html.spec.whatwg.org/multipage/document-sequences.html#child-navigable" aria-label="Permalink for definition: child navigables. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4842,6 +4920,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation" aria-label="Permalink for definition: Consume user activation. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4856,6 +4935,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://html.spec.whatwg.org/multipage/webappapis.html#dom-manipulation-task-source" aria-label="Permalink for definition: DOM manipulation task source. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4870,6 +4950,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://html.spec.whatwg.org/multipage/document-sequences.html#fully-active" aria-label="Permalink for definition: fully active (for Document). Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4882,6 +4963,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://html.spec.whatwg.org/multipage/interaction.html#fully-active-descendant-of-a-top-level-traversable-with-user-attention" aria-label="Permalink for definition: fully active descendant of a top-level traversable with user attention (for Document). Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4896,6 +4978,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#the-iframe-element" aria-label="Permalink for definition: iframe element. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4908,6 +4991,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task" aria-label="Permalink for definition: Queue a global task. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4922,6 +5006,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" aria-label="Permalink for definition: relevant global object. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4940,6 +5025,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-realm" aria-label="Permalink for definition: relevant realm. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4954,6 +5040,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://html.spec.whatwg.org/multipage/webappapis.html#secure-context" aria-label="Permalink for definition: secure contexts. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4966,6 +5053,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-traversable" aria-label="Permalink for definition: top-level traversable. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4978,6 +5066,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" aria-label="Permalink for definition: transient activation. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -4994,6 +5083,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/reports/identity-web-impact#opportunities-and-threats" aria-label="Permalink for definition: exclusion. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5006,6 +5096,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/reports/identity-web-impact#pure-digital-credentials" aria-label="Permalink for definition: Government-issued digital credentials. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5018,6 +5109,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://infra.spec.whatwg.org/#list-append" aria-label="Permalink for definition: append (for list). Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5030,6 +5122,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://infra.spec.whatwg.org/#ascii-digit" aria-label="Permalink for definition: ASCII digit. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5042,6 +5135,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://infra.spec.whatwg.org/#ascii-lower-alpha" aria-label="Permalink for definition: ASCII lower alpha. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5049,11 +5143,27 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-ascii-lower-alpha-1" title="§ 4. Model">§ 4. Model</a> 
     </li>
   </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-assert" aria-label="Links in this document to definition: Assert">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="https://infra.spec.whatwg.org/#assert" aria-label="Permalink for definition: Assert. Activate to close this dialog.">Permalink</a>
+         
+        
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-index-term-assert-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> <a href="#ref-for-index-term-assert-2" title="Reference 2">(2)</a> 
+    </li><li>
+      <a href="#ref-for-index-term-assert-3" title="§ 6.5 Reject the credential request">§ 6.5 Reject the credential request</a> 
+    </li>
+  </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-code-points" aria-label="Links in this document to definition: code points">
       <span class="caret"></span>
       <div>
         <a class="self-link" href="https://infra.spec.whatwg.org/#code-point" aria-label="Permalink for definition: code points. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5066,6 +5176,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://infra.spec.whatwg.org/#iteration-continue" aria-label="Permalink for definition: continue (for iteration). Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5078,6 +5189,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://infra.spec.whatwg.org/#list-iterate" aria-label="Permalink for definition: For each (for list). Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5090,6 +5202,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://infra.spec.whatwg.org/#list-is-empty" aria-label="Permalink for definition: is empty (for list). Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5102,6 +5215,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://infra.spec.whatwg.org/#list" aria-label="Permalink for definition: list. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5114,6 +5228,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://infra.spec.whatwg.org/#serialize-a-javascript-value-to-a-json-string" aria-label="Permalink for definition: serialize a JavaScript value to a JSON string. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5126,6 +5241,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://infra.spec.whatwg.org/#string" aria-label="Permalink for definition: string. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5138,6 +5254,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://infra.spec.whatwg.org/#user-agent" aria-label="Permalink for definition: user agents. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5194,6 +5311,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://openid.net/specs/openid-4-verifiable-presentations-1_0.html#name-unsigned-request" aria-label="Permalink for definition: A.3.1. Unsigned Request. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5206,6 +5324,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://openid.net/specs/openid-4-verifiable-presentations-1_0.html#name-signed-request" aria-label="Permalink for definition: A.3.2. Signed Request. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5218,6 +5337,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://openid.net/specs/openid-4-verifiable-presentations-1_0.html#name-jws-json-serialization" aria-label="Permalink for definition: A.3.2.2. JWS JSON Serialization. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5230,6 +5350,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/permissions/#dfn-express-permission" aria-label="Permalink for definition: express permission. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5242,6 +5363,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/permissions/#dfn-powerful-feature" aria-label="Permalink for definition: powerful feature. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5254,6 +5376,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/permissions-policy-1/#default-allowlist-self" aria-label="Permalink for definition: 'self' (for default allowlist). Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5266,6 +5389,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/permissions-policy-1/#policy-controlled-feature-default-allowlist" aria-label="Permalink for definition: default allowlists (for policy-controlled feature). Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5278,6 +5402,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/permissions-policy-1/#policy-controlled-feature" aria-label="Permalink for definition: policy-controlled features. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5292,6 +5417,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/permissions-policy-1/#privacy-and-security" aria-label="Permalink for definition: Privacy and Security Considerations. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5304,6 +5430,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/privacy-principles/#data-minimization" aria-label="Permalink for definition: data minimization. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5316,6 +5443,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/privacy-principles/#purpose-limitation" aria-label="Permalink for definition: purpose limitation. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5328,6 +5456,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/privacy-principles/#dfn-user-agent-duties" aria-label="Permalink for definition: user agent duties. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5340,6 +5469,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.rfc-editor.org/rfc/rfc6973#section-5.1.1" aria-label="Permalink for definition: surveillance. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5352,6 +5482,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-claims" aria-label="Permalink for definition: claims. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5364,6 +5495,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders" aria-label="Permalink for definition: holder. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5394,6 +5526,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers" aria-label="Permalink for definition: issuer. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5424,6 +5557,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-subjects" aria-label="Permalink for definition: subjects. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5436,6 +5570,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/vc-data-model-2.0/#privacy-considerations" aria-label="Permalink for definition: VC Data Model Privacy Considerations. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5448,6 +5583,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" aria-label="Permalink for definition: verifier. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5494,6 +5630,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://www.w3.org/TR/vc-data-model-2.0/#zero-knowledge-proofs" aria-label="Permalink for definition: Zero-Knowledge Proofs. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5506,6 +5643,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://webidl.spec.whatwg.org/#a-new-promise" aria-label="Permalink for definition: a new promise. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5520,6 +5658,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" aria-label="Permalink for definition: a promise rejected with. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5534,6 +5673,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://webidl.spec.whatwg.org/#aborterror" aria-label="Permalink for definition: AbortError exception. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5546,6 +5686,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://webidl.spec.whatwg.org/#idl-boolean" aria-label="Permalink for definition: boolean type. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5560,6 +5701,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://webidl.spec.whatwg.org/#Default" aria-label="Permalink for definition: [Default] extended attribute. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5574,6 +5716,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://webidl.spec.whatwg.org/#default-tojson-steps" aria-label="Permalink for definition: default toJSON steps. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5588,6 +5731,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://webidl.spec.whatwg.org/#idl-DOMException" aria-label="Permalink for definition: DOMException interface. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5606,6 +5750,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://webidl.spec.whatwg.org/#idl-DOMString" aria-label="Permalink for definition: DOMString interface. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5626,6 +5771,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://webidl.spec.whatwg.org/#dfn-enumeration-value" aria-label="Permalink for definition: enumeration value. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5640,6 +5786,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://webidl.spec.whatwg.org/#dfn-exception" aria-label="Permalink for definition: exception. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5656,6 +5803,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://webidl.spec.whatwg.org/#Exposed" aria-label="Permalink for definition: [Exposed] extended attribute. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5670,6 +5818,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://webidl.spec.whatwg.org/#dfn-interface-object" aria-label="Permalink for definition: interface object. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5684,6 +5833,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://webidl.spec.whatwg.org/#dfn-interface" aria-label="Permalink for definition: interfaces. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5696,6 +5846,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://webidl.spec.whatwg.org/#notallowederror" aria-label="Permalink for definition: NotAllowedError exception. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5712,6 +5863,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://webidl.spec.whatwg.org/#idl-object" aria-label="Permalink for definition: object type. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5730,6 +5882,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://webidl.spec.whatwg.org/#idl-promise" aria-label="Permalink for definition: Promise interface. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5746,6 +5899,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://webidl.spec.whatwg.org/#exceptiondef-referenceerror" aria-label="Permalink for definition: ReferenceError exception. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5758,6 +5912,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://webidl.spec.whatwg.org/#reject" aria-label="Permalink for definition: rejects. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5774,6 +5929,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://webidl.spec.whatwg.org/#resolve" aria-label="Permalink for definition: resolves. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5786,6 +5942,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://webidl.spec.whatwg.org/#SameObject" aria-label="Permalink for definition: [SameObject] extended attribute. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5800,6 +5957,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://webidl.spec.whatwg.org/#SecureContext" aria-label="Permalink for definition: [SecureContext] extended attribute. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5814,6 +5972,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://webidl.spec.whatwg.org/#idl-sequence" aria-label="Permalink for definition: sequence. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5832,6 +5991,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://webidl.spec.whatwg.org/#this" aria-label="Permalink for definition: this. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5846,6 +6006,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://webidl.spec.whatwg.org/#dfn-throw" aria-label="Permalink for definition: throw (for exception). Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5862,6 +6023,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <div>
         <a class="self-link" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" aria-label="Permalink for definition: TypeError exception. Activate to close this dialog.">Permalink</a>
          
+        
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5869,7 +6031,72 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-typeerror-exception-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> 
     </li>
   </ul>
-    </div><script id="respec-highlight-vars">(() => {
+    </div><script id="respec-copy-paste">
+    document.querySelectorAll(".respec-button-copy-paste").forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        var pre = this.closest("pre");
+        if (!pre) return;
+        var sel = this.dataset.copyHeader;
+        var clone = pre.cloneNode(true);
+        if (sel) { var h = clone.querySelector(sel); if (h) h.remove(); }
+        navigator.clipboard.writeText(clone.textContent);
+      });
+    });
+  </script></section><section id="references" class="appendix"><div class="header-wrapper"><h2 id="e-references"><bdi class="secno">E. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix E."></a></div><section id="normative-references"><div class="header-wrapper"><h3 id="e-1-normative-references"><bdi class="secno">E.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix E.1"></a></div>
+    
+    <dl class="bibliography"><dt id="bib-credential-management">[credential-management]</dt><dd>
+      <a href="https://www.w3.org/TR/credential-management-1/"><cite>Credential Management Level 1</cite></a>. Nina Satragno; Marcos Caceres.  W3C. 10 April 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/credential-management-1/">https://www.w3.org/TR/credential-management-1/</a>
+    </dd><dt id="bib-dom">[dom]</dt><dd>
+      <a href="https://dom.spec.whatwg.org/"><cite>DOM Standard</cite></a>. Anne van Kesteren.  WHATWG. Living Standard. URL: <a href="https://dom.spec.whatwg.org/">https://dom.spec.whatwg.org/</a>
+    </dd><dt id="bib-html">[html]</dt><dd>
+      <a href="https://html.spec.whatwg.org/multipage/"><cite>HTML Standard</cite></a>. Anne van Kesteren; Domenic Denicola; Dominic Farolino; Ian Hickson; Philip Jägenstedt; Simon Pieters.  WHATWG. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
+    </dd><dt id="bib-infra">[INFRA]</dt><dd>
+      <a href="https://infra.spec.whatwg.org/"><cite>Infra Standard</cite></a>. Anne van Kesteren; Domenic Denicola.  WHATWG. Living Standard. URL: <a href="https://infra.spec.whatwg.org/">https://infra.spec.whatwg.org/</a>
+    </dd><dt id="bib-iso18013-7">[ISO18013-7]</dt><dd>
+      <a href="https://www.iso.org/standard/91154.html"><cite>ISO/IEC 18013-7:2025 ISO-compliant driving licence, Part 7: Mobile driving licence (mDL) add-on functions</cite></a>. ISO/IEC JTC 1/SC 17.  International Organization for Standardization. May 2025. URL: <a href="https://www.iso.org/standard/91154.html">https://www.iso.org/standard/91154.html</a>
+    </dd><dt id="bib-openid4vci">[OPENID4VCI]</dt><dd>
+      <a href="https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html"><cite>OpenID for Verifiable Credential Issuance 1.0</cite></a>. Torsten Lodderstedt; Kristina Yasuda; Tobias Looker; Paul Bastian.  OpenID Foundation. 16 September 2025. Final. URL: <a href="https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html">https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html</a>
+    </dd><dt id="bib-openid4vp">[OPENID4VP]</dt><dd>
+      <a href="https://openid.net/specs/openid-4-verifiable-presentations-1_0.html"><cite>OpenID for Verifiable Presentations 1.0</cite></a>. Oliver Terbu; Torsten Lodderstedt; Kristina Yasuda; Daniel Fett; Joseph Heenan.  OpenID Foundation. 9 July 2025. Final. URL: <a href="https://openid.net/specs/openid-4-verifiable-presentations-1_0.html">https://openid.net/specs/openid-4-verifiable-presentations-1_0.html</a>
+    </dd><dt id="bib-permissions">[permissions]</dt><dd>
+      <a href="https://www.w3.org/TR/permissions/"><cite>Permissions</cite></a>. Marcos Caceres; Mike Taylor.  W3C. 6 October 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/permissions/">https://www.w3.org/TR/permissions/</a>
+    </dd><dt id="bib-permissions-policy">[permissions-policy]</dt><dd>
+      <a href="https://www.w3.org/TR/permissions-policy-1/"><cite>Permissions Policy</cite></a>. Ian Clelland.  W3C. 6 October 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/permissions-policy-1/">https://www.w3.org/TR/permissions-policy-1/</a>
+    </dd><dt id="bib-rfc2119">[RFC2119]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. S. Bradner.  IETF. March 1997. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>
+    </dd><dt id="bib-rfc8174">[RFC8174]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc8174"><cite>Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</cite></a>. B. Leiba.  IETF. May 2017. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>
+    </dd><dt id="bib-vc-data-model">[vc-data-model]</dt><dd>
+      <a href="https://www.w3.org/TR/vc-data-model-2.0/"><cite>Verifiable Credentials Data Model v2.0</cite></a>. Ivan Herman; Michael Jones; Manu Sporny; Ted Thibodeau Jr; Gabe Cohen.  W3C. 15 May 2025. W3C Recommendation. URL: <a href="https://www.w3.org/TR/vc-data-model-2.0/">https://www.w3.org/TR/vc-data-model-2.0/</a>
+    </dd><dt id="bib-vc-use-cases">[vc-use-cases]</dt><dd>
+      <a href="https://www.w3.org/TR/vc-use-cases/"><cite>Verifiable Credentials Use Cases</cite></a>. Joe Andrieu; Kevin Dean.  W3C. 18 March 2026. W3C Working Group Note. URL: <a href="https://www.w3.org/TR/vc-use-cases/">https://www.w3.org/TR/vc-use-cases/</a>
+    </dd><dt id="bib-webidl">[webidl]</dt><dd>
+      <a href="https://webidl.spec.whatwg.org/"><cite>Web IDL Standard</cite></a>. Edgar Chen; Timothy Gu.  WHATWG. Living Standard. URL: <a href="https://webidl.spec.whatwg.org/">https://webidl.spec.whatwg.org/</a>
+    </dd></dl>
+  </section><section id="informative-references"><div class="header-wrapper"><h3 id="e-2-informative-references"><bdi class="secno">E.2 </bdi>Informative references</h3><a class="self-link" href="#informative-references" aria-label="Permalink for Appendix E.2"></a></div>
+    
+    <dl class="bibliography"><dt id="bib-credential-considerations">[credential-considerations]</dt><dd>
+      <a href="https://github.com/w3c/credential-considerations/blob/main/credentials-considerations.md"><cite>User considerations for credentials on the Web</cite></a>. Nick Doty; Rick Byers.  W3C. 2025-03-26. URL: <a href="https://github.com/w3c/credential-considerations/blob/main/credentials-considerations.md">https://github.com/w3c/credential-considerations/blob/main/credentials-considerations.md</a>
+    </dd><dt id="bib-custom-schemes">[custom-schemes]</dt><dd>
+      <a href="https://github.com/w3c-fedid/digital-credentials/blob/main/custom-schemes.md"><cite>Concerns with custom schemes for identity presentment</cite></a>. Rick Byers.  W3C. 2024-05-01. URL: <a href="https://github.com/w3c-fedid/digital-credentials/blob/main/custom-schemes.md">https://github.com/w3c-fedid/digital-credentials/blob/main/custom-schemes.md</a>
+    </dd><dt id="bib-design-principles">[design-principles]</dt><dd>
+      <a href="https://www.w3.org/TR/design-principles/"><cite>Web Platform Design Principles</cite></a>. Martin Thomson; Jeffrey Yasskin.  W3C. 24 February 2026. W3C Working Group Note. URL: <a href="https://www.w3.org/TR/design-principles/">https://www.w3.org/TR/design-principles/</a>
+    </dd><dt id="bib-identity-web-impact">[identity-web-impact]</dt><dd>
+      <a href="https://www.w3.org/reports/identity-web-impact"><cite>Identity &amp; the Web</cite></a>. Simone Onofri.  W3C. 2025-02-25. URL: <a href="https://www.w3.org/reports/identity-web-impact">https://www.w3.org/reports/identity-web-impact</a>
+    </dd><dt id="bib-presenting-credentials-on-the-web">[presenting-credentials-on-the-web]</dt><dd>
+      <a href="https://docs.google.com/document/d/1Ppaz_EnhzHqPOz5UusRJvbSunh-RXPWgJ3Np_TM2EE0/"><cite>Presenting Credentials on the Web</cite></a>. Simone Onofri. URL: <a href="https://docs.google.com/document/d/1Ppaz_EnhzHqPOz5UusRJvbSunh-RXPWgJ3Np_TM2EE0/">https://docs.google.com/document/d/1Ppaz_EnhzHqPOz5UusRJvbSunh-RXPWgJ3Np_TM2EE0/</a>
+    </dd><dt id="bib-privacy-principles">[privacy-principles]</dt><dd>
+      <a href="https://www.w3.org/TR/privacy-principles/"><cite>Privacy Principles</cite></a>. Robin Berjon; Jeffrey Yasskin.  W3C. 15 May 2025. STMT. URL: <a href="https://www.w3.org/TR/privacy-principles/">https://www.w3.org/TR/privacy-principles/</a>
+    </dd><dt id="bib-rfc6973">[rfc6973]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc6973"><cite>Privacy Considerations for Internet Protocols</cite></a>. A. Cooper; H. Tschofenig; B. Aboba; J. Peterson; J. Morris; M. Hansen; R. Smith.  IETF. July 2013. Informational. URL: <a href="https://www.rfc-editor.org/rfc/rfc6973">https://www.rfc-editor.org/rfc/rfc6973</a>
+    </dd><dt id="bib-secure-contexts">[secure-contexts]</dt><dd>
+      <a href="https://www.w3.org/TR/secure-contexts/"><cite>Secure Contexts</cite></a>. Mike West.  W3C. 10 November 2023. CRD. URL: <a href="https://www.w3.org/TR/secure-contexts/">https://www.w3.org/TR/secure-contexts/</a>
+    </dd><dt id="bib-threat-model-decentralized-credentials">[threat-model-decentralized-credentials]</dt><dd>
+      <a href="https://www.w3.org/TR/threat-model-decentralized-credentials/"><cite>Threat Model for Decentralized Credentials</cite></a>. Simone Onofri; Amir Sharif.  W3C. 20 January 2026. DNOTE. URL: <a href="https://www.w3.org/TR/threat-model-decentralized-credentials/">https://www.w3.org/TR/threat-model-decentralized-credentials/</a>
+    </dd></dl>
+  </section></section><p role="navigation" id="back-to-top">
+    <a href="#title"><abbr title="Back to Top">↑</abbr></a>
+  </p><script id="respec-highlight-vars">(() => {
 // @ts-check
 
 if (document.respec) {
@@ -5884,9 +6111,12 @@ function setupVarHighlighter() {
     .forEach(varElem => varElem.addEventListener("click", highlightListener));
 }
 
+/**
+ * @param {MouseEvent} ev
+ */
 function highlightListener(ev) {
   ev.stopPropagation();
-  const { target: varElem } = ev;
+  const varElem = /** @type {HTMLElement} */ (ev.target);
   const hightligtedElems = highlightVars(varElem);
   const resetListener = () => {
     const hlColor = getHighlightColor(varElem);
@@ -5909,6 +6139,9 @@ const HL_COLORS = new Map([
   ["respec-hl-c7", true],
 ]);
 
+/**
+ * @param {HTMLElement} target
+ */
 function getHighlightColor(target) {
   // return current colors if applicable
   const { value } = target.classList;
@@ -5920,12 +6153,18 @@ function getHighlightColor(target) {
   if (HL_COLORS.get("respec-hl-c1") === true) return "respec-hl-c1";
 
   // otherwise get some other available color
-  return [...HL_COLORS.keys()].find(c => HL_COLORS.get(c)) || "respec-hl-c1";
+  return HL_COLORS.keys().find(c => HL_COLORS.get(c)) || "respec-hl-c1";
 }
 
+/**
+ * @param {HTMLElement} varElem
+ */
 function highlightVars(varElem) {
   const textContent = norm(varElem.textContent);
-  const parent = varElem.closest(".algorithm, section");
+  const parent = /** @type {HTMLElement} */ (
+    varElem.closest(".algorithm, section")
+  );
+  if (!parent) return [];
   const highlightColor = getHighlightColor(varElem);
 
   const varsToHighlight = [...parent.querySelectorAll("var")].filter(
@@ -5948,12 +6187,20 @@ function highlightVars(varElem) {
   return varsToHighlight;
 }
 
+/**
+ * @param {HTMLElement} el
+ * @param {string} highlightColor
+ */
 function removeHighlight(el, highlightColor) {
   el.classList.remove("respec-hl", highlightColor);
   // clean up empty class attributes so they don't come in export
   if (!el.classList.length) el.removeAttribute("class");
 }
 
+/**
+ * @param {HTMLElement} elem
+ * @param {string} highlightColor
+ */
 function addHighlight(elem, highlightColor) {
   elem.classList.add("respec-hl", highlightColor);
 }
@@ -5981,8 +6228,11 @@ function setupPanel() {
 }
 
 function panelListener() {
-  /** @type {HTMLElement} */
+  /** @type {HTMLElement | null} */
   let panel = null;
+  /**
+   * @param {KeyboardEvent|MouseEvent} event
+   */
   return event => {
     const { target, type } = event;
 
@@ -5990,24 +6240,34 @@ function panelListener() {
 
     // For keys, we only care about Enter key to activate the panel
     // otherwise it's activated via a click.
-    if (type === "keydown" && event.key !== "Enter") return;
+    if (
+      type === "keydown" &&
+      /** @type {KeyboardEvent} */ (event).key !== "Enter"
+    )
+      return;
 
     const action = deriveAction(event);
 
     switch (action) {
       case "show": {
         hidePanel(panel);
-        /** @type {HTMLElement} */
+        /** @type {HTMLElement | null} */
         const dfn = target.closest("dfn, .index-term");
+        if (!dfn?.id) break;
         panel = document.getElementById(`dfn-panel-for-${dfn.id}`);
-        const coords = deriveCoordinates(event);
+        if (!panel) break;
+        const coords = deriveCoordinates(
+          /** @type {MouseEvent|KeyboardEvent} */ (event)
+        );
         displayPanel(dfn, panel, coords);
         break;
       }
       case "dock": {
-        panel.style.left = null;
-        panel.style.top = null;
-        panel.classList.add("docked");
+        if (panel) {
+          panel.style.left = "";
+          panel.style.top = "";
+          panel.classList.add("docked");
+        }
         break;
       }
       case "hide": {
@@ -6058,7 +6318,8 @@ function deriveAction(event) {
     if (hitALink) {
       return target.classList.contains("self-link") ? "hide" : "dock";
     }
-    const panel = target.closest(".dfn-panel");
+
+    const panel = /** @type {HTMLElement} */ (target.closest(".dfn-panel"));
     return panel.classList.contains("docked") ? "hide" : "none";
   }
   if (document.querySelector(".dfn-panel:not([hidden])")) {
@@ -6102,9 +6363,9 @@ function displayPanel(dfn, panel, { x, y }) {
     const newLeft = Math.max(MARGIN, x + MARGIN - panelRect.width);
     const newCaretOffset = left - newLeft;
     panel.style.left = `${newLeft}px`;
-    /** @type {HTMLElement} */
+    /** @type {HTMLElement | null} */
     const caret = panel.querySelector(".caret");
-    caret.style.left = `${newCaretOffset}px`;
+    if (caret) caret.style.left = `${newCaretOffset}px`;
   }
 
   // As it's a dialog, we trap focus.
@@ -6153,6 +6414,9 @@ function trapFocus(panel, dfn) {
 function createTrapListener(anchors, panel, dfn) {
   const lastIndex = anchors.length - 1;
   let currentIndex = 0;
+  /**
+   * @param {KeyboardEvent} event
+   */
   return event => {
     switch (event.key) {
       // Hitting "Tab" traps us in a nice loop around elements.
@@ -6182,7 +6446,7 @@ function createTrapListener(anchors, panel, dfn) {
   };
 }
 
-/** @param {HTMLElement} panel */
+/** @param {HTMLElement | null} panel */
 function hidePanel(panel) {
   if (!panel) return;
   panel.hidden = true;
