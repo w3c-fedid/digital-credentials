@@ -581,9 +581,9 @@
         <dfn>Digital credential chooser</dfn>
       </dt>
       <dd>
-        A user agent-provided user interface that presents one or more
+        A platform-provided user interface that presents one or more
         [=digital credential/credential requests=] to the user, allowing them
-        to select a [=digital credential=] and [=holder=] that can fulfill the
+        to select a [=digital credential=] or [=holder=] that can fulfill the
         request, or cancel the operation.
         <aside class="note" title="Relationship to credential chooser">
           The [=digital credential chooser=] may be invoked as part of a
@@ -1073,12 +1073,10 @@
       <li>Present a [=digital credential chooser=] with |requestData| and wait
         for the user to do one of the following:
         <ul>
-          <li>Select a [=digital credential=] and [=holder=] that can fulfill
+          <li>Select a [=digital credential=] or [=holder=] that can fulfill
             the request.
           </li>
           <li>Cancel the operation.
-          </li>
-          <li>Abort the operation via |signal|.
           </li>
           <li>Encounter a platform-specific error.
           </li>
@@ -1098,7 +1096,7 @@
       </li>
       <li>If the user cancels the operation or no credential was selected:
         <ol>
-          <li>Let |error| be a newly created {{"AbortError"}} {{DOMException}}.
+          <li>Let |error| be a newly created {{"NotAllowedError"}} {{DOMException}}.
           </li>
           <li>[=credential request coordinator/reject the credential request
           with=] |error| and |promise|.
