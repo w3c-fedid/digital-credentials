@@ -1,3 +1,7 @@
+---
+applyTo: "index.html"
+---
+
 # Review Instructions for the Digital Credentials API Specification
 You are reviewing pull requests to a W3C specification.
 Follow the rules in the sections below.
