@@ -862,6 +862,11 @@
           </li>
         </ol>
       </li>
+      <li>Let |handled| be the result of running [=handle virtual wallet
+      behavior=] given |promise| and |global|.
+      </li>
+      <li>If |handled| is `true`, return.
+      </li>
       <li>[=credential request coordinator/Present the credential request=]
       with |document|, |validatedRequests|, and |signal|.
       </li>
@@ -1464,8 +1469,8 @@
       </li>
       <li>[=Consume user activation=] of |global|.
       </li>
-      <li>Let |promise| be [=a new promise=] in the [=relevant realm=] of
-      [=this=].
+      <li>Let |promise| be [=a new promise=].
+
       </li>
       <li>[=credential request coordinator/Prepare credential requests=] with
       |document|, |requests|, |promise|, and |signal|.
@@ -2489,8 +2494,209 @@
         MUST be operable in a device-independent manner.
       </p>
     </section>
+    <section data-cite="webdriver webdriver-bidi">
+      <h2>
+        Automated Testing
+      </h2>
+      <p>
+        For the purposes of user-agent automation and application testing, this
+        document defines extension modules for the [[[webdriver-bidi]]]
+        specification.
+      </p>
+      <p>
+        It is OPTIONAL for a [=user agent=] to support them.
+      </p>
+      <section>
+        <h3>
+          The `digitalCredentials` Module
+        </h3>
+        <p>
+          The `digitalCredentials` module contains commands for managing and
+          simulating the remote end behavior of digital credential wallets
+          during {{DigitalCredential/[[DiscoverFromExternalSource]](origin,
+          options, sameOriginWithAncestors)}} and
+          {{Credential/[[Create]](origin,options, sameOriginWithAncestors)}}
+          calls.
+        </p>
+        <section>
+          <h4>
+            Types
+          </h4>
+          <pre class="cddl" data-cddl-module="remote-cddl">
+              digitalCredentials.VirtualWalletAction = "decline" / "respond" / "wait" / "clear"
+
+              digitalCredentials.SetVirtualWalletBehaviorParameters = {
+                action: digitalCredentials.VirtualWalletAction,
+                ? context: text,
+                ? protocol: text,
+                ? response: { * text =&gt; any },
+              }
+          </pre>
+          <p>
+            The {^ digitalCredentials.VirtualWalletAction ^} type represents
+            the different types of virtual wallet actions.
+          </p>
+          <ul>
+            <li>{^ digitalCredentials.VirtualWalletAction/"decline" ^}: The
+            virtual wallet simulates a user cancellation or rejection, aborting
+            the request.
+            </li>
+            <li>{^ digitalCredentials.VirtualWalletAction/"respond" ^}: The
+            virtual wallet simulates a successful user interaction and returns
+            the predefined credential response.
+            </li>
+            <li>{^ digitalCredentials.VirtualWalletAction/"wait" ^}: The
+            virtual wallet simulates an active, pending prompt, effectively
+            leaving the active promise unsettled to test timeouts or concurrent
+            request handling.
+            </li>
+            <li>{^ digitalCredentials.VirtualWalletAction/"clear" ^}: Clears
+            the active virtual wallet behavior.
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h4>
+            Commands
+          </h4>
+          <section>
+            <h5>
+              The `digitalCredentials.setVirtualWalletBehavior` Command
+            </h5>
+            <p>
+              <strong>Command Type:</strong>
+            </p>
+            <pre class="cddl" data-cddl-module="remote-cddl">
+              digitalCredentials.SetVirtualWalletBehavior = (
+                method: "digitalCredentials.setVirtualWalletBehavior",
+                params: digitalCredentials.SetVirtualWalletBehaviorParameters
+              )
+            </pre>
+            <p>
+              <strong>Return Type:</strong>
+            </p>
+            <pre class="cddl" data-cddl-module="local-cddl">
+              digitalCredentials.SetVirtualWalletBehaviorResult = EmptyResult
+            </pre>
+            <p>
+              The [=remote end steps=] for the
+              `digitalCredentials.setVirtualWalletBehavior` command, given
+              |session| and |command parameters|, are:
+            </p>
+            <ol class="algorithm">
+              <li>Let |action| be |command parameters|["`action`"].
+              </li>
+              <li>Let |context| be |command parameters|["`context`"], if
+              present, and `null` otherwise.
+              </li>
+              <li>Let |protocol| be |command parameters|["`protocol`"], if
+              present, and `null` otherwise.
+              </li>
+              <li>Let |response| be |command parameters|["`response`"], if
+              present, and `null` otherwise.
+              </li>
+              <li>If |action| is `"respond"`:
+                <ol>
+                  <li>If |protocol| is `null` or |response| is `null`, return
+                  an [=error=] with [=error code=] [=invalid argument=].
+                  </li>
+                  <li>[=serialize an Infra value to a JSON string|Serialize=]
+                  |response| to a JSON string.
+                  </li>
+                  <li>If serialization results in an [=exception=], return an
+                  [=error=] with [=error code=] [=invalid argument=].
+                  </li>
+                </ol>
+              </li>
+              <li>Else:
+                <ol>
+                  <li>If |response| is not `null` or |protocol| is not `null`,
+                  return an [=error=] with [=error code=] [=invalid argument=].
+                  </li>
+                </ol>
+              </li>
+              <li>If |action| is `"clear"`:
+                <ol>
+                  <li>If |context| is not `null`, remove the entry for |context| from the [=WebDriver session=]'s [=active virtual wallet behavior=].</li>
+                  <li>Else, set the [=WebDriver session=]'s [=active virtual wallet behavior=] to `null`.</li>
+                </ol>
+              </li>
+              <li>Else:
+                <ol>
+                  <li>Let |behavior| be a tuple of (|action|, |protocol|, |response|).</li>
+                  <li>If |context| is not `null`, set the [=WebDriver session=]'s <dfn>active virtual wallet behavior</dfn> for the browsing context ID |context| to |behavior|.</li>
+                  <li>Else, set the [=WebDriver session=]'s default [=active virtual wallet behavior=] to |behavior|.</li>
+                </ol>
+              </li>
+              <li>Return [=success=] with data `null`.
+              </li>
+            </ol>
+          </section>
+        </section>
+      </section>
+      <section>
+        <h3>
+          Handle Virtual Wallet Behavior
+        </h3>
+        <p>
+          To <dfn>handle virtual wallet behavior</dfn> given a {{Promise}}
+          |promise| and a global object |global|, run these steps:
+        </p>
+        <ol class="algorithm">
+          <li>If the [=user agent=] is not under automation, return `false`.
+          </li>
+          <li>Let |context ID| be the ID of |global|'s [=browsing context=].
+          </li>
+          <li>Let |behavior| be the current [=WebDriver session=]'s [=active virtual wallet behavior=] for |context ID|.
+          </li>
+          <li>If |behavior| is `null`, set |behavior| to the current [=WebDriver session=]'s default [=active virtual wallet behavior=].
+          </li>
+          <li>If |behavior| is `null`, return `false`.
+          </li>
+          <li>Let (|action|, |protocol|, |response|) be |behavior|.
+          </li>
+          <li>If |action| is `"wait"`, return `true`.
+          </li>
+          <li>If |action| is `"decline"`:
+            <ol>
+              <li>[=Reject=] |promise| with a {{"NotAllowedError"}}
+              {{DOMException}}.
+              </li>
+              <li>Return `true`.
+              </li>
+            </ol>
+          </li>
+          <li>If |action| is `"respond"`:
+            <ol>
+              <li>Let |JSON string| be the result of [=serialize an Infra value
+              to a JSON string|serializing=] |response|.
+              </li>
+              <li>Let |JS object| be the result of parsing JSON into a
+              JavaScript value given |JSON string| in |global|'s [=relevant
+              realm=].
+              </li>
+              <li>Let |credential| be a new {{DigitalCredential}} instance.
+              </li>
+              <li>Set |credential|'s {{DigitalCredential/protocol}} attribute
+              to |protocol|.
+              </li>
+              <li>Set |credential|'s {{DigitalCredential/data}} attribute to
+              |JS object|.
+              </li>
+              <li>[=Queue a global task=] on the [=DOM manipulation task
+              source=] given |global| to [=resolve=] |promise| with
+              |credential|.
+              </li>
+              <li>Return `true`.
+              </li>
+            </ol>
+          </li>
+        </ol>
+      </section>
+    </section>
     <section class="prefer-full-spec-title" id="index"></section>
     <section id="idl-index"></section>
+    <section id="cddl-index"></section>
     <section id="conformance"></section>
     <h2 class="appendix">
       Acknowledgements
