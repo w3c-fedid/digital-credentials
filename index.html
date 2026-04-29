@@ -845,7 +845,8 @@
           <li>Set the [=credential request coordinator=]'s [=credential request
           coordinator/abort signal=] to |signal|.
           </li>
-          <li>Let |abortAlgorithm| be the following algorithm:
+          <li>Let |abortAlgorithm| be the following algorithm, closing over
+          |signal|:
             <ol>
               <li>If the [=credential request coordinator=]'s [=credential
               request coordinator/active promise=] is not |promise|, return.
@@ -955,8 +956,7 @@
     </h3>
     <p>
       To <dfn data-dfn-for="credential request coordinator">abort the
-      credential request</dfn> given a JavaScript value or {{DOMException}}
-      |error|:
+      credential request</dfn> given a JavaScript value |error|:
     </p>
     <ol class="algorithm">
       <li>If the [=credential request coordinator=]'s [=credential request
@@ -1072,7 +1072,7 @@
     <p>
       Additionally, the API also allows [=digital credential/Issuance
       request|requesting issuance=] of a [=digital credential=], which
-      initiates an mediated issuance flow between the user agent and/or a
+      initiates a mediated issuance flow between the user agent and/or a
       [=holder=]. This is done by calling the
       `navigator.credentials.`{{CredentialsContainer/create()}} method, which
       runs the [=create a credential=] algorithm of
