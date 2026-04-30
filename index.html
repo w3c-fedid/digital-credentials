@@ -1068,6 +1068,22 @@
       context/requests=] is |validatedRequests| and [=request context/top-level
       origin=] is |topLevelOrigin|.
       </li>
+      <li>The user agent SHOULD independently verify that the request to
+      present the [=digital credential chooser=] was initiated by a
+      user-activated event, using a mechanism that does not solely rely on the
+      [=navigable=] responsible for running the content of the [=top-level
+      traversable=].
+        <aside class="note" title="Defense in depth">
+          In multi-process architectures, the [=consume user activation=] check
+          occurs in the process responsible for running web content (variously
+          called the "content process" or "renderer process"), which could be
+          compromised. By correlating the request with a user interaction event
+          dispatched by a trusted process (e.g., the user agent's own
+          event-handling process), the user agent can provide defense in depth
+          against presenting the [=digital credential chooser=] without a
+          genuine user gesture.
+        </aside>
+      </li>
       <li>[=In parallel=]:
         <ol>
           <li>Display a [=digital credential chooser=] with |requestData| and
