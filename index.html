@@ -686,7 +686,11 @@
           </td>
         </tr>
       </tbody>
-    </table><!--
+    </table>
+    <p>
+      See [[[#security-considerations-for-protocols]]] for the security
+      requirements that protocols listed in this table need to meet.
+    </p><!--
     // MARK: Credential Request Coordinator
     -->
     <h2>
@@ -1753,7 +1757,7 @@
         </dd>
       </dl>
     </section>
-    <section class="informative">
+    <section>
       <!--
       // MARK: Security Considerations
       -->
@@ -1763,15 +1767,13 @@
       <p>
         The sections that follow describe the API's security properties, the
         threats in scope, the assumptions on which security depends, and
-        residual threats that remain after the mitigations are applied. This
-        specification defines requirements for the user agent's behavior only
-        when mediating [=digital credential/credential responses=].
+        residual threats that remain after the mitigations are applied.
       </p>
       <p class="note">
-        Other security considerations that depend on protocols, wallet
-        implementations, operating systems, or transport security are described
-        as expectations or preconditions, but these are not normatively
-        required by this specification unless already normatively specified.
+        Security considerations that depend on wallet implementations,
+        operating systems, or transport security are described as expectations
+        or preconditions, but these are not normatively required by this
+        specification.
       </p>
       <h3>
         Threat Model
@@ -1793,12 +1795,15 @@
       </p>
       <dl>
         <dt>
-          <dfn data-local-lt="tampering">Request Tampering</dfn>
+          <dfn data-local-lt="tampering">Network Tampering</dfn>
         </dt>
         <dd>
-          A network attacker that can inject or modify page content in an
-          insecure context attempts to alter a {{DigitalCredentialGetRequest}}
-          or {{DigitalCredentialCreateRequest}} before processing.
+          An attacker on the network attempts to inject or modify page content
+          to alter a {{DigitalCredentialGetRequest}} or
+          {{DigitalCredentialCreateRequest}} in transit. Transport security
+          (enforced via [=secure contexts=]) mitigates this threat. This is
+          distinct from [=data tampering=], which occurs at the protocol level
+          after message creation.
         </dd>
         <dt>
           <dfn>Unauthorized Cross-Origin Access</dfn>
@@ -1820,12 +1825,23 @@
         security of credential presentation and issuance. The following defines
         the [=out-of-scope threats=] for this specification:
       </p>
-      <ul>
-        <li>To be written...
-        </li>
-      </ul>
+      <dl>
+        <dt>
+          <dfn>Data Tampering</dfn>
+        </dt>
+        <dd>
+          Modification of a [=digital credential/presentation protocol=] or
+          [=digital credential/issuance protocol=] request or response by a
+          [=verifier=], [=issuer=], [=holder=], or other party in the exchange
+          after the message is created. Unlike [=network tampering=], this
+          threat occurs at the protocol level and is not mitigated by transport
+          security alone. This threat is expected to be addressed by the
+          underlying exchange protocol; for example, through signing and
+          validating requests and responses.
+        </dd>
+      </dl>
       <h3>
-        Mitigations
+        Security Considerations for the User Agent
       </h3>
       <p>
         The following mitigations address [=in-scope threats=] through
@@ -1856,6 +1872,43 @@
         Security Considerations</a> section of the [[[permissions-policy]]]
         specification for additional security properties provided by this
         integration.
+      </p>
+      <h3>
+        Security Considerations for Protocols
+      </h3>
+      <p>
+        This specification defines the user agent's mediation behavior, but it
+        does not by itself provide all of the security properties necessary to
+        guarantee the end-to-end security of digital credentials exchanged
+        through the API. Consequently, this specification assumes that
+        protocols intended to be used with this API define the additional
+        security properties, trust relationships, and mitigations needed to
+        protect the request and response beyond the user agent boundary.
+      </p>
+      <p>
+        This API mediates access to digital credentials, including
+        government-issued documents (see [[#abstract]]). Such exchanges involve
+        [=issuers=], [=holders=], and [=verifiers=], each of which may
+        introduce integrity risks that the user agent cannot detect at runtime.
+        The user agent determines whether a protocol is supported (via
+        {{DigitalCredential/userAgentAllowsProtocol()}}), but cannot inspect
+        the cryptographic integrity of individual exchanges. The requirements
+        below address this by gating protocol support on whether the protocol
+        defines adequate integrity mechanisms.
+      </p>
+      <h4>
+        Request and Response Integrity
+      </h4>
+      <p>
+        A user agent MUST NOT support a [=digital credential/presentation
+        protocol=] or [=digital credential/issuance protocol=] unless the
+        protocol defines mechanisms that allow all parties to determine that a
+        request or response has not been modified after creation. In general,
+        this is achieved by signing requests and responses at the protocol
+        level.
+      </p>
+      <p>
+        These mechanisms reduce [=data tampering=] at the protocol level.
       </p>
     </section>
     <section class="informative" data-cite="privacy-principles">
