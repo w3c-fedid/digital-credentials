@@ -128,8 +128,8 @@
       </li>
       <li>Assume opaque (i.e., encrypted) [=digital credential/presentation
       responses=] and [=digital credential/issuance responses=], enabling
-      [=issuers=], [=verifiers=], and [=holders=] to control where potentially sensitive
-      personally identifiable information is exposed.
+      [=issuers=], [=verifiers=], and [=holders=] to control where potentially
+      sensitive personally identifiable information is exposed.
       </li>
       <li>Ensure that all credential interactions are user-mediated, giving
       users control and consent over the [=digital
@@ -371,12 +371,12 @@
       <p>
         The specification allows usage of the API for presenting credentials
         from a remote/third-party origin via the
-        <a>"digital-credentials-get"</a> [=policy-controlled feature=]. This is useful for
-        scenarios where a website wants to request digital credentials from a
-        verification service that is hosted on a different origin. The
-        Permissions Policy can be set on an iframe that embeds the website that
-        wants to use the API. Here is an example of how the Permissions Policy
-        can be set on an iframe:
+        <a>"digital-credentials-get"</a> [=policy-controlled feature=]. This is
+        useful for scenarios where a website wants to request digital
+        credentials from a verification service that is hosted on a different
+        origin. The Permissions Policy can be set on an iframe that embeds the
+        website that wants to use the API. Here is an example of how the
+        Permissions Policy can be set on an iframe:
       </p>
       <pre class="example html" title=
       "Requesting a digital credential across origins">
@@ -390,9 +390,9 @@
       <p>
         Similarly, the specification allows usage of the API for issuing
         credentials from a remote/third-party origin via the
-        <a>"digital-credentials-create"</a> [=policy-controlled feature=]. This is useful
-        for scenarios where a website wants to request issuance of a digital
-        credential using an issuance service on a different origin. The
+        <a>"digital-credentials-create"</a> [=policy-controlled feature=]. This
+        is useful for scenarios where a website wants to request issuance of a
+        digital credential using an issuance service on a different origin. The
         Permissions Policy can be set on an iframe embedding the [=issuer's=]
         interface. Here is an example:
       </p>
@@ -707,11 +707,11 @@
       "credential request coordinator">active promise</dfn>, which the user
       agent initializes as `null`. Through this {{Promise}}, the
       [=coordinator=] reflects the state of the asynchronous [=digital
-      credential/credential request=] workflow to script and either [=resolves=] with a [=digital
-      credential/credential response=] when the interaction completes
-      successfully, or [=rejects=] when processing fails, when the user cancels
-      the request via the UI, or when script aborts the operation via an
-      {{AbortSignal}}.
+      credential/credential request=] workflow to script and either
+      [=resolves=] with a [=digital credential/credential response=] when the
+      interaction completes successfully, or [=rejects=] when processing fails,
+      when the user cancels the request via the UI, or when script aborts the
+      operation via an {{AbortSignal}}.
     </p>
     <p>
       The [=credential request coordinator=] maintains an <dfn data-dfn-for=
@@ -730,10 +730,10 @@
       <li>Validates and transforms presentation or issuance inputs and outputs.
       </li>
       <li>Requests the platform to display, for user selection, the credentials
-      that are available for the current request and/or the [=holders=] that can
-      handle the current request. The availability of credentials and [=holders=]
-      is determined by matching the request parameters, user consent, and
-      platform policy.
+      that are available for the current request and/or the [=holders=] that
+      can handle the current request. The availability of credentials and
+      [=holders=] is determined by matching the request parameters, user
+      consent, and platform policy.
       </li>
       <li>Manages [=resolve|resolution=] or [=reject|rejection=] of the
       [=credential request coordinator/active promise=] based on the
@@ -773,8 +773,8 @@
         "<dfn data-dfn-for="credential request coordinator">requesting</dfn>":
       </dt>
       <dd>
-        A [=digital credential/credential request=] is in progress and the user interface is
-        presented.
+        A [=digital credential/credential request=] is in progress and the user
+        interface is presented.
       </dd>
       <dt>
         "<dfn data-dfn-for="credential request coordinator">aborting</dfn>":
@@ -1397,8 +1397,8 @@
       The {{DigitalCredentialCreateRequest}} dictionary represents an [=digital
       credential/issuance request=]. It is used to specify an [=digital
       credential/issuance protocol=] and some [=digital credential/issuance
-      request data=], to communicate the issuance request between the [=issuer=]
-      and the [=holder=].
+      request data=], to communicate the issuance request between the
+      [=issuer=] and the [=holder=].
     </p>
     <pre class="idl">
     dictionary DigitalCredentialCreateRequest {
@@ -2339,8 +2339,8 @@
           purposes those credentials are able to be used. All parties involved
           in the exchange, whether they are legally obliged to do so or not,
           are advised to support any government [=verifier=] authentication
-          schemes, if they exist. The support for (and integration of) [=verifier=]
-          authentication schemes such as <a href=
+          schemes, if they exist. The support for (and integration of)
+          [=verifier=] authentication schemes such as <a href=
           "https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/blob/main/docs/annexes/annex-2/annex-2-high-level-requirements.md#a2327-topic-27---registration-of-pid-providers-providers-of-qeaas-pub-eaas-and-non-qualified-eaas-and-relying-parties">
           EUDI access and registration certificates</a> can mitigate risks of
           proliferation of unnecessary credential requests. However, the
@@ -2462,8 +2462,8 @@
           Reporting abuse
         </h5>
         <p class="issue" data-number="267">
-          Consider an interoperable abuse reporting system for [=verifiers=] making
-          unnecessary and abusive requests.
+          Consider an interoperable abuse reporting system for [=verifiers=]
+          making unnecessary and abusive requests.
         </p>
       </section>
       <section>
