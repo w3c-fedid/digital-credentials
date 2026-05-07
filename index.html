@@ -2816,6 +2816,10 @@
                   <li>If |protocol| is `null` or |response| is `null`, return
                   an [=error=] with [=error code=] [=invalid argument=].
                   </li>
+                  <li>If |protocol| is not an [=enumeration value=] of
+                  {{DigitalCredentialProtocol}}, return an [=error=] with
+                  [=error code=] [=invalid argument=].
+                  </li>
                   <li>[=serialize an Infra value to a JSON string|Serialize=]
                   |response| to a JSON string.
                   </li>
@@ -2922,6 +2926,17 @@
             </ol>
           </li>
         </ol>
+        <p class="note">
+          When the [=WebDriver session=] ends, the [=user agent=] MUST
+          [=reject=] any unsettled {{Promise}} objects that were left pending
+          by the `"wait"` action with an {{"AbortError"}} {{DOMException}}.
+        </p>
+        <p class="note">
+          If a new credential request arrives for a [=browsing context=] while
+          a previous request is pending due to the `"wait"` action, the [=user
+          agent=] MUST [=reject=] the previous request's {{Promise}} with an
+          {{"AbortError"}} {{DOMException}} before handling the new request.
+        </p>
       </section>
     </section>
     <section class="prefer-full-spec-title" id="index"></section>
