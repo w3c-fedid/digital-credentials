@@ -146,7 +146,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="2c0af477533c5700511e567224d68ecfb413803a">
+<meta name="revision" content="9e4579cfa11e0009b3f41aedf5bccbc6bd39aa15">
 <meta name="description" content="This document specifies an API enabling user agents to mediate the
         presentation and issuance of digital credentials, such as a
         driver's license, government-issued identification card, or
@@ -295,16 +295,16 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "2c0af477533c5700511e567224d68ecfb413803a",
-  "publishISODate": "2026-05-04T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 04 May 2026"
+  "gitRevision": "9e4579cfa11e0009b3f41aedf5bccbc6bd39aa15",
+  "publishISODate": "2026-05-07T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 07 May 2026"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED"></head>
   <body data-cite="WEBIDL credential-management permissions-policy vc-data-model HTML INFRA URL WEBIDL DOM FETCH" class="h-entry"><div class="head">
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Digital Credentials</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-05-04">04 May 2026</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-05-07">07 May 2026</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -2134,6 +2134,17 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           or <a data-link-type="idl" data-lt="DigitalCredentialCreateRequest" href="#dom-digitalcredentialcreaterequest" class="internalDFN" id="ref-for-dom-digitalcredentialcreaterequest-8"><code>DigitalCredentialCreateRequest</code></a> before processing.
         </dd>
         <dt>
+          <dfn id="dfn-api-flooding" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">API Flooding</dfn>
+        </dt>
+        <dd>
+          A malicious website attempts to overwhelm the API by making rapid,
+          repeated requests to exhaust system resources, confuse the user,
+          create unnecessary credential interactions, or cause prompt fatigue
+          that degrades user experience. This includes making requests at
+          inappropriate times, such as during page load or without meaningful
+          user context.
+        </dd>
+        <dt>
           <dfn id="dfn-unauthorized-cross-origin-access" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">Unauthorized Cross-Origin Access</dfn>
         </dt>
         <dd>
@@ -2171,6 +2182,32 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         injected through the network). Please refer to the <a href="https://www.w3.org/TR/secure-contexts/#security-considerations">Security
         Considerations</a> section of the <cite><a data-matched-text="[[[secure-contexts]]]" href="https://www.w3.org/TR/secure-contexts/">Secure Contexts</a></cite> specification
         for more information.
+      </p>
+      <p>
+        The Digital Credentials API reduces <a data-link-type="dfn|abstract-op" href="#dfn-api-flooding" class="internalDFN" id="ref-for-dfn-api-flooding-1">API flooding</a> through two
+        mechanisms:
+      </p>
+      <ul>
+        <li>
+          <strong>Transient activation:</strong> Both
+          <a data-link-type="method" data-lt="[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)" href="#dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors" class="internalDFN" id="ref-for-dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors-2"><code>[[DiscoverFromExternalSource]](<var>origin</var>, <var>options</var>, <var>sameOriginWithAncestors</var>)</code></a> and <a data-link-type="method" data-lt="[[Create]](origin, options, sameOriginWithAncestors)" href="#dfn-create-origin-options-sameoriginwithancestors" class="internalDFN" id="ref-for-dfn-create-origin-options-sameoriginwithancestors-1"><code>[[Create]](<var>origin</var>, <var>options</var>, <var>sameOriginWithAncestors</var>)</code></a> methods <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation" id="ref-for-index-term-consume-user-activation-3">Consume user activation</a>, preventing automated or repeated requests without user
+          interaction.
+        </li>
+        <li>
+          <strong>Always required mediation:</strong> The API makes <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#user-mediated" id="ref-for-index-term-user-mediation-2">user mediation</a> implicitly "<a data-link-type="enum-value" href="https://www.w3.org/TR/credential-management-1/#dom-credentialmediationrequirement-required" id="ref-for-index-term-required-for-credentialmediationrequirement-4"><code>required</code></a>"
+          (see <a href="#the-digitalcredential-interface" data-matched-text="[[[#the-digitalcredential-interface]]]" class="sec-ref"><bdi class="secno">7.7 </bdi>
+      The <code>DigitalCredential</code> interface</a>), ensuring that user
+          permission is obtained through the platform's credential chooser
+          interface for every credential operation.
+        </li>
+      </ul>
+      <p>
+        For additional guidance on preventing abuse of credential requests,
+        please refer to the <a href="https://www.w3.org/TR/credential-management-1/#privacy-considerations" id="ref-for-index-term-privacy-considerations-1">Privacy
+        Considerations</a> section of the <cite><a data-matched-text="[[[credential-management]]]" href="https://www.w3.org/TR/credential-management-1/">Credential Management Level 1</a></cite>
+        specification. Note, however, that these protections have limitations,
+        as sites may still employ dark patterns to encourage unnecessary user
+        interactions that trigger credential requests.
       </p>
       <p data-cite="permissions-policy">
         The Digital Credentials API reduces <a data-link-type="dfn|abstract-op" data-lt="Unauthorized Cross-Origin Access" href="#dfn-unauthorized-cross-origin-access" class="internalDFN" id="ref-for-dfn-unauthorized-cross-origin-access-1">cross-origin abuse</a> through <cite><a data-matched-text="[[[permissions-policy]]]" href="https://www.w3.org/TR/permissions-policy-1/">Permissions Policy</a></cite>
@@ -2762,7 +2799,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           known credential types and reject an exchange request for an unknown
           credential type.
         </p>
-        <div class="issue" id="issue-container-number-100"><div class="issue-title marker" id="h-issue-10"><a href="https://github.com/w3c-fedid/digital-credentials/issues/100"><span class="issue-number">Issue 100</span></a><span class="issue-label">: Consider applying the robustness principle with regard to user agent request validation <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22discussion%22" style="background-color: rgb(75, 158, 238); color: rgb(0, 0, 0);" aria-label="GitHub label: discussion">discussion</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a></span></div><p class="">
+        <div class="issue closed" id="issue-container-number-100"><div class="issue-title marker" id="h-issue-10"><a href="https://github.com/w3c-fedid/digital-credentials/issues/100"><span class="issue-number">Issue 100</span></a><span class="issue-label">: Consider applying the robustness principle with regard to user agent request validation <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22discussion%22" style="background-color: rgb(75, 158, 238); color: rgb(0, 0, 0);" aria-label="GitHub label: discussion">discussion</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a></span></div><p class="">
           The need to provide users with appropriate transparency conflicts
           with the desire to enable the ecosystem to develop new credential
           formats without explicit <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-0-38">user agent</a> buy-in.
@@ -2903,7 +2940,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         <div class="issue" id="issue-container-number-252"><div class="issue-title marker" id="h-issue-13"><a href="https://github.com/w3c-fedid/digital-credentials/issues/252"><span class="issue-number">Issue 252</span></a><span class="issue-label">: Should we normatively define elements of a permission prompt? <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a></span></div><p class="">
           Should these be normative in the spec?
         </p></div>
-        <div class="issue" id="issue-container-number-44"><div class="issue-title marker" id="h-issue-14"><a href="https://github.com/w3c-fedid/digital-credentials/issues/44"><span class="issue-number">Issue 44</span></a><span class="issue-label">: API requests should provide the site with what they need to explain why and how requested credential information will be used <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22enhancement%22" style="background-color: rgb(162, 238, 239); color: rgb(0, 0, 0);" aria-label="GitHub label: enhancement">enhancement</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22dc2-proposal%22" style="background-color: rgb(60, 103, 134); color: rgb(255, 255, 255);" aria-label="GitHub label: dc2-proposal">dc2-proposal</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a></span></div><p class="">
+        <div class="issue" id="issue-container-number-44"><div class="issue-title marker" id="h-issue-14"><a href="https://github.com/w3c-fedid/digital-credentials/issues/44"><span class="issue-number">Issue 44</span></a><span class="issue-label">: API requests should provide the site with what they need to explain why and how requested credential information will be used <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22enhancement%22" style="background-color: rgb(162, 238, 239); color: rgb(0, 0, 0);" aria-label="GitHub label: enhancement">enhancement</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22pending+closure%22" style="background-color: rgb(251, 202, 4); color: rgb(0, 0, 0);" aria-label="GitHub label: pending closure">pending closure</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a></span></div><p class="">
           Should the API be designed so the site can provide in-context
           explanations?
         </p></div>
@@ -3018,6 +3055,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <span class="print-only">§6.1</span></li><li>
       <a class="index-term" href="#dfn-active-promise">active promise</a> 
     <span class="print-only">§6.</span></li><li>
+      <a class="index-term" href="#dfn-api-flooding">API Flooding</a> 
+    <span class="print-only">§10.1.1</span></li><li>
       <a class="index-term" href="#dfn-create-origin-options-sameoriginwithancestors"><code>[[Create]](origin, options, sameOriginWithAncestors)</code></a> internal slot for <code>DigitalCredential</code>
     <span class="print-only">§8.3</span></li><li>
       <a class="index-term" href="#dfn-credential-request">Credential request</a> 
@@ -3210,6 +3249,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <span class="index-term" data-href="https://www.w3.org/TR/credential-management-1/#dom-credentialcreationoptions-mediation" id="index-term-mediation-for-credentialcreationoptions" tabindex="0" aria-haspopup="dialog"><code>mediation</code> (for <code>CredentialCreationOptions</code>)</span>
   </li><li>
     <span class="index-term" data-href="https://www.w3.org/TR/credential-management-1/#credential-origin-bound" id="index-term-origin-bound-for-credential" tabindex="0" aria-haspopup="dialog">origin bound (for <code>Credential</code>)</span>
+  </li><li>
+    <span class="index-term" data-href="https://www.w3.org/TR/credential-management-1/#privacy-considerations" id="index-term-privacy-considerations" tabindex="0" aria-haspopup="dialog">Privacy Considerations</span>
   </li><li>
     <span class="index-term" data-href="https://www.w3.org/TR/credential-management-1/#abstract-opdef-request-a-credential" id="index-term-request-a-credential" tabindex="0" aria-haspopup="dialog">request a Credential</span>
   </li><li>
@@ -4615,6 +4656,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <ul>
     <li>
       <a href="#ref-for-dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors-1" title="§ 7. The Digital Credentials API">§ 7. The Digital Credentials API</a> 
+    </li><li>
+      <a href="#ref-for-dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors-2" title="§ 10.2 Mitigations">§ 10.2 Mitigations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-store-credential-sameoriginwithancestors" aria-label="Links in this document to definition: [[Store]](credential, sameOriginWithAncestors)">
@@ -4637,8 +4680,10 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
-      <li>Not referenced in this document.</li>
-    </ul>
+    <li>
+      <a href="#ref-for-dfn-create-origin-options-sameoriginwithancestors-1" title="§ 10.2 Mitigations">§ 10.2 Mitigations</a> 
+    </li>
+  </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-type" aria-label="Links in this document to definition: [[type]]">
       <span class="caret"></span>
       <div>
@@ -4719,6 +4764,19 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <ul>
     <li>
       <a href="#ref-for-dfn-request-tampering-1" title="§ 10.2 Mitigations">§ 10.2 Mitigations</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-api-flooding" aria-label="Links in this document to definition: API Flooding">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dfn-api-flooding" aria-label="Permalink for definition: API Flooding. Activate to close this dialog.">Permalink</a>
+         
+        
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-dfn-api-flooding-1" title="§ 10.2 Mitigations">§ 10.2 Mitigations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-unauthorized-cross-origin-access" aria-label="Links in this document to definition: Unauthorized Cross-Origin Access">
@@ -5015,6 +5073,19 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-origin-bound-for-credential-1" title="§ 7.7 The DigitalCredential interface">§ 7.7 The DigitalCredential interface</a> 
     </li>
   </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-privacy-considerations" aria-label="Links in this document to definition: Privacy Considerations">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="https://www.w3.org/TR/credential-management-1/#privacy-considerations" aria-label="Permalink for definition: Privacy Considerations. Activate to close this dialog.">Permalink</a>
+         
+        
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-index-term-privacy-considerations-1" title="§ 10.2 Mitigations">§ 10.2 Mitigations</a> 
+    </li>
+  </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-request-a-credential" aria-label="Links in this document to definition: request a Credential">
       <span class="caret"></span>
       <div>
@@ -5045,6 +5116,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <ul>
     <li>
       <a href="#ref-for-index-term-required-for-credentialmediationrequirement-1" title="§ 7.7 The DigitalCredential interface">§ 7.7 The DigitalCredential interface</a> <a href="#ref-for-index-term-required-for-credentialmediationrequirement-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-required-for-credentialmediationrequirement-3" title="Reference 3">(3)</a> 
+    </li><li>
+      <a href="#ref-for-index-term-required-for-credentialmediationrequirement-4" title="§ 10.2 Mitigations">§ 10.2 Mitigations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-signal-for-credentialrequestoptions" aria-label="Links in this document to definition: signal (for CredentialRequestOptions)">
@@ -5084,6 +5157,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <ul>
     <li>
       <a href="#ref-for-index-term-user-mediation-1" title="§ 7.7 The DigitalCredential interface">§ 7.7 The DigitalCredential interface</a> 
+    </li><li>
+      <a href="#ref-for-index-term-user-mediation-2" title="§ 10.2 Mitigations">§ 10.2 Mitigations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-user-agents" aria-label="Links in this document to definition: user agents">
@@ -5279,6 +5354,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-consume-user-activation-1" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
     </li><li>
       <a href="#ref-for-index-term-consume-user-activation-2" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
+    </li><li>
+      <a href="#ref-for-index-term-consume-user-activation-3" title="§ 10.2 Mitigations">§ 10.2 Mitigations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-dom-manipulation-task-source" aria-label="Links in this document to definition: DOM manipulation task source">
