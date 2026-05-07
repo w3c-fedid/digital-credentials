@@ -1685,8 +1685,8 @@
       </li>
       <li>[=Consume user activation=] of |global|.
       </li>
-      <li>Let |promise| be [=a new promise=] in the [=relevant realm=] of
-      [=this=].
+      <li>Let |promise : Promise| be [=a new promise=] in the [=relevant
+      realm=] of [=this=].
       </li>
       <li>[=credential request coordinator/Prepare credential requests=] with
       |document|, |requests|, |promise|, and |signal|.
@@ -2833,15 +2833,27 @@
               </li>
               <li>If |action| is `"clear"`:
                 <ol>
-                  <li>If |context| is not `null`, remove the entry for |context| from the [=WebDriver session=]'s [=active virtual wallet behavior=].</li>
-                  <li>Else, set the [=WebDriver session=]'s [=active virtual wallet behavior=] to `null`.</li>
+                  <li>If |context| is not `null`, remove the entry for
+                  |context| from the [=WebDriver session=]'s [=active virtual
+                  wallet behavior=].
+                  </li>
+                  <li>Else, set the [=WebDriver session=]'s [=active virtual
+                  wallet behavior=] to `null`.
+                  </li>
                 </ol>
               </li>
               <li>Else:
                 <ol>
-                  <li>Let |behavior| be a tuple of (|action|, |protocol|, |response|).</li>
-                  <li>If |context| is not `null`, set the [=WebDriver session=]'s <dfn>active virtual wallet behavior</dfn> for the browsing context ID |context| to |behavior|.</li>
-                  <li>Else, set the [=WebDriver session=]'s default [=active virtual wallet behavior=] to |behavior|.</li>
+                  <li>Let |behavior| be a tuple of (|action|, |protocol|,
+                  |response|).
+                  </li>
+                  <li>If |context| is not `null`, set the [=WebDriver
+                  session=]'s <dfn>active virtual wallet behavior</dfn> for the
+                  browsing context ID |context| to |behavior|.
+                  </li>
+                  <li>Else, set the [=WebDriver session=]'s default [=active
+                  virtual wallet behavior=] to |behavior|.
+                  </li>
                 </ol>
               </li>
               <li>Return [=success=] with data `null`.
@@ -2863,9 +2875,11 @@
           </li>
           <li>Let |context ID| be the ID of |global|'s [=browsing context=].
           </li>
-          <li>Let |behavior| be the current [=WebDriver session=]'s [=active virtual wallet behavior=] for |context ID|.
+          <li>Let |behavior| be the current [=WebDriver session=]'s [=active
+          virtual wallet behavior=] for |context ID|.
           </li>
-          <li>If |behavior| is `null`, set |behavior| to the current [=WebDriver session=]'s default [=active virtual wallet behavior=].
+          <li>If |behavior| is `null`, set |behavior| to the current
+          [=WebDriver session=]'s default [=active virtual wallet behavior=].
           </li>
           <li>If |behavior| is `null`, return `false`.
           </li>
@@ -2887,9 +2901,9 @@
               <li>Let |JSON string| be the result of [=serialize an Infra value
               to a JSON string|serializing=] |response|.
               </li>
-              <li>Let |JS object| be the result of parsing JSON into a
-              JavaScript value given |JSON string| in |global|'s [=relevant
-              realm=].
+              <li>Let |JS object| be the result of [=parse a JSON string to a
+              JavaScript value|parsing=] |JSON string| given |global|'s
+              [=relevant realm=].
               </li>
               <li>Let |credential| be a new {{DigitalCredential}} instance.
               </li>
