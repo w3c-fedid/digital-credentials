@@ -2902,11 +2902,8 @@
           </li>
           <li>If |action| is `"respond"`:
             <ol>
-              <li>Let |JSON string| be the result of [=serialize an Infra value
-              to a JSON string|serializing=] |response|.
-              </li>
               <li>Let |JS object| be the result of [=parse a JSON string to a
-              JavaScript value|parsing=] |JSON string| given |global|'s
+              JavaScript value|parsing=] |response| given |global|'s
               [=relevant realm=].
               </li>
               <li>Let |credential| be a new {{DigitalCredential}} instance.
