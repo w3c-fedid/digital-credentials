@@ -797,10 +797,11 @@
     </h3>
     <p>
       To <dfn data-dfn-for="credential request coordinator">prepare credential
-      requests</dfn> given a [=Document=] |document:Document|, a [=sequence=]
-      of {{DigitalCredentialGetRequest}} values or a [=sequence=] of
-      {{DigitalCredentialCreateRequest}} values |requests|, a {{Promise}}
-      |promise:Promise|, and an optional {{AbortSignal}} |signal:AbortSignal|:
+      requests</dfn> given an [=origin=] |documentOrigin|, a [=Document=]
+      |document:Document|, a [=sequence=] of {{DigitalCredentialGetRequest}}
+      values or a [=sequence=] of {{DigitalCredentialCreateRequest}} values
+      |requests|, a {{Promise}} |promise:Promise|, and an optional
+      {{AbortSignal}} |signal:AbortSignal|:
     </p>
     <ol class="algorithm">
       <li>Let |global| be |document|'s [=relevant global object=].
@@ -877,7 +878,8 @@
         </ol>
       </li>
       <li>[=credential request coordinator/Initiate the credential request=]
-      with |document|, |validatedRequests|, |promise|, and |signal|.
+      with |documentOrigin|, |document|, |validatedRequests|, |promise|, and
+      |signal|.
       </li>
       <li>If |document| stops being [=Document/fully active=], [=credential
       request coordinator/abort the credential request=] with an
@@ -1055,9 +1057,10 @@
     </h3>
     <p>
       To <dfn data-dfn-for="credential request coordinator">initiate the
-      credential request</dfn> given a [=Document=] |document|, a [=list=] of
-      validated credential requests |validatedRequests|, a {{Promise}}
-      |promise:Promise|, and an optional {{AbortSignal}} |signal|:
+      credential request</dfn> given an [=origin=] |documentOrigin|, a
+      [=Document=] |document|, a [=list=] of validated credential requests
+      |validatedRequests|, a {{Promise}} |promise:Promise|, and an optional
+      {{AbortSignal}} |signal|:
     </p>
     <ol class="algorithm">
       <li>Let |topLevelOrigin| be |document|'s [=top-level traversable=]'s
@@ -1065,8 +1068,9 @@
       [=environment settings object/origin=].
       </li>
       <li>Let |requestData| be a new [=request context=] whose [=request
-      context/requests=] is |validatedRequests| and [=request context/top-level
-      origin=] is |topLevelOrigin|.
+      context/requests=] is |validatedRequests|, [=request context/top-level
+      origin=] is |topLevelOrigin|, and [=request context/document origin=] is
+      |documentOrigin|.
       </li>
       <li>[=In parallel=]:
         <ol>
@@ -1552,6 +1556,12 @@
         An [=environment settings object=]'s [=environment settings
         object/origin=].
       </dd>
+      <dt>
+        <dfn data-dfn-for="request context">document origin</dfn>
+      </dt>
+      <dd>
+        An [=origin=].
+      </dd>
     </dl>
     <h4>
       The {{DigitalCredentialPresentationProtocol}} enumeration
@@ -1626,7 +1636,8 @@
       <li>Let |promise| be [=a new promise=] in [=this=]'s [=relevant realm=].
       </li>
       <li>[=credential request coordinator/Prepare credential requests=] with
-      |document|, |requests|, |promise|, and |signal|.
+      |origin| as |documentOrigin|, |document|, |requests|, |promise|, and
+      |signal|.
       </li>
       <li>Return |promise|.
       </li>
@@ -1684,7 +1695,8 @@
       [=this=].
       </li>
       <li>[=credential request coordinator/Prepare credential requests=] with
-      |document|, |requests|, |promise|, and |signal|.
+      |origin| as |documentOrigin|, |document|, |requests|, |promise|, and
+      |signal|.
       </li>
       <li>Return |promise|.
       </li>
