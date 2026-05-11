@@ -51,6 +51,36 @@ a.idlEnumItem{color:#000;border-bottom:1px dotted #ccc;text-decoration:none}
 }
 </style>
 <style>
+:root{--cddl-comment:#6a737d;--cddl-kw:#005a9c;--cddl-str:#032f62;--cddl-num:#005cc5;--cddl-op:#6f42c1;--cddl-ctrl:#d73a49;--cddl-occ:#e36209;--cddl-bytes:#22863a;--cddl-param:#e36209;--cddl-type-dfn:#c43a31;--cddl-key-dfn:#005a9c;--cddl-header-bg:var(--def-border, #8ccbf2);--cddl-header-color:#005a9c;--cddl-focus:#51a7e8}
+@media (prefers-color-scheme:dark){
+:root{--cddl-comment:#8b949e;--cddl-kw:#79c0ff;--cddl-str:#a5d6ff;--cddl-num:#79c0ff;--cddl-op:#d2a8ff;--cddl-ctrl:#ff7b72;--cddl-occ:#ffa657;--cddl-bytes:#7ee787;--cddl-param:#ffa657;--cddl-type-dfn:#ffa198;--cddl-key-dfn:#79c0ff;--cddl-header-bg:#3a6da0;--cddl-header-color:#fff;--cddl-focus:#51a7e8}
+}
+pre.cddl{padding:1em;position:relative}
+pre.cddl>code{color:var(--text,#000)}
+@media print{
+pre.cddl{white-space:pre-wrap}
+}
+.cddlHeader{display:block;width:150px;background:var(--cddl-header-bg);color:var(--cddl-header-color);font-family:sans-serif;font-weight:700;margin:-1em 0 1em -1em;height:1.75em;line-height:1.75em}
+.cddlHeader a.self-link{margin-left:.5em;text-decoration:none;border-bottom:none;color:inherit}
+pre.cddl .cddl-comment{color:var(--cddl-comment);font-style:italic}
+pre.cddl .cddl-kw{color:var(--cddl-kw)}
+pre.cddl .cddl-str,pre.cddl dfn[data-dfn-type=cddl-value]{color:var(--cddl-str)}
+pre.cddl .cddl-num{color:var(--cddl-num)}
+pre.cddl .cddl-op{color:var(--cddl-op)}
+pre.cddl .cddl-ctrl{color:var(--cddl-ctrl)}
+pre.cddl .cddl-occ{color:var(--cddl-occ)}
+pre.cddl .cddl-name{font-weight:700}
+pre.cddl .cddl-name a{color:inherit;border-bottom:1px dotted currentColor;text-decoration:none}
+pre.cddl .cddl-bytes{color:var(--cddl-bytes)}
+pre.cddl .cddl-param{font-style:italic;color:var(--cddl-param)}
+pre.cddl a[data-link-type]{text-decoration:none;border-bottom:1px dotted currentColor}
+pre.cddl dfn{font-style:normal;font-weight:700}
+.cddlHeader a.self-link:focus-visible,pre.cddl a:focus-visible,pre.cddl dfn:focus-visible{outline:2px solid var(--cddl-focus);outline-offset:2px}
+.respec-button-copy-paste:focus-visible{outline:2px solid var(--cddl-focus);outline-offset:2px}
+pre.cddl dfn[data-dfn-type=cddl-type]{color:var(--cddl-type-dfn)}
+pre.cddl dfn[data-dfn-type=cddl-key]{color:var(--cddl-key-dfn)}
+</style>
+<style>
 dfn{cursor:pointer}
 .dfn-panel{position:absolute;z-index:35;min-width:300px;max-width:500px;padding:.5em .75em;margin-top:.6em;font-family:"Helvetica Neue",sans-serif;font-size:small;background:#fff;background:var(--indextable-hover-bg,#fff);color:#000;color:var(--text,#000);box-shadow:0 1em 3em -.4em rgba(0,0,0,.3),0 0 1px 1px rgba(0,0,0,.05);box-shadow:0 1em 3em -.4em var(--tocsidebar-shadow,rgba(0,0,0,.3)),0 0 1px 1px var(--tocsidebar-shadow,rgba(0,0,0,.05));border-radius:2px}
 .dfn-panel:not(.docked)>.caret{position:absolute;top:-9px}
@@ -146,7 +176,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="9e4579cfa11e0009b3f41aedf5bccbc6bd39aa15">
+<meta name="revision" content="e5a9065a6f6e87d49f284dd04f841876e82d3407">
 <meta name="description" content="This document specifies an API enabling user agents to mediate the
         presentation and issuance of digital credentials, such as a
         driver's license, government-issued identification card, or
@@ -295,16 +325,16 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "9e4579cfa11e0009b3f41aedf5bccbc6bd39aa15",
-  "publishISODate": "2026-05-07T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 07 May 2026"
+  "gitRevision": "e5a9065a6f6e87d49f284dd04f841876e82d3407",
+  "publishISODate": "2026-05-11T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 11 May 2026"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED"></head>
   <body data-cite="WEBIDL credential-management permissions-policy vc-data-model HTML INFRA URL WEBIDL DOM FETCH" class="h-entry"><div class="head">
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Digital Credentials</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-05-07">07 May 2026</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-05-11">11 May 2026</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -586,9 +616,21 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           Permission vs. Consent
         </a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#accessibility-considerations"><bdi class="secno">12. </bdi>
         Accessibility Considerations
-      </a></li><li class="tocline"><a class="tocxref" href="#index"><bdi class="secno">A. </bdi>Index</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#index-defined-here"><bdi class="secno">A.1 </bdi>Terms defined by this specification</a></li><li class="tocline"><a class="tocxref" href="#index-defined-elsewhere"><bdi class="secno">A.2 </bdi>Terms defined by reference</a></li></ol></li><li class="tocline"><a class="tocxref" href="#idl-index"><bdi class="secno">B. </bdi>IDL Index</a></li><li class="tocline"><a class="tocxref" href="#conformance"><bdi class="secno">C. </bdi>Conformance</a></li><li class="tocline"><a class="tocxref" href="#acknowledgements"><bdi class="secno">D. </bdi>
+      </a></li><li class="tocline"><a class="tocxref" href="#automated-testing"><bdi class="secno">13. </bdi>
+        Automated Testing
+      </a><ol class="toc"><li class="tocline"><a class="tocxref" href="#the-digitalcredentials-module"><bdi class="secno">13.1 </bdi>
+        The <code>digitalCredentials</code> Module
+      </a><ol class="toc"><li class="tocline"><a class="tocxref" href="#types"><bdi class="secno">13.1.1 </bdi>
+        Types
+      </a></li><li class="tocline"><a class="tocxref" href="#commands"><bdi class="secno">13.1.2 </bdi>
+        Commands
+      </a><ol class="toc"><li class="tocline"><a class="tocxref" href="#the-digitalcredentials-setvirtualwalletbehavior-command"><bdi class="secno">13.1.2.1 </bdi>
+        The <code>digitalCredentials.setVirtualWalletBehavior</code> Command
+      </a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#handle-virtual-wallet-behavior"><bdi class="secno">13.2 </bdi>
+        Handle Virtual Wallet Behavior
+      </a></li></ol></li><li class="tocline"><a class="tocxref" href="#index"><bdi class="secno">A. </bdi>Index</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#index-defined-here"><bdi class="secno">A.1 </bdi>Terms defined by this specification</a></li><li class="tocline"><a class="tocxref" href="#index-defined-elsewhere"><bdi class="secno">A.2 </bdi>Terms defined by reference</a></li></ol></li><li class="tocline"><a class="tocxref" href="#idl-index"><bdi class="secno">B. </bdi>IDL Index</a></li><li class="tocline"><a class="tocxref" href="#cddl-index"><bdi class="secno">C. </bdi>CDDL Index</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#cddl-index-module-remote-cddl"><bdi class="secno">C.1 </bdi>Module: remote-cddl</a></li><li class="tocline"><a class="tocxref" href="#cddl-index-module-local-cddl"><bdi class="secno">C.2 </bdi>Module: local-cddl</a></li></ol></li><li class="tocline"><a class="tocxref" href="#conformance"><bdi class="secno">D. </bdi>Conformance</a></li><li class="tocline"><a class="tocxref" href="#acknowledgements"><bdi class="secno">E. </bdi>
       Acknowledgements
-    </a></li><li class="tocline"><a class="tocxref" href="#references"><bdi class="secno">E. </bdi>References</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#normative-references"><bdi class="secno">E.1 </bdi>Normative references</a></li><li class="tocline"><a class="tocxref" href="#informative-references"><bdi class="secno">E.2 </bdi>Informative references</a></li></ol></li></ol></nav>
+    </a></li><li class="tocline"><a class="tocxref" href="#references"><bdi class="secno">F. </bdi>References</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#normative-references"><bdi class="secno">F.1 </bdi>Normative references</a></li><li class="tocline"><a class="tocxref" href="#informative-references"><bdi class="secno">F.2 </bdi>Informative references</a></li></ol></li></ol></nav>
     <section class="informative" id="introduction"><div class="header-wrapper"><h2 class="informative" id="x1-introduction"><bdi class="secno">1. </bdi>
       Introduction
     </h2><a class="self-link" href="#introduction" aria-label="Permalink for Section 1."></a></div><p><em>This section is non-normative.</em></p>
@@ -1324,6 +1366,10 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           </li>
         </ol>
       </li>
+      <li>Let <var>handled</var> be the result of running <a data-link-type="dfn|abstract-op" href="#dfn-handle-virtual-wallet-behavior" class="internalDFN" id="ref-for-dfn-handle-virtual-wallet-behavior-1">handle virtual wallet behavior</a> given <var data-type="Promise">promise</var> and <var>global</var>.
+      </li>
+      <li>If <var>handled</var> is <code>true</code>, return.
+      </li>
       <li><a data-link-type="dfn|abstract-op" href="#dfn-initiate-the-credential-request" class="internalDFN" id="ref-for-dfn-initiate-the-credential-request-1">Initiate the credential request</a>
       with <var data-type="Document">document</var>, <var>validatedRequests</var>, <var data-type="Promise">promise</var>, and <var data-type="AbortSignal">signal</var>.
       </li>
@@ -2025,13 +2071,12 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       </li>
       <li><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation" id="ref-for-index-term-consume-user-activation-2">Consume user activation</a> of <var>global</var>.
       </li>
-      <li>Let <var>promise</var> be <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-new-promise" id="ref-for-index-term-a-new-promise-2">a new promise</a> in the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-realm" id="ref-for-index-term-relevant-realm-2">relevant realm</a> of
-      <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-index-term-this-4">this</a>.
+      <li>Let <var data-type="Promise">promise</var> be <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-new-promise" id="ref-for-index-term-a-new-promise-2">a new promise</a> in the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-realm" id="ref-for-index-term-relevant-realm-2">relevant realm</a> of <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-index-term-this-4">this</a>.
       </li>
       <li><a data-link-type="dfn|abstract-op" href="#dfn-prepare-credential-requests" class="internalDFN" id="ref-for-dfn-prepare-credential-requests-3">Prepare credential requests</a> with
-      <var>document</var>, <var>requests</var>, <var>promise</var>, and <var>signal</var>.
+      <var>document</var>, <var>requests</var>, <var data-type="Promise">promise</var>, and <var>signal</var>.
       </li>
-      <li>Return <var>promise</var>.
+      <li>Return <var data-type="Promise">promise</var>.
       </li>
     </ol>
     </section><section id="type-internal-slot"><div class="header-wrapper"><h3 id="x8-4-type-internal-slot"><bdi class="secno">8.4 </bdi>
@@ -3041,6 +3086,213 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         <em class="rfc2119">MUST</em> be operable in a device-independent manner.
       </p>
     </section>
+    <section data-cite="webdriver webdriver-bidi" id="automated-testing"><div class="header-wrapper"><h2 id="x13-automated-testing"><bdi class="secno">13. </bdi>
+        Automated Testing
+      </h2><a class="self-link" href="#automated-testing" aria-label="Permalink for Section 13."></a></div>
+      
+      <p>
+        For purposes of user-agent automation and application testing, this
+        document defines extension modules for the <cite><a data-matched-text="[[[webdriver-bidi]]]" href="https://www.w3.org/TR/webdriver-bidi/">WebDriver BiDi</a></cite>
+        specification. It is <em class="rfc2119">OPTIONAL</em> for a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-0-49">user agent</a> to support them.
+      </p>
+      <section id="the-digitalcredentials-module"><div class="header-wrapper"><h3 id="x13-1-the-digitalcredentials-module"><bdi class="secno">13.1 </bdi>
+        The <code>digitalCredentials</code> Module
+      </h3><a class="self-link" href="#the-digitalcredentials-module" aria-label="Permalink for Section 13.1"></a></div>
+      <p>
+        The <code>digitalCredentials</code> module contains commands for managing and
+        simulating the remote end behavior of digital credential wallets during
+        <a data-link-type="method" data-lt="[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)" href="#dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors" class="internalDFN" id="ref-for-dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors-3"><code>[[DiscoverFromExternalSource]](<var>origin</var>, <var>options</var>, <var>sameOriginWithAncestors</var>)</code></a>, and <a data-link-type="method" data-lt="[[Create]](origin, options, sameOriginWithAncestors)" href="https://www.w3.org/TR/credential-management-1/#dom-credential-create-slot" id="ref-for-index-term-create-origin-options-sameoriginwithancestors-for-credential-3"><code>[[Create]](<var>origin</var>, <var>options</var>, <var>sameOriginWithAncestors</var>)</code></a> calls.
+      </p>
+      <section id="types"><div class="header-wrapper"><h4 id="x13-1-1-types"><bdi class="secno">13.1.1 </bdi>
+        Types
+      </h4><a class="self-link" href="#types" aria-label="Permalink for Section 13.1.1"></a></div>
+      <pre class="cddl def highlight" data-cddl-module="remote-cddl" id="cddl-block-1238149299"><span class="cddlHeader"><a class="self-link" href="#cddl-block-1238149299">CDDL</a></span><code><dfn data-dfn-type="cddl-type" id="cddl-type-digitalcredentials-virtualwalletaction" data-export="" tabindex="0" aria-haspopup="dialog">digitalCredentials.VirtualWalletAction</dfn> <span class="cddl-op">=</span> <dfn data-dfn-type="cddl-value" data-dfn-for="digitalCredentials.VirtualWalletAction" id="cddl-value-digitalcredentials-virtualwalletaction-decline" data-export="" tabindex="0" aria-haspopup="dialog">"decline"</dfn> <span class="cddl-op">/</span> <dfn data-dfn-type="cddl-value" data-dfn-for="digitalCredentials.VirtualWalletAction" id="cddl-value-digitalcredentials-virtualwalletaction-respond" data-export="" tabindex="0" aria-haspopup="dialog">"respond"</dfn> <span class="cddl-op">/</span> <dfn data-dfn-type="cddl-value" data-dfn-for="digitalCredentials.VirtualWalletAction" id="cddl-value-digitalcredentials-virtualwalletaction-wait" data-export="" tabindex="0" aria-haspopup="dialog">"wait"</dfn> <span class="cddl-op">/</span> <dfn data-dfn-type="cddl-value" data-dfn-for="digitalCredentials.VirtualWalletAction" id="cddl-value-digitalcredentials-virtualwalletaction-clear" data-export="" tabindex="0" aria-haspopup="dialog">"clear"</dfn>
+
+<dfn data-dfn-type="cddl-type" id="cddl-type-digitalcredentials-setvirtualwalletbehaviorparameters" data-export="" tabindex="0" aria-haspopup="dialog">digitalCredentials.SetVirtualWalletBehaviorParameters</dfn> <span class="cddl-op">=</span> {
+  <dfn data-dfn-type="cddl-key" data-dfn-for="digitalCredentials.SetVirtualWalletBehaviorParameters" id="cddl-key-digitalcredentials-setvirtualwalletbehaviorparameters-action" data-export="" tabindex="0" aria-haspopup="dialog">action</dfn>: <a href="#cddl-type-digitalcredentials-virtualwalletaction" class="cddl-name" data-link-type="cddl-type" id="ref-for-cddl-type-digitalcredentials-virtualwalletaction-1">digitalCredentials.VirtualWalletAction</a>,
+  <span class="cddl-occ">?</span> <dfn data-dfn-type="cddl-key" data-dfn-for="digitalCredentials.SetVirtualWalletBehaviorParameters" id="cddl-key-digitalcredentials-setvirtualwalletbehaviorparameters-context" data-export="" tabindex="0" aria-haspopup="dialog">context</dfn>: <a class="cddl-kw" data-link-type="cddl-type" data-link-spec="rfc8610" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
+  <span class="cddl-occ">?</span> <dfn data-dfn-type="cddl-key" data-dfn-for="digitalCredentials.SetVirtualWalletBehaviorParameters" id="cddl-key-digitalcredentials-setvirtualwalletbehaviorparameters-protocol" data-export="" tabindex="0" aria-haspopup="dialog">protocol</dfn>: <a class="cddl-kw" data-link-type="cddl-type" data-link-spec="rfc8610" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
+  <span class="cddl-occ">?</span> <dfn data-dfn-type="cddl-key" data-dfn-for="digitalCredentials.SetVirtualWalletBehaviorParameters" id="cddl-key-digitalcredentials-setvirtualwalletbehaviorparameters-response" data-export="" tabindex="0" aria-haspopup="dialog">response</dfn>: { <span class="cddl-occ">*</span> <dfn data-dfn-type="cddl-key" data-dfn-for="digitalCredentials.SetVirtualWalletBehaviorParameters" id="cddl-key-digitalcredentials-setvirtualwalletbehaviorparameters-text" data-export="" tabindex="0" aria-haspopup="dialog">text</dfn> <span class="cddl-op">=&gt;</span> <a class="cddl-kw" data-link-type="cddl-type" data-link-spec="rfc8610" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">any</a> },
+}</code></pre>
+      <p>
+        The <code><a data-link-type="cddl-type" href="#cddl-type-digitalcredentials-virtualwalletaction" class="internalDFN" id="ref-for-cddl-type-digitalcredentials-virtualwalletaction-2">digitalCredentials.VirtualWalletAction</a></code> type represents the
+        different types of virtual wallet actions.
+      </p>
+      <dl>
+        <dt>
+          <code><a data-link-type="cddl-value" href="#cddl-value-digitalcredentials-virtualwalletaction-decline" class="internalDFN" id="ref-for-cddl-value-digitalcredentials-virtualwalletaction-decline-1">"decline"</a></code>
+        </dt>
+        <dd>
+          The virtual wallet simulates a user cancellation or rejection,
+          aborting the request.
+        </dd>
+        <dt>
+          <code><a data-link-type="cddl-value" href="#cddl-value-digitalcredentials-virtualwalletaction-respond" class="internalDFN" id="ref-for-cddl-value-digitalcredentials-virtualwalletaction-respond-1">"respond"</a></code>
+        </dt>
+        <dd>
+          The virtual wallet simulates a successful user interaction and
+          returns the predefined credential response.
+        </dd>
+        <dt>
+          <code><a data-link-type="cddl-value" href="#cddl-value-digitalcredentials-virtualwalletaction-wait" class="internalDFN" id="ref-for-cddl-value-digitalcredentials-virtualwalletaction-wait-1">"wait"</a></code>
+        </dt>
+        <dd>
+          The virtual wallet simulates an active, pending prompt, effectively
+          leaving the active promise unsettled to test timeouts or concurrent
+          request handling.
+        </dd>
+        <dt>
+          <code><a data-link-type="cddl-value" href="#cddl-value-digitalcredentials-virtualwalletaction-clear" class="internalDFN" id="ref-for-cddl-value-digitalcredentials-virtualwalletaction-clear-1">"clear"</a></code>
+        </dt>
+        <dd>
+          Clears the active virtual wallet behavior.
+        </dd>
+      </dl>
+      </section><section id="commands"><div class="header-wrapper"><h4 id="x13-1-2-commands"><bdi class="secno">13.1.2 </bdi>
+        Commands
+      </h4><a class="self-link" href="#commands" aria-label="Permalink for Section 13.1.2"></a></div>
+      <section id="the-digitalcredentials-setvirtualwalletbehavior-command"><div class="header-wrapper"><h5 id="x13-1-2-1-the-digitalcredentials-setvirtualwalletbehavior-command"><bdi class="secno">13.1.2.1 </bdi>
+        The <code>digitalCredentials.setVirtualWalletBehavior</code> Command
+      </h5><a class="self-link" href="#the-digitalcredentials-setvirtualwalletbehavior-command" aria-label="Permalink for Section 13.1.2.1"></a></div>
+      <dl>
+        <dt>
+          Command Type
+        </dt>
+        <dd>
+          <pre class="cddl def highlight" data-cddl-module="remote-cddl" id="cddl-block-387937039"><span class="cddlHeader"><a class="self-link" href="#cddl-block-387937039">CDDL</a></span><code><dfn data-dfn-type="cddl-type" id="cddl-type-digitalcredentials-setvirtualwalletbehavior" data-export="" tabindex="0" aria-haspopup="dialog">digitalCredentials.SetVirtualWalletBehavior</dfn> <span class="cddl-op">=</span> (
+  <dfn data-dfn-type="cddl-key" data-dfn-for="digitalCredentials.SetVirtualWalletBehavior" id="cddl-key-digitalcredentials-setvirtualwalletbehavior-method" data-export="" tabindex="0" aria-haspopup="dialog">method</dfn>: <dfn data-dfn-type="cddl-value" data-dfn-for="digitalCredentials.SetVirtualWalletBehavior" id="cddl-value-digitalcredentials-setvirtualwalletbehavior-digitalcredentials-setvirtualwalletbehavior" data-export="" tabindex="0" aria-haspopup="dialog">"digitalCredentials.setVirtualWalletBehavior"</dfn>,
+  <dfn data-dfn-type="cddl-key" data-dfn-for="digitalCredentials.SetVirtualWalletBehavior" id="cddl-key-digitalcredentials-setvirtualwalletbehavior-params" data-export="" tabindex="0" aria-haspopup="dialog">params</dfn>: <a href="#cddl-type-digitalcredentials-setvirtualwalletbehaviorparameters" class="cddl-name" data-link-type="cddl-type" id="ref-for-cddl-type-digitalcredentials-setvirtualwalletbehaviorparameters-1">digitalCredentials.SetVirtualWalletBehaviorParameters</a>
+)</code></pre>
+        </dd>
+        <dt>
+          Return Type
+        </dt>
+        <dd>
+          <pre class="cddl def highlight" data-cddl-module="local-cddl" id="cddl-block-1163816386"><span class="cddlHeader"><a class="self-link" href="#cddl-block-1163816386">CDDL</a></span><code><dfn data-dfn-type="cddl-type" id="cddl-type-digitalcredentials-setvirtualwalletbehaviorresult" data-export="" tabindex="0" aria-haspopup="dialog">digitalCredentials.SetVirtualWalletBehaviorResult</dfn> <span class="cddl-op">=</span> <span class="cddl-name respec-offending-element" title="No CDDL definition found for `EmptyResult`." id="respec-offender-no-cddl-definition-found-for-emptyresult">EmptyResult</span></code></pre>
+        </dd>
+      </dl>
+      <p>
+        The <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver2/#dfn-remote-end-steps" id="ref-for-index-term-remote-end-steps-1">remote end steps</a> for the
+        <code>digitalCredentials.setVirtualWalletBehavior</code> command, given <var>session</var>
+        and <var>command parameters</var>, are:
+      </p>
+      <ol class="algorithm">
+        <li>Let <var>action</var> be <var>command parameters</var>["<code>action</code>"].
+        </li>
+        <li>Let <var>context</var> be <var>command parameters</var>["<code>context</code>"], if present, and
+        <code>null</code> otherwise.
+        </li>
+        <li>Let <var>protocol</var> be <var>command parameters</var>["<code>protocol</code>"], if present,
+        and <code>null</code> otherwise.
+        </li>
+        <li>Let <var>response</var> be <var>command parameters</var>["<code>response</code>"], if present,
+        and <code>null</code> otherwise.
+        </li>
+        <li>If <var>action</var> is <code>"respond"</code>:
+          <ol>
+            <li>If <var>protocol</var> is <code>null</code> or <var>response</var> is <code>null</code>, return an
+            <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver2/#dfn-error" id="ref-for-index-term-error-1">error</a> with <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver2/#dfn-error-code" id="ref-for-index-term-error-code-1">error code</a> <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver2/#dfn-invalid-argument" id="ref-for-index-term-invalid-argument-1">invalid argument</a>.
+            </li>
+            <li>If <var>protocol</var> is not an <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-enumeration-value" id="ref-for-index-term-enumeration-value-4">enumeration value</a> of
+            <a data-link-type="idl" data-lt="DigitalCredentialProtocol" href="#dom-digitalcredentialprotocol" class="internalDFN" id="ref-for-dom-digitalcredentialprotocol-5"><code>DigitalCredentialProtocol</code></a>, return an <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver2/#dfn-error" id="ref-for-index-term-error-2">error</a> with <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver2/#dfn-error-code" id="ref-for-index-term-error-code-2">error code</a> <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver2/#dfn-invalid-argument" id="ref-for-index-term-invalid-argument-2">invalid argument</a>.
+            </li>
+            <li><a data-link-type="dfn" data-lt="serialize an Infra value to a JSON string" href="https://infra.spec.whatwg.org/#serialize-an-infra-value-to-a-json-string" id="ref-for-index-term-serialize-an-infra-value-to-a-json-string-1">Serialize</a>
+            <var>response</var> to a JSON string.
+            </li>
+            <li>If serialization results in an <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-exception" id="ref-for-index-term-exception-7">exception</a>, return an
+            <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver2/#dfn-error" id="ref-for-index-term-error-3">error</a> with <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver2/#dfn-error-code" id="ref-for-index-term-error-code-3">error code</a> <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver2/#dfn-invalid-argument" id="ref-for-index-term-invalid-argument-3">invalid argument</a>.
+            </li>
+          </ol>
+        </li>
+        <li>Else:
+          <ol>
+            <li>If <var>response</var> is not <code>null</code> or <var>protocol</var> is not <code>null</code>, return
+            an <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver2/#dfn-error" id="ref-for-index-term-error-4">error</a> with <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver2/#dfn-error-code" id="ref-for-index-term-error-code-4">error code</a> <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver2/#dfn-invalid-argument" id="ref-for-index-term-invalid-argument-4">invalid argument</a>.
+            </li>
+          </ol>
+        </li>
+        <li>If <var>action</var> is <code>"clear"</code>:
+          <ol>
+            <li>If <var>context</var> is not <code>null</code>, remove the entry for <var>context</var> from
+            the WebDriver <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver-bidi/#modules-session" id="ref-for-index-term-session-for-modules-1">session</a>'s <a data-link-type="dfn|abstract-op" href="#dfn-active-virtual-wallet-behavior" class="internalDFN" id="ref-for-dfn-active-virtual-wallet-behavior-1">active virtual wallet behavior</a>.
+            </li>
+            <li>Else, set the WebDriver <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver-bidi/#modules-session" id="ref-for-index-term-session-for-modules-2">session</a>'s <a data-link-type="dfn|abstract-op" href="#dfn-active-virtual-wallet-behavior" class="internalDFN" id="ref-for-dfn-active-virtual-wallet-behavior-2">active virtual wallet behavior</a> to <code>null</code>.
+            </li>
+          </ol>
+        </li>
+        <li>Else:
+          <ol>
+            <li>Let <var>behavior</var> be a tuple of (<var>action</var>, <var>protocol</var>,
+            <var>response</var>).
+            </li>
+            <li>If <var>context</var> is not <code>null</code>, set the WebDriver
+            <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver-bidi/#modules-session" id="ref-for-index-term-session-for-modules-3">session</a>'s <dfn id="dfn-active-virtual-wallet-behavior" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">active virtual wallet behavior</dfn> for
+            the browsing context ID <var>context</var> to <var>behavior</var>.
+            </li>
+            <li>Else, set the WebDriver <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver-bidi/#modules-session" id="ref-for-index-term-session-for-modules-4">session</a>'s default <a data-link-type="dfn|abstract-op" href="#dfn-active-virtual-wallet-behavior" class="internalDFN" id="ref-for-dfn-active-virtual-wallet-behavior-3">active virtual wallet behavior</a> to <var>behavior</var>.
+            </li>
+          </ol>
+        </li>
+        <li>Return <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver2/#dfn-success" id="ref-for-index-term-success-1">success</a> with data <code>null</code>.
+        </li>
+      </ol>
+      </section></section></section><section id="handle-virtual-wallet-behavior"><div class="header-wrapper"><h3 id="x13-2-handle-virtual-wallet-behavior"><bdi class="secno">13.2 </bdi>
+        Handle Virtual Wallet Behavior
+      </h3><a class="self-link" href="#handle-virtual-wallet-behavior" aria-label="Permalink for Section 13.2"></a></div>
+      <p>
+        To <dfn id="dfn-handle-virtual-wallet-behavior" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">handle virtual wallet behavior</dfn> given a <a data-link-type="interface" data-lt="Promise" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-index-term-promise-interface-5"><code>Promise</code></a>
+        <var>promise</var> and a global object <var>global</var>, run these steps:
+      </p>
+      <ol class="algorithm">
+        <li>If the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-0-50">user agent</a> is not under automation, return <code>false</code>.
+        </li>
+        <li>Let <var>context ID</var> be the ID of <var>global</var>'s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#browsing-context" id="ref-for-index-term-browsing-context-1">browsing context</a>.
+        </li>
+        <li>Let <var>behavior</var> be the current WebDriver <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver-bidi/#modules-session" id="ref-for-index-term-session-for-modules-5">session</a>'s
+        <a data-link-type="dfn|abstract-op" href="#dfn-active-virtual-wallet-behavior" class="internalDFN" id="ref-for-dfn-active-virtual-wallet-behavior-4">active virtual wallet behavior</a> for <var>context ID</var>.
+        </li>
+        <li>If <var>behavior</var> is <code>null</code>, set <var>behavior</var> to the current WebDriver
+        <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver-bidi/#modules-session" id="ref-for-index-term-session-for-modules-6">session</a>'s default <a data-link-type="dfn|abstract-op" href="#dfn-active-virtual-wallet-behavior" class="internalDFN" id="ref-for-dfn-active-virtual-wallet-behavior-5">active virtual wallet behavior</a>.
+        </li>
+        <li>If <var>behavior</var> is <code>null</code>, return <code>false</code>.
+        </li>
+        <li>Let (<var>action</var>, <var>protocol</var>, <var>response</var>) be <var>behavior</var>.
+        </li>
+        <li>If <var>action</var> is <code>"wait"</code>, return <code>true</code>.
+        </li>
+        <li>If <var>action</var> is <code>"decline"</code>:
+          <ol>
+            <li><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-index-term-rejects-7">Reject</a> <var>promise</var> with a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-8"><code>NotAllowedError</code></a>"
+            <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-12"><code>DOMException</code></a>.
+            </li>
+            <li>Return <code>true</code>.
+            </li>
+          </ol>
+        </li>
+        <li>If <var>action</var> is <code>"respond"</code>:
+          <ol>
+            <li>Let <var>JSON string</var> be the result of <a data-link-type="dfn" data-lt="serialize an Infra value to a JSON string" href="https://infra.spec.whatwg.org/#serialize-an-infra-value-to-a-json-string" id="ref-for-index-term-serialize-an-infra-value-to-a-json-string-2">serializing</a> <var>response</var>.
+            </li>
+            <li>Let <var>JS object</var> be the result of <a data-link-type="dfn" data-lt="parse a JSON string to a JavaScript value" href="https://infra.spec.whatwg.org/#parse-a-json-string-to-a-javascript-value" id="ref-for-index-term-parse-a-json-string-to-a-javascript-value-2">parsing</a> <var>JSON string</var> given <var>global</var>'s
+            <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-realm" id="ref-for-index-term-relevant-realm-3">relevant realm</a>.
+            </li>
+            <li>Let <var>credential</var> be a new <a data-link-type="idl" data-lt="DigitalCredential" href="#dom-digitalcredential" class="internalDFN" id="ref-for-dom-digitalcredential-14"><code>DigitalCredential</code></a> instance.
+            </li>
+            <li>Set <var>credential</var>'s <a data-link-type="idl" href="#dom-digitalcredential-protocol" class="internalDFN" id="ref-for-dom-digitalcredential-protocol-3"><code>protocol</code></a> attribute to
+            <var>protocol</var>.
+            </li>
+            <li>Set <var>credential</var>'s <a data-link-type="idl" href="#dom-digitalcredential-data" class="internalDFN" id="ref-for-dom-digitalcredential-data-4"><code>data</code></a> attribute to <var>JS
+            object</var>.
+            </li>
+            <li><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task" id="ref-for-index-term-queue-a-global-task-4">Queue a global task</a> on the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#dom-manipulation-task-source" id="ref-for-index-term-dom-manipulation-task-source-4">DOM manipulation task source</a>
+            given <var>global</var> to <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-index-term-resolves-4">resolve</a> <var>promise</var> with <var>credential</var>.
+            </li>
+            <li>Return <code>true</code>.
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </section></section>
     <section class="prefer-full-spec-title appendix" id="index"><div class="header-wrapper"><h2 id="a-index"><bdi class="secno">A. </bdi>Index</h2><a class="self-link" href="#index" aria-label="Permalink for Appendix A."></a></div><section id="index-defined-here"><div class="header-wrapper"><h3 id="a-1-terms-defined-by-this-specification"><bdi class="secno">A.1 </bdi>Terms defined by this specification</h3><a class="self-link" href="#index-defined-here" aria-label="Permalink for Appendix A.1"></a></div>
     
     <ul class="index">
@@ -3053,10 +3305,18 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <span class="print-only">§6.4</span></li><li>
       <a class="index-term" href="#dfn-aborting">aborting</a> 
     <span class="print-only">§6.1</span></li><li>
+      <a class="index-term" href="#cddl-key-digitalcredentials-setvirtualwalletbehaviorparameters-action"><code>action</code></a> 
+    <span class="print-only">§13.1.1</span></li><li>
       <a class="index-term" href="#dfn-active-promise">active promise</a> 
     <span class="print-only">§6.</span></li><li>
+      <a class="index-term" href="#dfn-active-virtual-wallet-behavior">active virtual wallet behavior</a> 
+    <span class="print-only">§13.1.2.1</span></li><li>
       <a class="index-term" href="#dfn-api-flooding">API Flooding</a> 
     <span class="print-only">§10.1.1</span></li><li>
+      <a class="index-term" href="#cddl-value-digitalcredentials-virtualwalletaction-clear"><code>"clear"</code></a> 
+    <span class="print-only">§13.1.1</span></li><li>
+      <a class="index-term" href="#cddl-key-digitalcredentials-setvirtualwalletbehaviorparameters-context"><code>context</code></a> 
+    <span class="print-only">§13.1.1</span></li><li>
       <a class="index-term" href="#dfn-create-origin-options-sameoriginwithancestors"><code>[[Create]](origin, options, sameOriginWithAncestors)</code></a> internal slot for <code>DigitalCredential</code>
     <span class="print-only">§8.3</span></li><li>
       <a class="index-term" href="#dfn-credential-request">Credential request</a> 
@@ -3076,6 +3336,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <span class="print-only">§7.7.2</span></li>
     </ul>
   </li><li>
+      <a class="index-term" href="#cddl-value-digitalcredentials-virtualwalletaction-decline"><code>"decline"</code></a> 
+    <span class="print-only">§13.1.1</span></li><li>
     digital
     <ul>
       <li>
@@ -3109,12 +3371,24 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <span class="print-only">§7.7</span></li><li>
       <a class="index-term" href="#dom-digitalcredentialrequestoptions"><code>DigitalCredentialRequestOptions</code></a> dictionary
     <span class="print-only">§7.2</span></li><li>
+      <a class="index-term" href="#cddl-type-digitalcredentials-setvirtualwalletbehavior"><code>digitalCredentials.SetVirtualWalletBehavior</code></a> 
+    <span class="print-only">§13.1.2.1</span></li><li>
+      <a class="index-term" href="#cddl-value-digitalcredentials-setvirtualwalletbehavior-digitalcredentials-setvirtualwalletbehavior"><code>"digitalCredentials.setVirtualWalletBehavior"</code></a> 
+    <span class="print-only">§13.1.2.1</span></li><li>
+      <a class="index-term" href="#cddl-type-digitalcredentials-setvirtualwalletbehaviorparameters"><code>digitalCredentials.SetVirtualWalletBehaviorParameters</code></a> 
+    <span class="print-only">§13.1.1</span></li><li>
+      <a class="index-term" href="#cddl-type-digitalcredentials-setvirtualwalletbehaviorresult"><code>digitalCredentials.SetVirtualWalletBehaviorResult</code></a> 
+    <span class="print-only">§13.1.2.1</span></li><li>
+      <a class="index-term" href="#cddl-type-digitalcredentials-virtualwalletaction"><code>digitalCredentials.VirtualWalletAction</code></a> 
+    <span class="print-only">§13.1.1</span></li><li>
       <a class="index-term" href="#dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors"><code>[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)</code></a> internal slot for <code>DigitalCredential</code>
     <span class="print-only">§8.1</span></li><li>
       <a class="index-term" href="#dfn-discovery"><code>[[discovery]]</code></a> internal slot for <code>DigitalCredential</code>
     <span class="print-only">§8.5</span></li><li>
       <a class="index-term" href="#dfn-credential-type-examples">Examples of these types</a> 
     <span class="print-only">§1.</span></li><li>
+      <a class="index-term" href="#dfn-handle-virtual-wallet-behavior">handle virtual wallet behavior</a> 
+    <span class="print-only">§13.2</span></li><li>
       <a class="index-term" href="#dfn-idle">idle</a> 
     <span class="print-only">§6.1</span></li><li>
       <a class="index-term" href="#dfn-in-scope-threats">In-Scope Threats</a> 
@@ -3131,6 +3405,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <span class="print-only">§4.</span></li><li>
       <a class="index-term" href="#dfn-issuance-response">Issuance response</a> 
     <span class="print-only">§4.</span></li><li>
+      <a class="index-term" href="#cddl-key-digitalcredentials-setvirtualwalletbehavior-method"><code>method</code></a> 
+    <span class="print-only">§13.1.2.1</span></li><li>
       <a class="index-term" href="#dom-digitalcredentialissuanceprotocol-openid4vci-v1"><code>"openid4vci-v1"</code></a> enum value for <code>DigitalCredentialIssuanceProtocol</code>
     <span class="print-only">§5.</span></li><li>
       <a class="index-term" href="#dom-digitalcredentialpresentationprotocol-openid4vp-v1-multisigned"><code>"openid4vp-v1-multisigned"</code></a> enum value for <code>DigitalCredentialPresentationProtocol</code>
@@ -3143,6 +3419,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <span class="print-only">§5.</span></li><li>
       <a class="index-term" href="#dfn-out-of-scope-threats">Out-of-scope threats</a> 
     <span class="print-only">§10.1.2</span></li><li>
+      <a class="index-term" href="#cddl-key-digitalcredentials-setvirtualwalletbehavior-params"><code>params</code></a> 
+    <span class="print-only">§13.1.2.1</span></li><li>
       <a class="index-term" href="#dfn-prepare-credential-requests">prepare credential requests</a> 
     <span class="print-only">§6.2</span></li><li>
       <a class="index-term" href="#dfn-presentation-protocol">Presentation protocol</a> 
@@ -3161,7 +3439,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a class="index-term" href="#dom-digitalcredentialcreaterequest-protocol">member for <code>DigitalCredentialCreateRequest</code></a> 
     <span class="print-only">§7.6.1</span></li><li>
       <a class="index-term" href="#dom-digitalcredential-protocol">attribute for <code>DigitalCredential</code></a> 
-    <span class="print-only">§7.7.1</span></li>
+    <span class="print-only">§7.7.1</span></li><li>
+      <a class="index-term" href="#cddl-key-digitalcredentials-setvirtualwalletbehaviorparameters-protocol">definition of</a> 
+    <span class="print-only">§13.1.1</span></li>
     </ul>
   </li><li>
       <a class="index-term" href="#dfn-protocol-identifier">Protocol identifier</a> 
@@ -3185,10 +3465,16 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <span class="print-only">§7.8.1</span></li>
     </ul>
   </li><li>
+      <a class="index-term" href="#cddl-value-digitalcredentials-virtualwalletaction-respond"><code>"respond"</code></a> 
+    <span class="print-only">§13.1.1</span></li><li>
+      <a class="index-term" href="#cddl-key-digitalcredentials-setvirtualwalletbehaviorparameters-response"><code>response</code></a> 
+    <span class="print-only">§13.1.1</span></li><li>
       <a class="index-term" href="#dfn-store-credential-sameoriginwithancestors"><code>[[Store]](credential, sameOriginWithAncestors)</code></a> internal slot for <code>DigitalCredential</code>
     <span class="print-only">§8.2</span></li><li>
       <a class="index-term" href="#dfn-table-of-supported-presentation-and-issuance-protocols">Table of supported presentation and issuance protocols</a> 
     <span class="print-only">§5.</span></li><li>
+      <a class="index-term" href="#cddl-key-digitalcredentials-setvirtualwalletbehaviorparameters-text"><code>text</code></a> 
+    <span class="print-only">§13.1.1</span></li><li>
       <a class="index-term" href="#dfn-top-level-origin">top-level origin</a> 
     <span class="print-only">§7.8.1</span></li><li>
       <a class="index-term" href="#dfn-type"><code>[[type]]</code></a> internal slot for <code>DigitalCredential</code>
@@ -3200,7 +3486,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a class="index-term" href="#dom-digitalcredential-useragentallowsprotocol"><code>userAgentAllowsProtocol()</code></a> method for <code>DigitalCredential</code>
     <span class="print-only">§7.7.3</span></li><li>
       <a class="index-term" href="#dfn-validate-credential-requests">validate credential requests</a> 
-    <span class="print-only">§6.3</span></li>
+    <span class="print-only">§6.3</span></li><li>
+      <a class="index-term" href="#cddl-value-digitalcredentials-virtualwalletaction-wait"><code>"wait"</code></a> 
+    <span class="print-only">§13.1.1</span></li>
   </ul>
   </section><section id="index-defined-elsewhere"><div class="header-wrapper"><h3 id="a-2-terms-defined-by-reference"><bdi class="secno">A.2 </bdi>Terms defined by reference</h3><a class="self-link" href="#index-defined-elsewhere" aria-label="Permalink for Appendix A.2"></a></div>
     
@@ -3299,6 +3587,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
   </li><li>
     <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#concept-document-window" id="index-term-associated-document" tabindex="0" aria-haspopup="dialog">associated Document</span>
   </li><li>
+    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/document-sequences.html#browsing-context" id="index-term-browsing-context" tabindex="0" aria-haspopup="dialog">browsing context</span>
+  </li><li>
     <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/document-sequences.html#child-navigable" id="index-term-child-navigables" tabindex="0" aria-haspopup="dialog">child navigables</span>
   </li><li>
     <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation" id="index-term-consume-user-activation" tabindex="0" aria-haspopup="dialog">Consume user activation</span>
@@ -3370,6 +3660,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <span class="index-term" data-href="https://infra.spec.whatwg.org/#parse-a-json-string-to-a-javascript-value" id="index-term-parse-a-json-string-to-a-javascript-value" tabindex="0" aria-haspopup="dialog">parse a JSON string to a JavaScript value</span>
   </li><li>
     <span class="index-term" data-href="https://infra.spec.whatwg.org/#serialize-a-javascript-value-to-a-json-string" id="index-term-serialize-a-javascript-value-to-a-json-string" tabindex="0" aria-haspopup="dialog">serialize a JavaScript value to a JSON string</span>
+  </li><li>
+    <span class="index-term" data-href="https://infra.spec.whatwg.org/#serialize-an-infra-value-to-a-json-string" id="index-term-serialize-an-infra-value-to-a-json-string" tabindex="0" aria-haspopup="dialog">serialize an Infra value to a JSON string</span>
   </li><li>
     <span class="index-term" data-href="https://infra.spec.whatwg.org/#string" id="index-term-string" tabindex="0" aria-haspopup="dialog">string</span>
   </li><li>
@@ -3446,6 +3738,28 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <span class="index-term" data-href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="index-term-verifiers" tabindex="0" aria-haspopup="dialog">verifiers</span>
   </li><li>
     <span class="index-term" data-href="https://www.w3.org/TR/vc-data-model-2.0/#zero-knowledge-proofs" id="index-term-zero-knowledge-proofs" tabindex="0" aria-haspopup="dialog">Zero-Knowledge Proofs</span>
+  </li>
+        </ul>
+      </li><li>
+        [<cite><a class="bibref" data-link-type="biblio" href="#bib-webdriver">WEBDRIVER</a></cite>] defines the following:
+        <ul>
+          <li>
+    <span class="index-term" data-href="https://www.w3.org/TR/webdriver2/#dfn-error" id="index-term-error" tabindex="0" aria-haspopup="dialog">error</span>
+  </li><li>
+    <span class="index-term" data-href="https://www.w3.org/TR/webdriver2/#dfn-error-code" id="index-term-error-code" tabindex="0" aria-haspopup="dialog">error code</span>
+  </li><li>
+    <span class="index-term" data-href="https://www.w3.org/TR/webdriver2/#dfn-invalid-argument" id="index-term-invalid-argument" tabindex="0" aria-haspopup="dialog">invalid argument</span>
+  </li><li>
+    <span class="index-term" data-href="https://www.w3.org/TR/webdriver2/#dfn-remote-end-steps" id="index-term-remote-end-steps" tabindex="0" aria-haspopup="dialog">remote end steps</span>
+  </li><li>
+    <span class="index-term" data-href="https://www.w3.org/TR/webdriver2/#dfn-success" id="index-term-success" tabindex="0" aria-haspopup="dialog">success</span>
+  </li>
+        </ul>
+      </li><li>
+        [<cite><a class="bibref" data-link-type="biblio" href="#bib-webdriver-bidi">WEBDRIVER-BIDI</a></cite>] defines the following:
+        <ul>
+          <li>
+    <span class="index-term" data-href="https://www.w3.org/TR/webdriver-bidi/#modules-session" id="index-term-session-for-modules" tabindex="0" aria-haspopup="dialog">session (for <code>modules</code>)</span>
   </li>
         </ul>
       </li><li>
@@ -3539,10 +3853,10 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
 <span data-idl="" class="idlTypedef" data-title="DigitalCredentialProtocol">typedef<span class="idlType"> (<a data-link-type="idl" href="#dom-digitalcredentialpresentationprotocol" class="internalDFN" id="ref-for-dom-digitalcredentialpresentationprotocol-5"><code>DigitalCredentialPresentationProtocol</code></a> or <a data-link-type="idl" href="#dom-digitalcredentialissuanceprotocol" class="internalDFN" id="ref-for-dom-digitalcredentialissuanceprotocol-5"><code>DigitalCredentialIssuanceProtocol</code></a>)</span> <dfn data-export="" data-dfn-type="typedef" data-idl="typedef" data-title="DigitalCredentialProtocol" data-dfn-for="" class="idlID"><code>DigitalCredentialProtocol</code></dfn>;</span><span data-idl="" class="idlInterface" data-title="DigitalCredential">
 
 [<span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-index-term-exposed-extended-attribute-2">Exposed</a>=Window</span>, <span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext" id="ref-for-index-term-securecontext-extended-attribute-2">SecureContext</a></span>]
-interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-digitalcredential" id="ref-for-dom-digitalcredential-14"><code>DigitalCredential</code></a> : <span class="idlSuperclass"><a data-link-type="interface" href="https://www.w3.org/TR/credential-management-1/#credential" id="ref-for-index-term-credential-interface-5">Credential</a></span> {<span data-idl="" class="idlMethod" data-title="toJSON" data-dfn-for="DigitalCredential">
+interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-digitalcredential" id="ref-for-dom-digitalcredential-15"><code>DigitalCredential</code></a> : <span class="idlSuperclass"><a data-link-type="interface" href="https://www.w3.org/TR/credential-management-1/#credential" id="ref-for-index-term-credential-interface-5">Credential</a></span> {<span data-idl="" class="idlMethod" data-title="toJSON" data-dfn-for="DigitalCredential">
   [<span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Default" id="ref-for-index-term-default-extended-attribute-2">Default</a></span>]<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-object" id="ref-for-index-term-object-type-0-7">object</a></span> <a data-link-type="dfn" data-lt="default toJSON steps" class="idlName" href="https://webidl.spec.whatwg.org/#default-tojson-steps" id="ref-for-index-term-default-tojson-steps-2">toJSON</a>();</span><span data-idl="" class="idlAttribute" data-title="protocol" data-dfn-for="DigitalCredential">
-  readonly attribute<span class="idlType"> <a data-link-type="idl" href="#dom-digitalcredentialprotocol" class="internalDFN" id="ref-for-dom-digitalcredentialprotocol-5"><code>DigitalCredentialProtocol</code></a></span> <a class="internalDFN idlName" data-link-type="attribute" href="#dom-digitalcredential-protocol" id="ref-for-dom-digitalcredential-protocol-3"><code>protocol</code></a>;</span><span data-idl="" class="idlAttribute" data-title="data" data-dfn-for="DigitalCredential">
-  [<span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SameObject" id="ref-for-index-term-sameobject-extended-attribute-2">SameObject</a></span>] readonly attribute<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-object" id="ref-for-index-term-object-type-0-8">object</a></span> <a class="internalDFN idlName" data-link-type="attribute" href="#dom-digitalcredential-data" id="ref-for-dom-digitalcredential-data-4"><code>data</code></a>;</span><span data-idl="" class="idlMethod" data-title="userAgentAllowsProtocol" data-dfn-for="DigitalCredential">
+  readonly attribute<span class="idlType"> <a data-link-type="idl" href="#dom-digitalcredentialprotocol" class="internalDFN" id="ref-for-dom-digitalcredentialprotocol-6"><code>DigitalCredentialProtocol</code></a></span> <a class="internalDFN idlName" data-link-type="attribute" href="#dom-digitalcredential-protocol" id="ref-for-dom-digitalcredential-protocol-4"><code>protocol</code></a>;</span><span data-idl="" class="idlAttribute" data-title="data" data-dfn-for="DigitalCredential">
+  [<span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SameObject" id="ref-for-index-term-sameobject-extended-attribute-2">SameObject</a></span>] readonly attribute<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-object" id="ref-for-index-term-object-type-0-8">object</a></span> <a class="internalDFN idlName" data-link-type="attribute" href="#dom-digitalcredential-data" id="ref-for-dom-digitalcredential-data-5"><code>data</code></a>;</span><span data-idl="" class="idlMethod" data-title="userAgentAllowsProtocol" data-dfn-for="DigitalCredential">
   static<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-index-term-boolean-type-2">boolean</a></span> <a class="internalDFN idlName" data-link-type="method" href="#dom-digitalcredential-useragentallowsprotocol" id="ref-for-dom-digitalcredential-useragentallowsprotocol-5"><code>userAgentAllowsProtocol</code></a>(<span class="idlType"><a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-index-term-domstring-interface-7">DOMString</a></span> <span class="idlParamName">protocol</span>);</span>
 };</span>
 
@@ -3556,17 +3870,30 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
 <span data-idl="" class="idlEnum" data-title="DigitalCredentialIssuanceProtocol">enum <dfn data-export="" data-dfn-type="enum" data-idl="enum" data-title="DigitalCredentialIssuanceProtocol" data-dfn-for="" class="idlID"><code>DigitalCredentialIssuanceProtocol</code></dfn> {
   <span class="idlEnumItem">"<a class="internalDFN" data-link-type="enum-value" href="#dom-digitalcredentialissuanceprotocol-openid4vci-v1" id="ref-for-dom-digitalcredentialissuanceprotocol-openid4vci-v1-2"><code>openid4vci-v1</code></a>"</span>,
 };</span></code></pre></section>
-    <section id="conformance"><div class="header-wrapper"><h2 id="c-conformance"><bdi class="secno">C. </bdi>Conformance</h2><a class="self-link" href="#conformance" aria-label="Permalink for Section C."></a></div><p>As well as sections marked as non-normative, all authoring guidelines, diagrams, examples, and notes in this specification are non-normative. Everything else in this specification is normative.</p><p>
-        The key words <em class="rfc2119">MAY</em>, <em class="rfc2119">MUST</em>, <em class="rfc2119">MUST NOT</em>, and <em class="rfc2119">SHOULD</em> in this document
+    <section id="cddl-index"><div class="header-wrapper"><h2 id="c-cddl-index"><bdi class="secno">C. </bdi>CDDL Index</h2><a class="self-link" href="#cddl-index" aria-label="Permalink for Section C."></a></div><section id="module-remote-cddl"><div class="header-wrapper"><h3 id="cddl-index-module-remote-cddl"><bdi class="secno">C.1 </bdi>Module: remote-cddl</h3><a class="self-link" href="#cddl-index-module-remote-cddl" aria-label="Permalink for Section C.1"></a></div><pre class="cddl def highlight"><code><span>digitalCredentials.VirtualWalletAction</span> <span class="cddl-op">=</span> <span>"decline"</span> <span class="cddl-op">/</span> <span>"respond"</span> <span class="cddl-op">/</span> <span>"wait"</span> <span class="cddl-op">/</span> <span>"clear"</span>
+
+<span>digitalCredentials.SetVirtualWalletBehaviorParameters</span> <span class="cddl-op">=</span> {
+  <span>action</span>: <a href="#cddl-type-digitalcredentials-virtualwalletaction" class="cddl-name" data-link-type="cddl-type" id="ref-for-cddl-type-digitalcredentials-virtualwalletaction-3">digitalCredentials.VirtualWalletAction</a>,
+  <span class="cddl-occ">?</span> <span>context</span>: <a class="cddl-kw" data-link-type="cddl-type" data-link-spec="rfc8610" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
+  <span class="cddl-occ">?</span> <span>protocol</span>: <a class="cddl-kw" data-link-type="cddl-type" data-link-spec="rfc8610" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
+  <span class="cddl-occ">?</span> <span>response</span>: { <span class="cddl-occ">*</span> <span>text</span> <span class="cddl-op">=&gt;</span> <a class="cddl-kw" data-link-type="cddl-type" data-link-spec="rfc8610" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">any</a> },
+}
+
+<span>digitalCredentials.SetVirtualWalletBehavior</span> <span class="cddl-op">=</span> (
+  <span>method</span>: <span>"digitalCredentials.setVirtualWalletBehavior"</span>,
+  <span>params</span>: <a href="#cddl-type-digitalcredentials-setvirtualwalletbehaviorparameters" class="cddl-name" data-link-type="cddl-type" id="ref-for-cddl-type-digitalcredentials-setvirtualwalletbehaviorparameters-2">digitalCredentials.SetVirtualWalletBehaviorParameters</a>
+)</code></pre></section><section id="module-local-cddl"><div class="header-wrapper"><h3 id="cddl-index-module-local-cddl"><bdi class="secno">C.2 </bdi>Module: local-cddl</h3><a class="self-link" href="#cddl-index-module-local-cddl" aria-label="Permalink for Section C.2"></a></div><pre class="cddl def highlight"><code><span>digitalCredentials.SetVirtualWalletBehaviorResult</span> <span class="cddl-op">=</span> <span class="cddl-name respec-offending-element" title="No CDDL definition found for `EmptyResult`.">EmptyResult</span></code></pre></section></section>
+    <section id="conformance"><div class="header-wrapper"><h2 id="d-conformance"><bdi class="secno">D. </bdi>Conformance</h2><a class="self-link" href="#conformance" aria-label="Permalink for Section D."></a></div><p>As well as sections marked as non-normative, all authoring guidelines, diagrams, examples, and notes in this specification are non-normative. Everything else in this specification is normative.</p><p>
+        The key words <em class="rfc2119">MAY</em>, <em class="rfc2119">MUST</em>, <em class="rfc2119">MUST NOT</em>, <em class="rfc2119">OPTIONAL</em>, and <em class="rfc2119">SHOULD</em> in this document
         are to be interpreted as described in
         <a href="https://www.rfc-editor.org/info/bcp14">BCP 14</a>
         [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc2119" title="Key words for use in RFCs to Indicate Requirement Levels">RFC2119</a></cite>] [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc8174" title="Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words">RFC8174</a></cite>]
         when, and only when, they appear in all
         capitals, as shown here.
       </p></section>
-    <section class="appendix" id="acknowledgements"><div class="header-wrapper"><h2 class="appendix" id="d-acknowledgements"><bdi class="secno">D. </bdi>
+    <section class="appendix" id="acknowledgements"><div class="header-wrapper"><h2 class="appendix" id="e-acknowledgements"><bdi class="secno">E. </bdi>
       Acknowledgements
-    </h2><a class="self-link" href="#acknowledgements" aria-label="Permalink for Appendix D."></a></div>
+    </h2><a class="self-link" href="#acknowledgements" aria-label="Permalink for Appendix E."></a></div>
     <p>
       Some of the Editors would like to thank the following individuals for
       their feedback and contributions to this specification: Christian Bormann
@@ -4472,7 +4799,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-dom-digitalcredential-13" title="§ 8.5 [[discovery]] internal slot">§ 8.5 [[discovery]] internal slot</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredential-14" title="§ B. IDL Index">§ B. IDL Index</a> 
+      <a href="#ref-for-dom-digitalcredential-14" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> 
+    </li><li>
+      <a href="#ref-for-dom-digitalcredential-15" title="§ B. IDL Index">§ B. IDL Index</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dom-digitalcredentialprotocol" aria-label="Links in this document to definition: DigitalCredentialProtocol">
@@ -4491,7 +4820,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-dom-digitalcredentialprotocol-4" title="§ 7.7.3 The userAgentAllowsProtocol() method">§ 7.7.3 The userAgentAllowsProtocol() method</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredentialprotocol-5" title="§ B. IDL Index">§ B. IDL Index</a> 
+      <a href="#ref-for-dom-digitalcredentialprotocol-5" title="§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> 
+    </li><li>
+      <a href="#ref-for-dom-digitalcredentialprotocol-6" title="§ B. IDL Index">§ B. IDL Index</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dom-digitalcredential-protocol" aria-label="Links in this document to definition: protocol">
@@ -4508,7 +4839,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-dom-digitalcredential-protocol-2" title="§ 7.7 The DigitalCredential interface">§ 7.7 The DigitalCredential interface</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredential-protocol-3" title="§ B. IDL Index">§ B. IDL Index</a> 
+      <a href="#ref-for-dom-digitalcredential-protocol-3" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> 
+    </li><li>
+      <a href="#ref-for-dom-digitalcredential-protocol-4" title="§ B. IDL Index">§ B. IDL Index</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dom-digitalcredential-data" aria-label="Links in this document to definition: data">
@@ -4525,7 +4858,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-dom-digitalcredential-data-3" title="§ 7.7 The DigitalCredential interface">§ 7.7 The DigitalCredential interface</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredential-data-4" title="§ B. IDL Index">§ B. IDL Index</a> 
+      <a href="#ref-for-dom-digitalcredential-data-4" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> 
+    </li><li>
+      <a href="#ref-for-dom-digitalcredential-data-5" title="§ B. IDL Index">§ B. IDL Index</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dom-digitalcredential-useragentallowsprotocol" aria-label="Links in this document to definition: userAgentAllowsProtocol()">
@@ -4658,6 +4993,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors-1" title="§ 7. The Digital Credentials API">§ 7. The Digital Credentials API</a> 
     </li><li>
       <a href="#ref-for-dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors-2" title="§ 10.2 Mitigations">§ 10.2 Mitigations</a> 
+    </li><li>
+      <a href="#ref-for-dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors-3" title="§ 13.1 The digitalCredentials Module">§ 13.1 The digitalCredentials Module</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-store-credential-sameoriginwithancestors" aria-label="Links in this document to definition: [[Store]](credential, sameOriginWithAncestors)">
@@ -4807,6 +5144,226 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-dfn-out-of-scope-threats-2" title="§ 10.1.2 Out of Scope Threats">§ 10.1.2 Out of Scope Threats</a> 
     </li>
   </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-cddl-type-digitalcredentials-virtualwalletaction" aria-label="Links in this document to definition: digitalCredentials.VirtualWalletAction">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#cddl-type-digitalcredentials-virtualwalletaction" aria-label="Permalink for definition: digitalCredentials.VirtualWalletAction. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+        <a class="marker cddl-block" title="Jump to CDDL declaration" href="#cddl-block-1238149299">CDDL</a>
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-cddl-type-digitalcredentials-virtualwalletaction-1" title="§ 13.1.1 Types">§ 13.1.1 Types</a> <a href="#ref-for-cddl-type-digitalcredentials-virtualwalletaction-2" title="Reference 2">(2)</a> 
+    </li><li>
+      <a href="#ref-for-cddl-type-digitalcredentials-virtualwalletaction-3" title="§ C.1 Module: remote-cddl">§ C.1 Module: remote-cddl</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-cddl-value-digitalcredentials-virtualwalletaction-decline" aria-label="Links in this document to definition: &quot;decline&quot;">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#cddl-value-digitalcredentials-virtualwalletaction-decline" aria-label="Permalink for definition: &quot;decline&quot;. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+        
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-cddl-value-digitalcredentials-virtualwalletaction-decline-1" title="§ 13.1.1 Types">§ 13.1.1 Types</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-cddl-value-digitalcredentials-virtualwalletaction-respond" aria-label="Links in this document to definition: &quot;respond&quot;">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#cddl-value-digitalcredentials-virtualwalletaction-respond" aria-label="Permalink for definition: &quot;respond&quot;. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+        
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-cddl-value-digitalcredentials-virtualwalletaction-respond-1" title="§ 13.1.1 Types">§ 13.1.1 Types</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-cddl-value-digitalcredentials-virtualwalletaction-wait" aria-label="Links in this document to definition: &quot;wait&quot;">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#cddl-value-digitalcredentials-virtualwalletaction-wait" aria-label="Permalink for definition: &quot;wait&quot;. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+        
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-cddl-value-digitalcredentials-virtualwalletaction-wait-1" title="§ 13.1.1 Types">§ 13.1.1 Types</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-cddl-value-digitalcredentials-virtualwalletaction-clear" aria-label="Links in this document to definition: &quot;clear&quot;">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#cddl-value-digitalcredentials-virtualwalletaction-clear" aria-label="Permalink for definition: &quot;clear&quot;. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+        
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-cddl-value-digitalcredentials-virtualwalletaction-clear-1" title="§ 13.1.1 Types">§ 13.1.1 Types</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-cddl-type-digitalcredentials-setvirtualwalletbehaviorparameters" aria-label="Links in this document to definition: digitalCredentials.SetVirtualWalletBehaviorParameters">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#cddl-type-digitalcredentials-setvirtualwalletbehaviorparameters" aria-label="Permalink for definition: digitalCredentials.SetVirtualWalletBehaviorParameters. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+        <a class="marker cddl-block" title="Jump to CDDL declaration" href="#cddl-block-387937039">CDDL</a>
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-cddl-type-digitalcredentials-setvirtualwalletbehaviorparameters-1" title="§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> 
+    </li><li>
+      <a href="#ref-for-cddl-type-digitalcredentials-setvirtualwalletbehaviorparameters-2" title="§ C.1 Module: remote-cddl">§ C.1 Module: remote-cddl</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-cddl-key-digitalcredentials-setvirtualwalletbehaviorparameters-action" aria-label="Links in this document to definition: action">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#cddl-key-digitalcredentials-setvirtualwalletbehaviorparameters-action" aria-label="Permalink for definition: action. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+        
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+      <li>Not referenced in this document.</li>
+    </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-cddl-key-digitalcredentials-setvirtualwalletbehaviorparameters-context" aria-label="Links in this document to definition: context">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#cddl-key-digitalcredentials-setvirtualwalletbehaviorparameters-context" aria-label="Permalink for definition: context. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+        
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+      <li>Not referenced in this document.</li>
+    </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-cddl-key-digitalcredentials-setvirtualwalletbehaviorparameters-protocol" aria-label="Links in this document to definition: protocol">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#cddl-key-digitalcredentials-setvirtualwalletbehaviorparameters-protocol" aria-label="Permalink for definition: protocol. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+        
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+      <li>Not referenced in this document.</li>
+    </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-cddl-key-digitalcredentials-setvirtualwalletbehaviorparameters-response" aria-label="Links in this document to definition: response">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#cddl-key-digitalcredentials-setvirtualwalletbehaviorparameters-response" aria-label="Permalink for definition: response. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+        
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+      <li>Not referenced in this document.</li>
+    </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-cddl-key-digitalcredentials-setvirtualwalletbehaviorparameters-text" aria-label="Links in this document to definition: text">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#cddl-key-digitalcredentials-setvirtualwalletbehaviorparameters-text" aria-label="Permalink for definition: text. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+        
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+      <li>Not referenced in this document.</li>
+    </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-cddl-type-digitalcredentials-setvirtualwalletbehavior" aria-label="Links in this document to definition: digitalCredentials.SetVirtualWalletBehavior">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#cddl-type-digitalcredentials-setvirtualwalletbehavior" aria-label="Permalink for definition: digitalCredentials.SetVirtualWalletBehavior. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+        
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+      <li>Not referenced in this document.</li>
+    </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-cddl-key-digitalcredentials-setvirtualwalletbehavior-method" aria-label="Links in this document to definition: method">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#cddl-key-digitalcredentials-setvirtualwalletbehavior-method" aria-label="Permalink for definition: method. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+        
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+      <li>Not referenced in this document.</li>
+    </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-cddl-value-digitalcredentials-setvirtualwalletbehavior-digitalcredentials-setvirtualwalletbehavior" aria-label="Links in this document to definition: &quot;digitalCredentials.setVirtualWalletBehavior&quot;">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#cddl-value-digitalcredentials-setvirtualwalletbehavior-digitalcredentials-setvirtualwalletbehavior" aria-label="Permalink for definition: &quot;digitalCredentials.setVirtualWalletBehavior&quot;. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+        
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+      <li>Not referenced in this document.</li>
+    </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-cddl-key-digitalcredentials-setvirtualwalletbehavior-params" aria-label="Links in this document to definition: params">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#cddl-key-digitalcredentials-setvirtualwalletbehavior-params" aria-label="Permalink for definition: params. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+        
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+      <li>Not referenced in this document.</li>
+    </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-cddl-type-digitalcredentials-setvirtualwalletbehaviorresult" aria-label="Links in this document to definition: digitalCredentials.SetVirtualWalletBehaviorResult">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#cddl-type-digitalcredentials-setvirtualwalletbehaviorresult" aria-label="Permalink for definition: digitalCredentials.SetVirtualWalletBehaviorResult. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+        
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+      <li>Not referenced in this document.</li>
+    </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-active-virtual-wallet-behavior" aria-label="Links in this document to definition: active virtual wallet behavior">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dfn-active-virtual-wallet-behavior" aria-label="Permalink for definition: active virtual wallet behavior. Activate to close this dialog.">Permalink</a>
+         
+        
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-dfn-active-virtual-wallet-behavior-1" title="§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> <a href="#ref-for-dfn-active-virtual-wallet-behavior-2" title="Reference 2">(2)</a> <a href="#ref-for-dfn-active-virtual-wallet-behavior-3" title="Reference 3">(3)</a> 
+    </li><li>
+      <a href="#ref-for-dfn-active-virtual-wallet-behavior-4" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> <a href="#ref-for-dfn-active-virtual-wallet-behavior-5" title="Reference 2">(2)</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-handle-virtual-wallet-behavior" aria-label="Links in this document to definition: handle virtual wallet behavior">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dfn-handle-virtual-wallet-behavior" aria-label="Permalink for definition: handle virtual wallet behavior. Activate to close this dialog.">Permalink</a>
+         
+        
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-dfn-handle-virtual-wallet-behavior-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> 
+    </li>
+  </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-phoning-home" aria-label="Links in this document to definition: &quot;Phoning home&quot;">
       <span class="caret"></span>
       <div>
@@ -4872,6 +5429,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-create-origin-options-sameoriginwithancestors-for-credential-1" title="§ 7. The Digital Credentials API">§ 7. The Digital Credentials API</a> 
     </li><li>
       <a href="#ref-for-index-term-create-origin-options-sameoriginwithancestors-for-credential-2" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
+    </li><li>
+      <a href="#ref-for-index-term-create-origin-options-sameoriginwithancestors-for-credential-3" title="§ 13.1 The digitalCredentials Module">§ 13.1 The digitalCredentials Module</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-discoverfromexternalsource-origin-options-sameoriginwithancestors-for-credential" aria-label="Links in this document to definition: [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) (for Credential)">
@@ -5328,6 +5887,19 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-associated-document-2" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
     </li>
   </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-browsing-context" aria-label="Links in this document to definition: browsing context">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="https://html.spec.whatwg.org/multipage/document-sequences.html#browsing-context" aria-label="Permalink for definition: browsing context. Activate to close this dialog.">Permalink</a>
+         
+        
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-index-term-browsing-context-1" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> 
+    </li>
+  </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-child-navigables" aria-label="Links in this document to definition: child navigables">
       <span class="caret"></span>
       <div>
@@ -5373,6 +5945,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-dom-manipulation-task-source-2" title="§ 6.5 Reject the credential request">§ 6.5 Reject the credential request</a> 
     </li><li>
       <a href="#ref-for-index-term-dom-manipulation-task-source-3" title="§ 6.6 Initiate the credential request">§ 6.6 Initiate the credential request</a> 
+    </li><li>
+      <a href="#ref-for-index-term-dom-manipulation-task-source-4" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-environment-settings-object" aria-label="Links in this document to definition: environment settings object">
@@ -5485,6 +6059,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-queue-a-global-task-2" title="§ 6.5 Reject the credential request">§ 6.5 Reject the credential request</a> 
     </li><li>
       <a href="#ref-for-index-term-queue-a-global-task-3" title="§ 6.6 Initiate the credential request">§ 6.6 Initiate the credential request</a> 
+    </li><li>
+      <a href="#ref-for-index-term-queue-a-global-task-4" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-relevant-global-object" aria-label="Links in this document to definition: relevant global object">
@@ -5521,6 +6097,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-relevant-realm-1" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
     </li><li>
       <a href="#ref-for-index-term-relevant-realm-2" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
+    </li><li>
+      <a href="#ref-for-index-term-relevant-realm-3" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-relevant-settings-object" aria-label="Links in this document to definition: relevant settings object">
@@ -5754,6 +6332,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <ul>
     <li>
       <a href="#ref-for-index-term-parse-a-json-string-to-a-javascript-value-1" title="§ 6.6 Initiate the credential request">§ 6.6 Initiate the credential request</a> 
+    </li><li>
+      <a href="#ref-for-index-term-parse-a-json-string-to-a-javascript-value-2" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-serialize-a-javascript-value-to-a-json-string" aria-label="Links in this document to definition: serialize a JavaScript value to a JSON string">
@@ -5767,6 +6347,21 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <ul>
     <li>
       <a href="#ref-for-index-term-serialize-a-javascript-value-to-a-json-string-1" title="§ 6.3 Validate credential requests">§ 6.3 Validate credential requests</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-serialize-an-infra-value-to-a-json-string" aria-label="Links in this document to definition: serialize an Infra value to a JSON string">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="https://infra.spec.whatwg.org/#serialize-an-infra-value-to-a-json-string" aria-label="Permalink for definition: serialize an Infra value to a JSON string. Activate to close this dialog.">Permalink</a>
+         
+        
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-index-term-serialize-an-infra-value-to-a-json-string-1" title="§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> 
+    </li><li>
+      <a href="#ref-for-index-term-serialize-an-infra-value-to-a-json-string-2" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-string" aria-label="Links in this document to definition: string">
@@ -5852,6 +6447,10 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-user-agents-0-46" title="§ 11.6.3 Permission Prior to Wallet Selection">§ 11.6.3 Permission Prior to Wallet Selection</a> 
     </li><li>
       <a href="#ref-for-index-term-user-agents-0-47" title="§ 11.6.4 Permission vs. Consent">§ 11.6.4 Permission vs. Consent</a> <a href="#ref-for-index-term-user-agents-0-48" title="Reference 2">(2)</a> 
+    </li><li>
+      <a href="#ref-for-index-term-user-agents-0-49" title="§ 13. Automated Testing">§ 13. Automated Testing</a> 
+    </li><li>
+      <a href="#ref-for-index-term-user-agents-0-50" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-a-3-1-unsigned-request" aria-label="Links in this document to definition: A.3.1. Unsigned Request">
@@ -6214,6 +6813,86 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-zero-knowledge-proofs-1" title="§ 11.3.1.2 Unlinkable presentations">§ 11.3.1.2 Unlinkable presentations</a> 
     </li>
   </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-error" aria-label="Links in this document to definition: error">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="https://www.w3.org/TR/webdriver2/#dfn-error" aria-label="Permalink for definition: error. Activate to close this dialog.">Permalink</a>
+         
+        
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-index-term-error-1" title="§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> <a href="#ref-for-index-term-error-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-error-3" title="Reference 3">(3)</a> <a href="#ref-for-index-term-error-4" title="Reference 4">(4)</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-error-code" aria-label="Links in this document to definition: error code">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="https://www.w3.org/TR/webdriver2/#dfn-error-code" aria-label="Permalink for definition: error code. Activate to close this dialog.">Permalink</a>
+         
+        
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-index-term-error-code-1" title="§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> <a href="#ref-for-index-term-error-code-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-error-code-3" title="Reference 3">(3)</a> <a href="#ref-for-index-term-error-code-4" title="Reference 4">(4)</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-invalid-argument" aria-label="Links in this document to definition: invalid argument">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="https://www.w3.org/TR/webdriver2/#dfn-invalid-argument" aria-label="Permalink for definition: invalid argument. Activate to close this dialog.">Permalink</a>
+         
+        
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-index-term-invalid-argument-1" title="§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> <a href="#ref-for-index-term-invalid-argument-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-invalid-argument-3" title="Reference 3">(3)</a> <a href="#ref-for-index-term-invalid-argument-4" title="Reference 4">(4)</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-remote-end-steps" aria-label="Links in this document to definition: remote end steps">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="https://www.w3.org/TR/webdriver2/#dfn-remote-end-steps" aria-label="Permalink for definition: remote end steps. Activate to close this dialog.">Permalink</a>
+         
+        
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-index-term-remote-end-steps-1" title="§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-success" aria-label="Links in this document to definition: success">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="https://www.w3.org/TR/webdriver2/#dfn-success" aria-label="Permalink for definition: success. Activate to close this dialog.">Permalink</a>
+         
+        
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-index-term-success-1" title="§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-session-for-modules" aria-label="Links in this document to definition: session (for modules)">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="https://www.w3.org/TR/webdriver-bidi/#modules-session" aria-label="Permalink for definition: session (for modules). Activate to close this dialog.">Permalink</a>
+         
+        
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-index-term-session-for-modules-1" title="§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> <a href="#ref-for-index-term-session-for-modules-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-session-for-modules-3" title="Reference 3">(3)</a> <a href="#ref-for-index-term-session-for-modules-4" title="Reference 4">(4)</a> 
+    </li><li>
+      <a href="#ref-for-index-term-session-for-modules-5" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> <a href="#ref-for-index-term-session-for-modules-6" title="Reference 2">(2)</a> 
+    </li>
+  </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-a-new-promise" aria-label="Links in this document to definition: a new promise">
       <span class="caret"></span>
       <div>
@@ -6321,6 +7000,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-domexception-interface-8" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> <a href="#ref-for-index-term-domexception-interface-9" title="Reference 2">(2)</a> 
     </li><li>
       <a href="#ref-for-index-term-domexception-interface-10" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> <a href="#ref-for-index-term-domexception-interface-11" title="Reference 2">(2)</a> 
+    </li><li>
+      <a href="#ref-for-index-term-domexception-interface-12" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-domstring-interface" aria-label="Links in this document to definition: DOMString interface">
@@ -6357,6 +7038,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-enumeration-value-1" title="§ 6.3 Validate credential requests">§ 6.3 Validate credential requests</a> <a href="#ref-for-index-term-enumeration-value-2" title="Reference 2">(2)</a> 
     </li><li>
       <a href="#ref-for-index-term-enumeration-value-3" title="§ 7.7.3 The userAgentAllowsProtocol() method">§ 7.7.3 The userAgentAllowsProtocol() method</a> 
+    </li><li>
+      <a href="#ref-for-index-term-enumeration-value-4" title="§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-exception" aria-label="Links in this document to definition: exception">
@@ -6376,6 +7059,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-exception-3" title="§ 6.3 Validate credential requests">§ 6.3 Validate credential requests</a> <a href="#ref-for-index-term-exception-4" title="Reference 2">(2)</a> <a href="#ref-for-index-term-exception-5" title="Reference 3">(3)</a> 
     </li><li>
       <a href="#ref-for-index-term-exception-6" title="§ 6.6 Initiate the credential request">§ 6.6 Initiate the credential request</a> 
+    </li><li>
+      <a href="#ref-for-index-term-exception-7" title="§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-exposed-extended-attribute" aria-label="Links in this document to definition: [Exposed] extended attribute">
@@ -6451,6 +7136,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-notallowederror-exception-4" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> <a href="#ref-for-index-term-notallowederror-exception-5" title="Reference 2">(2)</a> 
     </li><li>
       <a href="#ref-for-index-term-notallowederror-exception-6" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> <a href="#ref-for-index-term-notallowederror-exception-7" title="Reference 2">(2)</a> 
+    </li><li>
+      <a href="#ref-for-index-term-notallowederror-exception-8" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-object-type-0" aria-label="Links in this document to definition: object type">
@@ -6502,6 +7189,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-promise-interface-3" title="§ 6.5 Reject the credential request">§ 6.5 Reject the credential request</a> 
     </li><li>
       <a href="#ref-for-index-term-promise-interface-4" title="§ 6.6 Initiate the credential request">§ 6.6 Initiate the credential request</a> 
+    </li><li>
+      <a href="#ref-for-index-term-promise-interface-5" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-referenceerror-exception" aria-label="Links in this document to definition: ReferenceError exception">
@@ -6534,6 +7223,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-rejects-4" title="§ 6.5 Reject the credential request">§ 6.5 Reject the credential request</a> 
     </li><li>
       <a href="#ref-for-index-term-rejects-5" title="§ 6.6 Initiate the credential request">§ 6.6 Initiate the credential request</a> <a href="#ref-for-index-term-rejects-6" title="Reference 2">(2)</a> 
+    </li><li>
+      <a href="#ref-for-index-term-rejects-7" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-resolves" aria-label="Links in this document to definition: resolves">
@@ -6549,6 +7240,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-resolves-1" title="§ 6. Credential Request Coordinator">§ 6. Credential Request Coordinator</a> <a href="#ref-for-index-term-resolves-2" title="Reference 2">(2)</a> 
     </li><li>
       <a href="#ref-for-index-term-resolves-3" title="§ 6.6 Initiate the credential request">§ 6.6 Initiate the credential request</a> 
+    </li><li>
+      <a href="#ref-for-index-term-resolves-4" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-sameobject-extended-attribute" aria-label="Links in this document to definition: [SameObject] extended attribute">
@@ -6658,7 +7351,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         navigator.clipboard.writeText(clone.textContent);
       });
     });
-  </script></section><section id="references" class="appendix"><div class="header-wrapper"><h2 id="e-references"><bdi class="secno">E. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix E."></a></div><section id="normative-references"><div class="header-wrapper"><h3 id="e-1-normative-references"><bdi class="secno">E.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix E.1"></a></div>
+  </script></section><section id="references" class="appendix"><div class="header-wrapper"><h2 id="f-references"><bdi class="secno">F. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix F."></a></div><section id="normative-references"><div class="header-wrapper"><h3 id="f-1-normative-references"><bdi class="secno">F.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix F.1"></a></div>
     
     <dl class="bibliography"><dt id="bib-credential-management">[credential-management]</dt><dd>
       <a href="https://www.w3.org/TR/credential-management-1/"><cite>Credential Management Level 1</cite></a>. Nina Satragno; Marcos Caceres.  W3C. 10 April 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/credential-management-1/">https://www.w3.org/TR/credential-management-1/</a>
@@ -6686,10 +7379,14 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="https://www.w3.org/TR/vc-data-model-2.0/"><cite>Verifiable Credentials Data Model v2.0</cite></a>. Ivan Herman; Michael Jones; Manu Sporny; Ted Thibodeau Jr; Gabe Cohen.  W3C. 15 May 2025. W3C Recommendation. URL: <a href="https://www.w3.org/TR/vc-data-model-2.0/">https://www.w3.org/TR/vc-data-model-2.0/</a>
     </dd><dt id="bib-vc-use-cases">[vc-use-cases]</dt><dd>
       <a href="https://www.w3.org/TR/vc-use-cases/"><cite>Verifiable Credentials Use Cases</cite></a>. Joe Andrieu; Kevin Dean.  W3C. 18 March 2026. W3C Working Group Note. URL: <a href="https://www.w3.org/TR/vc-use-cases/">https://www.w3.org/TR/vc-use-cases/</a>
+    </dd><dt id="bib-webdriver">[webdriver]</dt><dd>
+      <a href="https://www.w3.org/TR/webdriver2/"><cite>WebDriver</cite></a>. Simon Stewart; David Burns.  W3C. 11 May 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/webdriver2/">https://www.w3.org/TR/webdriver2/</a>
+    </dd><dt id="bib-webdriver-bidi">[webdriver-bidi]</dt><dd>
+      <a href="https://www.w3.org/TR/webdriver-bidi/"><cite>WebDriver BiDi</cite></a>. James Graham; Alex Rudenko; Maksim Sadym.  W3C. 19 March 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/webdriver-bidi/">https://www.w3.org/TR/webdriver-bidi/</a>
     </dd><dt id="bib-webidl">[webidl]</dt><dd>
       <a href="https://webidl.spec.whatwg.org/"><cite>Web IDL Standard</cite></a>. Edgar Chen; Timothy Gu.  WHATWG. Living Standard. URL: <a href="https://webidl.spec.whatwg.org/">https://webidl.spec.whatwg.org/</a>
     </dd></dl>
-  </section><section id="informative-references"><div class="header-wrapper"><h3 id="e-2-informative-references"><bdi class="secno">E.2 </bdi>Informative references</h3><a class="self-link" href="#informative-references" aria-label="Permalink for Appendix E.2"></a></div>
+  </section><section id="informative-references"><div class="header-wrapper"><h3 id="f-2-informative-references"><bdi class="secno">F.2 </bdi>Informative references</h3><a class="self-link" href="#informative-references" aria-label="Permalink for Appendix F.2"></a></div>
     
     <dl class="bibliography"><dt id="bib-credential-considerations">[credential-considerations]</dt><dd>
       <a href="https://github.com/w3c/credential-considerations/blob/main/credentials-considerations.md"><cite>User considerations for credentials on the Web</cite></a>. Nick Doty; Rick Byers.  W3C. 2025-03-26. URL: <a href="https://github.com/w3c/credential-considerations/blob/main/credentials-considerations.md">https://github.com/w3c/credential-considerations/blob/main/credentials-considerations.md</a>
