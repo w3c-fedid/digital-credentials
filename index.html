@@ -2968,9 +2968,9 @@
           </li>
         </ol>
         <p class="note">
-          When the [=WebDriver session=] ends, the [=user agent=] MUST
-          [=reject=] any unsettled {{Promise}} objects that were left pending
-          by the `"wait"` action with an {{"AbortError"}} {{DOMException}}.
+          When the [=WebDriver session=] ends, the [=user agent=]
+          [=rejects=] unsettled {{Promise}} objects that were left pending
+          by the `"wait"` action.
         </p>
         <p class="note">
           If a new credential request arrives for a [=browsing context=] while
