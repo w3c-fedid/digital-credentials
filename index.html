@@ -2978,6 +2978,11 @@
           agent=] MUST [=reject=] the previous request's {{Promise}} with an
           {{"AbortError"}} {{DOMException}} before handling the new request.
         </p>
+        <p class="note">
+          If the [=browsing context=] associated with a pending `"wait"`
+          promise is destroyed, the [=user agent=] MUST [=reject=] the promise
+          with an {{"AbortError"}} {{DOMException}}.
+        </p>
       </section>
     </section>
     <section class="prefer-full-spec-title" id="index"></section>
