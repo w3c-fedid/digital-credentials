@@ -176,7 +176,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="90e10eb776e3996f333aa4deb38f8bbc08d2585e">
+<meta name="revision" content="8dc4712a0f7874aee29ef5ad0dc0660e320b27c4">
 <meta name="description" content="This document specifies an API enabling user agents to mediate the
         presentation and issuance of digital credentials, such as a
         driver's license, government-issued identification card, or
@@ -325,16 +325,16 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "90e10eb776e3996f333aa4deb38f8bbc08d2585e",
-  "publishISODate": "2026-05-11T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 11 May 2026"
+  "gitRevision": "8dc4712a0f7874aee29ef5ad0dc0660e320b27c4",
+  "publishISODate": "2026-05-12T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 12 May 2026"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED"></head>
   <body data-cite="WEBIDL credential-management permissions-policy vc-data-model HTML INFRA URL WEBIDL DOM FETCH" class="h-entry"><div class="head">
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Digital Credentials</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-05-11">11 May 2026</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-05-12">12 May 2026</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -3214,9 +3214,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         <li>If <var>action</var> is <code>"clear"</code>:
           <ol>
             <li>If <var>context</var> is not <code>null</code>, remove the entry for <var>context</var> from
-            the WebDriver <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver-bidi/#modules-session" id="ref-for-index-term-session-for-modules-1">session</a>'s <a data-link-type="dfn|abstract-op" href="#dfn-active-virtual-wallet-behavior" class="internalDFN" id="ref-for-dfn-active-virtual-wallet-behavior-1">active virtual wallet behavior</a>.
+            the WebDriver <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver2/#dfn-webdriver-session" id="ref-for-index-term-session-1">session</a>'s <a data-link-type="dfn|abstract-op" href="#dfn-active-virtual-wallet-behavior" class="internalDFN" id="ref-for-dfn-active-virtual-wallet-behavior-1">active virtual wallet behavior</a>.
             </li>
-            <li>Else, set the WebDriver <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver-bidi/#modules-session" id="ref-for-index-term-session-for-modules-2">session</a>'s <a data-link-type="dfn|abstract-op" href="#dfn-active-virtual-wallet-behavior" class="internalDFN" id="ref-for-dfn-active-virtual-wallet-behavior-2">active virtual wallet behavior</a> to <code>null</code>.
+            <li>Else, set the WebDriver <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver2/#dfn-webdriver-session" id="ref-for-index-term-session-2">session</a>'s <a data-link-type="dfn|abstract-op" href="#dfn-active-virtual-wallet-behavior" class="internalDFN" id="ref-for-dfn-active-virtual-wallet-behavior-2">active virtual wallet behavior</a> to <code>null</code>.
             </li>
           </ol>
         </li>
@@ -3225,11 +3225,11 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
             <li>Let <var>behavior</var> be a tuple of (<var>action</var>, <var>protocol</var>,
             <var>response</var>).
             </li>
-            <li>If <var>context</var> is not <code>null</code>, set the WebDriver
-            <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver-bidi/#modules-session" id="ref-for-index-term-session-for-modules-3">session</a>'s <dfn id="dfn-active-virtual-wallet-behavior" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">active virtual wallet behavior</dfn> for
-            the browsing context ID <var>context</var> to <var>behavior</var>.
+            <li>If <var>context</var> is not <code>null</code>, set the WebDriver <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver2/#dfn-webdriver-session" id="ref-for-index-term-session-3">session</a>'s
+            <dfn id="dfn-active-virtual-wallet-behavior" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">active virtual wallet behavior</dfn> for the browsing context
+            ID <var>context</var> to <var>behavior</var>.
             </li>
-            <li>Else, set the WebDriver <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver-bidi/#modules-session" id="ref-for-index-term-session-for-modules-4">session</a>'s default <a data-link-type="dfn|abstract-op" href="#dfn-active-virtual-wallet-behavior" class="internalDFN" id="ref-for-dfn-active-virtual-wallet-behavior-3">active virtual wallet behavior</a> to <var>behavior</var>.
+            <li>Else, set the WebDriver <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver2/#dfn-webdriver-session" id="ref-for-index-term-session-4">session</a>'s default <a data-link-type="dfn|abstract-op" href="#dfn-active-virtual-wallet-behavior" class="internalDFN" id="ref-for-dfn-active-virtual-wallet-behavior-3">active virtual wallet behavior</a> to <var>behavior</var>.
             </li>
           </ol>
         </li>
@@ -3248,11 +3248,10 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         </li>
         <li>Let <var>context ID</var> be the ID of <var>global</var>'s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#browsing-context" id="ref-for-index-term-browsing-context-1">browsing context</a>.
         </li>
-        <li>Let <var>behavior</var> be the current WebDriver <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver-bidi/#modules-session" id="ref-for-index-term-session-for-modules-5">session</a>'s
-        <a data-link-type="dfn|abstract-op" href="#dfn-active-virtual-wallet-behavior" class="internalDFN" id="ref-for-dfn-active-virtual-wallet-behavior-4">active virtual wallet behavior</a> for <var>context ID</var>.
+        <li>Let <var>behavior</var> be the current WebDriver <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver2/#dfn-webdriver-session" id="ref-for-index-term-session-5">session</a>'s <a data-link-type="dfn|abstract-op" href="#dfn-active-virtual-wallet-behavior" class="internalDFN" id="ref-for-dfn-active-virtual-wallet-behavior-4">active virtual wallet behavior</a> for <var>context ID</var>.
         </li>
         <li>If <var>behavior</var> is <code>null</code>, set <var>behavior</var> to the current WebDriver
-        <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver-bidi/#modules-session" id="ref-for-index-term-session-for-modules-6">session</a>'s default <a data-link-type="dfn|abstract-op" href="#dfn-active-virtual-wallet-behavior" class="internalDFN" id="ref-for-dfn-active-virtual-wallet-behavior-5">active virtual wallet behavior</a>.
+        <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver2/#dfn-webdriver-session" id="ref-for-index-term-session-6">session</a>'s default <a data-link-type="dfn|abstract-op" href="#dfn-active-virtual-wallet-behavior" class="internalDFN" id="ref-for-dfn-active-virtual-wallet-behavior-5">active virtual wallet behavior</a>.
         </li>
         <li>If <var>behavior</var> is <code>null</code>, return <code>false</code>.
         </li>
@@ -3752,14 +3751,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
   </li><li>
     <span class="index-term" data-href="https://www.w3.org/TR/webdriver2/#dfn-remote-end-steps" id="index-term-remote-end-steps" tabindex="0" aria-haspopup="dialog">remote end steps</span>
   </li><li>
+    <span class="index-term" data-href="https://www.w3.org/TR/webdriver2/#dfn-webdriver-session" id="index-term-session" tabindex="0" aria-haspopup="dialog">session</span>
+  </li><li>
     <span class="index-term" data-href="https://www.w3.org/TR/webdriver2/#dfn-success" id="index-term-success" tabindex="0" aria-haspopup="dialog">success</span>
-  </li>
-        </ul>
-      </li><li>
-        [<cite><a class="bibref" data-link-type="biblio" href="#bib-webdriver-bidi">WEBDRIVER-BIDI</a></cite>] defines the following:
-        <ul>
-          <li>
-    <span class="index-term" data-href="https://www.w3.org/TR/webdriver-bidi/#modules-session" id="index-term-session-for-modules" tabindex="0" aria-haspopup="dialog">session (for <code>modules</code>)</span>
   </li>
         </ul>
       </li><li>
@@ -6865,6 +6859,21 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-remote-end-steps-1" title="§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> 
     </li>
   </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-session" aria-label="Links in this document to definition: session">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="https://www.w3.org/TR/webdriver2/#dfn-webdriver-session" aria-label="Permalink for definition: session. Activate to close this dialog.">Permalink</a>
+         
+        
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-index-term-session-1" title="§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> <a href="#ref-for-index-term-session-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-session-3" title="Reference 3">(3)</a> <a href="#ref-for-index-term-session-4" title="Reference 4">(4)</a> 
+    </li><li>
+      <a href="#ref-for-index-term-session-5" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> <a href="#ref-for-index-term-session-6" title="Reference 2">(2)</a> 
+    </li>
+  </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-success" aria-label="Links in this document to definition: success">
       <span class="caret"></span>
       <div>
@@ -6876,21 +6885,6 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <ul>
     <li>
       <a href="#ref-for-index-term-success-1" title="§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> 
-    </li>
-  </ul>
-    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-session-for-modules" aria-label="Links in this document to definition: session (for modules)">
-      <span class="caret"></span>
-      <div>
-        <a class="self-link" href="https://www.w3.org/TR/webdriver-bidi/#modules-session" aria-label="Permalink for definition: session (for modules). Activate to close this dialog.">Permalink</a>
-         
-        
-      </div>
-      <p><b>Referenced in:</b></p>
-      <ul>
-    <li>
-      <a href="#ref-for-index-term-session-for-modules-1" title="§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> <a href="#ref-for-index-term-session-for-modules-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-session-for-modules-3" title="Reference 3">(3)</a> <a href="#ref-for-index-term-session-for-modules-4" title="Reference 4">(4)</a> 
-    </li><li>
-      <a href="#ref-for-index-term-session-for-modules-5" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> <a href="#ref-for-index-term-session-for-modules-6" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-a-new-promise" aria-label="Links in this document to definition: a new promise">
@@ -7382,7 +7376,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </dd><dt id="bib-webdriver">[webdriver]</dt><dd>
       <a href="https://www.w3.org/TR/webdriver2/"><cite>WebDriver</cite></a>. Simon Stewart; David Burns.  W3C. 11 May 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/webdriver2/">https://www.w3.org/TR/webdriver2/</a>
     </dd><dt id="bib-webdriver-bidi">[webdriver-bidi]</dt><dd>
-      <a href="https://www.w3.org/TR/webdriver-bidi/"><cite>WebDriver BiDi</cite></a>. James Graham; Alex Rudenko; Maksim Sadym.  W3C. 19 March 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/webdriver-bidi/">https://www.w3.org/TR/webdriver-bidi/</a>
+      <a href="https://www.w3.org/TR/webdriver-bidi/"><cite>WebDriver BiDi</cite></a>. James Graham; Alex Rudenko; Maksim Sadym.  W3C. 11 May 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/webdriver-bidi/">https://www.w3.org/TR/webdriver-bidi/</a>
     </dd><dt id="bib-webidl">[webidl]</dt><dd>
       <a href="https://webidl.spec.whatwg.org/"><cite>Web IDL Standard</cite></a>. Edgar Chen; Timothy Gu.  WHATWG. Living Standard. URL: <a href="https://webidl.spec.whatwg.org/">https://webidl.spec.whatwg.org/</a>
     </dd></dl>
