@@ -2888,11 +2888,10 @@
         <li>If |action| is `"clear"`:
           <ol>
             <li>If |context| is not `null`, remove the entry for |context| from
-            the WebDriver [=session=]'s [=active virtual wallet
-            behavior=].
+            the WebDriver [=session=]'s [=active virtual wallet behavior=].
             </li>
-            <li>Else, set the WebDriver [=session=]'s [=active virtual
-            wallet behavior=] to `null`.
+            <li>Else, set the WebDriver [=session=]'s [=active virtual wallet
+            behavior=] to `null`.
             </li>
           </ol>
         </li>
@@ -2901,12 +2900,12 @@
             <li>Let |behavior| be a tuple of (|action|, |protocol|,
             |response|).
             </li>
-            <li>If |context| is not `null`, set the WebDriver
-            [=session=]'s <dfn>active virtual wallet behavior</dfn> for
-            the browsing context ID |context| to |behavior|.
+            <li>If |context| is not `null`, set the WebDriver [=session=]'s
+            <dfn>active virtual wallet behavior</dfn> for the browsing context
+            ID |context| to |behavior|.
             </li>
-            <li>Else, set the WebDriver [=session=]'s default [=active
-            virtual wallet behavior=] to |behavior|.
+            <li>Else, set the WebDriver [=session=]'s default [=active virtual
+            wallet behavior=] to |behavior|.
             </li>
           </ol>
         </li>
@@ -2925,8 +2924,8 @@
         </li>
         <li>Let |context ID| be the ID of |global|'s [=browsing context=].
         </li>
-        <li>Let |behavior| be the current WebDriver [=session=]'s
-        [=active virtual wallet behavior=] for |context ID|.
+        <li>Let |behavior| be the current WebDriver [=session=]'s [=active
+        virtual wallet behavior=] for |context ID|.
         </li>
         <li>If |behavior| is `null`, set |behavior| to the current WebDriver
         [=session=]'s default [=active virtual wallet behavior=].
