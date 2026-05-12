@@ -176,7 +176,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="8dc4712a0f7874aee29ef5ad0dc0660e320b27c4">
+<meta name="revision" content="aebb9934389810695eaddcfe6e60ba61998c9806">
 <meta name="description" content="This document specifies an API enabling user agents to mediate the
         presentation and issuance of digital credentials, such as a
         driver's license, government-issued identification card, or
@@ -325,7 +325,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "8dc4712a0f7874aee29ef5ad0dc0660e320b27c4",
+  "gitRevision": "aebb9934389810695eaddcfe6e60ba61998c9806",
   "publishISODate": "2026-05-12T00:00:00.000Z",
   "generatedSubtitle": "W3C Editor's Draft 12 May 2026"
 }</script>
@@ -1879,9 +1879,6 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
   [<span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SameObject" id="ref-for-index-term-sameobject-extended-attribute-1">SameObject</a></span>] readonly attribute<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-object" id="ref-for-index-term-object-type-0-4">object</a></span> <a class="internalDFN idlName" data-link-type="attribute" href="#dom-digitalcredential-data" id="ref-for-dom-digitalcredential-data-3"><code>data</code></a>;</span><span data-idl="" class="idlMethod" id="idl-def-digitalcredential-useragentallowsprotocol-protocol" data-title="userAgentAllowsProtocol" data-dfn-for="DigitalCredential">
   static<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-index-term-boolean-type-1">boolean</a></span> <a class="internalDFN idlName" data-link-type="method" href="#dom-digitalcredential-useragentallowsprotocol" id="ref-for-dom-digitalcredential-useragentallowsprotocol-2"><code>userAgentAllowsProtocol</code></a>(<span class="idlType"><a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-index-term-domstring-interface-3">DOMString</a></span> <span class="idlParamName">protocol</span>);</span>
 };</span></code></pre>
-    <p>
-      <a data-link-type="idl" data-lt="DigitalCredential" href="#dom-digitalcredential" class="internalDFN" id="ref-for-dom-digitalcredential-10"><code>DigitalCredential</code></a> instances are <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-origin-bound" id="ref-for-index-term-origin-bound-for-credential-1">origin bound</a>.
-    </p>
     <section id="the-protocol-member-1"><div class="header-wrapper"><h4 id="x7-7-1-the-protocol-member"><bdi class="secno">7.7.1 </bdi>
       The <code>protocol</code> member
     </h4><a class="self-link" href="#the-protocol-member-1" aria-label="Permalink for Section 7.7.1"></a></div>
@@ -1944,7 +1941,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </h3><a class="self-link" href="#supporting-data-structures" aria-label="Permalink for Section 7.8"></a></div>
     <p>
       Data structures, such as enumerations, which support
-      <a data-link-type="idl" data-lt="DigitalCredential" href="#dom-digitalcredential" class="internalDFN" id="ref-for-dom-digitalcredential-11"><code>DigitalCredential</code></a> in this specification.
+      <a data-link-type="idl" data-lt="DigitalCredential" href="#dom-digitalcredential" class="internalDFN" id="ref-for-dom-digitalcredential-10"><code>DigitalCredential</code></a> in this specification.
     </p>
     <section id="the-request-context-struct"><div class="header-wrapper"><h4 id="x7-8-1-the-request-context-struct"><bdi class="secno">7.8.1 </bdi>
       The request context struct
@@ -2083,7 +2080,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       [[type]] internal slot
     </h3><a class="self-link" href="#type-internal-slot" aria-label="Permalink for Section 8.4"></a></div>
     <p>
-      The <a data-link-type="idl" data-lt="DigitalCredential" href="#dom-digitalcredential" class="internalDFN" id="ref-for-dom-digitalcredential-12"><code>DigitalCredential</code></a> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-interface-object" id="ref-for-index-term-interface-object-1">interface object</a> has an internal slot named
+      The <a data-link-type="idl" data-lt="DigitalCredential" href="#dom-digitalcredential" class="internalDFN" id="ref-for-dom-digitalcredential-11"><code>DigitalCredential</code></a> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-interface-object" id="ref-for-index-term-interface-object-1">interface object</a> has an internal slot named
       <dfn class="export" data-dfn-for="DigitalCredential" data-idl="" data-dfn-type="attribute" data-export="" id="dfn-type" tabindex="0" aria-haspopup="dialog">[[type]]</dfn>
       whose value is "digital".
     </p>
@@ -2091,7 +2088,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       [[discovery]] internal slot
     </h3><a class="self-link" href="#discovery-internal-slot" aria-label="Permalink for Section 8.5"></a></div>
     <p>
-      The <a data-link-type="idl" data-lt="DigitalCredential" href="#dom-digitalcredential" class="internalDFN" id="ref-for-dom-digitalcredential-13"><code>DigitalCredential</code></a> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-interface-object" id="ref-for-index-term-interface-object-2">interface object</a> has an internal slot named
+      The <a data-link-type="idl" data-lt="DigitalCredential" href="#dom-digitalcredential" class="internalDFN" id="ref-for-dom-digitalcredential-12"><code>DigitalCredential</code></a> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-interface-object" id="ref-for-index-term-interface-object-2">interface object</a> has an internal slot named
       <dfn class="export" data-dfn-for="DigitalCredential" data-idl="" data-dfn-type="attribute" data-export="" id="dfn-discovery" tabindex="0" aria-haspopup="dialog">[[discovery]]</dfn>
       whose value is "remote".
     </p>
@@ -3275,7 +3272,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
             <li>Let <var>JS object</var> be the result of <a data-link-type="dfn" data-lt="parse a JSON string to a JavaScript value" href="https://infra.spec.whatwg.org/#parse-a-json-string-to-a-javascript-value" id="ref-for-index-term-parse-a-json-string-to-a-javascript-value-2">parsing</a> <var>JSON string</var> given <var>global</var>'s
             <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-realm" id="ref-for-index-term-relevant-realm-3">relevant realm</a>.
             </li>
-            <li>Let <var>credential</var> be a new <a data-link-type="idl" data-lt="DigitalCredential" href="#dom-digitalcredential" class="internalDFN" id="ref-for-dom-digitalcredential-14"><code>DigitalCredential</code></a> instance.
+            <li>Let <var>credential</var> be a new <a data-link-type="idl" data-lt="DigitalCredential" href="#dom-digitalcredential" class="internalDFN" id="ref-for-dom-digitalcredential-13"><code>DigitalCredential</code></a> instance.
             </li>
             <li>Set <var>credential</var>'s <a data-link-type="idl" href="#dom-digitalcredential-protocol" class="internalDFN" id="ref-for-dom-digitalcredential-protocol-3"><code>protocol</code></a> attribute to
             <var>protocol</var>.
@@ -3534,8 +3531,6 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <span class="index-term" data-href="https://www.w3.org/TR/credential-management-1/#dom-credentialrequestoptions-mediation" id="index-term-mediation-for-credentialrequestoptions" tabindex="0" aria-haspopup="dialog"><code>mediation</code> (for <code>CredentialRequestOptions</code>)</span>
   </li><li>
     <span class="index-term" data-href="https://www.w3.org/TR/credential-management-1/#dom-credentialcreationoptions-mediation" id="index-term-mediation-for-credentialcreationoptions" tabindex="0" aria-haspopup="dialog"><code>mediation</code> (for <code>CredentialCreationOptions</code>)</span>
-  </li><li>
-    <span class="index-term" data-href="https://www.w3.org/TR/credential-management-1/#credential-origin-bound" id="index-term-origin-bound-for-credential" tabindex="0" aria-haspopup="dialog">origin bound (for <code>Credential</code>)</span>
   </li><li>
     <span class="index-term" data-href="https://www.w3.org/TR/credential-management-1/#privacy-considerations" id="index-term-privacy-considerations" tabindex="0" aria-haspopup="dialog">Privacy Considerations</span>
   </li><li>
@@ -3847,7 +3842,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
 <span data-idl="" class="idlTypedef" data-title="DigitalCredentialProtocol">typedef<span class="idlType"> (<a data-link-type="idl" href="#dom-digitalcredentialpresentationprotocol" class="internalDFN" id="ref-for-dom-digitalcredentialpresentationprotocol-5"><code>DigitalCredentialPresentationProtocol</code></a> or <a data-link-type="idl" href="#dom-digitalcredentialissuanceprotocol" class="internalDFN" id="ref-for-dom-digitalcredentialissuanceprotocol-5"><code>DigitalCredentialIssuanceProtocol</code></a>)</span> <dfn data-export="" data-dfn-type="typedef" data-idl="typedef" data-title="DigitalCredentialProtocol" data-dfn-for="" class="idlID"><code>DigitalCredentialProtocol</code></dfn>;</span><span data-idl="" class="idlInterface" data-title="DigitalCredential">
 
 [<span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-index-term-exposed-extended-attribute-2">Exposed</a>=Window</span>, <span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext" id="ref-for-index-term-securecontext-extended-attribute-2">SecureContext</a></span>]
-interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-digitalcredential" id="ref-for-dom-digitalcredential-15"><code>DigitalCredential</code></a> : <span class="idlSuperclass"><a data-link-type="interface" href="https://www.w3.org/TR/credential-management-1/#credential" id="ref-for-index-term-credential-interface-5">Credential</a></span> {<span data-idl="" class="idlMethod" data-title="toJSON" data-dfn-for="DigitalCredential">
+interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-digitalcredential" id="ref-for-dom-digitalcredential-14"><code>DigitalCredential</code></a> : <span class="idlSuperclass"><a data-link-type="interface" href="https://www.w3.org/TR/credential-management-1/#credential" id="ref-for-index-term-credential-interface-5">Credential</a></span> {<span data-idl="" class="idlMethod" data-title="toJSON" data-dfn-for="DigitalCredential">
   [<span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Default" id="ref-for-index-term-default-extended-attribute-2">Default</a></span>]<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-object" id="ref-for-index-term-object-type-0-7">object</a></span> <a data-link-type="dfn" data-lt="default toJSON steps" class="idlName" href="https://webidl.spec.whatwg.org/#default-tojson-steps" id="ref-for-index-term-default-tojson-steps-2">toJSON</a>();</span><span data-idl="" class="idlAttribute" data-title="protocol" data-dfn-for="DigitalCredential">
   readonly attribute<span class="idlType"> <a data-link-type="idl" href="#dom-digitalcredentialprotocol" class="internalDFN" id="ref-for-dom-digitalcredentialprotocol-6"><code>DigitalCredentialProtocol</code></a></span> <a class="internalDFN idlName" data-link-type="attribute" href="#dom-digitalcredential-protocol" id="ref-for-dom-digitalcredential-protocol-4"><code>protocol</code></a>;</span><span data-idl="" class="idlAttribute" data-title="data" data-dfn-for="DigitalCredential">
   [<span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SameObject" id="ref-for-index-term-sameobject-extended-attribute-2">SameObject</a></span>] readonly attribute<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-object" id="ref-for-index-term-object-type-0-8">object</a></span> <a class="internalDFN idlName" data-link-type="attribute" href="#dom-digitalcredential-data" id="ref-for-dom-digitalcredential-data-5"><code>data</code></a>;</span><span data-idl="" class="idlMethod" data-title="userAgentAllowsProtocol" data-dfn-for="DigitalCredential">
@@ -4785,17 +4780,17 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-dom-digitalcredential-4" title="§ 7. The Digital Credentials API">§ 7. The Digital Credentials API</a> <a href="#ref-for-dom-digitalcredential-5" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredential-6" title="§ 7.7 The DigitalCredential interface">§ 7.7 The DigitalCredential interface</a> <a href="#ref-for-dom-digitalcredential-7" title="Reference 2">(2)</a> <a href="#ref-for-dom-digitalcredential-8" title="Reference 3">(3)</a> <a href="#ref-for-dom-digitalcredential-9" title="Reference 4">(4)</a> <a href="#ref-for-dom-digitalcredential-10" title="Reference 5">(5)</a> 
+      <a href="#ref-for-dom-digitalcredential-6" title="§ 7.7 The DigitalCredential interface">§ 7.7 The DigitalCredential interface</a> <a href="#ref-for-dom-digitalcredential-7" title="Reference 2">(2)</a> <a href="#ref-for-dom-digitalcredential-8" title="Reference 3">(3)</a> <a href="#ref-for-dom-digitalcredential-9" title="Reference 4">(4)</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredential-11" title="§ 7.8 Supporting Data Structures">§ 7.8 Supporting Data Structures</a> 
+      <a href="#ref-for-dom-digitalcredential-10" title="§ 7.8 Supporting Data Structures">§ 7.8 Supporting Data Structures</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredential-12" title="§ 8.4 [[type]] internal slot">§ 8.4 [[type]] internal slot</a> 
+      <a href="#ref-for-dom-digitalcredential-11" title="§ 8.4 [[type]] internal slot">§ 8.4 [[type]] internal slot</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredential-13" title="§ 8.5 [[discovery]] internal slot">§ 8.5 [[discovery]] internal slot</a> 
+      <a href="#ref-for-dom-digitalcredential-12" title="§ 8.5 [[discovery]] internal slot">§ 8.5 [[discovery]] internal slot</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredential-14" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> 
+      <a href="#ref-for-dom-digitalcredential-13" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredential-15" title="§ B. IDL Index">§ B. IDL Index</a> 
+      <a href="#ref-for-dom-digitalcredential-14" title="§ B. IDL Index">§ B. IDL Index</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dom-digitalcredentialprotocol" aria-label="Links in this document to definition: DigitalCredentialProtocol">
@@ -5611,19 +5606,6 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <ul>
     <li>
       <a href="#ref-for-index-term-mediation-for-credentialcreationoptions-1" title="§ 7.7 The DigitalCredential interface">§ 7.7 The DigitalCredential interface</a> 
-    </li>
-  </ul>
-    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-origin-bound-for-credential" aria-label="Links in this document to definition: origin bound (for Credential)">
-      <span class="caret"></span>
-      <div>
-        <a class="self-link" href="https://www.w3.org/TR/credential-management-1/#credential-origin-bound" aria-label="Permalink for definition: origin bound (for Credential). Activate to close this dialog.">Permalink</a>
-         
-        
-      </div>
-      <p><b>Referenced in:</b></p>
-      <ul>
-    <li>
-      <a href="#ref-for-index-term-origin-bound-for-credential-1" title="§ 7.7 The DigitalCredential interface">§ 7.7 The DigitalCredential interface</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-privacy-considerations" aria-label="Links in this document to definition: Privacy Considerations">
