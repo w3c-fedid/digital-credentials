@@ -930,10 +930,10 @@
           <li>Validate |request|'s [=digital credential/presentation request
           data=] or [=digital credential/issuance request data=] according to
           |request|'s [=digital credential/presentation protocol=] or [=digital
-          credential/issuance protocol=] or other criteria. Validation
-          requirements are protocol-specific and are outside the scope of this
-          specification:
-            <aside class="note" title="Validation details outside scope">
+          credential/issuance protocol=] or other criteria. What constitutes a
+          validation failure is protocol-specific, but how such a failure is
+          classified into an exception type is defined below:
+            <aside class="note" title="Protocol-specific validation details">
               <p>
                 Validation includes verifying |request|'s [=digital
                 credential/presentation request data=] or [=digital
@@ -948,10 +948,28 @@
                 during validation.
               </p>
             </aside>
-            <aside class="issue" data-number="472"></aside>
             <ol>
-              <li>If validation fails, [=exception/throw=] an appropriate
-              [=exception=].
+              <li>If validation fails:
+                <ol>
+                  <li>Let |error| be determined as follows:
+                    <dl class="switch">
+                      <dt>
+                        The request data is malformed or invalid:
+                      </dt>
+                      <dd>
+                        A newly created {{TypeError}}.
+                      </dd>
+                      <dt>
+                        Otherwise:
+                      </dt>
+                      <dd>
+                        A newly created {{"OperationError"}} {{DOMException}}.
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>[=exception/throw=] |error|.
+                  </li>
+                </ol>
               </li>
               <li>Otherwise, [=list/append=] |request| to |validatedRequests|.
               </li>
