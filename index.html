@@ -444,7 +444,8 @@
       applications, and hardware components that store, manage, or process
       [=digital credentials=]. This includes the user interface and user
       interactions for selecting a specific credential and obtaining the user's
-      permission to forward a request to the user-selected credential manager.
+      permission to forward a request to the user-selected
+      [=credential manager=].
       </li>
       <li>Implementation of [=credential managers=], specifically in the role of
       [=holder=] software (commonly known as "digital wallets"), including how
@@ -1831,10 +1832,10 @@
       </h4>
       <p>
         <dfn>Out-of-scope threats</dfn> are those handled by protocols,
-        credential managers, OS platform security, or transport layers. Even if
-        "out of scope", they are relevant because they influence the end-to-end
-        security of credential presentation and issuance. The following defines
-        the [=out-of-scope threats=] for this specification:
+        [=credential managers=], OS platform security, or transport layers.
+        Even if "out of scope", they are relevant because they influence the
+        end-to-end security of credential presentation and issuance. The
+        following defines the [=out-of-scope threats=] for this specification:
       </p>
       <ul>
         <li>To be written...
@@ -2139,8 +2140,8 @@
           recommended that the [=user agent=] implementing the Digital
           Credentials API designs its permission experience to prevent <a href=
           "#permission-prior-to-wallet-selection">exposure of a request to the
-          [=credential manager=]</a> before user confirmation (keeping in
-          mind <a href="#multiple-user-agents">considerations for integrating
+          credential manager</a> before user confirmation (keeping in mind
+          <a href="#multiple-user-agents">considerations for integrating
           multiple cooperating user agents</a>).
         </p>
         <p>
@@ -2273,8 +2274,8 @@
           </li>
           <li>[=issuers=] and lawmakers might decide to restrict use of
           (particularly government-issued) credentials to specific
-          [=verifiers=] with purpose attestations. Credential managers might be
-          expected to enforce these restrictions by law or policy.
+          [=verifiers=] with purpose attestations. [=Credential managers=]
+          might be expected to enforce these restrictions by law or policy.
           </li>
           <li>The ultimate decision of whether or not to share their personal
           information lies with the user, which is why the API requires the
@@ -2766,7 +2767,7 @@
       </h3>
       <p>
         The `digitalCredentials` module contains commands for managing and
-        simulating the remote end behavior of credential managers during
+        simulating the remote end behavior of [=credential managers=] during
         {{DigitalCredential/[[DiscoverFromExternalSource]](origin, options,
         sameOriginWithAncestors)}}, and {{Credential/[[Create]](origin,
         options, sameOriginWithAncestors)}} calls.
