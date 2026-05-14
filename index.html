@@ -142,9 +142,9 @@
       credentials without the user's active participation.
       </li>
       <li>Enable platform-provided UX for credential and [=credential manager=]
-      selection during requests for
-      [=digital credential/presentation|presentation=] or
-      [=digital credential/issuance|issuance=].
+      selection during requests for [=digital
+      credential/presentation|presentation=] or [=digital
+      credential/issuance|issuance=].
       </li>
       <li>Enable platforms to provide secure cross-device [=digital
       credential/presentation requests=] and [=digital credential/issuance
@@ -444,12 +444,12 @@
       applications, and hardware components that store, manage, or process
       [=digital credentials=]. This includes the user interface and user
       interactions for selecting a specific credential and obtaining the user's
-      permission to forward a request to the user-selected
-      [=credential manager=].
+      permission to forward a request to the user-selected [=credential
+      manager=].
       </li>
-      <li>Implementation of [=credential managers=], specifically in the role of
-      [=holder=] software (commonly known as "digital wallets"), including how
-      they securely store or manage [=digital credentials=] or advertise
+      <li>Implementation of [=credential managers=], specifically in the role
+      of [=holder=] software (commonly known as "digital wallets"), including
+      how they securely store or manage [=digital credentials=] or advertise
       capabilities to [=digital credential/presentation|present=] or [=digital
       credential/issuance|issue=] them to the [=user agent=], is out of scope.
       The only exception is the transmission of [=digital credential/issuance
@@ -751,9 +751,9 @@
     <aside class="note">
       <p>
         Although the coordinator handles input/output coordination, it is the
-        responsibility of the platform together with available
-        [=credential managers=], to present the UI that allows the user to
-        choose a [=digital credential=] and/or a [=credential manager=].
+        responsibility of the platform together with available [=credential
+        managers=], to present the UI that allows the user to choose a
+        [=digital credential=] and/or a [=credential manager=].
       </p>
     </aside>
     <h3>
@@ -1505,13 +1505,13 @@
     <p>
       User agents MUST NOT vary the response value based on any information
       about availability of hardware, presence or configuration of software,
-      [=credential managers=], or digital credentials, or user
-      configuration or preferences. If the response value varied, the user
-      agent would introduce risks both of fingerprinting and of silently
-      revealing other details about user behavior or configuration. The
-      response value SHOULD vary only by user agent major version and indicate
-      whether the browser supports distributing requests with that protocol to
-      underlying platform or provider.
+      [=credential managers=], or digital credentials, or user configuration or
+      preferences. If the response value varied, the user agent would introduce
+      risks both of fingerprinting and of silently revealing other details
+      about user behavior or configuration. The response value SHOULD vary only
+      by user agent major version and indicate whether the browser supports
+      distributing requests with that protocol to underlying platform or
+      provider.
     </p>
     <p>
       To check whether a <dfn>user agent allows protocol</dfn> given a
@@ -2109,9 +2109,9 @@
         </p>
         <p>
           Through the Digital Credentials API, the [=user agent=] can help
-          [=verifiers=] and [=credential managers=] exchange unlinkable attributes,
-          but, because of response encryption, it cannot guarantee that no
-          linkable information is passed between [=verifiers=] and
+          [=verifiers=] and [=credential managers=] exchange unlinkable
+          attributes, but, because of response encryption, it cannot guarantee
+          that no linkable information is passed between [=verifiers=] and
           [=credential managers=]. It is recommended that [=user agents=]
           account for this fact in their user permission experience.
         </p>
@@ -2196,8 +2196,8 @@
         <p>
           Checking verifier authorization is usually handled by the
           [=credential manager=], but [=user agents=] could find the presence
-          of such a scheme helpful in preventing API abuse and designing
-          a well-informed user permission experience.
+          of such a scheme helpful in preventing API abuse and designing a
+          well-informed user permission experience.
         </p>
         <p class="issue" data-number="281">
           Should we require protocols to include provisions that allow [=user
@@ -2615,9 +2615,9 @@
           and offline, through permanent, unique, irrevocable, cross-context
           identifiers. It also reveals parts of the user's browsing activity as
           well as their intent to identify to specific websites and/or
-          [=credential managers=]. One crucial responsibility of the
-          [=user agent=] in a credential request is to gather permission from
-          the user to proceed with the exchange of information.
+          [=credential managers=]. One crucial responsibility of the [=user
+          agent=] in a credential request is to gather permission from the user
+          to proceed with the exchange of information.
         </p>
         <p>
           Important context details that are needed for a user to make an
@@ -2633,7 +2633,7 @@
           <li>Whether presenting this information will enable tracking.
           </li>
           <li>Which [=credential managers=] can be used to fulfill the
-            credential request.
+          credential request.
           </li>
           <li>Which credential would be used to share the requested
           information.
