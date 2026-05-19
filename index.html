@@ -809,6 +809,36 @@
       <li>Return success.
       </li>
     </ol><!--
+    // MARK: Validate OpenID4VCI request data
+    -->
+    <h3>
+      Validate OpenID4VCI request data
+    </h3>
+    <p>
+      To <dfn>validate OpenID4VCI request data</dfn> given a JavaScript value
+      |data| and a {{DigitalCredentialGetRequest}} or
+      {{DigitalCredentialCreateRequest}} |request|:
+    </p>
+    <ol class="algorithm">
+      <li>Assert: |request| is a {{DigitalCredentialCreateRequest}}.
+      </li>
+      <li>If |data| is not an [=object=], return failure.
+      </li>
+      <li>Let |issuanceRequest| be the result of processing |data| as an
+      OpenID4VCI issuance request according to [[[OPENID4VCI]]].
+      </li>
+      <li>If |issuanceRequest| is failure, return failure.
+      </li>
+      <li>Return success.
+      </li>
+    </ol>
+    <aside class="issue" title="OpenID4VCI validation requirements">
+      <p>
+        The exact validation requirements for OpenID4VCI request data are
+        expected to be refined as the OpenID4VCI integration with this API
+        stabilizes.
+      </p>
+    </aside><!--
     // MARK: Credential Request Coordinator
     -->
     <h2>
@@ -1737,37 +1767,7 @@
       enum DigitalCredentialIssuanceProtocol {
         "openid4vci-v1",
       };
-    </pre><!--
-    // MARK: Validate OpenID4VCI request data
-    -->
-    <h5>
-      Validate OpenID4VCI request data
-    </h5>
-    <p>
-      To <dfn>validate OpenID4VCI request data</dfn> given a JavaScript value
-      |data| and a {{DigitalCredentialGetRequest}} or
-      {{DigitalCredentialCreateRequest}} |request|:
-    </p>
-    <ol class="algorithm">
-      <li>Assert: |request| is a {{DigitalCredentialCreateRequest}}.
-      </li>
-      <li>If |data| is not an [=object=], return failure.
-      </li>
-      <li>Let |issuanceRequest| be the result of processing |data| as an
-      OpenID4VCI issuance request according to [[[OPENID4VCI]]].
-      </li>
-      <li>If |issuanceRequest| is failure, return failure.
-      </li>
-      <li>Return success.
-      </li>
-    </ol>
-    <aside class="issue" title="OpenID4VCI validation requirements">
-      <p>
-        The exact validation requirements for OpenID4VCI request data are
-        expected to be refined as the OpenID4VCI integration with this API
-        stabilizes.
-      </p>
-    </aside>
+    </pre>
     <h2 id="credential-management-integration">
       Integration with [[[credential-management]]]
     </h2><!--
