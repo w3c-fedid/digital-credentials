@@ -690,54 +690,6 @@
         </tr>
       </tbody>
     </table><!--
-    // MARK: Convert request protocol
-    -->
-    <h3>
-      Convert request protocol
-    </h3>
-    <p>
-      To <dfn>convert request protocol</dfn> given a
-      {{DigitalCredentialGetRequest}} or {{DigitalCredentialCreateRequest}}
-      |request|:
-    </p>
-    <ol class="algorithm">
-      <li>If |request| is:
-        <dl class="switch">
-          <dt>
-            A {{DigitalCredentialGetRequest}}:
-          </dt>
-          <dd>
-            <ol>
-              <li>Let |protocolString| be |request|'s
-              {{DigitalCredentialGetRequest/protocol}}.
-              </li>
-              <li>If |protocolString| does not equal any [=enumeration value=]
-              in {{DigitalCredentialPresentationProtocol}}, return failure.
-              </li>
-              <li>Return the {{DigitalCredentialPresentationProtocol}}
-              [=enumeration value=] whose value is |protocolString|.
-              </li>
-            </ol>
-          </dd>
-          <dt>
-            A {{DigitalCredentialCreateRequest}}:
-          </dt>
-          <dd>
-            <ol>
-              <li>Let |protocolString| be |request|'s
-              {{DigitalCredentialCreateRequest/protocol}}.
-              </li>
-              <li>If |protocolString| does not equal any [=enumeration value=]
-              in {{DigitalCredentialIssuanceProtocol}}, return failure.
-              </li>
-              <li>Return the {{DigitalCredentialIssuanceProtocol}}
-              [=enumeration value=] whose value is |protocolString|.
-              </li>
-            </ol>
-          </dd>
-        </dl>
-      </li>
-    </ol><!--
     // MARK: Validate ISO18013-7 Annex C request data
     -->
     <h3>
@@ -1056,13 +1008,19 @@
       </li>
       <li>[=List/For each=] |request| of |requests|:
         <ol>
-          <li>[=Convert request protocol=] given |request|:
-            <ol>
-              <li>If conversion results in failure, [=iteration/continue=].
-              </li>
-              <li>Otherwise, let |protocol| be the result of the conversion.
-              </li>
-            </ol>
+          <li>Let |protocol| be |request|'s
+          {{DigitalCredentialGetRequest/protocol}}, if |request| is a
+          {{DigitalCredentialGetRequest}}, or |request|'s
+          {{DigitalCredentialCreateRequest/protocol}}, if |request| is a
+          {{DigitalCredentialCreateRequest}}.
+          </li>
+          <li>If |request| is a {{DigitalCredentialGetRequest}} and |protocol|
+          does not equal any [=enumeration value=] in
+          {{DigitalCredentialPresentationProtocol}}, [=iteration/continue=].
+          </li>
+          <li>If |request| is a {{DigitalCredentialCreateRequest}} and
+          |protocol| does not equal any [=enumeration value=] in
+          {{DigitalCredentialIssuanceProtocol}}, [=iteration/continue=].
           </li>
           <li>If [=user agent allows protocol=] given |protocol| returns
           `false`, [=iteration/continue=].
