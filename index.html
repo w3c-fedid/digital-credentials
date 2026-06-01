@@ -1852,9 +1852,8 @@
         [=secure contexts=], reducing the risk of [=tampering=] through
         [=secure contexts|insecure contexts=] (e.g., a malicious script being
         injected through the network). Please refer to the
-        [[[secure-contexts#security-considerations|Security Considerations]]]
-        section of the [[[secure-contexts]]] specification for more
-        information.
+        [[[secure-contexts#security-considerations]]] section of the
+        [[[secure-contexts]]] specification for more information.
       </p>
       <p>
         The Digital Credentials API reduces [=API flooding=] through two
@@ -1879,12 +1878,12 @@
       </ul>
       <p>
         For additional guidance on preventing abuse of credential requests,
-        please refer to the
-        [[[credential-management#privacy-considerations|Privacy
-        Considerations]]] section of the [[[credential-management]]]
-        specification. Note, however, that these protections have limitations,
-        as sites may still employ dark patterns to encourage unnecessary user
-        interactions that trigger credential requests.
+        please refer to the section
+        [[[credential-management#privacy-considerations]]] of the
+        [[[credential-management]]] specification. Note, however, that these
+        protections have limitations, as sites may still employ dark patterns
+        to encourage unnecessary user interactions that trigger credential
+        requests.
       </p>
       <p data-cite="permissions-policy">
         The Digital Credentials API reduces [=Unauthorized Cross-Origin
@@ -1898,9 +1897,9 @@
         <a>"digital-credentials-get"</a> without enabling
         <a>"digital-credentials-create"</a>, and vice versa, limiting each
         embedded context to only the capability it requires. Please refer to
-        the [[[permissions-policy#privacy-and-security|Privacy and Security
-        Considerations]]] section of the [[[permissions-policy]]] specification
-        for additional security properties provided by this integration.
+        section [[[permissions-policy#privacy-and-security]]] of the
+        [[[permissions-policy]]] specification for additional security
+        properties provided by this integration.
       </p>
     </section>
     <section id="privacy-principles" class="informative" data-cite=
@@ -1932,10 +1931,10 @@
         </li>
         <li>[[[threat-model-decentralized-credentials]]]
         </li>
-        <li>[[[vc-data-model#privacy-considerations|VC Data Model Privacy
-        Considerations]]]
+        <li>[[[vc-data-model#privacy-considerations]]] of the
+        [[[vc-data-model]]] specification.
         </li>
-        <li>...
+        <li>[[[prevent-credential-abuse]]]
         </li>
       </ul>
       <p>
@@ -1961,7 +1960,7 @@
         <!--
         // MARK: Design Considerations and Alternatives
         -->
-        <h3>
+        <h3 class="informative">
           Design Considerations and Alternatives
         </h3>
         <p>
@@ -1990,17 +1989,17 @@
           alternative to the aforementioned less-desirable technologies that is
           easy to use for developers, is compatible with existing credential
           [=digital credential/presentation protocols=] and, most importantly,
-          has better user privacy, security, and accessibility properties than
-          these alternatives.
+          has better user privacy, security, and accessibility properties for
+          users than the aforementioned alternatives.
         </p>
         <p>
           The Digital Credentials API offers the [=user agent=] the ability to
           intermediate on behalf of the user (e.g. in the form of a [=digital
           credential chooser=]) to contextualize requests and
           [[[#permission-prior-to-credential-manager-selection|prevent
-          immediate exposure to holder applications]]]. It also enforces
-          certain minimum requirements on supported protocols, such as
-          [[[#encrypting-credential-responses|response encryption]]].
+          immediate exposure to holder applications]]]. It also normatively
+          enforces certain minimum requirements on supported protocols, such as
+          [[[#encrypting-credential-responses]]].
         </p>
         <aside class="note">
           The Digital Credentials API is not intended to inhibit the
@@ -2010,14 +2009,14 @@
           verification. Higher-level, designed-for-purpose APIs often enable
           [[[privacy-principles#purpose-limitation|purpose limitation]]], ease
           of explanation to the user, and privacy and security protections from
-          [[[design-principles#high-level-low-level|user agents]]].
+          [=user agents=].
         </aside>
       </section>
-      <section data-cite="vc-data-model#spectrum-of-privacy">
+      <section data-cite="vc-data-model">
         <!--
         // MARK: Spectrum of Privacy
         -->
-        <h3>
+        <h3 class="informative">
           Spectrum of Privacy
         </h3>
         <p>
@@ -2035,7 +2034,7 @@
           that is private by default and protect them from harm.
         </p>
         <p>
-          Because of this spectrum of preferences and use cases, it may be
+          Because of this spectrum of preferences and use cases, it can be
           difficult for a [=user agent=] to discern whether a user means to
           expose their personal information or is being tricked into doing so.
           It is thus the [=user agent=]'s responsibility to ensure that every
@@ -2060,7 +2059,6 @@
         <h4>
           Presentation Protocol Considerations for User Privacy
         </h4>
-        <aside class="issue" data-number="255"></aside>
         <h5>
           Selective disclosure
         </h5>
@@ -2099,7 +2097,7 @@
         <p>
           Note that unlinkability is exclusively a consideration for attributes
           that cannot be linked to a specific user identity. Inherently
-          linkable attributes such as names, driver's license numbers or phone
+          linkable attributes such as names, driver's license numbers, or phone
           numbers do not benefit from unlinkability.
         </p>
         <p>
@@ -2107,7 +2105,7 @@
           [=verifiers=] and [=credential managers=] exchange unlinkable
           attributes, but, because of response encryption, it cannot guarantee
           that no linkable information is passed between [=verifiers=] and
-          [=credential managers=]. It is recommended that [=user agents=]
+          [=credential managers=]. It is RECOMMENDED that [=user agents=]
           account for this fact in their user permission experience.
         </p>
         <p class="issue" data-number="279">
@@ -2132,8 +2130,9 @@
           permission to proceed with a credential request. From that point on,
           the [=credential manager=] owns this decision. While some credential
           managers can be considered [=user agents=], it is generally
-          recommended that the [=user agent=] implementing the Digital
-          Credentials API designs its permission experience to prevent
+          recommended that the [=user agent=] implementing the
+          [[[#DC-API|Digital Credentials API]]] designs its permission
+          experience to prevent
           [[[#permission-prior-to-credential-manager-selection|exposure of a
           request to the credential manager]]] before user confirmation
           (keeping in mind [[[#multiple-user-agents|considerations for
@@ -2256,16 +2255,17 @@
           credentials. However, from a [=user agent=]'s perspective,
           [=verifiers=] are potential attackers, and might not consider the
           user's best interest in their designs. The Digital Credentials API
-          needs to operate from an assumption that all [=verifiers=] might have
+          operates from an assumption that all [=verifiers=] might have
           incentives that motivate unnecessary requests and abuse, and protect
           users accordingly.
           </li>
           <li>[=user agents=] are responsible for protecting their users
           against dangerous content and permission requests on the Web and
           could intervene on their behalf, proactively rejecting requests or
-          requiring pre-authorization. To support this, the Digital Credentials
-          API requires credential requests to be readable by the [=user agent=]
-          (i.e., not end-to-end encrypted to the [=verifier=]).
+          requiring pre-authorization. To support this, this specification
+          requires credential requests to be readable by the [=user agent=]
+          (i.e., not end-to-end encrypted to the [=verifier=], see
+          [[[#protocols]]] and [[[#prepare-credential-requests]]]).
           </li>
           <li>[=issuers=] and lawmakers might decide to restrict use of
           (particularly government-issued) credentials to specific
@@ -2273,7 +2273,8 @@
           might be expected to enforce these restrictions by law or policy.
           </li>
           <li>The ultimate decision of whether or not to share their personal
-          information lies with the user, which is why the API requires the
+          information lies with the user, which is why the API [=credential
+          request coordinator/initiate the credential request|requires=] the
           [=user agent=] to present a credential picker to the user, and other
           parties might additionally require confirmation or consent.
           </li>
@@ -2289,9 +2290,10 @@
           A key component of risk mitigation and ensuring user control that
           applies to both types of credentials is the [=user agent=]'s ability
           to inspect the credential request metadata and make decisions or UI
-          presentation based on it. The DC API ensures this [=user agent=]
-          access to the presentation through requirements placed on protocols
-          to transmit requests unencrypted and to include relevant information.
+          presentation based on it. This specification ensures this [=user
+          agent=] access through protocol requirements to transmit requests
+          unencrypted and include relevant information (see [[[#protocols]]]
+          and [[[#prepare-credential-requests]]]).
         </p>
         <h4>
           Government-issued credentials
@@ -2399,8 +2401,9 @@
           users in permission and consent flows.
           </li>
           <li>Support for protocols that allow unlinkability mechanisms such as
-          Zero-Knowledge Proofs can prevent [=verifier=]-based surveillance and
-          potential discrimination, by hiding the [=issuer=].
+          [[[vc-data-model#zero-knowledge-proofs|Zero-Knowledge Proofs]]] can
+          prevent [=verifier=]-based surveillance and potential discrimination,
+          by hiding the [=issuer=].
           </li>
           <li>Offering useful context and a clearly understandable permission
           flow will help users make better decisions on whether or not to
@@ -2412,9 +2415,10 @@
           It is further critical that [=user agents=] design a permission
           experience that accounts for the lack of these mitigations, e.g., the
           exchange of personal information from government credentials without
-          any [=verifier=] authentication scheme. It is recommended that a
-          higher level of friction and clear user messaging that highlights the
-          involved risk be applied to these types of exchanges.
+          any [=verifier=] authentication scheme. It is RECOMMENDED that [=user
+          agents=] apply a higher level of friction and clear user messaging
+          that highlights the involved risk be applied to these types of
+          exchanges.
         </p>
         <h4>
           Non-government-issued credentials
@@ -2462,7 +2466,7 @@
           Mitigating unnecessary requests for non-government credentials
         </h5>
         <p>
-          For non-government-issued credentials, it is recommended that the
+          For non-government-issued credentials, it is RECOMMENDED that the
           [=user agent=] understand the requested credential format and its
           privacy attributes, and build a risk framework that informs the
           context that is shown to the user, as well as the amount of friction
@@ -2483,9 +2487,9 @@
           [=User agents=] cannot be expected to understand all credential
           requests. A [=user agent=] that does not recognize the type of
           credential being requested is advised to significantly increase user
-          friction in their permission experience, and very clearly communicate
-          the risks of sharing unknown credentials with websites to the user.
-          Note that this could require integration between
+          friction in their permission experience, and clearly communicate the
+          risks of sharing unknown credentials with websites to the user. Note
+          that this could require integration between
           [[[#multiple-user-agents|different user agents]]] to apply
           appropriate levels of friction and transparency. For example, a
           browser might delegate knowledge about credential requests to the
@@ -2533,10 +2537,10 @@
           This attack might be harder for third-party attackers (such as
           scripts embedded on the [=verifier=]'s pages but not actively
           collaborating with them for the purpose of tracking) because response
-          encryption is mandatory and responses should be decrypted on the
-          [=verifier=]'s server. The [=verifier=] could thus ensure not to
-          reflect back decrypted information to client-side JavaScript. Not all
-          [=verifiers=] will choose to do so, however.
+          encryption is mandatory. [=verifiers=] SHOULD decrypt responses on
+          the server as to not reflect back decrypted information to
+          client-side JavaScript. Not all [=verifiers=] will choose to do so,
+          however.
         </p>
         <h4 id="leaking-incidental-data">
           Leaking incidental data with credential presentations
@@ -2633,12 +2637,12 @@
           </li>
         </ul>
         <p>
-          It is advised that [=user agents=] in their implementation ensure
+          It is RECOMMENDED that [=user agents=] in their implementation ensure
           that the details listed are fully disclosed to the user before an
           exchange of any user-related information occurs.
         </p>
         <p class="issue" data-number="252">
-          Should these be normative in the spec?
+          Should these become MUST-level requirements instead of RECOMMENDED?
         </p>
         <p class="issue" data-number="44">
           Should the API be designed so the site can provide in-context
@@ -2677,13 +2681,12 @@
           Permission Prior to Credential Manager Selection
         </h4>
         <p>
-          As part of the user permission flow, the [=user agent=] needs to
-          ensure that users retain the power to choose whether to forward a
-          credential request to a [=credential manager=], and which credential
-          manager to select. This is due to the information disclosure that
-          happens as part of the request, and the ability of credential
-          managers to retain or share this information at the time of the
-          request.
+          As part of the user permission flow, the [=user agent=] MUST ensure
+          that users retain the power to choose whether to forward a credential
+          request to a [=credential manager=], and which credential manager to
+          select. This is due to the information disclosure that happens as
+          part of the request, and the ability of credential managers to retain
+          or share this information at the time of the request.
         </p>
         <h4>
           Permission vs. Consent
