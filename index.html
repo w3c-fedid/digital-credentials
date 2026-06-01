@@ -178,22 +178,22 @@
         Examples of usage
       </h2>
       <p>
-        The following examples illustrate how the Digital Credentials API can
-        be used to request and issue digital credentials.
+        The following examples illustrate how the [[[#DC-API|API]]] can be used
+        to request and issue digital credentials.
       </p>
       <h3>
         Feature Detection
       </h3>
       <p>
-        Before using the Digital Credentials API, it's important to check if
-        the user agent supports the necessary features. This can be done using
-        the following code:
+        Before using the [[[#DC-API|API]]], it's important to check if the user
+        agent supports the necessary features. This can be done using the
+        following code:
       </p>
       <pre class="example js" title="Checking for API support">
         if (typeof DigitalCredential !== "undefined") {
-          // Digital Credentials API is supported
+          // The API is supported
         } else {
-          // Digital Credentials API is not supported
+          // The API is not supported
         }
       </pre>
       <h3>
@@ -267,7 +267,7 @@
       </h3>
       <p>
         The following example shows how to request a digital credential using
-        the Digital Credentials API. The entry point for the API is the
+        the [[[#DC-API|API]]]. The entry point for the API is the
         `navigator.credentials.`{{CredentialsContainer/get()}} method, which is
         used to request a [=digital credential=] from the user agent. If the
         user agent supports [=digital credential/presentation
@@ -322,17 +322,17 @@
       </pre>
       <p>
         Similarly, when a site needs to [=digital credential/issuance|issue=] a
-        digital credential, the Digital Credentials API mediates the issuance
-        of a digital credential between the site, the user agent, and the
-        [=holder=].
+        digital credential, the [[[digital-credentials]]] specification
+        mediates the issuance of a digital credential between the site, the
+        user agent, and the [=holder=].
       </p>
       <h3>
         Issuing a digital credential
       </h3>
       <p>
         The following example shows how to request the issuance of a digital
-        credential using the Digital Credentials API. To issue a digital
-        credential, a site calls the
+        credential using the [[[digital-credentials]]] specification. To issue
+        a digital credential, a site calls the
         `navigator.credentials.`{{CredentialsContainer/create()}} method,
         which, if the user agent supports issuance, would initiate the issuance
         flow:
@@ -1251,10 +1251,10 @@
       The Digital Credentials API
     </h2>
     <p>
-      The Digital Credentials API leverages the [[[credential-management]]]
-      specification, allowing [=user agents=] to mediate the [=digital
-      credential/issuance=] and [=digital credential/presentation=] of
-      [=digital credentials=].
+      The [[[#DC-API|Digital Credentials API]]] leverages the
+      [[[credential-management]]] specification, allowing [=user agents=] to
+      mediate the [=digital credential/issuance=] and [=digital
+      credential/presentation=] of [=digital credentials=].
     </p>
     <p>
       The API allows [=digital credential/presentation request|requesting=] a
@@ -1272,7 +1272,7 @@
     <p>
       Additionally, the API also allows [=digital credential/Issuance
       request|requesting issuance=] of a [=digital credential=], which
-      initiates an mediated issuance flow between the user agent and/or a
+      initiates a mediated issuance flow between the user agent and/or a
       [=holder=]. This is done by calling the
       `navigator.credentials.`{{CredentialsContainer/create()}} method, which
       runs the [=create a credential=] algorithm of
@@ -1282,8 +1282,9 @@
       internal method.
     </p>
     <p>
-      Please see [[[#credential-management-integration]]] for complete details
-      of how to integrate with the [[[credential-management]]] specification.
+      Please see [[[#credential-management-integration|Credential Management
+      Integration]]] for complete details of how to integrate with the
+      [[[credential-management]]] specification.
     </p><!--
     // MARK: CredentialRequestOptions
     -->
@@ -1719,7 +1720,7 @@
       User permission
     </h3>
     <p data-cite="permissions">
-      The <cite>Digital Credential API</cite> is a [=powerful feature=] that
+      The [[[#DC-API|Digital Credentials API]]] is a [=powerful feature=] that
       requires [=express permission=] from an end-user. This requirement is
       normatively enforced when calling {{CredentialsContainer}}'s
       {{CredentialsContainer/get()}} method.
@@ -1872,9 +1873,10 @@
         <li>
           <strong>Always required mediation:</strong> The API makes [=user
           mediation=] implicitly {{CredentialMediationRequirement/"required"}}
-          (see [[[#the-digitalcredential-interface]]]), ensuring that user
-          permission is obtained through the platform's credential chooser
-          interface for every credential operation.
+          (see [[[#the-digitalcredential-interface|the DigitalCredential
+          interface]]]), ensuring that user permission is obtained through the
+          platform's credential chooser interface for every credential
+          operation.
         </li>
       </ul>
       <p>
@@ -1888,11 +1890,11 @@
       </p>
       <p data-cite="permissions-policy">
         The Digital Credentials API reduces [=Unauthorized Cross-Origin
-        Access|cross-origin abuse=] through [[[permissions-policy]]]
-        integration (see [[[#permissions-policy]]]). The [=request a
-        `Credential`=] and [=create a `Credential`=] algorithms respectively
-        serve as policy enforcement points for the
-        <a>"digital-credentials-get"</a> and
+        Access|cross-origin abuse=] through integration with
+        [[[permissions-policy]]] (see [[[#permissions-policy|Permissions Policy
+        Integration]]]). The [=request a `Credential`=] and [=create a
+        `Credential`=] algorithms respectively serve as policy enforcement
+        points for the <a>"digital-credentials-get"</a> and
         <a>"digital-credentials-create"</a> [=policy-controlled features=]. The
         two features are intentionally separate: a site may enable
         <a>"digital-credentials-get"</a> without enabling
@@ -2029,7 +2031,7 @@
           an individual user.
         </p>
         <p>
-          This means that some users may not want, or be allowed, to use the
+          This means that some users might not want, or be allowed, to use the
           most privacy-preserving means of exchanging credential information.
           Nonetheless, [=user agents=] need to serve users with an experience
           that is private by default and protect them from harm.
@@ -2090,7 +2092,7 @@
         </p>
         <p>
           While the latter is achievable, e.g. through
-          [[[vc-data-model#zero-knowledge-proofs|Zero-Knowledge Proofs]]],
+          [[[vc-data-model#zero-knowledge-proofs|zero-knowledge proofs]]],
           design choices of the API such as encrypted responses make it
           impossible for a [=user agent=] to prove that verifier-issuer
           unlinkability was achieved in practice. Nonetheless, protocols are
@@ -2156,8 +2158,9 @@
           is for credential revocation checks. This is particularly challenging
           when presentations are intended to be verifier-issuer unlinkable.
           When credential presentations are made unlinkable through the use of
-          e.g. Zero-Knowledge Proofs, the credential formats used in protocols
-          are expected to support offline revocation methods such as <a href=
+          e.g. [[[vc-data-model#zero-knowledge-proofs|zero-knowledge proofs]]],
+          the credential formats used in protocols are expected to support
+          offline revocation methods such as <a href=
           "https://eprint.iacr.org/2024/657.pdf">Cryptographic
           Accumulators</a>. It is further expected that protocol design and
           specification discourages the involvement of [=verifiers=] for the
@@ -2260,14 +2263,14 @@
           incentives that motivate unnecessary requests and abuse, and protect
           users accordingly.
           </li>
-          <li>[=user agents=] are responsible for protecting their users
+          <li>[=User agents=] are responsible for protecting their users
           against dangerous content and permission requests on the Web and
           could intervene on their behalf, proactively rejecting requests or
           requiring pre-authorization. To support this, the Digital Credentials
           API requires credential requests to be readable by the [=user agent=]
           (i.e., not end-to-end encrypted to the [=verifier=]).
           </li>
-          <li>[=issuers=] and lawmakers might decide to restrict use of
+          <li>[=Issuers=] and lawmakers might decide to restrict use of
           (particularly government-issued) credentials to specific
           [=verifiers=] with purpose attestations. [=Credential managers=]
           might be expected to enforce these restrictions by law or policy.
@@ -2447,7 +2450,7 @@
           The flexibility and lack of regulation of non-government credentials
           carries potential for abuse for the purpose of cross-site tracking
           and linking identities through long-lived identifiers, such as email
-          address or phone number. [=verifiers=] participating in a tracking
+          address or phone number. [=Verifiers=] participating in a tracking
           scheme based on digital credentials could create user incentives to
           accept sharing identifier credentials across many sites ("loyalty
           cards" for the Web), without fully understanding the implications on
@@ -2518,16 +2521,17 @@
         </h4>
         <p>
           While the API ensures that no user data is ever shared without a
-          permission prompt (see [[[#user-permission-and-transparency]]]), the
-          longevity and uniqueness of real-world identifiers that are likely to
-          be returned by the Digital Credentials API make it a potential target
-          for trackers and fingerprinters.
+          permission prompt (see the [[[#user-permission-and-transparency|User
+          Permission and Transparency]] section), the longevity and uniqueness
+          of real-world identifiers that are likely to be returned by the
+          Digital Credentials API make it a potential target for trackers and
+          fingerprinters.
         </p>
         <p>
           Even with selective disclosure, attackers might combine data from a
           digital credential (such as the user's age, or the credential
-          [=issuer=], timestamps, see [[[#leaking-incidental-data]]]) to
-          reidentify and/or fingerprint users.
+          [=issuer=], timestamps; see the [[[#leaking-incidental-data|Leaking
+          Incidental Data]] section) to reidentify and/or fingerprint users.
         </p>
         <p>
           This attack might be harder for third-party attackers (such as
