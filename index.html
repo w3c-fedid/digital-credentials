@@ -176,7 +176,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="272891cfe50afa6b1e68a5644772d74970476ef9">
+<meta name="revision" content="5ab9d1844c45945f9f498c896a5a15b5d02ba2de">
 <meta name="description" content="This document specifies an API enabling user agents to mediate the
         presentation and issuance of digital credentials, such as a
         driver's license, government-issued identification card, or
@@ -325,7 +325,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "272891cfe50afa6b1e68a5644772d74970476ef9",
+  "gitRevision": "5ab9d1844c45945f9f498c896a5a15b5d02ba2de",
   "publishISODate": "2026-06-15T00:00:00.000Z",
   "generatedSubtitle": "W3C Editor's Draft 15 June 2026"
 }</script>
@@ -844,17 +844,17 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       </div>
       <p>
         Similarly, when a site needs to <a data-link-type="dfn|abstract-op" data-lt="issuance" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-8">issue</a> a
-        digital credential, the <a href="#DC-API" data-matched-text="[[[#DC-API|Digital Credentials API]]]">Digital Credentials API</a>
-        mediates the issuance of a digital credential between the site, the
-        user agent, and the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders" id="ref-for-index-term-holders-2">holder</a>.
+        digital credential, the <a href="#DC-API" data-matched-text="[[[#DC-API|Digital Credentials API]]]">Digital Credentials API</a> mediates
+        the issuance of a digital credential between the site, the user agent,
+        and the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders" id="ref-for-index-term-holders-2">holder</a>.
       </p>
       </section><section id="issuing-a-digital-credential"><div class="header-wrapper"><h3 id="x2-4-issuing-a-digital-credential"><bdi class="secno">2.4 </bdi>
         Issuing a digital credential
       </h3><a class="self-link" href="#issuing-a-digital-credential" aria-label="Permalink for Section 2.4"></a></div>
       <p>
         The following example shows how to request the issuance of a digital
-        credential using the <a href="#DC-API" data-matched-text="[[[#DC-API|Digital Credentials API]]]">Digital Credentials API</a>. To issue
-        a digital credential, a site calls the
+        credential using the <a href="#DC-API" data-matched-text="[[[#DC-API|Digital Credentials API]]]">Digital Credentials API</a>. To issue a
+        digital credential, a site calls the
         <code>navigator.credentials.</code><a data-link-type="method" data-lt="create()" href="https://www.w3.org/TR/credential-management-1/#dom-credentialscontainer-create" id="ref-for-index-term-create-for-credentialscontainer-1"><code>create</code></a><code>()</code> method,
         which, if the user agent supports issuance, would initiate the issuance
         flow:
