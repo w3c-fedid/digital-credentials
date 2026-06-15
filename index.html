@@ -176,7 +176,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="ebd3f0d5d167104895a0beed23038e2eadd92b06">
+<meta name="revision" content="272891cfe50afa6b1e68a5644772d74970476ef9">
 <meta name="description" content="This document specifies an API enabling user agents to mediate the
         presentation and issuance of digital credentials, such as a
         driver's license, government-issued identification card, or
@@ -325,16 +325,16 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "ebd3f0d5d167104895a0beed23038e2eadd92b06",
-  "publishISODate": "2026-06-01T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 01 June 2026"
+  "gitRevision": "272891cfe50afa6b1e68a5644772d74970476ef9",
+  "publishISODate": "2026-06-15T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 15 June 2026"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED"></head>
   <body data-cite="WEBIDL credential-management permissions-policy vc-data-model HTML INFRA URL WEBIDL DOM FETCH" class="h-entry"><div class="head">
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Digital Credentials</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-06-01">01 June 2026</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-06-15">15 June 2026</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -695,24 +695,24 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       
       
       <p>
-        The following examples illustrate how the Digital Credentials API can
-        be used to request and issue digital credentials.
+        The following examples illustrate how the <a href="#DC-API" data-matched-text="[[[#DC-API|API]]]">API</a> can be used
+        to request and issue digital credentials.
       </p>
       <section id="feature-detection"><div class="header-wrapper"><h3 id="x2-1-feature-detection"><bdi class="secno">2.1 </bdi>
         Feature Detection
       </h3><a class="self-link" href="#feature-detection" aria-label="Permalink for Section 2.1"></a></div>
       <p>
-        Before using the Digital Credentials API, it's important to check if
-        the user agent supports the necessary features. This can be done using
-        the following code:
+        Before using the <a href="#DC-API" data-matched-text="[[[#DC-API|API]]]">API</a>, it's important to check if the user
+        agent supports the necessary features. This can be done using the
+        following code:
       </p>
       <div class="example" id="example-checking-for-api-support">
         <div class="marker">
     <a class="self-link" href="#example-checking-for-api-support">Example<bdi> 1</bdi></a><span class="example-title">: Checking for API support</span>
   </div> <pre aria-busy="false"><code class="hljs js"><span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-title class_">DigitalCredential</span> !== <span class="hljs-string">"undefined"</span>) {
-  <span class="hljs-comment">// Digital Credentials API is supported</span>
+  <span class="hljs-comment">// The API is supported</span>
 } <span class="hljs-keyword">else</span> {
-  <span class="hljs-comment">// Digital Credentials API is not supported</span>
+  <span class="hljs-comment">// The API is not supported</span>
 }</code></pre>
       </div>
       </section><section id="checking-if-protocol-is-allowed"><div class="header-wrapper"><h3 id="x2-2-checking-if-protocol-is-allowed"><bdi class="secno">2.2 </bdi>
@@ -788,7 +788,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       </h3><a class="self-link" href="#requesting-a-digital-credential" aria-label="Permalink for Section 2.3"></a></div>
       <p>
         The following example shows how to request a digital credential using
-        the Digital Credentials API. The entry point for the API is the
+        the <a href="#DC-API" data-matched-text="[[[#DC-API|API]]]">API</a>. The entry point for the API is the
         <code>navigator.credentials.</code><a data-link-type="method" data-lt="get()" href="https://www.w3.org/TR/credential-management-1/#dom-credentialscontainer-get" id="ref-for-index-term-get-for-credentialscontainer-1"><code>get</code></a><code>()</code> method, which is
         used to request a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-5">digital credential</a> from the user agent. If the
         user agent supports <a data-link-type="dfn|abstract-op" data-lt="presentation requests" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-8">presentation</a>, it allows the user to select a digital
@@ -844,17 +844,17 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       </div>
       <p>
         Similarly, when a site needs to <a data-link-type="dfn|abstract-op" data-lt="issuance" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-8">issue</a> a
-        digital credential, the Digital Credentials API mediates the issuance
-        of a digital credential between the site, the user agent, and the
-        <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders" id="ref-for-index-term-holders-2">holder</a>.
+        digital credential, the <a href="#DC-API" data-matched-text="[[[#DC-API|Digital Credentials API]]]">Digital Credentials API</a>
+        mediates the issuance of a digital credential between the site, the
+        user agent, and the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders" id="ref-for-index-term-holders-2">holder</a>.
       </p>
       </section><section id="issuing-a-digital-credential"><div class="header-wrapper"><h3 id="x2-4-issuing-a-digital-credential"><bdi class="secno">2.4 </bdi>
         Issuing a digital credential
       </h3><a class="self-link" href="#issuing-a-digital-credential" aria-label="Permalink for Section 2.4"></a></div>
       <p>
         The following example shows how to request the issuance of a digital
-        credential using the Digital Credentials API. To issue a digital
-        credential, a site calls the
+        credential using the <a href="#DC-API" data-matched-text="[[[#DC-API|Digital Credentials API]]]">Digital Credentials API</a>. To issue
+        a digital credential, a site calls the
         <code>navigator.credentials.</code><a data-link-type="method" data-lt="create()" href="https://www.w3.org/TR/credential-management-1/#dom-credentialscontainer-create" id="ref-for-index-term-create-for-credentialscontainer-1"><code>create</code></a><code>()</code> method,
         which, if the user agent supports issuance, would initiate the issuance
         flow:
@@ -1703,9 +1703,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       The Digital Credentials API
     </h2><a class="self-link" href="#DC-API" aria-label="Permalink for Section 7."></a></div>
     <p>
-      The Digital Credentials API leverages the <cite><a data-matched-text="[[[credential-management]]]" href="https://www.w3.org/TR/credential-management-1/">Credential Management Level 1</a></cite>
-      specification, allowing <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-7">user agents</a> to mediate the <a data-link-type="dfn|abstract-op" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-15">issuance</a> and <a data-link-type="dfn|abstract-op" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-16">presentation</a> of
-      <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-22">digital credentials</a>.
+      The <a href="#DC-API" data-matched-text="[[[#DC-API|Digital Credentials API]]]">Digital Credentials API</a> leverages the
+      <cite><a data-matched-text="[[[credential-management]]]" href="https://www.w3.org/TR/credential-management-1/">Credential Management Level 1</a></cite> specification, allowing <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-7">user agents</a> to
+      mediate the <a data-link-type="dfn|abstract-op" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-15">issuance</a> and <a data-link-type="dfn|abstract-op" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-16">presentation</a> of <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-22">digital credentials</a>.
     </p>
     <p>
       The API allows <a data-link-type="dfn|abstract-op" data-lt="presentation request" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-17">requesting</a> a
@@ -1721,7 +1721,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </p>
     <p>
       Additionally, the API also allows <a data-link-type="dfn|abstract-op" data-lt="Issuance request" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-16">requesting issuance</a> of a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-25">digital credential</a>, which
-      initiates an mediated issuance flow between the user agent and/or a
+      initiates a mediated issuance flow between the user agent and/or a
       <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders" id="ref-for-index-term-holders-17">holder</a>. This is done by calling the
       <code>navigator.credentials.</code><a data-link-type="method" data-lt="create()" href="https://www.w3.org/TR/credential-management-1/#dom-credentialscontainer-create" id="ref-for-index-term-create-for-credentialscontainer-2"><code>create</code></a><code>()</code> method, which
       runs the <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#abstract-opdef-create-a-credential" id="ref-for-index-term-create-a-credential-2">create a credential</a> algorithm of
@@ -1731,9 +1731,10 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       internal method.
     </p>
     <p>
-      Please see <a href="#credential-management-integration" data-matched-text="[[[#credential-management-integration]]]" class="sec-ref"><bdi class="secno">8. </bdi>
-      Integration with <cite><span>Credential Management Level 1</span></cite></a> for complete details
-      of how to integrate with the <cite><a data-matched-text="[[[credential-management]]]" href="https://www.w3.org/TR/credential-management-1/">Credential Management Level 1</a></cite> specification.
+      Please see <a href="#credential-management-integration" data-matched-text="[[[#credential-management-integration|Credential Management
+      Integration]]]">Credential Management
+      Integration</a> for complete details of how to integrate with the
+      <cite><a data-matched-text="[[[credential-management]]]" href="https://www.w3.org/TR/credential-management-1/">Credential Management Level 1</a></cite> specification.
     </p>
     <section id="extensions-to-credentialrequestoptions-dictionary"><div class="header-wrapper"><h3 id="x7-1-extensions-to-credentialrequestoptions-dictionary"><bdi class="secno">7.1 </bdi>
       Extensions to <code>CredentialRequestOptions</code> dictionary
@@ -2100,7 +2101,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       User permission
     </h3><a class="self-link" href="#user-permission" aria-label="Permalink for Section 8.6"></a></div><p><em>This section is non-normative.</em></p>
     <p data-cite="permissions">
-      The <cite>Digital Credential API</cite> is a <a data-link-type="dfn" href="https://www.w3.org/TR/permissions/#dfn-powerful-feature" id="ref-for-index-term-powerful-feature-1">powerful feature</a> that
+      The <a href="#DC-API" data-matched-text="[[[#DC-API|Digital Credentials API]]]">Digital Credentials API</a> is a <a data-link-type="dfn" href="https://www.w3.org/TR/permissions/#dfn-powerful-feature" id="ref-for-index-term-powerful-feature-1">powerful feature</a> that
       requires <a data-link-type="dfn" href="https://www.w3.org/TR/permissions/#dfn-express-permission" id="ref-for-index-term-express-permission-1">express permission</a> from an end-user. This requirement is
       normatively enforced when calling <a data-link-type="interface" data-lt="CredentialsContainer" href="https://www.w3.org/TR/credential-management-1/#credentialscontainer" id="ref-for-index-term-credentialscontainer-interface-1"><code>CredentialsContainer</code></a>'s
       <a data-link-type="method" data-lt="get()" href="https://www.w3.org/TR/credential-management-1/#dom-credentialscontainer-get" id="ref-for-index-term-get-for-credentialscontainer-4"><code>get</code></a><code>()</code> method.
@@ -2243,10 +2244,11 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         </li>
         <li>
           <strong>Always required mediation:</strong> The API makes <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#user-mediated" id="ref-for-index-term-user-mediation-2">user mediation</a> implicitly "<a data-link-type="enum-value" href="https://www.w3.org/TR/credential-management-1/#dom-credentialmediationrequirement-required" id="ref-for-index-term-required-for-credentialmediationrequirement-4"><code>required</code></a>"
-          (see <a href="#the-digitalcredential-interface" data-matched-text="[[[#the-digitalcredential-interface]]]" class="sec-ref"><bdi class="secno">7.7 </bdi>
-      The <code>DigitalCredential</code> interface</a>), ensuring that user
-          permission is obtained through the platform's credential chooser
-          interface for every credential operation.
+          (see <a href="#the-digitalcredential-interface" data-matched-text="[[[#the-digitalcredential-interface|the DigitalCredential
+          interface]]]">the DigitalCredential
+          interface</a>), ensuring that user permission is obtained through the
+          platform's credential chooser interface for every credential
+          operation.
         </li>
       </ul>
       <p>
@@ -2260,11 +2262,11 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         interactions that trigger credential requests.
       </p>
       <p data-cite="permissions-policy">
-        The Digital Credentials API reduces <a data-link-type="dfn|abstract-op" data-lt="Unauthorized Cross-Origin Access" href="#dfn-unauthorized-cross-origin-access" class="internalDFN" id="ref-for-dfn-unauthorized-cross-origin-access-1">cross-origin abuse</a> through <cite><a data-matched-text="[[[permissions-policy]]]" href="https://www.w3.org/TR/permissions-policy-1/">Permissions Policy</a></cite>
-        integration (see <a href="#permissions-policy" data-matched-text="[[[#permissions-policy]]]" class="sec-ref"><bdi class="secno">9. </bdi>
-        Permissions Policy integration</a>). The <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#abstract-opdef-request-a-credential" id="ref-for-index-term-request-a-credential-4">request a <code>Credential</code></a> and <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#abstract-opdef-create-a-credential" id="ref-for-index-term-create-a-credential-4">create a <code>Credential</code></a> algorithms respectively
-        serve as policy enforcement points for the
-        <a href="#dfn-digital-credentials-get" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-digital-credentials-get-2">"digital-credentials-get"</a> and
+        The Digital Credentials API reduces <a data-link-type="dfn|abstract-op" data-lt="Unauthorized Cross-Origin Access" href="#dfn-unauthorized-cross-origin-access" class="internalDFN" id="ref-for-dfn-unauthorized-cross-origin-access-1">cross-origin abuse</a> through integration with
+        <cite><a data-matched-text="[[[permissions-policy]]]" href="https://www.w3.org/TR/permissions-policy-1/">Permissions Policy</a></cite> (see <a href="#permissions-policy" data-matched-text="[[[#permissions-policy|Permissions Policy
+        Integration]]]">Permissions Policy
+        Integration</a>). The <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#abstract-opdef-request-a-credential" id="ref-for-index-term-request-a-credential-4">request a <code>Credential</code></a> and <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#abstract-opdef-create-a-credential" id="ref-for-index-term-create-a-credential-4">create a <code>Credential</code></a> algorithms respectively serve as policy enforcement
+        points for the <a href="#dfn-digital-credentials-get" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-digital-credentials-get-2">"digital-credentials-get"</a> and
         <a href="#dfn-digital-credentials-create" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-digital-credentials-create-2">"digital-credentials-create"</a> <a data-link-type="dfn" href="https://www.w3.org/TR/permissions-policy-1/#policy-controlled-feature" id="ref-for-index-term-policy-controlled-feature-6">policy-controlled features</a>. The
         two features are intentionally separate: a site may enable
         <a href="#dfn-digital-credentials-get" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-digital-credentials-get-3">"digital-credentials-get"</a> without enabling
@@ -2393,7 +2395,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           an individual user.
         </p>
         <p>
-          This means that some users may not want, or be allowed, to use the
+          This means that some users might not want, or be allowed, to use the
           most privacy-preserving means of exchanging credential information.
           Nonetheless, <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-12">user agents</a> need to serve users with an experience
           that is private by default and protect them from harm.
@@ -2462,7 +2464,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         </p>
         <p>
           While the latter is achievable, e.g. through
-          <a data-matched-text="[[[vc-data-model#zero-knowledge-proofs|Zero-Knowledge Proofs]]]" href="https://www.w3.org/TR/vc-data-model-2.0/#zero-knowledge-proofs">Zero-Knowledge Proofs</a>,
+          <a data-matched-text="[[[vc-data-model#zero-knowledge-proofs|zero-knowledge proofs]]]" href="https://www.w3.org/TR/vc-data-model-2.0/#zero-knowledge-proofs">zero-knowledge proofs</a>,
           design choices of the API such as encrypted responses make it
           impossible for a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-16">user agent</a> to prove that verifier-issuer
           unlinkability was achieved in practice. Nonetheless, protocols are
@@ -2530,8 +2532,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           is for credential revocation checks. This is particularly challenging
           when presentations are intended to be verifier-issuer unlinkable.
           When credential presentations are made unlinkable through the use of
-          e.g. Zero-Knowledge Proofs, the credential formats used in protocols
-          are expected to support offline revocation methods such as <a href="https://eprint.iacr.org/2024/657.pdf">Cryptographic
+          e.g. <a data-matched-text="[[[vc-data-model#zero-knowledge-proofs|zero-knowledge proofs]]]" href="https://www.w3.org/TR/vc-data-model-2.0/#zero-knowledge-proofs">zero-knowledge proofs</a>,
+          the credential formats used in protocols are expected to support
+          offline revocation methods such as <a href="https://eprint.iacr.org/2024/657.pdf">Cryptographic
           Accumulators</a>. It is further expected that protocol design and
           specification discourages the involvement of <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-16">verifiers</a> for the
           purpose of revocation where possible.
@@ -2630,14 +2633,14 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           incentives that motivate unnecessary requests and abuse, and protect
           users accordingly.
           </li>
-          <li><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-25">user agents</a> are responsible for protecting their users
+          <li><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-25">User agents</a> are responsible for protecting their users
           against dangerous content and permission requests on the Web and
           could intervene on their behalf, proactively rejecting requests or
           requiring pre-authorization. To support this, the Digital Credentials
           API requires credential requests to be readable by the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-26">user agent</a>
           (i.e., not end-to-end encrypted to the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-24">verifier</a>).
           </li>
-          <li><a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers" id="ref-for-index-term-issuers-18">issuers</a> and lawmakers might decide to restrict use of
+          <li><a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers" id="ref-for-index-term-issuers-18">Issuers</a> and lawmakers might decide to restrict use of
           (particularly government-issued) credentials to specific
           <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-25">verifiers</a> with purpose attestations. <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-20">Credential managers</a>
           might be expected to enforce these restrictions by law or policy.
@@ -2817,7 +2820,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           The flexibility and lack of regulation of non-government credentials
           carries potential for abuse for the purpose of cross-site tracking
           and linking identities through long-lived identifiers, such as email
-          address or phone number. <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-31">verifiers</a> participating in a tracking
+          address or phone number. <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-31">Verifiers</a> participating in a tracking
           scheme based on digital credentials could create user incentives to
           accept sharing identifier credentials across many sites ("loyalty
           cards" for the Web), without fully understanding the implications on
@@ -2886,18 +2889,17 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         </h4><a class="self-link" href="#browser-fingerprinting" aria-label="Permalink for Section 11.5.1"></a></div>
         <p>
           While the API ensures that no user data is ever shared without a
-          permission prompt (see <a href="#user-permission-and-transparency" data-matched-text="[[[#user-permission-and-transparency]]]" class="sec-ref"><bdi class="secno">11.6 </bdi>
-          User Permission and Transparency</a>), the
-          longevity and uniqueness of real-world identifiers that are likely to
-          be returned by the Digital Credentials API make it a potential target
-          for trackers and fingerprinters.
+          permission prompt (see the [[[#user-permission-and-transparency|User
+          Permission and Transparency]] section), the longevity and uniqueness
+          of real-world identifiers that are likely to be returned by the
+          Digital Credentials API make it a potential target for trackers and
+          fingerprinters.
         </p>
         <p>
           Even with selective disclosure, attackers might combine data from a
           digital credential (such as the user's age, or the credential
-          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers" id="ref-for-index-term-issuers-21">issuer</a>, timestamps, see <a href="#leaking-incidental-data" data-matched-text="[[[#leaking-incidental-data]]]" class="sec-ref"><bdi class="secno">11.5.2 </bdi>
-          Leaking incidental data with credential presentations</a>) to
-          reidentify and/or fingerprint users.
+          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers" id="ref-for-index-term-issuers-21">issuer</a>, timestamps; see the [[[#leaking-incidental-data|Leaking
+          Incidental Data]] section) to reidentify and/or fingerprint users.
         </p>
         <p>
           This attack might be harder for third-party attackers (such as
@@ -3005,7 +3007,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         <div class="issue" id="issue-container-number-252"><div class="issue-title marker" id="h-issue-13"><a href="https://github.com/w3c-fedid/digital-credentials/issues/252"><span class="issue-number">Issue 252</span></a><span class="issue-label">: Should we normatively define elements of a permission prompt? <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a></span></div><p class="">
           Should these be normative in the spec?
         </p></div>
-        <div class="issue" id="issue-container-number-44"><div class="issue-title marker" id="h-issue-14"><a href="https://github.com/w3c-fedid/digital-credentials/issues/44"><span class="issue-number">Issue 44</span></a><span class="issue-label">: API requests should provide the site with what they need to explain why and how requested credential information will be used <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22enhancement%22" style="background-color: rgb(162, 238, 239); color: rgb(0, 0, 0);" aria-label="GitHub label: enhancement">enhancement</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22pending+closure%22" style="background-color: rgb(251, 202, 4); color: rgb(0, 0, 0);" aria-label="GitHub label: pending closure">pending closure</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a></span></div><p class="">
+        <div class="issue closed" id="issue-container-number-44"><div class="issue-title marker" id="h-issue-14"><a href="https://github.com/w3c-fedid/digital-credentials/issues/44"><span class="issue-number">Issue 44</span></a><span class="issue-label">: API requests should provide the site with what they need to explain why and how requested credential information will be used <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22enhancement%22" style="background-color: rgb(162, 238, 239); color: rgb(0, 0, 0);" aria-label="GitHub label: enhancement">enhancement</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22pending+closure%22" style="background-color: rgb(251, 202, 4); color: rgb(0, 0, 0);" aria-label="GitHub label: pending closure">pending closure</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a></span></div><p class="">
           Should the API be designed so the site can provide in-context
           explanations?
         </p></div>
