@@ -954,13 +954,10 @@
       </li>
       <li>[=List/For each=] |request| of |requests|:
         <ol>
-          <li>[=Convert request protocol=] given |request|:
-            <ol>
-              <li>If conversion results in failure, [=iteration/continue=].
-              </li>
-              <li>Otherwise, let |protocol| be the result of the conversion.
-              </li>
-            </ol>
+          <li>Let |protocol| be the result of running [=convert request protocol=]
+          given |request|.
+          </li>
+          <li>If |protocol| is failure, [=iteration/continue=].
           </li>
           <li>If [=user agent allows protocol=] given |protocol| returns
           `false`, [=iteration/continue=].
