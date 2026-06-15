@@ -1876,10 +1876,25 @@
         end-to-end security of credential presentation and issuance. The
         following defines the [=out-of-scope threats=] for this specification:
       </p>
-      <ul>
-        <li>To be written...
-        </li>
-      </ul>
+      <dl>
+        <dt>
+          <dfn>Presentation Linkability</dfn>
+        </dt>
+        <dd>
+          A [=verifier=], alone or colluding with other [=verifiers=] or with
+          an [=issuer=], correlates multiple [=digital
+          credential/presentation|presentations=] to track a user across
+          contexts (verifier-verifier and verifier-issuer linkability). Whether
+          a presentation is linkable is determined by the [=digital
+          credential/presentation protocol=] and credential format, so
+          mitigation occurs at the protocol and format layer, outside of this
+          API. It remains relevant here because the [=user agent=] cannot
+          observe credential response contents and so cannot confirm that any
+          unlinkability property holds; the API's role is limited to the [=user
+          agent=] adopting a conservative posture that assumes a presentation
+          may be linkable. See [[[#unlinkable-presentations]]].
+        </dd>
+      </dl>
       <h3>
         Mitigations
       </h3>
@@ -2113,7 +2128,7 @@
           selective disclosure by allowing the [=verifier=] to specify the
           exact claims needed.
         </p>
-        <h5>
+        <h5 id="unlinkable-presentations">
           Unlinkable presentations
         </h5>
         <p>
@@ -2149,6 +2164,20 @@
           that no linkable information is passed between [=verifiers=] and
           [=credential managers=]. It is recommended that [=user agents=]
           account for this fact in their user permission experience.
+        </p>
+        <p>
+          This API does not by itself make a [=digital
+          credential/presentation|presentation=] unlinkable; where
+          unlinkability is achieved, it is a property of the credential format
+          and [=digital credential/presentation protocol=] in use, and, for
+          verifier-verifier linkability, of the [=holder=] and [=issuer=] (as
+          described above). Because the [=user agent=] cannot observe the
+          contents of an opaque credential response, it cannot confirm that any
+          such unlinkability property holds. The [=user agent=] therefore
+          assumes a presentation may be linkable, both across [=verifiers=]
+          (verifier-verifier linkability) and back to the [=issuer=]
+          (verifier-issuer linkability), when shaping its permission
+          experience.
         </p>
         <p class="issue" data-number="279">
           Which level of unlinkability is the goal for this API? Can we
