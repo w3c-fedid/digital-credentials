@@ -1960,7 +1960,7 @@
         <!--
         // MARK: Design Considerations and Alternatives
         -->
-        <h3 class="informative">
+        <h3>
           Design Considerations and Alternatives
         </h3>
         <p>
@@ -1997,9 +1997,9 @@
           intermediate on behalf of the user (e.g. in the form of a [=digital
           credential chooser=]) to contextualize requests and
           [[[#permission-prior-to-credential-manager-selection|prevent
-          immediate exposure to holder applications]]]. It also normatively
-          enforces certain minimum requirements on supported protocols, such as
-          [[[#encrypting-credential-responses]]].
+          immediate exposure to holder applications]]]. It also enforces
+          certain minimum requirements on supported protocols, such as
+          [[[#encrypting-credential-responses|response encryption]]].
         </p>
         <aside class="note">
           The Digital Credentials API is not intended to inhibit the
@@ -2016,7 +2016,7 @@
         <!--
         // MARK: Spectrum of Privacy
         -->
-        <h3 class="informative">
+        <h3>
           Spectrum of Privacy
         </h3>
         <p>
@@ -2059,6 +2059,7 @@
         <h4>
           Presentation Protocol Considerations for User Privacy
         </h4>
+        <aside class="issue" data-number="255"></aside>
         <h5>
           Selective disclosure
         </h5>
@@ -2105,7 +2106,7 @@
           [=verifiers=] and [=credential managers=] exchange unlinkable
           attributes, but, because of response encryption, it cannot guarantee
           that no linkable information is passed between [=verifiers=] and
-          [=credential managers=]. It is RECOMMENDED that [=user agents=]
+          [=credential managers=]. It is recommended that [=user agents=]
           account for this fact in their user permission experience.
         </p>
         <p class="issue" data-number="279">
@@ -2415,10 +2416,9 @@
           It is further critical that [=user agents=] design a permission
           experience that accounts for the lack of these mitigations, e.g., the
           exchange of personal information from government credentials without
-          any [=verifier=] authentication scheme. It is RECOMMENDED that [=user
-          agents=] apply a higher level of friction and clear user messaging
-          that highlights the involved risk be applied to these types of
-          exchanges.
+          any [=verifier=] authentication scheme. It is recommended that a
+          higher level of friction and clear user messaging that highlights the
+          involved risk be applied to these types of exchanges.
         </p>
         <h4>
           Non-government-issued credentials
@@ -2466,7 +2466,7 @@
           Mitigating unnecessary requests for non-government credentials
         </h5>
         <p>
-          For non-government-issued credentials, it is RECOMMENDED that the
+          For non-government-issued credentials, it is recommended that the
           [=user agent=] understand the requested credential format and its
           privacy attributes, and build a risk framework that informs the
           context that is shown to the user, as well as the amount of friction
@@ -2537,10 +2537,10 @@
           This attack might be harder for third-party attackers (such as
           scripts embedded on the [=verifier=]'s pages but not actively
           collaborating with them for the purpose of tracking) because response
-          encryption is mandatory. [=verifiers=] SHOULD decrypt responses on
-          the server as to not reflect back decrypted information to
-          client-side JavaScript. Not all [=verifiers=] will choose to do so,
-          however.
+          encryption is mandatory and responses should be decrypted on the
+          [=verifier=]'s server. The [=verifier=] could thus ensure not to
+          reflect back decrypted information to client-side JavaScript. Not all
+          [=verifiers=] will choose to do so, however.
         </p>
         <h4 id="leaking-incidental-data">
           Leaking incidental data with credential presentations
@@ -2637,12 +2637,12 @@
           </li>
         </ul>
         <p>
-          It is RECOMMENDED that [=user agents=] in their implementation ensure
+          It is advised that [=user agents=] in their implementation ensure
           that the details listed are fully disclosed to the user before an
           exchange of any user-related information occurs.
         </p>
         <p class="issue" data-number="252">
-          Should these become MUST-level requirements instead of RECOMMENDED?
+          Should these be normative in the spec?
         </p>
         <p class="issue" data-number="44">
           Should the API be designed so the site can provide in-context
@@ -2681,12 +2681,13 @@
           Permission Prior to Credential Manager Selection
         </h4>
         <p>
-          As part of the user permission flow, the [=user agent=] MUST ensure
-          that users retain the power to choose whether to forward a credential
-          request to a [=credential manager=], and which credential manager to
-          select. This is due to the information disclosure that happens as
-          part of the request, and the ability of credential managers to retain
-          or share this information at the time of the request.
+          As part of the user permission flow, the [=user agent=] needs to
+          ensure that users retain the power to choose whether to forward a
+          credential request to a [=credential manager=], and which credential
+          manager to select. This is due to the information disclosure that
+          happens as part of the request, and the ability of credential
+          managers to retain or share this information at the time of the
+          request.
         </p>
         <h4>
           Permission vs. Consent
