@@ -12,4 +12,3 @@ reidentify
 multisigned
 sandboxed
 digitalcredentials
-subresource
