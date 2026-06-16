@@ -1612,6 +1612,9 @@
       <li>If |signal| is [=AbortSignal/aborted=], return [=a promise rejected
       with=] |signal|'s [=AbortSignal/abort reason=].
       </li>
+      <li>If |origin| is an [=opaque origin=], return [=a promise rejected
+      with=] a {{"NotAllowedError"}} {{DOMException}}.
+      </li>
       <li>Let |global| be [=this=]'s [=relevant global object=].
       </li>
       <li>Let |document| be |global|'s [=associated `Document`=].
@@ -1668,6 +1671,9 @@
       </li>
       <li>If |signal| is [=AbortSignal/aborted=], return [=a promise rejected
       with=] |signal|'s [=AbortSignal/abort reason=].
+      </li>
+      <li>If |origin| is an [=opaque origin=], return [=a promise rejected
+      with=] a {{"NotAllowedError"}} {{DOMException}}.
       </li>
       <li>Let |global| be [=this=]'s [=relevant global object=].
       </li>
@@ -1837,10 +1843,37 @@
         end-to-end security of credential presentation and issuance. The
         following defines the [=out-of-scope threats=] for this specification:
       </p>
-      <ul>
-        <li>To be written...
-        </li>
-      </ul>
+      <dl>
+        <dt>
+          <dfn>OS or Device Compromise</dfn>
+        </dt>
+        <dd>
+          An attacker who gains control over the user's operating system or
+          device hardware could bypass [=user agent=] protections, extract
+          sensitive credential data directly from storage, or manipulate the
+          API calls. This threat must be addressed by OS platform security and
+          hardware-backed keystores.
+        </dd>
+        <dt>
+          <dfn>Malicious Credential Managers</dfn>
+        </dt>
+        <dd>
+          A user might install a [=credential manager=] that intentionally
+          leaks credentials, fails to securely encrypt them, or ignores user
+          consent. The API relies on the OS and the user's discretion to only
+          install and register trusted [=credential managers=].
+        </dd>
+        <dt>
+          <dfn>Protocol and Format Vulnerabilities</dfn>
+        </dt>
+        <dd>
+          Weaknesses in the specific [=digital credential/presentation protocol=]
+          or credential format being used (e.g., cryptographic flaws, lack of
+          replay protection) could allow attackers to intercept, forge, or
+          tamper with credentials in transit. Mitigation occurs at the protocol
+          and transport layers (e.g., TLS).
+        </dd>
+      </dl>
       <h3>
         Mitigations
       </h3>
@@ -1856,6 +1889,14 @@
         [[[secure-contexts#security-considerations|Security Considerations]]]
         section of the [[[secure-contexts]]] specification for more
         information.
+      </p>
+      <p>
+        Additionally, the API is only available to documents with a non-opaque
+        origin. Calls to {{DigitalCredential/[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)}}
+        and {{Credential/[[Create]](origin, options, sameOriginWithAncestors)}}
+        from [=opaque origins=] (such as `data:` URIs or sandboxed iframes) will
+        fail, reducing the risk of malicious extraction or spoofing from
+        untrusted environments.
       </p>
       <p>
         The Digital Credentials API reduces [=API flooding=] through two
@@ -1913,12 +1954,7 @@
       <h2>
         Privacy Considerations
       </h2>
-      <div class="issue" title=
-      "Privacy Considerations section is a work in progress">
-        <p>
-          This section is a work in progress as this document evolves.
-        </p>
-      </div>
+
       <p>
         The Digital Credentials API integrates into a complex ecosystem with
         multiple technology layers and various participants (including but not
@@ -2596,6 +2632,15 @@
           credentials from the user in order to access services, excluding
           individuals who are unwilling to present credentials.
         </p>
+        <p>
+          To ensure this protection is robust, [=user agents=] MUST ensure that
+          errors returned by the API do not leak information about the user's
+          available credentials through observable differences, such as distinct
+          error types or timing attacks. For example, rejecting a request because
+          the user has no matching credentials MUST return the same generic error
+          and take a similar amount of time as rejecting a request because the
+          user cancelled the prompt.
+        </p>
       </section>
       <section id="user-permission-and-transparency">
         <!--
@@ -2604,7 +2649,7 @@
         <h3>
           User Permission and Transparency
         </h3>
-        <p class="issue" title="Work in progress"></p>
+
         <p>
           The Digital Credentials API enables the sharing of highly personal,
           sensitive, and at-risk user information with websites via
@@ -2725,6 +2770,47 @@
           As more of this information becomes available in a structured format,
           we expect [=user agents=] and this specification to leverage it to
           improve the user permission experience as well.
+        </p>
+      </section>
+      <section>
+        <!--
+        // MARK: Private Browsing Mode
+        -->
+        <h3>
+          Private Browsing Mode
+        </h3>
+        <p>
+          When the [=user agent=] is operating in a private browsing mode (also
+          known as "incognito mode"), it is expected to prioritize user privacy
+          and prevent the accumulation of state that could link sessions.
+          Because digital credentials inherently contain identity and behavioral
+          history, [=user agents=] MAY choose to disable the Digital Credentials
+          API entirely in such modes. If supported, [=user agents=] MUST ensure
+          that no trace of the credential request, presentation, or user choice
+          is left in the local browser state after the private session ends, and
+          are encouraged to warn users that presenting a credential may still
+          allow the [=verifier=] to uniquely identify them regardless of the
+          browsing mode.
+        </p>
+      </section>
+      <section>
+        <!--
+        // MARK: Data Clearing and Persistent State
+        -->
+        <h3>
+          Data Clearing and Persistent State
+        </h3>
+        <p>
+          The Digital Credentials API itself does not introduce new
+          browser-managed persistent state or local storage mechanisms. The
+          credentials requested through this API are stored and managed by external
+          [=credential managers=] or the operating system. Consequently, when a
+          user clears their browsing data (e.g., cookies or local storage) for a
+          given origin or globally, it generally does not clear or affect the
+          credentials held within those external managers. However, [=user agents=]
+          MUST ensure that any temporary data, caches, or permissions specifically
+          tied to the API's intermediation are correctly cleared when the user
+          clears their site data.
         </p>
       </section>
     </section>
