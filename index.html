@@ -2727,6 +2727,27 @@
           improve the user permission experience as well.
         </p>
       </section>
+      <section>
+        <!--
+        // MARK: Private Browsing Mode
+        -->
+        <h3>
+          Private Browsing Mode
+        </h3>
+        <p>
+          When the [=user agent=] is operating in a private browsing mode (also
+          known as "incognito mode"), it is expected to prioritize user privacy
+          and prevent the accumulation of state that could link sessions.
+          Because [=digital credentials=] inherently contain identity and behavioral
+          history, [=user agents=] may choose to disable the Digital Credentials
+          API entirely in such modes. If supported, [=user agents=] are expected to ensure
+          that no trace of the credential request, presentation, or user choice
+          is left in the local browser state after the private session ends, and
+          are encouraged to warn users that presenting a credential may still
+          allow the [=verifier=] to uniquely identify them regardless of the
+          browsing mode.
+        </p>
+      </section>
     </section>
     <section>
       <!--
