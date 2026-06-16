@@ -1648,6 +1648,9 @@
       <li>Let |signal| be |options|'s {{CredentialRequestOptions/signal}}, if
       present.
       </li>
+      <li>If |origin| is an [=opaque origin=], return [=a promise rejected
+      with=] a {{"NotAllowedError"}} {{DOMException}}.
+      </li>
       <li>Let |global| be [=this=]'s [=relevant global object=].
       </li>
       <li>Let |document| be |global|'s [=associated `Document`=].
@@ -1704,6 +1707,9 @@
       </li>
       <li>If |signal| is [=AbortSignal/aborted=], return [=a promise rejected
       with=] |signal|'s [=AbortSignal/abort reason=].
+      </li>
+      <li>If |origin| is an [=opaque origin=], return [=a promise rejected
+      with=] a {{"NotAllowedError"}} {{DOMException}}.
       </li>
       <li>Let |global| be [=this=]'s [=relevant global object=].
       </li>
@@ -1891,6 +1897,14 @@
         injected through the network). Please refer to the
         [[[secure-contexts#security-considerations]]] section of the
         [[[secure-contexts]]] specification for more information.
+      </p>
+      <p>
+        Additionally, the API is only available to documents with a non-opaque
+        origin. Calls to {{DigitalCredential/[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)}}
+        and {{Credential/[[Create]](origin, options, sameOriginWithAncestors)}}
+        from [=opaque origins=] (such as `data:` URIs or sandboxed iframes) will
+        fail, reducing the risk of malicious extraction or spoofing from
+        untrusted environments.
       </p>
       <p>
         The Digital Credentials API reduces [=API flooding=] through two
