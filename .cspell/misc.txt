@@ -10,3 +10,4 @@ fingerprinters
 birthdates
 reidentify
 multisigned
+subresource
