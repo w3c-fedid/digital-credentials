@@ -1832,6 +1832,14 @@
           explicit permission from the embedding site, potentially enabling
           credential harvesting or unauthorized access to sensitive user data.
         </dd>
+        <dt>
+          <dfn>Malicious Payloads to the Underlying Platform</dfn>
+        </dt>
+        <dd>
+          A malicious website attempts to exploit vulnerabilities in the
+          underlying operating system or [=credential manager=] by passing
+          carefully crafted or malformed protocol requests through the API.
+        </dd>
       </dl>
       <h4>
         Out of Scope Threats
@@ -1897,6 +1905,14 @@
         from [=opaque origins=] (such as `data:` URIs or sandboxed iframes) will
         fail, reducing the risk of malicious extraction or spoofing from
         untrusted environments.
+      </p>
+      <p>
+        To mitigate the risk of <a href="#dfn-malicious-payloads-to-the-underlying-platform">malicious payloads to the underlying platform</a>, [=user agents=] MUST pass the request
+        parameters to the [=credential manager=] using safe serialization
+        formats (such as JSON or structured cloning) without executing them.
+        The underlying platform and [=credential managers=] are responsible
+        for robustly parsing and validating these protocol-specific payloads
+        before acting on them.
       </p>
       <p>
         The Digital Credentials API reduces [=API flooding=] through two
