@@ -2596,6 +2596,15 @@
           credentials from the user in order to access services, excluding
           individuals who are unwilling to present credentials.
         </p>
+        <p>
+          To ensure this protection is robust, [=user agents=] are expected to ensure that
+          errors returned by the API do not leak information about the user's
+          available credentials through observable differences, such as distinct
+          error types or timing attacks. For example, rejecting a request because
+          the user has no matching credentials is expected to return the same generic error
+          and take a similar amount of time as rejecting a request because the
+          user cancelled the prompt.
+        </p>
       </section>
       <section id="user-permission-and-transparency">
         <!--
@@ -2725,6 +2734,26 @@
           As more of this information becomes available in a structured format,
           we expect [=user agents=] and this specification to leverage it to
           improve the user permission experience as well.
+        </p>
+      </section>
+      <section>
+        <!--
+        // MARK: Data Clearing and Persistent State
+        -->
+        <h3>
+          Data Clearing and Persistent State
+        </h3>
+        <p>
+          The Digital Credentials API itself does not introduce new
+          browser-managed persistent state or local storage mechanisms. The
+          credentials requested through this API are stored and managed by external
+          [=credential managers=] or the operating system. Consequently, when a
+          user clears their browsing data (e.g., cookies or local storage) for a
+          given origin or globally, it generally does not clear or affect the
+          credentials held within those external managers. However, [=user agents=]
+          are expected to ensure that any temporary data, caches, or permissions specifically
+          tied to the API's intermediation are correctly cleared when the user
+          clears their site data.
         </p>
       </section>
     </section>
