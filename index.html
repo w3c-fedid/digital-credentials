@@ -2793,6 +2793,75 @@
         MUST be operable in a device-independent manner.
       </p>
     </section>
+    <section class="informative">
+      <!--
+      // MARK: Internationalization Considerations
+      -->
+      <h2>
+        Internationalization Considerations
+      </h2>
+      <p>
+        This API is agnostic to credential formats and exchange protocols, and
+        treats the request payloads ({{DigitalCredentialGetRequest}}'s
+        {{DigitalCredentialGetRequest/data}} and
+        {{DigitalCredentialCreateRequest}}'s
+        {{DigitalCredentialCreateRequest/data}}) and the response payload
+        ({{DigitalCredential}}'s {{DigitalCredential/data}}) as opaque. As a
+        result, the API defines no string-typed values that carry
+        human-readable, natural language content:
+      </p>
+      <ul>
+        <li>The string-typed values it defines, most notably [=digital
+        credential/protocol identifier|protocol identifiers=], are restricted to
+        ASCII ([=ASCII lower alpha=], U+002D HYPHEN-MINUS, and [=ASCII digit=])
+        and compared by exact equality. They are machine identifiers, not
+        human-readable text, so normalization, case folding, and language or
+        direction metadata do not apply.
+        </li>
+        <li>All payloads are exchanged as JSON and JavaScript values, with a
+        character encoding of UTF-8. Request payloads are serialized using
+        [=serialize a JavaScript value to a JSON string=], which calls the
+        ECMAScript `JSON.stringify` operation, and responses are parsed using
+        [=parse a JSON string to a JavaScript value=]. Because `JSON.stringify`
+        emits lone (unpaired) surrogate code points as `\uXXXX` escape
+        sequences, the serialized request is always well-formed, UTF-8-encodable
+        JSON.
+        </li>
+        <li>Human-readable, localizable credential content (for example, the
+        values of credential claims such as a name or address, including their
+        representation in different scripts and languages) is carried opaquely
+        within the credential payload. Its internationalization is determined by
+        the relevant credential format and [=digital credential/presentation
+        protocol=] or [=digital credential/issuance protocol=] (for example, the
+        formats defined in [[ISO18013-5]], and protocols such as [[OPENID4VP]]),
+        which this specification expects to provide language and direction
+        metadata, and localized alternatives, where appropriate.
+        </li>
+        <li>The one value the API routes to the platform that a [=user agent=]
+        may display is the requesting [=request context/top-level origin=].
+        Rendering an origin's host to the user, including the handling of
+        internationalized domain names and bidirectional text, follows the
+        [[[URL#url-rendering-i18n|host-rendering guidance in the URL Standard]]]
+        and is out of scope for this specification.
+        </li>
+        <li>Any other text presented to the user during a credential interaction
+        is rendered either by the website (using HTML, which provides language
+        and direction support through the host language), or by the platform's
+        [=digital credential chooser=]. The chooser is out of scope for this
+        specification; where it displays credential content, the language and
+        direction of that content, as provided by the credential format and
+        protocol, govern its presentation.
+        </li>
+      </ul>
+      <p>
+        Consequently, this specification introduces no natural language text
+        that requires language or direction metadata. Were a future revision to
+        introduce site-authored human-readable text at the API layer,
+        normatively defined permission prompt text, or a user-agent-drawn
+        presentation element, that text would need to carry, or be associated
+        with, appropriate language and direction metadata.
+      </p>
+    </section>
     <section data-cite="webdriver webdriver-bidi">
       <h2>
         Automated Testing
