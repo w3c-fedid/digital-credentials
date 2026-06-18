@@ -2134,7 +2134,7 @@
         </h5>
         <p>
           [[[credential-considerations#unlinkable-presentations|Unlinkability]]]
-          is a property that ensures that, if a user presents attributes from a
+          is a property that ensures that, if a user presents [=claims=] from a
           credential multiple times, [=verifiers=] cannot link these separate
           presentations to conclude they concern the same user
           (verifier-verifier linkability), or that [=verifiers=] cannot collude
@@ -2153,18 +2153,18 @@
           requested to limit linkability wherever possible.
         </p>
         <p>
-          Note that unlinkability is exclusively a consideration for attributes
+          Note that unlinkability is exclusively a consideration for claims
           that cannot be linked to a specific user identity. Inherently
-          linkable attributes such as names, driver's license numbers, or phone
+          linkable properties such as names, driver's license numbers, or phone
           numbers do not benefit from unlinkability.
         </p>
         <p>
           Through the Digital Credentials API, the [=user agent=] can help
-          [=verifiers=] and [=credential managers=] exchange unlinkable
-          attributes, but, because of response encryption, it cannot guarantee
-          that no linkable information is passed between [=verifiers=] and
-          [=credential managers=]. It is recommended that [=user agents=]
-          account for this fact in their user permission experience.
+          [=verifiers=] and [=credential managers=] exchange unlinkable claims,
+          but, because of response encryption, it cannot guarantee that no
+          linkable information is passed between [=verifiers=] and [=credential
+          managers=]. It is recommended that [=user agents=] account for this
+          fact in their user permission experience.
         </p>
         <p>
           This API does not by itself make a [=digital
