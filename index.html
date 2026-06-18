@@ -1132,30 +1132,39 @@
               </li>
             </ul>
             <p>
-              When displaying the [=digital credential chooser=]: if
-              |requestData|'s [=request context/document origin=] and its
-              [=request context/top-level origin=] are [=same site=], the
-              [=user agent=] SHOULD present the [=request context/top-level
-              origin=] to the user; otherwise, the [=user agent=] SHOULD
-              present both the [=request context/top-level origin=] and the
-              [=request context/document origin=], and SHOULD convey that the
-              [=request context/document origin=] is embedded within the page
-              at the [=request context/top-level origin=], and that the
-              [=request context/document origin=] would receive the requested
-              [=digital credential=].
+              The origins presented to the user are determined as follows:
             </p>
+            <dl class="switch">
+              <dt>
+                |requestData|'s [=request context/document origin=] and its
+                [=request context/top-level origin=] are [=same site=]:
+              </dt>
+              <dd>
+                The [=request context/top-level origin=] is presented to the
+                user.
+              </dd>
+              <dt>
+                Otherwise:
+              </dt>
+              <dd>
+                Both the [=request context/top-level origin=] and the [=request
+                context/document origin=] are presented to the user, conveying
+                that the [=request context/document origin=] is embedded within
+                the page at the [=request context/top-level origin=] and would
+                receive the requested [=digital credential=].
+              </dd>
+            </dl>
             <p class="note">
               Presenting only the [=request context/document origin=] can
               prevent the user from associating the request with the site they
               are visiting, as that origin is typically not reflected in the
               [=user agent=]'s address bar. Presenting only the [=request
               context/top-level origin=] can mislead the user about which party
-              would receive the [=digital credential=]. The requirement above
-              is about what the user is shown; where the [=digital credential
-              chooser=] is provided by the underlying platform, the [=user
-              agent=] makes both origins available to it for that purpose.
+              would receive the [=digital credential=]. Where the [=digital
+              credential chooser=] is provided by the underlying platform, the
+              [=user agent=] makes both origins available to it so that they
+              can be presented to the user.
             </p>
-            <aside class="issue" data-number="545"></aside>
             <aside class="issue" data-number="456"></aside>
           </li>
           <li>If |signal| is not null and |signal| is [=AbortSignal/aborted=]:
