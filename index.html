@@ -1869,11 +1869,11 @@
           <dfn>Protocol and Format Vulnerabilities</dfn>
         </dt>
         <dd>
-          Weaknesses in the specific [=digital credential/presentation protocol=]
-          or credential format being used (e.g., cryptographic flaws, lack of
-          replay protection) could allow attackers to intercept, forge, or
-          tamper with credentials in transit. Mitigation occurs at the protocol
-          and transport layers (e.g., TLS).
+          Weaknesses in the specific [=digital credential/presentation
+          protocol=] or credential format being used (e.g., cryptographic
+          flaws, lack of replay protection) could allow attackers to intercept,
+          forge, or tamper with credentials in transit. Mitigation occurs at
+          the protocol and transport layers (e.g., TLS).
         </dd>
       </dl>
       <h3>
@@ -1893,14 +1893,14 @@
         information.
       </p>
       <p>
-        To mitigate the risk of <a
-        href="#dfn-malicious-payloads-to-the-underlying-platform">malicious
-        payloads to the underlying platform</a>, [=user agents=] MUST pass
-        the request parameters to the [=credential manager=] using safe
-        serialization formats (such as JSON or structured cloning) without
-        executing them. The underlying platform and [=credential managers=]
-        are responsible for robustly parsing and validating these
-        protocol-specific payloads before acting on them.
+        To mitigate the risk of <a href=
+        "#dfn-malicious-payloads-to-the-underlying-platform">malicious payloads
+        to the underlying platform</a>, [=user agents=] MUST pass the request
+        parameters to the [=credential manager=] using safe serialization
+        formats (such as JSON or structured cloning) without executing them.
+        The underlying platform and [=credential managers=] are responsible for
+        robustly parsing and validating these protocol-specific payloads before
+        acting on them.
       </p>
       <p>
         The Digital Credentials API reduces [=API flooding=] through two
