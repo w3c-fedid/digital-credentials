@@ -1893,12 +1893,14 @@
         information.
       </p>
       <p>
-        To mitigate the risk of <a href="#dfn-malicious-payloads-to-the-underlying-platform">malicious payloads to the underlying platform</a>, [=user agents=] MUST pass the request
-        parameters to the [=credential manager=] using safe serialization
-        formats (such as JSON or structured cloning) without executing them.
-        The underlying platform and [=credential managers=] are responsible
-        for robustly parsing and validating these protocol-specific payloads
-        before acting on them.
+        To mitigate the risk of <a
+        href="#dfn-malicious-payloads-to-the-underlying-platform">malicious
+        payloads to the underlying platform</a>, [=user agents=] MUST pass
+        the request parameters to the [=credential manager=] using safe
+        serialization formats (such as JSON or structured cloning) without
+        executing them. The underlying platform and [=credential managers=]
+        are responsible for robustly parsing and validating these
+        protocol-specific payloads before acting on them.
       </p>
       <p>
         The Digital Credentials API reduces [=API flooding=] through two
