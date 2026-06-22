@@ -689,6 +689,54 @@
         </tr>
       </tbody>
     </table><!--
+    // MARK: Convert request protocol
+    -->
+    <h3>
+      Convert request protocol
+    </h3>
+    <p>
+      To <dfn>convert request protocol</dfn> given a
+      {{DigitalCredentialGetRequest}} or {{DigitalCredentialCreateRequest}}
+      |request|:
+    </p>
+    <ol class="algorithm">
+      <li>If |request| is:
+        <dl class="switch">
+          <dt>
+            A {{DigitalCredentialGetRequest}}:
+          </dt>
+          <dd>
+            <ol>
+              <li>Let |protocolString| be |request|'s
+              {{DigitalCredentialGetRequest/protocol}}.
+              </li>
+              <li>If |protocolString| does not equal any [=enumeration value=]
+              in {{DigitalCredentialPresentationProtocol}}, return failure.
+              </li>
+              <li>Return the {{DigitalCredentialPresentationProtocol}}
+              [=enumeration value=] whose value is |protocolString|.
+              </li>
+            </ol>
+          </dd>
+          <dt>
+            A {{DigitalCredentialCreateRequest}}:
+          </dt>
+          <dd>
+            <ol>
+              <li>Let |protocolString| be |request|'s
+              {{DigitalCredentialCreateRequest/protocol}}.
+              </li>
+              <li>If |protocolString| does not equal any [=enumeration value=]
+              in {{DigitalCredentialIssuanceProtocol}}, return failure.
+              </li>
+              <li>Return the {{DigitalCredentialIssuanceProtocol}}
+              [=enumeration value=] whose value is |protocolString|.
+              </li>
+            </ol>
+          </dd>
+        </dl>
+      </li>
+    </ol><!--
     // MARK: Credential Request Coordinator
     -->
     <h2>
@@ -906,19 +954,10 @@
       </li>
       <li>[=List/For each=] |request| of |requests|:
         <ol>
-          <li>Let |protocol| be |request|'s
-          {{DigitalCredentialGetRequest/protocol}}, if |request| is a
-          {{DigitalCredentialGetRequest}}, or |request|'s
-          {{DigitalCredentialCreateRequest/protocol}}, if |request| is a
-          {{DigitalCredentialCreateRequest}}.
+          <li>Let |protocol| be the result of running [=convert request
+          protocol=] given |request|.
           </li>
-          <li>If |request| is a {{DigitalCredentialGetRequest}} and |protocol|
-          does not equal any [=enumeration value=] in
-          {{DigitalCredentialPresentationProtocol}}, [=iteration/continue=].
-          </li>
-          <li>If |request| is a {{DigitalCredentialCreateRequest}} and
-          |protocol| does not equal any [=enumeration value=] in
-          {{DigitalCredentialIssuanceProtocol}}, [=iteration/continue=].
+          <li>If |protocol| is failure, [=iteration/continue=].
           </li>
           <li>If [=user agent allows protocol=] given |protocol| returns
           `false`, [=iteration/continue=].
@@ -1858,9 +1897,8 @@
         [=secure contexts=], reducing the risk of [=tampering=] through
         [=secure contexts|insecure contexts=] (e.g., a malicious script being
         injected through the network). Please refer to the
-        [[[secure-contexts#security-considerations|Security Considerations]]]
-        section of the [[[secure-contexts]]] specification for more
-        information.
+        [[[secure-contexts#security-considerations]]] section of the
+        [[[secure-contexts]]] specification for more information.
       </p>
       <p>
         The Digital Credentials API reduces [=API flooding=] through two
@@ -1886,12 +1924,12 @@
       </ul>
       <p>
         For additional guidance on preventing abuse of credential requests,
-        please refer to the
-        [[[credential-management#privacy-considerations|Privacy
-        Considerations]]] section of the [[[credential-management]]]
-        specification. Note, however, that these protections have limitations,
-        as sites may still employ dark patterns to encourage unnecessary user
-        interactions that trigger credential requests.
+        please refer to the section
+        [[[credential-management#privacy-considerations]]] of the
+        [[[credential-management]]] specification. Note, however, that these
+        protections have limitations, as sites may still employ dark patterns
+        to encourage unnecessary user interactions that trigger credential
+        requests.
       </p>
       <p data-cite="permissions-policy">
         The Digital Credentials API reduces [=Unauthorized Cross-Origin
@@ -1905,9 +1943,9 @@
         <a>"digital-credentials-get"</a> without enabling
         <a>"digital-credentials-create"</a>, and vice versa, limiting each
         embedded context to only the capability it requires. Please refer to
-        the [[[permissions-policy#privacy-and-security|Privacy and Security
-        Considerations]]] section of the [[[permissions-policy]]] specification
-        for additional security properties provided by this integration.
+        section [[[permissions-policy#privacy-and-security]]] of the
+        [[[permissions-policy]]] specification for additional security
+        properties provided by this integration.
       </p>
     </section>
     <section id="privacy-principles" class="informative" data-cite=
@@ -1939,10 +1977,10 @@
         </li>
         <li>[[[threat-model-decentralized-credentials]]]
         </li>
-        <li>[[[vc-data-model#privacy-considerations|VC Data Model Privacy
-        Considerations]]]
+        <li>[[[vc-data-model#privacy-considerations]]] of the
+        [[[vc-data-model]]] specification.
         </li>
-        <li>...
+        <li>[[[prevent-credential-abuse]]]
         </li>
       </ul>
       <p>
@@ -1997,8 +2035,8 @@
           alternative to the aforementioned less-desirable technologies that is
           easy to use for developers, is compatible with existing credential
           [=digital credential/presentation protocols=] and, most importantly,
-          has better user privacy, security, and accessibility properties than
-          these alternatives.
+          has better user privacy, security, and accessibility properties for
+          users than the aforementioned alternatives.
         </p>
         <p>
           The Digital Credentials API offers the [=user agent=] the ability to
@@ -2017,10 +2055,10 @@
           verification. Higher-level, designed-for-purpose APIs often enable
           [[[privacy-principles#purpose-limitation|purpose limitation]]], ease
           of explanation to the user, and privacy and security protections from
-          [[[design-principles#high-level-low-level|user agents]]].
+          [=user agents=].
         </aside>
       </section>
-      <section data-cite="vc-data-model#spectrum-of-privacy">
+      <section data-cite="vc-data-model">
         <!--
         // MARK: Spectrum of Privacy
         -->
@@ -2042,7 +2080,7 @@
           that is private by default and protect them from harm.
         </p>
         <p>
-          Because of this spectrum of preferences and use cases, it may be
+          Because of this spectrum of preferences and use cases, it can be
           difficult for a [=user agent=] to discern whether a user means to
           expose their personal information or is being tricked into doing so.
           It is thus the [=user agent=]'s responsibility to ensure that every
@@ -2106,7 +2144,7 @@
         <p>
           Note that unlinkability is exclusively a consideration for attributes
           that cannot be linked to a specific user identity. Inherently
-          linkable attributes such as names, driver's license numbers or phone
+          linkable attributes such as names, driver's license numbers, or phone
           numbers do not benefit from unlinkability.
         </p>
         <p>
@@ -2139,8 +2177,9 @@
           permission to proceed with a credential request. From that point on,
           the [=credential manager=] owns this decision. While some credential
           managers can be considered [=user agents=], it is generally
-          recommended that the [=user agent=] implementing the Digital
-          Credentials API designs its permission experience to prevent
+          recommended that the [=user agent=] implementing the
+          [[[#DC-API|Digital Credentials API]]] designs its permission
+          experience to prevent
           [[[#permission-prior-to-credential-manager-selection|exposure of a
           request to the credential manager]]] before user confirmation
           (keeping in mind [[[#multiple-user-agents|considerations for
@@ -2264,16 +2303,17 @@
           credentials. However, from a [=user agent=]'s perspective,
           [=verifiers=] are potential attackers, and might not consider the
           user's best interest in their designs. The Digital Credentials API
-          needs to operate from an assumption that all [=verifiers=] might have
+          operates from an assumption that all [=verifiers=] might have
           incentives that motivate unnecessary requests and abuse, and protect
           users accordingly.
           </li>
           <li>[=User agents=] are responsible for protecting their users
           against dangerous content and permission requests on the Web and
           could intervene on their behalf, proactively rejecting requests or
-          requiring pre-authorization. To support this, the Digital Credentials
-          API requires credential requests to be readable by the [=user agent=]
-          (i.e., not end-to-end encrypted to the [=verifier=]).
+          requiring pre-authorization. To support this, this specification
+          requires credential requests to be readable by the [=user agent=]
+          (i.e., not end-to-end encrypted to the [=verifier=], see
+          [[[#protocols]]] and [[[#prepare-credential-requests]]]).
           </li>
           <li>[=Issuers=] and lawmakers might decide to restrict use of
           (particularly government-issued) credentials to specific
@@ -2281,7 +2321,8 @@
           might be expected to enforce these restrictions by law or policy.
           </li>
           <li>The ultimate decision of whether or not to share their personal
-          information lies with the user, which is why the API requires the
+          information lies with the user, which is why the API [=credential
+          request coordinator/initiate the credential request|requires=] the
           [=user agent=] to present a credential picker to the user, and other
           parties might additionally require confirmation or consent.
           </li>
@@ -2297,9 +2338,10 @@
           A key component of risk mitigation and ensuring user control that
           applies to both types of credentials is the [=user agent=]'s ability
           to inspect the credential request metadata and make decisions or UI
-          presentation based on it. The DC API ensures this [=user agent=]
-          access to the presentation through requirements placed on protocols
-          to transmit requests unencrypted and to include relevant information.
+          presentation based on it. This specification ensures this [=user
+          agent=] access through protocol requirements to transmit requests
+          unencrypted and include relevant information (see [[[#protocols]]]
+          and [[[#prepare-credential-requests]]]).
         </p>
         <h4>
           Government-issued credentials
@@ -2407,8 +2449,9 @@
           users in permission and consent flows.
           </li>
           <li>Support for protocols that allow unlinkability mechanisms such as
-          Zero-Knowledge Proofs can prevent [=verifier=]-based surveillance and
-          potential discrimination, by hiding the [=issuer=].
+          [[[vc-data-model#zero-knowledge-proofs|Zero-Knowledge Proofs]]] can
+          prevent [=verifier=]-based surveillance and potential discrimination,
+          by hiding the [=issuer=].
           </li>
           <li>Offering useful context and a clearly understandable permission
           flow will help users make better decisions on whether or not to
@@ -2491,9 +2534,9 @@
           [=User agents=] cannot be expected to understand all credential
           requests. A [=user agent=] that does not recognize the type of
           credential being requested is advised to significantly increase user
-          friction in their permission experience, and very clearly communicate
-          the risks of sharing unknown credentials with websites to the user.
-          Note that this could require integration between
+          friction in their permission experience, and clearly communicate the
+          risks of sharing unknown credentials with websites to the user. Note
+          that this could require integration between
           [[[#multiple-user-agents|different user agents]]] to apply
           appropriate levels of friction and transparency. For example, a
           browser might delegate knowledge about credential requests to the
