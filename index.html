@@ -332,10 +332,9 @@
       <p>
         The following example shows how to request the issuance of a digital
         credential using the [[[#DC-API|Digital Credentials API]]]. To issue a
-        digital credential, a site calls the
-        `navigator.credentials.`{{CredentialsContainer/create()}} method,
-        which, if the user agent supports issuance, would initiate the issuance
-        flow:
+        digital credential, a site calls the {{DigitalCredential/issue()}}
+        static method, which, if the user agent supports issuance, would
+        initiate the issuance flow:
       </p>
       <pre class="example html" title=
       "Requesting issuance of a digital credential">
@@ -352,13 +351,11 @@
               return;
             }
             try {
-              const credential = await navigator.credentials.create({
-                digital: {
-                  requests: [{
-                    protocol,
-                    data: { /* issuance request data */ }
-                  }]
-                }
+              const response = await DigitalCredential.issue({
+                requests: [{
+                  protocol,
+                  data: { /* issuance request data */ }
+                }]
               });
             } catch (error) {
               console.error("Error issuing digital credential:", error);
@@ -391,7 +388,7 @@
       <p>
         Similarly, the specification allows usage of the API for issuing
         credentials from a remote/third-party origin via the
-        <a>"digital-credentials-create"</a> [=policy-controlled feature=]. This
+        <a>"digital-credentials-issue"</a> [=policy-controlled feature=]. This
         is useful for scenarios where a website wants to request issuance of a
         digital credential using an issuance service on a different origin. The
         Permissions Policy can be set on an iframe embedding the [=issuer's=]
@@ -400,7 +397,7 @@
       <pre class="example html" title=
       "Issuing a digital credential across origins">
         &lt;iframe src="https://issuer.example.com"
-                allow="digital-credentials-create"&gt;
+                allow="digital-credentials-issue"&gt;
         &lt;/iframe&gt;
       </pre>
     </section><!--
@@ -696,7 +693,7 @@
     </h3>
     <p>
       To <dfn>convert request protocol</dfn> given a
-      {{DigitalCredentialGetRequest}} or {{DigitalCredentialCreateRequest}}
+      {{DigitalCredentialGetRequest}} or {{DigitalCredentialIssuanceRequest}}
       |request|:
     </p>
     <ol class="algorithm">
@@ -719,12 +716,12 @@
             </ol>
           </dd>
           <dt>
-            A {{DigitalCredentialCreateRequest}}:
+            A {{DigitalCredentialIssuanceRequest}}:
           </dt>
           <dd>
             <ol>
               <li>Let |protocolString| be |request|'s
-              {{DigitalCredentialCreateRequest/protocol}}.
+              {{DigitalCredentialIssuanceRequest/protocol}}.
               </li>
               <li>If |protocolString| does not equal any [=enumeration value=]
               in {{DigitalCredentialIssuanceProtocol}}, return failure.
@@ -849,8 +846,9 @@
       To <dfn data-dfn-for="credential request coordinator">prepare credential
       requests</dfn> given a [=Document=] |document:Document|, a [=sequence=]
       of {{DigitalCredentialGetRequest}} values or a [=sequence=] of
-      {{DigitalCredentialCreateRequest}} values |requests|, a {{Promise}}
-      |promise:Promise|, and an optional {{AbortSignal}} |signal:AbortSignal|:
+      {{DigitalCredentialIssuanceRequest}} values |requests|, a {{Promise}}
+      |promise:Promise|, an optional {{AbortSignal}} |signal:AbortSignal|, and
+      a string |operation| (either "presentation" or "issuance"):
     </p>
     <ol class="algorithm">
       <li>Let |global| be |document|'s [=relevant global object=].
@@ -902,8 +900,9 @@
           <li>Assert: |signal| is not [=AbortSignal/aborted=].
             <p class="note">
               [=AbortSignal/aborted|Pre-aborted=] [=AbortController/signals=]
-              are handled by [=request a `Credential`=] and [=create a
-              `Credential`=] before this algorithm is invoked.
+              are handled by [=request a `Credential`=] and the
+              {{DigitalCredential/issue()}} method before this algorithm is
+              invoked.
             </p>
           </li>
           <li>Set the [=credential request coordinator=]'s [=credential request
@@ -927,12 +926,13 @@
         </ol>
       </li>
       <li>Let |handled| be the result of running [=handle virtual wallet
-      behavior=] given |promise| and |global|.
+      behavior=] given |promise|, |global|, and |operation|.
       </li>
       <li>If |handled| is `true`, return.
       </li>
       <li>[=credential request coordinator/Initiate the credential request=]
-      with |document|, |validatedRequests|, |promise|, and |signal|.
+      with |document|, |validatedRequests|, |promise|, |signal|, and
+      |operation|.
       </li>
       <li>If |document| stops being [=Document/fully active=], [=credential
       request coordinator/abort the credential request=] with an
@@ -947,7 +947,7 @@
     <p>
       To <dfn data-dfn-for="credential request coordinator">validate credential
       requests</dfn> given a sequence of {{DigitalCredentialGetRequest}} or
-      {{DigitalCredentialCreateRequest}} objects |requests|:
+      {{DigitalCredentialIssuanceRequest}} objects |requests|:
     </p>
     <ol class="algorithm">
       <li>Let |validatedRequests| be a new empty [=list=].
@@ -964,8 +964,8 @@
           </li>
           <li>Let |data| be |request|'s {{DigitalCredentialGetRequest/data}},
           if |request| is a {{DigitalCredentialGetRequest}}, or |request|'s
-          {{DigitalCredentialCreateRequest/data}}, if |request| is a
-          {{DigitalCredentialCreateRequest}}.
+          {{DigitalCredentialIssuanceRequest/data}}, if |request| is a
+          {{DigitalCredentialIssuanceRequest}}.
           </li>
           <li>[=serialize a JavaScript value to a JSON string|Serialize=]
           |data| to a JSON string.
@@ -1103,7 +1103,8 @@
       To <dfn data-dfn-for="credential request coordinator">initiate the
       credential request</dfn> given a [=Document=] |document|, a [=list=] of
       validated credential requests |validatedRequests|, a {{Promise}}
-      |promise:Promise|, and an optional {{AbortSignal}} |signal|:
+      |promise:Promise|, an optional {{AbortSignal}} |signal|, and a string
+      |operation|:
     </p>
     <ol class="algorithm">
       <li>Let |topLevelOrigin| be |document|'s [=top-level traversable=]'s
@@ -1258,6 +1259,19 @@
                       </li>
                     </ol>
                   </li>
+                  <li>Otherwise, if |operation| is "issuance":
+                    <ol>
+                      <li>Let |response| be a newly created
+                      {{DigitalCredentialIssuanceResponse}} instance with its
+                      {{DigitalCredentialIssuanceResponse/data}} initialized to
+                      |parsedResponseDataOrError| and its
+                      {{DigitalCredentialIssuanceResponse/protocol}}
+                      initialized to |protocol|.
+                      </li>
+                      <li>[=Resolve=] |promise| with |response|.
+                      </li>
+                    </ol>
+                  </li>
                   <li>Otherwise:
                     <ol>
                       <li>Let |credential| be a newly created
@@ -1312,13 +1326,8 @@
       Additionally, the API also allows [=digital credential/Issuance
       request|requesting issuance=] of a [=digital credential=], which
       initiates a mediated issuance flow between the user agent and/or a
-      [=holder=]. This is done by calling the
-      `navigator.credentials.`{{CredentialsContainer/create()}} method, which
-      runs the [=create a credential=] algorithm of
-      [[[credential-management]]]. That algorithm then calls back into this
-      specification's {{DigitalCredential}} interface's
-      {{Credential/[[Create]](origin,options, sameOriginWithAncestors)}}
-      internal method.
+      [=holder=]. This is done by calling the {{DigitalCredential/issue()}}
+      method.
     </p>
     <p>
       Please see [[[#credential-management-integration|Credential Management
@@ -1399,56 +1408,40 @@
       the [=digital credential/presentation request data=] to be handled by the
       [=holder's=] [=credential manager=], such as a digital identity wallet.
     </p><!--
-    // MARK: CredentialCreationOptions
+    // MARK: DigitalCredentialIssuanceOptions
     -->
     <h3>
-      Extensions to `CredentialCreationOptions` dictionary
+      The `DigitalCredentialIssuanceOptions` dictionary
     </h3>
     <pre class="idl">
-    partial dictionary CredentialCreationOptions {
-      DigitalCredentialCreationOptions digital;
-    };
-    </pre>
-    <h4>
-      The `digital` member
-    </h4>
-    <p>
-      The <dfn data-dfn-for="CredentialCreationOptions">digital</dfn> member
-      allows for options to configure the issuance of a [=digital credential=].
-    </p><!--
-    // MARK: DigitalCredentialCreationOptions
-    -->
-    <h3>
-      The `DigitalCredentialCreationOptions` dictionary
-    </h3>
-    <pre class="idl">
-    dictionary DigitalCredentialCreationOptions {
-      required sequence&lt;DigitalCredentialCreateRequest&gt; requests;
+    dictionary DigitalCredentialIssuanceOptions {
+      required sequence&lt;DigitalCredentialIssuanceRequest&gt; requests;
+      AbortSignal signal;
     };
     </pre>
     <h4>
       The `requests` member
     </h4>
     <p>
-      The <dfn data-dfn-for="DigitalCredentialCreationOptions">requests</dfn>
+      The <dfn data-dfn-for="DigitalCredentialIssuanceOptions">requests</dfn>
       specify an [=digital credential/issuance protocol=] and [=digital
       credential/issuance request data=], which the user agent MAY forward to a
       [=holder=].
     </p><!--
-    // MARK: DigitalCredentialCreateRequest
+    // MARK: DigitalCredentialIssuanceRequest
     -->
     <h3>
-      The `DigitalCredentialCreateRequest` dictionary
+      The `DigitalCredentialIssuanceRequest` dictionary
     </h3>
     <p>
-      The {{DigitalCredentialCreateRequest}} dictionary represents an [=digital
-      credential/issuance request=]. It is used to specify an [=digital
-      credential/issuance protocol=] and some [=digital credential/issuance
-      request data=], to communicate the issuance request between the
-      [=issuer=] and the [=holder=].
+      The {{DigitalCredentialIssuanceRequest}} dictionary represents an
+      [=digital credential/issuance request=]. It is used to specify an
+      [=digital credential/issuance protocol=] and some [=digital
+      credential/issuance request data=], to communicate the issuance request
+      between the [=issuer=] and the [=holder=].
     </p>
     <pre class="idl">
-    dictionary DigitalCredentialCreateRequest {
+    dictionary DigitalCredentialIssuanceRequest {
       required DOMString protocol;
       required object data;
     };
@@ -1457,21 +1450,22 @@
       The `protocol` member
     </h4>
     <p>
-      The <dfn data-dfn-for="DigitalCredentialCreateRequest">protocol</dfn>
+      The <dfn data-dfn-for="DigitalCredentialIssuanceRequest">protocol</dfn>
       member denotes the [=digital credential/issuance protocol=].
     </p>
     <p>
-      The {{DigitalCredentialCreateRequest/protocol}} member's value is one of
-      the [=digital credential/protocol identifiers=] defined in
+      The {{DigitalCredentialIssuanceRequest/protocol}} member's value is one
+      of the [=digital credential/protocol identifiers=] defined in
       {{DigitalCredentialIssuanceProtocol}}.
     </p>
     <h4>
       The `data` member
     </h4>
     <p>
-      The <dfn data-dfn-for="DigitalCredentialCreateRequest">data</dfn> member
-      is the [=digital credential/issuance request data=] to be handled by the
-      [=holder's=] [=credential manager=], such as a digital identity wallet.
+      The <dfn data-dfn-for="DigitalCredentialIssuanceRequest">data</dfn>
+      member is the [=digital credential/issuance request data=] to be handled
+      by the [=holder's=] [=credential manager=], such as a digital identity
+      wallet.
     </p><!--
     // MARK: DigitalCredential interface
     -->
@@ -1491,12 +1485,8 @@
       calls involving a {{DigitalCredential}}, [=user agents=] MUST NOT throw
       an error if the {{CredentialRequestOptions/mediation}} member is absent
       or has a value other than {{CredentialMediationRequirement/"required"}}.
-      Similarly, in {{CredentialsContainer/create()}} calls involving a
-      {{DigitalCredential}}, [=user agents=] MUST NOT throw an error if the
-      {{CredentialCreationOptions/mediation}} member is absent or has a value
-      other than {{CredentialMediationRequirement/"required"}}. This makes
-      {{CredentialMediationRequirement/"required"}} mediation an implicit and
-      non-overridable behavior of the [[[#DC-API|API]]].
+      This makes {{CredentialMediationRequirement/"required"}} mediation an
+      implicit and non-overridable behavior of the [[[#DC-API|API]]].
     </p>
     <pre class="idl">
     typedef (DigitalCredentialPresentationProtocol or DigitalCredentialIssuanceProtocol) DigitalCredentialProtocol;
@@ -1507,6 +1497,7 @@
       readonly attribute DigitalCredentialProtocol protocol;
       [SameObject] readonly attribute object data;
       static boolean userAgentAllowsProtocol(DOMString protocol);
+      static Promise&lt;DigitalCredentialIssuanceResponse&gt; issue(DigitalCredentialIssuanceOptions options);
     };
     </pre>
     <h4>
@@ -1567,6 +1558,89 @@
     <p>
       When this method is invoked, the user agent MUST return the result of
       [=user agent allows protocol=] given |protocol|.
+    </p>
+    <h4>
+      The <dfn data-dfn-for="DigitalCredential">issue()</dfn> method
+    </h4>
+    <p>
+      The {{DigitalCredential/issue()}} method requests issuance of a [=digital
+      credential=]. Unlike {{CredentialsContainer/create()}}, it does not
+      produce a {{Credential}}: the [=digital credential=] is issued into the
+      [=holder's=] [=credential manager=], and the method resolves with a
+      {{DigitalCredentialIssuanceResponse}}.
+    </p>
+    <p>
+      The {{DigitalCredential/issue()}} method steps are:
+    </p>
+    <ol class="algorithm">
+      <li>Let |global| be [=this=]'s [=relevant global object=].
+      </li>
+      <li>Let |document| be |global|'s [=associated `Document`=].
+      </li>
+      <li>If |document| is not a [=Document/fully active descendant of a
+      top-level traversable with user attention=], return [=a promise rejected
+      with=] a {{"InvalidStateError"}} {{DOMException}}.
+      </li>
+      <li>If |document| is not [=allowed to use=] the
+      <a>"digital-credentials-issue"</a> [=policy-controlled feature=], return
+      [=a promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
+      </li>
+      <li>Let |signal| be |options|'s
+      {{DigitalCredentialIssuanceOptions/signal}}, if present.
+      </li>
+      <li>If |signal| is [=AbortSignal/aborted=], return [=a promise rejected
+      with=] |signal|'s [=AbortSignal/abort reason=].
+      </li>
+      <li>Let |requests| be |options|'s
+      {{DigitalCredentialIssuanceOptions/requests}} member.
+      </li>
+      <li>If |global| does not have [=transient activation=], return [=a
+      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
+      </li>
+      <li>[=Consume user activation=] of |global|.
+      </li>
+      <li>Let |promise : Promise| be [=a new promise=] in the [=relevant
+      realm=] of [=this=].
+      </li>
+      <li>[=credential request coordinator/Prepare credential requests=] with
+      |document|, |requests|, |promise|, |signal|, and "issuance".
+      </li>
+      <li>Return |promise|.
+      </li>
+    </ol>
+    <h3>
+      The `DigitalCredentialIssuanceResponse` interface
+    </h3>
+    <p>
+      The <dfn>DigitalCredentialIssuanceResponse</dfn> interface represents the
+      [=holder's=] response to an [=digital credential/issuance request=]. It
+      is not a {{Credential}}: the [=digital credential=] is issued into the
+      [=holder's=] [=credential manager=], and this object conveys only the
+      [=digital credential/issuance protocol=] used and an opaque,
+      protocol-defined response payload.
+    </p>
+    <pre class="idl">
+    [Exposed=Window, SecureContext]
+    interface DigitalCredentialIssuanceResponse {
+      [Default] object toJSON();
+      readonly attribute DigitalCredentialIssuanceProtocol protocol;
+      [SameObject] readonly attribute object data;
+    };
+    </pre>
+    <h4>
+      The `protocol` member
+    </h4>
+    <p>
+      The <dfn data-dfn-for="DigitalCredentialIssuanceResponse">protocol</dfn>
+      member is the [=digital credential/issuance protocol=] that was used.
+    </p>
+    <h4>
+      The `data` member
+    </h4>
+    <p>
+      The <dfn data-dfn-for="DigitalCredentialIssuanceResponse">data</dfn>
+      member is the response data for the issuance. It contains the subset of
+      JSON-parseable object types.
     </p>
     <h3>
       Supporting Data Structures
@@ -1670,7 +1744,7 @@
       <li>Let |promise| be [=a new promise=] in [=this=]'s [=relevant realm=].
       </li>
       <li>[=credential request coordinator/Prepare credential requests=] with
-      |document|, |requests|, |promise|, and |signal|.
+      |document|, |requests|, |promise|, |signal|, and "presentation".
       </li>
       <li>Return |promise|.
       </li>
@@ -1687,52 +1761,6 @@
       {{Credential/[[Store]](credential, sameOriginWithAncestors)}} internal
       method with the same arguments.
     </p><!--
-    // MARK: [[Create]]()
-    -->
-    <h3>
-      [[\Create]](origin, options, sameOriginWithAncestors) internal method
-    </h3>
-    <p>
-      When invoked, the <dfn class="export" data-dfn-for=
-      "DigitalCredential">[[\Create]](origin, options,
-      sameOriginWithAncestors)</dfn> internal method, if the user agent doesn't
-      support [=digital credential/issuance requests=], call the default
-      implementation of {{Credential}}'s {{Credential/[[Create]](origin,
-      options, sameOriginWithAncestors)}} internal method with the same
-      arguments. Otherwise:
-    </p>
-    <ol class="algorithm">
-      <li>Let |signal| be |options|'s {{CredentialCreationOptions/signal}}, if
-      present.
-      </li>
-      <li>If |signal| is [=AbortSignal/aborted=], return [=a promise rejected
-      with=] |signal|'s [=AbortSignal/abort reason=].
-      </li>
-      <li>Let |global| be [=this=]'s [=relevant global object=].
-      </li>
-      <li>Let |document| be |global|'s [=associated `Document`=].
-      </li>
-      <li>If |document| is not a [=Document/fully active descendant of a
-      top-level traversable with user attention=], return [=a promise rejected
-      with=] a {{"NotAllowedError"}} {{DOMException}}.
-      </li>
-      <li>Let |requests| be |options|'s {{CredentialCreationOptions/digital}}'s
-      {{DigitalCredentialCreationOptions/requests}} member.
-      </li>
-      <li>If |global| does not have [=transient activation=], return [=a
-      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
-      </li>
-      <li>[=Consume user activation=] of |global|.
-      </li>
-      <li>Let |promise : Promise| be [=a new promise=] in the [=relevant
-      realm=] of [=this=].
-      </li>
-      <li>[=credential request coordinator/Prepare credential requests=] with
-      |document|, |requests|, |promise|, and |signal|.
-      </li>
-      <li>Return |promise|.
-      </li>
-    </ol><!--
     // MARK: [[type]] internal slot
     -->
     <h3>
@@ -1762,7 +1790,8 @@
       The [[[#DC-API|Digital Credentials API]]] is a [=powerful feature=] that
       requires [=express permission=] from an end-user. This requirement is
       normatively enforced when calling {{CredentialsContainer}}'s
-      {{CredentialsContainer/get()}} method.
+      {{CredentialsContainer/get()}} method and the
+      {{DigitalCredential/issue()}} method.
     </p>
     <section id="permissions-policy" data-cite="permissions-policy">
       <!--
@@ -1786,14 +1815,14 @@
           algorithm serves as the policy enforcement point.
         </dd>
         <dt>
-          <dfn class="permission">"digital-credentials-create"</dfn>
+          <dfn class="permission">"digital-credentials-issue"</dfn>
         </dt>
         <dd>
           A [=policy-controlled feature=] that allows a [=document=] to
           [=digital credential/issuance request|issue=] digital credentials.
           Its [=policy-controlled feature/default allowlists=] is [=default
-          allowlist/'self'=]. The [=create a `Credential`=] algorithm serves as
-          the policy enforcement point.
+          allowlist/'self'=]. The {{DigitalCredential/issue()}} method serves
+          as the policy enforcement point.
         </dd>
       </dl>
     </section>
@@ -1843,7 +1872,7 @@
         <dd>
           A network attacker that can inject or modify page content in an
           insecure context attempts to alter a {{DigitalCredentialGetRequest}}
-          or {{DigitalCredentialCreateRequest}} before processing.
+          or {{DigitalCredentialIssuanceRequest}} before processing.
         </dd>
         <dt>
           <dfn>API Flooding</dfn>
@@ -1903,10 +1932,9 @@
         <li>
           <strong>Transient activation:</strong> Both
           {{DigitalCredential/[[DiscoverFromExternalSource]](origin, options,
-          sameOriginWithAncestors)}} and {{DigitalCredential/[[Create]](origin,
-          options, sameOriginWithAncestors)}} methods [=Consume user
-          activation=], preventing automated or repeated requests without user
-          interaction.
+          sameOriginWithAncestors)}} and the {{DigitalCredential/issue()}}
+          method [=Consume user activation=], preventing automated or repeated
+          requests without user interaction.
         </li>
         <li>
           <strong>Always required mediation:</strong> The API makes [=user
@@ -1930,13 +1958,13 @@
         The Digital Credentials API reduces [=Unauthorized Cross-Origin
         Access|cross-origin abuse=] through integration with
         [[[permissions-policy]]] (see [[[#permissions-policy|Permissions Policy
-        Integration]]]). The [=request a `Credential`=] and [=create a
-        `Credential`=] algorithms respectively serve as policy enforcement
-        points for the <a>"digital-credentials-get"</a> and
-        <a>"digital-credentials-create"</a> [=policy-controlled features=]. The
+        Integration]]]). The [=request a `Credential`=] algorithm and the
+        {{DigitalCredential/issue()}} method respectively serve as policy
+        enforcement points for the <a>"digital-credentials-get"</a> and
+        <a>"digital-credentials-issue"</a> [=policy-controlled features=]. The
         two features are intentionally separate: a site may enable
         <a>"digital-credentials-get"</a> without enabling
-        <a>"digital-credentials-create"</a>, and vice versa, limiting each
+        <a>"digital-credentials-issue"</a>, and vice versa, limiting each
         embedded context to only the capability it requires. Please refer to
         section [[[permissions-policy#privacy-and-security]]] of the
         [[[permissions-policy]]] specification for additional security
@@ -2809,8 +2837,7 @@
         The `digitalCredentials` module contains commands for managing and
         simulating the remote end behavior of [=credential managers=] during
         {{DigitalCredential/[[DiscoverFromExternalSource]](origin, options,
-        sameOriginWithAncestors)}}, and {{Credential/[[Create]](origin,
-        options, sameOriginWithAncestors)}} calls.
+        sameOriginWithAncestors)}}, and {{DigitalCredential/issue()}} calls.
       </p>
       <h4>
         Types
@@ -2959,7 +2986,8 @@
       </h3>
       <p>
         To <dfn>handle virtual wallet behavior</dfn> given a {{Promise}}
-        |promise| and a global object |global|, run these steps:
+        |promise|, a global object |global|, and a string |operation|, run
+        these steps:
       </p>
       <ol class="algorithm">
         <li>If the [=user agent=] is not under automation, return `false`.
@@ -2996,16 +3024,19 @@
             JavaScript value|parsing=] |JSON string| given |global|'s
             [=relevant realm=].
             </li>
-            <li>Let |credential| be a new {{DigitalCredential}} instance.
+            <li>If |operation| is "issuance", let |result| be a new
+            {{DigitalCredentialIssuanceResponse}} instance, and set |result|'s
+            {{DigitalCredentialIssuanceResponse/protocol}} attribute to
+            |protocol| and its {{DigitalCredentialIssuanceResponse/data}}
+            attribute to |JS object|.
             </li>
-            <li>Set |credential|'s {{DigitalCredential/protocol}} attribute to
-            |protocol|.
-            </li>
-            <li>Set |credential|'s {{DigitalCredential/data}} attribute to |JS
-            object|.
+            <li>Otherwise, let |result| be a new {{DigitalCredential}}
+            instance, and set |result|'s {{DigitalCredential/protocol}}
+            attribute to |protocol| and its {{DigitalCredential/data}}
+            attribute to |JS object|.
             </li>
             <li>[=Queue a global task=] on the [=DOM manipulation task source=]
-            given |global| to [=resolve=] |promise| with |credential|.
+            given |global| to [=resolve=] |promise| with |result|.
             </li>
             <li>Return `true`.
             </li>
