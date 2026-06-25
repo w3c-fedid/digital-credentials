@@ -1577,9 +1577,12 @@
       </li>
       <li>Let |document| be |global|'s [=associated `Document`=].
       </li>
+      <li>If |document| is not [=Document/fully active=], return [=a promise
+      rejected with=] a {{"InvalidStateError"}} {{DOMException}}.
+      </li>
       <li>If |document| is not a [=Document/fully active descendant of a
       top-level traversable with user attention=], return [=a promise rejected
-      with=] a {{"InvalidStateError"}} {{DOMException}}.
+      with=] a {{"NotAllowedError"}} {{DOMException}}.
       </li>
       <li>If |document| is not [=allowed to use=] the
       <a>"digital-credentials-issue"</a> [=policy-controlled feature=], return
