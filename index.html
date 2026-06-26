@@ -176,7 +176,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="a2db8a83015d94a3270e832929eb36c918de54da">
+<meta name="revision" content="1b5612a0bc243397aeb7eb0415f46f2b4ffc70a2">
 <meta name="description" content="This document specifies an API enabling user agents to mediate the
         presentation and issuance of digital credentials, such as a
         driver's license, government-issued identification card, or
@@ -325,16 +325,16 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "a2db8a83015d94a3270e832929eb36c918de54da",
-  "publishISODate": "2026-06-16T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 16 June 2026"
+  "gitRevision": "1b5612a0bc243397aeb7eb0415f46f2b4ffc70a2",
+  "publishISODate": "2026-06-26T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 26 June 2026"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED"></head>
   <body data-cite="WEBIDL credential-management permissions-policy vc-data-model HTML INFRA URL WEBIDL DOM FETCH" class="h-entry"><div class="head">
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Digital Credentials</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-06-16">16 June 2026</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-06-26">26 June 2026</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -1442,8 +1442,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       </li>
       <li><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate" id="ref-for-index-term-for-each-for-list-1">For each</a> <var>request</var> of <var>requests</var>:
         <ol>
-          <li>Let <var>protocol</var> be the result of running <a data-link-type="dfn|abstract-op" href="#dfn-convert-request-protocol" class="internalDFN" id="ref-for-dfn-convert-request-protocol-1">convert request protocol</a>
-          given <var>request</var>.
+          <li>Let <var>protocol</var> be the result of running <a data-link-type="dfn|abstract-op" href="#dfn-convert-request-protocol" class="internalDFN" id="ref-for-dfn-convert-request-protocol-1">convert request protocol</a> given <var>request</var>.
           </li>
           <li>If <var>protocol</var> is failure, <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#iteration-continue" id="ref-for-index-term-continue-for-iteration-1">continue</a>.
           </li>
@@ -2051,18 +2050,16 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <li>Let <var>signal</var> be <var>options</var>'s <a data-link-type="dict-member" href="https://www.w3.org/TR/credential-management-1/#dom-credentialrequestoptions-signal" id="ref-for-index-term-signal-for-credentialrequestoptions-1"><code>signal</code></a>, if
       present.
       </li>
-      <li>If <var>signal</var> is <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortsignal-aborted" id="ref-for-index-term-aborted-for-abortsignal-4">aborted</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-1">a promise rejected with</a> <var>signal</var>'s <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortsignal-abort-reason" id="ref-for-index-term-abort-reason-for-abortsignal-2">abort reason</a>.
-      </li>
       <li>Let <var>global</var> be <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-index-term-this-1">this</a>'s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-index-term-relevant-global-object-4">relevant global object</a>.
       </li>
       <li>Let <var>document</var> be <var>global</var>'s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#concept-document-window" id="ref-for-index-term-associated-document-1">associated <code>Document</code></a>.
       </li>
-      <li>If <var>document</var> is not a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#fully-active-descendant-of-a-top-level-traversable-with-user-attention" id="ref-for-index-term-fully-active-descendant-of-a-top-level-traversable-with-user-attention-for-document-1">fully active descendant of a top-level traversable with user attention</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-2">a promise rejected with</a> a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-4"><code>NotAllowedError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-8"><code>DOMException</code></a>.
+      <li>If <var>document</var> is not a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#fully-active-descendant-of-a-top-level-traversable-with-user-attention" id="ref-for-index-term-fully-active-descendant-of-a-top-level-traversable-with-user-attention-for-document-1">fully active descendant of a top-level traversable with user attention</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-1">a promise rejected with</a> a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-4"><code>NotAllowedError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-8"><code>DOMException</code></a>.
       </li>
       <li>Let <var>requests</var> be <var>options</var>'s <a data-link-type="idl" href="#dom-credentialrequestoptions-digital" class="internalDFN" id="ref-for-dom-credentialrequestoptions-digital-2"><code>digital</code></a>'s
       <a data-link-type="idl" href="#dom-digitalcredentialrequestoptions-requests" class="internalDFN" id="ref-for-dom-digitalcredentialrequestoptions-requests-2"><code>requests</code></a> member.
       </li>
-      <li>If <var>global</var> does not have <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-index-term-transient-activation-2">transient activation</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-3">a promise rejected with</a> a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-5"><code>NotAllowedError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-9"><code>DOMException</code></a>.
+      <li>If <var>global</var> does not have <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-index-term-transient-activation-2">transient activation</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-2">a promise rejected with</a> a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-5"><code>NotAllowedError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-9"><code>DOMException</code></a>.
       </li>
       <li><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation" id="ref-for-index-term-consume-user-activation-1">Consume user activation</a> of <var>global</var>.
       </li>
@@ -2097,18 +2094,18 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <li>Let <var>signal</var> be <var>options</var>'s <a data-link-type="dict-member" href="https://www.w3.org/TR/credential-management-1/#dom-credentialcreationoptions-signal" id="ref-for-index-term-signal-for-credentialcreationoptions-1"><code>signal</code></a>, if
       present.
       </li>
-      <li>If <var>signal</var> is <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortsignal-aborted" id="ref-for-index-term-aborted-for-abortsignal-5">aborted</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-4">a promise rejected with</a> <var>signal</var>'s <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortsignal-abort-reason" id="ref-for-index-term-abort-reason-for-abortsignal-3">abort reason</a>.
+      <li>If <var>signal</var> is <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortsignal-aborted" id="ref-for-index-term-aborted-for-abortsignal-4">aborted</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-3">a promise rejected with</a> <var>signal</var>'s <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortsignal-abort-reason" id="ref-for-index-term-abort-reason-for-abortsignal-2">abort reason</a>.
       </li>
       <li>Let <var>global</var> be <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-index-term-this-3">this</a>'s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-index-term-relevant-global-object-5">relevant global object</a>.
       </li>
       <li>Let <var>document</var> be <var>global</var>'s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#concept-document-window" id="ref-for-index-term-associated-document-2">associated <code>Document</code></a>.
       </li>
-      <li>If <var>document</var> is not a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#fully-active-descendant-of-a-top-level-traversable-with-user-attention" id="ref-for-index-term-fully-active-descendant-of-a-top-level-traversable-with-user-attention-for-document-2">fully active descendant of a top-level traversable with user attention</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-5">a promise rejected with</a> a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-6"><code>NotAllowedError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-10"><code>DOMException</code></a>.
+      <li>If <var>document</var> is not a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#fully-active-descendant-of-a-top-level-traversable-with-user-attention" id="ref-for-index-term-fully-active-descendant-of-a-top-level-traversable-with-user-attention-for-document-2">fully active descendant of a top-level traversable with user attention</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-4">a promise rejected with</a> a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-6"><code>NotAllowedError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-10"><code>DOMException</code></a>.
       </li>
       <li>Let <var>requests</var> be <var>options</var>'s <a data-link-type="idl" href="#dom-credentialcreationoptions-digital" class="internalDFN" id="ref-for-dom-credentialcreationoptions-digital-2"><code>digital</code></a>'s
       <a data-link-type="idl" href="#dom-digitalcredentialcreationoptions-requests" class="internalDFN" id="ref-for-dom-digitalcredentialcreationoptions-requests-2"><code>requests</code></a> member.
       </li>
-      <li>If <var>global</var> does not have <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-index-term-transient-activation-3">transient activation</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-6">a promise rejected with</a> a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-7"><code>NotAllowedError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-11"><code>DOMException</code></a>.
+      <li>If <var>global</var> does not have <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-index-term-transient-activation-3">transient activation</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-5">a promise rejected with</a> a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-7"><code>NotAllowedError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-11"><code>DOMException</code></a>.
       </li>
       <li><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation" id="ref-for-index-term-consume-user-activation-2">Consume user activation</a> of <var>global</var>.
       </li>
@@ -2458,7 +2455,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         <section id="presentation-protocol-considerations-for-user-privacy"><div class="header-wrapper"><h4 id="x11-3-1-presentation-protocol-considerations-for-user-privacy"><bdi class="secno">11.3.1 </bdi>
           Presentation Protocol Considerations for User Privacy
         </h4><a class="self-link" href="#presentation-protocol-considerations-for-user-privacy" aria-label="Permalink for Section 11.3.1"></a></div>
-        <div class="issue" id="issue-container-number-255"><div class="issue-title marker" id="h-issue-4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/255"><span class="issue-number">Issue 255</span></a><span class="issue-label">: Protocol registry: Reviewing is not sufficient <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22security-tracker%22" style="background-color: rgb(255, 255, 0); color: rgb(0, 0, 0);" aria-label="GitHub label: security-tracker">security-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22registry%22" style="background-color: rgb(52, 215, 156); color: rgb(0, 0, 0);" aria-label="GitHub label: registry">registry</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22security-considerations%22" style="background-color: rgb(255, 255, 0); color: rgb(0, 0, 0);" aria-label="GitHub label: security-considerations">security-considerations</a></span></div><p dir="auto">There are two requirements for protocols that I think need further elaboration:</p>
+        <div class="issue" id="issue-container-number-255"><div class="issue-title marker" id="h-issue-4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/255"><span class="issue-number">Issue 255</span></a><span class="issue-label">: Define concrete privacy and security requirements for the supported protocols <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22security-tracker%22" style="background-color: rgb(255, 255, 0); color: rgb(0, 0, 0);" aria-label="GitHub label: security-tracker">security-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22registry%22" style="background-color: rgb(52, 215, 156); color: rgb(0, 0, 0);" aria-label="GitHub label: registry">registry</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22security-considerations%22" style="background-color: rgb(255, 255, 0); color: rgb(0, 0, 0);" aria-label="GitHub label: security-considerations">security-considerations</a></span></div><p dir="auto">There are two requirements for protocols that I think need further elaboration:</p>
 <blockquote>
 <p dir="auto">MUST have undergone privacy review [...]</p>
 </blockquote>
@@ -2759,7 +2756,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           <li>Prompt fatigue and a loss in trust by users when they are
           prompted by a large number of websites to share personal information.
           </li>
-          <li>Increased potential for <a data-matched-text="[[[rfc6973#section-5.1.1|surveillance]]]" href="https://www.rfc-editor.org/rfc/rfc6973#section-5.1.1">surveillance</a>
+          <li>Increased potential for <a data-matched-text="[[[rfc6973#section-5.1.1|surveillance]]]" href="https://www.rfc-editor.org/info/rfc6973/#section-5.1.1">surveillance</a>
           and restrictions on pseudonymous use of online services. Collusion
           between <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-26">verifiers</a> and <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers" id="ref-for-index-term-issuers-19">issuers</a>, or other parties, might result
           in the ability to closely monitor a user's activity on the Web and
@@ -3056,7 +3053,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         <section id="handling-multiple-credential-requests"><div class="header-wrapper"><h4 id="x11-6-1-handling-multiple-credential-requests"><bdi class="secno">11.6.1 </bdi>
           Handling multiple credential requests
         </h4><a class="self-link" href="#handling-multiple-credential-requests" aria-label="Permalink for Section 11.6.1"></a></div>
-        <div class="issue" id="issue-container-number-286"><div class="issue-title marker" id="h-issue-15"><a href="https://github.com/w3c-fedid/digital-credentials/issues/286"><span class="issue-number">Issue 286</span></a><span class="issue-label">: Privacy Considerations for multiple presentation requests (and responses) <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a></span></div><p class="">
+        <div class="issue" id="issue-container-number-286"><div class="issue-title marker" id="h-issue-15"><a href="https://github.com/w3c-fedid/digital-credentials/issues/286"><span class="issue-number">Issue 286</span></a><span class="issue-label">: Privacy Considerations for multiple presentation requests (and responses) <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22v2%22" style="background-color: rgb(81, 181, 123); color: rgb(0, 0, 0);" aria-label="GitHub label: v2">v2</a></span></div><p class="">
           We need to describe concerns, tradeoffs and possible mitigations of
           handling multiple requests and responses for credential presentation.
         </p></div>
@@ -5728,9 +5725,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <li>
       <a href="#ref-for-index-term-abort-reason-for-abortsignal-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> 
     </li><li>
-      <a href="#ref-for-index-term-abort-reason-for-abortsignal-2" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
-    </li><li>
-      <a href="#ref-for-index-term-abort-reason-for-abortsignal-3" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
+      <a href="#ref-for-index-term-abort-reason-for-abortsignal-2" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-aborted-for-abortsignal" aria-label="Links in this document to definition: aborted (for AbortSignal)">
@@ -5747,9 +5742,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-index-term-aborted-for-abortsignal-3" title="§ 6.6 Initiate the credential request">§ 6.6 Initiate the credential request</a> 
     </li><li>
-      <a href="#ref-for-index-term-aborted-for-abortsignal-4" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
-    </li><li>
-      <a href="#ref-for-index-term-aborted-for-abortsignal-5" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
+      <a href="#ref-for-index-term-aborted-for-abortsignal-4" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-abortsignal-interface" aria-label="Links in this document to definition: AbortSignal interface">
@@ -6754,9 +6747,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-a-promise-rejected-with-1" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> <a href="#ref-for-index-term-a-promise-rejected-with-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-a-promise-rejected-with-3" title="Reference 3">(3)</a> 
+      <a href="#ref-for-index-term-a-promise-rejected-with-1" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> <a href="#ref-for-index-term-a-promise-rejected-with-2" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-index-term-a-promise-rejected-with-4" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> <a href="#ref-for-index-term-a-promise-rejected-with-5" title="Reference 2">(2)</a> <a href="#ref-for-index-term-a-promise-rejected-with-6" title="Reference 3">(3)</a> 
+      <a href="#ref-for-index-term-a-promise-rejected-with-3" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> <a href="#ref-for-index-term-a-promise-rejected-with-4" title="Reference 2">(2)</a> <a href="#ref-for-index-term-a-promise-rejected-with-5" title="Reference 3">(3)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-aborterror-exception" aria-label="Links in this document to definition: AbortError exception">
@@ -7206,11 +7199,11 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </dd><dt id="bib-permissions">[permissions]</dt><dd>
       <a href="https://www.w3.org/TR/permissions/"><cite>Permissions</cite></a>. Marcos Caceres; Mike Taylor.  W3C. 6 October 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/permissions/">https://www.w3.org/TR/permissions/</a>
     </dd><dt id="bib-permissions-policy">[permissions-policy]</dt><dd>
-      <a href="https://www.w3.org/TR/permissions-policy-1/"><cite>Permissions Policy</cite></a>. Ian Clelland.  W3C. 6 October 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/permissions-policy-1/">https://www.w3.org/TR/permissions-policy-1/</a>
+      <a href="https://www.w3.org/TR/permissions-policy-1/"><cite>Permissions Policy</cite></a>. Ian Clelland.  W3C. 18 June 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/permissions-policy-1/">https://www.w3.org/TR/permissions-policy-1/</a>
     </dd><dt id="bib-rfc2119">[RFC2119]</dt><dd>
-      <a href="https://www.rfc-editor.org/rfc/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. S. Bradner.  IETF. March 1997. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>
+      <a href="https://www.rfc-editor.org/info/rfc2119/"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. S. Bradner.  IETF. March 1997. Best Current Practice. URL: <a href="https://www.rfc-editor.org/info/rfc2119/">https://www.rfc-editor.org/info/rfc2119/</a>
     </dd><dt id="bib-rfc8174">[RFC8174]</dt><dd>
-      <a href="https://www.rfc-editor.org/rfc/rfc8174"><cite>Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</cite></a>. B. Leiba.  IETF. May 2017. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>
+      <a href="https://www.rfc-editor.org/info/rfc8174/"><cite>Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</cite></a>. B. Leiba.  IETF. May 2017. Best Current Practice. URL: <a href="https://www.rfc-editor.org/info/rfc8174/">https://www.rfc-editor.org/info/rfc8174/</a>
     </dd><dt id="bib-vc-data-model">[vc-data-model]</dt><dd>
       <a href="https://www.w3.org/TR/vc-data-model-2.0/"><cite>Verifiable Credentials Data Model v2.0</cite></a>. Ivan Herman; Michael Jones; Manu Sporny; Ted Thibodeau Jr; Gabe Cohen.  W3C. 15 May 2025. W3C Recommendation. URL: <a href="https://www.w3.org/TR/vc-data-model-2.0/">https://www.w3.org/TR/vc-data-model-2.0/</a>
     </dd><dt id="bib-vc-use-cases">[vc-use-cases]</dt><dd>
@@ -7218,7 +7211,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </dd><dt id="bib-webdriver">[webdriver]</dt><dd>
       <a href="https://www.w3.org/TR/webdriver2/"><cite>WebDriver</cite></a>. Simon Stewart; David Burns.  W3C. 28 May 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/webdriver2/">https://www.w3.org/TR/webdriver2/</a>
     </dd><dt id="bib-webdriver-bidi">[webdriver-bidi]</dt><dd>
-      <a href="https://www.w3.org/TR/webdriver-bidi/"><cite>WebDriver BiDi</cite></a>. James Graham; Alex Rudenko; Maksim Sadym.  W3C. 22 May 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/webdriver-bidi/">https://www.w3.org/TR/webdriver-bidi/</a>
+      <a href="https://www.w3.org/TR/webdriver-bidi/"><cite>WebDriver BiDi</cite></a>. James Graham; Alex Rudenko; Maksim Sadym.  W3C. 22 June 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/webdriver-bidi/">https://www.w3.org/TR/webdriver-bidi/</a>
     </dd><dt id="bib-webidl">[webidl]</dt><dd>
       <a href="https://webidl.spec.whatwg.org/"><cite>Web IDL Standard</cite></a>. Edgar Chen; Timothy Gu.  WHATWG. Living Standard. URL: <a href="https://webidl.spec.whatwg.org/">https://webidl.spec.whatwg.org/</a>
     </dd></dl>
@@ -7237,11 +7230,11 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </dd><dt id="bib-privacy-principles">[privacy-principles]</dt><dd>
       <a href="https://www.w3.org/TR/privacy-principles/"><cite>Privacy Principles</cite></a>. Robin Berjon; Jeffrey Yasskin.  W3C. 15 May 2025. STMT. URL: <a href="https://www.w3.org/TR/privacy-principles/">https://www.w3.org/TR/privacy-principles/</a>
     </dd><dt id="bib-rfc6973">[rfc6973]</dt><dd>
-      <a href="https://www.rfc-editor.org/rfc/rfc6973"><cite>Privacy Considerations for Internet Protocols</cite></a>. A. Cooper; H. Tschofenig; B. Aboba; J. Peterson; J. Morris; M. Hansen; R. Smith.  IETF. July 2013. Informational. URL: <a href="https://www.rfc-editor.org/rfc/rfc6973">https://www.rfc-editor.org/rfc/rfc6973</a>
+      <a href="https://www.rfc-editor.org/info/rfc6973/"><cite>Privacy Considerations for Internet Protocols</cite></a>. A. Cooper; H. Tschofenig; B. Aboba; J. Peterson; J. Morris; M. Hansen; R. Smith.  IETF. July 2013. Informational. URL: <a href="https://www.rfc-editor.org/info/rfc6973/">https://www.rfc-editor.org/info/rfc6973/</a>
     </dd><dt id="bib-secure-contexts">[secure-contexts]</dt><dd>
       <a href="https://www.w3.org/TR/secure-contexts/"><cite>Secure Contexts</cite></a>. Mike West.  W3C. 10 November 2023. CRD. URL: <a href="https://www.w3.org/TR/secure-contexts/">https://www.w3.org/TR/secure-contexts/</a>
     </dd><dt id="bib-threat-model-decentralized-credentials">[threat-model-decentralized-credentials]</dt><dd>
-      <a href="https://www.w3.org/TR/threat-model-decentralized-credentials/"><cite>Threat Model for Decentralized Credentials</cite></a>. Simone Onofri; Amir Sharif.  W3C. 29 May 2026. DNOTE. URL: <a href="https://www.w3.org/TR/threat-model-decentralized-credentials/">https://www.w3.org/TR/threat-model-decentralized-credentials/</a>
+      <a href="https://www.w3.org/TR/threat-model-decentralized-credentials/"><cite>Threat Model for Decentralized Credentials</cite></a>. Simone Onofri; Amir Sharif.  W3C. 22 June 2026. DNOTE. URL: <a href="https://www.w3.org/TR/threat-model-decentralized-credentials/">https://www.w3.org/TR/threat-model-decentralized-credentials/</a>
     </dd></dl>
   </section></section><p role="navigation" id="back-to-top">
     <a href="#title"><abbr title="Back to Top">↑</abbr></a>
