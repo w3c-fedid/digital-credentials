@@ -1862,6 +1862,14 @@
           explicit permission from the embedding site, potentially enabling
           credential harvesting or unauthorized access to sensitive user data.
         </dd>
+        <dt>
+          <dfn>Malicious Payloads to the Underlying Platform</dfn>
+        </dt>
+        <dd>
+          A malicious website attempts to exploit vulnerabilities in the
+          underlying operating system or [=credential manager=] by passing
+          carefully crafted or malformed protocol requests through the API.
+        </dd>
       </dl>
       <h4>
         Out of Scope Threats
@@ -1873,10 +1881,37 @@
         end-to-end security of credential presentation and issuance. The
         following defines the [=out-of-scope threats=] for this specification:
       </p>
-      <ul>
-        <li>To be written...
-        </li>
-      </ul>
+      <dl>
+        <dt>
+          <dfn>OS or Device Compromise</dfn>
+        </dt>
+        <dd>
+          An attacker who gains control over the user's operating system or
+          device hardware could bypass [=user agent=] protections, extract
+          sensitive credential data directly from storage, or manipulate the
+          API calls. This threat must be addressed by OS platform security and
+          hardware-backed keystores.
+        </dd>
+        <dt>
+          <dfn>Malicious Credential Managers</dfn>
+        </dt>
+        <dd>
+          A user might install a [=credential manager=] that intentionally
+          leaks credentials, fails to securely encrypt them, or ignores user
+          consent. The API relies on the OS and the user's discretion to only
+          install and register trusted [=credential managers=].
+        </dd>
+        <dt>
+          <dfn>Protocol and Format Vulnerabilities</dfn>
+        </dt>
+        <dd>
+          Weaknesses in the specific [=digital credential/presentation
+          protocol=] or credential format being used (e.g., cryptographic
+          flaws, lack of replay protection) could allow attackers to intercept,
+          forge, or tamper with credentials in transit. Mitigation occurs at
+          the protocol and transport layers (e.g., TLS).
+        </dd>
+      </dl>
       <h3>
         Mitigations
       </h3>
@@ -1891,6 +1926,16 @@
         injected through the network). Please refer to the
         [[[secure-contexts#security-considerations]]] section of the
         [[[secure-contexts]]] specification for more information.
+      </p>
+      <p>
+        To mitigate the risk of <a href=
+        "#dfn-malicious-payloads-to-the-underlying-platform">malicious payloads
+        to the underlying platform</a>, [=user agents=] MUST pass the request
+        parameters to the [=credential manager=] using safe serialization
+        formats (such as JSON or structured cloning) without executing them.
+        The underlying platform and [=credential managers=] are responsible for
+        robustly parsing and validating these protocol-specific payloads before
+        acting on them.
       </p>
       <p>
         The Digital Credentials API reduces [=API flooding=] through two
