@@ -2805,7 +2805,7 @@
       </p>
       <p>
         When an operation fails, the [=user agent=] rejects with one of several
-        distinct errors, for example a {{"NotAllowedError"}},
+        distinct errors; for example, a {{"NotAllowedError"}},
         {{"InvalidStateError"}}, or {{"OperationError"}} {{DOMException}}, or a
         {{TypeError}}. Where the platform surfaces such a failure to the user, it
         SHOULD identify in text what went wrong and, where applicable, how to
@@ -2822,9 +2822,9 @@
         device motion (see [[[WCAG22#motion-actuation]]]) as the only means of
         operation. The [=digital credential chooser=] SHOULD present its controls
         in a meaningful focus order (see [[[WCAG22#focus-order]]]), move focus
-        into the chooser when it opens, keep focus within it while it is shown,
+        into the chooser when it is opened; keep focus within it while it is shown;
         and restore focus to the previously focused element, or another
-        appropriate location, when it closes.
+        appropriate location, when it is closed.
       </p>
       <p>
         Where releasing a [=digital credential=] requires the [=holder=] to
@@ -2854,7 +2854,7 @@
       </p>
       <ul>
         <li>A site can bound the interaction by passing an {{AbortSignal}} as
-        {{CredentialRequestOptions/signal}}, for example one created with
+        {{CredentialRequestOptions/signal}}; for example, one created with
         `AbortSignal.timeout()`. Sites SHOULD allow sufficient time and SHOULD NOT
         impose a short limit that rushes the user.
         </li>
