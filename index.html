@@ -2818,8 +2818,9 @@
         human-readable text, so normalization, case folding, and language or
         direction metadata do not apply.
         </li>
-        <li>All payloads are exchanged as JSON and JavaScript values, with a
-        character encoding of UTF-8. Request payloads are serialized using
+        <li>All payloads are exchanged as JSON text and JavaScript values. When a
+        JSON string is encoded as bytes (for example, for transport), it is
+        encoded using UTF-8. Request payloads are serialized using
         [=serialize a JavaScript value to a JSON string=], which calls the
         ECMAScript `JSON.stringify` operation, and responses are parsed using
         [=parse a JSON string to a JavaScript value=]. Because `JSON.stringify`
@@ -2833,7 +2834,7 @@
         within the credential payload. Its internationalization is determined by
         the relevant credential format and [=digital credential/presentation
         protocol=] or [=digital credential/issuance protocol=] (for example, the
-        formats defined in [[ISO18013-5]], and protocols such as [[OPENID4VP]]),
+        formats defined in [[[ISO18013-5]]], and protocols such as [[[OPENID4VP]]]),
         which this specification expects to provide language and direction
         metadata, and localized alternatives, where appropriate.
         </li>
