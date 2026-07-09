@@ -176,7 +176,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="1b5612a0bc243397aeb7eb0415f46f2b4ffc70a2">
+<meta name="revision" content="900fd3f6ff3981d2e5499bc433162afd83edc31c">
 <meta name="description" content="This document specifies an API enabling user agents to mediate the
         presentation and issuance of digital credentials, such as a
         driver's license, government-issued identification card, or
@@ -325,16 +325,16 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "1b5612a0bc243397aeb7eb0415f46f2b4ffc70a2",
-  "publishISODate": "2026-06-26T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 26 June 2026"
+  "gitRevision": "900fd3f6ff3981d2e5499bc433162afd83edc31c",
+  "publishISODate": "2026-07-09T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 09 July 2026"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED"></head>
   <body data-cite="WEBIDL credential-management permissions-policy vc-data-model HTML INFRA URL WEBIDL DOM FETCH" class="h-entry"><div class="head">
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Digital Credentials</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-06-26">26 June 2026</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-07-09">09 July 2026</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -1418,15 +1418,15 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           </li>
         </ol>
       </li>
+      <li>If <var data-type="Document">document</var> stops being <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#fully-active" id="ref-for-index-term-fully-active-for-document-1">fully active</a>, <a data-link-type="dfn|abstract-op" href="#dfn-abort-the-credential-request" class="internalDFN" id="ref-for-dfn-abort-the-credential-request-2">abort the credential request</a> with an
+      "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#aborterror" id="ref-for-index-term-aborterror-exception-1"><code>AbortError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-2"><code>DOMException</code></a>.
+      </li>
       <li>Let <var>handled</var> be the result of running <a data-link-type="dfn|abstract-op" href="#dfn-handle-virtual-wallet-behavior" class="internalDFN" id="ref-for-dfn-handle-virtual-wallet-behavior-1">handle virtual wallet behavior</a> given <var data-type="Promise">promise</var> and <var>global</var>.
       </li>
       <li>If <var>handled</var> is <code>true</code>, return.
       </li>
       <li><a data-link-type="dfn|abstract-op" href="#dfn-initiate-the-credential-request" class="internalDFN" id="ref-for-dfn-initiate-the-credential-request-1">Initiate the credential request</a>
       with <var data-type="Document">document</var>, <var>validatedRequests</var>, <var data-type="Promise">promise</var>, and <var data-type="AbortSignal">signal</var>.
-      </li>
-      <li>If <var data-type="Document">document</var> stops being <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#fully-active" id="ref-for-index-term-fully-active-for-document-1">fully active</a>, <a data-link-type="dfn|abstract-op" href="#dfn-abort-the-credential-request" class="internalDFN" id="ref-for-dfn-abort-the-credential-request-2">abort the credential request</a> with an
-      "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#aborterror" id="ref-for-index-term-aborterror-exception-1"><code>AbortError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-2"><code>DOMException</code></a>.
       </li>
     </ol>
     </section><section id="validate-credential-requests"><div class="header-wrapper"><h3 id="x6-3-validate-credential-requests"><bdi class="secno">6.3 </bdi>
@@ -7183,7 +7183,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
   </script></section><section id="references" class="appendix"><div class="header-wrapper"><h2 id="f-references"><bdi class="secno">F. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix F."></a></div><section id="normative-references"><div class="header-wrapper"><h3 id="f-1-normative-references"><bdi class="secno">F.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix F.1"></a></div>
     
     <dl class="bibliography"><dt id="bib-credential-management">[credential-management]</dt><dd>
-      <a href="https://www.w3.org/TR/credential-management-1/"><cite>Credential Management Level 1</cite></a>. Nina Satragno; Marcos Caceres.  W3C. 10 April 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/credential-management-1/">https://www.w3.org/TR/credential-management-1/</a>
+      <a href="https://www.w3.org/TR/credential-management-1/"><cite>Credential Management Level 1</cite></a>. Nina Satragno; Marcos Caceres.  W3C. 2 July 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/credential-management-1/">https://www.w3.org/TR/credential-management-1/</a>
     </dd><dt id="bib-dom">[dom]</dt><dd>
       <a href="https://dom.spec.whatwg.org/"><cite>DOM Standard</cite></a>. Anne van Kesteren.  WHATWG. Living Standard. URL: <a href="https://dom.spec.whatwg.org/">https://dom.spec.whatwg.org/</a>
     </dd><dt id="bib-html">[html]</dt><dd>
@@ -7209,9 +7209,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </dd><dt id="bib-vc-use-cases">[vc-use-cases]</dt><dd>
       <a href="https://www.w3.org/TR/vc-use-cases/"><cite>Verifiable Credentials Use Cases</cite></a>. Joe Andrieu; Kevin Dean.  W3C. 18 March 2026. W3C Working Group Note. URL: <a href="https://www.w3.org/TR/vc-use-cases/">https://www.w3.org/TR/vc-use-cases/</a>
     </dd><dt id="bib-webdriver">[webdriver]</dt><dd>
-      <a href="https://www.w3.org/TR/webdriver2/"><cite>WebDriver</cite></a>. Simon Stewart; David Burns.  W3C. 28 May 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/webdriver2/">https://www.w3.org/TR/webdriver2/</a>
+      <a href="https://www.w3.org/TR/webdriver2/"><cite>WebDriver</cite></a>. Simon Stewart; David Burns.  W3C. 2 July 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/webdriver2/">https://www.w3.org/TR/webdriver2/</a>
     </dd><dt id="bib-webdriver-bidi">[webdriver-bidi]</dt><dd>
-      <a href="https://www.w3.org/TR/webdriver-bidi/"><cite>WebDriver BiDi</cite></a>. James Graham; Alex Rudenko; Maksim Sadym.  W3C. 22 June 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/webdriver-bidi/">https://www.w3.org/TR/webdriver-bidi/</a>
+      <a href="https://www.w3.org/TR/webdriver-bidi/"><cite>WebDriver BiDi</cite></a>. James Graham; Alex Rudenko; Maksim Sadym.  W3C. 29 June 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/webdriver-bidi/">https://www.w3.org/TR/webdriver-bidi/</a>
     </dd><dt id="bib-webidl">[webidl]</dt><dd>
       <a href="https://webidl.spec.whatwg.org/"><cite>Web IDL Standard</cite></a>. Edgar Chen; Timothy Gu.  WHATWG. Living Standard. URL: <a href="https://webidl.spec.whatwg.org/">https://webidl.spec.whatwg.org/</a>
     </dd></dl>
