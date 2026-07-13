@@ -926,6 +926,10 @@
           </li>
         </ol>
       </li>
+      <li>If |document| stops being [=Document/fully active=], [=credential
+      request coordinator/abort the credential request=] with an
+      {{"AbortError"}} {{DOMException}}.
+      </li>
       <li>Let |handled| be the result of running [=handle virtual wallet
       behavior=] given |promise| and |global|.
       </li>
@@ -933,10 +937,6 @@
       </li>
       <li>[=credential request coordinator/Initiate the credential request=]
       with |document|, |validatedRequests|, |promise|, and |signal|.
-      </li>
-      <li>If |document| stops being [=Document/fully active=], [=credential
-      request coordinator/abort the credential request=] with an
-      {{"AbortError"}} {{DOMException}}.
       </li>
     </ol><!--
     // MARK: Validate credential requests
