@@ -1899,12 +1899,11 @@
         [[[secure-contexts]]] specification for more information.
       </p>
       <p>
-        Additionally, the API is only available to documents with a non-opaque
-        origin. Calls to {{DigitalCredential/[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)}}
-        and {{Credential/[[Create]](origin, options, sameOriginWithAncestors)}}
-        from [=opaque origins=] (such as `data:` URIs or sandboxed iframes) will
-        fail, reducing the risk of malicious extraction or spoofing from
-        untrusted environments.
+        Additionally, requests from an [=opaque origin=] are rejected. Calls to {{DigitalCredential/[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)}}
+        and {{DigitalCredential/[[Create]](origin, options, sameOriginWithAncestors)}}
+        from an [=opaque origin=] (such as `data:` URIs or sandboxed iframes) will
+        be rejected with a {{"NotAllowedError"}} {{DOMException}}, reducing the
+        risk of malicious extraction or spoofing from untrusted environments.
       </p>
       <p>
         The Digital Credentials API reduces [=API flooding=] through two
