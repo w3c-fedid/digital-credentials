@@ -1901,8 +1901,8 @@
       <p>
         Additionally, requests from an [=opaque origin=] are rejected. Calls to {{DigitalCredential/[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)}}
         and {{DigitalCredential/[[Create]](origin, options, sameOriginWithAncestors)}}
-        from an [=opaque origin=] (such as `data:` URIs or sandboxed iframes) will
-        be rejected with a {{"NotAllowedError"}} {{DOMException}}, reducing the
+        from an [=opaque origin=] (such as `data:` URIs or sandboxed iframes) are
+        [=reject|rejected=], reducing the
         risk of malicious extraction or spoofing from untrusted environments.
       </p>
       <p>
