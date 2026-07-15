@@ -2796,18 +2796,18 @@
         scope of this specification; however, the accessibility of that
         experience is within scope (see [[[#scope]]]). The following guidance
         applies to [=user agents=] and platforms implementing the [=digital
-        credential chooser=] and the flows around it, and references the relevant
-        success criteria of [[WCAG22]]. Where the chooser is a non-web user
-        interface, those criteria apply as described in [[WCAG2ICT-22]].
+        credential chooser=] and the flows around it, and references the
+        relevant success criteria of [[WCAG22]]. Where the chooser is a non-web
+        user interface, those criteria apply as described in [[WCAG2ICT-22]].
       </p>
       <p>
         The content of modal dialogs presented during [=digital
         credential/issuance request|issuance=] or [=digital
-        credential/presentation requests|presentation=], which can include text,
-        QR codes, and other visual media, SHOULD be labelled and exposed to
-        assistive technologies with appropriate names, roles, and values (see
-        [[[WCAG22#name-role-value]]]), and SHOULD provide text alternatives for
-        non-text content (see [[[WCAG22#non-text-content]]]).
+        credential/presentation requests|presentation=], which can include
+        text, QR codes, and other visual media, SHOULD be labelled and exposed
+        to assistive technologies with appropriate names, roles, and values
+        (see [[[WCAG22#name-role-value]]]), and SHOULD provide text
+        alternatives for non-text content (see [[[WCAG22#non-text-content]]]).
       </p>
       <p>
         Changes in the state of an interaction, such as waiting for another
@@ -2819,22 +2819,23 @@
         When an operation fails, the [=user agent=] rejects with one of several
         distinct errors; for example, a {{"NotAllowedError"}},
         {{"InvalidStateError"}}, or {{"OperationError"}} {{DOMException}}, or a
-        {{TypeError}}. Where the platform surfaces such a failure to the user, it
-        SHOULD identify in text what went wrong and, where applicable, how to
-        recover, rather than only signalling that an error occurred (see
+        {{TypeError}}. Where the platform surfaces such a failure to the user,
+        it SHOULD identify in text what went wrong and, where applicable, how
+        to recover, rather than only signalling that an error occurred (see
         [[[WCAG22#error-identification]]]).
       </p>
       <p>
-        Interactive elements, particularly those that allow the user to continue
-        or abort an [=digital credential/issuance request|issuance=] or [=digital
-        credential/presentation requests|presentation=] request, MUST be operable
-        in a device-independent manner (for example, via the keyboard; see
-        [[[WCAG22#keyboard]]]). In particular, activation MUST NOT require a
-        multipoint or path-based gesture (see [[[WCAG22#pointer-gestures]]]) or
-        device motion (see [[[WCAG22#motion-actuation]]]) as the only means of
-        operation. The [=digital credential chooser=] SHOULD present its controls
-        in a meaningful focus order (see [[[WCAG22#focus-order]]]), move focus
-        into the chooser when it is opened; keep focus within it while it is shown;
+        Interactive elements, particularly those that allow the user to
+        continue or abort an [=digital credential/issuance request|issuance=]
+        or [=digital credential/presentation requests|presentation=] request,
+        MUST be operable in a device-independent manner (for example, via the
+        keyboard; see [[[WCAG22#keyboard]]]). In particular, activation MUST
+        NOT require a multipoint or path-based gesture (see
+        [[[WCAG22#pointer-gestures]]]) or device motion (see
+        [[[WCAG22#motion-actuation]]]) as the only means of operation. The
+        [=digital credential chooser=] SHOULD present its controls in a
+        meaningful focus order (see [[[WCAG22#focus-order]]]), move focus into
+        the chooser when it is opened; keep focus within it while it is shown;
         and restore focus to the previously focused element, or another
         appropriate location, when it is closed.
       </p>
@@ -2842,47 +2843,47 @@
         Where releasing a [=digital credential=] requires the [=holder=] to
         authenticate, an accessible authentication method SHOULD be available.
         Where a step relies on a cognitive function test, such as recalling a
-        password, an alternative that does not require one SHOULD be offered (see
-        [[[WCAG22#accessible-authentication-minimum]]]); and authentication SHOULD
-        NOT depend solely on a single physical characteristic, such as a
-        biometric, that some users cannot provide. This step is typically
-        performed by the platform or [=credential manager=] and is otherwise
-        outside the scope of this specification.
+        password, an alternative that does not require one SHOULD be offered
+        (see [[[WCAG22#accessible-authentication-minimum]]]); and
+        authentication SHOULD NOT depend solely on a single physical
+        characteristic, such as a biometric, that some users cannot provide.
+        This step is typically performed by the platform or [=credential
+        manager=] and is otherwise outside the scope of this specification.
       </p>
       <p>
-        Some platforms fulfil [=digital credential/presentation requests=] across
-        devices; for example, by displaying a QR code for the user to scan with a
-        separate device. Because such flows can depend on vision, a camera, or
-        the use of a second device, platforms SHOULD provide an equivalent and
-        accessible means of completing the interaction that does not rely on a
-        single sensory ability or input modality. A cross-device request conveyed
-        only through a visual artifact such as a QR code, with no accessible
-        alternative, excludes users who cannot use that modality.
+        Some platforms fulfil [=digital credential/presentation requests=]
+        across devices; for example, by displaying a QR code for the user to
+        scan with a separate device. Because such flows can depend on vision, a
+        camera, or the use of a second device, platforms SHOULD provide an
+        equivalent and accessible means of completing the interaction that does
+        not rely on a single sensory ability or input modality. A cross-device
+        request conveyed only through a visual artifact such as a QR code, with
+        no accessible alternative, excludes users who cannot use that modality.
       </p>
       <p>
         An interaction may be subject to time limits from more than one source.
-        These SHOULD be handled so that users who need more time are not excluded
-        (see [[[WCAG22#timing-adjustable]]]):
+        These SHOULD be handled so that users who need more time are not
+        excluded (see [[[WCAG22#timing-adjustable]]]):
       </p>
       <ul>
         <li>A site can bound the interaction by passing an {{AbortSignal}} as
         {{CredentialRequestOptions/signal}}; for example, one created with
-        `AbortSignal.timeout()`. Sites SHOULD allow sufficient time and SHOULD NOT
-        impose a short limit that rushes the user.
+        `AbortSignal.timeout()`. Sites SHOULD allow sufficient time and SHOULD
+        NOT impose a short limit that rushes the user.
         </li>
-        <li>A proximity check is a security-essential, real-time constraint that
-        cannot be extended without defeating its purpose. In this case, the
-        platform SHOULD make the remaining time programmatically determinable, and
-        SHOULD allow the user to retry the interaction.
+        <li>A proximity check is a security-essential, real-time constraint
+        that cannot be extended without defeating its purpose. In this case,
+        the platform SHOULD make the remaining time programmatically
+        determinable, and SHOULD allow the user to retry the interaction.
         </li>
-        <li>The validity window of a cross-device request SHOULD be extendable or
-        able to be retried.
+        <li>The validity window of a cross-device request SHOULD be extendable
+        or able to be retried.
         </li>
       </ul>
       <p>
         The decision to review and disclose a [=digital credential=] SHOULD NOT
-        be subject to a forcing countdown, including time pressure inherited from
-        the surrounding site flow.
+        be subject to a forcing countdown, including time pressure inherited
+        from the surrounding site flow.
       </p>
       <p>
         Human-readable credential content shown during an interaction, together
@@ -2912,46 +2913,45 @@
       </p>
       <ul>
         <li>The string-typed values it defines, most notably [=digital
-        credential/protocol identifier|protocol identifiers=], are restricted to
-        ASCII ([=ASCII lower alpha=], U+002D HYPHEN-MINUS, and [=ASCII digit=])
-        and compared by exact equality. They are machine identifiers, not
-        human-readable text, so normalization, case folding, and language or
-        direction metadata do not apply.
+        credential/protocol identifier|protocol identifiers=], are restricted
+        to ASCII ([=ASCII lower alpha=], U+002D HYPHEN-MINUS, and [=ASCII
+        digit=]) and compared by exact equality. They are machine identifiers,
+        not human-readable text, so normalization, case folding, and language
+        or direction metadata do not apply.
         </li>
-        <li>All payloads are exchanged as JSON text and JavaScript values. When a
-        JSON string is encoded as bytes (for example, for transport), it is
-        encoded using UTF-8. Request payloads are serialized using
-        [=serialize a JavaScript value to a JSON string=], which calls the
-        ECMAScript `JSON.stringify` operation, and responses are parsed using
-        [=parse a JSON string to a JavaScript value=]. Because `JSON.stringify`
-        emits lone (unpaired) surrogate code points as `\uXXXX` escape
-        sequences, the serialized request is always well-formed, UTF-8-encodable
-        JSON.
+        <li>All payloads are exchanged as JSON text and JavaScript values. When
+        a JSON string is encoded as bytes (for example, for transport), it is
+        encoded using UTF-8. Request payloads are serialized using [=serialize
+        a JavaScript value to a JSON string=], which calls the ECMAScript
+        `JSON.stringify` operation, and responses are parsed using [=parse a
+        JSON string to a JavaScript value=]. Because `JSON.stringify` emits
+        lone (unpaired) surrogate code points as `\uXXXX` escape sequences, the
+        serialized request is always well-formed, UTF-8-encodable JSON.
         </li>
         <li>Human-readable, localizable credential content (for example, the
         values of credential claims such as a name or address, including their
         representation in different scripts and languages) is carried opaquely
-        within the credential payload. Its internationalization is determined by
-        the relevant credential format and [=digital credential/presentation
-        protocol=] or [=digital credential/issuance protocol=] (for example, the
-        formats defined in [[[ISO18013-5]]], and protocols such as [[[OPENID4VP]]]),
-        which this specification expects to provide language and direction
-        metadata, and localized alternatives, where appropriate.
+        within the credential payload. Its internationalization is determined
+        by the relevant credential format and [=digital credential/presentation
+        protocol=] or [=digital credential/issuance protocol=] (for example,
+        the formats defined in [[[ISO18013-5]]], and protocols such as
+        [[[OPENID4VP]]]), which this specification expects to provide language
+        and direction metadata, and localized alternatives, where appropriate.
         </li>
         <li>The one value the API routes to the platform that a [=user agent=]
         may display is the requesting [=request context/top-level origin=].
         Rendering an origin's host to the user, including the handling of
         internationalized domain names and bidirectional text, follows the
-        [[[URL#url-rendering-i18n|host-rendering guidance in the URL Standard]]]
-        and is out of scope for this specification.
+        [[[URL#url-rendering-i18n|host-rendering guidance in the URL
+        Standard]]] and is out of scope for this specification.
         </li>
-        <li>Any other text presented to the user during a credential interaction
-        is rendered either by the website (using HTML, which provides language
-        and direction support through the host language), or by the platform's
-        [=digital credential chooser=]. The chooser is out of scope for this
-        specification; where it displays credential content, the language and
-        direction of that content, as provided by the credential format and
-        protocol, govern its presentation.
+        <li>Any other text presented to the user during a credential
+        interaction is rendered either by the website (using HTML, which
+        provides language and direction support through the host language), or
+        by the platform's [=digital credential chooser=]. The chooser is out of
+        scope for this specification; where it displays credential content, the
+        language and direction of that content, as provided by the credential
+        format and protocol, govern its presentation.
         </li>
       </ul>
       <p>
