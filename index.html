@@ -176,7 +176,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="ca9d2cd71f3e713777b5d385f07cd866c4d31164">
+<meta name="revision" content="659ddca1757429cb419bbcc5203879255120c40d">
 <meta name="description" content="This document specifies an API enabling user agents to mediate the
         presentation and issuance of digital credentials, such as a
         driver's license, government-issued identification card, or
@@ -325,7 +325,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "ca9d2cd71f3e713777b5d385f07cd866c4d31164",
+  "gitRevision": "659ddca1757429cb419bbcc5203879255120c40d",
   "publishISODate": "2026-07-15T00:00:00.000Z",
   "generatedSubtitle": "W3C Editor's Draft 15 July 2026"
 }</script>
@@ -3148,17 +3148,101 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       
       
       <p>
-        Implementers need to consider accessibility when designing <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-chooser" id="ref-for-index-term-credential-chooser-2">credential choosers</a> specifically for this API. The content of modal dialogs
-        presented during <a data-link-type="dfn|abstract-op" data-lt="issuance request" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-20">issuance</a> or
-        <a data-link-type="dfn|abstract-op" data-lt="presentation requests" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-21">presentation</a>, which can
-        include text, QR codes, and other visual media, <em class="rfc2119">SHOULD</em> be labelled and
-        exposed to assistive technologies.
+        The user interface for selecting and authorizing a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-31">digital credential</a> is provided by the platform and is largely outside the
+        scope of this specification; however, the accessibility of that
+        experience is within scope (see <a href="#scope" data-matched-text="[[[#scope]]]" class="sec-ref"><bdi class="secno">3. </bdi>
+      Scope</a>). The following guidance
+        applies to <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-50">user agents</a> and platforms implementing the <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-12">digital credential chooser</a> and the flows around it, and references the relevant
+        success criteria of [<cite><a class="bibref" data-link-type="biblio" href="#bib-wcag22" title="Web Content Accessibility Guidelines (WCAG) 2.2">WCAG22</a></cite>]. Where the chooser is a non-web user
+        interface, those criteria apply as described in [<cite><a class="bibref" data-link-type="biblio" href="#bib-wcag2ict-22" title="Guidance on Applying WCAG 2 to Non-Web Information and Communications Technologies (WCAG2ICT)">WCAG2ICT-22</a></cite>].
       </p>
       <p>
-        Interactive elements, particularly those that allow the user to
-        continue or abort <a data-link-type="dfn|abstract-op" data-lt="issuance request" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-21">issuance</a> or
-        <a data-link-type="dfn|abstract-op" data-lt="presentation requests" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-22">presentation</a> requests,
-        <em class="rfc2119">MUST</em> be operable in a device-independent manner.
+        The content of modal dialogs presented during <a data-link-type="dfn|abstract-op" data-lt="issuance request" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-20">issuance</a> or <a data-link-type="dfn|abstract-op" data-lt="presentation requests" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-21">presentation</a>, which can include text,
+        QR codes, and other visual media, <em class="rfc2119">SHOULD</em> be labelled and exposed to
+        assistive technologies with appropriate names, roles, and values (see
+        <a data-matched-text="[[[WCAG22#name-role-value]]]" href="https://www.w3.org/TR/WCAG22/#name-role-value">Success Criterion 4.1.2 Name, Role, Value</a>), and <em class="rfc2119">SHOULD</em> provide text alternatives for
+        non-text content (see <a data-matched-text="[[[WCAG22#non-text-content]]]" href="https://www.w3.org/TR/WCAG22/#non-text-content">Success Criterion 1.1.1 Non-text Content</a>).
+      </p>
+      <p>
+        Changes in the state of an interaction, such as waiting for another
+        device, a successful response, an error, or a cancellation, <em class="rfc2119">SHOULD</em> be
+        programmatically determinable and conveyed to assistive technologies
+        without requiring a change of focus (see <a data-matched-text="[[[WCAG22#status-messages]]]" href="https://www.w3.org/TR/WCAG22/#status-messages">Success Criterion 4.1.3 Status Messages</a>).
+      </p>
+      <p>
+        When an operation fails, the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-51">user agent</a> rejects with one of several
+        distinct errors; for example, a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-8"><code>NotAllowedError</code></a>",
+        "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#invalidstateerror" id="ref-for-index-term-invalidstateerror-exception-2"><code>InvalidStateError</code></a>", or "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#operationerror" id="ref-for-index-term-operationerror-exception-2"><code>OperationError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-14"><code>DOMException</code></a>, or a
+        <a data-link-type="exception" data-lt="TypeError" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-index-term-typeerror-exception-4"><code>TypeError</code></a>. Where the platform surfaces such a failure to the user, it
+        <em class="rfc2119">SHOULD</em> identify in text what went wrong and, where applicable, how to
+        recover, rather than only signalling that an error occurred (see
+        <a data-matched-text="[[[WCAG22#error-identification]]]" href="https://www.w3.org/TR/WCAG22/#error-identification">Success Criterion 3.3.1 Error Identification</a>).
+      </p>
+      <p>
+        Interactive elements, particularly those that allow the user to continue
+        or abort an <a data-link-type="dfn|abstract-op" data-lt="issuance request" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-21">issuance</a> or <a data-link-type="dfn|abstract-op" data-lt="presentation requests" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-22">presentation</a> request, <em class="rfc2119">MUST</em> be operable
+        in a device-independent manner (for example, via the keyboard; see
+        <a data-matched-text="[[[WCAG22#keyboard]]]" href="https://www.w3.org/TR/WCAG22/#keyboard">Success Criterion 2.1.1 Keyboard</a>). In particular, activation <em class="rfc2119">MUST NOT</em> require a
+        multipoint or path-based gesture (see <a data-matched-text="[[[WCAG22#pointer-gestures]]]" href="https://www.w3.org/TR/WCAG22/#pointer-gestures">Success Criterion 2.5.1 Pointer Gestures</a>) or
+        device motion (see <a data-matched-text="[[[WCAG22#motion-actuation]]]" href="https://www.w3.org/TR/WCAG22/#motion-actuation">Success Criterion 2.5.4 Motion Actuation</a>) as the only means of
+        operation. The <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-13">digital credential chooser</a> <em class="rfc2119">SHOULD</em> present its controls
+        in a meaningful focus order (see <a data-matched-text="[[[WCAG22#focus-order]]]" href="https://www.w3.org/TR/WCAG22/#focus-order">Success Criterion 2.4.3 Focus Order</a>), move focus
+        into the chooser when it is opened; keep focus within it while it is shown;
+        and restore focus to the previously focused element, or another
+        appropriate location, when it is closed.
+      </p>
+      <p>
+        Where releasing a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-32">digital credential</a> requires the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders" id="ref-for-index-term-holders-27">holder</a> to
+        authenticate, an accessible authentication method <em class="rfc2119">SHOULD</em> be available.
+        Where a step relies on a cognitive function test, such as recalling a
+        password, an alternative that does not require one <em class="rfc2119">SHOULD</em> be offered (see
+        <a data-matched-text="[[[WCAG22#accessible-authentication-minimum]]]" href="https://www.w3.org/TR/WCAG22/#accessible-authentication-minimum">Success Criterion 3.3.8 Accessible Authentication (Minimum)</a>); and authentication <em class="rfc2119">SHOULD NOT</em> depend solely on a single physical characteristic, such as a
+        biometric, that some users cannot provide. This step is typically
+        performed by the platform or <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-28">credential manager</a> and is otherwise
+        outside the scope of this specification.
+      </p>
+      <p>
+        Some platforms fulfil <a data-link-type="dfn|abstract-op" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-23">presentation requests</a> across
+        devices; for example, by displaying a QR code for the user to scan with a
+        separate device. Because such flows can depend on vision, a camera, or
+        the use of a second device, platforms <em class="rfc2119">SHOULD</em> provide an equivalent and
+        accessible means of completing the interaction that does not rely on a
+        single sensory ability or input modality. A cross-device request conveyed
+        only through a visual artifact such as a QR code, with no accessible
+        alternative, excludes users who cannot use that modality.
+      </p>
+      <p>
+        An interaction may be subject to time limits from more than one source.
+        These <em class="rfc2119">SHOULD</em> be handled so that users who need more time are not excluded
+        (see <a data-matched-text="[[[WCAG22#timing-adjustable]]]" href="https://www.w3.org/TR/WCAG22/#timing-adjustable">Success Criterion 2.2.1 Timing Adjustable</a>):
+      </p>
+      <ul>
+        <li>A site can bound the interaction by passing an <a data-link-type="interface" data-lt="AbortSignal" href="https://dom.spec.whatwg.org/#abortsignal" id="ref-for-index-term-abortsignal-interface-4"><code>AbortSignal</code></a> as
+        <a data-link-type="dict-member" href="https://www.w3.org/TR/credential-management-1/#dom-credentialrequestoptions-signal" id="ref-for-index-term-signal-for-credentialrequestoptions-2"><code>signal</code></a>; for example, one created with
+        <code>AbortSignal.timeout()</code>. Sites <em class="rfc2119">SHOULD</em> allow sufficient time and <em class="rfc2119">SHOULD NOT</em>
+        impose a short limit that rushes the user.
+        </li>
+        <li>A proximity check is a security-essential, real-time constraint that
+        cannot be extended without defeating its purpose. In this case, the
+        platform <em class="rfc2119">SHOULD</em> make the remaining time programmatically determinable, and
+        <em class="rfc2119">SHOULD</em> allow the user to retry the interaction.
+        </li>
+        <li>The validity window of a cross-device request <em class="rfc2119">SHOULD</em> be extendable or
+        able to be retried.
+        </li>
+      </ul>
+      <p>
+        The decision to review and disclose a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-33">digital credential</a> <em class="rfc2119">SHOULD NOT</em>
+        be subject to a forcing countdown, including time pressure inherited from
+        the surrounding site flow.
+      </p>
+      <p>
+        Human-readable credential content shown during an interaction, together
+        with any accessible alternatives for it such as text alternatives for
+        images, is carried within the credential payload and is the
+        responsibility of the relevant credential format and protocol. Those
+        formats and protocols also determine the language and direction of that
+        content.
       </p>
     </section>
     <section class="informative" id="internationalization-considerations"><div class="header-wrapper"><h2 id="x13-internationalization-considerations"><bdi class="secno">13. </bdi>
@@ -3202,7 +3286,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         which this specification expects to provide language and direction
         metadata, and localized alternatives, where appropriate.
         </li>
-        <li>The one value the API routes to the platform that a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-50">user agent</a>
+        <li>The one value the API routes to the platform that a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-52">user agent</a>
         may display is the requesting <a data-link-type="dfn|abstract-op" href="#dfn-top-level-origin" class="internalDFN" id="ref-for-dfn-top-level-origin-2">top-level origin</a>.
         Rendering an origin's host to the user, including the handling of
         internationalized domain names and bidirectional text, follows the
@@ -3212,7 +3296,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         <li>Any other text presented to the user during a credential interaction
         is rendered either by the website (using HTML, which provides language
         and direction support through the host language), or by the platform's
-        <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-12">digital credential chooser</a>. The chooser is out of scope for this
+        <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-14">digital credential chooser</a>. The chooser is out of scope for this
         specification; where it displays credential content, the language and
         direction of that content, as provided by the credential format and
         protocol, govern its presentation.
@@ -3234,14 +3318,14 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p>
         For purposes of user-agent automation and application testing, this
         document defines extension modules for the <cite><a data-matched-text="[[[webdriver-bidi]]]" href="https://www.w3.org/TR/webdriver-bidi/">WebDriver BiDi</a></cite>
-        specification. It is <em class="rfc2119">OPTIONAL</em> for a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-51">user agent</a> to support them.
+        specification. It is <em class="rfc2119">OPTIONAL</em> for a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-53">user agent</a> to support them.
       </p>
       <section id="the-digitalcredentials-module"><div class="header-wrapper"><h3 id="x14-1-the-digitalcredentials-module"><bdi class="secno">14.1 </bdi>
         The <code>digitalCredentials</code> Module
       </h3><a class="self-link" href="#the-digitalcredentials-module" aria-label="Permalink for Section 14.1"></a></div>
       <p>
         The <code>digitalCredentials</code> module contains commands for managing and
-        simulating the remote end behavior of <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-28">credential managers</a> during
+        simulating the remote end behavior of <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-29">credential managers</a> during
         <a data-link-type="method" data-lt="[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)" href="#dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors" class="internalDFN" id="ref-for-dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors-4"><code>[[DiscoverFromExternalSource]](<var>origin</var>, <var>options</var>, <var>sameOriginWithAncestors</var>)</code></a>, and <a data-link-type="method" data-lt="[[Create]](origin, options, sameOriginWithAncestors)" href="https://www.w3.org/TR/credential-management-1/#dom-credential-create-slot" id="ref-for-index-term-create-origin-options-sameoriginwithancestors-for-credential-3"><code>[[Create]](<var>origin</var>, <var>options</var>, <var>sameOriginWithAncestors</var>)</code></a> calls.
       </p>
       <section id="types"><div class="header-wrapper"><h4 id="x14-1-1-types"><bdi class="secno">14.1.1 </bdi>
@@ -3385,7 +3469,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         <var>promise</var> and a global object <var>global</var>, run these steps:
       </p>
       <ol class="algorithm">
-        <li>If the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-52">user agent</a> is not under automation, return <code>false</code>.
+        <li>If the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-54">user agent</a> is not under automation, return <code>false</code>.
         </li>
         <li>Let <var>context ID</var> be the ID of <var>global</var>'s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#browsing-context" id="ref-for-index-term-browsing-context-1">browsing context</a>.
         </li>
@@ -3402,8 +3486,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         </li>
         <li>If <var>action</var> is <code>"decline"</code>:
           <ol>
-            <li><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-index-term-rejects-8">Reject</a> <var>promise</var> with a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-8"><code>NotAllowedError</code></a>"
-            <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-14"><code>DOMException</code></a>.
+            <li><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-index-term-rejects-8">Reject</a> <var>promise</var> with a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-9"><code>NotAllowedError</code></a>"
+            <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-15"><code>DOMException</code></a>.
             </li>
             <li>Return <code>true</code>.
             </li>
@@ -3966,7 +4050,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
   <span>params</span>: <a href="#cddl-type-digitalcredentials-setvirtualwalletbehaviorparameters" class="cddl-name" data-link-type="cddl-type" id="ref-for-cddl-type-digitalcredentials-setvirtualwalletbehaviorparameters-2">digitalCredentials.SetVirtualWalletBehaviorParameters</a>
 )</code></pre></section><section id="module-local-cddl"><div class="header-wrapper"><h3 id="cddl-index-module-local-cddl"><bdi class="secno">C.2 </bdi>Module: local-cddl</h3><a class="self-link" href="#cddl-index-module-local-cddl" aria-label="Permalink for Section C.2"></a></div><pre class="cddl def highlight"><code><span>digitalCredentials.SetVirtualWalletBehaviorResult</span> <span class="cddl-op">=</span> <span class="cddl-name respec-offending-element" title="No CDDL definition found for `EmptyResult`.">EmptyResult</span></code></pre></section></section>
     <section id="conformance"><div class="header-wrapper"><h2 id="d-conformance"><bdi class="secno">D. </bdi>Conformance</h2><a class="self-link" href="#conformance" aria-label="Permalink for Section D."></a></div><p>As well as sections marked as non-normative, all authoring guidelines, diagrams, examples, and notes in this specification are non-normative. Everything else in this specification is normative.</p><p>
-        The key words <em class="rfc2119">MAY</em>, <em class="rfc2119">MUST</em>, <em class="rfc2119">MUST NOT</em>, <em class="rfc2119">OPTIONAL</em>, and <em class="rfc2119">SHOULD</em> in this document
+        The key words <em class="rfc2119">MAY</em>, <em class="rfc2119">MUST</em>, <em class="rfc2119">MUST NOT</em>, <em class="rfc2119">OPTIONAL</em>, <em class="rfc2119">SHOULD</em>, and <em class="rfc2119">SHOULD NOT</em> in this document
         are to be interpreted as described in
         <a href="https://www.rfc-editor.org/info/bcp14">BCP 14</a>
         [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc2119" title="Key words for use in RFCs to Indicate Requirement Levels">RFC2119</a></cite>] [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc8174" title="Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words">RFC8174</a></cite>]
@@ -4072,6 +4156,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-dfn-digital-credential-28" title="§ 7.7 The DigitalCredential interface">§ 7.7 The DigitalCredential interface</a> 
     </li><li>
       <a href="#ref-for-dfn-digital-credential-29" title="§ 7.7.1 The protocol member">§ 7.7.1 The protocol member</a> <a href="#ref-for-dfn-digital-credential-30" title="Reference 2">(2)</a> 
+    </li><li>
+      <a href="#ref-for-dfn-digital-credential-31" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> <a href="#ref-for-dfn-digital-credential-32" title="Reference 2">(2)</a> <a href="#ref-for-dfn-digital-credential-33" title="Reference 3">(3)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-digital-credential-chooser" aria-label="Links in this document to definition: Digital credential chooser">
@@ -4098,7 +4184,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-dfn-digital-credential-chooser-11" title="§ 11.1 Design Considerations and Alternatives">§ 11.1 Design Considerations and Alternatives</a> 
     </li><li>
-      <a href="#ref-for-dfn-digital-credential-chooser-12" title="§ 13. Internationalization Considerations">§ 13. Internationalization Considerations</a> 
+      <a href="#ref-for-dfn-digital-credential-chooser-12" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> <a href="#ref-for-dfn-digital-credential-chooser-13" title="Reference 2">(2)</a> 
+    </li><li>
+      <a href="#ref-for-dfn-digital-credential-chooser-14" title="§ 13. Internationalization Considerations">§ 13. Internationalization Considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-issuance-protocol" aria-label="Links in this document to definition: Issuance protocol">
@@ -4274,7 +4362,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-dfn-presentation-request-20" title="§ 9. Permissions Policy integration">§ 9. Permissions Policy integration</a> 
     </li><li>
-      <a href="#ref-for-dfn-presentation-request-21" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> <a href="#ref-for-dfn-presentation-request-22" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-presentation-request-21" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> <a href="#ref-for-dfn-presentation-request-22" title="Reference 2">(2)</a> <a href="#ref-for-dfn-presentation-request-23" title="Reference 3">(3)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-presentation-request-data" aria-label="Links in this document to definition: Presentation request data">
@@ -5598,8 +5686,6 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <ul>
     <li>
       <a href="#ref-for-index-term-credential-chooser-1" title="§ 4. Terminology">§ 4. Terminology</a> 
-    </li><li>
-      <a href="#ref-for-index-term-credential-chooser-2" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-credential-manager" aria-label="Links in this document to definition: credential manager">
@@ -5652,7 +5738,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-index-term-credential-manager-27" title="§ 11.6.4 Permission vs. Consent">§ 11.6.4 Permission vs. Consent</a> 
     </li><li>
-      <a href="#ref-for-index-term-credential-manager-28" title="§ 14.1 The digitalCredentials Module">§ 14.1 The digitalCredentials Module</a> 
+      <a href="#ref-for-index-term-credential-manager-28" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> 
+    </li><li>
+      <a href="#ref-for-index-term-credential-manager-29" title="§ 14.1 The digitalCredentials Module">§ 14.1 The digitalCredentials Module</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-credentialcreationoptions" aria-label="Links in this document to definition: CredentialCreationOptions">
@@ -5788,6 +5876,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <ul>
     <li>
       <a href="#ref-for-index-term-signal-for-credentialrequestoptions-1" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
+    </li><li>
+      <a href="#ref-for-index-term-signal-for-credentialrequestoptions-2" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-signal-for-credentialcreationoptions" aria-label="Links in this document to definition: signal (for CredentialCreationOptions)">
@@ -5865,6 +5955,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-abortsignal-interface-2" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> 
     </li><li>
       <a href="#ref-for-index-term-abortsignal-interface-3" title="§ 6.6 Initiate the credential request">§ 6.6 Initiate the credential request</a> 
+    </li><li>
+      <a href="#ref-for-index-term-abortsignal-interface-4" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-add-for-abortsignal" aria-label="Links in this document to definition: Add (for AbortSignal)">
@@ -6528,11 +6620,13 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-index-term-user-agents-48" title="§ 11.6.4 Permission vs. Consent">§ 11.6.4 Permission vs. Consent</a> <a href="#ref-for-index-term-user-agents-49" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-index-term-user-agents-50" title="§ 13. Internationalization Considerations">§ 13. Internationalization Considerations</a> 
+      <a href="#ref-for-index-term-user-agents-50" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> <a href="#ref-for-index-term-user-agents-51" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-index-term-user-agents-51" title="§ 14. Automated Testing">§ 14. Automated Testing</a> 
+      <a href="#ref-for-index-term-user-agents-52" title="§ 13. Internationalization Considerations">§ 13. Internationalization Considerations</a> 
     </li><li>
-      <a href="#ref-for-index-term-user-agents-52" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
+      <a href="#ref-for-index-term-user-agents-53" title="§ 14. Automated Testing">§ 14. Automated Testing</a> 
+    </li><li>
+      <a href="#ref-for-index-term-user-agents-54" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-express-permission" aria-label="Links in this document to definition: express permission">
@@ -6671,6 +6765,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-holders-25" title="§ 11.3.1.1 Selective disclosure">§ 11.3.1.1 Selective disclosure</a> 
     </li><li>
       <a href="#ref-for-index-term-holders-26" title="§ 11.3.1.2 Unlinkable presentations">§ 11.3.1.2 Unlinkable presentations</a> 
+    </li><li>
+      <a href="#ref-for-index-term-holders-27" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-issuers" aria-label="Links in this document to definition: issuers">
@@ -6962,7 +7058,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-index-term-domexception-interface-11" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> <a href="#ref-for-index-term-domexception-interface-12" title="Reference 2">(2)</a> <a href="#ref-for-index-term-domexception-interface-13" title="Reference 3">(3)</a> 
     </li><li>
-      <a href="#ref-for-index-term-domexception-interface-14" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
+      <a href="#ref-for-index-term-domexception-interface-14" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> 
+    </li><li>
+      <a href="#ref-for-index-term-domexception-interface-15" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-domstring-interface" aria-label="Links in this document to definition: DOMString interface">
@@ -7078,6 +7176,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <ul>
     <li>
       <a href="#ref-for-index-term-invalidstateerror-exception-1" title="§ 6.6 Initiate the credential request">§ 6.6 Initiate the credential request</a> 
+    </li><li>
+      <a href="#ref-for-index-term-invalidstateerror-exception-2" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-notallowederror-exception" aria-label="Links in this document to definition: NotAllowedError exception">
@@ -7098,7 +7198,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-index-term-notallowederror-exception-6" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> <a href="#ref-for-index-term-notallowederror-exception-7" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-index-term-notallowederror-exception-8" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
+      <a href="#ref-for-index-term-notallowederror-exception-8" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> 
+    </li><li>
+      <a href="#ref-for-index-term-notallowederror-exception-9" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-object-type-0" aria-label="Links in this document to definition: object type">
@@ -7131,6 +7233,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <ul>
     <li>
       <a href="#ref-for-index-term-operationerror-exception-1" title="§ 6.6 Initiate the credential request">§ 6.6 Initiate the credential request</a> 
+    </li><li>
+      <a href="#ref-for-index-term-operationerror-exception-2" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-promise-interface" aria-label="Links in this document to definition: Promise interface">
@@ -7316,6 +7420,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-typeerror-exception-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> 
     </li><li>
       <a href="#ref-for-index-term-typeerror-exception-2" title="§ 6.6 Initiate the credential request">§ 6.6 Initiate the credential request</a> <a href="#ref-for-index-term-typeerror-exception-3" title="Reference 2">(2)</a> 
+    </li><li>
+      <a href="#ref-for-index-term-typeerror-exception-4" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> 
     </li>
   </ul>
     </div><script id="respec-copy-paste">
@@ -7357,6 +7463,10 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="https://www.w3.org/TR/vc-data-model-2.0/"><cite>Verifiable Credentials Data Model v2.0</cite></a>. Ivan Herman; Michael Jones; Manu Sporny; Ted Thibodeau Jr; Gabe Cohen.  W3C. 15 May 2025. W3C Recommendation. URL: <a href="https://www.w3.org/TR/vc-data-model-2.0/">https://www.w3.org/TR/vc-data-model-2.0/</a>
     </dd><dt id="bib-vc-use-cases">[vc-use-cases]</dt><dd>
       <a href="https://www.w3.org/TR/vc-use-cases/"><cite>Verifiable Credentials Use Cases</cite></a>. Joe Andrieu; Kevin Dean.  W3C. 18 March 2026. W3C Working Group Note. URL: <a href="https://www.w3.org/TR/vc-use-cases/">https://www.w3.org/TR/vc-use-cases/</a>
+    </dd><dt id="bib-wcag22">[WCAG22]</dt><dd>
+      <a href="https://www.w3.org/TR/WCAG22/"><cite>Web Content Accessibility Guidelines (WCAG) 2.2</cite></a>. Michael Cooper; Andrew Kirkpatrick; Alastair Campbell; Rachael Bradley Montgomery; Charles Adams.  W3C. 12 December 2024. W3C Recommendation. URL: <a href="https://www.w3.org/TR/WCAG22/">https://www.w3.org/TR/WCAG22/</a>
+    </dd><dt id="bib-wcag2ict-22">[WCAG2ICT-22]</dt><dd>
+      <a href="https://www.w3.org/TR/wcag2ict-22/"><cite>Guidance on Applying WCAG 2 to Non-Web Information and Communications Technologies (WCAG2ICT)</cite></a>. Mary Jo Mueller; Phil Day; Daniel Montalvo.  W3C. 11 December 2025. W3C Working Group Note. URL: <a href="https://www.w3.org/TR/wcag2ict-22/">https://www.w3.org/TR/wcag2ict-22/</a>
     </dd><dt id="bib-webdriver">[webdriver]</dt><dd>
       <a href="https://www.w3.org/TR/webdriver2/"><cite>WebDriver</cite></a>. Simon Stewart; David Burns.  W3C. 2 July 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/webdriver2/">https://www.w3.org/TR/webdriver2/</a>
     </dd><dt id="bib-webdriver-bidi">[webdriver-bidi]</dt><dd>
