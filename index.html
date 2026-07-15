@@ -176,7 +176,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="659ddca1757429cb419bbcc5203879255120c40d">
+<meta name="revision" content="1815f2339186a9cf920beb6b14c1f86da17a4903">
 <meta name="description" content="This document specifies an API enabling user agents to mediate the
         presentation and issuance of digital credentials, such as a
         driver's license, government-issued identification card, or
@@ -325,7 +325,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "659ddca1757429cb419bbcc5203879255120c40d",
+  "gitRevision": "1815f2339186a9cf920beb6b14c1f86da17a4903",
   "publishISODate": "2026-07-15T00:00:00.000Z",
   "generatedSubtitle": "W3C Editor's Draft 15 July 2026"
 }</script>
@@ -3152,16 +3152,16 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         scope of this specification; however, the accessibility of that
         experience is within scope (see <a href="#scope" data-matched-text="[[[#scope]]]" class="sec-ref"><bdi class="secno">3. </bdi>
       Scope</a>). The following guidance
-        applies to <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-50">user agents</a> and platforms implementing the <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-12">digital credential chooser</a> and the flows around it, and references the relevant
-        success criteria of [<cite><a class="bibref" data-link-type="biblio" href="#bib-wcag22" title="Web Content Accessibility Guidelines (WCAG) 2.2">WCAG22</a></cite>]. Where the chooser is a non-web user
-        interface, those criteria apply as described in [<cite><a class="bibref" data-link-type="biblio" href="#bib-wcag2ict-22" title="Guidance on Applying WCAG 2 to Non-Web Information and Communications Technologies (WCAG2ICT)">WCAG2ICT-22</a></cite>].
+        applies to <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-50">user agents</a> and platforms implementing the <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-12">digital credential chooser</a> and the flows around it, and references the
+        relevant success criteria of [<cite><a class="bibref" data-link-type="biblio" href="#bib-wcag22" title="Web Content Accessibility Guidelines (WCAG) 2.2">WCAG22</a></cite>]. Where the chooser is a non-web
+        user interface, those criteria apply as described in [<cite><a class="bibref" data-link-type="biblio" href="#bib-wcag2ict-22" title="Guidance on Applying WCAG 2 to Non-Web Information and Communications Technologies (WCAG2ICT)">WCAG2ICT-22</a></cite>].
       </p>
       <p>
-        The content of modal dialogs presented during <a data-link-type="dfn|abstract-op" data-lt="issuance request" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-20">issuance</a> or <a data-link-type="dfn|abstract-op" data-lt="presentation requests" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-21">presentation</a>, which can include text,
-        QR codes, and other visual media, <em class="rfc2119">SHOULD</em> be labelled and exposed to
-        assistive technologies with appropriate names, roles, and values (see
-        <a data-matched-text="[[[WCAG22#name-role-value]]]" href="https://www.w3.org/TR/WCAG22/#name-role-value">Success Criterion 4.1.2 Name, Role, Value</a>), and <em class="rfc2119">SHOULD</em> provide text alternatives for
-        non-text content (see <a data-matched-text="[[[WCAG22#non-text-content]]]" href="https://www.w3.org/TR/WCAG22/#non-text-content">Success Criterion 1.1.1 Non-text Content</a>).
+        The content of modal dialogs presented during <a data-link-type="dfn|abstract-op" data-lt="issuance request" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-20">issuance</a> or <a data-link-type="dfn|abstract-op" data-lt="presentation requests" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-21">presentation</a>, which can include
+        text, QR codes, and other visual media, <em class="rfc2119">SHOULD</em> be labelled and exposed
+        to assistive technologies with appropriate names, roles, and values
+        (see <a data-matched-text="[[[WCAG22#name-role-value]]]" href="https://www.w3.org/TR/WCAG22/#name-role-value">Success Criterion 4.1.2 Name, Role, Value</a>), and <em class="rfc2119">SHOULD</em> provide text
+        alternatives for non-text content (see <a data-matched-text="[[[WCAG22#non-text-content]]]" href="https://www.w3.org/TR/WCAG22/#non-text-content">Success Criterion 1.1.1 Non-text Content</a>).
       </p>
       <p>
         Changes in the state of an interaction, such as waiting for another
@@ -3173,21 +3173,22 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         When an operation fails, the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-51">user agent</a> rejects with one of several
         distinct errors; for example, a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-8"><code>NotAllowedError</code></a>",
         "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#invalidstateerror" id="ref-for-index-term-invalidstateerror-exception-2"><code>InvalidStateError</code></a>", or "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#operationerror" id="ref-for-index-term-operationerror-exception-2"><code>OperationError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-14"><code>DOMException</code></a>, or a
-        <a data-link-type="exception" data-lt="TypeError" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-index-term-typeerror-exception-4"><code>TypeError</code></a>. Where the platform surfaces such a failure to the user, it
-        <em class="rfc2119">SHOULD</em> identify in text what went wrong and, where applicable, how to
-        recover, rather than only signalling that an error occurred (see
+        <a data-link-type="exception" data-lt="TypeError" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-index-term-typeerror-exception-4"><code>TypeError</code></a>. Where the platform surfaces such a failure to the user,
+        it <em class="rfc2119">SHOULD</em> identify in text what went wrong and, where applicable, how
+        to recover, rather than only signalling that an error occurred (see
         <a data-matched-text="[[[WCAG22#error-identification]]]" href="https://www.w3.org/TR/WCAG22/#error-identification">Success Criterion 3.3.1 Error Identification</a>).
       </p>
       <p>
-        Interactive elements, particularly those that allow the user to continue
-        or abort an <a data-link-type="dfn|abstract-op" data-lt="issuance request" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-21">issuance</a> or <a data-link-type="dfn|abstract-op" data-lt="presentation requests" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-22">presentation</a> request, <em class="rfc2119">MUST</em> be operable
-        in a device-independent manner (for example, via the keyboard; see
-        <a data-matched-text="[[[WCAG22#keyboard]]]" href="https://www.w3.org/TR/WCAG22/#keyboard">Success Criterion 2.1.1 Keyboard</a>). In particular, activation <em class="rfc2119">MUST NOT</em> require a
-        multipoint or path-based gesture (see <a data-matched-text="[[[WCAG22#pointer-gestures]]]" href="https://www.w3.org/TR/WCAG22/#pointer-gestures">Success Criterion 2.5.1 Pointer Gestures</a>) or
-        device motion (see <a data-matched-text="[[[WCAG22#motion-actuation]]]" href="https://www.w3.org/TR/WCAG22/#motion-actuation">Success Criterion 2.5.4 Motion Actuation</a>) as the only means of
-        operation. The <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-13">digital credential chooser</a> <em class="rfc2119">SHOULD</em> present its controls
-        in a meaningful focus order (see <a data-matched-text="[[[WCAG22#focus-order]]]" href="https://www.w3.org/TR/WCAG22/#focus-order">Success Criterion 2.4.3 Focus Order</a>), move focus
-        into the chooser when it is opened; keep focus within it while it is shown;
+        Interactive elements, particularly those that allow the user to
+        continue or abort an <a data-link-type="dfn|abstract-op" data-lt="issuance request" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-21">issuance</a>
+        or <a data-link-type="dfn|abstract-op" data-lt="presentation requests" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-22">presentation</a> request,
+        <em class="rfc2119">MUST</em> be operable in a device-independent manner (for example, via the
+        keyboard; see <a data-matched-text="[[[WCAG22#keyboard]]]" href="https://www.w3.org/TR/WCAG22/#keyboard">Success Criterion 2.1.1 Keyboard</a>). In particular, activation <em class="rfc2119">MUST NOT</em> require a multipoint or path-based gesture (see
+        <a data-matched-text="[[[WCAG22#pointer-gestures]]]" href="https://www.w3.org/TR/WCAG22/#pointer-gestures">Success Criterion 2.5.1 Pointer Gestures</a>) or device motion (see
+        <a data-matched-text="[[[WCAG22#motion-actuation]]]" href="https://www.w3.org/TR/WCAG22/#motion-actuation">Success Criterion 2.5.4 Motion Actuation</a>) as the only means of operation. The
+        <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-13">digital credential chooser</a> <em class="rfc2119">SHOULD</em> present its controls in a
+        meaningful focus order (see <a data-matched-text="[[[WCAG22#focus-order]]]" href="https://www.w3.org/TR/WCAG22/#focus-order">Success Criterion 2.4.3 Focus Order</a>), move focus into
+        the chooser when it is opened; keep focus within it while it is shown;
         and restore focus to the previously focused element, or another
         appropriate location, when it is closed.
       </p>
@@ -3195,46 +3196,45 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         Where releasing a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-32">digital credential</a> requires the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders" id="ref-for-index-term-holders-27">holder</a> to
         authenticate, an accessible authentication method <em class="rfc2119">SHOULD</em> be available.
         Where a step relies on a cognitive function test, such as recalling a
-        password, an alternative that does not require one <em class="rfc2119">SHOULD</em> be offered (see
-        <a data-matched-text="[[[WCAG22#accessible-authentication-minimum]]]" href="https://www.w3.org/TR/WCAG22/#accessible-authentication-minimum">Success Criterion 3.3.8 Accessible Authentication (Minimum)</a>); and authentication <em class="rfc2119">SHOULD NOT</em> depend solely on a single physical characteristic, such as a
-        biometric, that some users cannot provide. This step is typically
-        performed by the platform or <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-28">credential manager</a> and is otherwise
-        outside the scope of this specification.
+        password, an alternative that does not require one <em class="rfc2119">SHOULD</em> be offered
+        (see <a data-matched-text="[[[WCAG22#accessible-authentication-minimum]]]" href="https://www.w3.org/TR/WCAG22/#accessible-authentication-minimum">Success Criterion 3.3.8 Accessible Authentication (Minimum)</a>); and
+        authentication <em class="rfc2119">SHOULD NOT</em> depend solely on a single physical
+        characteristic, such as a biometric, that some users cannot provide.
+        This step is typically performed by the platform or <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-28">credential manager</a> and is otherwise outside the scope of this specification.
       </p>
       <p>
-        Some platforms fulfil <a data-link-type="dfn|abstract-op" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-23">presentation requests</a> across
-        devices; for example, by displaying a QR code for the user to scan with a
-        separate device. Because such flows can depend on vision, a camera, or
-        the use of a second device, platforms <em class="rfc2119">SHOULD</em> provide an equivalent and
-        accessible means of completing the interaction that does not rely on a
-        single sensory ability or input modality. A cross-device request conveyed
-        only through a visual artifact such as a QR code, with no accessible
-        alternative, excludes users who cannot use that modality.
+        Some platforms fulfil <a data-link-type="dfn|abstract-op" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-23">presentation requests</a>
+        across devices; for example, by displaying a QR code for the user to
+        scan with a separate device. Because such flows can depend on vision, a
+        camera, or the use of a second device, platforms <em class="rfc2119">SHOULD</em> provide an
+        equivalent and accessible means of completing the interaction that does
+        not rely on a single sensory ability or input modality. A cross-device
+        request conveyed only through a visual artifact such as a QR code, with
+        no accessible alternative, excludes users who cannot use that modality.
       </p>
       <p>
         An interaction may be subject to time limits from more than one source.
-        These <em class="rfc2119">SHOULD</em> be handled so that users who need more time are not excluded
-        (see <a data-matched-text="[[[WCAG22#timing-adjustable]]]" href="https://www.w3.org/TR/WCAG22/#timing-adjustable">Success Criterion 2.2.1 Timing Adjustable</a>):
+        These <em class="rfc2119">SHOULD</em> be handled so that users who need more time are not
+        excluded (see <a data-matched-text="[[[WCAG22#timing-adjustable]]]" href="https://www.w3.org/TR/WCAG22/#timing-adjustable">Success Criterion 2.2.1 Timing Adjustable</a>):
       </p>
       <ul>
         <li>A site can bound the interaction by passing an <a data-link-type="interface" data-lt="AbortSignal" href="https://dom.spec.whatwg.org/#abortsignal" id="ref-for-index-term-abortsignal-interface-4"><code>AbortSignal</code></a> as
         <a data-link-type="dict-member" href="https://www.w3.org/TR/credential-management-1/#dom-credentialrequestoptions-signal" id="ref-for-index-term-signal-for-credentialrequestoptions-2"><code>signal</code></a>; for example, one created with
-        <code>AbortSignal.timeout()</code>. Sites <em class="rfc2119">SHOULD</em> allow sufficient time and <em class="rfc2119">SHOULD NOT</em>
-        impose a short limit that rushes the user.
+        <code>AbortSignal.timeout()</code>. Sites <em class="rfc2119">SHOULD</em> allow sufficient time and <em class="rfc2119">SHOULD NOT</em> impose a short limit that rushes the user.
         </li>
-        <li>A proximity check is a security-essential, real-time constraint that
-        cannot be extended without defeating its purpose. In this case, the
-        platform <em class="rfc2119">SHOULD</em> make the remaining time programmatically determinable, and
-        <em class="rfc2119">SHOULD</em> allow the user to retry the interaction.
+        <li>A proximity check is a security-essential, real-time constraint
+        that cannot be extended without defeating its purpose. In this case,
+        the platform <em class="rfc2119">SHOULD</em> make the remaining time programmatically
+        determinable, and <em class="rfc2119">SHOULD</em> allow the user to retry the interaction.
         </li>
-        <li>The validity window of a cross-device request <em class="rfc2119">SHOULD</em> be extendable or
-        able to be retried.
+        <li>The validity window of a cross-device request <em class="rfc2119">SHOULD</em> be extendable
+        or able to be retried.
         </li>
       </ul>
       <p>
         The decision to review and disclose a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-33">digital credential</a> <em class="rfc2119">SHOULD NOT</em>
-        be subject to a forcing countdown, including time pressure inherited from
-        the surrounding site flow.
+        be subject to a forcing countdown, including time pressure inherited
+        from the surrounding site flow.
       </p>
       <p>
         Human-readable credential content shown during an interaction, together
@@ -3261,45 +3261,42 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         human-readable, natural language content:
       </p>
       <ul>
-        <li>The string-typed values it defines, most notably <a data-link-type="dfn|abstract-op" data-lt="protocol identifier" href="#dfn-protocol-identifier" class="internalDFN" id="ref-for-dfn-protocol-identifier-8">protocol identifiers</a>, are restricted to
-        ASCII (<a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ascii-lower-alpha" id="ref-for-index-term-ascii-lower-alpha-2">ASCII lower alpha</a>, U+002D HYPHEN-MINUS, and <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ascii-digit" id="ref-for-index-term-ascii-digit-2">ASCII digit</a>)
-        and compared by exact equality. They are machine identifiers, not
-        human-readable text, so normalization, case folding, and language or
-        direction metadata do not apply.
+        <li>The string-typed values it defines, most notably <a data-link-type="dfn|abstract-op" data-lt="protocol identifier" href="#dfn-protocol-identifier" class="internalDFN" id="ref-for-dfn-protocol-identifier-8">protocol identifiers</a>, are restricted
+        to ASCII (<a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ascii-lower-alpha" id="ref-for-index-term-ascii-lower-alpha-2">ASCII lower alpha</a>, U+002D HYPHEN-MINUS, and <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ascii-digit" id="ref-for-index-term-ascii-digit-2">ASCII digit</a>) and compared by exact equality. They are machine identifiers,
+        not human-readable text, so normalization, case folding, and language
+        or direction metadata do not apply.
         </li>
-        <li>All payloads are exchanged as JSON text and JavaScript values. When a
-        JSON string is encoded as bytes (for example, for transport), it is
-        encoded using UTF-8. Request payloads are serialized using
-        <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#serialize-a-javascript-value-to-a-json-string" id="ref-for-index-term-serialize-a-javascript-value-to-a-json-string-2">serialize a JavaScript value to a JSON string</a>, which calls the
-        ECMAScript <code>JSON.stringify</code> operation, and responses are parsed using
-        <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#parse-a-json-string-to-a-javascript-value" id="ref-for-index-term-parse-a-json-string-to-a-javascript-value-2">parse a JSON string to a JavaScript value</a>. Because <code>JSON.stringify</code>
-        emits lone (unpaired) surrogate code points as <code>\uXXXX</code> escape
-        sequences, the serialized request is always well-formed, UTF-8-encodable
-        JSON.
+        <li>All payloads are exchanged as JSON text and JavaScript values. When
+        a JSON string is encoded as bytes (for example, for transport), it is
+        encoded using UTF-8. Request payloads are serialized using <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#serialize-a-javascript-value-to-a-json-string" id="ref-for-index-term-serialize-a-javascript-value-to-a-json-string-2">serialize a JavaScript value to a JSON string</a>, which calls the ECMAScript
+        <code>JSON.stringify</code> operation, and responses are parsed using <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#parse-a-json-string-to-a-javascript-value" id="ref-for-index-term-parse-a-json-string-to-a-javascript-value-2">parse a JSON string to a JavaScript value</a>. Because <code>JSON.stringify</code> emits
+        lone (unpaired) surrogate code points as <code>\uXXXX</code> escape sequences, the
+        serialized request is always well-formed, UTF-8-encodable JSON.
         </li>
         <li>Human-readable, localizable credential content (for example, the
         values of credential claims such as a name or address, including their
         representation in different scripts and languages) is carried opaquely
-        within the credential payload. Its internationalization is determined by
-        the relevant credential format and <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-23">presentation protocol</a> or <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-19">issuance protocol</a> (for example, the
-        formats defined in <cite><a data-matched-text="[[[ISO18013-5]]]" href="https://www.iso.org/standard/69084.html">ISO/IEC 18013-5:2021 ISO-compliant driving licence, Part 5: Mobile driving licence (mDL) application</a></cite>, and protocols such as <cite><a data-matched-text="[[[OPENID4VP]]]" href="https://openid.net/specs/openid-4-verifiable-presentations-1_0.html">OpenID for Verifiable Presentations 1.0</a></cite>),
-        which this specification expects to provide language and direction
-        metadata, and localized alternatives, where appropriate.
+        within the credential payload. Its internationalization is determined
+        by the relevant credential format and <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-23">presentation protocol</a> or <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-19">issuance protocol</a> (for example,
+        the formats defined in <cite><a data-matched-text="[[[ISO18013-5]]]" href="https://www.iso.org/standard/69084.html">ISO/IEC 18013-5:2021 ISO-compliant driving licence, Part 5: Mobile driving licence (mDL) application</a></cite>, and protocols such as
+        <cite><a data-matched-text="[[[OPENID4VP]]]" href="https://openid.net/specs/openid-4-verifiable-presentations-1_0.html">OpenID for Verifiable Presentations 1.0</a></cite>), which this specification expects to provide language
+        and direction metadata, and localized alternatives, where appropriate.
         </li>
         <li>The one value the API routes to the platform that a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-52">user agent</a>
         may display is the requesting <a data-link-type="dfn|abstract-op" href="#dfn-top-level-origin" class="internalDFN" id="ref-for-dfn-top-level-origin-2">top-level origin</a>.
         Rendering an origin's host to the user, including the handling of
         internationalized domain names and bidirectional text, follows the
-        <a data-matched-text="[[[URL#url-rendering-i18n|host-rendering guidance in the URL Standard]]]" href="https://url.spec.whatwg.org/#url-rendering-i18n">host-rendering guidance in the URL Standard</a>
-        and is out of scope for this specification.
+        <a data-matched-text="[[[URL#url-rendering-i18n|host-rendering guidance in the URL
+        Standard]]]" href="https://url.spec.whatwg.org/#url-rendering-i18n">host-rendering guidance in the URL
+        Standard</a> and is out of scope for this specification.
         </li>
-        <li>Any other text presented to the user during a credential interaction
-        is rendered either by the website (using HTML, which provides language
-        and direction support through the host language), or by the platform's
-        <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-14">digital credential chooser</a>. The chooser is out of scope for this
-        specification; where it displays credential content, the language and
-        direction of that content, as provided by the credential format and
-        protocol, govern its presentation.
+        <li>Any other text presented to the user during a credential
+        interaction is rendered either by the website (using HTML, which
+        provides language and direction support through the host language), or
+        by the platform's <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-14">digital credential chooser</a>. The chooser is out of
+        scope for this specification; where it displays credential content, the
+        language and direction of that content, as provided by the credential
+        format and protocol, govern its presentation.
         </li>
       </ul>
       <p>
