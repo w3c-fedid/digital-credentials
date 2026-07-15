@@ -1979,6 +1979,27 @@
         </li>
       </ul>
       <p>
+        The [=request context/document origin=] and [=request context/top-level
+        origin=] are determined by the [=user agent=]: the [=request
+        context/document origin=] is the [=origin=] passed to
+        {{DigitalCredential/[[DiscoverFromExternalSource]](origin, options,
+        sameOriginWithAncestors)}} and {{DigitalCredential/[[Create]](origin,
+        options, sameOriginWithAncestors)}} by the
+        [[[#credential-management-integration]]]; the [=request
+        context/top-level origin=] is that of the [=top-level traversable=]'s
+        [=navigable/active document=]. A [=user agent=] MUST use its own
+        determination of these [=origins=] and MUST NOT rely on an [=origin=]
+        supplied by the content whose request is being mediated, whether to
+        validate or form the request or to present the [=digital credential
+        chooser=].
+      </p>
+      <p>
+        This mitigates [=Unauthorized Cross-Origin Access=]: the party shown to
+        the user, and that would receive the [=digital credential=], reflects
+        the [=user agent=]'s own determination of who is asking, rather than a
+        value the requesting content can choose.
+      </p>
+      <p>
         For additional guidance on preventing abuse of credential requests,
         please refer to the section
         [[[credential-management#privacy-considerations]]] of the
