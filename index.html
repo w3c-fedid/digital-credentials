@@ -176,7 +176,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="2e7eb09ba8b0bc3859c46e84ac9572a4d734385c">
+<meta name="revision" content="e650a1006aa081f9dfae2f18c3763109ff4dd355">
 <meta name="description" content="This document specifies an API enabling user agents to mediate the
         presentation and issuance of digital credentials, such as a
         driver's license, government-issued identification card, or
@@ -325,7 +325,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "2e7eb09ba8b0bc3859c46e84ac9572a4d734385c",
+  "gitRevision": "e650a1006aa081f9dfae2f18c3763109ff4dd355",
   "publishISODate": "2026-07-15T00:00:00.000Z",
   "generatedSubtitle": "W3C Editor's Draft 15 July 2026"
 }</script>
@@ -2332,23 +2332,24 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         
         <p>
           The Digital Credentials API supports cross-device experiences where a
-          user presents a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-31">digital credential</a> from a secondary device, such as a
-          smartphone acting as a <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-14">credential manager</a>, to a primary device, such as a
-          laptop. Although the specific data exchange protocols (e.g.,
-          cryptographic formats and transports) are out of scope for this API,
-          such cross-device interactions typically rely on established protocols
-          like the Client to Authenticator Protocol (CTAP) (<cite><a data-matched-text="[[[FIDO-CLIENT-TO-AUTHENTICATOR-PROTOCOL-V2.3]]]" href="https://fidoalliance.org/specs/fido-v2.3-ps-20260226/fido-client-to-authenticator-protocol-v2.3-ps-20260226.html">Client to Authenticator Protocol (CTAP)</a></cite>).
+          user presents a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-31">digital credential</a> from a secondary device, such
+          as a smartphone acting as a <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-14">credential manager</a>, to a primary
+          device, such as a laptop. Although the specific data exchange
+          protocols (e.g., cryptographic formats and transports) are out of
+          scope for this API, such cross-device interactions typically rely on
+          established protocols like the Client to Authenticator Protocol
+          (CTAP) (<cite><a data-matched-text="[[[FIDO-CLIENT-TO-AUTHENTICATOR-PROTOCOL-V2.3]]]" href="https://fidoalliance.org/specs/fido-v2.3-ps-20260226/fido-client-to-authenticator-protocol-v2.3-ps-20260226.html">Client to Authenticator Protocol (CTAP)</a></cite>).
         </p>
         <p>
-          These protocols ensure security by establishing cryptographically secure
-          channels and enforcing physical proximity (e.g., via Bluetooth Low Energy)
-          to mitigate remote relay attacks. Crucially, in a cross-device flow, the
-          <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-15">credential manager</a> cannot inherently trust the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin" id="ref-for-index-term-origin-1">origin</a> string
-          forwarded by the primary device, as the primary device or its browser
-          might be compromised. Therefore, protocols that employ signed requests, where
-          the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-6">verifier</a> cryptographically proves its identity, provide
-          significantly stronger security assurances than relying solely on
-          the browser-asserted <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin" id="ref-for-index-term-origin-2">origin</a>.
+          These protocols ensure security by establishing cryptographically
+          secure channels and enforcing physical proximity (e.g., via Bluetooth
+          Low Energy) to mitigate remote relay attacks. Crucially, in a
+          cross-device flow, the <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-15">credential manager</a> cannot inherently trust
+          the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin" id="ref-for-index-term-origin-1">origin</a> string forwarded by the primary device, as the primary
+          device or its browser might be compromised. Therefore, protocols that
+          employ signed requests, where the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-6">verifier</a> cryptographically
+          proves its identity, provide significantly stronger security
+          assurances than relying solely on the browser-asserted <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin" id="ref-for-index-term-origin-2">origin</a>.
         </p>
       </section>
     </section>
