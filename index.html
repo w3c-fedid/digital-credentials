@@ -1963,23 +1963,24 @@
         </h3>
         <p>
           The Digital Credentials API supports cross-device experiences where a
-          user presents a [=digital credential=] from a secondary device, such as a
-          smartphone acting as a [=credential manager=], to a primary device, such as a
-          laptop. Although the specific data exchange protocols (e.g.,
-          cryptographic formats and transports) are out of scope for this API,
-          such cross-device interactions typically rely on established protocols
-          like the Client to Authenticator Protocol (CTAP) ([[[FIDO-CLIENT-TO-AUTHENTICATOR-PROTOCOL-V2.3]]]).
+          user presents a [=digital credential=] from a secondary device, such
+          as a smartphone acting as a [=credential manager=], to a primary
+          device, such as a laptop. Although the specific data exchange
+          protocols (e.g., cryptographic formats and transports) are out of
+          scope for this API, such cross-device interactions typically rely on
+          established protocols like the Client to Authenticator Protocol
+          (CTAP) ([[[FIDO-CLIENT-TO-AUTHENTICATOR-PROTOCOL-V2.3]]]).
         </p>
         <p>
-          These protocols ensure security by establishing cryptographically secure
-          channels and enforcing physical proximity (e.g., via Bluetooth Low Energy)
-          to mitigate remote relay attacks. Crucially, in a cross-device flow, the
-          [=credential manager=] cannot inherently trust the [=origin=] string
-          forwarded by the primary device, as the primary device or its browser
-          might be compromised. Therefore, protocols that employ signed requests, where
-          the [=verifier=] cryptographically proves its identity, provide
-          significantly stronger security assurances than relying solely on
-          the browser-asserted [=origin=].
+          These protocols ensure security by establishing cryptographically
+          secure channels and enforcing physical proximity (e.g., via Bluetooth
+          Low Energy) to mitigate remote relay attacks. Crucially, in a
+          cross-device flow, the [=credential manager=] cannot inherently trust
+          the [=origin=] string forwarded by the primary device, as the primary
+          device or its browser might be compromised. Therefore, protocols that
+          employ signed requests, where the [=verifier=] cryptographically
+          proves its identity, provide significantly stronger security
+          assurances than relying solely on the browser-asserted [=origin=].
         </p>
       </section>
     </section>
