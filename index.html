@@ -176,7 +176,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="20a5c77c7f73b68fe42f4924d51ceff61703fed6">
+<meta name="revision" content="ca9d2cd71f3e713777b5d385f07cd866c4d31164">
 <meta name="description" content="This document specifies an API enabling user agents to mediate the
         presentation and issuance of digital credentials, such as a
         driver's license, government-issued identification card, or
@@ -325,7 +325,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "20a5c77c7f73b68fe42f4924d51ceff61703fed6",
+  "gitRevision": "ca9d2cd71f3e713777b5d385f07cd866c4d31164",
   "publishISODate": "2026-07-15T00:00:00.000Z",
   "generatedSubtitle": "W3C Editor's Draft 15 July 2026"
 }</script>
@@ -618,17 +618,19 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           Permission vs. Consent
         </a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#accessibility-considerations"><bdi class="secno">12. </bdi>
         Accessibility Considerations
-      </a></li><li class="tocline"><a class="tocxref" href="#automated-testing"><bdi class="secno">13. </bdi>
+      </a></li><li class="tocline"><a class="tocxref" href="#internationalization-considerations"><bdi class="secno">13. </bdi>
+        Internationalization Considerations
+      </a></li><li class="tocline"><a class="tocxref" href="#automated-testing"><bdi class="secno">14. </bdi>
         Automated Testing
-      </a><ol class="toc"><li class="tocline"><a class="tocxref" href="#the-digitalcredentials-module"><bdi class="secno">13.1 </bdi>
+      </a><ol class="toc"><li class="tocline"><a class="tocxref" href="#the-digitalcredentials-module"><bdi class="secno">14.1 </bdi>
         The <code>digitalCredentials</code> Module
-      </a><ol class="toc"><li class="tocline"><a class="tocxref" href="#types"><bdi class="secno">13.1.1 </bdi>
+      </a><ol class="toc"><li class="tocline"><a class="tocxref" href="#types"><bdi class="secno">14.1.1 </bdi>
         Types
-      </a></li><li class="tocline"><a class="tocxref" href="#commands"><bdi class="secno">13.1.2 </bdi>
+      </a></li><li class="tocline"><a class="tocxref" href="#commands"><bdi class="secno">14.1.2 </bdi>
         Commands
-      </a><ol class="toc"><li class="tocline"><a class="tocxref" href="#the-digitalcredentials-setvirtualwalletbehavior-command"><bdi class="secno">13.1.2.1 </bdi>
+      </a><ol class="toc"><li class="tocline"><a class="tocxref" href="#the-digitalcredentials-setvirtualwalletbehavior-command"><bdi class="secno">14.1.2.1 </bdi>
         The <code>digitalCredentials.setVirtualWalletBehavior</code> Command
-      </a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#handle-virtual-wallet-behavior"><bdi class="secno">13.2 </bdi>
+      </a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#handle-virtual-wallet-behavior"><bdi class="secno">14.2 </bdi>
         Handle Virtual Wallet Behavior
       </a></li></ol></li><li class="tocline"><a class="tocxref" href="#index"><bdi class="secno">A. </bdi>Index</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#index-defined-here"><bdi class="secno">A.1 </bdi>Terms defined by this specification</a></li><li class="tocline"><a class="tocxref" href="#index-defined-elsewhere"><bdi class="secno">A.2 </bdi>Terms defined by reference</a></li></ol></li><li class="tocline"><a class="tocxref" href="#idl-index"><bdi class="secno">B. </bdi>IDL Index</a></li><li class="tocline"><a class="tocxref" href="#cddl-index"><bdi class="secno">C. </bdi>CDDL Index</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#cddl-index-module-remote-cddl"><bdi class="secno">C.1 </bdi>Module: remote-cddl</a></li><li class="tocline"><a class="tocxref" href="#cddl-index-module-local-cddl"><bdi class="secno">C.2 </bdi>Module: local-cddl</a></li></ol></li><li class="tocline"><a class="tocxref" href="#conformance"><bdi class="secno">D. </bdi>Conformance</a></li><li class="tocline"><a class="tocxref" href="#acknowledgements"><bdi class="secno">E. </bdi>
       Acknowledgements
@@ -3159,26 +3161,92 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         <em class="rfc2119">MUST</em> be operable in a device-independent manner.
       </p>
     </section>
-    <section data-cite="webdriver webdriver-bidi" id="automated-testing"><div class="header-wrapper"><h2 id="x13-automated-testing"><bdi class="secno">13. </bdi>
+    <section class="informative" id="internationalization-considerations"><div class="header-wrapper"><h2 id="x13-internationalization-considerations"><bdi class="secno">13. </bdi>
+        Internationalization Considerations
+      </h2><a class="self-link" href="#internationalization-considerations" aria-label="Permalink for Section 13."></a></div><p><em>This section is non-normative.</em></p>
+      
+      
+      <p>
+        This API is agnostic to credential formats and exchange protocols, and
+        treats the request payloads (<a data-link-type="idl" data-lt="DigitalCredentialGetRequest" href="#dom-digitalcredentialgetrequest" class="internalDFN" id="ref-for-dom-digitalcredentialgetrequest-9"><code>DigitalCredentialGetRequest</code></a>'s
+        <a data-link-type="idl" href="#dom-digitalcredentialgetrequest-data" class="internalDFN" id="ref-for-dom-digitalcredentialgetrequest-data-3"><code>data</code></a> and
+        <a data-link-type="idl" data-lt="DigitalCredentialCreateRequest" href="#dom-digitalcredentialcreaterequest" class="internalDFN" id="ref-for-dom-digitalcredentialcreaterequest-9"><code>DigitalCredentialCreateRequest</code></a>'s
+        <a data-link-type="idl" href="#dom-digitalcredentialcreaterequest-data" class="internalDFN" id="ref-for-dom-digitalcredentialcreaterequest-data-3"><code>data</code></a>) and the response payload
+        (<a data-link-type="idl" data-lt="DigitalCredential" href="#dom-digitalcredential" class="internalDFN" id="ref-for-dom-digitalcredential-13"><code>DigitalCredential</code></a>'s <a data-link-type="idl" href="#dom-digitalcredential-data" class="internalDFN" id="ref-for-dom-digitalcredential-data-4"><code>data</code></a>) as opaque. As a
+        result, the API defines no string-typed values that carry
+        human-readable, natural language content:
+      </p>
+      <ul>
+        <li>The string-typed values it defines, most notably <a data-link-type="dfn|abstract-op" data-lt="protocol identifier" href="#dfn-protocol-identifier" class="internalDFN" id="ref-for-dfn-protocol-identifier-8">protocol identifiers</a>, are restricted to
+        ASCII (<a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ascii-lower-alpha" id="ref-for-index-term-ascii-lower-alpha-2">ASCII lower alpha</a>, U+002D HYPHEN-MINUS, and <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ascii-digit" id="ref-for-index-term-ascii-digit-2">ASCII digit</a>)
+        and compared by exact equality. They are machine identifiers, not
+        human-readable text, so normalization, case folding, and language or
+        direction metadata do not apply.
+        </li>
+        <li>All payloads are exchanged as JSON text and JavaScript values. When a
+        JSON string is encoded as bytes (for example, for transport), it is
+        encoded using UTF-8. Request payloads are serialized using
+        <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#serialize-a-javascript-value-to-a-json-string" id="ref-for-index-term-serialize-a-javascript-value-to-a-json-string-2">serialize a JavaScript value to a JSON string</a>, which calls the
+        ECMAScript <code>JSON.stringify</code> operation, and responses are parsed using
+        <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#parse-a-json-string-to-a-javascript-value" id="ref-for-index-term-parse-a-json-string-to-a-javascript-value-2">parse a JSON string to a JavaScript value</a>. Because <code>JSON.stringify</code>
+        emits lone (unpaired) surrogate code points as <code>\uXXXX</code> escape
+        sequences, the serialized request is always well-formed, UTF-8-encodable
+        JSON.
+        </li>
+        <li>Human-readable, localizable credential content (for example, the
+        values of credential claims such as a name or address, including their
+        representation in different scripts and languages) is carried opaquely
+        within the credential payload. Its internationalization is determined by
+        the relevant credential format and <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-23">presentation protocol</a> or <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-19">issuance protocol</a> (for example, the
+        formats defined in <cite><a data-matched-text="[[[ISO18013-5]]]" href="https://www.iso.org/standard/69084.html">ISO/IEC 18013-5:2021 ISO-compliant driving licence, Part 5: Mobile driving licence (mDL) application</a></cite>, and protocols such as <cite><a data-matched-text="[[[OPENID4VP]]]" href="https://openid.net/specs/openid-4-verifiable-presentations-1_0.html">OpenID for Verifiable Presentations 1.0</a></cite>),
+        which this specification expects to provide language and direction
+        metadata, and localized alternatives, where appropriate.
+        </li>
+        <li>The one value the API routes to the platform that a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-50">user agent</a>
+        may display is the requesting <a data-link-type="dfn|abstract-op" href="#dfn-top-level-origin" class="internalDFN" id="ref-for-dfn-top-level-origin-2">top-level origin</a>.
+        Rendering an origin's host to the user, including the handling of
+        internationalized domain names and bidirectional text, follows the
+        <a data-matched-text="[[[URL#url-rendering-i18n|host-rendering guidance in the URL Standard]]]" href="https://url.spec.whatwg.org/#url-rendering-i18n">host-rendering guidance in the URL Standard</a>
+        and is out of scope for this specification.
+        </li>
+        <li>Any other text presented to the user during a credential interaction
+        is rendered either by the website (using HTML, which provides language
+        and direction support through the host language), or by the platform's
+        <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-12">digital credential chooser</a>. The chooser is out of scope for this
+        specification; where it displays credential content, the language and
+        direction of that content, as provided by the credential format and
+        protocol, govern its presentation.
+        </li>
+      </ul>
+      <p>
+        Consequently, this specification introduces no natural language text
+        that requires language or direction metadata. Were a future revision to
+        introduce site-authored human-readable text at the API layer,
+        normatively defined permission prompt text, or a user-agent-drawn
+        presentation element, that text would need to carry, or be associated
+        with, appropriate language and direction metadata.
+      </p>
+    </section>
+    <section data-cite="webdriver webdriver-bidi" id="automated-testing"><div class="header-wrapper"><h2 id="x14-automated-testing"><bdi class="secno">14. </bdi>
         Automated Testing
-      </h2><a class="self-link" href="#automated-testing" aria-label="Permalink for Section 13."></a></div>
+      </h2><a class="self-link" href="#automated-testing" aria-label="Permalink for Section 14."></a></div>
       
       <p>
         For purposes of user-agent automation and application testing, this
         document defines extension modules for the <cite><a data-matched-text="[[[webdriver-bidi]]]" href="https://www.w3.org/TR/webdriver-bidi/">WebDriver BiDi</a></cite>
-        specification. It is <em class="rfc2119">OPTIONAL</em> for a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-50">user agent</a> to support them.
+        specification. It is <em class="rfc2119">OPTIONAL</em> for a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-51">user agent</a> to support them.
       </p>
-      <section id="the-digitalcredentials-module"><div class="header-wrapper"><h3 id="x13-1-the-digitalcredentials-module"><bdi class="secno">13.1 </bdi>
+      <section id="the-digitalcredentials-module"><div class="header-wrapper"><h3 id="x14-1-the-digitalcredentials-module"><bdi class="secno">14.1 </bdi>
         The <code>digitalCredentials</code> Module
-      </h3><a class="self-link" href="#the-digitalcredentials-module" aria-label="Permalink for Section 13.1"></a></div>
+      </h3><a class="self-link" href="#the-digitalcredentials-module" aria-label="Permalink for Section 14.1"></a></div>
       <p>
         The <code>digitalCredentials</code> module contains commands for managing and
         simulating the remote end behavior of <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-28">credential managers</a> during
         <a data-link-type="method" data-lt="[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)" href="#dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors" class="internalDFN" id="ref-for-dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors-4"><code>[[DiscoverFromExternalSource]](<var>origin</var>, <var>options</var>, <var>sameOriginWithAncestors</var>)</code></a>, and <a data-link-type="method" data-lt="[[Create]](origin, options, sameOriginWithAncestors)" href="https://www.w3.org/TR/credential-management-1/#dom-credential-create-slot" id="ref-for-index-term-create-origin-options-sameoriginwithancestors-for-credential-3"><code>[[Create]](<var>origin</var>, <var>options</var>, <var>sameOriginWithAncestors</var>)</code></a> calls.
       </p>
-      <section id="types"><div class="header-wrapper"><h4 id="x13-1-1-types"><bdi class="secno">13.1.1 </bdi>
+      <section id="types"><div class="header-wrapper"><h4 id="x14-1-1-types"><bdi class="secno">14.1.1 </bdi>
         Types
-      </h4><a class="self-link" href="#types" aria-label="Permalink for Section 13.1.1"></a></div>
+      </h4><a class="self-link" href="#types" aria-label="Permalink for Section 14.1.1"></a></div>
       <pre class="cddl def highlight" data-cddl-module="remote-cddl" id="cddl-block-1238149299"><span class="cddlHeader"><a class="self-link" href="#cddl-block-1238149299">CDDL</a></span><code><dfn data-dfn-type="cddl-type" id="cddl-type-digitalcredentials-virtualwalletaction" data-export="" tabindex="0" aria-haspopup="dialog">digitalCredentials.VirtualWalletAction</dfn> <span class="cddl-op">=</span> <dfn data-dfn-type="cddl-value" data-dfn-for="digitalCredentials.VirtualWalletAction" id="cddl-value-digitalcredentials-virtualwalletaction-decline" data-export="" tabindex="0" aria-haspopup="dialog">"decline"</dfn> <span class="cddl-op">/</span> <dfn data-dfn-type="cddl-value" data-dfn-for="digitalCredentials.VirtualWalletAction" id="cddl-value-digitalcredentials-virtualwalletaction-respond" data-export="" tabindex="0" aria-haspopup="dialog">"respond"</dfn> <span class="cddl-op">/</span> <dfn data-dfn-type="cddl-value" data-dfn-for="digitalCredentials.VirtualWalletAction" id="cddl-value-digitalcredentials-virtualwalletaction-wait" data-export="" tabindex="0" aria-haspopup="dialog">"wait"</dfn> <span class="cddl-op">/</span> <dfn data-dfn-type="cddl-value" data-dfn-for="digitalCredentials.VirtualWalletAction" id="cddl-value-digitalcredentials-virtualwalletaction-clear" data-export="" tabindex="0" aria-haspopup="dialog">"clear"</dfn>
 
 <dfn data-dfn-type="cddl-type" id="cddl-type-digitalcredentials-setvirtualwalletbehaviorparameters" data-export="" tabindex="0" aria-haspopup="dialog">digitalCredentials.SetVirtualWalletBehaviorParameters</dfn> <span class="cddl-op">=</span> {
@@ -3221,12 +3289,12 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           Clears the active virtual wallet behavior.
         </dd>
       </dl>
-      </section><section id="commands"><div class="header-wrapper"><h4 id="x13-1-2-commands"><bdi class="secno">13.1.2 </bdi>
+      </section><section id="commands"><div class="header-wrapper"><h4 id="x14-1-2-commands"><bdi class="secno">14.1.2 </bdi>
         Commands
-      </h4><a class="self-link" href="#commands" aria-label="Permalink for Section 13.1.2"></a></div>
-      <section id="the-digitalcredentials-setvirtualwalletbehavior-command"><div class="header-wrapper"><h5 id="x13-1-2-1-the-digitalcredentials-setvirtualwalletbehavior-command"><bdi class="secno">13.1.2.1 </bdi>
+      </h4><a class="self-link" href="#commands" aria-label="Permalink for Section 14.1.2"></a></div>
+      <section id="the-digitalcredentials-setvirtualwalletbehavior-command"><div class="header-wrapper"><h5 id="x14-1-2-1-the-digitalcredentials-setvirtualwalletbehavior-command"><bdi class="secno">14.1.2.1 </bdi>
         The <code>digitalCredentials.setVirtualWalletBehavior</code> Command
-      </h5><a class="self-link" href="#the-digitalcredentials-setvirtualwalletbehavior-command" aria-label="Permalink for Section 13.1.2.1"></a></div>
+      </h5><a class="self-link" href="#the-digitalcredentials-setvirtualwalletbehavior-command" aria-label="Permalink for Section 14.1.2.1"></a></div>
       <dl>
         <dt>
           Command Type
@@ -3309,15 +3377,15 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         <li>Return <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver2/#dfn-success" id="ref-for-index-term-success-1">success</a> with data <code>null</code>.
         </li>
       </ol>
-      </section></section></section><section id="handle-virtual-wallet-behavior"><div class="header-wrapper"><h3 id="x13-2-handle-virtual-wallet-behavior"><bdi class="secno">13.2 </bdi>
+      </section></section></section><section id="handle-virtual-wallet-behavior"><div class="header-wrapper"><h3 id="x14-2-handle-virtual-wallet-behavior"><bdi class="secno">14.2 </bdi>
         Handle Virtual Wallet Behavior
-      </h3><a class="self-link" href="#handle-virtual-wallet-behavior" aria-label="Permalink for Section 13.2"></a></div>
+      </h3><a class="self-link" href="#handle-virtual-wallet-behavior" aria-label="Permalink for Section 14.2"></a></div>
       <p>
         To <dfn id="dfn-handle-virtual-wallet-behavior" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">handle virtual wallet behavior</dfn> given a <a data-link-type="interface" data-lt="Promise" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-index-term-promise-interface-5"><code>Promise</code></a>
         <var>promise</var> and a global object <var>global</var>, run these steps:
       </p>
       <ol class="algorithm">
-        <li>If the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-51">user agent</a> is not under automation, return <code>false</code>.
+        <li>If the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-52">user agent</a> is not under automation, return <code>false</code>.
         </li>
         <li>Let <var>context ID</var> be the ID of <var>global</var>'s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#browsing-context" id="ref-for-index-term-browsing-context-1">browsing context</a>.
         </li>
@@ -3345,15 +3413,15 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           <ol>
             <li>Let <var>JSON string</var> be the result of <a data-link-type="dfn" data-lt="serialize an Infra value to a JSON string" href="https://infra.spec.whatwg.org/#serialize-an-infra-value-to-a-json-string" id="ref-for-index-term-serialize-an-infra-value-to-a-json-string-2">serializing</a> <var>response</var>.
             </li>
-            <li>Let <var>JS object</var> be the result of <a data-link-type="dfn" data-lt="parse a JSON string to a JavaScript value" href="https://infra.spec.whatwg.org/#parse-a-json-string-to-a-javascript-value" id="ref-for-index-term-parse-a-json-string-to-a-javascript-value-2">parsing</a> <var>JSON string</var> given <var>global</var>'s
+            <li>Let <var>JS object</var> be the result of <a data-link-type="dfn" data-lt="parse a JSON string to a JavaScript value" href="https://infra.spec.whatwg.org/#parse-a-json-string-to-a-javascript-value" id="ref-for-index-term-parse-a-json-string-to-a-javascript-value-3">parsing</a> <var>JSON string</var> given <var>global</var>'s
             <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-realm" id="ref-for-index-term-relevant-realm-3">relevant realm</a>.
             </li>
-            <li>Let <var>credential</var> be a new <a data-link-type="idl" data-lt="DigitalCredential" href="#dom-digitalcredential" class="internalDFN" id="ref-for-dom-digitalcredential-13"><code>DigitalCredential</code></a> instance.
+            <li>Let <var>credential</var> be a new <a data-link-type="idl" data-lt="DigitalCredential" href="#dom-digitalcredential" class="internalDFN" id="ref-for-dom-digitalcredential-14"><code>DigitalCredential</code></a> instance.
             </li>
             <li>Set <var>credential</var>'s <a data-link-type="idl" href="#dom-digitalcredential-protocol" class="internalDFN" id="ref-for-dom-digitalcredential-protocol-3"><code>protocol</code></a> attribute to
             <var>protocol</var>.
             </li>
-            <li>Set <var>credential</var>'s <a data-link-type="idl" href="#dom-digitalcredential-data" class="internalDFN" id="ref-for-dom-digitalcredential-data-4"><code>data</code></a> attribute to <var>JS
+            <li>Set <var>credential</var>'s <a data-link-type="idl" href="#dom-digitalcredential-data" class="internalDFN" id="ref-for-dom-digitalcredential-data-5"><code>data</code></a> attribute to <var>JS
             object</var>.
             </li>
             <li><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task" id="ref-for-index-term-queue-a-global-task-4">Queue a global task</a> on the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#dom-manipulation-task-source" id="ref-for-index-term-dom-manipulation-task-source-4">DOM manipulation task source</a>
@@ -3378,17 +3446,17 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a class="index-term" href="#dfn-aborting">aborting</a> 
     <span class="print-only">§6.1</span></li><li>
       <a class="index-term" href="#cddl-key-digitalcredentials-setvirtualwalletbehaviorparameters-action"><code>action</code></a> 
-    <span class="print-only">§13.1.1</span></li><li>
+    <span class="print-only">§14.1.1</span></li><li>
       <a class="index-term" href="#dfn-active-promise">active promise</a> 
     <span class="print-only">§6.</span></li><li>
       <a class="index-term" href="#dfn-active-virtual-wallet-behavior">active virtual wallet behavior</a> 
-    <span class="print-only">§13.1.2.1</span></li><li>
+    <span class="print-only">§14.1.2.1</span></li><li>
       <a class="index-term" href="#dfn-api-flooding">API Flooding</a> 
     <span class="print-only">§10.1.1</span></li><li>
       <a class="index-term" href="#cddl-value-digitalcredentials-virtualwalletaction-clear"><code>"clear"</code></a> 
-    <span class="print-only">§13.1.1</span></li><li>
+    <span class="print-only">§14.1.1</span></li><li>
       <a class="index-term" href="#cddl-key-digitalcredentials-setvirtualwalletbehaviorparameters-context"><code>context</code></a> 
-    <span class="print-only">§13.1.1</span></li><li>
+    <span class="print-only">§14.1.1</span></li><li>
       <a class="index-term" href="#dfn-convert-request-protocol">convert request protocol</a> 
     <span class="print-only">§5.1</span></li><li>
       <a class="index-term" href="#dfn-create-origin-options-sameoriginwithancestors"><code>[[Create]](origin, options, sameOriginWithAncestors)</code></a> internal slot for <code>DigitalCredential</code>
@@ -3411,7 +3479,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </ul>
   </li><li>
       <a class="index-term" href="#cddl-value-digitalcredentials-virtualwalletaction-decline"><code>"decline"</code></a> 
-    <span class="print-only">§13.1.1</span></li><li>
+    <span class="print-only">§14.1.1</span></li><li>
     digital
     <ul>
       <li>
@@ -3446,15 +3514,15 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a class="index-term" href="#dom-digitalcredentialrequestoptions"><code>DigitalCredentialRequestOptions</code></a> dictionary
     <span class="print-only">§7.2</span></li><li>
       <a class="index-term" href="#cddl-type-digitalcredentials-setvirtualwalletbehavior"><code>digitalCredentials.SetVirtualWalletBehavior</code></a> 
-    <span class="print-only">§13.1.2.1</span></li><li>
+    <span class="print-only">§14.1.2.1</span></li><li>
       <a class="index-term" href="#cddl-value-digitalcredentials-setvirtualwalletbehavior-digitalcredentials-setvirtualwalletbehavior"><code>"digitalCredentials.setVirtualWalletBehavior"</code></a> 
-    <span class="print-only">§13.1.2.1</span></li><li>
+    <span class="print-only">§14.1.2.1</span></li><li>
       <a class="index-term" href="#cddl-type-digitalcredentials-setvirtualwalletbehaviorparameters"><code>digitalCredentials.SetVirtualWalletBehaviorParameters</code></a> 
-    <span class="print-only">§13.1.1</span></li><li>
+    <span class="print-only">§14.1.1</span></li><li>
       <a class="index-term" href="#cddl-type-digitalcredentials-setvirtualwalletbehaviorresult"><code>digitalCredentials.SetVirtualWalletBehaviorResult</code></a> 
-    <span class="print-only">§13.1.2.1</span></li><li>
+    <span class="print-only">§14.1.2.1</span></li><li>
       <a class="index-term" href="#cddl-type-digitalcredentials-virtualwalletaction"><code>digitalCredentials.VirtualWalletAction</code></a> 
-    <span class="print-only">§13.1.1</span></li><li>
+    <span class="print-only">§14.1.1</span></li><li>
       <a class="index-term" href="#dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors"><code>[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)</code></a> internal slot for <code>DigitalCredential</code>
     <span class="print-only">§8.1</span></li><li>
       <a class="index-term" href="#dfn-discovery"><code>[[discovery]]</code></a> internal slot for <code>DigitalCredential</code>
@@ -3462,7 +3530,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a class="index-term" href="#dfn-credential-type-examples">Examples of these types</a> 
     <span class="print-only">§1.</span></li><li>
       <a class="index-term" href="#dfn-handle-virtual-wallet-behavior">handle virtual wallet behavior</a> 
-    <span class="print-only">§13.2</span></li><li>
+    <span class="print-only">§14.2</span></li><li>
       <a class="index-term" href="#dfn-idle">idle</a> 
     <span class="print-only">§6.1</span></li><li>
       <a class="index-term" href="#dfn-in-scope-threats">In-Scope Threats</a> 
@@ -3480,7 +3548,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a class="index-term" href="#dfn-issuance-response">Issuance response</a> 
     <span class="print-only">§4.</span></li><li>
       <a class="index-term" href="#cddl-key-digitalcredentials-setvirtualwalletbehavior-method"><code>method</code></a> 
-    <span class="print-only">§13.1.2.1</span></li><li>
+    <span class="print-only">§14.1.2.1</span></li><li>
       <a class="index-term" href="#dom-digitalcredentialissuanceprotocol-openid4vci-v1"><code>"openid4vci-v1"</code></a> enum value for <code>DigitalCredentialIssuanceProtocol</code>
     <span class="print-only">§5.</span></li><li>
       <a class="index-term" href="#dom-digitalcredentialpresentationprotocol-openid4vp-v1-multisigned"><code>"openid4vp-v1-multisigned"</code></a> enum value for <code>DigitalCredentialPresentationProtocol</code>
@@ -3494,7 +3562,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a class="index-term" href="#dfn-out-of-scope-threats">Out-of-scope threats</a> 
     <span class="print-only">§10.1.2</span></li><li>
       <a class="index-term" href="#cddl-key-digitalcredentials-setvirtualwalletbehavior-params"><code>params</code></a> 
-    <span class="print-only">§13.1.2.1</span></li><li>
+    <span class="print-only">§14.1.2.1</span></li><li>
       <a class="index-term" href="#dfn-prepare-credential-requests">prepare credential requests</a> 
     <span class="print-only">§6.2</span></li><li>
       <a class="index-term" href="#dfn-presentation-protocol">Presentation protocol</a> 
@@ -3515,7 +3583,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a class="index-term" href="#dom-digitalcredential-protocol">attribute for <code>DigitalCredential</code></a> 
     <span class="print-only">§7.7.1</span></li><li>
       <a class="index-term" href="#cddl-key-digitalcredentials-setvirtualwalletbehaviorparameters-protocol">definition of</a> 
-    <span class="print-only">§13.1.1</span></li>
+    <span class="print-only">§14.1.1</span></li>
     </ul>
   </li><li>
       <a class="index-term" href="#dfn-protocol-identifier">Protocol identifier</a> 
@@ -3540,15 +3608,15 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </ul>
   </li><li>
       <a class="index-term" href="#cddl-value-digitalcredentials-virtualwalletaction-respond"><code>"respond"</code></a> 
-    <span class="print-only">§13.1.1</span></li><li>
+    <span class="print-only">§14.1.1</span></li><li>
       <a class="index-term" href="#cddl-key-digitalcredentials-setvirtualwalletbehaviorparameters-response"><code>response</code></a> 
-    <span class="print-only">§13.1.1</span></li><li>
+    <span class="print-only">§14.1.1</span></li><li>
       <a class="index-term" href="#dfn-store-credential-sameoriginwithancestors"><code>[[Store]](credential, sameOriginWithAncestors)</code></a> internal slot for <code>DigitalCredential</code>
     <span class="print-only">§8.2</span></li><li>
       <a class="index-term" href="#dfn-table-of-supported-presentation-and-issuance-protocols">Table of supported presentation and issuance protocols</a> 
     <span class="print-only">§5.</span></li><li>
       <a class="index-term" href="#cddl-key-digitalcredentials-setvirtualwalletbehaviorparameters-text"><code>text</code></a> 
-    <span class="print-only">§13.1.1</span></li><li>
+    <span class="print-only">§14.1.1</span></li><li>
       <a class="index-term" href="#dfn-top-level-origin">top-level origin</a> 
     <span class="print-only">§7.8.1</span></li><li>
       <a class="index-term" href="#dfn-type"><code>[[type]]</code></a> internal slot for <code>DigitalCredential</code>
@@ -3562,7 +3630,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a class="index-term" href="#dfn-validate-credential-requests">validate credential requests</a> 
     <span class="print-only">§6.3</span></li><li>
       <a class="index-term" href="#cddl-value-digitalcredentials-virtualwalletaction-wait"><code>"wait"</code></a> 
-    <span class="print-only">§13.1.1</span></li>
+    <span class="print-only">§14.1.1</span></li>
   </ul>
   </section><section id="index-defined-elsewhere"><div class="header-wrapper"><h3 id="a-2-terms-defined-by-reference"><bdi class="secno">A.2 </bdi>Terms defined by reference</h3><a class="self-link" href="#index-defined-elsewhere" aria-label="Permalink for Appendix A.2"></a></div>
     
@@ -3843,12 +3911,12 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
 };</span>
 
 <span data-idl="" class="idlDictionary" data-title="DigitalCredentialRequestOptions">dictionary <dfn data-export="" data-dfn-type="dictionary" data-idl="dictionary" data-title="DigitalCredentialRequestOptions" data-dfn-for="" class="idlID"><code>DigitalCredentialRequestOptions</code></dfn> {<span data-idl="" class="idlMember" data-title="requests" data-dfn-for="DigitalCredentialRequestOptions">
-  required<span class="idlType"> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-index-term-sequence-5">sequence</a>&lt;<a data-link-type="idl" href="#dom-digitalcredentialgetrequest" class="internalDFN" id="ref-for-dom-digitalcredentialgetrequest-9"><code>DigitalCredentialGetRequest</code></a>&gt;</span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialrequestoptions-requests" id="ref-for-dom-digitalcredentialrequestoptions-requests-3"><code>requests</code></a>;</span>
+  required<span class="idlType"> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-index-term-sequence-5">sequence</a>&lt;<a data-link-type="idl" href="#dom-digitalcredentialgetrequest" class="internalDFN" id="ref-for-dom-digitalcredentialgetrequest-10"><code>DigitalCredentialGetRequest</code></a>&gt;</span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialrequestoptions-requests" id="ref-for-dom-digitalcredentialrequestoptions-requests-3"><code>requests</code></a>;</span>
 };</span>
 
 <span data-idl="" class="idlDictionary" data-title="DigitalCredentialGetRequest">dictionary <dfn data-export="" data-dfn-type="dictionary" data-idl="dictionary" data-title="DigitalCredentialGetRequest" data-dfn-for="" class="idlID"><code>DigitalCredentialGetRequest</code></dfn> {<span data-idl="" class="idlMember" data-title="protocol" data-dfn-for="DigitalCredentialGetRequest">
   required<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-index-term-domstring-interface-5">DOMString</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialgetrequest-protocol" id="ref-for-dom-digitalcredentialgetrequest-protocol-4"><code>protocol</code></a>;</span><span data-idl="" class="idlMember" data-title="data" data-dfn-for="DigitalCredentialGetRequest">
-  required<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-object" id="ref-for-index-term-object-type-0-5">object</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialgetrequest-data" id="ref-for-dom-digitalcredentialgetrequest-data-3"><code>data</code></a>;</span>
+  required<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-object" id="ref-for-index-term-object-type-0-5">object</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialgetrequest-data" id="ref-for-dom-digitalcredentialgetrequest-data-4"><code>data</code></a>;</span>
 };</span>
 
 <span data-idl="" class="idlDictionary" data-title="CredentialCreationOptions">partial dictionary <a data-idl="partial" data-link-type="dictionary" data-title="CredentialCreationOptions" class="idlID" data-dfn-for="CredentialCreationOptions" href="https://www.w3.org/TR/credential-management-1/#dictdef-credentialcreationoptions" id="ref-for-index-term-credentialcreationoptions-2">CredentialCreationOptions</a> {<span data-idl="" class="idlMember" data-title="digital" data-dfn-for="CredentialCreationOptions"><span class="idlType">
@@ -3856,21 +3924,21 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
 };</span>
 
 <span data-idl="" class="idlDictionary" data-title="DigitalCredentialCreationOptions">dictionary <dfn data-export="" data-dfn-type="dictionary" data-idl="dictionary" data-title="DigitalCredentialCreationOptions" data-dfn-for="" class="idlID"><code>DigitalCredentialCreationOptions</code></dfn> {<span data-idl="" class="idlMember" data-title="requests" data-dfn-for="DigitalCredentialCreationOptions">
-  required<span class="idlType"> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-index-term-sequence-6">sequence</a>&lt;<a data-link-type="idl" href="#dom-digitalcredentialcreaterequest" class="internalDFN" id="ref-for-dom-digitalcredentialcreaterequest-9"><code>DigitalCredentialCreateRequest</code></a>&gt;</span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialcreationoptions-requests" id="ref-for-dom-digitalcredentialcreationoptions-requests-3"><code>requests</code></a>;</span>
+  required<span class="idlType"> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-index-term-sequence-6">sequence</a>&lt;<a data-link-type="idl" href="#dom-digitalcredentialcreaterequest" class="internalDFN" id="ref-for-dom-digitalcredentialcreaterequest-10"><code>DigitalCredentialCreateRequest</code></a>&gt;</span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialcreationoptions-requests" id="ref-for-dom-digitalcredentialcreationoptions-requests-3"><code>requests</code></a>;</span>
 };</span>
 
 <span data-idl="" class="idlDictionary" data-title="DigitalCredentialCreateRequest">dictionary <dfn data-export="" data-dfn-type="dictionary" data-idl="dictionary" data-title="DigitalCredentialCreateRequest" data-dfn-for="" class="idlID"><code>DigitalCredentialCreateRequest</code></dfn> {<span data-idl="" class="idlMember" data-title="protocol" data-dfn-for="DigitalCredentialCreateRequest">
   required<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-index-term-domstring-interface-6">DOMString</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialcreaterequest-protocol" id="ref-for-dom-digitalcredentialcreaterequest-protocol-4"><code>protocol</code></a>;</span><span data-idl="" class="idlMember" data-title="data" data-dfn-for="DigitalCredentialCreateRequest">
-  required<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-object" id="ref-for-index-term-object-type-0-6">object</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialcreaterequest-data" id="ref-for-dom-digitalcredentialcreaterequest-data-3"><code>data</code></a>;</span>
+  required<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-object" id="ref-for-index-term-object-type-0-6">object</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-digitalcredentialcreaterequest-data" id="ref-for-dom-digitalcredentialcreaterequest-data-4"><code>data</code></a>;</span>
 };</span>
 
 <span data-idl="" class="idlTypedef" data-title="DigitalCredentialProtocol">typedef<span class="idlType"> (<a data-link-type="idl" href="#dom-digitalcredentialpresentationprotocol" class="internalDFN" id="ref-for-dom-digitalcredentialpresentationprotocol-6"><code>DigitalCredentialPresentationProtocol</code></a> or <a data-link-type="idl" href="#dom-digitalcredentialissuanceprotocol" class="internalDFN" id="ref-for-dom-digitalcredentialissuanceprotocol-6"><code>DigitalCredentialIssuanceProtocol</code></a>)</span> <dfn data-export="" data-dfn-type="typedef" data-idl="typedef" data-title="DigitalCredentialProtocol" data-dfn-for="" class="idlID"><code>DigitalCredentialProtocol</code></dfn>;</span><span data-idl="" class="idlInterface" data-title="DigitalCredential">
 
 [<span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-index-term-exposed-extended-attribute-2">Exposed</a>=Window</span>, <span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext" id="ref-for-index-term-securecontext-extended-attribute-2">SecureContext</a></span>]
-interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-digitalcredential" id="ref-for-dom-digitalcredential-14"><code>DigitalCredential</code></a> : <span class="idlSuperclass"><a data-link-type="interface" href="https://www.w3.org/TR/credential-management-1/#credential" id="ref-for-index-term-credential-interface-5">Credential</a></span> {<span data-idl="" class="idlMethod" data-title="toJSON" data-dfn-for="DigitalCredential">
+interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-digitalcredential" id="ref-for-dom-digitalcredential-15"><code>DigitalCredential</code></a> : <span class="idlSuperclass"><a data-link-type="interface" href="https://www.w3.org/TR/credential-management-1/#credential" id="ref-for-index-term-credential-interface-5">Credential</a></span> {<span data-idl="" class="idlMethod" data-title="toJSON" data-dfn-for="DigitalCredential">
   [<span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Default" id="ref-for-index-term-default-extended-attribute-2">Default</a></span>]<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-object" id="ref-for-index-term-object-type-0-7">object</a></span> <a data-link-type="dfn" data-lt="default toJSON steps" class="idlName" href="https://webidl.spec.whatwg.org/#default-tojson-steps" id="ref-for-index-term-default-tojson-steps-2">toJSON</a>();</span><span data-idl="" class="idlAttribute" data-title="protocol" data-dfn-for="DigitalCredential">
   readonly attribute<span class="idlType"> <a data-link-type="idl" href="#dom-digitalcredentialprotocol" class="internalDFN" id="ref-for-dom-digitalcredentialprotocol-6"><code>DigitalCredentialProtocol</code></a></span> <a class="internalDFN idlName" data-link-type="attribute" href="#dom-digitalcredential-protocol" id="ref-for-dom-digitalcredential-protocol-4"><code>protocol</code></a>;</span><span data-idl="" class="idlAttribute" data-title="data" data-dfn-for="DigitalCredential">
-  [<span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SameObject" id="ref-for-index-term-sameobject-extended-attribute-2">SameObject</a></span>] readonly attribute<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-object" id="ref-for-index-term-object-type-0-8">object</a></span> <a class="internalDFN idlName" data-link-type="attribute" href="#dom-digitalcredential-data" id="ref-for-dom-digitalcredential-data-5"><code>data</code></a>;</span><span data-idl="" class="idlMethod" data-title="userAgentAllowsProtocol" data-dfn-for="DigitalCredential">
+  [<span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SameObject" id="ref-for-index-term-sameobject-extended-attribute-2">SameObject</a></span>] readonly attribute<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-object" id="ref-for-index-term-object-type-0-8">object</a></span> <a class="internalDFN idlName" data-link-type="attribute" href="#dom-digitalcredential-data" id="ref-for-dom-digitalcredential-data-6"><code>data</code></a>;</span><span data-idl="" class="idlMethod" data-title="userAgentAllowsProtocol" data-dfn-for="DigitalCredential">
   static<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-index-term-boolean-type-2">boolean</a></span> <a class="internalDFN idlName" data-link-type="method" href="#dom-digitalcredential-useragentallowsprotocol" id="ref-for-dom-digitalcredential-useragentallowsprotocol-5"><code>userAgentAllowsProtocol</code></a>(<span class="idlType"><a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-index-term-domstring-interface-7">DOMString</a></span> <span class="idlParamName">protocol</span>);</span>
 };</span>
 
@@ -4029,6 +4097,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-dfn-digital-credential-chooser-10" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
     </li><li>
       <a href="#ref-for-dfn-digital-credential-chooser-11" title="§ 11.1 Design Considerations and Alternatives">§ 11.1 Design Considerations and Alternatives</a> 
+    </li><li>
+      <a href="#ref-for-dfn-digital-credential-chooser-12" title="§ 13. Internationalization Considerations">§ 13. Internationalization Considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-issuance-protocol" aria-label="Links in this document to definition: Issuance protocol">
@@ -4062,6 +4132,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-dfn-issuance-protocol-17" title="§ 7.8.3 The DigitalCredentialIssuanceProtocol enumeration">§ 7.8.3 The DigitalCredentialIssuanceProtocol enumeration</a> 
     </li><li>
       <a href="#ref-for-dfn-issuance-protocol-18" title="§ 11.5.3 Revealing device properties through protocol availability">§ 11.5.3 Revealing device properties through protocol availability</a> 
+    </li><li>
+      <a href="#ref-for-dfn-issuance-protocol-19" title="§ 13. Internationalization Considerations">§ 13. Internationalization Considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-issuance-request" aria-label="Links in this document to definition: Issuance request">
@@ -4170,6 +4242,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-dfn-presentation-protocol-21" title="§ 11.3 Presentation Protocol and Credential Format">§ 11.3 Presentation Protocol and Credential Format</a> 
     </li><li>
       <a href="#ref-for-dfn-presentation-protocol-22" title="§ 11.5.3 Revealing device properties through protocol availability">§ 11.5.3 Revealing device properties through protocol availability</a> 
+    </li><li>
+      <a href="#ref-for-dfn-presentation-protocol-23" title="§ 13. Internationalization Considerations">§ 13. Internationalization Considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-presentation-request" aria-label="Links in this document to definition: Presentation request">
@@ -4262,6 +4336,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-dfn-protocol-identifier-6" title="§ 7.3.1 The protocol member">§ 7.3.1 The protocol member</a> 
     </li><li>
       <a href="#ref-for-dfn-protocol-identifier-7" title="§ 7.6.1 The protocol member">§ 7.6.1 The protocol member</a> 
+    </li><li>
+      <a href="#ref-for-dfn-protocol-identifier-8" title="§ 13. Internationalization Considerations">§ 13. Internationalization Considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-table-of-supported-presentation-and-issuance-protocols" aria-label="Links in this document to definition: Table of supported presentation and issuance protocols">
@@ -4659,7 +4735,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-dom-digitalcredentialgetrequest-8" title="§ 10.1.1 In-Scope Threats">§ 10.1.1 In-Scope Threats</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredentialgetrequest-9" title="§ B. IDL Index">§ B. IDL Index</a> 
+      <a href="#ref-for-dom-digitalcredentialgetrequest-9" title="§ 13. Internationalization Considerations">§ 13. Internationalization Considerations</a> 
+    </li><li>
+      <a href="#ref-for-dom-digitalcredentialgetrequest-10" title="§ B. IDL Index">§ B. IDL Index</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dom-digitalcredentialgetrequest-protocol" aria-label="Links in this document to definition: protocol">
@@ -4695,7 +4773,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-dom-digitalcredentialgetrequest-data-2" title="§ 7.3 The DigitalCredentialGetRequest dictionary">§ 7.3 The DigitalCredentialGetRequest dictionary</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredentialgetrequest-data-3" title="§ B. IDL Index">§ B. IDL Index</a> 
+      <a href="#ref-for-dom-digitalcredentialgetrequest-data-3" title="§ 13. Internationalization Considerations">§ 13. Internationalization Considerations</a> 
+    </li><li>
+      <a href="#ref-for-dom-digitalcredentialgetrequest-data-4" title="§ B. IDL Index">§ B. IDL Index</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dom-credentialcreationoptions-digital" aria-label="Links in this document to definition: digital">
@@ -4769,7 +4849,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-dom-digitalcredentialcreaterequest-8" title="§ 10.1.1 In-Scope Threats">§ 10.1.1 In-Scope Threats</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredentialcreaterequest-9" title="§ B. IDL Index">§ B. IDL Index</a> 
+      <a href="#ref-for-dom-digitalcredentialcreaterequest-9" title="§ 13. Internationalization Considerations">§ 13. Internationalization Considerations</a> 
+    </li><li>
+      <a href="#ref-for-dom-digitalcredentialcreaterequest-10" title="§ B. IDL Index">§ B. IDL Index</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dom-digitalcredentialcreaterequest-protocol" aria-label="Links in this document to definition: protocol">
@@ -4805,7 +4887,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-dom-digitalcredentialcreaterequest-data-2" title="§ 7.6 The DigitalCredentialCreateRequest dictionary">§ 7.6 The DigitalCredentialCreateRequest dictionary</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredentialcreaterequest-data-3" title="§ B. IDL Index">§ B. IDL Index</a> 
+      <a href="#ref-for-dom-digitalcredentialcreaterequest-data-3" title="§ 13. Internationalization Considerations">§ 13. Internationalization Considerations</a> 
+    </li><li>
+      <a href="#ref-for-dom-digitalcredentialcreaterequest-data-4" title="§ B. IDL Index">§ B. IDL Index</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dom-digitalcredential" aria-label="Links in this document to definition: DigitalCredential">
@@ -4832,9 +4916,11 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-dom-digitalcredential-12" title="§ 8.5 [[discovery]] internal slot">§ 8.5 [[discovery]] internal slot</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredential-13" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> 
+      <a href="#ref-for-dom-digitalcredential-13" title="§ 13. Internationalization Considerations">§ 13. Internationalization Considerations</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredential-14" title="§ B. IDL Index">§ B. IDL Index</a> 
+      <a href="#ref-for-dom-digitalcredential-14" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
+    </li><li>
+      <a href="#ref-for-dom-digitalcredential-15" title="§ B. IDL Index">§ B. IDL Index</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dom-digitalcredentialprotocol" aria-label="Links in this document to definition: DigitalCredentialProtocol">
@@ -4853,7 +4939,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-dom-digitalcredentialprotocol-4" title="§ 7.7.3 The userAgentAllowsProtocol() method">§ 7.7.3 The userAgentAllowsProtocol() method</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredentialprotocol-5" title="§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> 
+      <a href="#ref-for-dom-digitalcredentialprotocol-5" title="§ 14.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 14.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> 
     </li><li>
       <a href="#ref-for-dom-digitalcredentialprotocol-6" title="§ B. IDL Index">§ B. IDL Index</a> 
     </li>
@@ -4872,7 +4958,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-dom-digitalcredential-protocol-2" title="§ 7.7 The DigitalCredential interface">§ 7.7 The DigitalCredential interface</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredential-protocol-3" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> 
+      <a href="#ref-for-dom-digitalcredential-protocol-3" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
     </li><li>
       <a href="#ref-for-dom-digitalcredential-protocol-4" title="§ B. IDL Index">§ B. IDL Index</a> 
     </li>
@@ -4891,9 +4977,11 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-dom-digitalcredential-data-3" title="§ 7.7 The DigitalCredential interface">§ 7.7 The DigitalCredential interface</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredential-data-4" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> 
+      <a href="#ref-for-dom-digitalcredential-data-4" title="§ 13. Internationalization Considerations">§ 13. Internationalization Considerations</a> 
     </li><li>
-      <a href="#ref-for-dom-digitalcredential-data-5" title="§ B. IDL Index">§ B. IDL Index</a> 
+      <a href="#ref-for-dom-digitalcredential-data-5" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
+    </li><li>
+      <a href="#ref-for-dom-digitalcredential-data-6" title="§ B. IDL Index">§ B. IDL Index</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dom-digitalcredential-useragentallowsprotocol" aria-label="Links in this document to definition: userAgentAllowsProtocol()">
@@ -4969,6 +5057,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <ul>
     <li>
       <a href="#ref-for-dfn-top-level-origin-1" title="§ 6.6 Initiate the credential request">§ 6.6 Initiate the credential request</a> 
+    </li><li>
+      <a href="#ref-for-dfn-top-level-origin-2" title="§ 13. Internationalization Considerations">§ 13. Internationalization Considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dom-digitalcredentialpresentationprotocol" aria-label="Links in this document to definition: DigitalCredentialPresentationProtocol">
@@ -5027,7 +5117,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors-2" title="§ 10.2 Mitigations">§ 10.2 Mitigations</a> <a href="#ref-for-dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors-3" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors-4" title="§ 13.1 The digitalCredentials Module">§ 13.1 The digitalCredentials Module</a> 
+      <a href="#ref-for-dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors-4" title="§ 14.1 The digitalCredentials Module">§ 14.1 The digitalCredentials Module</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-store-credential-sameoriginwithancestors" aria-label="Links in this document to definition: [[Store]](credential, sameOriginWithAncestors)">
@@ -5187,7 +5277,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-cddl-type-digitalcredentials-virtualwalletaction-1" title="§ 13.1.1 Types">§ 13.1.1 Types</a> <a href="#ref-for-cddl-type-digitalcredentials-virtualwalletaction-2" title="Reference 2">(2)</a> 
+      <a href="#ref-for-cddl-type-digitalcredentials-virtualwalletaction-1" title="§ 14.1.1 Types">§ 14.1.1 Types</a> <a href="#ref-for-cddl-type-digitalcredentials-virtualwalletaction-2" title="Reference 2">(2)</a> 
     </li><li>
       <a href="#ref-for-cddl-type-digitalcredentials-virtualwalletaction-3" title="§ C.1 Module: remote-cddl">§ C.1 Module: remote-cddl</a> 
     </li>
@@ -5202,7 +5292,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-cddl-value-digitalcredentials-virtualwalletaction-decline-1" title="§ 13.1.1 Types">§ 13.1.1 Types</a> 
+      <a href="#ref-for-cddl-value-digitalcredentials-virtualwalletaction-decline-1" title="§ 14.1.1 Types">§ 14.1.1 Types</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-cddl-value-digitalcredentials-virtualwalletaction-respond" aria-label="Links in this document to definition: &quot;respond&quot;">
@@ -5215,7 +5305,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-cddl-value-digitalcredentials-virtualwalletaction-respond-1" title="§ 13.1.1 Types">§ 13.1.1 Types</a> 
+      <a href="#ref-for-cddl-value-digitalcredentials-virtualwalletaction-respond-1" title="§ 14.1.1 Types">§ 14.1.1 Types</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-cddl-value-digitalcredentials-virtualwalletaction-wait" aria-label="Links in this document to definition: &quot;wait&quot;">
@@ -5228,7 +5318,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-cddl-value-digitalcredentials-virtualwalletaction-wait-1" title="§ 13.1.1 Types">§ 13.1.1 Types</a> 
+      <a href="#ref-for-cddl-value-digitalcredentials-virtualwalletaction-wait-1" title="§ 14.1.1 Types">§ 14.1.1 Types</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-cddl-value-digitalcredentials-virtualwalletaction-clear" aria-label="Links in this document to definition: &quot;clear&quot;">
@@ -5241,7 +5331,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-cddl-value-digitalcredentials-virtualwalletaction-clear-1" title="§ 13.1.1 Types">§ 13.1.1 Types</a> 
+      <a href="#ref-for-cddl-value-digitalcredentials-virtualwalletaction-clear-1" title="§ 14.1.1 Types">§ 14.1.1 Types</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-cddl-type-digitalcredentials-setvirtualwalletbehaviorparameters" aria-label="Links in this document to definition: digitalCredentials.SetVirtualWalletBehaviorParameters">
@@ -5254,7 +5344,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-cddl-type-digitalcredentials-setvirtualwalletbehaviorparameters-1" title="§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> 
+      <a href="#ref-for-cddl-type-digitalcredentials-setvirtualwalletbehaviorparameters-1" title="§ 14.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 14.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> 
     </li><li>
       <a href="#ref-for-cddl-type-digitalcredentials-setvirtualwalletbehaviorparameters-2" title="§ C.1 Module: remote-cddl">§ C.1 Module: remote-cddl</a> 
     </li>
@@ -5379,9 +5469,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-dfn-active-virtual-wallet-behavior-1" title="§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> <a href="#ref-for-dfn-active-virtual-wallet-behavior-2" title="Reference 2">(2)</a> <a href="#ref-for-dfn-active-virtual-wallet-behavior-3" title="Reference 3">(3)</a> 
+      <a href="#ref-for-dfn-active-virtual-wallet-behavior-1" title="§ 14.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 14.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> <a href="#ref-for-dfn-active-virtual-wallet-behavior-2" title="Reference 2">(2)</a> <a href="#ref-for-dfn-active-virtual-wallet-behavior-3" title="Reference 3">(3)</a> 
     </li><li>
-      <a href="#ref-for-dfn-active-virtual-wallet-behavior-4" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> <a href="#ref-for-dfn-active-virtual-wallet-behavior-5" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-active-virtual-wallet-behavior-4" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> <a href="#ref-for-dfn-active-virtual-wallet-behavior-5" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-handle-virtual-wallet-behavior" aria-label="Links in this document to definition: handle virtual wallet behavior">
@@ -5411,7 +5501,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-index-term-create-origin-options-sameoriginwithancestors-for-credential-2" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
     </li><li>
-      <a href="#ref-for-index-term-create-origin-options-sameoriginwithancestors-for-credential-3" title="§ 13.1 The digitalCredentials Module">§ 13.1 The digitalCredentials Module</a> 
+      <a href="#ref-for-index-term-create-origin-options-sameoriginwithancestors-for-credential-3" title="§ 14.1 The digitalCredentials Module">§ 14.1 The digitalCredentials Module</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-discoverfromexternalsource-origin-options-sameoriginwithancestors-for-credential" aria-label="Links in this document to definition: [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) (for Credential)">
@@ -5562,7 +5652,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-index-term-credential-manager-27" title="§ 11.6.4 Permission vs. Consent">§ 11.6.4 Permission vs. Consent</a> 
     </li><li>
-      <a href="#ref-for-index-term-credential-manager-28" title="§ 13.1 The digitalCredentials Module">§ 13.1 The digitalCredentials Module</a> 
+      <a href="#ref-for-index-term-credential-manager-28" title="§ 14.1 The digitalCredentials Module">§ 14.1 The digitalCredentials Module</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-credentialcreationoptions" aria-label="Links in this document to definition: CredentialCreationOptions">
@@ -5888,7 +5978,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-browsing-context-1" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> 
+      <a href="#ref-for-index-term-browsing-context-1" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-child-navigables" aria-label="Links in this document to definition: child navigables">
@@ -5937,7 +6027,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-index-term-dom-manipulation-task-source-3" title="§ 6.6 Initiate the credential request">§ 6.6 Initiate the credential request</a> 
     </li><li>
-      <a href="#ref-for-index-term-dom-manipulation-task-source-4" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> 
+      <a href="#ref-for-index-term-dom-manipulation-task-source-4" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-environment-settings-object" aria-label="Links in this document to definition: environment settings object">
@@ -6068,7 +6158,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-index-term-queue-a-global-task-3" title="§ 6.6 Initiate the credential request">§ 6.6 Initiate the credential request</a> 
     </li><li>
-      <a href="#ref-for-index-term-queue-a-global-task-4" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> 
+      <a href="#ref-for-index-term-queue-a-global-task-4" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-relevant-global-object" aria-label="Links in this document to definition: relevant global object">
@@ -6106,7 +6196,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-index-term-relevant-realm-2" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
     </li><li>
-      <a href="#ref-for-index-term-relevant-realm-3" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> 
+      <a href="#ref-for-index-term-relevant-realm-3" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-relevant-settings-object" aria-label="Links in this document to definition: relevant settings object">
@@ -6191,6 +6281,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <ul>
     <li>
       <a href="#ref-for-index-term-ascii-digit-1" title="§ 4. Terminology">§ 4. Terminology</a> 
+    </li><li>
+      <a href="#ref-for-index-term-ascii-digit-2" title="§ 13. Internationalization Considerations">§ 13. Internationalization Considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-ascii-lower-alpha" aria-label="Links in this document to definition: ASCII lower alpha">
@@ -6204,6 +6296,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <ul>
     <li>
       <a href="#ref-for-index-term-ascii-lower-alpha-1" title="§ 4. Terminology">§ 4. Terminology</a> 
+    </li><li>
+      <a href="#ref-for-index-term-ascii-lower-alpha-2" title="§ 13. Internationalization Considerations">§ 13. Internationalization Considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-assert" aria-label="Links in this document to definition: Assert">
@@ -6315,7 +6409,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <li>
       <a href="#ref-for-index-term-parse-a-json-string-to-a-javascript-value-1" title="§ 6.6 Initiate the credential request">§ 6.6 Initiate the credential request</a> 
     </li><li>
-      <a href="#ref-for-index-term-parse-a-json-string-to-a-javascript-value-2" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> 
+      <a href="#ref-for-index-term-parse-a-json-string-to-a-javascript-value-2" title="§ 13. Internationalization Considerations">§ 13. Internationalization Considerations</a> 
+    </li><li>
+      <a href="#ref-for-index-term-parse-a-json-string-to-a-javascript-value-3" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-serialize-a-javascript-value-to-a-json-string" aria-label="Links in this document to definition: serialize a JavaScript value to a JSON string">
@@ -6329,6 +6425,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <ul>
     <li>
       <a href="#ref-for-index-term-serialize-a-javascript-value-to-a-json-string-1" title="§ 6.3 Validate credential requests">§ 6.3 Validate credential requests</a> 
+    </li><li>
+      <a href="#ref-for-index-term-serialize-a-javascript-value-to-a-json-string-2" title="§ 13. Internationalization Considerations">§ 13. Internationalization Considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-serialize-an-infra-value-to-a-json-string" aria-label="Links in this document to definition: serialize an Infra value to a JSON string">
@@ -6341,9 +6439,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-serialize-an-infra-value-to-a-json-string-1" title="§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> 
+      <a href="#ref-for-index-term-serialize-an-infra-value-to-a-json-string-1" title="§ 14.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 14.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> 
     </li><li>
-      <a href="#ref-for-index-term-serialize-an-infra-value-to-a-json-string-2" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> 
+      <a href="#ref-for-index-term-serialize-an-infra-value-to-a-json-string-2" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-string" aria-label="Links in this document to definition: string">
@@ -6430,9 +6528,11 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-index-term-user-agents-48" title="§ 11.6.4 Permission vs. Consent">§ 11.6.4 Permission vs. Consent</a> <a href="#ref-for-index-term-user-agents-49" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-index-term-user-agents-50" title="§ 13. Automated Testing">§ 13. Automated Testing</a> 
+      <a href="#ref-for-index-term-user-agents-50" title="§ 13. Internationalization Considerations">§ 13. Internationalization Considerations</a> 
     </li><li>
-      <a href="#ref-for-index-term-user-agents-51" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> 
+      <a href="#ref-for-index-term-user-agents-51" title="§ 14. Automated Testing">§ 14. Automated Testing</a> 
+    </li><li>
+      <a href="#ref-for-index-term-user-agents-52" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-express-permission" aria-label="Links in this document to definition: express permission">
@@ -6684,7 +6784,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-error-1" title="§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> <a href="#ref-for-index-term-error-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-error-3" title="Reference 3">(3)</a> <a href="#ref-for-index-term-error-4" title="Reference 4">(4)</a> 
+      <a href="#ref-for-index-term-error-1" title="§ 14.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 14.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> <a href="#ref-for-index-term-error-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-error-3" title="Reference 3">(3)</a> <a href="#ref-for-index-term-error-4" title="Reference 4">(4)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-error-code" aria-label="Links in this document to definition: error code">
@@ -6697,7 +6797,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-error-code-1" title="§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> <a href="#ref-for-index-term-error-code-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-error-code-3" title="Reference 3">(3)</a> <a href="#ref-for-index-term-error-code-4" title="Reference 4">(4)</a> 
+      <a href="#ref-for-index-term-error-code-1" title="§ 14.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 14.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> <a href="#ref-for-index-term-error-code-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-error-code-3" title="Reference 3">(3)</a> <a href="#ref-for-index-term-error-code-4" title="Reference 4">(4)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-invalid-argument" aria-label="Links in this document to definition: invalid argument">
@@ -6710,7 +6810,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-invalid-argument-1" title="§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> <a href="#ref-for-index-term-invalid-argument-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-invalid-argument-3" title="Reference 3">(3)</a> <a href="#ref-for-index-term-invalid-argument-4" title="Reference 4">(4)</a> 
+      <a href="#ref-for-index-term-invalid-argument-1" title="§ 14.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 14.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> <a href="#ref-for-index-term-invalid-argument-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-invalid-argument-3" title="Reference 3">(3)</a> <a href="#ref-for-index-term-invalid-argument-4" title="Reference 4">(4)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-remote-end-steps" aria-label="Links in this document to definition: remote end steps">
@@ -6723,7 +6823,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-remote-end-steps-1" title="§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> 
+      <a href="#ref-for-index-term-remote-end-steps-1" title="§ 14.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 14.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-session" aria-label="Links in this document to definition: session">
@@ -6736,9 +6836,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-session-1" title="§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> <a href="#ref-for-index-term-session-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-session-3" title="Reference 3">(3)</a> <a href="#ref-for-index-term-session-4" title="Reference 4">(4)</a> 
+      <a href="#ref-for-index-term-session-1" title="§ 14.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 14.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> <a href="#ref-for-index-term-session-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-session-3" title="Reference 3">(3)</a> <a href="#ref-for-index-term-session-4" title="Reference 4">(4)</a> 
     </li><li>
-      <a href="#ref-for-index-term-session-5" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> <a href="#ref-for-index-term-session-6" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-session-5" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> <a href="#ref-for-index-term-session-6" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-success" aria-label="Links in this document to definition: success">
@@ -6751,7 +6851,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-success-1" title="§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> 
+      <a href="#ref-for-index-term-success-1" title="§ 14.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 14.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-a-new-promise" aria-label="Links in this document to definition: a new promise">
@@ -6862,7 +6962,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-index-term-domexception-interface-11" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> <a href="#ref-for-index-term-domexception-interface-12" title="Reference 2">(2)</a> <a href="#ref-for-index-term-domexception-interface-13" title="Reference 3">(3)</a> 
     </li><li>
-      <a href="#ref-for-index-term-domexception-interface-14" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> 
+      <a href="#ref-for-index-term-domexception-interface-14" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-domstring-interface" aria-label="Links in this document to definition: DOMString interface">
@@ -6900,7 +7000,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-index-term-enumeration-value-5" title="§ 7.7.3 The userAgentAllowsProtocol() method">§ 7.7.3 The userAgentAllowsProtocol() method</a> 
     </li><li>
-      <a href="#ref-for-index-term-enumeration-value-6" title="§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> 
+      <a href="#ref-for-index-term-enumeration-value-6" title="§ 14.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 14.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-exception" aria-label="Links in this document to definition: exception">
@@ -6921,7 +7021,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-index-term-exception-6" title="§ 6.6 Initiate the credential request">§ 6.6 Initiate the credential request</a> 
     </li><li>
-      <a href="#ref-for-index-term-exception-7" title="§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 13.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> 
+      <a href="#ref-for-index-term-exception-7" title="§ 14.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 14.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-exposed-extended-attribute" aria-label="Links in this document to definition: [Exposed] extended attribute">
@@ -6998,7 +7098,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-index-term-notallowederror-exception-6" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> <a href="#ref-for-index-term-notallowederror-exception-7" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-index-term-notallowederror-exception-8" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> 
+      <a href="#ref-for-index-term-notallowederror-exception-8" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-object-type-0" aria-label="Links in this document to definition: object type">
@@ -7051,7 +7151,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-index-term-promise-interface-4" title="§ 6.6 Initiate the credential request">§ 6.6 Initiate the credential request</a> 
     </li><li>
-      <a href="#ref-for-index-term-promise-interface-5" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> 
+      <a href="#ref-for-index-term-promise-interface-5" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-referenceerror-exception" aria-label="Links in this document to definition: ReferenceError exception">
@@ -7087,7 +7187,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-index-term-rejects-7" title="§ 10.2 Mitigations">§ 10.2 Mitigations</a> 
     </li><li>
-      <a href="#ref-for-index-term-rejects-8" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> 
+      <a href="#ref-for-index-term-rejects-8" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-resolves" aria-label="Links in this document to definition: resolves">
@@ -7104,7 +7204,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-index-term-resolves-3" title="§ 6.6 Initiate the credential request">§ 6.6 Initiate the credential request</a> 
     </li><li>
-      <a href="#ref-for-index-term-resolves-4" title="§ 13.2 Handle Virtual Wallet Behavior">§ 13.2 Handle Virtual Wallet Behavior</a> 
+      <a href="#ref-for-index-term-resolves-4" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-sameobject-extended-attribute" aria-label="Links in this document to definition: [SameObject] extended attribute">
@@ -7272,6 +7372,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="https://github.com/w3c-fedid/digital-credentials/blob/main/custom-schemes.md"><cite>Concerns with custom schemes for identity presentment</cite></a>. Rick Byers.  W3C. 2024-05-01. URL: <a href="https://github.com/w3c-fedid/digital-credentials/blob/main/custom-schemes.md">https://github.com/w3c-fedid/digital-credentials/blob/main/custom-schemes.md</a>
     </dd><dt id="bib-identity-web-impact">[identity-web-impact]</dt><dd>
       <a href="https://www.w3.org/reports/identity-web-impact"><cite>Identity &amp; the Web</cite></a>. Simone Onofri.  W3C. 2025-02-25. URL: <a href="https://www.w3.org/reports/identity-web-impact">https://www.w3.org/reports/identity-web-impact</a>
+    </dd><dt id="bib-iso18013-5">[ISO18013-5]</dt><dd>
+      <a href="https://www.iso.org/standard/69084.html"><cite>ISO/IEC 18013-5:2021 ISO-compliant driving licence, Part 5: Mobile driving licence (mDL) application</cite></a>. ISO/IEC JTC 1/SC 17.  International Organization for Standardization. September 2021. URL: <a href="https://www.iso.org/standard/69084.html">https://www.iso.org/standard/69084.html</a>
     </dd><dt id="bib-presenting-credentials-on-the-web">[presenting-credentials-on-the-web]</dt><dd>
       <a href="https://docs.google.com/document/d/1Ppaz_EnhzHqPOz5UusRJvbSunh-RXPWgJ3Np_TM2EE0/"><cite>Presenting Credentials on the Web</cite></a>. Simone Onofri. URL: <a href="https://docs.google.com/document/d/1Ppaz_EnhzHqPOz5UusRJvbSunh-RXPWgJ3Np_TM2EE0/">https://docs.google.com/document/d/1Ppaz_EnhzHqPOz5UusRJvbSunh-RXPWgJ3Np_TM2EE0/</a>
     </dd><dt id="bib-prevent-credential-abuse">[prevent-credential-abuse]</dt><dd>
@@ -7284,6 +7386,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="https://www.w3.org/TR/secure-contexts/"><cite>Secure Contexts</cite></a>. Mike West.  W3C. 10 November 2023. CRD. URL: <a href="https://www.w3.org/TR/secure-contexts/">https://www.w3.org/TR/secure-contexts/</a>
     </dd><dt id="bib-threat-model-decentralized-credentials">[threat-model-decentralized-credentials]</dt><dd>
       <a href="https://www.w3.org/TR/threat-model-decentralized-credentials/"><cite>Threat Model for Decentralized Credentials</cite></a>. Simone Onofri; Amir Sharif.  W3C. 22 June 2026. DNOTE. URL: <a href="https://www.w3.org/TR/threat-model-decentralized-credentials/">https://www.w3.org/TR/threat-model-decentralized-credentials/</a>
+    </dd><dt id="bib-url">[URL]</dt><dd>
+      <a href="https://url.spec.whatwg.org/"><cite>URL Standard</cite></a>. Anne van Kesteren.  WHATWG. Living Standard. URL: <a href="https://url.spec.whatwg.org/">https://url.spec.whatwg.org/</a>
     </dd></dl>
   </section></section><p role="navigation" id="back-to-top">
     <a href="#title"><abbr title="Back to Top">↑</abbr></a>
