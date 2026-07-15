@@ -926,6 +926,10 @@
           </li>
         </ol>
       </li>
+      <li>If |document| stops being [=Document/fully active=], [=credential
+      request coordinator/abort the credential request=] with an
+      {{"AbortError"}} {{DOMException}}.
+      </li>
       <li>Let |handled| be the result of running [=handle virtual wallet
       behavior=] given |promise| and |global|.
       </li>
@@ -933,10 +937,6 @@
       </li>
       <li>[=credential request coordinator/Initiate the credential request=]
       with |document|, |validatedRequests|, |promise|, and |signal|.
-      </li>
-      <li>If |document| stops being [=Document/fully active=], [=credential
-      request coordinator/abort the credential request=] with an
-      {{"AbortError"}} {{DOMException}}.
       </li>
     </ol><!--
     // MARK: Validate credential requests
@@ -1664,6 +1664,9 @@
       <li>Let |signal| be |options|'s {{CredentialRequestOptions/signal}}, if
       present.
       </li>
+      <li>If |origin| is an [=opaque origin=], return [=a promise rejected
+      with=] a {{"SecurityError"}} {{DOMException}}.
+      </li>
       <li>Let |global| be [=this=]'s [=relevant global object=].
       </li>
       <li>Let |document| be |global|'s [=associated `Document`=].
@@ -1720,6 +1723,9 @@
       </li>
       <li>If |signal| is [=AbortSignal/aborted=], return [=a promise rejected
       with=] |signal|'s [=AbortSignal/abort reason=].
+      </li>
+      <li>If |origin| is an [=opaque origin=], return [=a promise rejected
+      with=] a {{"SecurityError"}} {{DOMException}}.
       </li>
       <li>Let |global| be [=this=]'s [=relevant global object=].
       </li>
@@ -1909,6 +1915,15 @@
         [[[secure-contexts]]] specification for more information.
       </p>
       <p>
+        Additionally, requests from an [=opaque origin=] are rejected. Calls to
+        {{DigitalCredential/[[DiscoverFromExternalSource]](origin, options,
+        sameOriginWithAncestors)}} and {{DigitalCredential/[[Create]](origin,
+        options, sameOriginWithAncestors)}} from an [=opaque origin=] (for
+        example, a `data:` document, or a document sandboxed without
+        `allow-same-origin`) are [=reject|rejected=], reducing the risk of
+        malicious extraction or spoofing from untrusted environments.
+      </p>
+      <p>
         The Digital Credentials API reduces [=API flooding=] through two
         mechanisms:
       </p>
@@ -1955,6 +1970,35 @@
         [[[permissions-policy]]] specification for additional security
         properties provided by this integration.
       </p>
+      <section>
+        <!--
+        // MARK: Cross-Device Security and Proximity
+        -->
+        <h3>
+          Cross-Device Security and Proximity
+        </h3>
+        <p>
+          The Digital Credentials API supports cross-device experiences where a
+          user presents a [=digital credential=] from a secondary device, such
+          as a smartphone acting as a [=credential manager=], to a primary
+          device, such as a laptop. Although the specific data exchange
+          protocols (e.g., cryptographic formats and transports) are out of
+          scope for this API, such cross-device interactions typically rely on
+          established protocols like the Client to Authenticator Protocol
+          (CTAP) ([[[FIDO-CLIENT-TO-AUTHENTICATOR-PROTOCOL-V2.3]]]).
+        </p>
+        <p>
+          These protocols ensure security by establishing cryptographically
+          secure channels and enforcing physical proximity (e.g., via Bluetooth
+          Low Energy) to mitigate remote relay attacks. Crucially, in a
+          cross-device flow, the [=credential manager=] cannot inherently trust
+          the [=origin=] string forwarded by the primary device, as the primary
+          device or its browser might be compromised. Therefore, protocols that
+          employ signed requests, where the [=verifier=] cryptographically
+          proves its identity, provide significantly stronger security
+          assurances than relying solely on the browser-asserted [=origin=].
+        </p>
+      </section>
     </section>
     <section id="privacy-principles" class="informative" data-cite=
     "privacy-principles">
@@ -2792,18 +2836,176 @@
         Accessibility Considerations
       </h2>
       <p>
-        Implementers need to consider accessibility when designing [=credential
-        choosers=] specifically for this API. The content of modal dialogs
-        presented during [=digital credential/issuance request|issuance=] or
-        [=digital credential/presentation requests|presentation=], which can
-        include text, QR codes, and other visual media, SHOULD be labelled and
-        exposed to assistive technologies.
+        The user interface for selecting and authorizing a [=digital
+        credential=] is provided by the platform and is largely outside the
+        scope of this specification; however, the accessibility of that
+        experience is within scope (see [[[#scope]]]). The following guidance
+        applies to [=user agents=] and platforms implementing the [=digital
+        credential chooser=] and the flows around it, and references the
+        relevant success criteria of [[WCAG22]]. Where the chooser is a non-web
+        user interface, those criteria apply as described in [[WCAG2ICT-22]].
+      </p>
+      <p>
+        The content of modal dialogs presented during [=digital
+        credential/issuance request|issuance=] or [=digital
+        credential/presentation requests|presentation=], which can include
+        text, QR codes, and other visual media, SHOULD be labelled and exposed
+        to assistive technologies with appropriate names, roles, and values
+        (see [[[WCAG22#name-role-value]]]), and SHOULD provide text
+        alternatives for non-text content (see [[[WCAG22#non-text-content]]]).
+      </p>
+      <p>
+        Changes in the state of an interaction, such as waiting for another
+        device, a successful response, an error, or a cancellation, SHOULD be
+        programmatically determinable and conveyed to assistive technologies
+        without requiring a change of focus (see [[[WCAG22#status-messages]]]).
+      </p>
+      <p>
+        When an operation fails, the [=user agent=] rejects with one of several
+        distinct errors; for example, a {{"NotAllowedError"}},
+        {{"InvalidStateError"}}, or {{"OperationError"}} {{DOMException}}, or a
+        {{TypeError}}. Where the platform surfaces such a failure to the user,
+        it SHOULD identify in text what went wrong and, where applicable, how
+        to recover, rather than only signalling that an error occurred (see
+        [[[WCAG22#error-identification]]]).
       </p>
       <p>
         Interactive elements, particularly those that allow the user to
-        continue or abort [=digital credential/issuance request|issuance=] or
-        [=digital credential/presentation requests|presentation=] requests,
-        MUST be operable in a device-independent manner.
+        continue or abort an [=digital credential/issuance request|issuance=]
+        or [=digital credential/presentation requests|presentation=] request,
+        MUST be operable in a device-independent manner (for example, via the
+        keyboard; see [[[WCAG22#keyboard]]]). In particular, activation MUST
+        NOT require a multipoint or path-based gesture (see
+        [[[WCAG22#pointer-gestures]]]) or device motion (see
+        [[[WCAG22#motion-actuation]]]) as the only means of operation. The
+        [=digital credential chooser=] SHOULD present its controls in a
+        meaningful focus order (see [[[WCAG22#focus-order]]]), move focus into
+        the chooser when it is opened; keep focus within it while it is shown;
+        and restore focus to the previously focused element, or another
+        appropriate location, when it is closed.
+      </p>
+      <p>
+        Where releasing a [=digital credential=] requires the [=holder=] to
+        authenticate, an accessible authentication method SHOULD be available.
+        Where a step relies on a cognitive function test, such as recalling a
+        password, an alternative that does not require one SHOULD be offered
+        (see [[[WCAG22#accessible-authentication-minimum]]]); and
+        authentication SHOULD NOT depend solely on a single physical
+        characteristic, such as a biometric, that some users cannot provide.
+        This step is typically performed by the platform or [=credential
+        manager=] and is otherwise outside the scope of this specification.
+      </p>
+      <p>
+        Some platforms fulfil [=digital credential/presentation requests=]
+        across devices; for example, by displaying a QR code for the user to
+        scan with a separate device. Because such flows can depend on vision, a
+        camera, or the use of a second device, platforms SHOULD provide an
+        equivalent and accessible means of completing the interaction that does
+        not rely on a single sensory ability or input modality. A cross-device
+        request conveyed only through a visual artifact such as a QR code, with
+        no accessible alternative, excludes users who cannot use that modality.
+      </p>
+      <p>
+        An interaction may be subject to time limits from more than one source.
+        These SHOULD be handled so that users who need more time are not
+        excluded (see [[[WCAG22#timing-adjustable]]]):
+      </p>
+      <ul>
+        <li>A site can bound the interaction by passing an {{AbortSignal}} as
+        {{CredentialRequestOptions/signal}}; for example, one created with
+        `AbortSignal.timeout()`. Sites SHOULD allow sufficient time and SHOULD
+        NOT impose a short limit that rushes the user.
+        </li>
+        <li>A proximity check is a security-essential, real-time constraint
+        that cannot be extended without defeating its purpose. In this case,
+        the platform SHOULD make the remaining time programmatically
+        determinable, and SHOULD allow the user to retry the interaction.
+        </li>
+        <li>The validity window of a cross-device request SHOULD be extendable
+        or able to be retried.
+        </li>
+      </ul>
+      <p>
+        The decision to review and disclose a [=digital credential=] SHOULD NOT
+        be subject to a forcing countdown, including time pressure inherited
+        from the surrounding site flow.
+      </p>
+      <p>
+        Human-readable credential content shown during an interaction, together
+        with any accessible alternatives for it such as text alternatives for
+        images, is carried within the credential payload and is the
+        responsibility of the relevant credential format and protocol. Those
+        formats and protocols also determine the language and direction of that
+        content.
+      </p>
+    </section>
+    <section class="informative">
+      <!--
+      // MARK: Internationalization Considerations
+      -->
+      <h2>
+        Internationalization Considerations
+      </h2>
+      <p>
+        This API is agnostic to credential formats and exchange protocols, and
+        treats the request payloads ({{DigitalCredentialGetRequest}}'s
+        {{DigitalCredentialGetRequest/data}} and
+        {{DigitalCredentialCreateRequest}}'s
+        {{DigitalCredentialCreateRequest/data}}) and the response payload
+        ({{DigitalCredential}}'s {{DigitalCredential/data}}) as opaque. As a
+        result, the API defines no string-typed values that carry
+        human-readable, natural language content:
+      </p>
+      <ul>
+        <li>The string-typed values it defines, most notably [=digital
+        credential/protocol identifier|protocol identifiers=], are restricted
+        to ASCII ([=ASCII lower alpha=], U+002D HYPHEN-MINUS, and [=ASCII
+        digit=]) and compared by exact equality. They are machine identifiers,
+        not human-readable text, so normalization, case folding, and language
+        or direction metadata do not apply.
+        </li>
+        <li>All payloads are exchanged as JSON text and JavaScript values. When
+        a JSON string is encoded as bytes (for example, for transport), it is
+        encoded using UTF-8. Request payloads are serialized using [=serialize
+        a JavaScript value to a JSON string=], which calls the ECMAScript
+        `JSON.stringify` operation, and responses are parsed using [=parse a
+        JSON string to a JavaScript value=]. Because `JSON.stringify` emits
+        lone (unpaired) surrogate code points as `\uXXXX` escape sequences, the
+        serialized request is always well-formed, UTF-8-encodable JSON.
+        </li>
+        <li>Human-readable, localizable credential content (for example, the
+        values of credential claims such as a name or address, including their
+        representation in different scripts and languages) is carried opaquely
+        within the credential payload. Its internationalization is determined
+        by the relevant credential format and [=digital credential/presentation
+        protocol=] or [=digital credential/issuance protocol=] (for example,
+        the formats defined in [[[ISO18013-5]]], and protocols such as
+        [[[OPENID4VP]]]), which this specification expects to provide language
+        and direction metadata, and localized alternatives, where appropriate.
+        </li>
+        <li>The one value the API routes to the platform that a [=user agent=]
+        may display is the requesting [=request context/top-level origin=].
+        Rendering an origin's host to the user, including the handling of
+        internationalized domain names and bidirectional text, follows the
+        [[[URL#url-rendering-i18n|host-rendering guidance in the URL
+        Standard]]] and is out of scope for this specification.
+        </li>
+        <li>Any other text presented to the user during a credential
+        interaction is rendered either by the website (using HTML, which
+        provides language and direction support through the host language), or
+        by the platform's [=digital credential chooser=]. The chooser is out of
+        scope for this specification; where it displays credential content, the
+        language and direction of that content, as provided by the credential
+        format and protocol, govern its presentation.
+        </li>
+      </ul>
+      <p>
+        Consequently, this specification introduces no natural language text
+        that requires language or direction metadata. Were a future revision to
+        introduce site-authored human-readable text at the API layer,
+        normatively defined permission prompt text, or a user-agent-drawn
+        presentation element, that text would need to carry, or be associated
+        with, appropriate language and direction metadata.
       </p>
     </section>
     <section data-cite="webdriver webdriver-bidi">
