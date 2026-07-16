@@ -1883,10 +1883,24 @@
         end-to-end security of credential presentation and issuance. The
         following defines the [=out-of-scope threats=] for this specification:
       </p>
-      <ul>
-        <li>To be written...
-        </li>
-      </ul>
+      <dl>
+        <dt>
+          <dfn>Presentation Linkability</dfn>
+        </dt>
+        <dd>
+          A [=verifier=], alone or colluding with other [=verifiers=] or with
+          an [=issuer=], correlates multiple [=digital
+          credential/presentation|presentations=] to track a user across
+          contexts (verifier-verifier and verifier-issuer linkability). Whether
+          a presentation is linkable is determined by the [=digital
+          credential/presentation protocol=], credential format, and credential
+          [=claims=], so mitigation occurs at the protocol and format layers,
+          outside the scope of this API. This threat remains relevant here
+          because the [=user agent=] cannot observe the contents of an opaque
+          credential response and so adopts a conservative posture that assumes
+          a presentation may be linkable. See [[[#unlinkable-presentations]]].
+        </dd>
+      </dl>
       <h3>
         Mitigations
       </h3>
@@ -2158,12 +2172,12 @@
           selective disclosure by allowing the [=verifier=] to specify the
           exact claims needed.
         </p>
-        <h5>
+        <h5 id="unlinkable-presentations">
           Unlinkable presentations
         </h5>
         <p>
           [[[credential-considerations#unlinkable-presentations|Unlinkability]]]
-          is a property that ensures that, if a user presents attributes from a
+          is a property that ensures that, if a user presents [=claims=] from a
           credential multiple times, [=verifiers=] cannot link these separate
           presentations to conclude they concern the same user
           (verifier-verifier linkability), or that [=verifiers=] cannot collude
@@ -2182,18 +2196,30 @@
           requested to limit linkability wherever possible.
         </p>
         <p>
-          Note that unlinkability is exclusively a consideration for attributes
+          Note that unlinkability is exclusively a consideration for claims
           that cannot be linked to a specific user identity. Inherently
-          linkable attributes such as names, driver's license numbers, or phone
+          linkable properties such as names, driver's license numbers, or phone
           numbers do not benefit from unlinkability.
         </p>
         <p>
           Through the Digital Credentials API, the [=user agent=] can help
-          [=verifiers=] and [=credential managers=] exchange unlinkable
-          attributes, but, because of response encryption, it cannot guarantee
-          that no linkable information is passed between [=verifiers=] and
-          [=credential managers=]. It is recommended that [=user agents=]
-          account for this fact in their user permission experience.
+          [=verifiers=] and [=credential managers=] exchange unlinkable claims,
+          but it does not by itself make a [=digital
+          credential/presentation|presentation=] unlinkable: where
+          unlinkability is achieved, it is a property of the credential format,
+          [=digital credential/presentation protocol=], and credential claims
+          in use, and, for verifier-verifier linkability, of the [=holder=] and
+          [=issuer=] (as described above). Because the [=user agent=] cannot
+          observe the contents of an opaque credential response, it cannot
+          confirm that any such unlinkability property holds, and therefore
+          assumes a presentation may be linkable, both across [=verifiers=]
+          (verifier-verifier linkability) and back to the [=issuer=]
+          (verifier-issuer linkability). It is recommended that [=user agents=]
+          account for this in their permission experience, for example by
+          indicating whether presenting the requested information may enable
+          tracking (see [[[#user-permission-and-transparency]]]), or by
+          applying a higher level of friction and clear messaging that
+          highlights the risk.
         </p>
         <p class="issue" data-number="279">
           Which level of unlinkability is the goal for this API? Can we
