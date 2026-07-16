@@ -2044,6 +2044,30 @@
       </p>
       <section>
         <!--
+        // MARK: Ecosystem privacy
+        -->
+        <h3>
+          Ecosystem privacy
+        </h3>
+        <p>
+          This specification defines how a [=verifier=] interacts with a
+          user's [=credential manager=] through a [=user agent=]. The privacy
+          considerations in this section address that interaction and the
+          [=user agent duties=] it entails. They do not, and cannot, address
+          the privacy properties of a complete deployment that combines this
+          API with particular [=digital credential/presentation protocols=],
+          credential formats, issuance systems, and governance rules.
+        </p>
+        <p>
+          The privacy implications of such a deployment are out of scope for
+          this specification. Each deployment is encouraged to evaluate the
+          privacy implications across all of the specifications it uses, and to
+          consult the privacy considerations of those specifications, in
+          addition to the considerations described here.
+        </p>
+      </section>
+      <section>
+        <!--
         // MARK: Design Considerations and Alternatives
         -->
         <h3>
@@ -2296,6 +2320,102 @@
           responses in a credential exchange.
         </p>
         <p class="issue" data-number="109"></p>
+        <h4>
+          Privacy review of the supported protocols
+        </h4>
+        <p>
+          This section reviews how each [=digital credential/presentation
+          protocol=] listed in [[[#protocols]]] addresses the considerations
+          above, and notes where a property depends on deployment choices or is
+          left to the credential format. It is descriptive: it records the
+          state of the referenced protocol specifications at the time of
+          writing, not a conformance requirement.
+        </p>
+        <h5>
+          OpenID for Verifiable Presentations
+        </h5>
+        <p>
+          [[OPENID4VP]] facilitates selective disclosure through its query
+          language, allowing a [=verifier=] to request only the claims it
+          needs; the granularity actually achieved depends on the credential
+          format (for example, a salted-hash format). It does not provide
+          unlinkability as an inherent property: it addresses
+          verifier-to-verifier linkability only, and treats unlinkability as
+          achievable by presenting a single-use credential instance, with
+          batch issuance of such instances defined in [[OPENID4VCI]] rather
+          than in the presentation protocol itself. It does not define
+          zero-knowledge mechanisms. The core presentation exchange does not
+          require contacting the [=issuer=]; however, establishing trust in
+          the issuer (or in the framework that certifies issuers) can involve
+          online resolution that could enable profiling, and the protocol
+          advises wallets against retrieving unfamiliar URLs supplied in a
+          request. Revocation is not addressed beyond a verifier-side policy
+          check.
+        </p>
+        <p>
+          Verifier authorization is the main axis on which the three variants
+          ({{DigitalCredentialPresentationProtocol/"openid4vp-v1-unsigned"}}, {{DigitalCredentialPresentationProtocol/"openid4vp-v1-signed"}},
+          and {{DigitalCredentialPresentationProtocol/"openid4vp-v1-multisigned"}}) differ. An unsigned request
+          carries no cryptographic authentication of the verifier and relies on
+          the request [=origin=] and the Web PKI; a signed request lets the
+          wallet authenticate the verifier through a trust framework in addition
+          to the Web PKI, and binds the request to its expected origins to
+          detect replay; a multi-signed request extends this to multiple
+          verifier identities and trust frameworks for a single request. The
+          variants differ in verifier authentication strength, not in
+          presentation unlinkability.
+        </p>
+        <h5>
+          ISO/IEC mdoc ({{DigitalCredentialPresentationProtocol/"org-iso-mdoc"}})
+        </h5>
+        <p>
+          The mdoc data model ([[ISO18013-5]]) is element-granular: a
+          [=verifier=] requests individual data elements, and an mdoc need not
+          release an element merely because it is present, which supports data
+          minimization (for example, an age-over attestation can confirm a
+          threshold without revealing date of birth). As with [[OPENID4VP]],
+          unlinkability is not inherent: it depends on the issuer and wallet
+          rotating per-presentation keys and signed objects, and is described
+          as a recommendation rather than a guaranteed property. On the
+          Digital Credentials API path defined in [[ISO18013-7]] Annex C, the
+          presentation is a direct exchange between the wallet and the
+          verifier with no issuer contact, and the response is encrypted to
+          the verifier, so a [=user agent=] cannot inspect it. Revocation is
+          out of scope for [[ISO18013-7]]; freshness relies on the validity
+          window of the signed object, and [[ISO18013-5]] cautions that
+          revocation techniques can undermine unlinkability. The mechanism for
+          obtaining the holder's consent is out of scope, but the base
+          standard recommends informed, transaction-time consent rather than
+          blanket authorization. Verifier authentication (reader
+          authentication) is optional, while the Digital Credentials API path
+          additionally binds the request [=origin=] into the session and
+          requires the exchange to be aborted if the origin is absent, which
+          mitigates request-forwarding attacks that affect other invocation
+          mechanisms.
+        </p>
+        <h5>
+          OpenID for Verifiable Credential Issuance ({{DigitalCredentialIssuanceProtocol/"openid4vci-v1"}})
+        </h5>
+        <p>
+          [[OPENID4VCI]] is an [=digital credential/issuance protocol=], so
+          the presentation considerations above apply to it only indirectly.
+          For unlinkability it supports batch issuance of credentials bound to
+          distinct keys, which its own text describes as aiding
+          verifier-to-verifier unlinkability only; the issuer controls the
+          batch size. Beyond first issuance, the credential lifecycle can
+          involve further contact with the [=issuer=] (for example deferred
+          issuance, a notification endpoint, or non-interactive refresh), some
+          of which is optional. Data-minimization guidance is present but is
+          directed at limiting what a [=verifier=] later obtains and at
+          storage, rather than constraining what the issuer collects.
+        </p>
+        <p>
+          At the time of writing, no binding of {{DigitalCredentialIssuanceProtocol/"openid4vci-v1"}} to
+          the Digital Credentials API has been published; it is being developed
+          in the OpenID Foundation. This review is therefore limited to the
+          issuance protocol itself and is expected to be revisited once the
+          Digital Credentials API integration is defined.
+        </p>
       </section>
       <section>
         <!--
