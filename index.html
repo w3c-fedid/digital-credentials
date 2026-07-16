@@ -2296,6 +2296,50 @@
           responses in a credential exchange.
         </p>
         <p class="issue" data-number="109"></p>
+        <h4>
+          Privacy and security requirements for presentation protocols
+        </h4>
+        <p>
+          A [=digital credential/presentation protocol=] MUST provide a
+          mechanism by which a [=verifier=] can request, and a [=holder=] can
+          release, only the specific claims required for a transaction
+          (selective disclosure), to the extent that the credential format in
+          use supports it.
+        </p>
+        <p>
+          Where a use case does not require the [=holder=] to be identified, a
+          [=digital credential/presentation protocol=] SHOULD support unlinkable
+          presentations, such that a [=verifier=] cannot, on the basis of the
+          protocol alone, link multiple presentations to the same [=holder=].
+          This does not apply to inherently identifying attributes (for example,
+          a name or license number).
+        </p>
+        <p>
+          A [=digital credential/presentation protocol=] SHOULD be usable to
+          present a credential without the [=holder=]'s device contacting the
+          [=issuer=] or another central party at presentation time.
+        </p>
+        <p>
+          Where a [=digital credential/presentation protocol=] supports
+          revocation, it SHOULD use mechanisms that do not require the [=holder=]
+          to contact the [=issuer=] at presentation time and that do not enable
+          the [=issuer=] or [=verifier=] to link presentations on the basis of
+          revocation checking (for example, short-lived credentials or
+          privacy-preserving status mechanisms).
+        </p>
+        <p>
+          A [=digital credential/presentation protocol=] SHOULD make available
+          to the [=user agent=] the information needed to support informed user
+          permission, in particular the set of claims requested and, where
+          applicable, [=verifier=] identity material.
+        </p>
+        <p>
+          A [=digital credential/presentation protocol=] SHOULD enable the
+          [=holder=] or [=user agent=] to authenticate or authorize the
+          [=verifier=] before a credential is released. The available strength of
+          [=verifier=] authentication MAY vary between protocols and between
+          requests (for example, signed versus unsigned requests).
+        </p>
       </section>
       <section>
         <!--
