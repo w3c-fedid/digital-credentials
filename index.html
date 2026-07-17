@@ -3019,13 +3019,14 @@
         Types
       </h4>
       <pre class="cddl" data-cddl-module="remote-cddl">
-        digitalCredentials.VirtualWalletAction = "decline" / "respond" / "wait" / "clear"
+        digitalCredentials.VirtualWalletAction = "decline" / "respond" / "wait" / "clear" / "error"
 
         digitalCredentials.SetVirtualWalletBehaviorParameters = {
           action: digitalCredentials.VirtualWalletAction,
           ? context: text,
           ? protocol: text,
           ? response: { * text =&gt; any },
+          ? error: text,
         }
       </pre>
       <p>
@@ -3060,6 +3061,12 @@
         </dt>
         <dd>
           Clears the active virtual wallet behavior.
+        </dd>
+        <dt>
+          {^digitalCredentials.VirtualWalletAction/"error"^}
+        </dt>
+        <dd>
+          The virtual wallet simulates a wallet error.
         </dd>
       </dl>
       <h4>
@@ -3106,6 +3113,9 @@
         <li>Let |response| be |command parameters|["`response`"], if present,
         and `null` otherwise.
         </li>
+        <li>Let |error| be |command parameters|["`error`"], if present, and
+        `null` otherwise.
+        </li>
         <li>If |action| is `"respond"`:
           <ol>
             <li>If |protocol| is `null` or |response| is `null`, return an
@@ -3123,10 +3133,18 @@
             </li>
           </ol>
         </li>
+        <li>Else if |action| is `"error"`:
+          <ol>
+            <li>If |protocol| is not `null` or |response| is not `null`, return
+            an [=error=] with [=error code=] [=invalid argument=].
+            </li>
+          </ol>
+        </li>
         <li>Else:
           <ol>
-            <li>If |response| is not `null` or |protocol| is not `null`, return
-            an [=error=] with [=error code=] [=invalid argument=].
+            <li>If |protocol| is not `null`, |response| is not `null`, or
+            |error| is not `null`, return an [=error=] with [=error code=]
+            [=invalid argument=].
             </li>
           </ol>
         </li>
@@ -3143,7 +3161,7 @@
         <li>Else:
           <ol>
             <li>Let |behavior| be a tuple of (|action|, |protocol|,
-            |response|).
+            |response|, |error|).
             </li>
             <li>If |context| is not `null`, set the WebDriver [=session=]'s
             <dfn>active virtual wallet behavior</dfn> for the browsing context
@@ -3177,7 +3195,7 @@
         </li>
         <li>If |behavior| is `null`, return `false`.
         </li>
-        <li>Let (|action|, |protocol|, |response|) be |behavior|.
+        <li>Let (|action|, |protocol|, |response|, |error|) be |behavior|.
         </li>
         <li>If |action| is `"wait"`, return `true`.
         </li>
@@ -3185,6 +3203,18 @@
           <ol>
             <li>[=Reject=] |promise| with a {{"NotAllowedError"}}
             {{DOMException}}.
+            </li>
+            <li>Return `true`.
+            </li>
+          </ol>
+        </li>
+        <li>If |action| is `"error"`:
+          <ol>
+            <li>Let |errorName| be |error| if |error| is not `null`, or
+            `"UnknownError"` otherwise.
+            </li>
+            <li>[=Reject=] |promise| with a {{DOMException}} whose name is
+            |errorName|.
             </li>
             <li>Return `true`.
             </li>
