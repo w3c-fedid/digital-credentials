@@ -1513,6 +1513,9 @@
       static boolean userAgentAllowsProtocol(DOMString protocol);
     };
     </pre>
+    <p>
+      {{DigitalCredential}} instances are [=Credential/origin bound=].
+    </p>
     <h4>
       The `protocol` member
     </h4>
@@ -1652,9 +1655,6 @@
       <li>Let |signal| be |options|'s {{CredentialRequestOptions/signal}}, if
       present.
       </li>
-      <li>If |origin| is an [=opaque origin=], return [=a promise rejected
-      with=] a {{"SecurityError"}} {{DOMException}}.
-      </li>
       <li>Let |global| be [=this=]'s [=relevant global object=].
       </li>
       <li>Let |document| be |global|'s [=associated `Document`=].
@@ -1711,9 +1711,6 @@
       </li>
       <li>If |signal| is [=AbortSignal/aborted=], return [=a promise rejected
       with=] |signal|'s [=AbortSignal/abort reason=].
-      </li>
-      <li>If |origin| is an [=opaque origin=], return [=a promise rejected
-      with=] a {{"SecurityError"}} {{DOMException}}.
       </li>
       <li>Let |global| be [=this=]'s [=relevant global object=].
       </li>
@@ -1901,15 +1898,6 @@
         injected through the network). Please refer to the
         [[[secure-contexts#security-considerations]]] section of the
         [[[secure-contexts]]] specification for more information.
-      </p>
-      <p>
-        Additionally, requests from an [=opaque origin=] are rejected. Calls to
-        {{DigitalCredential/[[DiscoverFromExternalSource]](origin, options,
-        sameOriginWithAncestors)}} and {{DigitalCredential/[[Create]](origin,
-        options, sameOriginWithAncestors)}} from an [=opaque origin=] (for
-        example, a `data:` document, or a document sandboxed without
-        `allow-same-origin`) are [=reject|rejected=], reducing the risk of
-        malicious extraction or spoofing from untrusted environments.
       </p>
       <p>
         The Digital Credentials API reduces [=API flooding=] through two
