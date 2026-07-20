@@ -324,7 +324,8 @@
         Similarly, when a site needs to [=digital credential/issuance|issue=] a
         digital credential, the [[[#DC-API|Digital Credentials API]]] mediates
         the issuance of a digital credential between the site, the user agent,
-        and the [=holder=].
+        and the [=holder=]'s [=credential manager=], via a [=credential manager
+        chooser=].
       </p>
       <h3>
         Issuing a digital credential
@@ -593,6 +594,14 @@
           broader [=credential chooser=], or as a separate platform-provided
           user interface. The exact relationship is implementation-defined.
         </aside>
+      </dd>
+      <dt>
+        <dfn>Credential manager chooser</dfn>
+      </dt>
+      <dd>
+        A platform-provided user interface that presents one or more
+        [=credential managers=] to the user, allowing them to choose where to
+        save a [=digital credential=], or cancel the operation.
       </dd>
     </dl><!--
     // MARK: Protocols
@@ -1314,15 +1323,23 @@
     </p>
     <p>
       Additionally, the API also allows [=digital credential/Issuance
-      request|requesting issuance=] of a [=digital credential=], which
-      initiates a mediated issuance flow between the user agent and/or a
-      [=holder=]. This is done by calling the
+      request|requesting issuance=] of a [=digital credential=], which in turn
+      presents a [=credential manager chooser=] to the user, allowing them to
+      select a [=credential manager=] that can handle to save the [=digital
+      credential=]. This is done by calling the
       `navigator.credentials.`{{CredentialsContainer/create()}} method, which
       runs the [=create a credential=] algorithm of
       [[[credential-management]]]. That algorithm then calls back into this
       specification's {{DigitalCredential}} interface's
       {{Credential/[[Create]](origin,options, sameOriginWithAncestors)}}
       internal method.
+    </p>
+    <p>
+      [=digital credential/Issuance request|Digital credential issuance=] via
+      this API differs slightly from digital credential presentation. The
+      response data contains the protocol-specific response from the holder's
+      [=credential manager=], as defined by the issuance protocol, and does not
+      represent the actual issued digital credential itself.
     </p>
     <p>
       Please see [[[#credential-management-integration|Credential Management
@@ -2081,7 +2098,8 @@
         <p>
           The Digital Credentials API offers the [=user agent=] the ability to
           intermediate on behalf of the user (e.g. in the form of a [=digital
-          credential chooser=]) to contextualize requests and
+          credential chooser=] or a [=credential manager chooser=]) to
+          contextualize requests and
           [[[#permission-prior-to-credential-manager-selection|prevent
           immediate exposure to holder applications]]]. It also enforces
           certain minimum requirements on supported protocols, such as
@@ -2829,9 +2847,10 @@
         scope of this specification; however, the accessibility of that
         experience is within scope (see [[[#scope]]]). The following guidance
         applies to [=user agents=] and platforms implementing the [=digital
-        credential chooser=] and the flows around it, and references the
-        relevant success criteria of [[WCAG22]]. Where the chooser is a non-web
-        user interface, those criteria apply as described in [[WCAG2ICT-22]].
+        credential chooser=], [=credential manager chooser=] and the flows
+        around it, and references the relevant success criteria of [[WCAG22]].
+        Where the chooser is a non-web user interface, those criteria apply as
+        described in [[WCAG2ICT-22]].
       </p>
       <p>
         The content of modal dialogs presented during [=digital
@@ -2866,11 +2885,12 @@
         NOT require a multipoint or path-based gesture (see
         [[[WCAG22#pointer-gestures]]]) or device motion (see
         [[[WCAG22#motion-actuation]]]) as the only means of operation. The
-        [=digital credential chooser=] SHOULD present its controls in a
-        meaningful focus order (see [[[WCAG22#focus-order]]]), move focus into
-        the chooser when it is opened; keep focus within it while it is shown;
-        and restore focus to the previously focused element, or another
-        appropriate location, when it is closed.
+        [=digital credential chooser=] and [=credential manager chooser=]SHOULD
+        present its controls in a meaningful focus order (see
+        [[[WCAG22#focus-order]]]), move focus into the chooser when it is
+        opened; keep focus within it while it is shown; and restore focus to
+        the previously focused element, or another appropriate location, when
+        it is closed.
       </p>
       <p>
         Where releasing a [=digital credential=] requires the [=holder=] to
@@ -2981,10 +3001,11 @@
         <li>Any other text presented to the user during a credential
         interaction is rendered either by the website (using HTML, which
         provides language and direction support through the host language), or
-        by the platform's [=digital credential chooser=]. The chooser is out of
-        scope for this specification; where it displays credential content, the
-        language and direction of that content, as provided by the credential
-        format and protocol, govern its presentation.
+        by the platform's [=digital credential chooser=] and [=credential
+        manager chooser=]. The chooser is out of scope for this specification;
+        where it displays credential content, the language and direction of
+        that content, as provided by the credential format and protocol, govern
+        its presentation.
         </li>
       </ul>
       <p>
