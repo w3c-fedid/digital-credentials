@@ -977,10 +977,24 @@
           <li>Validate |request|'s [=digital credential/presentation request
           data=] or [=digital credential/issuance request data=] according to
           |request|'s [=digital credential/presentation protocol=] or [=digital
-          credential/issuance protocol=] or other criteria. Validation
-          requirements are protocol-specific and are outside the scope of this
-          specification:
-            <aside class="note" title="Validation details outside scope">
+          credential/issuance protocol=] or other criteria.
+            <p>
+              In addition to protocol-defined requirements, a [=user agent=]
+              might apply validation criteria based on local policy,
+              configuration, or evolving security considerations. For example, a
+              [=user agent=] might reject a request that (a) seeks particular
+              credential attributes, (b) uses or requires cryptographic
+              algorithms the [=user agent=] is configured not to accept (e.g.,
+              as part of algorithm agility or a transition to post-quantum
+              schemes), or (c) relies on certificates or trust anchors that are
+              not accepted by the [=user agent=]'s configured trust decisions.
+            </p>
+            <p>
+              What constitutes a validation failure is protocol-specific, but
+              how such a failure is classified into an exception type is defined
+              below:
+            </p>
+            <aside class="note" title="Protocol-specific validation details">
               <p>
                 Validation includes verifying |request|'s [=digital
                 credential/presentation request data=] or [=digital
@@ -995,10 +1009,50 @@
                 during validation.
               </p>
             </aside>
-            <aside class="issue" data-number="472"></aside>
             <ol>
-              <li>If validation fails, [=exception/throw=] an appropriate
-              [=exception=].
+              <li>If validation fails:
+                <ol>
+                  <li>Let |error| be determined as follows:
+                    <dl class="switch">
+                      <dt>
+                        The [=user agent=] does not permit the request based on
+                        local policy, configuration, or the user's choices:
+                      </dt>
+                      <dd>
+                        A newly created {{"NotAllowedError"}} {{DOMException}}.
+                        <p class="note">
+                          {{"NotAllowedError"}} is deliberately
+                          indistinguishable from the error returned when the
+                          user cancels the operation, so that a website cannot
+                          determine whether a request was refused by the user or
+                          by the [=user agent=], nor infer anything about the
+                          user's configuration or credentials.
+                        </p>
+                      </dd>
+                      <dt>
+                        The request is not permitted for security reasons
+                        unrelated to the user, such as the context or transport:
+                      </dt>
+                      <dd>
+                        A newly created {{"SecurityError"}} {{DOMException}}.
+                      </dd>
+                      <dt>
+                        The request data is malformed or invalid:
+                      </dt>
+                      <dd>
+                        A newly created {{TypeError}}.
+                      </dd>
+                      <dt>
+                        Otherwise:
+                      </dt>
+                      <dd>
+                        A newly created {{"OperationError"}} {{DOMException}}.
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>[=exception/Throw=] |error|.
+                  </li>
+                </ol>
               </li>
               <li>Otherwise, [=list/append=] |request| to |validatedRequests|.
               </li>
