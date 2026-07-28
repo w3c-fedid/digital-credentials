@@ -1095,21 +1095,96 @@
         </dl>
       </li>
     </ol>
+    <p>
+      A [=digital credential/credential response=] is always encrypted for the
+      requesting party. This is enforced, per [=digital
+      credential/presentation protocol=], by [=credential request
+      coordinator/validate request data=], which requires the request to mandate
+      an encrypted response, and by [=credential request coordinator/validate
+      response data=], which rejects a response that is not encrypted.
+    </p>
+    <aside class="note" title="Encryption applies per operating mode">
+      <p>
+        Because {{DigitalCredentialPresentationProtocol/"openid4vp-v1-unsigned"}},
+        {{DigitalCredentialPresentationProtocol/"openid4vp-v1-signed"}}, and
+        {{DigitalCredentialPresentationProtocol/"openid4vp-v1-multisigned"}} are
+        distinct [=digital credential/presentation protocols=], this is enforced
+        for each individually (i.e., per operating mode). For OpenID4VP the
+        `response_mode` is "`dc_api.jwt`"; for the ISO mdoc protocol,
+        `encryptionInfo` is present.
+      </p>
+    </aside>
+    <aside class="note" title="Issuance responses">
+      <p>
+        A [=digital credential/issuance response=] does not return credential
+        data to the requesting party, so encryption concerns [=digital
+        credential/presentation protocols=].
+      </p>
+    </aside>
     <aside class="note" title="Protocol-specific validation">
       <p>
         Validation includes verifying |request|'s [=digital
         credential/presentation request data=] or [=digital credential/issuance
         request data=] conforms to the requirements of the specified [=digital
         credential/presentation protocol=] or [=digital credential/issuance
-        protocol=]. A protocol-specific validation algorithm needs to ensure
-        that any [=digital credential/credential response=] containing
-        credential data is encrypted for the requesting party. If the user
-        agent cannot determine that the request requires an encrypted
-        credential response, the user agent does not treat the request as
-        validated.
+        protocol=].
       </p>
     </aside>
     <aside class="issue" data-number="472"></aside><!--
+    // MARK: Validate response data
+    -->
+    <h3>
+      Validate response data
+    </h3>
+    <p>
+      To <dfn data-dfn-for="credential request coordinator">validate response
+      data</dfn> given a {{DigitalCredentialPresentationProtocol}}
+      |protocol:DigitalCredentialPresentationProtocol| and a JavaScript
+      [=object=] |data|:
+    </p>
+    <ol class="algorithm">
+      <li>If |protocol| is:
+        <dl class="switch">
+          <dt>
+            {{DigitalCredentialPresentationProtocol/"org-iso-mdoc"}}:
+          </dt>
+          <dd>
+            If |data| does not have an own property "`response`" whose value is
+            a `Base64EncryptedResponse` as defined in [[[ISO18013-7]]] Annex C,
+            return failure.
+          </dd>
+          <dt>
+            {{DigitalCredentialPresentationProtocol/"openid4vp-v1-unsigned"}}:
+          </dt>
+          <dt>
+            {{DigitalCredentialPresentationProtocol/"openid4vp-v1-signed"}}:
+          </dt>
+          <dt>
+            {{DigitalCredentialPresentationProtocol/"openid4vp-v1-multisigned"}}:
+          </dt>
+          <dd>
+            If |data| does not have an own property "`response`" whose value is
+            a [=string=] consisting of five segments separated by four U+002E
+            (.) code points (an encrypted Authorization Response in JWE Compact
+            Serialization, as required by [[[OPENID4VP]]] Section 8.3), return
+            failure. If |data| has an own property "`vp_token`", return failure.
+          </dd>
+        </dl>
+      </li>
+      <li>Return success.
+      </li>
+    </ol>
+    <aside class="note" title="The outbound check is a safety net">
+      <p>
+        This check guards primarily against implementation errors in
+        otherwise-honest [=holders=] that might return credential data in the
+        clear. It cannot detect a malicious [=holder=] that encodes cleartext to
+        resemble ciphertext; the primary protection against an unencrypted
+        response is [=credential request coordinator/validate request data=],
+        which requires the request to
+        mandate an encrypted [=digital credential/credential response=].
+      </p>
+    </aside><!--
     // MARK: Abort and reject algorithms
     -->
     <h3>
@@ -1357,6 +1432,15 @@
                     <ol>
                       <li>[=Reject=] |promise| with a newly created
                       {{TypeError}}.
+                      </li>
+                    </ol>
+                  </li>
+                  <li>Otherwise, if [=credential request coordinator/validate
+                  response data=] given |protocol| and
+                  |parsedResponseDataOrError| returns failure:
+                    <ol>
+                      <li>[=Reject=] |promise| with a newly created
+                      "{{SecurityError}}" {{DOMException}}.
                       </li>
                     </ol>
                   </li>
