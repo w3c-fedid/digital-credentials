@@ -1301,8 +1301,10 @@
                       <li>Let |credential| be a newly created
                       {{DigitalCredential}} instance with its
                       {{DigitalCredential/data}} initialized to
-                      |parsedResponseDataOrError| and its
-                      {{DigitalCredential/protocol}} initialized to |protocol|.
+                      |parsedResponseDataOrError|, its
+                      {{DigitalCredential/protocol}} initialized to |protocol|,
+                      and its {{DigitalCredential/requestOrigin}} initialized to
+                      the [=ASCII serialization of an origin=] of |documentOrigin|.
                       </li>
                       <li>[=Resolve=] |promise| with |credential|.
                       </li>
@@ -1544,6 +1546,7 @@
       [Default] object toJSON();
       readonly attribute DigitalCredentialProtocol protocol;
       [SameObject] readonly attribute object data;
+      readonly attribute USVString requestOrigin;
       static boolean userAgentAllowsProtocol(DOMString protocol);
     };
     </pre>
@@ -1563,6 +1566,14 @@
       The <dfn data-dfn-for="DigitalCredential">data</dfn> member is the
       credential's response data. It contains the subset of JSON-parseable
       object types.
+    </p>
+    <h4>
+      The `requestOrigin` attribute
+    </h4>
+    <p>
+      The <dfn data-dfn-for="DigitalCredential">requestOrigin</dfn> attribute is
+      the [=request context/document origin=] of the request that produced the
+      [=digital credential=].
     </p>
     <h4>
       The <dfn data-dfn-for="DigitalCredential">userAgentAllowsProtocol()</dfn>
@@ -2013,6 +2024,22 @@
         the user, and that would receive the [=digital credential=], reflects
         the [=user agent=]'s own determination of who is asking, rather than a
         value the requesting content can choose.
+      </p>
+      <p>
+        The {{DigitalCredential/requestOrigin}} attribute exposes this [=user
+        agent=]-determined [=request context/document origin=] on the response,
+        so it reflects the [=user agent=]'s determination rather than a value
+        chosen by the [=Document=], the platform, or the wallet. It is not,
+        however, a defense against a script running within the [=verifier=]'s
+        own page, which could substitute the {{DigitalCredential}} before a
+        downstream consumer reads it. A [=verifier=] therefore confirms the
+        origin a response was bound to by cryptographically validating the
+        response in {{DigitalCredential/data}} according to the [=digital
+        credential/presentation protocol=], rather than relying on
+        {{DigitalCredential/requestOrigin}} alone. That validation is only as
+        strong as the integrity of the request: a signed request authenticates
+        the [=verifier=] and integrity-protects the response's encryption
+        parameters and nonce, whereas an unsigned request does not.
       </p>
       <p>
         For additional guidance on preventing abuse of credential requests,
