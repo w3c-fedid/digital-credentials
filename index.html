@@ -1057,8 +1057,8 @@
     </h3>
     <p>
       To <dfn data-dfn-for="credential request coordinator">validate request
-      data</dfn> given a {{DigitalCredentialPresentationProtocol}}
-      |protocol:DigitalCredentialPresentationProtocol|, a JavaScript value
+      data</dfn> given a {{DigitalCredentialProtocol}}
+      |protocol:DigitalCredentialProtocol|, a JavaScript value
       |data|, and a {{DigitalCredentialGetRequest}} or
       {{DigitalCredentialCreateRequest}} |request|:
     </p>
@@ -1138,9 +1138,8 @@
     </h3>
     <p>
       To <dfn data-dfn-for="credential request coordinator">validate response
-      data</dfn> given a {{DigitalCredentialPresentationProtocol}}
-      |protocol:DigitalCredentialPresentationProtocol| and a JavaScript
-      [=object=] |data|:
+      data</dfn> given a {{DigitalCredentialProtocol}}
+      |protocol:DigitalCredentialProtocol| and a JavaScript [=object=] |data|:
     </p>
     <ol class="algorithm">
       <li>If |protocol| is:
@@ -1168,6 +1167,14 @@
             (.) code points (an encrypted Authorization Response in JWE Compact
             Serialization, as required by [[[OPENID4VP]]] Section 8.3), return
             failure. If |data| has an own property "`vp_token`", return failure.
+          </dd>
+          <dt>
+            {{DigitalCredentialIssuanceProtocol/"openid4vci-v1"}}:
+          </dt>
+          <dd>
+            Return success. An [=digital credential/issuance response=] does not
+            carry credential data to the requesting party, so there is nothing
+            here to check for encryption.
           </dd>
         </dl>
       </li>
