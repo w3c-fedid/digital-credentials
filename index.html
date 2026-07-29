@@ -605,24 +605,23 @@
       defined by this specification.
     </p>
     <p>
-      A [=user agent=] MUST support, from the [=table of supported presentation
-      and issuance protocols=], both the ISO mdoc presentation protocol
-      ({{DigitalCredentialPresentationProtocol/"org-iso-mdoc"}}) and the signed
-      OpenID4VP presentation protocols
+      A [=user agent=] MUST support the ISO mdoc presentation protocol
+      ({{DigitalCredentialPresentationProtocol/"org-iso-mdoc"}}) as well
+      as both of the signed OpenID4VP presentation protocols
       ({{DigitalCredentialPresentationProtocol/"openid4vp-v1-signed"}} and
-      {{DigitalCredentialPresentationProtocol/"openid4vp-v1-multisigned"}}). It
-      is RECOMMENDED that a [=user agent=] also support the [=digital
-      credential/issuance protocols=] listed in that table.
+      {{DigitalCredentialPresentationProtocol/"openid4vp-v1-multisigned"}}),
+      as listed in the [=table of supported presentation and issuance
+      protocols=]. It is RECOMMENDED that [=user agents=] also support all
+      of the [=digital credential/issuance protocols=] listed in that table.
     </p>
     <aside class="note" title="Rationale for the required protocols">
       <p>
         Requiring both credential-format families in the table (ISO mdoc and
         OpenID4VP) lets a [=verifier=] rely on the API regardless of which family
-        it uses. The signed OpenID4VP modes are the ones required because a
-        signed request integrity-protects the request, including any
-        response-encryption parameters, which is what makes the response's
-        protections meaningful; the unsigned mode does not, and is not required
-        here.
+        it uses. The signed OpenID4VP modes are required because a signed request
+        integrity-protects that request, including any response-encryption
+        parameters, which is what makes the response's protections meaningful;
+        the unsigned mode does not, and is thus not required here.
       </p>
     </aside>
     <aside class="note" title="Checking which protocols a user agent allows">
