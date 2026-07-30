@@ -1109,9 +1109,10 @@
       {{AbortSignal}} |signal|:
     </p>
     <ol class="algorithm">
-      <li>Let |topLevelOrigin| be |document|'s [=node navigable=]'s [=navigable/top-level traversable=]'s
-      [=navigable/active document=]'s [=relevant settings object=]'s
-      [=environment settings object/origin=].
+      <li>Let |topLevelOrigin| be the [=environment settings object/origin=]
+        of the [=relevant settings object=] of the [=navigable/active document=]
+        of the [=navigable/top-level traversable=] of the [=node navigable=]
+        of the |document|.
       </li>
       <li>Let |requestData| be a new [=request context=] whose [=request
       context/requests=] is |validatedRequests|, [=request context/document
