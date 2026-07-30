@@ -909,7 +909,8 @@
           <li>Set the [=credential request coordinator=]'s [=credential request
           coordinator/abort signal=] to |signal|.
           </li>
-          <li>Let |abortAlgorithm| be the following algorithm:
+          <li>Let |abortAlgorithm| be the following algorithm, closing over
+          |promise| and |signal|:
             <ol>
               <li>If the [=credential request coordinator=]'s [=credential
               request coordinator/active promise=] is not |promise|, return.
@@ -1015,8 +1016,7 @@
     </h3>
     <p>
       To <dfn data-dfn-for="credential request coordinator">abort the
-      credential request</dfn> given a JavaScript value or {{DOMException}}
-      |error|:
+      credential request</dfn> given a JavaScript value |error|:
     </p>
     <ol class="algorithm">
       <li>If the [=credential request coordinator=]'s [=credential request
@@ -1143,7 +1143,11 @@
               <li>The platform encounters an error.
               </li>
             </ul>
-            <aside class="issue" data-number="456"></aside>
+            <p>
+              When a [=user agent=] communicates with a [=credential manager=]
+              located on a different device, it is RECOMMENDED that the [=user
+              agent=] use [[[FIDO-CLIENT-TO-AUTHENTICATOR-PROTOCOL-V2.3]]].
+            </p>
           </li>
           <li>If |signal| is not null and |signal| is [=AbortSignal/aborted=]:
             <ol>
