@@ -2013,10 +2013,10 @@
         [[[#credential-management-integration]]]; the [=request
         context/top-level origin=] is that of the [=navigable/active document=]
         of the [=navigable/top-level traversable=] in which the request was
-        made. A [=user agent=] MUST use its own determination of these
-        [=origins=] and MUST NOT rely on an [=origin=] supplied by the content
-        whose request is being mediated, whether to validate or form the
-        request or to present the [=digital credential chooser=].
+        made. Neither is taken from the content whose request is being
+        mediated, so content cannot influence which [=origins=] are used to
+        validate or form the request, or which are presented in the [=digital
+        credential chooser=].
       </p>
       <p>
         This mitigates [=Unauthorized Cross-Origin Access=]: the party that is
