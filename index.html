@@ -1112,7 +1112,8 @@
       <li>Let |topLevelDocument| be the [=navigable/active document=] of the
       [=navigable/top-level traversable=] of |document|'s [=node navigable=].
       </li>
-      <li>Let |topLevelOrigin| be |topLevelDocument|'s [=Document/origin=].
+      <li>Let |topLevelOrigin| be |topLevelDocument|'s [=relevant settings
+      object's=] [=environment settings object/origin=].
       </li>
       <li>Let |requestData| be a new [=request context=] whose [=request
       context/requests=] is |validatedRequests|, [=request context/document
@@ -1649,10 +1650,11 @@
         <dfn data-dfn-for="request context">top-level origin</dfn>
       </dt>
       <dd>
-        An [=origin=]; the [=Document/origin=] of the [=navigable/active
-        document=] of the [=navigable/top-level traversable=] in which the
-        request was made. It is used only when presenting the request to the
-        user; it is not used to validate or form the request.
+        An [=origin=]; the [=origin=] of the [=navigable/top-level
+        traversable=] in which the request was made, as determined by
+        [=credential request coordinator/initiate the credential request=]. It
+        is used only when presenting the request to the user; it is not used to
+        validate or form the request.
       </dd>
     </dl>
     <h4>
@@ -1720,9 +1722,11 @@
       <li>Let |topLevelDocument| be the [=navigable/active document=] of the
       [=navigable/top-level traversable=] of |document|'s [=node navigable=].
       </li>
-      <li>If |topLevelDocument|'s [=Document/origin=] is an [=opaque origin=],
-      return [=a promise rejected with=] a {{"SecurityError"}}
-      {{DOMException}}.
+      <li>Let |topLevelOrigin| be |topLevelDocument|'s [=relevant settings
+      object's=] [=environment settings object/origin=].
+      </li>
+      <li>If |topLevelOrigin| is an [=opaque origin=], return [=a promise
+      rejected with=] a {{"SecurityError"}} {{DOMException}}.
       </li>
       <li>Let |requests| be |options|'s {{CredentialRequestOptions/digital}}'s
       {{DigitalCredentialRequestOptions/requests}} member.
@@ -1788,9 +1792,11 @@
       <li>Let |topLevelDocument| be the [=navigable/active document=] of the
       [=navigable/top-level traversable=] of |document|'s [=node navigable=].
       </li>
-      <li>If |topLevelDocument|'s [=Document/origin=] is an [=opaque origin=],
-      return [=a promise rejected with=] a {{"SecurityError"}}
-      {{DOMException}}.
+      <li>Let |topLevelOrigin| be |topLevelDocument|'s [=relevant settings
+      object's=] [=environment settings object/origin=].
+      </li>
+      <li>If |topLevelOrigin| is an [=opaque origin=], return [=a promise
+      rejected with=] a {{"SecurityError"}} {{DOMException}}.
       </li>
       <li>Let |requests| be |options|'s {{CredentialCreationOptions/digital}}'s
       {{DigitalCredentialCreationOptions/requests}} member.
