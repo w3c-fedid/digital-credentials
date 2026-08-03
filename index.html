@@ -3162,11 +3162,12 @@
         passing an {{AbortSignal}} as {{CredentialRequestOptions/signal}} (for
         {{CredentialsContainer/get()}}) or {{CredentialCreationOptions/signal}}
         (for {{CredentialsContainer/create()}}), then aborting it with the
-        desired [=AbortSignal/abort reason=]. This exercises the same abort path used by the request algorithms.
+        desired [=AbortSignal/abort reason=]. This exercises the same abort
+        path used by the request algorithms.
       </p>
       <pre class="example js" title=
       "Simulating a wallet error with AbortController">
-        (async () => {
+        (async () =&gt; {
           const controller = new AbortController();
           const credentialPromise = navigator.credentials.get({
             digital: {
