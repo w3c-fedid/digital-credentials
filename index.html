@@ -791,6 +791,13 @@
       </li>
     </ul>
     <p>
+      A [=user agent=] MUST use its own determination of the [=request
+      context/document origin=] and the [=request context/top-level origin=],
+      and MUST NOT rely on an [=origin=] supplied by the content whose request
+      is being mediated, whether to validate or form the request or to present
+      the [=digital credential chooser=].
+    </p>
+    <p>
       A user agent MAY delegate some or all coordinator responsibilities to
       external [=credential managers=], platform components, or other trusted
       entities according to user or platform policy.
@@ -910,7 +917,8 @@
           <li>Set the [=credential request coordinator=]'s [=credential request
           coordinator/abort signal=] to |signal|.
           </li>
-          <li>Let |abortAlgorithm| be the following algorithm:
+          <li>Let |abortAlgorithm| be the following algorithm, closing over
+          |promise| and |signal|:
             <ol>
               <li>If the [=credential request coordinator=]'s [=credential
               request coordinator/active promise=] is not |promise|, return.
@@ -1017,8 +1025,7 @@
     </h3>
     <p>
       To <dfn data-dfn-for="credential request coordinator">abort the
-      credential request</dfn> given a JavaScript value or {{DOMException}}
-      |error|:
+      credential request</dfn> given a JavaScript value |error|:
     </p>
     <ol class="algorithm">
       <li>If the [=credential request coordinator=]'s [=credential request
@@ -1109,9 +1116,11 @@
       {{AbortSignal}} |signal|:
     </p>
     <ol class="algorithm">
-      <li>Let |topLevelOrigin| be |document|'s [=node navigable=]'s [=navigable/top-level traversable=]'s
-      [=navigable/active document=]'s [=relevant settings object=]'s
-      [=environment settings object/origin=].
+      <li>Let |topLevelDocument| be the [=navigable/active document=] of the
+      [=navigable/top-level traversable=] of |document|'s [=node navigable=].
+      </li>
+      <li>Let |topLevelOrigin| be |topLevelDocument|'s [=relevant settings
+      object's=] [=environment settings object/origin=].
       </li>
       <li>Let |requestData| be a new [=request context=] whose [=request
       context/requests=] is |validatedRequests|, [=request context/document
@@ -1131,6 +1140,11 @@
               <li>The platform encounters an error.
               </li>
             </ul>
+            <p>
+              When a [=user agent=] communicates with a [=credential manager=]
+              located on a different device, it is RECOMMENDED that the [=user
+              agent=] use [[[FIDO-CLIENT-TO-AUTHENTICATOR-PROTOCOL-V2.3]]].
+            </p>
             <p>
               The origins presented to the user are determined as follows:
             </p>
@@ -1654,10 +1668,11 @@
         <dfn data-dfn-for="request context">top-level origin</dfn>
       </dt>
       <dd>
-        An [=origin=]; the [=top-level traversable=]'s [=navigable/active
-        document=]'s [=relevant settings object=]'s [=environment settings
-        object/origin=]. It is used only when presenting the request to the
-        user; it is not used to validate or form the request.
+        An [=origin=]; the [=origin=] of the [=navigable/top-level
+        traversable=] in which the request was made, as determined by
+        [=credential request coordinator/initiate the credential request=]. It
+        is used only when presenting the request to the user; it is not used to
+        validate or form the request.
       </dd>
     </dl>
     <h4>
@@ -1722,10 +1737,14 @@
       top-level traversable with user attention=], return [=a promise rejected
       with=] a {{"NotAllowedError"}} {{DOMException}}.
       </li>
-      <li>If |document|'s [=node navigable=]'s [=navigable/top-level traversable=]'s [=navigable/active
-      document=]'s [=relevant settings object=]'s [=environment settings
-      object/origin=] is an [=opaque origin=], return [=a promise rejected
-      with=] a {{"SecurityError"}} {{DOMException}}.
+      <li>Let |topLevelDocument| be the [=navigable/active document=] of the
+      [=navigable/top-level traversable=] of |document|'s [=node navigable=].
+      </li>
+      <li>Let |topLevelOrigin| be |topLevelDocument|'s [=relevant settings
+      object's=] [=environment settings object/origin=].
+      </li>
+      <li>If |topLevelOrigin| is an [=opaque origin=], return [=a promise
+      rejected with=] a {{"SecurityError"}} {{DOMException}}.
       </li>
       <li>Let |requests| be |options|'s {{CredentialRequestOptions/digital}}'s
       {{DigitalCredentialRequestOptions/requests}} member.
@@ -1788,10 +1807,14 @@
       top-level traversable with user attention=], return [=a promise rejected
       with=] a {{"NotAllowedError"}} {{DOMException}}.
       </li>
-      <li>If |document|'s [=node navigable=]'s [=navigable/top-level traversable=]'s [=navigable/active
-      document=]'s [=relevant settings object=]'s [=environment settings
-      object/origin=] is an [=opaque origin=], return [=a promise rejected
-      with=] a {{"SecurityError"}} {{DOMException}}.
+      <li>Let |topLevelDocument| be the [=navigable/active document=] of the
+      [=navigable/top-level traversable=] of |document|'s [=node navigable=].
+      </li>
+      <li>Let |topLevelOrigin| be |topLevelDocument|'s [=relevant settings
+      object's=] [=environment settings object/origin=].
+      </li>
+      <li>If |topLevelOrigin| is an [=opaque origin=], return [=a promise
+      rejected with=] a {{"SecurityError"}} {{DOMException}}.
       </li>
       <li>Let |requests| be |options|'s {{CredentialCreationOptions/digital}}'s
       {{DigitalCredentialCreationOptions/requests}} member.
@@ -2012,18 +2035,19 @@
         sameOriginWithAncestors)}} and {{DigitalCredential/[[Create]](origin,
         options, sameOriginWithAncestors)}} by the
         [[[#credential-management-integration]]]; the [=request
-        context/top-level origin=] is that of the [=top-level traversable=]'s
-        [=navigable/active document=]. A [=user agent=] MUST use its own
-        determination of these [=origins=] and MUST NOT rely on an [=origin=]
+        context/top-level origin=] is that of the [=navigable/active document=]
+        of the [=navigable/top-level traversable=] in which the request was
+        made. [[[#credential-request-coordinator]]] requires the [=user agent=]
+        to use its own determination of both, and to not rely on an [=origin=]
         supplied by the content whose request is being mediated, whether to
         validate or form the request or to present the [=digital credential
         chooser=].
       </p>
       <p>
-        This mitigates [=Unauthorized Cross-Origin Access=]: the party shown to
-        the user, and that would receive the [=digital credential=], reflects
-        the [=user agent=]'s own determination of who is asking, rather than a
-        value the requesting content can choose.
+        This mitigates [=Unauthorized Cross-Origin Access=]: the party that is
+        shown to the user, and that would receive the [=digital credential=],
+        reflects the [=user agent=]'s own determination of who is asking,
+        rather than a value the requesting content can choose.
       </p>
       <p>
         The {{DigitalCredential/requestOrigin}} attribute exposes this [=user
