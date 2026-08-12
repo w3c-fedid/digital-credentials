@@ -1,0 +1,30 @@
+name: Line Endings
+
+# .gitattributes normalizes line endings for local commits, but GitHub's
+# server-side commit paths (the "Apply suggestions from code review" batch
+# button, and the web file editor) bypass it and can commit CRLF. That turns a
+# small edit into a whole-file diff, so catch it here instead.
+
+on:
+  push:
+    branches:
+      - main
+  pull_request: {}
+
+permissions:
+  contents: read
+
+jobs:
+  crlf:
+    name: Check for CRLF
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reject committed CRLF line endings
+        run: |
+          offenders=$(git ls-files --eol | grep -E 'i/(crlf|mixed)' || true)
+          if [ -n "$offenders" ]; then
+            echo "$offenders"
+            echo "::error::Committed files have CRLF line endings. Fix with: git add --renormalize . && git commit -m 'chore: normalize line endings to LF'"
+            exit 1
+          fi
