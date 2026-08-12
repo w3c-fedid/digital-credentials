@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"><head>
 <meta charset="utf-8">
-<meta name="generator" content="ReSpec 37.1.0">
+<meta name="generator" content="ReSpec 37.2.0">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <style>
 span.example-title{text-transform:none}
@@ -176,7 +176,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="9cf433e530254843e025612311a023615d5a313b">
+<meta name="revision" content="494315a3b4461317e45a05279b7ffd848a0453a1">
 <meta name="description" content="This document specifies an API enabling user agents to mediate the
         presentation and issuance of digital credentials, such as a
         driver's license, government-issued identification card, or
@@ -325,16 +325,16 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "9cf433e530254843e025612311a023615d5a313b",
-  "publishISODate": "2026-08-03T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 03 August 2026"
+  "gitRevision": "494315a3b4461317e45a05279b7ffd848a0453a1",
+  "publishISODate": "2026-08-12T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 12 August 2026"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED"></head>
   <body data-cite="WEBIDL credential-management permissions-policy vc-data-model HTML INFRA URL WEBIDL DOM FETCH" class="h-entry"><div class="head">
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Digital Credentials</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-08-03">03 August 2026</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-08-12">12 August 2026</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -2269,7 +2269,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#secure-context" id="ref-for-index-term-secure-contexts-1">secure contexts</a>, reducing the risk of <a data-link-type="dfn|abstract-op" href="#dfn-request-tampering" class="internalDFN" id="ref-for-dfn-request-tampering-1">tampering</a> through
         <a data-link-type="dfn" data-lt="secure contexts" href="https://html.spec.whatwg.org/multipage/webappapis.html#secure-context" id="ref-for-index-term-secure-contexts-2">insecure contexts</a> (e.g., a malicious script being
         injected through the network). Please refer to the
-        <a data-matched-text="[[[secure-contexts#security-considerations]]]" href="https://www.w3.org/TR/secure-contexts/#security-considerations"><bdi class="secno">5 </bdi>Security Considerations</a> section of the
+        <a data-matched-text="[[[secure-contexts#security-considerations]]]" href="https://www.w3.org/TR/secure-contexts/#security-considerations" class="sec-ref">§&nbsp;<bdi class="secno">5 </bdi>Security Considerations</a> section of the
         <cite><a data-matched-text="[[[secure-contexts]]]" href="https://www.w3.org/TR/secure-contexts/">Secure Contexts</a></cite> specification for more information.
       </p>
       <p>
@@ -2301,7 +2301,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p>
         For additional guidance on preventing abuse of credential requests,
         please refer to the section
-        <a data-matched-text="[[[credential-management#privacy-considerations]]]" href="https://www.w3.org/TR/credential-management-1/#privacy-considerations"><bdi class="secno">7 </bdi>Privacy Considerations</a> of the
+        <a data-matched-text="[[[credential-management#privacy-considerations]]]" href="https://www.w3.org/TR/credential-management-1/#privacy-considerations" class="sec-ref">§&nbsp;<bdi class="secno">7 </bdi>Privacy Considerations</a> of the
         <cite><a data-matched-text="[[[credential-management]]]" href="https://www.w3.org/TR/credential-management-1/">Credential Management Level 1</a></cite> specification. Note, however, that these
         protections have limitations, as sites may still employ dark patterns
         to encourage unnecessary user interactions that trigger credential
@@ -2375,7 +2375,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         </li>
         <li><cite><a data-matched-text="[[[threat-model-decentralized-credentials]]]" href="https://www.w3.org/TR/threat-model-decentralized-credentials/">Threat Model for Decentralized Credentials</a></cite>
         </li>
-        <li><a data-matched-text="[[[vc-data-model#privacy-considerations]]]" href="https://www.w3.org/TR/vc-data-model-2.0/#privacy-considerations"><bdi class="secno">8 </bdi>Privacy Considerations</a> of the
+        <li><a data-matched-text="[[[vc-data-model#privacy-considerations]]]" href="https://www.w3.org/TR/vc-data-model-2.0/#privacy-considerations" class="sec-ref">§&nbsp;<bdi class="secno">8 </bdi>Privacy Considerations</a> of the
         <cite><a data-matched-text="[[[vc-data-model]]]" href="https://www.w3.org/TR/vc-data-model-2.0/">Verifiable Credentials Data Model v2.0</a></cite> specification.
         </li>
         <li><cite><a data-matched-text="[[[prevent-credential-abuse]]]" href="https://www.w3.org/2001/tag/doc/prevent-credential-abuse/">Preventing Abuse of Digital Credentials</a></cite>
@@ -3186,14 +3186,14 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         The content of modal dialogs presented during <a data-link-type="dfn|abstract-op" data-lt="issuance request" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-20">issuance</a> or <a data-link-type="dfn|abstract-op" data-lt="presentation requests" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-21">presentation</a>, which can include
         text, QR codes, and other visual media, <em class="rfc2119">SHOULD</em> be labelled and exposed
         to assistive technologies with appropriate names, roles, and values
-        (see <a data-matched-text="[[[WCAG22#name-role-value]]]" href="https://www.w3.org/TR/WCAG22/#name-role-value">Success Criterion 4.1.2 Name, Role, Value</a>), and <em class="rfc2119">SHOULD</em> provide text
-        alternatives for non-text content (see <a data-matched-text="[[[WCAG22#non-text-content]]]" href="https://www.w3.org/TR/WCAG22/#non-text-content">Success Criterion 1.1.1 Non-text Content</a>).
+        (see <a data-matched-text="[[[WCAG22#name-role-value]]]" href="https://www.w3.org/TR/WCAG22/#name-role-value" class="sec-ref">§&nbsp;Success Criterion 4.1.2 Name, Role, Value</a>), and <em class="rfc2119">SHOULD</em> provide text
+        alternatives for non-text content (see <a data-matched-text="[[[WCAG22#non-text-content]]]" href="https://www.w3.org/TR/WCAG22/#non-text-content" class="sec-ref">§&nbsp;Success Criterion 1.1.1 Non-text Content</a>).
       </p>
       <p>
         Changes in the state of an interaction, such as waiting for another
         device, a successful response, an error, or a cancellation, <em class="rfc2119">SHOULD</em> be
         programmatically determinable and conveyed to assistive technologies
-        without requiring a change of focus (see <a data-matched-text="[[[WCAG22#status-messages]]]" href="https://www.w3.org/TR/WCAG22/#status-messages">Success Criterion 4.1.3 Status Messages</a>).
+        without requiring a change of focus (see <a data-matched-text="[[[WCAG22#status-messages]]]" href="https://www.w3.org/TR/WCAG22/#status-messages" class="sec-ref">§&nbsp;Success Criterion 4.1.3 Status Messages</a>).
       </p>
       <p>
         When an operation fails, the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-53">user agent</a> rejects with one of several
@@ -3202,18 +3202,18 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         <a data-link-type="exception" data-lt="TypeError" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-index-term-typeerror-exception-4"><code>TypeError</code></a>. Where the platform surfaces such a failure to the user,
         it <em class="rfc2119">SHOULD</em> identify in text what went wrong and, where applicable, how
         to recover, rather than only signalling that an error occurred (see
-        <a data-matched-text="[[[WCAG22#error-identification]]]" href="https://www.w3.org/TR/WCAG22/#error-identification">Success Criterion 3.3.1 Error Identification</a>).
+        <a data-matched-text="[[[WCAG22#error-identification]]]" href="https://www.w3.org/TR/WCAG22/#error-identification" class="sec-ref">§&nbsp;Success Criterion 3.3.1 Error Identification</a>).
       </p>
       <p>
         Interactive elements, particularly those that allow the user to
         continue or abort an <a data-link-type="dfn|abstract-op" data-lt="issuance request" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-21">issuance</a>
         or <a data-link-type="dfn|abstract-op" data-lt="presentation requests" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-22">presentation</a> request,
         <em class="rfc2119">MUST</em> be operable in a device-independent manner (for example, via the
-        keyboard; see <a data-matched-text="[[[WCAG22#keyboard]]]" href="https://www.w3.org/TR/WCAG22/#keyboard">Success Criterion 2.1.1 Keyboard</a>). In particular, activation <em class="rfc2119">MUST NOT</em> require a multipoint or path-based gesture (see
-        <a data-matched-text="[[[WCAG22#pointer-gestures]]]" href="https://www.w3.org/TR/WCAG22/#pointer-gestures">Success Criterion 2.5.1 Pointer Gestures</a>) or device motion (see
-        <a data-matched-text="[[[WCAG22#motion-actuation]]]" href="https://www.w3.org/TR/WCAG22/#motion-actuation">Success Criterion 2.5.4 Motion Actuation</a>) as the only means of operation. The
+        keyboard; see <a data-matched-text="[[[WCAG22#keyboard]]]" href="https://www.w3.org/TR/WCAG22/#keyboard" class="sec-ref">§&nbsp;Success Criterion 2.1.1 Keyboard</a>). In particular, activation <em class="rfc2119">MUST NOT</em> require a multipoint or path-based gesture (see
+        <a data-matched-text="[[[WCAG22#pointer-gestures]]]" href="https://www.w3.org/TR/WCAG22/#pointer-gestures" class="sec-ref">§&nbsp;Success Criterion 2.5.1 Pointer Gestures</a>) or device motion (see
+        <a data-matched-text="[[[WCAG22#motion-actuation]]]" href="https://www.w3.org/TR/WCAG22/#motion-actuation" class="sec-ref">§&nbsp;Success Criterion 2.5.4 Motion Actuation</a>) as the only means of operation. The
         <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-13">digital credential chooser</a> <em class="rfc2119">SHOULD</em> present its controls in a
-        meaningful focus order (see <a data-matched-text="[[[WCAG22#focus-order]]]" href="https://www.w3.org/TR/WCAG22/#focus-order">Success Criterion 2.4.3 Focus Order</a>), move focus into
+        meaningful focus order (see <a data-matched-text="[[[WCAG22#focus-order]]]" href="https://www.w3.org/TR/WCAG22/#focus-order" class="sec-ref">§&nbsp;Success Criterion 2.4.3 Focus Order</a>), move focus into
         the chooser when it is opened; keep focus within it while it is shown;
         and restore focus to the previously focused element, or another
         appropriate location, when it is closed.
@@ -3223,7 +3223,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         authenticate, an accessible authentication method <em class="rfc2119">SHOULD</em> be available.
         Where a step relies on a cognitive function test, such as recalling a
         password, an alternative that does not require one <em class="rfc2119">SHOULD</em> be offered
-        (see <a data-matched-text="[[[WCAG22#accessible-authentication-minimum]]]" href="https://www.w3.org/TR/WCAG22/#accessible-authentication-minimum">Success Criterion 3.3.8 Accessible Authentication (Minimum)</a>); and
+        (see <a data-matched-text="[[[WCAG22#accessible-authentication-minimum]]]" href="https://www.w3.org/TR/WCAG22/#accessible-authentication-minimum" class="sec-ref">§&nbsp;Success Criterion 3.3.8 Accessible Authentication (Minimum)</a>); and
         authentication <em class="rfc2119">SHOULD NOT</em> depend solely on a single physical
         characteristic, such as a biometric, that some users cannot provide.
         This step is typically performed by the platform or <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-31">credential manager</a> and is otherwise outside the scope of this specification.
@@ -3241,7 +3241,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p>
         An interaction may be subject to time limits from more than one source.
         These <em class="rfc2119">SHOULD</em> be handled so that users who need more time are not
-        excluded (see <a data-matched-text="[[[WCAG22#timing-adjustable]]]" href="https://www.w3.org/TR/WCAG22/#timing-adjustable">Success Criterion 2.2.1 Timing Adjustable</a>):
+        excluded (see <a data-matched-text="[[[WCAG22#timing-adjustable]]]" href="https://www.w3.org/TR/WCAG22/#timing-adjustable" class="sec-ref">§&nbsp;Success Criterion 2.2.1 Timing Adjustable</a>):
       </p>
       <ul>
         <li>A site can bound the interaction by passing an <a data-link-type="interface" data-lt="AbortSignal" href="https://dom.spec.whatwg.org/#abortsignal" id="ref-for-index-term-abortsignal-interface-4"><code>AbortSignal</code></a> as
