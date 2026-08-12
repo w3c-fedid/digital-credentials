@@ -6,6 +6,7 @@ name: Line Endings
 # small edit into a whole-file diff, so catch it here instead.
 
 on:
+  workflow_dispatch: {}
   push:
     branches:
       - main
