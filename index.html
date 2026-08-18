@@ -1889,7 +1889,7 @@
           An attacker who gains control over the user's operating system or
           device hardware could bypass [=user agent=] protections, extract
           sensitive credential data directly from storage, or manipulate the
-          API calls. This threat must be addressed by OS platform security and
+          API calls. This threat is addressed by OS platform security and
           hardware-backed keystores.
         </dd>
         <dt>
@@ -1928,14 +1928,14 @@
         [[[secure-contexts]]] specification for more information.
       </p>
       <p>
-        To mitigate the risk of <a href=
-        "#dfn-malicious-payloads-to-the-underlying-platform">malicious payloads
-        to the underlying platform</a>, [=user agents=] MUST pass the request
-        parameters to the [=credential manager=] using safe serialization
-        formats (such as JSON or structured cloning) without executing them.
+        To mitigate the risk of [=malicious payloads
+        to the underlying platform=], [=user agents=] pass the request
+        parameters to the [=credential manager=] using 
+        [=serialize a JavaScript value to a JSON string|JSON serialization=].
         The underlying platform and [=credential managers=] are responsible for
-        robustly parsing and validating these protocol-specific payloads before
-        acting on them.
+        [=validate credential requests|validating=] 
+        these protocol-specific payloads before 
+        [=initiate the credential request|acting=] on them.
       </p>
       <p>
         The Digital Credentials API reduces [=API flooding=] through two
