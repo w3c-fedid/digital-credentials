@@ -1896,20 +1896,34 @@
           <dfn>Malicious Credential Managers</dfn>
         </dt>
         <dd>
-          A user might install a [=credential manager=] that intentionally
-          leaks credentials, fails to securely encrypt them, or ignores user
-          consent. The API relies on the OS and the user's discretion to only
-          install and register trusted [=credential managers=].
+          A user might install, or be coerced by institutional mandate or
+          essential services to use, a [=credential manager=] that intentionally
+          leaks data, fails to securely encrypt credentials, or ignores user
+          consent. While the API protects users prior to wallet selection
+          through explicit user permission (see
+          [[[#user-permission-and-transparency]]]) and supports selective
+          disclosure, the API cannot govern the internal behavior of a
+          [=credential manager=] once the user authorizes it to handle a
+          request. Mitigating this risk relies on OS platform security, app
+          store vetting, and legal/regulatory frameworks governing wallet
+          providers.
         </dd>
         <dt>
           <dfn>Protocol and Format Vulnerabilities</dfn>
         </dt>
         <dd>
           Weaknesses in the specific [=digital credential/presentation
-          protocol=] or credential format being used (e.g., cryptographic
-          flaws, lack of replay protection) could allow attackers to intercept,
-          forge, or tamper with credentials in transit. Mitigation occurs at
-          the protocol and transport layers (e.g., TLS).
+          protocol=], [=digital credential/issuance protocol=], or credential
+          format being used (e.g., cryptographic flaws, lack of replay
+          protection, or missing request authentication) could allow attackers to
+          intercept, forge, or tamper with credentials in transit. Mitigation
+          occurs primarily at the protocol, format, and transport layers (e.g.,
+          mandating response encryption, request signing, and TLS). While the API
+          does not define format-specific cryptography, it enforces baseline
+          security criteria on supported protocols (such as requiring
+          [[[#encrypting-credential-responses|response encryption]]] and
+          encouraging [[[#signing-presentation-requests|signed requests]]]) to
+          steer requests through the most secure path.
         </dd>
       </dl>
       <h3>
@@ -1928,14 +1942,13 @@
         [[[secure-contexts]]] specification for more information.
       </p>
       <p>
-        To mitigate the risk of [=malicious payloads
-        to the underlying platform=], [=user agents=] pass the request
-        parameters to the [=credential manager=] using 
-        [=serialize a JavaScript value to a JSON string|JSON serialization=].
-        The underlying platform and [=credential managers=] are responsible for
-        [=validate credential requests|validating=] 
-        these protocol-specific payloads before 
-        [=initiate the credential request|acting=] on them.
+        To mitigate the risk of [=malicious payloads to the underlying
+        platform=], [=user agents=] pass request parameters to the
+        [=credential manager=] using [=serialize a JavaScript value to a JSON
+        string|JSON serialization=] (see [=credential request
+        coordinator/validate credential requests=]). The underlying platform
+        and [=credential managers=] are responsible for robustly parsing and
+        validating these protocol-specific JSON payloads before acting on them.
       </p>
       <p>
         The Digital Credentials API reduces [=API flooding=] through two
