@@ -847,13 +847,33 @@
     </h3>
     <p>
       To <dfn data-dfn-for="credential request coordinator">prepare credential
-      requests</dfn> given a [=Document=] |document:Document|, a [=sequence=]
-      of {{DigitalCredentialGetRequest}} values or a [=sequence=] of
-      {{DigitalCredentialCreateRequest}} values |requests|, a {{Promise}}
-      |promise:Promise|, and an optional {{AbortSignal}} |signal:AbortSignal|:
+      requests</dfn> given a {{Window}} |global|, an [=origin=] |origin|, a
+      [=sequence=] of {{DigitalCredentialGetRequest}} values or a [=sequence=]
+      of {{DigitalCredentialCreateRequest}} values |requests|, and an optional
+      {{AbortSignal}} |signal:AbortSignal|:
     </p>
     <ol class="algorithm">
-      <li>Let |global| be |document|'s [=relevant global object=].
+      <li>Let |realm| be |global|'s [=relevant realm=].
+      </li>
+      <li>If |origin| is an [=opaque origin=], return [=a promise rejected
+      with=] a {{"SecurityError"}} {{DOMException}} in |realm|.
+      </li>
+      <li>Let |document| be |global|'s [=associated `Document`=].
+      </li>
+      <li>If |document| is not [=Document/fully active=], return [=a promise
+      rejected with=] an {{"InvalidStateError"}} {{DOMException}} in |realm|.
+      </li>
+      <li>If |document| is not a [=Document/fully active descendant of a
+      top-level traversable with user attention=], return [=a promise rejected
+      with=] a {{"NotAllowedError"}} {{DOMException}} in |realm|.
+      </li>
+      <li>If |global| does not have [=transient activation=], return [=a
+      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}} in
+      |realm|.
+      </li>
+      <li>[=Consume user activation=] of |global|.
+      </li>
+      <li>Let |promise| be [=a new promise=] in |realm|.
       </li>
       <li>If the [=credential request coordinator=] is not in the "[=credential
       request coordinator/idle=]" [=credential request coordinator/interaction
@@ -863,7 +883,7 @@
           given |global| to [=reject=] |promise| with a {{"NotAllowedError"}}
           {{DOMException}}.
           </li>
-          <li>Return.
+          <li>Return |promise|.
           </li>
         </ol>
       </li>
@@ -884,7 +904,16 @@
           <li>[=credential request coordinator/Reject the credential request
           with=] |error| and |promise|.
           </li>
-          <li>Return.
+          <li>Return |promise|.
+          </li>
+        </ol>
+      </li>
+      <li>If |validatedRequests| [=list/is empty=], then:
+        <ol>
+          <li>[=credential request coordinator/Reject the credential request
+          with=] a newly created {{TypeError}} and |promise|.
+          </li>
+          <li>Return |promise|.
           </li>
         </ol>
       </li>
@@ -925,10 +954,12 @@
       <li>Let |handled| be the result of running [=handle virtual wallet
       behavior=] given |promise| and |global|.
       </li>
-      <li>If |handled| is `true`, return.
+      <li>If |handled| is `true`, return |promise|.
       </li>
       <li>[=credential request coordinator/Initiate the credential request=]
       with |document|, |validatedRequests|, |promise|, and |signal|.
+      </li>
+      <li>Return |promise|.
       </li>
     </ol><!--
     // MARK: Filter credential requests
@@ -1669,20 +1700,6 @@
       Otherwise:
     </p>
     <ol class="algorithm">
-      <li>Let |signal| be |options|'s {{CredentialRequestOptions/signal}}, if
-      present.
-      </li>
-      <li>If |origin| is an [=opaque origin=], return [=a promise rejected
-      with=] a {{"SecurityError"}} {{DOMException}}.
-      </li>
-      <li>Let |global| be [=this=]'s [=relevant global object=].
-      </li>
-      <li>Let |document| be |global|'s [=associated `Document`=].
-      </li>
-      <li>If |document| is not a [=Document/fully active descendant of a
-      top-level traversable with user attention=], return [=a promise rejected
-      with=] a {{"NotAllowedError"}} {{DOMException}}.
-      </li>
       <li>Let |requests| be |options|'s {{CredentialRequestOptions/digital}}'s
       {{DigitalCredentialRequestOptions/requests}} member.
       </li>
@@ -1692,17 +1709,16 @@
       <li>If |requests| [=list/is empty=], return [=a promise rejected with=] a
       newly created {{TypeError}}.
       </li>
+      <li>Let |signal| be |options|'s {{CredentialRequestOptions/signal}}, if
+      present.
+      </li>
+      <li>Let |global| be [=this=]'s [=relevant global object=].
+      </li>
       <li>If |global| does not have [=transient activation=], return [=a
       promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
       </li>
-      <li>[=Consume user activation=] of |global|.
-      </li>
-      <li>Let |promise| be [=a new promise=] in [=this=]'s [=relevant realm=].
-      </li>
-      <li>[=credential request coordinator/Prepare credential requests=] with
-      |document|, |requests|, |promise|, and |signal|.
-      </li>
-      <li>Return |promise|.
+      <li>Return the result of [=credential request coordinator/prepare
+      credential requests=] given |global|, |origin|, |requests|, and |signal|.
       </li>
     </ol><!--
     // MARK: [[Store]]()
@@ -1732,23 +1748,6 @@
       arguments. Otherwise:
     </p>
     <ol class="algorithm">
-      <li>Let |signal| be |options|'s {{CredentialCreationOptions/signal}}, if
-      present.
-      </li>
-      <li>If |signal| is [=AbortSignal/aborted=], return [=a promise rejected
-      with=] |signal|'s [=AbortSignal/abort reason=].
-      </li>
-      <li>If |origin| is an [=opaque origin=], return [=a promise rejected
-      with=] a {{"SecurityError"}} {{DOMException}}.
-      </li>
-      <li>Let |global| be [=this=]'s [=relevant global object=].
-      </li>
-      <li>Let |document| be |global|'s [=associated `Document`=].
-      </li>
-      <li>If |document| is not a [=Document/fully active descendant of a
-      top-level traversable with user attention=], return [=a promise rejected
-      with=] a {{"NotAllowedError"}} {{DOMException}}.
-      </li>
       <li>Let |requests| be |options|'s {{CredentialCreationOptions/digital}}'s
       {{DigitalCredentialCreationOptions/requests}} member.
       </li>
@@ -1758,18 +1757,16 @@
       <li>If |requests| [=list/is empty=], return [=a promise rejected with=] a
       newly created {{TypeError}}.
       </li>
+      <li>Let |signal| be |options|'s {{CredentialCreationOptions/signal}}, if
+      present.
+      </li>
+      <li>Let |global| be [=this=]'s [=relevant global object=].
+      </li>
       <li>If |global| does not have [=transient activation=], return [=a
       promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
       </li>
-      <li>[=Consume user activation=] of |global|.
-      </li>
-      <li>Let |promise : Promise| be [=a new promise=] in the [=relevant
-      realm=] of [=this=].
-      </li>
-      <li>[=credential request coordinator/Prepare credential requests=] with
-      |document|, |requests|, |promise|, and |signal|.
-      </li>
-      <li>Return |promise|.
+      <li>Return the result of [=credential request coordinator/prepare
+      credential requests=] given |global|, |origin|, |requests|, and |signal|.
       </li>
     </ol><!--
     // MARK: [[type]] internal slot
@@ -3189,6 +3186,39 @@
         <li>Return [=success=] with data `null`.
         </li>
       </ol>
+      <p class="note" title="Simulating wallet errors in tests">
+        Developers writing automated tests can simulate wallet errors by
+        passing an {{AbortSignal}} as {{CredentialRequestOptions/signal}} (for
+        {{CredentialsContainer/get()}}) or {{CredentialCreationOptions/signal}}
+        (for {{CredentialsContainer/create()}}), then aborting it with the
+        desired [=AbortSignal/abort reason=]. This exercises the same abort
+        path used by the request algorithms.
+      </p>
+      <pre class="example js" title=
+      "Simulating a wallet error with AbortController">
+        (async () =&gt; {
+          const controller = new AbortController();
+          const credentialPromise = navigator.credentials.get({
+            digital: {
+              requests: [{
+                protocol: "example-request-protocol",
+                data: { /* presentation request data */ }
+              }]
+            },
+            signal: controller.signal
+          });
+
+          controller.abort(
+            new DOMException("Simulated wallet failure", "OperationError")
+          );
+
+          try {
+            await credentialPromise;
+          } catch (error) {
+            console.assert(error.name === "OperationError");
+          }
+        })();
+      </pre>
       <h3>
         Handle Virtual Wallet Behavior
       </h3>
