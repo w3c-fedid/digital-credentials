@@ -1714,9 +1714,6 @@
       </li>
       <li>Let |global| be [=this=]'s [=relevant global object=].
       </li>
-      <li>If |global| does not have [=transient activation=], return [=a
-      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
-      </li>
       <li>Return the result of [=credential request coordinator/prepare
       credential requests=] given |global|, |origin|, |requests|, and |signal|.
       </li>
@@ -1761,9 +1758,6 @@
       present.
       </li>
       <li>Let |global| be [=this=]'s [=relevant global object=].
-      </li>
-      <li>If |global| does not have [=transient activation=], return [=a
-      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
       </li>
       <li>Return the result of [=credential request coordinator/prepare
       credential requests=] given |global|, |origin|, |requests|, and |signal|.
