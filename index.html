@@ -847,16 +847,14 @@
     </h3>
     <p>
       To <dfn data-dfn-for="credential request coordinator">prepare credential
-      requests</dfn> given an [=origin=] |origin|, a [=sequence=] of
-      {{DigitalCredentialGetRequest}} values or a [=sequence=] of
-      {{DigitalCredentialCreateRequest}} values |requests|, and an optional
+      requests</dfn> given a {{Window}} |global|, an [=origin=] |origin|, a
+      [=sequence=] of {{DigitalCredentialGetRequest}} values or a [=sequence=]
+      of {{DigitalCredentialCreateRequest}} values |requests|, and an optional
       {{AbortSignal}} |signal:AbortSignal|:
     </p>
     <ol class="algorithm">
       <li>If |origin| is an [=opaque origin=], return [=a promise rejected
       with=] a {{"SecurityError"}} {{DOMException}}.
-      </li>
-      <li>Let |global| be [=this=]'s [=relevant global object=].
       </li>
       <li>Let |document| be |global|'s [=associated `Document`=].
       </li>
@@ -869,7 +867,7 @@
       </li>
       <li>[=Consume user activation=] of |global|.
       </li>
-      <li>Let |promise| be [=a new promise=] in [=this=]'s [=relevant realm=].
+      <li>Let |promise| be [=a new promise=] in |global|'s [=relevant realm=].
       </li>
       <li>If the [=credential request coordinator=] is not in the "[=credential
       request coordinator/idle=]" [=credential request coordinator/interaction
@@ -1673,8 +1671,10 @@
       <li>Let |signal| be |options|'s {{CredentialRequestOptions/signal}}, if
       present.
       </li>
+      <li>Let |global| be [=this=]'s [=relevant global object=].
+      </li>
       <li>Return the result of [=credential request coordinator/prepare
-      credential requests=] given |origin|, |requests|, and |signal|.
+      credential requests=] given |global|, |origin|, |requests|, and |signal|.
       </li>
     </ol><!--
     // MARK: [[Store]]()
@@ -1710,8 +1710,10 @@
       <li>Let |signal| be |options|'s {{CredentialCreationOptions/signal}}, if
       present.
       </li>
+      <li>Let |global| be [=this=]'s [=relevant global object=].
+      </li>
       <li>Return the result of [=credential request coordinator/prepare
-      credential requests=] given |origin|, |requests|, and |signal|.
+      credential requests=] given |global|, |origin|, |requests|, and |signal|.
       </li>
     </ol><!--
     // MARK: [[type]] internal slot
