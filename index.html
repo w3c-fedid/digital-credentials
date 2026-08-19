@@ -987,6 +987,44 @@
       <li>Return |promise|.
       </li>
     </ol><!--
+    // MARK: Filter credential requests
+    -->
+    <h3>
+      Filter credential requests
+    </h3>
+    <p>
+      To <dfn data-dfn-for="credential request coordinator">filter credential
+      requests</dfn> given a sequence of {{DigitalCredentialGetRequest}} or
+      {{DigitalCredentialCreateRequest}} objects |requests|:
+    </p>
+    <ol class="algorithm">
+      <li>Let |supportedRequests| be a new empty [=list=].
+      </li>
+      <li>[=List/For each=] |request| of |requests|:
+        <ol>
+          <li>Let |protocol| be the result of running [=convert request
+          protocol=] given |request|.
+          </li>
+          <li>If |protocol| is failure, [=iteration/continue=].
+          </li>
+          <li>If [=user agent allows protocol=] given |protocol| returns
+          `false`, [=iteration/continue=].
+          </li>
+          <li>[=list/Append=] |request| to |supportedRequests|.
+          </li>
+        </ol>
+      </li>
+      <li>Return |supportedRequests|.
+      </li>
+    </ol>
+    <p class="note">
+      Filtering happens before [=Consume user activation|consuming user
+      activation=] so that a request whose protocols are all unsupported is
+      rejected with a {{TypeError}} without consuming the user activation.
+      Subsequent validation in [=credential request coordinator/validate
+      credential requests=] can safely assume all remaining requests use
+      supported protocols.
+    </p><!--
     // MARK: Validate credential requests
     -->
     <h3>
@@ -1002,14 +1040,6 @@
       </li>
       <li>[=List/For each=] |request| of |requests|:
         <ol>
-          <li>Let |protocol| be the result of running [=convert request
-          protocol=] given |request|.
-          </li>
-          <li>If |protocol| is failure, [=iteration/continue=].
-          </li>
-          <li>If [=user agent allows protocol=] given |protocol| returns
-          `false`, [=iteration/continue=].
-          </li>
           <li>Let |data| be |request|'s {{DigitalCredentialGetRequest/data}},
           if |request| is a {{DigitalCredentialGetRequest}}, or |request|'s
           {{DigitalCredentialCreateRequest/data}}, if |request| is a
@@ -1699,6 +1729,12 @@
       <li>Let |requests| be |options|'s {{CredentialRequestOptions/digital}}'s
       {{DigitalCredentialRequestOptions/requests}} member.
       </li>
+      <li>Set |requests| to the result of [=credential request
+      coordinator/filter credential requests=] given |requests|.
+      </li>
+      <li>If |requests| [=list/is empty=], return [=a promise rejected with=] a
+      newly created {{TypeError}}.
+      </li>
       <li>Let |signal| be |options|'s {{CredentialRequestOptions/signal}}, if
       present.
       </li>
@@ -1737,6 +1773,12 @@
     <ol class="algorithm">
       <li>Let |requests| be |options|'s {{CredentialCreationOptions/digital}}'s
       {{DigitalCredentialCreationOptions/requests}} member.
+      </li>
+      <li>Set |requests| to the result of [=credential request
+      coordinator/filter credential requests=] given |requests|.
+      </li>
+      <li>If |requests| [=list/is empty=], return [=a promise rejected with=] a
+      newly created {{TypeError}}.
       </li>
       <li>Let |signal| be |options|'s {{CredentialCreationOptions/signal}}, if
       present.
