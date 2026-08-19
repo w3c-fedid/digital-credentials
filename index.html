@@ -1114,6 +1114,21 @@
       context/requests=] is |validatedRequests| and [=request context/top-level
       origin=] is |topLevelOrigin|.
       </li>
+      <li>If a [=digital credential/credential request=] in |validatedRequests|
+      carries no signature that a [=credential manager=] can verify, the [=user
+      agent=] SHOULD apply additional friction when displaying the [=digital
+      credential chooser=], and strongly discourage the user from continuing.
+        <p class="note" title="Why friction here">
+          An unsigned request can be altered by a script running in the
+          [=verifier=]'s own page, including the parameters used to encrypt the
+          response, and neither the [=credential manager=] nor the [=verifier=]
+          can detect that it happened. Requests are transmitted unencrypted so
+          that a [=user agent=] can inspect them for exactly this kind of risk
+          analysis. A user who declines is handled by the steps below, which
+          [=credential request coordinator/reject the credential request with=]
+          a {{"NotAllowedError"}} {{DOMException}}.
+        </p>
+      </li>
       <li>[=In parallel=]:
         <ol>
           <li>Display a [=digital credential chooser=] with |requestData| and
