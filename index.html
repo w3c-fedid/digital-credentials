@@ -995,9 +995,10 @@
     <p class="note">
       Filtering happens before [=Consume user activation|consuming user
       activation=] so that a request whose protocols are all unsupported is
-      rejected with a {{TypeError}} without consuming the user activation. 
-      Subsequent validation in [=credential request coordinator/validate credential requests=] 
-      can safely assume all remaining requests use supported protocols.
+      rejected with a {{TypeError}} without consuming the user activation.
+      Subsequent validation in [=credential request coordinator/validate
+      credential requests=] can safely assume all remaining requests use
+      supported protocols.
     </p><!--
     // MARK: Validate credential requests
     -->
