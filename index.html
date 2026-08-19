@@ -176,7 +176,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="a3418c4421f82cbbb42785b160c64c1e1c0dbab9">
+<meta name="revision" content="7e762a81158f107c247eaf1bf4a04a9eb57bc939">
 <meta name="description" content="This document specifies an API enabling user agents to mediate the
         presentation and issuance of digital credentials, such as a
         driver's license, government-issued identification card, or
@@ -325,7 +325,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "a3418c4421f82cbbb42785b160c64c1e1c0dbab9",
+  "gitRevision": "7e762a81158f107c247eaf1bf4a04a9eb57bc939",
   "publishISODate": "2026-08-19T00:00:00.000Z",
   "generatedSubtitle": "W3C Editor's Draft 19 August 2026"
 }</script>
@@ -1357,21 +1357,36 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </h3><a class="self-link" href="#prepare-credential-requests" aria-label="Permalink for Section 6.2"></a></div>
     <p>
       To <dfn data-dfn-for="credential request coordinator" id="dfn-prepare-credential-requests" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">prepare credential
-      requests</dfn> given a <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-document" id="ref-for-index-term-document-1">Document</a> <var data-type="Document">document</var>, a <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-index-term-sequence-1">sequence</a>
-      of <a data-link-type="idl" data-lt="DigitalCredentialGetRequest" href="#dom-digitalcredentialgetrequest" class="internalDFN" id="ref-for-dom-digitalcredentialgetrequest-3"><code>DigitalCredentialGetRequest</code></a> values or a <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-index-term-sequence-2">sequence</a> of
-      <a data-link-type="idl" data-lt="DigitalCredentialCreateRequest" href="#dom-digitalcredentialcreaterequest" class="internalDFN" id="ref-for-dom-digitalcredentialcreaterequest-3"><code>DigitalCredentialCreateRequest</code></a> values <var>requests</var>, a <a data-link-type="interface" data-lt="Promise" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-index-term-promise-interface-2"><code>Promise</code></a>
-      <var data-type="Promise">promise</var>, and an optional <a data-link-type="interface" data-lt="AbortSignal" href="https://dom.spec.whatwg.org/#abortsignal" id="ref-for-index-term-abortsignal-interface-2"><code>AbortSignal</code></a> <var data-type="AbortSignal">signal</var>:
+      requests</dfn> given a <a data-link-type="interface" data-lt="Window" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-index-term-window-interface-1"><code>Window</code></a> <var>global</var>, an <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin" id="ref-for-index-term-origin-1">origin</a> <var>origin</var>, a
+      <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-index-term-sequence-1">sequence</a> of <a data-link-type="idl" data-lt="DigitalCredentialGetRequest" href="#dom-digitalcredentialgetrequest" class="internalDFN" id="ref-for-dom-digitalcredentialgetrequest-3"><code>DigitalCredentialGetRequest</code></a> values or a <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-index-term-sequence-2">sequence</a>
+      of <a data-link-type="idl" data-lt="DigitalCredentialCreateRequest" href="#dom-digitalcredentialcreaterequest" class="internalDFN" id="ref-for-dom-digitalcredentialcreaterequest-3"><code>DigitalCredentialCreateRequest</code></a> values <var>requests</var>, and an optional
+      <a data-link-type="interface" data-lt="AbortSignal" href="https://dom.spec.whatwg.org/#abortsignal" id="ref-for-index-term-abortsignal-interface-2"><code>AbortSignal</code></a> <var data-type="AbortSignal">signal</var>:
     </p>
     <ol class="algorithm">
-      <li>Let <var>global</var> be <var data-type="Document">document</var>'s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-index-term-relevant-global-object-1">relevant global object</a>.
+      <li>Let <var>realm</var> be <var>global</var>'s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-realm" id="ref-for-index-term-relevant-realm-1">relevant realm</a>.
+      </li>
+      <li>If <var>origin</var> is an <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin-opaque" id="ref-for-index-term-opaque-origin-1">opaque origin</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-1">a promise rejected with</a> a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#securityerror" id="ref-for-index-term-securityerror-exception-1"><code>SecurityError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-1"><code>DOMException</code></a> in <var>realm</var>.
+      </li>
+      <li>Let <var>document</var> be <var>global</var>'s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#concept-document-window" id="ref-for-index-term-associated-document-1">associated <code>Document</code></a>.
+      </li>
+      <li>If <var>document</var> is not <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#fully-active" id="ref-for-index-term-fully-active-for-document-1">fully active</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-2">a promise rejected with</a> an "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#invalidstateerror" id="ref-for-index-term-invalidstateerror-exception-1"><code>InvalidStateError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-2"><code>DOMException</code></a> in <var>realm</var>.
+      </li>
+      <li>If <var>document</var> is not a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#fully-active-descendant-of-a-top-level-traversable-with-user-attention" id="ref-for-index-term-fully-active-descendant-of-a-top-level-traversable-with-user-attention-for-document-1">fully active descendant of a top-level traversable with user attention</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-3">a promise rejected with</a> a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-1"><code>NotAllowedError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-3"><code>DOMException</code></a> in <var>realm</var>.
+      </li>
+      <li>If <var>global</var> does not have <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-index-term-transient-activation-2">transient activation</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-4">a promise rejected with</a> a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-2"><code>NotAllowedError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-4"><code>DOMException</code></a> in
+      <var>realm</var>.
+      </li>
+      <li><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation" id="ref-for-index-term-consume-user-activation-1">Consume user activation</a> of <var>global</var>.
+      </li>
+      <li>Let <var>promise</var> be <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-new-promise" id="ref-for-index-term-a-new-promise-1">a new promise</a> in <var>realm</var>.
       </li>
       <li>If the <a data-link-type="dfn|abstract-op" href="#dfn-credential-request-coordinator" class="internalDFN" id="ref-for-dfn-credential-request-coordinator-8">credential request coordinator</a> is not in the "<a data-link-type="dfn|abstract-op" href="#dfn-idle" class="internalDFN" id="ref-for-dfn-idle-3">idle</a>" <a data-link-type="dfn|abstract-op" href="#dfn-interaction-states" class="internalDFN" id="ref-for-dfn-interaction-states-3">interaction state</a>:
         <ol>
           <li><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task" id="ref-for-index-term-queue-a-global-task-1">Queue a global task</a> on the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#dom-manipulation-task-source" id="ref-for-index-term-dom-manipulation-task-source-1">DOM manipulation task source</a>
-          given <var>global</var> to <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-index-term-rejects-3">reject</a> <var data-type="Promise">promise</var> with a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-1"><code>NotAllowedError</code></a>"
-          <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-1"><code>DOMException</code></a>.
+          given <var>global</var> to <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-index-term-rejects-3">reject</a> <var>promise</var> with a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-3"><code>NotAllowedError</code></a>"
+          <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-5"><code>DOMException</code></a>.
           </li>
-          <li>Return.
+          <li>Return <var>promise</var>.
           </li>
         </ol>
       </li>
@@ -1379,22 +1394,22 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       </li>
       <li>Set the <a data-link-type="dfn|abstract-op" href="#dfn-credential-request-coordinator" class="internalDFN" id="ref-for-dfn-credential-request-coordinator-10">credential request coordinator</a> <a data-link-type="dfn|abstract-op" href="#dfn-interaction-states" class="internalDFN" id="ref-for-dfn-interaction-states-4">interaction state</a> to "<a data-link-type="dfn|abstract-op" href="#dfn-requesting" class="internalDFN" id="ref-for-dfn-requesting-1">requesting</a>".
       </li>
-      <li>Set the <a data-link-type="dfn|abstract-op" href="#dfn-credential-request-coordinator" class="internalDFN" id="ref-for-dfn-credential-request-coordinator-11">credential request coordinator</a>'s <a data-link-type="dfn|abstract-op" href="#dfn-active-promise" class="internalDFN" id="ref-for-dfn-active-promise-3">active promise</a> to <var data-type="Promise">promise</var>.
+      <li>Set the <a data-link-type="dfn|abstract-op" href="#dfn-credential-request-coordinator" class="internalDFN" id="ref-for-dfn-credential-request-coordinator-11">credential request coordinator</a>'s <a data-link-type="dfn|abstract-op" href="#dfn-active-promise" class="internalDFN" id="ref-for-dfn-active-promise-3">active promise</a> to <var>promise</var>.
       </li>
       <li>Let <var>validatedRequests</var> be the result of <a data-link-type="dfn|abstract-op" href="#dfn-validate-credential-requests" class="internalDFN" id="ref-for-dfn-validate-credential-requests-1">validate credential requests</a> given <var>requests</var>. If that
       <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw" id="ref-for-index-term-throw-for-exception-2">throws</a> an <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-exception" id="ref-for-index-term-exception-2">exception</a> <var>error</var>, then:
         <ol>
-          <li><a data-link-type="dfn|abstract-op" href="#dfn-reject-the-credential-request-with" class="internalDFN" id="ref-for-dfn-reject-the-credential-request-with-1">Reject the credential request with</a> <var>error</var> and <var data-type="Promise">promise</var>.
+          <li><a data-link-type="dfn|abstract-op" href="#dfn-reject-the-credential-request-with" class="internalDFN" id="ref-for-dfn-reject-the-credential-request-with-1">Reject the credential request with</a> <var>error</var> and <var>promise</var>.
           </li>
-          <li>Return.
+          <li>Return <var>promise</var>.
           </li>
         </ol>
       </li>
       <li>If <var>validatedRequests</var> <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-is-empty" id="ref-for-index-term-is-empty-for-list-1">is empty</a>, then:
         <ol>
-          <li><a data-link-type="dfn|abstract-op" href="#dfn-reject-the-credential-request-with" class="internalDFN" id="ref-for-dfn-reject-the-credential-request-with-2">Reject the credential request with</a> a newly created <a data-link-type="exception" data-lt="TypeError" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-index-term-typeerror-exception-1"><code>TypeError</code></a> and <var data-type="Promise">promise</var>.
+          <li><a data-link-type="dfn|abstract-op" href="#dfn-reject-the-credential-request-with" class="internalDFN" id="ref-for-dfn-reject-the-credential-request-with-2">Reject the credential request with</a> a newly created <a data-link-type="exception" data-lt="TypeError" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-index-term-typeerror-exception-1"><code>TypeError</code></a> and <var>promise</var>.
           </li>
-          <li>Return.
+          <li>Return <var>promise</var>.
           </li>
         </ol>
       </li>
@@ -1409,9 +1424,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           <li>Set the <a data-link-type="dfn|abstract-op" href="#dfn-credential-request-coordinator" class="internalDFN" id="ref-for-dfn-credential-request-coordinator-12">credential request coordinator</a>'s <a data-link-type="dfn|abstract-op" href="#dfn-abort-signal" class="internalDFN" id="ref-for-dfn-abort-signal-1">abort signal</a> to <var data-type="AbortSignal">signal</var>.
           </li>
           <li>Let <var>abortAlgorithm</var> be the following algorithm, closing over
-          <var data-type="Promise">promise</var> and <var data-type="AbortSignal">signal</var>:
+          <var>promise</var> and <var data-type="AbortSignal">signal</var>:
             <ol>
-              <li>If the <a data-link-type="dfn|abstract-op" href="#dfn-credential-request-coordinator" class="internalDFN" id="ref-for-dfn-credential-request-coordinator-13">credential request coordinator</a>'s <a data-link-type="dfn|abstract-op" href="#dfn-active-promise" class="internalDFN" id="ref-for-dfn-active-promise-4">active promise</a> is not <var data-type="Promise">promise</var>, return.
+              <li>If the <a data-link-type="dfn|abstract-op" href="#dfn-credential-request-coordinator" class="internalDFN" id="ref-for-dfn-credential-request-coordinator-13">credential request coordinator</a>'s <a data-link-type="dfn|abstract-op" href="#dfn-active-promise" class="internalDFN" id="ref-for-dfn-active-promise-4">active promise</a> is not <var>promise</var>, return.
               </li>
               <li><a data-link-type="dfn|abstract-op" href="#dfn-abort-the-credential-request" class="internalDFN" id="ref-for-dfn-abort-the-credential-request-1">Abort the credential request</a> given <var data-type="AbortSignal">signal</var>'s <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortsignal-abort-reason" id="ref-for-index-term-abort-reason-for-abortsignal-1">abort reason</a>.
               </li>
@@ -1423,15 +1438,17 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           </li>
         </ol>
       </li>
-      <li>If <var data-type="Document">document</var> stops being <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#fully-active" id="ref-for-index-term-fully-active-for-document-1">fully active</a>, <a data-link-type="dfn|abstract-op" href="#dfn-abort-the-credential-request" class="internalDFN" id="ref-for-dfn-abort-the-credential-request-2">abort the credential request</a> with an
-      "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#aborterror" id="ref-for-index-term-aborterror-exception-1"><code>AbortError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-2"><code>DOMException</code></a>.
+      <li>If <var>document</var> stops being <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#fully-active" id="ref-for-index-term-fully-active-for-document-2">fully active</a>, <a data-link-type="dfn|abstract-op" href="#dfn-abort-the-credential-request" class="internalDFN" id="ref-for-dfn-abort-the-credential-request-2">abort the credential request</a> with an
+      "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#aborterror" id="ref-for-index-term-aborterror-exception-1"><code>AbortError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-6"><code>DOMException</code></a>.
       </li>
-      <li>Let <var>handled</var> be the result of running <a data-link-type="dfn|abstract-op" href="#dfn-handle-virtual-wallet-behavior" class="internalDFN" id="ref-for-dfn-handle-virtual-wallet-behavior-1">handle virtual wallet behavior</a> given <var data-type="Promise">promise</var> and <var>global</var>.
+      <li>Let <var>handled</var> be the result of running <a data-link-type="dfn|abstract-op" href="#dfn-handle-virtual-wallet-behavior" class="internalDFN" id="ref-for-dfn-handle-virtual-wallet-behavior-1">handle virtual wallet behavior</a> given <var>promise</var> and <var>global</var>.
       </li>
-      <li>If <var>handled</var> is <code>true</code>, return.
+      <li>If <var>handled</var> is <code>true</code>, return <var>promise</var>.
       </li>
       <li><a data-link-type="dfn|abstract-op" href="#dfn-initiate-the-credential-request" class="internalDFN" id="ref-for-dfn-initiate-the-credential-request-1">Initiate the credential request</a>
-      with <var data-type="Document">document</var>, <var>validatedRequests</var>, <var data-type="Promise">promise</var>, and <var data-type="AbortSignal">signal</var>.
+      with <var>document</var>, <var>validatedRequests</var>, <var>promise</var>, and <var data-type="AbortSignal">signal</var>.
+      </li>
+      <li>Return <var>promise</var>.
       </li>
     </ol>
     </section><section id="validate-credential-requests"><div class="header-wrapper"><h3 id="x6-3-validate-credential-requests"><bdi class="secno">6.3 </bdi>
@@ -1534,13 +1551,13 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <p>
       To <dfn data-dfn-for="credential request coordinator" id="dfn-reject-the-credential-request-with" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">reject the
       credential request with</dfn> a (JavaScript Value) <var>error</var> and a
-      <a data-link-type="interface" data-lt="Promise" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-index-term-promise-interface-3"><code>Promise</code></a> <var data-type="Promise">promise</var>:
+      <a data-link-type="interface" data-lt="Promise" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-index-term-promise-interface-2"><code>Promise</code></a> <var data-type="Promise">promise</var>:
     </p>
     <ol class="algorithm">
       <li class="assert"><a href="https://infra.spec.whatwg.org/#assert" id="ref-for-index-term-assert-3">Assert</a>: the <a data-link-type="dfn|abstract-op" href="#dfn-credential-request-coordinator" class="internalDFN" id="ref-for-dfn-credential-request-coordinator-20">credential request coordinator</a>'s <a data-link-type="dfn|abstract-op" href="#dfn-active-promise" class="internalDFN" id="ref-for-dfn-active-promise-7">active promise</a> is <var data-type="Promise">promise</var>.
       </li>
       <li><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task" id="ref-for-index-term-queue-a-global-task-2">Queue a global task</a> on the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#dom-manipulation-task-source" id="ref-for-index-term-dom-manipulation-task-source-2">DOM manipulation task source</a> given
-      <var data-type="Promise">promise</var>'s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-index-term-relevant-global-object-2">relevant global object</a> to perform the following steps:
+      <var data-type="Promise">promise</var>'s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-index-term-relevant-global-object-1">relevant global object</a> to perform the following steps:
         <ol>
           <li>If the <a data-link-type="dfn|abstract-op" href="#dfn-credential-request-coordinator" class="internalDFN" id="ref-for-dfn-credential-request-coordinator-21">credential request coordinator</a>'s <a data-link-type="dfn|abstract-op" href="#dfn-active-promise" class="internalDFN" id="ref-for-dfn-active-promise-8">active promise</a> is not <var data-type="Promise">promise</var>, then return.
           </li>
@@ -1574,8 +1591,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </h3><a class="self-link" href="#initiate-the-credential-request" aria-label="Permalink for Section 6.6"></a></div>
     <p>
       To <dfn data-dfn-for="credential request coordinator" id="dfn-initiate-the-credential-request" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">initiate the
-      credential request</dfn> given a <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-document" id="ref-for-index-term-document-2">Document</a> <var>document</var>, a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list" id="ref-for-index-term-list-2">list</a> of
-      validated credential requests <var>validatedRequests</var>, a <a data-link-type="interface" data-lt="Promise" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-index-term-promise-interface-4"><code>Promise</code></a>
+      credential request</dfn> given a <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-document" id="ref-for-index-term-document-1">Document</a> <var>document</var>, a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list" id="ref-for-index-term-list-2">list</a> of
+      validated credential requests <var>validatedRequests</var>, a <a data-link-type="interface" data-lt="Promise" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-index-term-promise-interface-3"><code>Promise</code></a>
       <var data-type="Promise">promise</var>, and an optional <a data-link-type="interface" data-lt="AbortSignal" href="https://dom.spec.whatwg.org/#abortsignal" id="ref-for-index-term-abortsignal-interface-3"><code>AbortSignal</code></a> <var>signal</var>:
     </p>
     <ol class="algorithm">
@@ -1615,8 +1632,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           </li>
           <li>If the user cancels the operation or no credential was selected:
             <ol>
-              <li>Let <var>error</var> be a newly created "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-2"><code>NotAllowedError</code></a>"
-              <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-3"><code>DOMException</code></a>.
+              <li>Let <var>error</var> be a newly created "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-4"><code>NotAllowedError</code></a>"
+              <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-7"><code>DOMException</code></a>.
               </li>
               <li><a data-link-type="dfn|abstract-op" href="#dfn-reject-the-credential-request-with" class="internalDFN" id="ref-for-dfn-reject-the-credential-request-with-4">Reject the credential request with</a> <var>error</var> and <var data-type="Promise">promise</var>.
               </li>
@@ -1632,7 +1649,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
                     The user agent or platform does not permit the operation:
                   </dt>
                   <dd>
-                    A newly created "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-3"><code>NotAllowedError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-4"><code>DOMException</code></a>.
+                    A newly created "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-5"><code>NotAllowedError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-8"><code>DOMException</code></a>.
                   </dd>
                   <dt>
                     The request data is malformed or invalid:
@@ -1644,13 +1661,13 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
                     A credential request is already in progress:
                   </dt>
                   <dd>
-                    A newly created "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#invalidstateerror" id="ref-for-index-term-invalidstateerror-exception-1"><code>InvalidStateError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-5"><code>DOMException</code></a>.
+                    A newly created "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#invalidstateerror" id="ref-for-index-term-invalidstateerror-exception-2"><code>InvalidStateError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-9"><code>DOMException</code></a>.
                   </dd>
                   <dt>
                     Otherwise:
                   </dt>
                   <dd>
-                    A newly created "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#operationerror" id="ref-for-index-term-operationerror-exception-1"><code>OperationError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-6"><code>DOMException</code></a>.
+                    A newly created "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#operationerror" id="ref-for-index-term-operationerror-exception-1"><code>OperationError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-10"><code>DOMException</code></a>.
                   </dd>
                 </dl>
               </li>
@@ -1680,7 +1697,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
                   <a data-link-type="idl" href="#dom-digitalcredential-data" class="internalDFN" id="ref-for-dom-digitalcredential-data-1"><code>data</code></a> attribute.
                 </aside></div>
               </li>
-              <li><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task" id="ref-for-index-term-queue-a-global-task-3">Queue a global task</a> on the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#dom-manipulation-task-source" id="ref-for-index-term-dom-manipulation-task-source-3">DOM manipulation task source</a> given <var>document</var>'s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-index-term-relevant-global-object-3">relevant global object</a> to perform
+              <li><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task" id="ref-for-index-term-queue-a-global-task-3">Queue a global task</a> on the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#dom-manipulation-task-source" id="ref-for-index-term-dom-manipulation-task-source-3">DOM manipulation task source</a> given <var>document</var>'s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-index-term-relevant-global-object-2">relevant global object</a> to perform
               the following steps:
                 <ol>
                   <li>If the <a data-link-type="dfn|abstract-op" href="#dfn-credential-request-coordinator" class="internalDFN" id="ref-for-dfn-credential-request-coordinator-28">credential request coordinator</a>'s <a data-link-type="dfn|abstract-op" href="#dfn-active-promise" class="internalDFN" id="ref-for-dfn-active-promise-10">active promise</a> is not <var data-type="Promise">promise</var>, then
@@ -2048,32 +2065,15 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       Otherwise:
     </p>
     <ol class="algorithm">
-      <li>Let <var>signal</var> be <var>options</var>'s <a data-link-type="dict-member" href="https://www.w3.org/TR/credential-management-1/#dom-credentialrequestoptions-signal" id="ref-for-index-term-signal-for-credentialrequestoptions-1"><code>signal</code></a>, if
-      present.
-      </li>
-      <li>If <var>origin</var> is an <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin-opaque" id="ref-for-index-term-opaque-origin-1">opaque origin</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-1">a promise rejected with</a> a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#securityerror" id="ref-for-index-term-securityerror-exception-1"><code>SecurityError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-7"><code>DOMException</code></a>.
-      </li>
-      <li>Let <var>global</var> be <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-index-term-this-1">this</a>'s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-index-term-relevant-global-object-4">relevant global object</a>.
-      </li>
-      <li>Let <var>document</var> be <var>global</var>'s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#concept-document-window" id="ref-for-index-term-associated-document-1">associated <code>Document</code></a>.
-      </li>
-      <li>If <var>document</var> is not <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#fully-active" id="ref-for-index-term-fully-active-for-document-2">fully active</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-2">a promise rejected with</a> an "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#invalidstateerror" id="ref-for-index-term-invalidstateerror-exception-2"><code>InvalidStateError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-8"><code>DOMException</code></a>.
-      </li>
-      <li>If <var>document</var> is not a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#fully-active-descendant-of-a-top-level-traversable-with-user-attention" id="ref-for-index-term-fully-active-descendant-of-a-top-level-traversable-with-user-attention-for-document-1">fully active descendant of a top-level traversable with user attention</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-3">a promise rejected with</a> a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-4"><code>NotAllowedError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-9"><code>DOMException</code></a>.
-      </li>
       <li>Let <var>requests</var> be <var>options</var>'s <a data-link-type="idl" href="#dom-credentialrequestoptions-digital" class="internalDFN" id="ref-for-dom-credentialrequestoptions-digital-2"><code>digital</code></a>'s
       <a data-link-type="idl" href="#dom-digitalcredentialrequestoptions-requests" class="internalDFN" id="ref-for-dom-digitalcredentialrequestoptions-requests-2"><code>requests</code></a> member.
       </li>
-      <li>If <var>global</var> does not have <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-index-term-transient-activation-2">transient activation</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-4">a promise rejected with</a> a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-5"><code>NotAllowedError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-10"><code>DOMException</code></a>.
+      <li>Let <var>signal</var> be <var>options</var>'s <a data-link-type="dict-member" href="https://www.w3.org/TR/credential-management-1/#dom-credentialrequestoptions-signal" id="ref-for-index-term-signal-for-credentialrequestoptions-1"><code>signal</code></a>, if
+      present.
       </li>
-      <li><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation" id="ref-for-index-term-consume-user-activation-1">Consume user activation</a> of <var>global</var>.
+      <li>Let <var>global</var> be <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-index-term-this-1">this</a>'s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-index-term-relevant-global-object-3">relevant global object</a>.
       </li>
-      <li>Let <var>promise</var> be <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-new-promise" id="ref-for-index-term-a-new-promise-1">a new promise</a> in <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-index-term-this-2">this</a>'s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-realm" id="ref-for-index-term-relevant-realm-1">relevant realm</a>.
-      </li>
-      <li><a data-link-type="dfn|abstract-op" href="#dfn-prepare-credential-requests" class="internalDFN" id="ref-for-dfn-prepare-credential-requests-2">Prepare credential requests</a> with
-      <var>document</var>, <var>requests</var>, <var>promise</var>, and <var>signal</var>.
-      </li>
-      <li>Return <var>promise</var>.
+      <li>Return the result of <a data-link-type="dfn|abstract-op" href="#dfn-prepare-credential-requests" class="internalDFN" id="ref-for-dfn-prepare-credential-requests-2">prepare credential requests</a> given <var>global</var>, <var>origin</var>, <var>requests</var>, and <var>signal</var>.
       </li>
     </ol>
     </section><section id="store-credential-sameoriginwithancestors-internal-method"><div class="header-wrapper"><h3 id="x8-2-store-credential-sameoriginwithancestors-internal-method"><bdi class="secno">8.2 </bdi>
@@ -2096,34 +2096,15 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       arguments. Otherwise:
     </p>
     <ol class="algorithm">
-      <li>Let <var>signal</var> be <var>options</var>'s <a data-link-type="dict-member" href="https://www.w3.org/TR/credential-management-1/#dom-credentialcreationoptions-signal" id="ref-for-index-term-signal-for-credentialcreationoptions-1"><code>signal</code></a>, if
-      present.
-      </li>
-      <li>If <var>signal</var> is <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortsignal-aborted" id="ref-for-index-term-aborted-for-abortsignal-4">aborted</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-5">a promise rejected with</a> <var>signal</var>'s <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortsignal-abort-reason" id="ref-for-index-term-abort-reason-for-abortsignal-2">abort reason</a>.
-      </li>
-      <li>If <var>origin</var> is an <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin-opaque" id="ref-for-index-term-opaque-origin-2">opaque origin</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-6">a promise rejected with</a> a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#securityerror" id="ref-for-index-term-securityerror-exception-2"><code>SecurityError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-11"><code>DOMException</code></a>.
-      </li>
-      <li>Let <var>global</var> be <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-index-term-this-3">this</a>'s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-index-term-relevant-global-object-5">relevant global object</a>.
-      </li>
-      <li>Let <var>document</var> be <var>global</var>'s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#concept-document-window" id="ref-for-index-term-associated-document-2">associated <code>Document</code></a>.
-      </li>
-      <li>If <var>document</var> is not <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#fully-active" id="ref-for-index-term-fully-active-for-document-3">fully active</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-7">a promise rejected with</a> an "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#invalidstateerror" id="ref-for-index-term-invalidstateerror-exception-3"><code>InvalidStateError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-12"><code>DOMException</code></a>.
-      </li>
-      <li>If <var>document</var> is not a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#fully-active-descendant-of-a-top-level-traversable-with-user-attention" id="ref-for-index-term-fully-active-descendant-of-a-top-level-traversable-with-user-attention-for-document-2">fully active descendant of a top-level traversable with user attention</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-8">a promise rejected with</a> a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-6"><code>NotAllowedError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-13"><code>DOMException</code></a>.
-      </li>
       <li>Let <var>requests</var> be <var>options</var>'s <a data-link-type="idl" href="#dom-credentialcreationoptions-digital" class="internalDFN" id="ref-for-dom-credentialcreationoptions-digital-2"><code>digital</code></a>'s
       <a data-link-type="idl" href="#dom-digitalcredentialcreationoptions-requests" class="internalDFN" id="ref-for-dom-digitalcredentialcreationoptions-requests-2"><code>requests</code></a> member.
       </li>
-      <li>If <var>global</var> does not have <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-index-term-transient-activation-3">transient activation</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-9">a promise rejected with</a> a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-7"><code>NotAllowedError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-14"><code>DOMException</code></a>.
+      <li>Let <var>signal</var> be <var>options</var>'s <a data-link-type="dict-member" href="https://www.w3.org/TR/credential-management-1/#dom-credentialcreationoptions-signal" id="ref-for-index-term-signal-for-credentialcreationoptions-1"><code>signal</code></a>, if
+      present.
       </li>
-      <li><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation" id="ref-for-index-term-consume-user-activation-2">Consume user activation</a> of <var>global</var>.
+      <li>Let <var>global</var> be <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-index-term-this-2">this</a>'s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-index-term-relevant-global-object-4">relevant global object</a>.
       </li>
-      <li>Let <var data-type="Promise">promise</var> be <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-new-promise" id="ref-for-index-term-a-new-promise-2">a new promise</a> in the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-realm" id="ref-for-index-term-relevant-realm-2">relevant realm</a> of <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-index-term-this-4">this</a>.
-      </li>
-      <li><a data-link-type="dfn|abstract-op" href="#dfn-prepare-credential-requests" class="internalDFN" id="ref-for-dfn-prepare-credential-requests-3">Prepare credential requests</a> with
-      <var>document</var>, <var>requests</var>, <var data-type="Promise">promise</var>, and <var>signal</var>.
-      </li>
-      <li>Return <var data-type="Promise">promise</var>.
+      <li>Return the result of <a data-link-type="dfn|abstract-op" href="#dfn-prepare-credential-requests" class="internalDFN" id="ref-for-dfn-prepare-credential-requests-3">prepare credential requests</a> given <var>global</var>, <var>origin</var>, <var>requests</var>, and <var>signal</var>.
       </li>
     </ol>
     </section><section id="type-internal-slot"><div class="header-wrapper"><h3 id="x8-4-type-internal-slot"><bdi class="secno">8.4 </bdi>
@@ -2164,7 +2145,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           <dfn class="permission" data-dfn-type="permission" id="dfn-digital-credentials-get" tabindex="0" aria-haspopup="dialog" data-export="">"digital-credentials-get"</dfn>
         </dt>
         <dd>
-          A <a data-link-type="dfn" href="https://www.w3.org/TR/permissions-policy-1/#policy-controlled-feature" id="ref-for-index-term-policy-controlled-feature-4">policy-controlled feature</a> that allows a <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-document" id="ref-for-index-term-document-3">document</a> to
+          A <a data-link-type="dfn" href="https://www.w3.org/TR/permissions-policy-1/#policy-controlled-feature" id="ref-for-index-term-policy-controlled-feature-4">policy-controlled feature</a> that allows a <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-document" id="ref-for-index-term-document-2">document</a> to
           <a data-link-type="dfn|abstract-op" data-lt="presentation request" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-20">request</a> digital
           credentials. Its <a data-link-type="dfn" href="https://www.w3.org/TR/permissions-policy-1/#policy-controlled-feature-default-allowlist" id="ref-for-index-term-default-allowlists-for-policy-controlled-feature-1">default allowlists</a> is
           <a data-link-type="dfn" href="https://www.w3.org/TR/permissions-policy-1/#default-allowlist-self" id="ref-for-index-term-self-for-default-allowlist-1">'self'</a>. The <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#abstract-opdef-request-a-credential" id="ref-for-index-term-request-a-credential-3">request a <code>Credential</code></a>
@@ -2174,7 +2155,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           <dfn class="permission" data-dfn-type="permission" id="dfn-digital-credentials-create" tabindex="0" aria-haspopup="dialog" data-export="">"digital-credentials-create"</dfn>
         </dt>
         <dd>
-          A <a data-link-type="dfn" href="https://www.w3.org/TR/permissions-policy-1/#policy-controlled-feature" id="ref-for-index-term-policy-controlled-feature-5">policy-controlled feature</a> that allows a <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-document" id="ref-for-index-term-document-4">document</a> to
+          A <a data-link-type="dfn" href="https://www.w3.org/TR/permissions-policy-1/#policy-controlled-feature" id="ref-for-index-term-policy-controlled-feature-5">policy-controlled feature</a> that allows a <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-document" id="ref-for-index-term-document-3">document</a> to
           <a data-link-type="dfn|abstract-op" data-lt="issuance request" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-19">issue</a> digital credentials.
           Its <a data-link-type="dfn" href="https://www.w3.org/TR/permissions-policy-1/#policy-controlled-feature-default-allowlist" id="ref-for-index-term-default-allowlists-for-policy-controlled-feature-2">default allowlists</a> is <a data-link-type="dfn" href="https://www.w3.org/TR/permissions-policy-1/#default-allowlist-self" id="ref-for-index-term-self-for-default-allowlist-2">'self'</a>. The <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#abstract-opdef-create-a-credential" id="ref-for-index-term-create-a-credential-3">create a <code>Credential</code></a> algorithm serves as
           the policy enforcement point.
@@ -2277,8 +2258,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         <cite><a data-matched-text="[[[secure-contexts]]]" href="https://www.w3.org/TR/secure-contexts/">Secure Contexts</a></cite> specification for more information.
       </p>
       <p>
-        Additionally, requests from an <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin-opaque" id="ref-for-index-term-opaque-origin-3">opaque origin</a> are rejected. Calls to
-        <a data-link-type="method" data-lt="[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)" href="#dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors" class="internalDFN" id="ref-for-dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors-2"><code>[[DiscoverFromExternalSource]](<var>origin</var>, <var>options</var>, <var>sameOriginWithAncestors</var>)</code></a> and <a data-link-type="method" data-lt="[[Create]](origin, options, sameOriginWithAncestors)" href="#dfn-create-origin-options-sameoriginwithancestors" class="internalDFN" id="ref-for-dfn-create-origin-options-sameoriginwithancestors-1"><code>[[Create]](<var>origin</var>, <var>options</var>, <var>sameOriginWithAncestors</var>)</code></a> from an <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin-opaque" id="ref-for-index-term-opaque-origin-4">opaque origin</a> (for
+        Additionally, requests from an <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin-opaque" id="ref-for-index-term-opaque-origin-2">opaque origin</a> are rejected. Calls to
+        <a data-link-type="method" data-lt="[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)" href="#dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors" class="internalDFN" id="ref-for-dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors-2"><code>[[DiscoverFromExternalSource]](<var>origin</var>, <var>options</var>, <var>sameOriginWithAncestors</var>)</code></a> and <a data-link-type="method" data-lt="[[Create]](origin, options, sameOriginWithAncestors)" href="#dfn-create-origin-options-sameoriginwithancestors" class="internalDFN" id="ref-for-dfn-create-origin-options-sameoriginwithancestors-1"><code>[[Create]](<var>origin</var>, <var>options</var>, <var>sameOriginWithAncestors</var>)</code></a> from an <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin-opaque" id="ref-for-index-term-opaque-origin-3">opaque origin</a> (for
         example, a <code>data:</code> document, or a document sandboxed without
         <code>allow-same-origin</code>) are <a data-link-type="dfn" data-lt="reject" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-index-term-rejects-7">rejected</a>, reducing the risk of
         malicious extraction or spoofing from untrusted environments.
@@ -2290,7 +2271,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <ul>
         <li>
           <strong>Transient activation:</strong> Both
-          <a data-link-type="method" data-lt="[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)" href="#dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors" class="internalDFN" id="ref-for-dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors-3"><code>[[DiscoverFromExternalSource]](<var>origin</var>, <var>options</var>, <var>sameOriginWithAncestors</var>)</code></a> and <a data-link-type="method" data-lt="[[Create]](origin, options, sameOriginWithAncestors)" href="#dfn-create-origin-options-sameoriginwithancestors" class="internalDFN" id="ref-for-dfn-create-origin-options-sameoriginwithancestors-2"><code>[[Create]](<var>origin</var>, <var>options</var>, <var>sameOriginWithAncestors</var>)</code></a> methods <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation" id="ref-for-index-term-consume-user-activation-3">Consume user activation</a>, preventing automated or repeated requests without user
+          <a data-link-type="method" data-lt="[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)" href="#dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors" class="internalDFN" id="ref-for-dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors-3"><code>[[DiscoverFromExternalSource]](<var>origin</var>, <var>options</var>, <var>sameOriginWithAncestors</var>)</code></a> and <a data-link-type="method" data-lt="[[Create]](origin, options, sameOriginWithAncestors)" href="#dfn-create-origin-options-sameoriginwithancestors" class="internalDFN" id="ref-for-dfn-create-origin-options-sameoriginwithancestors-2"><code>[[Create]](<var>origin</var>, <var>options</var>, <var>sameOriginWithAncestors</var>)</code></a> methods <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation" id="ref-for-index-term-consume-user-activation-2">Consume user activation</a>, preventing automated or repeated requests without user
           interaction.
         </li>
         <li>
@@ -2346,11 +2327,11 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           secure channels and enforcing physical proximity (e.g., via Bluetooth
           Low Energy) to mitigate remote relay attacks. Crucially, in a
           cross-device flow, the <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-16">credential manager</a> cannot inherently trust
-          the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin" id="ref-for-index-term-origin-1">origin</a> string forwarded by the primary device, as the primary
+          the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin" id="ref-for-index-term-origin-2">origin</a> string forwarded by the primary device, as the primary
           device or its browser might be compromised. Therefore, protocols that
           employ signed requests, where the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-6">verifier</a> cryptographically
           proves its identity, provide significantly stronger security
-          assurances than relying solely on the browser-asserted <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin" id="ref-for-index-term-origin-2">origin</a>.
+          assurances than relying solely on the browser-asserted <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin" id="ref-for-index-term-origin-3">origin</a>.
         </p>
       </section>
     </section>
@@ -3201,8 +3182,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       </p>
       <p>
         When an operation fails, the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-53">user agent</a> rejects with one of several
-        distinct errors; for example, a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-8"><code>NotAllowedError</code></a>",
-        "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#invalidstateerror" id="ref-for-index-term-invalidstateerror-exception-4"><code>InvalidStateError</code></a>", or "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#operationerror" id="ref-for-index-term-operationerror-exception-2"><code>OperationError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-15"><code>DOMException</code></a>, or a
+        distinct errors; for example, a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-6"><code>NotAllowedError</code></a>",
+        "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#invalidstateerror" id="ref-for-index-term-invalidstateerror-exception-3"><code>InvalidStateError</code></a>", or "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#operationerror" id="ref-for-index-term-operationerror-exception-2"><code>OperationError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-11"><code>DOMException</code></a>, or a
         <a data-link-type="exception" data-lt="TypeError" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-index-term-typeerror-exception-4"><code>TypeError</code></a>. Where the platform surfaces such a failure to the user,
         it <em class="rfc2119">SHOULD</em> identify in text what went wrong and, where applicable, how
         to recover, rather than only signalling that an error occurred (see
@@ -3493,7 +3474,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         passing an <a data-link-type="interface" data-lt="AbortSignal" href="https://dom.spec.whatwg.org/#abortsignal" id="ref-for-index-term-abortsignal-interface-5"><code>AbortSignal</code></a> as <a data-link-type="dict-member" href="https://www.w3.org/TR/credential-management-1/#dom-credentialrequestoptions-signal" id="ref-for-index-term-signal-for-credentialrequestoptions-3"><code>signal</code></a> (for
         <a data-link-type="method" data-lt="get()" href="https://www.w3.org/TR/credential-management-1/#dom-credentialscontainer-get" id="ref-for-index-term-get-for-credentialscontainer-5"><code>get</code></a><code>()</code>) or <a data-link-type="dict-member" href="https://www.w3.org/TR/credential-management-1/#dom-credentialcreationoptions-signal" id="ref-for-index-term-signal-for-credentialcreationoptions-2"><code>signal</code></a>
         (for <a data-link-type="method" data-lt="create()" href="https://www.w3.org/TR/credential-management-1/#dom-credentialscontainer-create" id="ref-for-index-term-create-for-credentialscontainer-4"><code>create</code></a><code>()</code>), then aborting it with the
-        desired <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortsignal-abort-reason" id="ref-for-index-term-abort-reason-for-abortsignal-3">abort reason</a>. This exercises the same abort
+        desired <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortsignal-abort-reason" id="ref-for-index-term-abort-reason-for-abortsignal-2">abort reason</a>. This exercises the same abort
         path used by the request algorithms.
       </p></div>
       <div class="example" id="example-simulating-a-wallet-error-with-abortcontroller">
@@ -3526,7 +3507,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         Handle Virtual Wallet Behavior
       </h3><a class="self-link" href="#handle-virtual-wallet-behavior" aria-label="Permalink for Section 14.2"></a></div>
       <p>
-        To <dfn id="dfn-handle-virtual-wallet-behavior" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">handle virtual wallet behavior</dfn> given a <a data-link-type="interface" data-lt="Promise" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-index-term-promise-interface-5"><code>Promise</code></a>
+        To <dfn id="dfn-handle-virtual-wallet-behavior" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">handle virtual wallet behavior</dfn> given a <a data-link-type="interface" data-lt="Promise" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-index-term-promise-interface-4"><code>Promise</code></a>
         <var>promise</var> and a global object <var>global</var>, run these steps:
       </p>
       <ol class="algorithm">
@@ -3547,8 +3528,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         </li>
         <li>If <var>action</var> is <code>"decline"</code>:
           <ol>
-            <li><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-index-term-rejects-8">Reject</a> <var>promise</var> with a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-9"><code>NotAllowedError</code></a>"
-            <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-16"><code>DOMException</code></a>.
+            <li><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-index-term-rejects-8">Reject</a> <var>promise</var> with a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-7"><code>NotAllowedError</code></a>"
+            <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-12"><code>DOMException</code></a>.
             </li>
             <li>Return <code>true</code>.
             </li>
@@ -3559,7 +3540,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
             <li>Let <var>JSON string</var> be the result of <a data-link-type="dfn" data-lt="serialize an Infra value to a JSON string" href="https://infra.spec.whatwg.org/#serialize-an-infra-value-to-a-json-string" id="ref-for-index-term-serialize-an-infra-value-to-a-json-string-2">serializing</a> <var>response</var>.
             </li>
             <li>Let <var>JS object</var> be the result of <a data-link-type="dfn" data-lt="parse a JSON string to a JavaScript value" href="https://infra.spec.whatwg.org/#parse-a-json-string-to-a-javascript-value" id="ref-for-index-term-parse-a-json-string-to-a-javascript-value-3">parsing</a> <var>JSON string</var> given <var>global</var>'s
-            <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-realm" id="ref-for-index-term-relevant-realm-3">relevant realm</a>.
+            <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-realm" id="ref-for-index-term-relevant-realm-2">relevant realm</a>.
             </li>
             <li>Let <var>credential</var> be a new <a data-link-type="idl" data-lt="DigitalCredential" href="#dom-digitalcredential" class="internalDFN" id="ref-for-dom-digitalcredential-14"><code>DigitalCredential</code></a> instance.
             </li>
@@ -3874,9 +3855,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
   </li><li>
     <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin-opaque" id="index-term-opaque-origin" tabindex="0" aria-haspopup="dialog">opaque origin</span>
   </li><li>
-    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-origin" id="index-term-origin-for-environment-settings-object" tabindex="0" aria-haspopup="dialog">origin (for environment settings object)</span>
-  </li><li>
     <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin" id="index-term-origin" tabindex="0" aria-haspopup="dialog">origin</span>
+  </li><li>
+    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-origin" id="index-term-origin-for-environment-settings-object" tabindex="0" aria-haspopup="dialog">origin (for environment settings object)</span>
   </li><li>
     <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task" id="index-term-queue-a-global-task" tabindex="0" aria-haspopup="dialog">Queue a global task</span>
   </li><li>
@@ -3891,6 +3872,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-traversable" id="index-term-top-level-traversable" tabindex="0" aria-haspopup="dialog">top-level traversable</span>
   </li><li>
     <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="index-term-transient-activation" tabindex="0" aria-haspopup="dialog">transient activation</span>
+  </li><li>
+    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="index-term-window-interface" tabindex="0" aria-haspopup="dialog"><code>Window</code> interface</span>
   </li>
         </ul>
       </li><li>
@@ -5997,9 +5980,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <li>
       <a href="#ref-for-index-term-abort-reason-for-abortsignal-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> 
     </li><li>
-      <a href="#ref-for-index-term-abort-reason-for-abortsignal-2" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
-    </li><li>
-      <a href="#ref-for-index-term-abort-reason-for-abortsignal-3" title="§ 14.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 14.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> 
+      <a href="#ref-for-index-term-abort-reason-for-abortsignal-2" title="§ 14.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 14.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-aborted-for-abortsignal" aria-label="Links in this document to definition: aborted (for AbortSignal)">
@@ -6015,8 +5996,6 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-aborted-for-abortsignal-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> <a href="#ref-for-index-term-aborted-for-abortsignal-2" title="Reference 2">(2)</a> 
     </li><li>
       <a href="#ref-for-index-term-aborted-for-abortsignal-3" title="§ 6.6 Initiate the credential request">§ 6.6 Initiate the credential request</a> 
-    </li><li>
-      <a href="#ref-for-index-term-aborted-for-abortsignal-4" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-abortsignal-interface" aria-label="Links in this document to definition: AbortSignal interface">
@@ -6065,11 +6044,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-document-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> 
+      <a href="#ref-for-index-term-document-1" title="§ 6.6 Initiate the credential request">§ 6.6 Initiate the credential request</a> 
     </li><li>
-      <a href="#ref-for-index-term-document-2" title="§ 6.6 Initiate the credential request">§ 6.6 Initiate the credential request</a> 
-    </li><li>
-      <a href="#ref-for-index-term-document-3" title="§ 9. Permissions Policy integration">§ 9. Permissions Policy integration</a> <a href="#ref-for-index-term-document-4" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-document-2" title="§ 9. Permissions Policy integration">§ 9. Permissions Policy integration</a> <a href="#ref-for-index-term-document-3" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-remove-for-abortsignal" aria-label="Links in this document to definition: Remove (for AbortSignal)">
@@ -6136,9 +6113,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-associated-document-1" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
-    </li><li>
-      <a href="#ref-for-index-term-associated-document-2" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
+      <a href="#ref-for-index-term-associated-document-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-browsing-context" aria-label="Links in this document to definition: browsing context">
@@ -6177,11 +6152,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-consume-user-activation-1" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
+      <a href="#ref-for-index-term-consume-user-activation-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> 
     </li><li>
-      <a href="#ref-for-index-term-consume-user-activation-2" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
-    </li><li>
-      <a href="#ref-for-index-term-consume-user-activation-3" title="§ 10.2 Mitigations">§ 10.2 Mitigations</a> 
+      <a href="#ref-for-index-term-consume-user-activation-2" title="§ 10.2 Mitigations">§ 10.2 Mitigations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-dom-manipulation-task-source" aria-label="Links in this document to definition: DOM manipulation task source">
@@ -6226,11 +6199,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-fully-active-for-document-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> 
-    </li><li>
-      <a href="#ref-for-index-term-fully-active-for-document-2" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
-    </li><li>
-      <a href="#ref-for-index-term-fully-active-for-document-3" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
+      <a href="#ref-for-index-term-fully-active-for-document-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> <a href="#ref-for-index-term-fully-active-for-document-2" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-fully-active-descendant-of-a-top-level-traversable-with-user-attention-for-document" aria-label="Links in this document to definition: fully active descendant of a top-level traversable with user attention (for Document)">
@@ -6243,9 +6212,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-fully-active-descendant-of-a-top-level-traversable-with-user-attention-for-document-1" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
-    </li><li>
-      <a href="#ref-for-index-term-fully-active-descendant-of-a-top-level-traversable-with-user-attention-for-document-2" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
+      <a href="#ref-for-index-term-fully-active-descendant-of-a-top-level-traversable-with-user-attention-for-document-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-iframe-element" aria-label="Links in this document to definition: iframe element">
@@ -6297,11 +6264,24 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-opaque-origin-1" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
+      <a href="#ref-for-index-term-opaque-origin-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> 
     </li><li>
-      <a href="#ref-for-index-term-opaque-origin-2" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
+      <a href="#ref-for-index-term-opaque-origin-2" title="§ 10.2 Mitigations">§ 10.2 Mitigations</a> <a href="#ref-for-index-term-opaque-origin-3" title="Reference 2">(2)</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-origin" aria-label="Links in this document to definition: origin">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin" aria-label="Permalink for definition: origin. Activate to close this dialog.">Permalink</a>
+         
+        
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-index-term-origin-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> 
     </li><li>
-      <a href="#ref-for-index-term-opaque-origin-3" title="§ 10.2 Mitigations">§ 10.2 Mitigations</a> <a href="#ref-for-index-term-opaque-origin-4" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-origin-2" title="§ 10.3 Cross-Device Security and Proximity">§ 10.3 Cross-Device Security and Proximity</a> <a href="#ref-for-index-term-origin-3" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-origin-for-environment-settings-object" aria-label="Links in this document to definition: origin (for environment settings object)">
@@ -6317,19 +6297,6 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-origin-for-environment-settings-object-1" title="§ 6.6 Initiate the credential request">§ 6.6 Initiate the credential request</a> 
     </li><li>
       <a href="#ref-for-index-term-origin-for-environment-settings-object-2" title="§ 7.8.1 The request context struct">§ 7.8.1 The request context struct</a> 
-    </li>
-  </ul>
-    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-origin" aria-label="Links in this document to definition: origin">
-      <span class="caret"></span>
-      <div>
-        <a class="self-link" href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin" aria-label="Permalink for definition: origin. Activate to close this dialog.">Permalink</a>
-         
-        
-      </div>
-      <p><b>Referenced in:</b></p>
-      <ul>
-    <li>
-      <a href="#ref-for-index-term-origin-1" title="§ 10.3 Cross-Device Security and Proximity">§ 10.3 Cross-Device Security and Proximity</a> <a href="#ref-for-index-term-origin-2" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-queue-a-global-task" aria-label="Links in this document to definition: Queue a global task">
@@ -6361,15 +6328,13 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-relevant-global-object-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> 
+      <a href="#ref-for-index-term-relevant-global-object-1" title="§ 6.5 Reject the credential request">§ 6.5 Reject the credential request</a> 
     </li><li>
-      <a href="#ref-for-index-term-relevant-global-object-2" title="§ 6.5 Reject the credential request">§ 6.5 Reject the credential request</a> 
+      <a href="#ref-for-index-term-relevant-global-object-2" title="§ 6.6 Initiate the credential request">§ 6.6 Initiate the credential request</a> 
     </li><li>
-      <a href="#ref-for-index-term-relevant-global-object-3" title="§ 6.6 Initiate the credential request">§ 6.6 Initiate the credential request</a> 
+      <a href="#ref-for-index-term-relevant-global-object-3" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
     </li><li>
-      <a href="#ref-for-index-term-relevant-global-object-4" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
-    </li><li>
-      <a href="#ref-for-index-term-relevant-global-object-5" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
+      <a href="#ref-for-index-term-relevant-global-object-4" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-relevant-realm" aria-label="Links in this document to definition: relevant realm">
@@ -6382,11 +6347,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-relevant-realm-1" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
+      <a href="#ref-for-index-term-relevant-realm-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> 
     </li><li>
-      <a href="#ref-for-index-term-relevant-realm-2" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
-    </li><li>
-      <a href="#ref-for-index-term-relevant-realm-3" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
+      <a href="#ref-for-index-term-relevant-realm-2" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-relevant-settings-object" aria-label="Links in this document to definition: relevant settings object">
@@ -6442,9 +6405,20 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <li>
       <a href="#ref-for-index-term-transient-activation-1" title="§ 1. Introduction">§ 1. Introduction</a> 
     </li><li>
-      <a href="#ref-for-index-term-transient-activation-2" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
-    </li><li>
-      <a href="#ref-for-index-term-transient-activation-3" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
+      <a href="#ref-for-index-term-transient-activation-2" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-window-interface" aria-label="Links in this document to definition: Window interface">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" aria-label="Permalink for definition: Window interface. Activate to close this dialog.">Permalink</a>
+         
+        
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-index-term-window-interface-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-append-for-list" aria-label="Links in this document to definition: append (for list)">
@@ -7062,9 +7036,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-a-new-promise-1" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
-    </li><li>
-      <a href="#ref-for-index-term-a-new-promise-2" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
+      <a href="#ref-for-index-term-a-new-promise-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-a-promise-rejected-with" aria-label="Links in this document to definition: a promise rejected with">
@@ -7077,9 +7049,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-a-promise-rejected-with-1" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> <a href="#ref-for-index-term-a-promise-rejected-with-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-a-promise-rejected-with-3" title="Reference 3">(3)</a> <a href="#ref-for-index-term-a-promise-rejected-with-4" title="Reference 4">(4)</a> 
-    </li><li>
-      <a href="#ref-for-index-term-a-promise-rejected-with-5" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> <a href="#ref-for-index-term-a-promise-rejected-with-6" title="Reference 2">(2)</a> <a href="#ref-for-index-term-a-promise-rejected-with-7" title="Reference 3">(3)</a> <a href="#ref-for-index-term-a-promise-rejected-with-8" title="Reference 4">(4)</a> <a href="#ref-for-index-term-a-promise-rejected-with-9" title="Reference 5">(5)</a> 
+      <a href="#ref-for-index-term-a-promise-rejected-with-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> <a href="#ref-for-index-term-a-promise-rejected-with-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-a-promise-rejected-with-3" title="Reference 3">(3)</a> <a href="#ref-for-index-term-a-promise-rejected-with-4" title="Reference 4">(4)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-aborterror-exception" aria-label="Links in this document to definition: AbortError exception">
@@ -7150,17 +7120,13 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-domexception-interface-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> <a href="#ref-for-index-term-domexception-interface-2" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-domexception-interface-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> <a href="#ref-for-index-term-domexception-interface-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-domexception-interface-3" title="Reference 3">(3)</a> <a href="#ref-for-index-term-domexception-interface-4" title="Reference 4">(4)</a> <a href="#ref-for-index-term-domexception-interface-5" title="Reference 5">(5)</a> <a href="#ref-for-index-term-domexception-interface-6" title="Reference 6">(6)</a> 
     </li><li>
-      <a href="#ref-for-index-term-domexception-interface-3" title="§ 6.6 Initiate the credential request">§ 6.6 Initiate the credential request</a> <a href="#ref-for-index-term-domexception-interface-4" title="Reference 2">(2)</a> <a href="#ref-for-index-term-domexception-interface-5" title="Reference 3">(3)</a> <a href="#ref-for-index-term-domexception-interface-6" title="Reference 4">(4)</a> 
+      <a href="#ref-for-index-term-domexception-interface-7" title="§ 6.6 Initiate the credential request">§ 6.6 Initiate the credential request</a> <a href="#ref-for-index-term-domexception-interface-8" title="Reference 2">(2)</a> <a href="#ref-for-index-term-domexception-interface-9" title="Reference 3">(3)</a> <a href="#ref-for-index-term-domexception-interface-10" title="Reference 4">(4)</a> 
     </li><li>
-      <a href="#ref-for-index-term-domexception-interface-7" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> <a href="#ref-for-index-term-domexception-interface-8" title="Reference 2">(2)</a> <a href="#ref-for-index-term-domexception-interface-9" title="Reference 3">(3)</a> <a href="#ref-for-index-term-domexception-interface-10" title="Reference 4">(4)</a> 
+      <a href="#ref-for-index-term-domexception-interface-11" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> 
     </li><li>
-      <a href="#ref-for-index-term-domexception-interface-11" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> <a href="#ref-for-index-term-domexception-interface-12" title="Reference 2">(2)</a> <a href="#ref-for-index-term-domexception-interface-13" title="Reference 3">(3)</a> <a href="#ref-for-index-term-domexception-interface-14" title="Reference 4">(4)</a> 
-    </li><li>
-      <a href="#ref-for-index-term-domexception-interface-15" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> 
-    </li><li>
-      <a href="#ref-for-index-term-domexception-interface-16" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
+      <a href="#ref-for-index-term-domexception-interface-12" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-domstring-interface" aria-label="Links in this document to definition: DOMString interface">
@@ -7275,13 +7241,11 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-invalidstateerror-exception-1" title="§ 6.6 Initiate the credential request">§ 6.6 Initiate the credential request</a> 
+      <a href="#ref-for-index-term-invalidstateerror-exception-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> 
     </li><li>
-      <a href="#ref-for-index-term-invalidstateerror-exception-2" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
+      <a href="#ref-for-index-term-invalidstateerror-exception-2" title="§ 6.6 Initiate the credential request">§ 6.6 Initiate the credential request</a> 
     </li><li>
-      <a href="#ref-for-index-term-invalidstateerror-exception-3" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
-    </li><li>
-      <a href="#ref-for-index-term-invalidstateerror-exception-4" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> 
+      <a href="#ref-for-index-term-invalidstateerror-exception-3" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-notallowederror-exception" aria-label="Links in this document to definition: NotAllowedError exception">
@@ -7294,17 +7258,13 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-notallowederror-exception-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> 
+      <a href="#ref-for-index-term-notallowederror-exception-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> <a href="#ref-for-index-term-notallowederror-exception-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-notallowederror-exception-3" title="Reference 3">(3)</a> 
     </li><li>
-      <a href="#ref-for-index-term-notallowederror-exception-2" title="§ 6.6 Initiate the credential request">§ 6.6 Initiate the credential request</a> <a href="#ref-for-index-term-notallowederror-exception-3" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-notallowederror-exception-4" title="§ 6.6 Initiate the credential request">§ 6.6 Initiate the credential request</a> <a href="#ref-for-index-term-notallowederror-exception-5" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-index-term-notallowederror-exception-4" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> <a href="#ref-for-index-term-notallowederror-exception-5" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-notallowederror-exception-6" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> 
     </li><li>
-      <a href="#ref-for-index-term-notallowederror-exception-6" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> <a href="#ref-for-index-term-notallowederror-exception-7" title="Reference 2">(2)</a> 
-    </li><li>
-      <a href="#ref-for-index-term-notallowederror-exception-8" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> 
-    </li><li>
-      <a href="#ref-for-index-term-notallowederror-exception-9" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
+      <a href="#ref-for-index-term-notallowederror-exception-7" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-object-type-0" aria-label="Links in this document to definition: object type">
@@ -7353,13 +7313,11 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <li>
       <a href="#ref-for-index-term-promise-interface-1" title="§ 6. Credential Request Coordinator">§ 6. Credential Request Coordinator</a> 
     </li><li>
-      <a href="#ref-for-index-term-promise-interface-2" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> 
+      <a href="#ref-for-index-term-promise-interface-2" title="§ 6.5 Reject the credential request">§ 6.5 Reject the credential request</a> 
     </li><li>
-      <a href="#ref-for-index-term-promise-interface-3" title="§ 6.5 Reject the credential request">§ 6.5 Reject the credential request</a> 
+      <a href="#ref-for-index-term-promise-interface-3" title="§ 6.6 Initiate the credential request">§ 6.6 Initiate the credential request</a> 
     </li><li>
-      <a href="#ref-for-index-term-promise-interface-4" title="§ 6.6 Initiate the credential request">§ 6.6 Initiate the credential request</a> 
-    </li><li>
-      <a href="#ref-for-index-term-promise-interface-5" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
+      <a href="#ref-for-index-term-promise-interface-4" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-referenceerror-exception" aria-label="Links in this document to definition: ReferenceError exception">
@@ -7455,9 +7413,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-securityerror-exception-1" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
-    </li><li>
-      <a href="#ref-for-index-term-securityerror-exception-2" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
+      <a href="#ref-for-index-term-securityerror-exception-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-sequence" aria-label="Links in this document to definition: sequence">
@@ -7489,9 +7445,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-this-1" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> <a href="#ref-for-index-term-this-2" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-this-1" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
     </li><li>
-      <a href="#ref-for-index-term-this-3" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> <a href="#ref-for-index-term-this-4" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-this-2" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-throw-for-exception" aria-label="Links in this document to definition: throw (for exception)">
