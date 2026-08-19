@@ -1659,6 +1659,9 @@
       </li>
       <li>Let |document| be |global|'s [=associated `Document`=].
       </li>
+      <li>If |document| is not [=Document/fully active=], return [=a promise
+      rejected with=] an {{"InvalidStateError"}} {{DOMException}}.
+      </li>
       <li>If |document| is not a [=Document/fully active descendant of a
       top-level traversable with user attention=], return [=a promise rejected
       with=] a {{"NotAllowedError"}} {{DOMException}}.
@@ -1718,6 +1721,9 @@
       <li>Let |global| be [=this=]'s [=relevant global object=].
       </li>
       <li>Let |document| be |global|'s [=associated `Document`=].
+      </li>
+      <li>If |document| is not [=Document/fully active=], return [=a promise
+      rejected with=] an {{"InvalidStateError"}} {{DOMException}}.
       </li>
       <li>If |document| is not a [=Document/fully active descendant of a
       top-level traversable with user attention=], return [=a promise rejected
