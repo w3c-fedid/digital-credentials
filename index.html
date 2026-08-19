@@ -601,36 +601,29 @@
       Protocols
     </h2>
     <p>
-      Use of the following [=digital credential/presentation protocols=] is
-      defined by this specification.
+      Use of the following [=digital credential/presentation protocols=] and
+      [=digital credential/issuance protocols=] is defined by this
+      specification.
     </p>
     <p>
-      A [=user agent=] MUST support the ISO mdoc presentation protocol
-      ({{DigitalCredentialPresentationProtocol/"org-iso-mdoc"}}) as well
-      as both of the signed OpenID4VP presentation protocols
-      ({{DigitalCredentialPresentationProtocol/"openid4vp-v1-signed"}} and
-      {{DigitalCredentialPresentationProtocol/"openid4vp-v1-multisigned"}}),
-      as listed in the [=table of supported presentation and issuance
-      protocols=]. It is RECOMMENDED that [=user agents=] also support all
-      of the [=digital credential/issuance protocols=] listed in [=table of
-      supported presentation and issuance protocols/that table=].
-
+      A [=user agent=] MUST support all the [=digital credential/presentation
+      protocols=] listed in the [=table of supported presentation and issuance
+      protocols=]. It is RECOMMENDED that [=user agents=] also support all of
+      the [=digital credential/issuance protocols=] listed in [=table of
+      supported presentation and issuance protocols|that table=].
     </p>
     <aside class="note" title="Rationale for the required protocols">
       <p>
-        Requiring both credential-format families in the table (ISO mdoc and
-        OpenID4VP) lets a [=verifier=] rely on the API regardless of which family
-        it uses. The signed OpenID4VP modes are required because a signed request
-        integrity-protects that request, including any response-encryption
-        parameters, which is what makes the response's protections meaningful;
-        the unsigned mode does not, and is thus not required here.
+        Requiring every listed [=digital credential/presentation protocol=]
+        means a [=verifier=] can rely on the API whichever credential format or
+        request mode it uses. It also stops [=user agents=] from each allowing
+        a different subset, which would fragment the ecosystem.
       </p>
     </aside>
     <aside class="note" title="Checking which protocols a user agent allows">
       <p>
-        Developers can learn which
-        [=digital credential/presentation protocols=] or
-        [=digital credential/issuance protocols=] a user agent
+        Developers can learn which [=digital credential/presentation
+        protocols=] or [=digital credential/issuance protocols=] a user agent
         allows by calling the
         `DigitalCredential.`{{DigitalCredential.userAgentAllowsProtocol()}}
         static method. See [[[#checking-if-protocol-is-allowed]]] for an
