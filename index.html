@@ -3163,6 +3163,39 @@
         <li>Return [=success=] with data `null`.
         </li>
       </ol>
+      <p class="note" title="Simulating wallet errors in tests">
+        Developers writing automated tests can simulate wallet errors by
+        passing an {{AbortSignal}} as {{CredentialRequestOptions/signal}} (for
+        {{CredentialsContainer/get()}}) or {{CredentialCreationOptions/signal}}
+        (for {{CredentialsContainer/create()}}), then aborting it with the
+        desired [=AbortSignal/abort reason=]. This exercises the same abort
+        path used by the request algorithms.
+      </p>
+      <pre class="example js" title=
+      "Simulating a wallet error with AbortController">
+        (async () =&gt; {
+          const controller = new AbortController();
+          const credentialPromise = navigator.credentials.get({
+            digital: {
+              requests: [{
+                protocol: "example-request-protocol",
+                data: { /* presentation request data */ }
+              }]
+            },
+            signal: controller.signal
+          });
+
+          controller.abort(
+            new DOMException("Simulated wallet failure", "OperationError")
+          );
+
+          try {
+            await credentialPromise;
+          } catch (error) {
+            console.assert(error.name === "OperationError");
+          }
+        })();
+      </pre>
       <h3>
         Handle Virtual Wallet Behavior
       </h3>
