@@ -853,24 +853,27 @@
       {{AbortSignal}} |signal:AbortSignal|:
     </p>
     <ol class="algorithm">
+      <li>Let |realm| be |global|'s [=relevant realm=].
+      </li>
       <li>If |origin| is an [=opaque origin=], return [=a promise rejected
-      with=] a {{"SecurityError"}} {{DOMException}}.
+      with=] a {{"SecurityError"}} {{DOMException}} in |realm|.
       </li>
       <li>Let |document| be |global|'s [=associated `Document`=].
       </li>
       <li>If |document| is not [=Document/fully active=], return [=a promise
-      rejected with=] an {{"InvalidStateError"}} {{DOMException}}.
+      rejected with=] an {{"InvalidStateError"}} {{DOMException}} in |realm|.
       </li>
       <li>If |document| is not a [=Document/fully active descendant of a
       top-level traversable with user attention=], return [=a promise rejected
-      with=] a {{"NotAllowedError"}} {{DOMException}}.
+      with=] a {{"NotAllowedError"}} {{DOMException}} in |realm|.
       </li>
       <li>If |global| does not have [=transient activation=], return [=a
-      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
+      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}} in
+      |realm|.
       </li>
       <li>[=Consume user activation=] of |global|.
       </li>
-      <li>Let |promise| be [=a new promise=] in |global|'s [=relevant realm=].
+      <li>Let |promise| be [=a new promise=] in |realm|.
       </li>
       <li>If the [=credential request coordinator=] is not in the "[=credential
       request coordinator/idle=]" [=credential request coordinator/interaction
