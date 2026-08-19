@@ -1250,6 +1250,20 @@
       user-activated event, using a mechanism that does not solely rely on the
       [=navigable=] responsible for running the content of the [=top-level
       traversable=].
+        <ol>
+          <li>If the verification fails:
+            <ol>
+              <li>Let |error| be a newly created {{"NotAllowedError"}}
+              {{DOMException}}.
+              </li>
+              <li>[=credential request coordinator/Reject the credential
+              request with=] |error| and |promise|.
+              </li>
+              <li>Return.
+              </li>
+            </ol>
+          </li>
+        </ol>
         <aside class="note" title="Defense in depth">
           In multi-process architectures, the [=consume user activation=] check
           occurs in the process responsible for running web content (variously
