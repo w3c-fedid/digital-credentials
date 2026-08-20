@@ -176,7 +176,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="3cdd740ff3a931a517ff2987be98252cb40bc600">
+<meta name="revision" content="a35d42086702703a08eb1736c198526c7ad8bfbc">
 <meta name="description" content="This document specifies an API enabling user agents to mediate the
         presentation and issuance of digital credentials, such as a
         driver's license, government-issued identification card, or
@@ -325,16 +325,16 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "3cdd740ff3a931a517ff2987be98252cb40bc600",
-  "publishISODate": "2026-08-19T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 19 August 2026"
+  "gitRevision": "a35d42086702703a08eb1736c198526c7ad8bfbc",
+  "publishISODate": "2026-08-20T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 20 August 2026"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED"></head>
   <body data-cite="WEBIDL credential-management permissions-policy vc-data-model HTML INFRA URL WEBIDL DOM FETCH" class="h-entry"><div class="head">
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Digital Credentials</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-08-19">19 August 2026</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-08-20">20 August 2026</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -1508,10 +1508,19 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           that <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-exception" id="ref-for-index-term-exception-4">exception</a>.
           </li>
           <li>Validate <var>request</var>'s <a data-link-type="dfn|abstract-op" href="#dfn-presentation-request-data" class="internalDFN" id="ref-for-dfn-presentation-request-data-3">presentation request data</a> or <a data-link-type="dfn|abstract-op" href="#dfn-issuance-request-data" class="internalDFN" id="ref-for-dfn-issuance-request-data-3">issuance request data</a> according to
-          <var>request</var>'s <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-12">presentation protocol</a> or <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-11">issuance protocol</a> or other criteria. Validation
-          requirements are protocol-specific and are outside the scope of this
-          specification:
-            <div class="note" role="note" id="issue-container-generatedID-8"><div class="note-title marker" id="h-note-7"><span>Note</span><span class="issue-label">: Validation details outside scope</span></div><aside class="">
+          <var>request</var>'s <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-12">presentation protocol</a> or <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-11">issuance protocol</a> or other criteria.
+            <p>
+              In addition to protocol-defined requirements, a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-10">user agent</a>
+              might apply validation criteria based on local policy,
+              configuration, or the user's choices. For example, a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-11">user agent</a> might reject a request that seeks particular credential
+              attributes.
+            </p>
+            <p>
+              What constitutes a validation failure is protocol-specific, but
+              how such a failure is classified into an exception type is defined
+              below:
+            </p>
+            <div class="note" role="note" id="issue-container-generatedID-8"><div class="note-title marker" id="h-note-7"><span>Note</span><span class="issue-label">: Protocol-specific validation details</span></div><aside class="">
               <p>
                 Validation includes verifying <var>request</var>'s <a data-link-type="dfn|abstract-op" href="#dfn-presentation-request-data" class="internalDFN" id="ref-for-dfn-presentation-request-data-4">presentation request data</a> or <a data-link-type="dfn|abstract-op" href="#dfn-issuance-request-data" class="internalDFN" id="ref-for-dfn-issuance-request-data-4">issuance request data</a> conforms to the requirements
                 of the specified <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-13">presentation protocol</a>
@@ -1522,14 +1531,50 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
                 during validation.
               </p>
             </aside></div>
-            <div class="issue" id="issue-container-number-472"><div class="issue-title marker" id="h-issue-0"><a href="https://github.com/w3c-fedid/digital-credentials/issues/472"><span class="issue-number">Issue 472</span></a><span class="issue-label">: User agent request validation and errors <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22spec%22" style="background-color: rgb(137, 50, 216); color: rgb(255, 255, 255);" aria-label="GitHub label: spec">spec</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22substantive%22" style="background-color: rgb(228, 230, 105); color: rgb(0, 0, 0);" aria-label="GitHub label: substantive">substantive</a></span></div><p dir="auto">The prepare steps originally stated that:</p>
-<blockquote>
-<p dir="auto">In addition to protocol-defined requirements, a [=user agent=] might apply additional validation criteria based on local policy, configuration, or evolving security considerations. For example, a [=user agent=] might reject a request that (a) seeks particular credential attributes, (b) uses or requires cryptographic algorithms the [=user agent=] is configured not to accept (e.g., as part of algorithm agility or a transition to post-quantum schemes), or (c) relies on certificates or trust anchors that are not accepted by the [=user agent=]'s configured trust decisions.</p>
-</blockquote>
-<p dir="auto">It would be good to expand on these.</p></div>
             <ol>
-              <li>If validation fails, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw" id="ref-for-index-term-throw-for-exception-4">throw</a> an appropriate
-              <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-exception" id="ref-for-index-term-exception-5">exception</a>.
+              <li>If validation fails:
+                <ol>
+                  <li>Let <var>error</var> be determined as follows:
+                    <dl class="switch">
+                      <dt>
+                        The <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-12">user agent</a> does not permit the request based on
+                        local policy, configuration, or the user's choices:
+                      </dt>
+                      <dd>
+                        A <a data-link-type="dfn" data-lt="create" href="https://webidl.spec.whatwg.org/#dfn-create-exception" id="ref-for-index-term-create-for-exception-1">created</a> "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-4"><code>NotAllowedError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-7"><code>DOMException</code></a>.
+                        <div class="note" role="note" id="issue-container-generatedID-9"><div class="note-title marker" id="h-note-8"><span>Note</span></div><p class="">
+                          "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-5"><code>NotAllowedError</code></a>" is deliberately
+                          indistinguishable from the error returned when the
+                          user cancels the operation, so that a website cannot
+                          determine whether a request was refused by the user or
+                          by the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-13">user agent</a>, nor infer anything about the
+                          user's configuration or credentials.
+                        </p></div>
+                      </dd>
+                      <dt>
+                        The request is not permitted for security reasons
+                        unrelated to the user, such as the context or transport:
+                      </dt>
+                      <dd>
+                        A <a data-link-type="dfn" data-lt="create" href="https://webidl.spec.whatwg.org/#dfn-create-exception" id="ref-for-index-term-create-for-exception-2">created</a> "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#securityerror" id="ref-for-index-term-securityerror-exception-2"><code>SecurityError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-8"><code>DOMException</code></a>.
+                      </dd>
+                      <dt>
+                        The request data is malformed or invalid:
+                      </dt>
+                      <dd>
+                        A <a data-link-type="dfn" data-lt="create" href="https://webidl.spec.whatwg.org/#dfn-create-exception" id="ref-for-index-term-create-for-exception-3">created</a> <a data-link-type="exception" data-lt="TypeError" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-index-term-typeerror-exception-3"><code>TypeError</code></a>.
+                      </dd>
+                      <dt>
+                        Otherwise:
+                      </dt>
+                      <dd>
+                        A <a data-link-type="dfn" data-lt="create" href="https://webidl.spec.whatwg.org/#dfn-create-exception" id="ref-for-index-term-create-for-exception-4">created</a> "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#operationerror" id="ref-for-index-term-operationerror-exception-1"><code>OperationError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-9"><code>DOMException</code></a>.
+                      </dd>
+                    </dl>
+                  </li>
+                  <li><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw" id="ref-for-index-term-throw-for-exception-4">Throw</a> <var>error</var>.
+                  </li>
+                </ol>
               </li>
               <li>Otherwise, <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-append" id="ref-for-index-term-append-for-list-2">append</a> <var>request</var> to <var>validatedRequests</var>.
               </li>
@@ -1558,7 +1603,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           <li>Set the <a data-link-type="dfn|abstract-op" href="#dfn-credential-request-coordinator" class="internalDFN" id="ref-for-dfn-credential-request-coordinator-18">credential request coordinator</a> <a data-link-type="dfn|abstract-op" href="#dfn-interaction-states" class="internalDFN" id="ref-for-dfn-interaction-states-6">interaction state</a> to "<a data-link-type="dfn|abstract-op" href="#dfn-aborting" class="internalDFN" id="ref-for-dfn-aborting-1">aborting</a>".
           </li>
           <li>Dismiss the <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-3">digital credential chooser</a>.
-            <div class="note" role="note" id="issue-container-generatedID-9"><div class="note-title marker" id="h-note-8"><span>Note</span></div><p class="">
+            <div class="note" role="note" id="issue-container-generatedID-10"><div class="note-title marker" id="h-note-9"><span>Note</span></div><p class="">
               Dismissal can fail (e.g., if the <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-4">digital credential chooser</a>
               was destroyed due to memory pressure), but the <a data-link-type="dfn|abstract-op" href="#dfn-credential-request-coordinator" class="internalDFN" id="ref-for-dfn-credential-request-coordinator-19">coordinator</a>
               proceeds to complete the credential request regardless.
@@ -1641,14 +1686,14 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
               </li>
             </ul>
             <p>
-              When a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-10">user agent</a> communicates with a <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-8">credential manager</a>
-              located on a different device, it is <em class="rfc2119">RECOMMENDED</em> that the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-11">user agent</a> use <cite><a data-matched-text="[[[FIDO-CLIENT-TO-AUTHENTICATOR-PROTOCOL-V2.3]]]" href="https://fidoalliance.org/specs/fido-v2.3-ps-20260226/fido-client-to-authenticator-protocol-v2.3-ps-20260226.html">Client to Authenticator Protocol (CTAP)</a></cite>.
+              When a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-14">user agent</a> communicates with a <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-8">credential manager</a>
+              located on a different device, it is <em class="rfc2119">RECOMMENDED</em> that the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-15">user agent</a> use <cite><a data-matched-text="[[[FIDO-CLIENT-TO-AUTHENTICATOR-PROTOCOL-V2.3]]]" href="https://fidoalliance.org/specs/fido-v2.3-ps-20260226/fido-client-to-authenticator-protocol-v2.3-ps-20260226.html">Client to Authenticator Protocol (CTAP)</a></cite>.
             </p>
           </li>
           <li>If <var>signal</var> is not null and <var>signal</var> is <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortsignal-aborted" id="ref-for-index-term-aborted-for-abortsignal-3">aborted</a>:
             <ol>
               <li>Return.
-                <div class="note" role="note" id="issue-container-generatedID-10"><div class="note-title marker" id="h-note-9"><span>Note</span><span class="issue-label">: Abort already handled</span></div><p class="">
+                <div class="note" role="note" id="issue-container-generatedID-11"><div class="note-title marker" id="h-note-10"><span>Note</span><span class="issue-label">: Abort already handled</span></div><p class="">
                   The abort algorithm <a data-link-type="dfn" data-lt="add" href="https://dom.spec.whatwg.org/#abortsignal-add" id="ref-for-index-term-add-for-abortsignal-2">added</a> to <var>signal</var> by
                   the <a data-link-type="dfn|abstract-op" href="#dfn-prepare-credential-requests" class="internalDFN" id="ref-for-dfn-prepare-credential-requests-1">prepare credential requests</a> steps handles tearing down the <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-6">digital credential chooser</a>.
                 </p></div>
@@ -1657,8 +1702,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           </li>
           <li>If the user cancels the operation or no credential was selected:
             <ol>
-              <li>Let <var>error</var> be a newly created "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-4"><code>NotAllowedError</code></a>"
-              <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-7"><code>DOMException</code></a>.
+              <li>Let <var>error</var> be a newly created "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-6"><code>NotAllowedError</code></a>"
+              <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-10"><code>DOMException</code></a>.
               </li>
               <li><a data-link-type="dfn|abstract-op" href="#dfn-reject-the-credential-request-with" class="internalDFN" id="ref-for-dfn-reject-the-credential-request-with-4">Reject the credential request with</a> <var>error</var> and <var data-type="Promise">promise</var>.
               </li>
@@ -1674,25 +1719,25 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
                     The user agent or platform does not permit the operation:
                   </dt>
                   <dd>
-                    A newly created "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-5"><code>NotAllowedError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-8"><code>DOMException</code></a>.
+                    A newly created "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-7"><code>NotAllowedError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-11"><code>DOMException</code></a>.
                   </dd>
                   <dt>
                     The request data is malformed or invalid:
                   </dt>
                   <dd>
-                    A newly created <a data-link-type="exception" data-lt="TypeError" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-index-term-typeerror-exception-3"><code>TypeError</code></a>.
+                    A newly created <a data-link-type="exception" data-lt="TypeError" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-index-term-typeerror-exception-4"><code>TypeError</code></a>.
                   </dd>
                   <dt>
                     A credential request is already in progress:
                   </dt>
                   <dd>
-                    A newly created "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#invalidstateerror" id="ref-for-index-term-invalidstateerror-exception-2"><code>InvalidStateError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-9"><code>DOMException</code></a>.
+                    A newly created "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#invalidstateerror" id="ref-for-index-term-invalidstateerror-exception-2"><code>InvalidStateError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-12"><code>DOMException</code></a>.
                   </dd>
                   <dt>
                     Otherwise:
                   </dt>
                   <dd>
-                    A newly created "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#operationerror" id="ref-for-index-term-operationerror-exception-1"><code>OperationError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-10"><code>DOMException</code></a>.
+                    A newly created "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#operationerror" id="ref-for-index-term-operationerror-exception-2"><code>OperationError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-13"><code>DOMException</code></a>.
                   </dd>
                 </dl>
               </li>
@@ -1706,7 +1751,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
             <ol>
               <li>Let <var>protocol</var> be the <a data-link-type="dfn|abstract-op" href="#dfn-protocol-identifier" class="internalDFN" id="ref-for-dfn-protocol-identifier-4">protocol identifier</a> returned by the <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-7">digital credential chooser</a> for
               this exchange.
-                <div class="note" role="note" id="issue-container-generatedID-11"><div class="note-title marker" id="h-note-10"><span>Note</span><span class="issue-label">: Protocol is determined by the platform</span></div><p class="">
+                <div class="note" role="note" id="issue-container-generatedID-12"><div class="note-title marker" id="h-note-11"><span>Note</span><span class="issue-label">: Protocol is determined by the platform</span></div><p class="">
                   The <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-8">digital credential chooser</a> or underlying platform
                   determines which item in <var>validatedRequests</var> to forward to a
                   <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders" id="ref-for-index-term-holders-15">holder</a> and returns the <a data-link-type="dfn|abstract-op" href="#dfn-protocol-identifier" class="internalDFN" id="ref-for-dfn-protocol-identifier-5">protocol identifier</a> for that exchange. The user agent does not
@@ -1714,7 +1759,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
                 </p></div>
               </li>
               <li>Let <var>responseData</var> be a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#string" id="ref-for-index-term-string-2">string</a> <a data-link-type="dfn|abstract-op" href="#dfn-presentation-response" class="internalDFN" id="ref-for-dfn-presentation-response-3">presentation response</a> or <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#string" id="ref-for-index-term-string-3">string</a> <a data-link-type="dfn|abstract-op" href="#dfn-issuance-response" class="internalDFN" id="ref-for-dfn-issuance-response-3">issuance response</a> returned by the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders" id="ref-for-index-term-holders-16">holder</a>.
-                <div class="note" role="note" id="issue-container-generatedID-12"><div class="note-title marker" id="h-note-11"><span>Note</span><span class="issue-label">: Why the response is a string</span></div><aside class="">
+                <div class="note" role="note" id="issue-container-generatedID-13"><div class="note-title marker" id="h-note-12"><span>Note</span><span class="issue-label">: Why the response is a string</span></div><aside class="">
                   The response is a string because the user agent is
                   responsible for parsing it into a JavaScript object in the
                   correct realm, verifying it is valid JSON, and confirming the
@@ -1742,7 +1787,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
                   </li>
                   <li>Set the <a data-link-type="dfn|abstract-op" href="#dfn-credential-request-coordinator" class="internalDFN" id="ref-for-dfn-credential-request-coordinator-32">credential request coordinator</a>'s <a data-link-type="dfn|abstract-op" href="#dfn-abort-algorithm" class="internalDFN" id="ref-for-dfn-abort-algorithm-5">abort algorithm</a> to <code>null</code>.
                   </li>
-                  <li>If <var>parsedResponseDataOrError</var> is an <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-exception" id="ref-for-index-term-exception-6">exception</a>:
+                  <li>If <var>parsedResponseDataOrError</var> is an <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-exception" id="ref-for-index-term-exception-5">exception</a>:
                     <ol>
                       <li><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-index-term-rejects-5">Reject</a> <var data-type="Promise">promise</var> with
                       <var>parsedResponseDataOrError</var>.
@@ -1753,7 +1798,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
                   <a data-link-type="element" href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#the-object-element" id="ref-for-index-term-object-type-1">object</a>:
                     <ol>
                       <li><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-index-term-rejects-6">Reject</a> <var data-type="Promise">promise</var> with a newly created
-                      <a data-link-type="exception" data-lt="TypeError" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-index-term-typeerror-exception-4"><code>TypeError</code></a>.
+                      <a data-link-type="exception" data-lt="TypeError" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-index-term-typeerror-exception-5"><code>TypeError</code></a>.
                       </li>
                     </ol>
                   </li>
@@ -1785,7 +1830,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </h2><a class="self-link" href="#DC-API" aria-label="Permalink for Section 7."></a></div>
     <p>
       The <a href="#DC-API" data-matched-text="[[[#DC-API|Digital Credentials API]]]">Digital Credentials API</a> leverages the
-      <cite><a data-matched-text="[[[credential-management]]]" href="https://www.w3.org/TR/credential-management-1/">Credential Management Level 1</a></cite> specification, allowing <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-12">user agents</a> to
+      <cite><a data-matched-text="[[[credential-management]]]" href="https://www.w3.org/TR/credential-management-1/">Credential Management Level 1</a></cite> specification, allowing <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-16">user agents</a> to
       mediate the <a data-link-type="dfn|abstract-op" href="#dfn-issuance-request" class="internalDFN" id="ref-for-dfn-issuance-request-15">issuance</a> and <a data-link-type="dfn|abstract-op" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-16">presentation</a> of <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-22">digital credentials</a>.
     </p>
     <p>
@@ -1946,11 +1991,11 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </p>
     <p>
       To simplify the developer experience of <a data-link-type="method" data-lt="get()" href="https://www.w3.org/TR/credential-management-1/#dom-credentialscontainer-get" id="ref-for-index-term-get-for-credentialscontainer-3"><code>get</code></a><code>()</code>
-      calls involving a <a data-link-type="idl" data-lt="DigitalCredential" href="#dom-digitalcredential" class="internalDFN" id="ref-for-dom-digitalcredential-8"><code>DigitalCredential</code></a>, <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-13">user agents</a> <em class="rfc2119">MUST NOT</em> throw
+      calls involving a <a data-link-type="idl" data-lt="DigitalCredential" href="#dom-digitalcredential" class="internalDFN" id="ref-for-dom-digitalcredential-8"><code>DigitalCredential</code></a>, <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-17">user agents</a> <em class="rfc2119">MUST NOT</em> throw
       an error if the <a data-link-type="dict-member" href="https://www.w3.org/TR/credential-management-1/#dom-credentialrequestoptions-mediation" id="ref-for-index-term-mediation-for-credentialrequestoptions-1"><code>mediation</code></a> member is absent
       or has a value other than "<a data-link-type="enum-value" href="https://www.w3.org/TR/credential-management-1/#dom-credentialmediationrequirement-required" id="ref-for-index-term-required-for-credentialmediationrequirement-1"><code>required</code></a>".
       Similarly, in <a data-link-type="method" data-lt="create()" href="https://www.w3.org/TR/credential-management-1/#dom-credentialscontainer-create" id="ref-for-index-term-create-for-credentialscontainer-3"><code>create</code></a><code>()</code> calls involving a
-      <a data-link-type="idl" data-lt="DigitalCredential" href="#dom-digitalcredential" class="internalDFN" id="ref-for-dom-digitalcredential-9"><code>DigitalCredential</code></a>, <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-14">user agents</a> <em class="rfc2119">MUST NOT</em> throw an error if the
+      <a data-link-type="idl" data-lt="DigitalCredential" href="#dom-digitalcredential" class="internalDFN" id="ref-for-dom-digitalcredential-9"><code>DigitalCredential</code></a>, <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-18">user agents</a> <em class="rfc2119">MUST NOT</em> throw an error if the
       <a data-link-type="dict-member" href="https://www.w3.org/TR/credential-management-1/#dom-credentialcreationoptions-mediation" id="ref-for-index-term-mediation-for-credentialcreationoptions-1"><code>mediation</code></a> member is absent or has a value
       other than "<a data-link-type="enum-value" href="https://www.w3.org/TR/credential-management-1/#dom-credentialmediationrequirement-required" id="ref-for-index-term-required-for-credentialmediationrequirement-2"><code>required</code></a>". This makes
       "<a data-link-type="enum-value" href="https://www.w3.org/TR/credential-management-1/#dom-credentialmediationrequirement-required" id="ref-for-index-term-required-for-credentialmediationrequirement-3"><code>required</code></a>" mediation an implicit and
@@ -1990,7 +2035,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       The <a data-link-type="idl" data-lt="userAgentAllowsProtocol()" href="#dom-digitalcredential-useragentallowsprotocol" class="internalDFN" id="ref-for-dom-digitalcredential-useragentallowsprotocol-4"><code>userAgentAllowsProtocol</code></a><code>()</code> method allows digital
       credential <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-6">verifiers</a> to determine which <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-19">presentation protocols</a> and <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-18">issuance protocols</a> the user agent allows.
     </p>
-    <div class="note" role="note" id="issue-container-generatedID-13"><div class="note-title marker" id="h-note-12"><span>Note</span></div><p class="">
+    <div class="note" role="note" id="issue-container-generatedID-14"><div class="note-title marker" id="h-note-13"><span>Note</span></div><p class="">
       This method does not convey <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-20">presentation protocol</a>
       or <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-19">issuance protocol</a> support in the underlying
       OS/platform.
@@ -2096,7 +2141,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <li>Set <var>requests</var> to the result of <a data-link-type="dfn|abstract-op" href="#dfn-filter-credential-requests" class="internalDFN" id="ref-for-dfn-filter-credential-requests-1">filter credential requests</a> given <var>requests</var>.
       </li>
       <li>If <var>requests</var> <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-is-empty" id="ref-for-index-term-is-empty-for-list-2">is empty</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-5">a promise rejected with</a> a
-      newly created <a data-link-type="exception" data-lt="TypeError" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-index-term-typeerror-exception-5"><code>TypeError</code></a>.
+      newly created <a data-link-type="exception" data-lt="TypeError" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-index-term-typeerror-exception-6"><code>TypeError</code></a>.
       </li>
       <li>Let <var>signal</var> be <var>options</var>'s <a data-link-type="dict-member" href="https://www.w3.org/TR/credential-management-1/#dom-credentialrequestoptions-signal" id="ref-for-index-term-signal-for-credentialrequestoptions-1"><code>signal</code></a>, if
       present.
@@ -2132,7 +2177,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <li>Set <var>requests</var> to the result of <a data-link-type="dfn|abstract-op" href="#dfn-filter-credential-requests" class="internalDFN" id="ref-for-dfn-filter-credential-requests-2">filter credential requests</a> given <var>requests</var>.
       </li>
       <li>If <var>requests</var> <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-is-empty" id="ref-for-index-term-is-empty-for-list-3">is empty</a>, return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-index-term-a-promise-rejected-with-6">a promise rejected with</a> a
-      newly created <a data-link-type="exception" data-lt="TypeError" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-index-term-typeerror-exception-6"><code>TypeError</code></a>.
+      newly created <a data-link-type="exception" data-lt="TypeError" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-index-term-typeerror-exception-7"><code>TypeError</code></a>.
       </li>
       <li>Let <var>signal</var> be <var>options</var>'s <a data-link-type="dict-member" href="https://www.w3.org/TR/credential-management-1/#dom-credentialcreationoptions-signal" id="ref-for-index-term-signal-for-credentialcreationoptions-1"><code>signal</code></a>, if
       present.
@@ -2209,7 +2254,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         specification defines requirements for the user agent's behavior only
         when mediating <a data-link-type="dfn|abstract-op" href="#dfn-credential-response" class="internalDFN" id="ref-for-dfn-credential-response-2">credential responses</a>.
       </p>
-      <div class="note" role="note" id="issue-container-generatedID-14"><div class="note-title marker" id="h-note-13"><span>Note</span></div><p class="">
+      <div class="note" role="note" id="issue-container-generatedID-15"><div class="note-title marker" id="h-note-14"><span>Note</span></div><p class="">
         Other security considerations that depend on protocols, credential
         manager implementations, operating systems, or transport security are
         described as expectations or preconditions, but these are not
@@ -2274,7 +2319,15 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         following defines the <a data-link-type="dfn|abstract-op" href="#dfn-out-of-scope-threats" class="internalDFN" id="ref-for-dfn-out-of-scope-threats-2">out-of-scope threats</a> for this specification:
       </p>
       <ul>
-        <li>To be written...
+        <li>
+          <strong>Broken cryptography:</strong> a <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-22">presentation protocol</a> or <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-21">issuance protocol</a> can allow an algorithm, parameter, or certificate format
+          that is later found to be unsafe. Noticing that and moving away from
+          it is up to the protocol and to <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-15">credential managers</a>, since they
+          are the ones that check the cryptography and decide who to trust.
+          This specification does not ask a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-19">user agent</a> to look inside
+          <a data-link-type="dfn|abstract-op" href="#dfn-presentation-request-data" class="internalDFN" id="ref-for-dfn-presentation-request-data-8">presentation request data</a> or <a data-link-type="dfn|abstract-op" href="#dfn-issuance-request-data" class="internalDFN" id="ref-for-dfn-issuance-request-data-8">issuance request data</a> to find it. So a <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-7">verifier</a> and
+          a <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-16">credential manager</a> can keep using something unsafe until the
+          protocol changes and implementations are updated.
         </li>
       </ul>
       </section></section><section id="mitigations"><div class="header-wrapper"><h3 id="x10-2-mitigations"><bdi class="secno">10.2 </bdi>
@@ -2350,7 +2403,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         <p>
           The Digital Credentials API supports cross-device experiences where a
           user presents a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential" class="internalDFN" id="ref-for-dfn-digital-credential-31">digital credential</a> from a secondary device, such
-          as a smartphone acting as a <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-15">credential manager</a>, to a primary
+          as a smartphone acting as a <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-17">credential manager</a>, to a primary
           device, such as a laptop. Although the specific data exchange
           protocols (e.g., cryptographic formats and transports) are out of
           scope for this API, such cross-device interactions typically rely on
@@ -2361,10 +2414,10 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           These protocols ensure security by establishing cryptographically
           secure channels and enforcing physical proximity (e.g., via Bluetooth
           Low Energy) to mitigate remote relay attacks. Crucially, in a
-          cross-device flow, the <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-16">credential manager</a> cannot inherently trust
+          cross-device flow, the <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-18">credential manager</a> cannot inherently trust
           the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin" id="ref-for-index-term-origin-2">origin</a> string forwarded by the primary device, as the primary
           device or its browser might be compromised. Therefore, protocols that
-          employ signed requests, where the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-7">verifier</a> cryptographically
+          employ signed requests, where the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-8">verifier</a> cryptographically
           proves its identity, provide significantly stronger security
           assurances than relying solely on the browser-asserted <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin" id="ref-for-index-term-origin-3">origin</a>.
         </p>
@@ -2375,7 +2428,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       </h2><a class="self-link" href="#privacy-principles" aria-label="Permalink for Section 11."></a></div><p><em>This section is non-normative.</em></p>
       
       
-      <div class="issue" id="issue-container-generatedID-15"><div class="issue-title marker" id="h-issue-1"><span>Issue</span><span class="issue-label">: Privacy Considerations section is a work in progress</span></div><div class="">
+      <div class="issue" id="issue-container-generatedID-16"><div class="issue-title marker" id="h-issue-0"><span>Issue</span><span class="issue-label">: Privacy Considerations section is a work in progress</span></div><div class="">
         <p>
           This section is a work in progress as this document evolves.
         </p>
@@ -2383,7 +2436,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p>
         The Digital Credentials API integrates into a complex ecosystem with
         multiple technology layers and various participants (including but not
-        limited to <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-8">verifiers</a>, <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders" id="ref-for-index-term-holders-22">holders</a>, and <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers" id="ref-for-index-term-issuers-9">issuers</a>), each of which
+        limited to <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-9">verifiers</a>, <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders" id="ref-for-index-term-holders-22">holders</a>, and <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers" id="ref-for-index-term-issuers-9">issuers</a>), each of which
         have to consider different aspects of user privacy. This specification
         does not attempt to exhaustively list all considerations for the
         different participants. We would like to refer these parties to a
@@ -2403,7 +2456,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       </ul>
       <p>
         Instead, these considerations focus on the Digital Credentials API
-        itself, and describe how <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-15">user agents</a> can satisfy their <a data-link-type="dfn" href="https://www.w3.org/TR/privacy-principles/#dfn-user-agent-duties" id="ref-for-index-term-user-agent-duties-1">user agent duties</a> in an implementation of the API, taking into account the
+        itself, and describe how <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-20">user agents</a> can satisfy their <a data-link-type="dfn" href="https://www.w3.org/TR/privacy-principles/#dfn-user-agent-duties" id="ref-for-index-term-user-agent-duties-1">user agent duties</a> in an implementation of the API, taking into account the
         relevant privacy properties of the ecosystem it interacts with.
       </p>
       <p>
@@ -2435,8 +2488,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           protocols for ease of adoption.
         </p>
         <p>
-          The API provides the connection interface between <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-9">verifiers</a> and
-          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders" id="ref-for-index-term-holders-23">holders</a>, i.e. the means by which a <a data-link-type="dfn|abstract-op" data-lt="presentation protocol" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-22">credential presentation protocol</a>
+          The API provides the connection interface between <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-10">verifiers</a> and
+          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders" id="ref-for-index-term-holders-23">holders</a>, i.e. the means by which a <a data-link-type="dfn|abstract-op" data-lt="presentation protocol" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-23">credential presentation protocol</a>
           is initiated and the user switches to the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders" id="ref-for-index-term-holders-24">holder</a> application to
           select a credential. Solutions that have been used for this purpose
           in the past include QR codes and custom URL schemes. As documented in
@@ -2448,12 +2501,12 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           ecosystem demand and regulatory mandates, the Web platform offers an
           alternative to the aforementioned less-desirable technologies that is
           easy to use for developers, is compatible with existing credential
-          <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-23">presentation protocols</a> and, most importantly,
+          <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-24">presentation protocols</a> and, most importantly,
           has better user privacy, security, and accessibility properties for
           users than the aforementioned alternatives.
         </p>
         <p>
-          The Digital Credentials API offers the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-16">user agent</a> the ability to
+          The Digital Credentials API offers the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-21">user agent</a> the ability to
           intermediate on behalf of the user (e.g. in the form of a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-11">digital credential chooser</a>) to contextualize requests and
           <a href="#permission-prior-to-credential-manager-selection" data-matched-text="[[[#permission-prior-to-credential-manager-selection|prevent
           immediate exposure to holder applications]]]">prevent
@@ -2461,7 +2514,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           certain minimum requirements on supported protocols, such as
           <a href="#encrypting-credential-responses" data-matched-text="[[[#encrypting-credential-responses|response encryption]]]">response encryption</a>.
         </p>
-        <div class="note" role="note" id="issue-container-generatedID-16"><div class="note-title marker" id="h-note-14"><span>Note</span></div><aside class="">
+        <div class="note" role="note" id="issue-container-generatedID-17"><div class="note-title marker" id="h-note-15"><span>Note</span></div><aside class="">
           The Digital Credentials API is not intended to inhibit the
           development of other standardized solutions that enhance user
           privacy. For example, an API could be standardized that more strictly
@@ -2469,7 +2522,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           verification. Higher-level, designed-for-purpose APIs often enable
           <a data-matched-text="[[[privacy-principles#purpose-limitation|purpose limitation]]]" href="https://www.w3.org/TR/privacy-principles/#purpose-limitation">purpose limitation</a>, ease
           of explanation to the user, and privacy and security protections from
-          <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-17">user agents</a>.
+          <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-22">user agents</a>.
         </aside></div>
       </section>
       <section data-cite="vc-data-model" id="spectrum-of-privacy"><div class="header-wrapper"><h3 id="x11-2-spectrum-of-privacy"><bdi class="secno">11.2 </bdi>
@@ -2488,14 +2541,14 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         <p>
           This means that some users might not want, or be allowed, to use the
           most privacy-preserving means of exchanging credential information.
-          Nonetheless, <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-18">user agents</a> need to serve users with an experience
+          Nonetheless, <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-23">user agents</a> need to serve users with an experience
           that is private by default and protect them from harm.
         </p>
         <p>
           Because of this spectrum of preferences and use cases, it can be
-          difficult for a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-19">user agent</a> to discern whether a user means to
+          difficult for a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-24">user agent</a> to discern whether a user means to
           expose their personal information or is being tricked into doing so.
-          It is thus the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-20">user agent</a>'s responsibility to ensure that every
+          It is thus the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-25">user agent</a>'s responsibility to ensure that every
           user understands what data they are sharing and who will participate
           in the exchange of information, before the exchange begins.
         </p>
@@ -2507,14 +2560,14 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         
         <p>
           Because the Digital Credentials API sits at the center of an exchange
-          that involves multiple independent parties, the <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-24">presentation protocol</a> and credential format used by
+          that involves multiple independent parties, the <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-25">presentation protocol</a> and credential format used by
           these parties for exchanging user information are crucial to the
-          <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-21">user agent</a>'s goal of protecting user privacy.
+          <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-26">user agent</a>'s goal of protecting user privacy.
         </p>
         <section id="presentation-protocol-considerations-for-user-privacy"><div class="header-wrapper"><h4 id="x11-3-1-presentation-protocol-considerations-for-user-privacy"><bdi class="secno">11.3.1 </bdi>
           Presentation Protocol Considerations for User Privacy
         </h4><a class="self-link" href="#presentation-protocol-considerations-for-user-privacy" aria-label="Permalink for Section 11.3.1"></a></div>
-        <div class="issue" id="issue-container-number-255"><div class="issue-title marker" id="h-issue-2"><a href="https://github.com/w3c-fedid/digital-credentials/issues/255"><span class="issue-number">Issue 255</span></a><span class="issue-label">: Define concrete privacy and security requirements for the supported protocols <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22security-tracker%22" style="background-color: rgb(255, 255, 0); color: rgb(0, 0, 0);" aria-label="GitHub label: security-tracker">security-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22registry%22" style="background-color: rgb(52, 215, 156); color: rgb(0, 0, 0);" aria-label="GitHub label: registry">registry</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22security-considerations%22" style="background-color: rgb(255, 255, 0); color: rgb(0, 0, 0);" aria-label="GitHub label: security-considerations">security-considerations</a></span></div><p dir="auto">There are two requirements for protocols that I think need further elaboration:</p>
+        <div class="issue" id="issue-container-number-255"><div class="issue-title marker" id="h-issue-1"><a href="https://github.com/w3c-fedid/digital-credentials/issues/255"><span class="issue-number">Issue 255</span></a><span class="issue-label">: Define concrete privacy and security requirements for the supported protocols <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22security-tracker%22" style="background-color: rgb(255, 255, 0); color: rgb(0, 0, 0);" aria-label="GitHub label: security-tracker">security-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22registry%22" style="background-color: rgb(52, 215, 156); color: rgb(0, 0, 0);" aria-label="GitHub label: registry">registry</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22security-considerations%22" style="background-color: rgb(255, 255, 0); color: rgb(0, 0, 0);" aria-label="GitHub label: security-considerations">security-considerations</a></span></div><p dir="auto">There are two requirements for protocols that I think need further elaboration:</p>
 <blockquote>
 <p dir="auto">MUST have undergone privacy review [...]</p>
 </blockquote>
@@ -2534,8 +2587,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           disclosure</a> is a fundamental technique for
           <a data-matched-text="[[[privacy-principles#data-minimization|data minimization]]]" href="https://www.w3.org/TR/privacy-principles/#data-minimization">data minimization</a> that
           allows <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders" id="ref-for-index-term-holders-25">holders</a> to share the minimum required information that is
-          requested by a <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-10">verifier</a>. Protocols are expected to facilitate
-          selective disclosure by allowing the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-11">verifier</a> to specify the
+          requested by a <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-11">verifier</a>. Protocols are expected to facilitate
+          selective disclosure by allowing the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-12">verifier</a> to specify the
           exact claims needed.
         </p>
         </section><section id="unlinkable-presentations"><div class="header-wrapper"><h5 id="x11-3-1-2-unlinkable-presentations"><bdi class="secno">11.3.1.2 </bdi>
@@ -2544,20 +2597,20 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         <p>
           <a data-matched-text="[[[credential-considerations#unlinkable-presentations|Unlinkability]]]" href="https://github.com/w3c/credential-considerations/blob/main/credentials-considerations.md#unlinkable-presentations">Unlinkability</a>
           is a property that ensures that, if a user presents attributes from a
-          credential multiple times, <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-12">verifiers</a> cannot link these separate
+          credential multiple times, <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-13">verifiers</a> cannot link these separate
           presentations to conclude they concern the same user
-          (verifier-verifier linkability), or that <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-13">verifiers</a> cannot collude
+          (verifier-verifier linkability), or that <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-14">verifiers</a> cannot collude
           with <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers" id="ref-for-index-term-issuers-10">issuers</a> to report the exchange of a credential from a
-          <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-17">credential manager</a> to the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers" id="ref-for-index-term-issuers-11">issuer</a> (verifier-issuer
+          <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-19">credential manager</a> to the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers" id="ref-for-index-term-issuers-11">issuer</a> (verifier-issuer
           linkability). The former is a property that can be maintained by the
           <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-holders" id="ref-for-index-term-holders-26">holder</a> and <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers" id="ref-for-index-term-issuers-12">issuer</a>, e.g. through issuing fresh credentials for
-          individual <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-14">verifiers</a>.
+          individual <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-15">verifiers</a>.
         </p>
         <p>
           While the latter is achievable, e.g. through
           <a data-matched-text="[[[vc-data-model#zero-knowledge-proofs|zero-knowledge proofs]]]" href="https://www.w3.org/TR/vc-data-model-2.0/#zero-knowledge-proofs">zero-knowledge proofs</a>,
           design choices of the API such as encrypted responses make it
-          impossible for a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-22">user agent</a> to prove that verifier-issuer
+          impossible for a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-27">user agent</a> to prove that verifier-issuer
           unlinkability was achieved in practice. Nonetheless, protocols are
           requested to limit linkability wherever possible.
         </p>
@@ -2568,14 +2621,14 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           numbers do not benefit from unlinkability.
         </p>
         <p>
-          Through the Digital Credentials API, the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-23">user agent</a> can help
-          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-15">verifiers</a> and <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-18">credential managers</a> exchange unlinkable
+          Through the Digital Credentials API, the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-28">user agent</a> can help
+          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-16">verifiers</a> and <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-20">credential managers</a> exchange unlinkable
           attributes, but, because of response encryption, it cannot guarantee
-          that no linkable information is passed between <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-16">verifiers</a> and
-          <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-19">credential managers</a>. It is recommended that <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-24">user agents</a>
+          that no linkable information is passed between <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-17">verifiers</a> and
+          <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-21">credential managers</a>. It is recommended that <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-29">user agents</a>
           account for this fact in their user permission experience.
         </p>
-        <div class="issue" id="issue-container-number-279"><div class="issue-title marker" id="h-issue-3"><a href="https://github.com/w3c-fedid/digital-credentials/issues/279"><span class="issue-number">Issue 279</span></a><span class="issue-label">: Linkability and issuer involvement as a protocol requirement <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a></span></div><p class="">
+        <div class="issue" id="issue-container-number-279"><div class="issue-title marker" id="h-issue-2"><a href="https://github.com/w3c-fedid/digital-credentials/issues/279"><span class="issue-number">Issue 279</span></a><span class="issue-label">: Linkability and issuer involvement as a protocol requirement <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a></span></div><p class="">
           Which level of unlinkability is the goal for this API? Can we
           normatively enforce support for any particular unlinkability
           features?
@@ -2591,13 +2644,13 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           profiling of individuals.
         </p>
         <p>
-          Similar to unlinkability, it is impossible for <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-25">user agents</a> to
+          Similar to unlinkability, it is impossible for <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-30">user agents</a> to
           ensure that an <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers" id="ref-for-index-term-issuers-14">issuer</a> isn't actively involved in the creation or
           validation of credential presentations after a user has given
           permission to proceed with a credential request. From that point on,
-          the <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-20">credential manager</a> owns this decision. While some credential
-          managers can be considered <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-26">user agents</a>, it is generally
-          recommended that the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-27">user agent</a> implementing the
+          the <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-22">credential manager</a> owns this decision. While some credential
+          managers can be considered <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-31">user agents</a>, it is generally
+          recommended that the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-32">user agent</a> implementing the
           <a href="#DC-API" data-matched-text="[[[#DC-API|Digital Credentials API]]]">Digital Credentials API</a> designs its permission
           experience to prevent
           <a href="#permission-prior-to-credential-manager-selection" data-matched-text="[[[#permission-prior-to-credential-manager-selection|exposure of a
@@ -2609,10 +2662,10 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         </p>
         <p>
           Protocols are required to support mechanisms that allow <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers" id="ref-for-index-term-issuers-15">issuers</a>,
-          <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-21">credential managers</a>, and <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-17">verifiers</a> to avoid or reduce the
+          <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-23">credential managers</a>, and <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-18">verifiers</a> to avoid or reduce the
           dependence on "phone home" mechanisms.
         </p>
-        <div class="issue" id="issue-container-number-279-0"><div class="issue-title marker" id="h-issue-4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/279"><span class="issue-number">Issue 279</span></a><span class="issue-label">: Linkability and issuer involvement as a protocol requirement <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a></span></div><p class="">
+        <div class="issue" id="issue-container-number-279-0"><div class="issue-title marker" id="h-issue-3"><a href="https://github.com/w3c-fedid/digital-credentials/issues/279"><span class="issue-number">Issue 279</span></a><span class="issue-label">: Linkability and issuer involvement as a protocol requirement <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a></span></div><p class="">
           Which level of unlinkability is the goal for this API? To what degree
           can the spec mandate restrictions to <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers" id="ref-for-index-term-issuers-16">issuer</a> involvement?
         </p></div>
@@ -2628,10 +2681,10 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           the credential formats used in protocols are expected to support
           offline revocation methods such as <a href="https://eprint.iacr.org/2024/657.pdf">Cryptographic
           Accumulators</a>. It is further expected that protocol design and
-          specification discourages the involvement of <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-18">verifiers</a> for the
+          specification discourages the involvement of <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-19">verifiers</a> for the
           purpose of revocation where possible.
         </p>
-        <div class="issue" id="issue-container-number-280"><div class="issue-title marker" id="h-issue-5"><a href="https://github.com/w3c-fedid/digital-credentials/issues/280"><span class="issue-number">Issue 280</span></a><span class="issue-label">: Can we require protocols to support unlinkable revocation? <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22registry%22" style="background-color: rgb(52, 215, 156); color: rgb(0, 0, 0);" aria-label="GitHub label: registry">registry</a></span></div><p class="">
+        <div class="issue" id="issue-container-number-280"><div class="issue-title marker" id="h-issue-4"><a href="https://github.com/w3c-fedid/digital-credentials/issues/280"><span class="issue-number">Issue 280</span></a><span class="issue-label">: Can we require protocols to support unlinkable revocation? <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22registry%22" style="background-color: rgb(52, 215, 156); color: rgb(0, 0, 0);" aria-label="GitHub label: registry">registry</a></span></div><p class="">
           We should discuss whether unlinkable revocation techniques are
           practical enough to be required normatively.
         </p></div>
@@ -2648,34 +2701,34 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           Support for verifier authorization
         </h5><a class="self-link" href="#support-for-verifier-authorization" aria-label="Permalink for Section 11.3.1.6"></a></div>
         <p>
-          Verifier authorization refers to the process by which a <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-19">verifier</a>
+          Verifier authorization refers to the process by which a <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-20">verifier</a>
           proves its identity and demonstrates that it is legitimately entitled
           to request specific attributes or credentials. This is particularly
           useful when exchanging sensitive data, such as from government-issued
           credentials. Verifier authorization can limit unnecessary or abusive
-          credential requests, and ensure that a <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-20">verifier</a>'s access is
+          credential requests, and ensure that a <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-21">verifier</a>'s access is
           restricted to the specific credential attributes it registered for.
         </p>
         <p>
           Checking verifier authorization is usually handled by the
-          <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-22">credential manager</a>, but <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-28">user agents</a> could find the presence
+          <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-24">credential manager</a>, but <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-33">user agents</a> could find the presence
           of such a scheme helpful in preventing API abuse and designing a
           well-informed user permission experience.
         </p>
-        <div class="issue" id="issue-container-number-281"><div class="issue-title marker" id="h-issue-6"><a href="https://github.com/w3c-fedid/digital-credentials/issues/281"><span class="issue-number">Issue 281</span></a><span class="issue-label">: User agents that only support authorized verifiers (for government credentials) <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a></span></div><p class="">
-          Should we require protocols to include provisions that allow <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-29">user agents</a> to understand verifier authorization?
+        <div class="issue" id="issue-container-number-281"><div class="issue-title marker" id="h-issue-5"><a href="https://github.com/w3c-fedid/digital-credentials/issues/281"><span class="issue-number">Issue 281</span></a><span class="issue-label">: User agents that only support authorized verifiers (for government credentials) <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a></span></div><p class="">
+          Should we require protocols to include provisions that allow <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-34">user agents</a> to understand verifier authorization?
         </p></div>
         </section><section id="encrypting-credential-responses"><div class="header-wrapper"><h5 id="x11-3-1-7-encrypting-credential-responses"><bdi class="secno">11.3.1.7 </bdi>
           Encrypting credential responses
         </h5><a class="self-link" href="#encrypting-credential-responses" aria-label="Permalink for Section 11.3.1.7"></a></div>
         <p>
           To prevent exposure of user information to other parties in
-          "transit", for example browser extensions loaded on <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-21">verifier</a>
+          "transit", for example browser extensions loaded on <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-22">verifier</a>
           pages, and to encourage secure storage of user credentials by the
-          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-22">verifier</a>, protocols are required to support and mandate encrypted
+          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-23">verifier</a>, protocols are required to support and mandate encrypted
           responses in a credential exchange.
         </p>
-        <div class="issue closed" id="issue-container-number-109"><div class="issue-title marker" id="h-issue-7"><a href="https://github.com/w3c-fedid/digital-credentials/issues/109"><span class="issue-number">Issue 109</span></a><span class="issue-label">: Should response encryption be required <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22discussion%22" style="background-color: rgb(75, 158, 238); color: rgb(0, 0, 0);" aria-label="GitHub label: discussion">discussion</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22pending+closure%22" style="background-color: rgb(251, 202, 4); color: rgb(0, 0, 0);" aria-label="GitHub label: pending closure">pending closure</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22security-tracker%22" style="background-color: rgb(255, 255, 0); color: rgb(0, 0, 0);" aria-label="GitHub label: security-tracker">security-tracker</a></span></div><p dir="auto">Related to <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2024260424" data-permission-text="Title is private" data-url="https://github.com/w3c-fedid/digital-credentials/issues/49" data-hovercard-type="issue" data-hovercard-url="/w3c-fedid/digital-credentials/issues/49/hovercard" href="https://github.com/w3c-fedid/digital-credentials/issues/49">#49</a> and several other discussions we've had: do we want to say that the response must always be encrypted (and if so, by which algorithms), or are we OK leaving that as optional?</p></div>
+        <div class="issue closed" id="issue-container-number-109"><div class="issue-title marker" id="h-issue-6"><a href="https://github.com/w3c-fedid/digital-credentials/issues/109"><span class="issue-number">Issue 109</span></a><span class="issue-label">: Should response encryption be required <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22discussion%22" style="background-color: rgb(75, 158, 238); color: rgb(0, 0, 0);" aria-label="GitHub label: discussion">discussion</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22pending+closure%22" style="background-color: rgb(251, 202, 4); color: rgb(0, 0, 0);" aria-label="GitHub label: pending closure">pending closure</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22security-tracker%22" style="background-color: rgb(255, 255, 0); color: rgb(0, 0, 0);" aria-label="GitHub label: security-tracker">security-tracker</a></span></div><p dir="auto">Related to <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2024260424" data-permission-text="Title is private" data-url="https://github.com/w3c-fedid/digital-credentials/issues/49" data-hovercard-type="issue" data-hovercard-url="/w3c-fedid/digital-credentials/issues/49/hovercard" href="https://github.com/w3c-fedid/digital-credentials/issues/49">#49</a> and several other discussions we've had: do we want to say that the response must always be encrypted (and if so, by which algorithms), or are we OK leaving that as optional?</p></div>
       </section></section></section>
       <section id="unnecessary-requests-for-credentials"><div class="header-wrapper"><h3 id="x11-4-unnecessary-requests-for-credentials"><bdi class="secno">11.4 </bdi>
           Unnecessary Requests for Credentials
@@ -2717,32 +2770,32 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           participation from all parties involved in the credential exchange.
         </p>
         <ul>
-          <li>Ideally, <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-23">verifiers</a> would self-regulate their requests for
-          credentials. However, from a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-30">user agent</a>'s perspective,
-          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-24">verifiers</a> are potential attackers, and might not consider the
+          <li>Ideally, <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-24">verifiers</a> would self-regulate their requests for
+          credentials. However, from a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-35">user agent</a>'s perspective,
+          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-25">verifiers</a> are potential attackers, and might not consider the
           user's best interest in their designs. The Digital Credentials API
-          operates from an assumption that all <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-25">verifiers</a> might have
+          operates from an assumption that all <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-26">verifiers</a> might have
           incentives that motivate unnecessary requests and abuse, and protect
           users accordingly.
           </li>
-          <li><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-31">User agents</a> are responsible for protecting their users
+          <li><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-36">User agents</a> are responsible for protecting their users
           against dangerous content and permission requests on the Web and
           could intervene on their behalf, proactively rejecting requests or
           requiring pre-authorization. To support this, this specification
-          requires credential requests to be readable by the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-32">user agent</a>
-          (i.e., not end-to-end encrypted to the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-26">verifier</a>, see
+          requires credential requests to be readable by the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-37">user agent</a>
+          (i.e., not end-to-end encrypted to the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-27">verifier</a>, see
           <a href="#protocols" data-matched-text="[[[#protocols]]]" class="sec-ref"><bdi class="secno">5. </bdi>
       Protocols</a> and <a href="#prepare-credential-requests" data-matched-text="[[[#prepare-credential-requests]]]" class="sec-ref"><bdi class="secno">6.2 </bdi>
       Prepare credential requests</a>).
           </li>
           <li><a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers" id="ref-for-index-term-issuers-18">Issuers</a> and lawmakers might decide to restrict use of
           (particularly government-issued) credentials to specific
-          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-27">verifiers</a> with purpose attestations. <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-23">Credential managers</a>
+          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-28">verifiers</a> with purpose attestations. <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-25">Credential managers</a>
           might be expected to enforce these restrictions by law or policy.
           </li>
           <li>The ultimate decision of whether or not to share their personal
           information lies with the user, which is why the API <a data-link-type="dfn|abstract-op" data-lt="initiate the credential request" href="#dfn-initiate-the-credential-request" class="internalDFN" id="ref-for-dfn-initiate-the-credential-request-2">requires</a> the
-          <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-33">user agent</a> to present a credential picker to the user, and other
+          <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-38">user agent</a> to present a credential picker to the user, and other
           parties might additionally require confirmation or consent.
           </li>
         </ul>
@@ -2755,9 +2808,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         </p>
         <p>
           A key component of risk mitigation and ensuring user control that
-          applies to both types of credentials is the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-34">user agent</a>'s ability
+          applies to both types of credentials is the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-39">user agent</a>'s ability
           to inspect the credential request metadata and make decisions or UI
-          presentation based on it. This specification ensures this <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-35">user agent</a> access through protocol requirements to transmit requests
+          presentation based on it. This specification ensures this <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-40">user agent</a> access through protocol requirements to transmit requests
           unencrypted and include relevant information (see <a href="#protocols" data-matched-text="[[[#protocols]]]" class="sec-ref"><bdi class="secno">5. </bdi>
       Protocols</a>
           and <a href="#prepare-credential-requests" data-matched-text="[[[#prepare-credential-requests]]]" class="sec-ref"><bdi class="secno">6.2 </bdi>
@@ -2797,9 +2850,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           friction of access. This effect is not inherently caused by the
           Digital Credentials API, but rather the overall increasing adoption
           of digital credentials across the ecosystem, which, however, would
-          likely see additional momentum from <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-36">user agent</a> implementation of
+          likely see additional momentum from <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-41">user agent</a> implementation of
           the Digital Credentials API. As such, the effect needs to be
-          considered by <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-37">user agents</a> implementing the API, as it might
+          considered by <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-42">user agents</a> implementing the API, as it might
           result in harmful outcomes for users:
         </p>
         <ul>
@@ -2817,7 +2870,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           </li>
           <li>Increased potential for <a data-matched-text="[[[rfc6973#section-5.1.1|surveillance]]]" href="https://www.rfc-editor.org/info/rfc6973/#section-5.1.1">surveillance</a>
           and restrictions on pseudonymous use of online services. Collusion
-          between <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-28">verifiers</a> and <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers" id="ref-for-index-term-issuers-19">issuers</a>, or other parties, might result
+          between <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-29">verifiers</a> and <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers" id="ref-for-index-term-issuers-19">issuers</a>, or other parties, might result
           in the ability to closely monitor a user's activity on the Web and
           take adverse action against this individual. Even when no action is
           taken, the possibility of surveillance alone can cause anxiety,
@@ -2849,16 +2902,16 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           also enact laws and regulations that clearly define how and for what
           purposes those credentials are able to be used. All parties involved
           in the exchange, whether they are legally obliged to do so or not,
-          are advised to support any government <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-29">verifier</a> authentication
+          are advised to support any government <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-30">verifier</a> authentication
           schemes, if they exist. The support for (and integration of)
-          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-30">verifier</a> authentication schemes such as <a href="https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/blob/main/docs/annexes/annex-2/annex-2-high-level-requirements.md#a2327-topic-27---registration-of-pid-providers-providers-of-qeaas-pub-eaas-and-non-qualified-eaas-and-relying-parties">
+          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-31">verifier</a> authentication schemes such as <a href="https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/blob/main/docs/annexes/annex-2/annex-2-high-level-requirements.md#a2327-topic-27---registration-of-pid-providers-providers-of-qeaas-pub-eaas-and-non-qualified-eaas-and-relying-parties">
           EUDI access and registration certificates</a> can mitigate risks of
           proliferation of unnecessary credential requests. However, the
           presence of such schemes is not guaranteed, which significantly
           increases the risk in a credential exchange.
         </p>
         <p>
-          There are other practical steps that <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-38">user agents</a> implementing the
+          There are other practical steps that <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-43">user agents</a> implementing the
           Digital Credentials API can take to reduce risk, increase user
           understanding, and prevent certain types of harm:
         </p>
@@ -2870,7 +2923,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           </li>
           <li>Support for protocols that allow unlinkability mechanisms such as
           <a data-matched-text="[[[vc-data-model#zero-knowledge-proofs|Zero-Knowledge Proofs]]]" href="https://www.w3.org/TR/vc-data-model-2.0/#zero-knowledge-proofs">Zero-Knowledge Proofs</a> can
-          prevent <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-31">verifier</a>-based surveillance and potential discrimination,
+          prevent <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-32">verifier</a>-based surveillance and potential discrimination,
           by hiding the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers" id="ref-for-index-term-issuers-20">issuer</a>.
           </li>
           <li>Offering useful context and a clearly understandable permission
@@ -2880,10 +2933,10 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           </li>
         </ul>
         <p>
-          It is further critical that <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-39">user agents</a> design a permission
+          It is further critical that <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-44">user agents</a> design a permission
           experience that accounts for the lack of these mitigations, e.g., the
           exchange of personal information from government credentials without
-          any <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-32">verifier</a> authentication scheme. It is recommended that a
+          any <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-33">verifier</a> authentication scheme. It is recommended that a
           higher level of friction and clear user messaging that highlights the
           involved risk be applied to these types of exchanges.
         </p>
@@ -2918,7 +2971,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           The flexibility and lack of regulation of non-government credentials
           carries potential for abuse for the purpose of cross-site tracking
           and linking identities through long-lived identifiers, such as email
-          address or phone number. <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-33">Verifiers</a> participating in a tracking
+          address or phone number. <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-34">Verifiers</a> participating in a tracking
           scheme based on digital credentials could create user incentives to
           accept sharing identifier credentials across many sites ("loyalty
           cards" for the Web), without fully understanding the implications on
@@ -2934,7 +2987,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         </h5><a class="self-link" href="#mitigating-unnecessary-requests-for-non-government-credentials" aria-label="Permalink for Section 11.4.2.3"></a></div>
         <p>
           For non-government-issued credentials, it is recommended that the
-          <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-40">user agent</a> understand the requested credential format and its
+          <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-45">user agent</a> understand the requested credential format and its
           privacy attributes, and build a risk framework that informs the
           context that is shown to the user, as well as the amount of friction
           that is appropriate for each credential type. Protocols and formats
@@ -2945,14 +2998,14 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           credentials such as cinema tickets.
         </p>
         <p>
-          A <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-41">user agent</a> that recognizes the type of credential being
+          A <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-46">user agent</a> that recognizes the type of credential being
           requested is encouraged to customize its permission experience to
           best suit the requested credential and help users understand the
           consequences of sharing it.
         </p>
         <p>
-          <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-42">User agents</a> cannot be expected to understand all credential
-          requests. A <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-43">user agent</a> that does not recognize the type of
+          <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-47">User agents</a> cannot be expected to understand all credential
+          requests. A <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-48">user agent</a> that does not recognize the type of
           credential being requested is advised to significantly increase user
           friction in their permission experience, and clearly communicate the
           risks of sharing unknown credentials with websites to the user. Note
@@ -2960,20 +3013,20 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           <a href="#multiple-user-agents" data-matched-text="[[[#multiple-user-agents|different user agents]]]">different user agents</a> to apply
           appropriate levels of friction and transparency. For example, a
           browser might delegate knowledge about credential requests to the
-          operating system, which might require <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-24">credential managers</a> to
+          operating system, which might require <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-26">credential managers</a> to
           register known credential types and reject an exchange request for an
           unknown credential type.
         </p>
-        <div class="issue closed" id="issue-container-number-100"><div class="issue-title marker" id="h-issue-8"><a href="https://github.com/w3c-fedid/digital-credentials/issues/100"><span class="issue-number">Issue 100</span></a><span class="issue-label">: Consider applying the robustness principle with regard to user agent request validation <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22discussion%22" style="background-color: rgb(75, 158, 238); color: rgb(0, 0, 0);" aria-label="GitHub label: discussion">discussion</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a></span></div><p class="">
+        <div class="issue closed" id="issue-container-number-100"><div class="issue-title marker" id="h-issue-7"><a href="https://github.com/w3c-fedid/digital-credentials/issues/100"><span class="issue-number">Issue 100</span></a><span class="issue-label">: Consider applying the robustness principle with regard to user agent request validation <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22discussion%22" style="background-color: rgb(75, 158, 238); color: rgb(0, 0, 0);" aria-label="GitHub label: discussion">discussion</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a></span></div><p class="">
           The need to provide users with appropriate transparency conflicts
           with the desire to enable the ecosystem to develop new credential
-          formats without explicit <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-44">user agent</a> buy-in.
+          formats without explicit <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-49">user agent</a> buy-in.
         </p></div>
         </section><section id="reporting-abuse"><div class="header-wrapper"><h5 id="x11-4-2-4-reporting-abuse"><bdi class="secno">11.4.2.4 </bdi>
           Reporting abuse
         </h5><a class="self-link" href="#reporting-abuse" aria-label="Permalink for Section 11.4.2.4"></a></div>
-        <div class="issue" id="issue-container-number-267"><div class="issue-title marker" id="h-issue-9"><a href="https://github.com/w3c-fedid/digital-credentials/issues/267"><span class="issue-number">Issue 267</span></a><span class="issue-label">: reporting abuse of credential requests <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a></span></div><p class="">
-          Consider an interoperable abuse reporting system for <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-34">verifiers</a>
+        <div class="issue" id="issue-container-number-267"><div class="issue-title marker" id="h-issue-8"><a href="https://github.com/w3c-fedid/digital-credentials/issues/267"><span class="issue-number">Issue 267</span></a><span class="issue-label">: reporting abuse of credential requests <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a></span></div><p class="">
+          Consider an interoperable abuse reporting system for <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-35">verifiers</a>
           making unnecessary and abusive requests.
         </p></div>
       </section></section></section>
@@ -3001,21 +3054,21 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         </p>
         <p>
           This attack might be harder for third-party attackers (such as
-          scripts embedded on the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-35">verifier</a>'s pages but not actively
+          scripts embedded on the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-36">verifier</a>'s pages but not actively
           collaborating with them for the purpose of tracking) because response
           encryption is mandatory and responses should be decrypted on the
-          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-36">verifier</a>'s server. The <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-37">verifier</a> could thus ensure not to
+          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-37">verifier</a>'s server. The <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-38">verifier</a> could thus ensure not to
           reflect back decrypted information to client-side JavaScript. Not all
-          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-38">verifiers</a> will choose to do so, however.
+          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-39">verifiers</a> will choose to do so, however.
         </p>
         </section><section id="leaking-incidental-data-with-credential-presentations"><div class="header-wrapper"><h4 id="leaking-incidental-data"><bdi class="secno">11.5.2 </bdi>
           Leaking incidental data with credential presentations
         </h4><a class="self-link" href="#leaking-incidental-data" aria-label="Permalink for Section 11.5.2"></a></div>
         <p>
           To ensure authenticity of a credential, its presentation to
-          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-39">verifiers</a> generally includes more information than the content
-          the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-40">verifier</a> is requesting access to. It will usually contain at
-          least a signature of the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers" id="ref-for-index-term-issuers-22">issuer</a> and the <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-25">credential manager</a>,
+          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-40">verifiers</a> generally includes more information than the content
+          the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-41">verifier</a> is requesting access to. It will usually contain at
+          least a signature of the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers" id="ref-for-index-term-issuers-22">issuer</a> and the <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-27">credential manager</a>,
           and potentially other metadata.
         </p>
         <p>
@@ -3025,24 +3078,24 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         </p>
         <p>
           While the Digital Credentials API does not control the content of a
-          credential response, <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-45">user agents</a> can help protect users against
+          credential response, <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-50">user agents</a> can help protect users against
           this type of tracking through clearly highlighting which information
-          likely gets shared with the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-41">verifier</a> beyond what was requested,
+          likely gets shared with the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-42">verifier</a> beyond what was requested,
           and, more broadly, by identifying and blocking fingerprinting through
-          the API by <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-42">verifiers</a>.
+          the API by <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-43">verifiers</a>.
         </p>
         </section><section id="revealing-device-properties-through-protocol-availability"><div class="header-wrapper"><h4 id="x11-5-3-revealing-device-properties-through-protocol-availability"><bdi class="secno">11.5.3 </bdi>
           Revealing device properties through protocol availability
         </h4><a class="self-link" href="#revealing-device-properties-through-protocol-availability" aria-label="Permalink for Section 11.5.3"></a></div>
         <p>
-          The Digital Credentials API exposes information about which <a data-link-type="dfn|abstract-op" data-lt="presentation protocol" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-25">presentation</a> and <a data-link-type="dfn|abstract-op" data-lt="issuance protocol" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-21">issuance</a> protocols are supported by
-          the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-46">user agent</a> through
+          The Digital Credentials API exposes information about which <a data-link-type="dfn|abstract-op" data-lt="presentation protocol" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-26">presentation</a> and <a data-link-type="dfn|abstract-op" data-lt="issuance protocol" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-22">issuance</a> protocols are supported by
+          the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-51">user agent</a> through
           <a data-link-type="idl" data-lt="userAgentAllowsProtocol()" href="#dom-digitalcredential-useragentallowsprotocol" class="internalDFN" id="ref-for-dom-digitalcredential-useragentallowsprotocol-5"><code>userAgentAllowsProtocol</code></a><code>()</code>. It mitigates browser
           fingerprinting and revealing information about the user's device
           configuration by not customizing its response based on, for example,
-          which <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-26">credential manager</a> applications are installed on a user's
+          which <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-28">credential manager</a> applications are installed on a user's
           device. The returned information is thus, at best, equivalent to a
-          <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-47">user agent</a> version.
+          <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-52">user agent</a> version.
         </p>
         </section><section id="avoiding-leaks-of-credential-availability"><div class="header-wrapper"><h4 id="x11-5-4-avoiding-leaks-of-credential-availability"><bdi class="secno">11.5.4 </bdi>
           Avoiding leaks of credential availability
@@ -3066,7 +3119,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         </h3><a class="self-link" href="#user-permission-and-transparency" aria-label="Permalink for Section 11.6"></a></div>
         
         
-        <div class="issue" id="issue-container-generatedID-17"><div class="issue-title marker" id="h-issue-10"><span>Issue</span><span class="issue-label">: Work in progress</span></div><p class=""></p></div>
+        <div class="issue" id="issue-container-generatedID-18"><div class="issue-title marker" id="h-issue-9"><span>Issue</span><span class="issue-label">: Work in progress</span></div><p class=""></p></div>
         <p>
           The Digital Credentials API enables the sharing of highly personal,
           sensitive, and at-risk user information with websites via
@@ -3074,7 +3127,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           and offline, through permanent, unique, irrevocable, cross-context
           identifiers. It also reveals parts of the user's browsing activity as
           well as their intent to identify to specific websites and/or
-          <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-27">credential managers</a>. One crucial responsibility of the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-48">user agent</a> in a credential request is to gather permission from the user
+          <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-29">credential managers</a>. One crucial responsibility of the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-53">user agent</a> in a credential request is to gather permission from the user
           to proceed with the exchange of information.
         </p>
         <p>
@@ -3083,14 +3136,14 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           the following:
         </p>
         <ul>
-          <li>The origin of the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-43">verifier</a> that requests the credential.
+          <li>The origin of the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-44">verifier</a> that requests the credential.
           </li>
           <li>The information that is being requested, or that would be
           revealed by responding to the request.
           </li>
           <li>Whether presenting this information will enable tracking.
           </li>
-          <li>Which <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-28">credential managers</a> can be used to fulfill the
+          <li>Which <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-30">credential managers</a> can be used to fulfill the
           credential request.
           </li>
           <li>Which credential would be used to share the requested
@@ -3098,21 +3151,21 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           </li>
         </ul>
         <p>
-          It is advised that <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-49">user agents</a> in their implementation ensure
+          It is advised that <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-54">user agents</a> in their implementation ensure
           that the details listed are fully disclosed to the user before an
           exchange of any user-related information occurs.
         </p>
-        <div class="issue" id="issue-container-number-252"><div class="issue-title marker" id="h-issue-11"><a href="https://github.com/w3c-fedid/digital-credentials/issues/252"><span class="issue-number">Issue 252</span></a><span class="issue-label">: Should we normatively define elements of a permission prompt? <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a></span></div><p class="">
+        <div class="issue" id="issue-container-number-252"><div class="issue-title marker" id="h-issue-10"><a href="https://github.com/w3c-fedid/digital-credentials/issues/252"><span class="issue-number">Issue 252</span></a><span class="issue-label">: Should we normatively define elements of a permission prompt? <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a></span></div><p class="">
           Should these be normative in the spec?
         </p></div>
-        <div class="issue closed" id="issue-container-number-44"><div class="issue-title marker" id="h-issue-12"><a href="https://github.com/w3c-fedid/digital-credentials/issues/44"><span class="issue-number">Issue 44</span></a><span class="issue-label">: API requests should provide the site with what they need to explain why and how requested credential information will be used <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22enhancement%22" style="background-color: rgb(162, 238, 239); color: rgb(0, 0, 0);" aria-label="GitHub label: enhancement">enhancement</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22pending+closure%22" style="background-color: rgb(251, 202, 4); color: rgb(0, 0, 0);" aria-label="GitHub label: pending closure">pending closure</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a></span></div><p class="">
+        <div class="issue closed" id="issue-container-number-44"><div class="issue-title marker" id="h-issue-11"><a href="https://github.com/w3c-fedid/digital-credentials/issues/44"><span class="issue-number">Issue 44</span></a><span class="issue-label">: API requests should provide the site with what they need to explain why and how requested credential information will be used <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22enhancement%22" style="background-color: rgb(162, 238, 239); color: rgb(0, 0, 0);" aria-label="GitHub label: enhancement">enhancement</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22pending+closure%22" style="background-color: rgb(251, 202, 4); color: rgb(0, 0, 0);" aria-label="GitHub label: pending closure">pending closure</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a></span></div><p class="">
           Should the API be designed so the site can provide in-context
           explanations?
         </p></div>
         <section id="handling-multiple-credential-requests"><div class="header-wrapper"><h4 id="x11-6-1-handling-multiple-credential-requests"><bdi class="secno">11.6.1 </bdi>
           Handling multiple credential requests
         </h4><a class="self-link" href="#handling-multiple-credential-requests" aria-label="Permalink for Section 11.6.1"></a></div>
-        <div class="issue" id="issue-container-number-286"><div class="issue-title marker" id="h-issue-13"><a href="https://github.com/w3c-fedid/digital-credentials/issues/286"><span class="issue-number">Issue 286</span></a><span class="issue-label">: Privacy Considerations for multiple presentation requests (and responses) <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22v2%22" style="background-color: rgb(81, 181, 123); color: rgb(0, 0, 0);" aria-label="GitHub label: v2">v2</a></span></div><p class="">
+        <div class="issue" id="issue-container-number-286"><div class="issue-title marker" id="h-issue-12"><a href="https://github.com/w3c-fedid/digital-credentials/issues/286"><span class="issue-number">Issue 286</span></a><span class="issue-label">: Privacy Considerations for multiple presentation requests (and responses) <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22v2%22" style="background-color: rgb(81, 181, 123); color: rgb(0, 0, 0);" aria-label="GitHub label: v2">v2</a></span></div><p class="">
           We need to describe concerns, tradeoffs and possible mitigations of
           handling multiple requests and responses for credential presentation.
         </p></div>
@@ -3121,7 +3174,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         </h4><a class="self-link" href="#multiple-user-agents" aria-label="Permalink for Section 11.6.2"></a></div>
         <p>
           Depending on the technical architecture of a user's system, it is
-          likely that the definition of a "<a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-50">user agent</a>" will include
+          likely that the definition of a "<a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-55">user agent</a>" will include
           multiple cooperating layers of the software stack, such as a browser
           and the operating system. The greatest priority for these layers has
           to be a safe and well-informed user permission experience. As such,
@@ -3132,7 +3185,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           prompt blindness.
         </p>
         <p>
-          For this reason, <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-51">user agents</a> prompting for permission are
+          For this reason, <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-56">user agents</a> prompting for permission are
           encouraged to integrate software layers for an ideal user experience,
           if they consider it safe to do so. This could happen, for example, if
           a browser trusts the API contract of an operating system to show an
@@ -3142,9 +3195,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           Permission Prior to Credential Manager Selection
         </h4><a class="self-link" href="#permission-prior-to-credential-manager-selection" aria-label="Permalink for Section 11.6.3"></a></div>
         <p>
-          As part of the user permission flow, the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-52">user agent</a> needs to
+          As part of the user permission flow, the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-57">user agent</a> needs to
           ensure that users retain the power to choose whether to forward a
-          credential request to a <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-29">credential manager</a>, and which credential
+          credential request to a <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-31">credential manager</a>, and which credential
           manager to select. This is due to the information disclosure that
           happens as part of the request, and the ability of credential
           managers to retain or share this information at the time of the
@@ -3154,19 +3207,19 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           Permission vs. Consent
         </h4><a class="self-link" href="#permission-vs-consent" aria-label="Permalink for Section 11.6.4"></a></div>
         <p>
-          The permission mediated by the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-53">user agent</a> is not consent, which
+          The permission mediated by the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-58">user agent</a> is not consent, which
           has specific legal definitions that can vary among different legal
           and regulatory environments and may need to be collected by the
-          <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-30">credential manager</a> before sharing information with the
-          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-44">verifier</a>, or by the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-45">verifier</a> itself before initiating the
+          <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-32">credential manager</a> before sharing information with the
+          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-45">verifier</a>, or by the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-46">verifier</a> itself before initiating the
           request. With frameworks and regulations for obtaining consent still
           being developed, this API aims to enable the exchange of the
           necessary information, which could include the following:
         </p>
         <ul>
-          <li>The privacy policy of the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-46">verifier</a> receiving the credential.
+          <li>The privacy policy of the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-47">verifier</a> receiving the credential.
           </li>
-          <li>The purpose for which the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-47">verifier</a> is requesting the
+          <li>The purpose for which the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-48">verifier</a> is requesting the
           information.
           </li>
           <li>What the information will be used for.
@@ -3176,14 +3229,14 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           <li>Any evaluations and attestations of this information, if
           available.
           </li>
-          <li>Assertions of the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-48">verifier</a>'s legitimacy and registration for
+          <li>Assertions of the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-49">verifier</a>'s legitimacy and registration for
           accessing the credential, such as <a href="https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/blob/main/docs/annexes/annex-2/annex-2-high-level-requirements.md#a2327-topic-27---registration-of-pid-providers-providers-of-qeaas-pub-eaas-and-non-qualified-eaas-and-relying-parties">
             EUDI access and registration certificates</a>.
           </li>
         </ul>
         <p>
           As more of this information becomes available in a structured format,
-          we expect <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-54">user agents</a> and this specification to leverage it to
+          we expect <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-59">user agents</a> and this specification to leverage it to
           improve the user permission experience as well.
         </p>
       </section></section>
@@ -3198,7 +3251,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         scope of this specification; however, the accessibility of that
         experience is within scope (see <a href="#scope" data-matched-text="[[[#scope]]]" class="sec-ref"><bdi class="secno">3. </bdi>
       Scope</a>). The following guidance
-        applies to <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-55">user agents</a> and platforms implementing the <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-12">digital credential chooser</a> and the flows around it, and references the
+        applies to <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-60">user agents</a> and platforms implementing the <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-12">digital credential chooser</a> and the flows around it, and references the
         relevant success criteria of [<cite><a class="bibref" data-link-type="biblio" href="#bib-wcag22" title="Web Content Accessibility Guidelines (WCAG) 2.2">WCAG22</a></cite>]. Where the chooser is a non-web
         user interface, those criteria apply as described in [<cite><a class="bibref" data-link-type="biblio" href="#bib-wcag2ict-22" title="Guidance on Applying WCAG 2 to Non-Web Information and Communications Technologies (WCAG2ICT)">WCAG2ICT-22</a></cite>].
       </p>
@@ -3216,10 +3269,10 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         without requiring a change of focus (see <a data-matched-text="[[[WCAG22#status-messages]]]" href="https://www.w3.org/TR/WCAG22/#status-messages" class="sec-ref">§&nbsp;Success Criterion 4.1.3 Status Messages</a>).
       </p>
       <p>
-        When an operation fails, the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-56">user agent</a> rejects with one of several
-        distinct errors; for example, a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-6"><code>NotAllowedError</code></a>",
-        "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#invalidstateerror" id="ref-for-index-term-invalidstateerror-exception-3"><code>InvalidStateError</code></a>", or "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#operationerror" id="ref-for-index-term-operationerror-exception-2"><code>OperationError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-11"><code>DOMException</code></a>, or a
-        <a data-link-type="exception" data-lt="TypeError" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-index-term-typeerror-exception-7"><code>TypeError</code></a>. Where the platform surfaces such a failure to the user,
+        When an operation fails, the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-61">user agent</a> rejects with one of several
+        distinct errors; for example, a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-8"><code>NotAllowedError</code></a>",
+        "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#invalidstateerror" id="ref-for-index-term-invalidstateerror-exception-3"><code>InvalidStateError</code></a>", or "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#operationerror" id="ref-for-index-term-operationerror-exception-3"><code>OperationError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-14"><code>DOMException</code></a>, or a
+        <a data-link-type="exception" data-lt="TypeError" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-index-term-typeerror-exception-8"><code>TypeError</code></a>. Where the platform surfaces such a failure to the user,
         it <em class="rfc2119">SHOULD</em> identify in text what went wrong and, where applicable, how
         to recover, rather than only signalling that an error occurred (see
         <a data-matched-text="[[[WCAG22#error-identification]]]" href="https://www.w3.org/TR/WCAG22/#error-identification" class="sec-ref">§&nbsp;Success Criterion 3.3.1 Error Identification</a>).
@@ -3246,7 +3299,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         (see <a data-matched-text="[[[WCAG22#accessible-authentication-minimum]]]" href="https://www.w3.org/TR/WCAG22/#accessible-authentication-minimum" class="sec-ref">§&nbsp;Success Criterion 3.3.8 Accessible Authentication (Minimum)</a>); and
         authentication <em class="rfc2119">SHOULD NOT</em> depend solely on a single physical
         characteristic, such as a biometric, that some users cannot provide.
-        This step is typically performed by the platform or <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-31">credential manager</a> and is otherwise outside the scope of this specification.
+        This step is typically performed by the platform or <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-33">credential manager</a> and is otherwise outside the scope of this specification.
       </p>
       <p>
         Some platforms fulfil <a data-link-type="dfn|abstract-op" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-23">presentation requests</a>
@@ -3323,12 +3376,12 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         values of credential claims such as a name or address, including their
         representation in different scripts and languages) is carried opaquely
         within the credential payload. Its internationalization is determined
-        by the relevant credential format and <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-26">presentation protocol</a> or <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-22">issuance protocol</a> (for example,
+        by the relevant credential format and <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-27">presentation protocol</a> or <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-23">issuance protocol</a> (for example,
         the formats defined in <cite><a data-matched-text="[[[ISO18013-5]]]" href="https://www.iso.org/standard/69084.html">ISO/IEC 18013-5:2021 ISO-compliant driving licence, Part 5: Mobile driving licence (mDL) application</a></cite>, and protocols such as
         <cite><a data-matched-text="[[[OPENID4VP]]]" href="https://openid.net/specs/openid-4-verifiable-presentations-1_0.html">OpenID for Verifiable Presentations 1.0</a></cite>), which this specification expects to provide language
         and direction metadata, and localized alternatives, where appropriate.
         </li>
-        <li>The one value the API routes to the platform that a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-57">user agent</a>
+        <li>The one value the API routes to the platform that a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-62">user agent</a>
         may display is the requesting <a data-link-type="dfn|abstract-op" href="#dfn-top-level-origin" class="internalDFN" id="ref-for-dfn-top-level-origin-2">top-level origin</a>.
         Rendering an origin's host to the user, including the handling of
         internationalized domain names and bidirectional text, follows the
@@ -3361,14 +3414,14 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p>
         For purposes of user-agent automation and application testing, this
         document defines extension modules for the <cite><a data-matched-text="[[[webdriver-bidi]]]" href="https://www.w3.org/TR/webdriver-bidi/">WebDriver BiDi</a></cite>
-        specification. It is <em class="rfc2119">OPTIONAL</em> for a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-58">user agent</a> to support them.
+        specification. It is <em class="rfc2119">OPTIONAL</em> for a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-63">user agent</a> to support them.
       </p>
       <section id="the-digitalcredentials-module"><div class="header-wrapper"><h3 id="x14-1-the-digitalcredentials-module"><bdi class="secno">14.1 </bdi>
         The <code>digitalCredentials</code> Module
       </h3><a class="self-link" href="#the-digitalcredentials-module" aria-label="Permalink for Section 14.1"></a></div>
       <p>
         The <code>digitalCredentials</code> module contains commands for managing and
-        simulating the remote end behavior of <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-32">credential managers</a> during
+        simulating the remote end behavior of <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-34">credential managers</a> during
         <a data-link-type="method" data-lt="[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)" href="#dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors" class="internalDFN" id="ref-for-dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors-4"><code>[[DiscoverFromExternalSource]](<var>origin</var>, <var>options</var>, <var>sameOriginWithAncestors</var>)</code></a>, and <a data-link-type="method" data-lt="[[Create]](origin, options, sameOriginWithAncestors)" href="https://www.w3.org/TR/credential-management-1/#dom-credential-create-slot" id="ref-for-index-term-create-origin-options-sameoriginwithancestors-for-credential-3"><code>[[Create]](<var>origin</var>, <var>options</var>, <var>sameOriginWithAncestors</var>)</code></a> calls.
       </p>
       <section id="types"><div class="header-wrapper"><h4 id="x14-1-1-types"><bdi class="secno">14.1.1 </bdi>
@@ -3467,7 +3520,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
             <li><a data-link-type="dfn" data-lt="serialize an Infra value to a JSON string" href="https://infra.spec.whatwg.org/#serialize-an-infra-value-to-a-json-string" id="ref-for-index-term-serialize-an-infra-value-to-a-json-string-1">Serialize</a>
             <var>response</var> to a JSON string.
             </li>
-            <li>If serialization results in an <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-exception" id="ref-for-index-term-exception-7">exception</a>, return an
+            <li>If serialization results in an <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-exception" id="ref-for-index-term-exception-6">exception</a>, return an
             <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver2/#dfn-error" id="ref-for-index-term-error-3">error</a> with <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver2/#dfn-error-code" id="ref-for-index-term-error-code-3">error code</a> <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver2/#dfn-invalid-argument" id="ref-for-index-term-invalid-argument-3">invalid argument</a>.
             </li>
           </ol>
@@ -3504,7 +3557,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         <li>Return <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver2/#dfn-success" id="ref-for-index-term-success-1">success</a> with data <code>null</code>.
         </li>
       </ol>
-      <div class="note" role="note" id="issue-container-generatedID-18"><div class="note-title marker" id="h-note-15"><span>Note</span><span class="issue-label">: Simulating wallet errors in tests</span></div><p class="">
+      <div class="note" role="note" id="issue-container-generatedID-19"><div class="note-title marker" id="h-note-16"><span>Note</span><span class="issue-label">: Simulating wallet errors in tests</span></div><p class="">
         Developers writing automated tests can simulate wallet errors by
         passing an <a data-link-type="interface" data-lt="AbortSignal" href="https://dom.spec.whatwg.org/#abortsignal" id="ref-for-index-term-abortsignal-interface-5"><code>AbortSignal</code></a> as <a data-link-type="dict-member" href="https://www.w3.org/TR/credential-management-1/#dom-credentialrequestoptions-signal" id="ref-for-index-term-signal-for-credentialrequestoptions-3"><code>signal</code></a> (for
         <a data-link-type="method" data-lt="get()" href="https://www.w3.org/TR/credential-management-1/#dom-credentialscontainer-get" id="ref-for-index-term-get-for-credentialscontainer-5"><code>get</code></a><code>()</code>) or <a data-link-type="dict-member" href="https://www.w3.org/TR/credential-management-1/#dom-credentialcreationoptions-signal" id="ref-for-index-term-signal-for-credentialcreationoptions-2"><code>signal</code></a>
@@ -3546,7 +3599,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         <var>promise</var> and a global object <var>global</var>, run these steps:
       </p>
       <ol class="algorithm">
-        <li>If the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-59">user agent</a> is not under automation, return <code>false</code>.
+        <li>If the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-64">user agent</a> is not under automation, return <code>false</code>.
         </li>
         <li>Let <var>context ID</var> be the ID of <var>global</var>'s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#browsing-context" id="ref-for-index-term-browsing-context-1">browsing context</a>.
         </li>
@@ -3563,8 +3616,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         </li>
         <li>If <var>action</var> is <code>"decline"</code>:
           <ol>
-            <li><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-index-term-rejects-8">Reject</a> <var>promise</var> with a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-7"><code>NotAllowedError</code></a>"
-            <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-12"><code>DOMException</code></a>.
+            <li><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-index-term-rejects-8">Reject</a> <var>promise</var> with a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-9"><code>NotAllowedError</code></a>"
+            <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-15"><code>DOMException</code></a>.
             </li>
             <li>Return <code>true</code>.
             </li>
@@ -4021,6 +4074,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
   </li><li>
     <span class="index-term" data-href="https://webidl.spec.whatwg.org/#idl-boolean" id="index-term-boolean-type" tabindex="0" aria-haspopup="dialog"><code>boolean</code> type</span>
   </li><li>
+    <span class="index-term" data-href="https://webidl.spec.whatwg.org/#dfn-create-exception" id="index-term-create-for-exception" tabindex="0" aria-haspopup="dialog">create (for <code>exception</code>)</span>
+  </li><li>
     <span class="index-term" data-href="https://webidl.spec.whatwg.org/#Default" id="index-term-default-extended-attribute" tabindex="0" aria-haspopup="dialog"><code>[Default]</code> extended attribute</span>
   </li><li>
     <span class="index-term" data-href="https://webidl.spec.whatwg.org/#default-tojson-steps" id="index-term-default-tojson-steps" tabindex="0" aria-haspopup="dialog">default toJSON steps</span>
@@ -4304,9 +4359,11 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-dfn-issuance-protocol-20" title="§ 7.8.3 The DigitalCredentialIssuanceProtocol enumeration">§ 7.8.3 The DigitalCredentialIssuanceProtocol enumeration</a> 
     </li><li>
-      <a href="#ref-for-dfn-issuance-protocol-21" title="§ 11.5.3 Revealing device properties through protocol availability">§ 11.5.3 Revealing device properties through protocol availability</a> 
+      <a href="#ref-for-dfn-issuance-protocol-21" title="§ 10.1.2 Out of Scope Threats">§ 10.1.2 Out of Scope Threats</a> 
     </li><li>
-      <a href="#ref-for-dfn-issuance-protocol-22" title="§ 13. Internationalization Considerations">§ 13. Internationalization Considerations</a> 
+      <a href="#ref-for-dfn-issuance-protocol-22" title="§ 11.5.3 Revealing device properties through protocol availability">§ 11.5.3 Revealing device properties through protocol availability</a> 
+    </li><li>
+      <a href="#ref-for-dfn-issuance-protocol-23" title="§ 13. Internationalization Considerations">§ 13. Internationalization Considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-issuance-request" aria-label="Links in this document to definition: Issuance request">
@@ -4361,6 +4418,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-dfn-issuance-request-data-6" title="§ 7.6 The DigitalCredentialCreateRequest dictionary">§ 7.6 The DigitalCredentialCreateRequest dictionary</a> 
     </li><li>
       <a href="#ref-for-dfn-issuance-request-data-7" title="§ 7.6.2 The data member">§ 7.6.2 The data member</a> 
+    </li><li>
+      <a href="#ref-for-dfn-issuance-request-data-8" title="§ 10.1.2 Out of Scope Threats">§ 10.1.2 Out of Scope Threats</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-issuance-response" aria-label="Links in this document to definition: Issuance response">
@@ -4410,13 +4469,15 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-dfn-presentation-protocol-21" title="§ 7.8.2 The DigitalCredentialPresentationProtocol enumeration">§ 7.8.2 The DigitalCredentialPresentationProtocol enumeration</a> 
     </li><li>
-      <a href="#ref-for-dfn-presentation-protocol-22" title="§ 11.1 Design Considerations and Alternatives">§ 11.1 Design Considerations and Alternatives</a> <a href="#ref-for-dfn-presentation-protocol-23" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-presentation-protocol-22" title="§ 10.1.2 Out of Scope Threats">§ 10.1.2 Out of Scope Threats</a> 
     </li><li>
-      <a href="#ref-for-dfn-presentation-protocol-24" title="§ 11.3 Presentation Protocol and Credential Format">§ 11.3 Presentation Protocol and Credential Format</a> 
+      <a href="#ref-for-dfn-presentation-protocol-23" title="§ 11.1 Design Considerations and Alternatives">§ 11.1 Design Considerations and Alternatives</a> <a href="#ref-for-dfn-presentation-protocol-24" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-dfn-presentation-protocol-25" title="§ 11.5.3 Revealing device properties through protocol availability">§ 11.5.3 Revealing device properties through protocol availability</a> 
+      <a href="#ref-for-dfn-presentation-protocol-25" title="§ 11.3 Presentation Protocol and Credential Format">§ 11.3 Presentation Protocol and Credential Format</a> 
     </li><li>
-      <a href="#ref-for-dfn-presentation-protocol-26" title="§ 13. Internationalization Considerations">§ 13. Internationalization Considerations</a> 
+      <a href="#ref-for-dfn-presentation-protocol-26" title="§ 11.5.3 Revealing device properties through protocol availability">§ 11.5.3 Revealing device properties through protocol availability</a> 
+    </li><li>
+      <a href="#ref-for-dfn-presentation-protocol-27" title="§ 13. Internationalization Considerations">§ 13. Internationalization Considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-presentation-request" aria-label="Links in this document to definition: Presentation request">
@@ -4471,6 +4532,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-dfn-presentation-request-data-6" title="§ 7.3 The DigitalCredentialGetRequest dictionary">§ 7.3 The DigitalCredentialGetRequest dictionary</a> 
     </li><li>
       <a href="#ref-for-dfn-presentation-request-data-7" title="§ 7.3.2 The data member">§ 7.3.2 The data member</a> 
+    </li><li>
+      <a href="#ref-for-dfn-presentation-request-data-8" title="§ 10.1.2 Out of Scope Threats">§ 10.1.2 Out of Scope Threats</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-presentation-response" aria-label="Links in this document to definition: Presentation response">
@@ -5832,33 +5895,33 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-index-term-credential-manager-13" title="§ 7.7.3 The userAgentAllowsProtocol() method">§ 7.7.3 The userAgentAllowsProtocol() method</a> 
     </li><li>
-      <a href="#ref-for-index-term-credential-manager-14" title="§ 10.1.2 Out of Scope Threats">§ 10.1.2 Out of Scope Threats</a> 
+      <a href="#ref-for-index-term-credential-manager-14" title="§ 10.1.2 Out of Scope Threats">§ 10.1.2 Out of Scope Threats</a> <a href="#ref-for-index-term-credential-manager-15" title="Reference 2">(2)</a> <a href="#ref-for-index-term-credential-manager-16" title="Reference 3">(3)</a> 
     </li><li>
-      <a href="#ref-for-index-term-credential-manager-15" title="§ 10.3 Cross-Device Security and Proximity">§ 10.3 Cross-Device Security and Proximity</a> <a href="#ref-for-index-term-credential-manager-16" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-credential-manager-17" title="§ 10.3 Cross-Device Security and Proximity">§ 10.3 Cross-Device Security and Proximity</a> <a href="#ref-for-index-term-credential-manager-18" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-index-term-credential-manager-17" title="§ 11.3.1.2 Unlinkable presentations">§ 11.3.1.2 Unlinkable presentations</a> <a href="#ref-for-index-term-credential-manager-18" title="Reference 2">(2)</a> <a href="#ref-for-index-term-credential-manager-19" title="Reference 3">(3)</a> 
+      <a href="#ref-for-index-term-credential-manager-19" title="§ 11.3.1.2 Unlinkable presentations">§ 11.3.1.2 Unlinkable presentations</a> <a href="#ref-for-index-term-credential-manager-20" title="Reference 2">(2)</a> <a href="#ref-for-index-term-credential-manager-21" title="Reference 3">(3)</a> 
     </li><li>
-      <a href="#ref-for-index-term-credential-manager-20" title="§ 11.3.1.3 &quot;Phone home&quot; mechanisms">§ 11.3.1.3 "Phone home" mechanisms</a> <a href="#ref-for-index-term-credential-manager-21" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-credential-manager-22" title="§ 11.3.1.3 &quot;Phone home&quot; mechanisms">§ 11.3.1.3 "Phone home" mechanisms</a> <a href="#ref-for-index-term-credential-manager-23" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-index-term-credential-manager-22" title="§ 11.3.1.6 Support for verifier authorization">§ 11.3.1.6 Support for verifier authorization</a> 
+      <a href="#ref-for-index-term-credential-manager-24" title="§ 11.3.1.6 Support for verifier authorization">§ 11.3.1.6 Support for verifier authorization</a> 
     </li><li>
-      <a href="#ref-for-index-term-credential-manager-23" title="§ 11.4 Unnecessary Requests for Credentials">§ 11.4 Unnecessary Requests for Credentials</a> 
+      <a href="#ref-for-index-term-credential-manager-25" title="§ 11.4 Unnecessary Requests for Credentials">§ 11.4 Unnecessary Requests for Credentials</a> 
     </li><li>
-      <a href="#ref-for-index-term-credential-manager-24" title="§ 11.4.2.3 Mitigating unnecessary requests for non-government credentials">§ 11.4.2.3 Mitigating unnecessary requests for non-government credentials</a> 
+      <a href="#ref-for-index-term-credential-manager-26" title="§ 11.4.2.3 Mitigating unnecessary requests for non-government credentials">§ 11.4.2.3 Mitigating unnecessary requests for non-government credentials</a> 
     </li><li>
-      <a href="#ref-for-index-term-credential-manager-25" title="§ 11.5.2 Leaking incidental data with credential presentations">§ 11.5.2 Leaking incidental data with credential presentations</a> 
+      <a href="#ref-for-index-term-credential-manager-27" title="§ 11.5.2 Leaking incidental data with credential presentations">§ 11.5.2 Leaking incidental data with credential presentations</a> 
     </li><li>
-      <a href="#ref-for-index-term-credential-manager-26" title="§ 11.5.3 Revealing device properties through protocol availability">§ 11.5.3 Revealing device properties through protocol availability</a> 
+      <a href="#ref-for-index-term-credential-manager-28" title="§ 11.5.3 Revealing device properties through protocol availability">§ 11.5.3 Revealing device properties through protocol availability</a> 
     </li><li>
-      <a href="#ref-for-index-term-credential-manager-27" title="§ 11.6 User Permission and Transparency">§ 11.6 User Permission and Transparency</a> <a href="#ref-for-index-term-credential-manager-28" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-credential-manager-29" title="§ 11.6 User Permission and Transparency">§ 11.6 User Permission and Transparency</a> <a href="#ref-for-index-term-credential-manager-30" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-index-term-credential-manager-29" title="§ 11.6.3 Permission Prior to Credential Manager Selection">§ 11.6.3 Permission Prior to Credential Manager Selection</a> 
+      <a href="#ref-for-index-term-credential-manager-31" title="§ 11.6.3 Permission Prior to Credential Manager Selection">§ 11.6.3 Permission Prior to Credential Manager Selection</a> 
     </li><li>
-      <a href="#ref-for-index-term-credential-manager-30" title="§ 11.6.4 Permission vs. Consent">§ 11.6.4 Permission vs. Consent</a> 
+      <a href="#ref-for-index-term-credential-manager-32" title="§ 11.6.4 Permission vs. Consent">§ 11.6.4 Permission vs. Consent</a> 
     </li><li>
-      <a href="#ref-for-index-term-credential-manager-31" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> 
+      <a href="#ref-for-index-term-credential-manager-33" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> 
     </li><li>
-      <a href="#ref-for-index-term-credential-manager-32" title="§ 14.1 The digitalCredentials Module">§ 14.1 The digitalCredentials Module</a> 
+      <a href="#ref-for-index-term-credential-manager-34" title="§ 14.1 The digitalCredentials Module">§ 14.1 The digitalCredentials Module</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-credentialcreationoptions" aria-label="Links in this document to definition: CredentialCreationOptions">
@@ -6732,53 +6795,57 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-index-term-user-agents-7" title="§ 5. Protocols">§ 5. Protocols</a> <a href="#ref-for-index-term-user-agents-8" title="Reference 2">(2)</a> <a href="#ref-for-index-term-user-agents-9" title="Reference 3">(3)</a> 
     </li><li>
-      <a href="#ref-for-index-term-user-agents-10" title="§ 6.7 Initiate the credential request">§ 6.7 Initiate the credential request</a> <a href="#ref-for-index-term-user-agents-11" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-user-agents-10" title="§ 6.4 Validate credential requests">§ 6.4 Validate credential requests</a> <a href="#ref-for-index-term-user-agents-11" title="Reference 2">(2)</a> <a href="#ref-for-index-term-user-agents-12" title="Reference 3">(3)</a> <a href="#ref-for-index-term-user-agents-13" title="Reference 4">(4)</a> 
     </li><li>
-      <a href="#ref-for-index-term-user-agents-12" title="§ 7. The Digital Credentials API">§ 7. The Digital Credentials API</a> 
+      <a href="#ref-for-index-term-user-agents-14" title="§ 6.7 Initiate the credential request">§ 6.7 Initiate the credential request</a> <a href="#ref-for-index-term-user-agents-15" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-index-term-user-agents-13" title="§ 7.7 The DigitalCredential interface">§ 7.7 The DigitalCredential interface</a> <a href="#ref-for-index-term-user-agents-14" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-user-agents-16" title="§ 7. The Digital Credentials API">§ 7. The Digital Credentials API</a> 
     </li><li>
-      <a href="#ref-for-index-term-user-agents-15" title="§ 11. Privacy Considerations">§ 11. Privacy Considerations</a> 
+      <a href="#ref-for-index-term-user-agents-17" title="§ 7.7 The DigitalCredential interface">§ 7.7 The DigitalCredential interface</a> <a href="#ref-for-index-term-user-agents-18" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-index-term-user-agents-16" title="§ 11.1 Design Considerations and Alternatives">§ 11.1 Design Considerations and Alternatives</a> <a href="#ref-for-index-term-user-agents-17" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-user-agents-19" title="§ 10.1.2 Out of Scope Threats">§ 10.1.2 Out of Scope Threats</a> 
     </li><li>
-      <a href="#ref-for-index-term-user-agents-18" title="§ 11.2 Spectrum of Privacy">§ 11.2 Spectrum of Privacy</a> <a href="#ref-for-index-term-user-agents-19" title="Reference 2">(2)</a> <a href="#ref-for-index-term-user-agents-20" title="Reference 3">(3)</a> 
+      <a href="#ref-for-index-term-user-agents-20" title="§ 11. Privacy Considerations">§ 11. Privacy Considerations</a> 
     </li><li>
-      <a href="#ref-for-index-term-user-agents-21" title="§ 11.3 Presentation Protocol and Credential Format">§ 11.3 Presentation Protocol and Credential Format</a> 
+      <a href="#ref-for-index-term-user-agents-21" title="§ 11.1 Design Considerations and Alternatives">§ 11.1 Design Considerations and Alternatives</a> <a href="#ref-for-index-term-user-agents-22" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-index-term-user-agents-22" title="§ 11.3.1.2 Unlinkable presentations">§ 11.3.1.2 Unlinkable presentations</a> <a href="#ref-for-index-term-user-agents-23" title="Reference 2">(2)</a> <a href="#ref-for-index-term-user-agents-24" title="Reference 3">(3)</a> 
+      <a href="#ref-for-index-term-user-agents-23" title="§ 11.2 Spectrum of Privacy">§ 11.2 Spectrum of Privacy</a> <a href="#ref-for-index-term-user-agents-24" title="Reference 2">(2)</a> <a href="#ref-for-index-term-user-agents-25" title="Reference 3">(3)</a> 
     </li><li>
-      <a href="#ref-for-index-term-user-agents-25" title="§ 11.3.1.3 &quot;Phone home&quot; mechanisms">§ 11.3.1.3 "Phone home" mechanisms</a> <a href="#ref-for-index-term-user-agents-26" title="Reference 2">(2)</a> <a href="#ref-for-index-term-user-agents-27" title="Reference 3">(3)</a> 
+      <a href="#ref-for-index-term-user-agents-26" title="§ 11.3 Presentation Protocol and Credential Format">§ 11.3 Presentation Protocol and Credential Format</a> 
     </li><li>
-      <a href="#ref-for-index-term-user-agents-28" title="§ 11.3.1.6 Support for verifier authorization">§ 11.3.1.6 Support for verifier authorization</a> <a href="#ref-for-index-term-user-agents-29" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-user-agents-27" title="§ 11.3.1.2 Unlinkable presentations">§ 11.3.1.2 Unlinkable presentations</a> <a href="#ref-for-index-term-user-agents-28" title="Reference 2">(2)</a> <a href="#ref-for-index-term-user-agents-29" title="Reference 3">(3)</a> 
     </li><li>
-      <a href="#ref-for-index-term-user-agents-30" title="§ 11.4 Unnecessary Requests for Credentials">§ 11.4 Unnecessary Requests for Credentials</a> <a href="#ref-for-index-term-user-agents-31" title="Reference 2">(2)</a> <a href="#ref-for-index-term-user-agents-32" title="Reference 3">(3)</a> <a href="#ref-for-index-term-user-agents-33" title="Reference 4">(4)</a> <a href="#ref-for-index-term-user-agents-34" title="Reference 5">(5)</a> <a href="#ref-for-index-term-user-agents-35" title="Reference 6">(6)</a> 
+      <a href="#ref-for-index-term-user-agents-30" title="§ 11.3.1.3 &quot;Phone home&quot; mechanisms">§ 11.3.1.3 "Phone home" mechanisms</a> <a href="#ref-for-index-term-user-agents-31" title="Reference 2">(2)</a> <a href="#ref-for-index-term-user-agents-32" title="Reference 3">(3)</a> 
     </li><li>
-      <a href="#ref-for-index-term-user-agents-36" title="§ 11.4.1.2 Risk of proliferation of requests for government credentials">§ 11.4.1.2 Risk of proliferation of requests for government credentials</a> <a href="#ref-for-index-term-user-agents-37" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-user-agents-33" title="§ 11.3.1.6 Support for verifier authorization">§ 11.3.1.6 Support for verifier authorization</a> <a href="#ref-for-index-term-user-agents-34" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-index-term-user-agents-38" title="§ 11.4.1.3 Mitigating unnecessary requests for government credentials">§ 11.4.1.3 Mitigating unnecessary requests for government credentials</a> <a href="#ref-for-index-term-user-agents-39" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-user-agents-35" title="§ 11.4 Unnecessary Requests for Credentials">§ 11.4 Unnecessary Requests for Credentials</a> <a href="#ref-for-index-term-user-agents-36" title="Reference 2">(2)</a> <a href="#ref-for-index-term-user-agents-37" title="Reference 3">(3)</a> <a href="#ref-for-index-term-user-agents-38" title="Reference 4">(4)</a> <a href="#ref-for-index-term-user-agents-39" title="Reference 5">(5)</a> <a href="#ref-for-index-term-user-agents-40" title="Reference 6">(6)</a> 
     </li><li>
-      <a href="#ref-for-index-term-user-agents-40" title="§ 11.4.2.3 Mitigating unnecessary requests for non-government credentials">§ 11.4.2.3 Mitigating unnecessary requests for non-government credentials</a> <a href="#ref-for-index-term-user-agents-41" title="Reference 2">(2)</a> <a href="#ref-for-index-term-user-agents-42" title="Reference 3">(3)</a> <a href="#ref-for-index-term-user-agents-43" title="Reference 4">(4)</a> <a href="#ref-for-index-term-user-agents-44" title="Reference 5">(5)</a> 
+      <a href="#ref-for-index-term-user-agents-41" title="§ 11.4.1.2 Risk of proliferation of requests for government credentials">§ 11.4.1.2 Risk of proliferation of requests for government credentials</a> <a href="#ref-for-index-term-user-agents-42" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-index-term-user-agents-45" title="§ 11.5.2 Leaking incidental data with credential presentations">§ 11.5.2 Leaking incidental data with credential presentations</a> 
+      <a href="#ref-for-index-term-user-agents-43" title="§ 11.4.1.3 Mitigating unnecessary requests for government credentials">§ 11.4.1.3 Mitigating unnecessary requests for government credentials</a> <a href="#ref-for-index-term-user-agents-44" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-index-term-user-agents-46" title="§ 11.5.3 Revealing device properties through protocol availability">§ 11.5.3 Revealing device properties through protocol availability</a> <a href="#ref-for-index-term-user-agents-47" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-user-agents-45" title="§ 11.4.2.3 Mitigating unnecessary requests for non-government credentials">§ 11.4.2.3 Mitigating unnecessary requests for non-government credentials</a> <a href="#ref-for-index-term-user-agents-46" title="Reference 2">(2)</a> <a href="#ref-for-index-term-user-agents-47" title="Reference 3">(3)</a> <a href="#ref-for-index-term-user-agents-48" title="Reference 4">(4)</a> <a href="#ref-for-index-term-user-agents-49" title="Reference 5">(5)</a> 
     </li><li>
-      <a href="#ref-for-index-term-user-agents-48" title="§ 11.6 User Permission and Transparency">§ 11.6 User Permission and Transparency</a> <a href="#ref-for-index-term-user-agents-49" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-user-agents-50" title="§ 11.5.2 Leaking incidental data with credential presentations">§ 11.5.2 Leaking incidental data with credential presentations</a> 
     </li><li>
-      <a href="#ref-for-index-term-user-agents-50" title="§ 11.6.2 Integrating Multiple User Agents">§ 11.6.2 Integrating Multiple User Agents</a> <a href="#ref-for-index-term-user-agents-51" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-user-agents-51" title="§ 11.5.3 Revealing device properties through protocol availability">§ 11.5.3 Revealing device properties through protocol availability</a> <a href="#ref-for-index-term-user-agents-52" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-index-term-user-agents-52" title="§ 11.6.3 Permission Prior to Credential Manager Selection">§ 11.6.3 Permission Prior to Credential Manager Selection</a> 
+      <a href="#ref-for-index-term-user-agents-53" title="§ 11.6 User Permission and Transparency">§ 11.6 User Permission and Transparency</a> <a href="#ref-for-index-term-user-agents-54" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-index-term-user-agents-53" title="§ 11.6.4 Permission vs. Consent">§ 11.6.4 Permission vs. Consent</a> <a href="#ref-for-index-term-user-agents-54" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-user-agents-55" title="§ 11.6.2 Integrating Multiple User Agents">§ 11.6.2 Integrating Multiple User Agents</a> <a href="#ref-for-index-term-user-agents-56" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-index-term-user-agents-55" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> <a href="#ref-for-index-term-user-agents-56" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-user-agents-57" title="§ 11.6.3 Permission Prior to Credential Manager Selection">§ 11.6.3 Permission Prior to Credential Manager Selection</a> 
     </li><li>
-      <a href="#ref-for-index-term-user-agents-57" title="§ 13. Internationalization Considerations">§ 13. Internationalization Considerations</a> 
+      <a href="#ref-for-index-term-user-agents-58" title="§ 11.6.4 Permission vs. Consent">§ 11.6.4 Permission vs. Consent</a> <a href="#ref-for-index-term-user-agents-59" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-index-term-user-agents-58" title="§ 14. Automated Testing">§ 14. Automated Testing</a> 
+      <a href="#ref-for-index-term-user-agents-60" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> <a href="#ref-for-index-term-user-agents-61" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-index-term-user-agents-59" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
+      <a href="#ref-for-index-term-user-agents-62" title="§ 13. Internationalization Considerations">§ 13. Internationalization Considerations</a> 
+    </li><li>
+      <a href="#ref-for-index-term-user-agents-63" title="§ 14. Automated Testing">§ 14. Automated Testing</a> 
+    </li><li>
+      <a href="#ref-for-index-term-user-agents-64" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-express-permission" aria-label="Links in this document to definition: express permission">
@@ -6989,41 +7056,43 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-index-term-verifiers-6" title="§ 7.7.3 The userAgentAllowsProtocol() method">§ 7.7.3 The userAgentAllowsProtocol() method</a> 
     </li><li>
-      <a href="#ref-for-index-term-verifiers-7" title="§ 10.3 Cross-Device Security and Proximity">§ 10.3 Cross-Device Security and Proximity</a> 
+      <a href="#ref-for-index-term-verifiers-7" title="§ 10.1.2 Out of Scope Threats">§ 10.1.2 Out of Scope Threats</a> 
     </li><li>
-      <a href="#ref-for-index-term-verifiers-8" title="§ 11. Privacy Considerations">§ 11. Privacy Considerations</a> 
+      <a href="#ref-for-index-term-verifiers-8" title="§ 10.3 Cross-Device Security and Proximity">§ 10.3 Cross-Device Security and Proximity</a> 
     </li><li>
-      <a href="#ref-for-index-term-verifiers-9" title="§ 11.1 Design Considerations and Alternatives">§ 11.1 Design Considerations and Alternatives</a> 
+      <a href="#ref-for-index-term-verifiers-9" title="§ 11. Privacy Considerations">§ 11. Privacy Considerations</a> 
     </li><li>
-      <a href="#ref-for-index-term-verifiers-10" title="§ 11.3.1.1 Selective disclosure">§ 11.3.1.1 Selective disclosure</a> <a href="#ref-for-index-term-verifiers-11" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-verifiers-10" title="§ 11.1 Design Considerations and Alternatives">§ 11.1 Design Considerations and Alternatives</a> 
     </li><li>
-      <a href="#ref-for-index-term-verifiers-12" title="§ 11.3.1.2 Unlinkable presentations">§ 11.3.1.2 Unlinkable presentations</a> <a href="#ref-for-index-term-verifiers-13" title="Reference 2">(2)</a> <a href="#ref-for-index-term-verifiers-14" title="Reference 3">(3)</a> <a href="#ref-for-index-term-verifiers-15" title="Reference 4">(4)</a> <a href="#ref-for-index-term-verifiers-16" title="Reference 5">(5)</a> 
+      <a href="#ref-for-index-term-verifiers-11" title="§ 11.3.1.1 Selective disclosure">§ 11.3.1.1 Selective disclosure</a> <a href="#ref-for-index-term-verifiers-12" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-index-term-verifiers-17" title="§ 11.3.1.3 &quot;Phone home&quot; mechanisms">§ 11.3.1.3 "Phone home" mechanisms</a> 
+      <a href="#ref-for-index-term-verifiers-13" title="§ 11.3.1.2 Unlinkable presentations">§ 11.3.1.2 Unlinkable presentations</a> <a href="#ref-for-index-term-verifiers-14" title="Reference 2">(2)</a> <a href="#ref-for-index-term-verifiers-15" title="Reference 3">(3)</a> <a href="#ref-for-index-term-verifiers-16" title="Reference 4">(4)</a> <a href="#ref-for-index-term-verifiers-17" title="Reference 5">(5)</a> 
     </li><li>
-      <a href="#ref-for-index-term-verifiers-18" title="§ 11.3.1.4 Unlinkable revocation">§ 11.3.1.4 Unlinkable revocation</a> 
+      <a href="#ref-for-index-term-verifiers-18" title="§ 11.3.1.3 &quot;Phone home&quot; mechanisms">§ 11.3.1.3 "Phone home" mechanisms</a> 
     </li><li>
-      <a href="#ref-for-index-term-verifiers-19" title="§ 11.3.1.6 Support for verifier authorization">§ 11.3.1.6 Support for verifier authorization</a> <a href="#ref-for-index-term-verifiers-20" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-verifiers-19" title="§ 11.3.1.4 Unlinkable revocation">§ 11.3.1.4 Unlinkable revocation</a> 
     </li><li>
-      <a href="#ref-for-index-term-verifiers-21" title="§ 11.3.1.7 Encrypting credential responses">§ 11.3.1.7 Encrypting credential responses</a> <a href="#ref-for-index-term-verifiers-22" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-verifiers-20" title="§ 11.3.1.6 Support for verifier authorization">§ 11.3.1.6 Support for verifier authorization</a> <a href="#ref-for-index-term-verifiers-21" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-index-term-verifiers-23" title="§ 11.4 Unnecessary Requests for Credentials">§ 11.4 Unnecessary Requests for Credentials</a> <a href="#ref-for-index-term-verifiers-24" title="Reference 2">(2)</a> <a href="#ref-for-index-term-verifiers-25" title="Reference 3">(3)</a> <a href="#ref-for-index-term-verifiers-26" title="Reference 4">(4)</a> <a href="#ref-for-index-term-verifiers-27" title="Reference 5">(5)</a> 
+      <a href="#ref-for-index-term-verifiers-22" title="§ 11.3.1.7 Encrypting credential responses">§ 11.3.1.7 Encrypting credential responses</a> <a href="#ref-for-index-term-verifiers-23" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-index-term-verifiers-28" title="§ 11.4.1.2 Risk of proliferation of requests for government credentials">§ 11.4.1.2 Risk of proliferation of requests for government credentials</a> 
+      <a href="#ref-for-index-term-verifiers-24" title="§ 11.4 Unnecessary Requests for Credentials">§ 11.4 Unnecessary Requests for Credentials</a> <a href="#ref-for-index-term-verifiers-25" title="Reference 2">(2)</a> <a href="#ref-for-index-term-verifiers-26" title="Reference 3">(3)</a> <a href="#ref-for-index-term-verifiers-27" title="Reference 4">(4)</a> <a href="#ref-for-index-term-verifiers-28" title="Reference 5">(5)</a> 
     </li><li>
-      <a href="#ref-for-index-term-verifiers-29" title="§ 11.4.1.3 Mitigating unnecessary requests for government credentials">§ 11.4.1.3 Mitigating unnecessary requests for government credentials</a> <a href="#ref-for-index-term-verifiers-30" title="Reference 2">(2)</a> <a href="#ref-for-index-term-verifiers-31" title="Reference 3">(3)</a> <a href="#ref-for-index-term-verifiers-32" title="Reference 4">(4)</a> 
+      <a href="#ref-for-index-term-verifiers-29" title="§ 11.4.1.2 Risk of proliferation of requests for government credentials">§ 11.4.1.2 Risk of proliferation of requests for government credentials</a> 
     </li><li>
-      <a href="#ref-for-index-term-verifiers-33" title="§ 11.4.2.2 Risk of proliferation of requests for non-government credentials">§ 11.4.2.2 Risk of proliferation of requests for non-government credentials</a> 
+      <a href="#ref-for-index-term-verifiers-30" title="§ 11.4.1.3 Mitigating unnecessary requests for government credentials">§ 11.4.1.3 Mitigating unnecessary requests for government credentials</a> <a href="#ref-for-index-term-verifiers-31" title="Reference 2">(2)</a> <a href="#ref-for-index-term-verifiers-32" title="Reference 3">(3)</a> <a href="#ref-for-index-term-verifiers-33" title="Reference 4">(4)</a> 
     </li><li>
-      <a href="#ref-for-index-term-verifiers-34" title="§ 11.4.2.4 Reporting abuse">§ 11.4.2.4 Reporting abuse</a> 
+      <a href="#ref-for-index-term-verifiers-34" title="§ 11.4.2.2 Risk of proliferation of requests for non-government credentials">§ 11.4.2.2 Risk of proliferation of requests for non-government credentials</a> 
     </li><li>
-      <a href="#ref-for-index-term-verifiers-35" title="§ 11.5.1 Browser fingerprinting">§ 11.5.1 Browser fingerprinting</a> <a href="#ref-for-index-term-verifiers-36" title="Reference 2">(2)</a> <a href="#ref-for-index-term-verifiers-37" title="Reference 3">(3)</a> <a href="#ref-for-index-term-verifiers-38" title="Reference 4">(4)</a> 
+      <a href="#ref-for-index-term-verifiers-35" title="§ 11.4.2.4 Reporting abuse">§ 11.4.2.4 Reporting abuse</a> 
     </li><li>
-      <a href="#ref-for-index-term-verifiers-39" title="§ 11.5.2 Leaking incidental data with credential presentations">§ 11.5.2 Leaking incidental data with credential presentations</a> <a href="#ref-for-index-term-verifiers-40" title="Reference 2">(2)</a> <a href="#ref-for-index-term-verifiers-41" title="Reference 3">(3)</a> <a href="#ref-for-index-term-verifiers-42" title="Reference 4">(4)</a> 
+      <a href="#ref-for-index-term-verifiers-36" title="§ 11.5.1 Browser fingerprinting">§ 11.5.1 Browser fingerprinting</a> <a href="#ref-for-index-term-verifiers-37" title="Reference 2">(2)</a> <a href="#ref-for-index-term-verifiers-38" title="Reference 3">(3)</a> <a href="#ref-for-index-term-verifiers-39" title="Reference 4">(4)</a> 
     </li><li>
-      <a href="#ref-for-index-term-verifiers-43" title="§ 11.6 User Permission and Transparency">§ 11.6 User Permission and Transparency</a> 
+      <a href="#ref-for-index-term-verifiers-40" title="§ 11.5.2 Leaking incidental data with credential presentations">§ 11.5.2 Leaking incidental data with credential presentations</a> <a href="#ref-for-index-term-verifiers-41" title="Reference 2">(2)</a> <a href="#ref-for-index-term-verifiers-42" title="Reference 3">(3)</a> <a href="#ref-for-index-term-verifiers-43" title="Reference 4">(4)</a> 
     </li><li>
-      <a href="#ref-for-index-term-verifiers-44" title="§ 11.6.4 Permission vs. Consent">§ 11.6.4 Permission vs. Consent</a> <a href="#ref-for-index-term-verifiers-45" title="Reference 2">(2)</a> <a href="#ref-for-index-term-verifiers-46" title="Reference 3">(3)</a> <a href="#ref-for-index-term-verifiers-47" title="Reference 4">(4)</a> <a href="#ref-for-index-term-verifiers-48" title="Reference 5">(5)</a> 
+      <a href="#ref-for-index-term-verifiers-44" title="§ 11.6 User Permission and Transparency">§ 11.6 User Permission and Transparency</a> 
+    </li><li>
+      <a href="#ref-for-index-term-verifiers-45" title="§ 11.6.4 Permission vs. Consent">§ 11.6.4 Permission vs. Consent</a> <a href="#ref-for-index-term-verifiers-46" title="Reference 2">(2)</a> <a href="#ref-for-index-term-verifiers-47" title="Reference 3">(3)</a> <a href="#ref-for-index-term-verifiers-48" title="Reference 4">(4)</a> <a href="#ref-for-index-term-verifiers-49" title="Reference 5">(5)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-error" aria-label="Links in this document to definition: error">
@@ -7164,6 +7233,19 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-boolean-type-2" title="§ B. IDL Index">§ B. IDL Index</a> 
     </li>
   </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-create-for-exception" aria-label="Links in this document to definition: create (for exception)">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="https://webidl.spec.whatwg.org/#dfn-create-exception" aria-label="Permalink for definition: create (for exception). Activate to close this dialog.">Permalink</a>
+         
+        
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-index-term-create-for-exception-1" title="§ 6.4 Validate credential requests">§ 6.4 Validate credential requests</a> <a href="#ref-for-index-term-create-for-exception-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-create-for-exception-3" title="Reference 3">(3)</a> <a href="#ref-for-index-term-create-for-exception-4" title="Reference 4">(4)</a> 
+    </li>
+  </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-default-extended-attribute" aria-label="Links in this document to definition: [Default] extended attribute">
       <span class="caret"></span>
       <div>
@@ -7206,11 +7288,13 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <li>
       <a href="#ref-for-index-term-domexception-interface-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> <a href="#ref-for-index-term-domexception-interface-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-domexception-interface-3" title="Reference 3">(3)</a> <a href="#ref-for-index-term-domexception-interface-4" title="Reference 4">(4)</a> <a href="#ref-for-index-term-domexception-interface-5" title="Reference 5">(5)</a> <a href="#ref-for-index-term-domexception-interface-6" title="Reference 6">(6)</a> 
     </li><li>
-      <a href="#ref-for-index-term-domexception-interface-7" title="§ 6.7 Initiate the credential request">§ 6.7 Initiate the credential request</a> <a href="#ref-for-index-term-domexception-interface-8" title="Reference 2">(2)</a> <a href="#ref-for-index-term-domexception-interface-9" title="Reference 3">(3)</a> <a href="#ref-for-index-term-domexception-interface-10" title="Reference 4">(4)</a> 
+      <a href="#ref-for-index-term-domexception-interface-7" title="§ 6.4 Validate credential requests">§ 6.4 Validate credential requests</a> <a href="#ref-for-index-term-domexception-interface-8" title="Reference 2">(2)</a> <a href="#ref-for-index-term-domexception-interface-9" title="Reference 3">(3)</a> 
     </li><li>
-      <a href="#ref-for-index-term-domexception-interface-11" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> 
+      <a href="#ref-for-index-term-domexception-interface-10" title="§ 6.7 Initiate the credential request">§ 6.7 Initiate the credential request</a> <a href="#ref-for-index-term-domexception-interface-11" title="Reference 2">(2)</a> <a href="#ref-for-index-term-domexception-interface-12" title="Reference 3">(3)</a> <a href="#ref-for-index-term-domexception-interface-13" title="Reference 4">(4)</a> 
     </li><li>
-      <a href="#ref-for-index-term-domexception-interface-12" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
+      <a href="#ref-for-index-term-domexception-interface-14" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> 
+    </li><li>
+      <a href="#ref-for-index-term-domexception-interface-15" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-domstring-interface" aria-label="Links in this document to definition: DOMString interface">
@@ -7265,11 +7349,11 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-index-term-exception-2" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> 
     </li><li>
-      <a href="#ref-for-index-term-exception-3" title="§ 6.4 Validate credential requests">§ 6.4 Validate credential requests</a> <a href="#ref-for-index-term-exception-4" title="Reference 2">(2)</a> <a href="#ref-for-index-term-exception-5" title="Reference 3">(3)</a> 
+      <a href="#ref-for-index-term-exception-3" title="§ 6.4 Validate credential requests">§ 6.4 Validate credential requests</a> <a href="#ref-for-index-term-exception-4" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-index-term-exception-6" title="§ 6.7 Initiate the credential request">§ 6.7 Initiate the credential request</a> 
+      <a href="#ref-for-index-term-exception-5" title="§ 6.7 Initiate the credential request">§ 6.7 Initiate the credential request</a> 
     </li><li>
-      <a href="#ref-for-index-term-exception-7" title="§ 14.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 14.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> 
+      <a href="#ref-for-index-term-exception-6" title="§ 14.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command">§ 14.1.2.1 The digitalCredentials.setVirtualWalletBehavior Command</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-exposed-extended-attribute" aria-label="Links in this document to definition: [Exposed] extended attribute">
@@ -7344,11 +7428,13 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <li>
       <a href="#ref-for-index-term-notallowederror-exception-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> <a href="#ref-for-index-term-notallowederror-exception-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-notallowederror-exception-3" title="Reference 3">(3)</a> 
     </li><li>
-      <a href="#ref-for-index-term-notallowederror-exception-4" title="§ 6.7 Initiate the credential request">§ 6.7 Initiate the credential request</a> <a href="#ref-for-index-term-notallowederror-exception-5" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-notallowederror-exception-4" title="§ 6.4 Validate credential requests">§ 6.4 Validate credential requests</a> <a href="#ref-for-index-term-notallowederror-exception-5" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-index-term-notallowederror-exception-6" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> 
+      <a href="#ref-for-index-term-notallowederror-exception-6" title="§ 6.7 Initiate the credential request">§ 6.7 Initiate the credential request</a> <a href="#ref-for-index-term-notallowederror-exception-7" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-index-term-notallowederror-exception-7" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
+      <a href="#ref-for-index-term-notallowederror-exception-8" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> 
+    </li><li>
+      <a href="#ref-for-index-term-notallowederror-exception-9" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-object-type-0" aria-label="Links in this document to definition: object type">
@@ -7380,9 +7466,11 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-operationerror-exception-1" title="§ 6.7 Initiate the credential request">§ 6.7 Initiate the credential request</a> 
+      <a href="#ref-for-index-term-operationerror-exception-1" title="§ 6.4 Validate credential requests">§ 6.4 Validate credential requests</a> 
     </li><li>
-      <a href="#ref-for-index-term-operationerror-exception-2" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> 
+      <a href="#ref-for-index-term-operationerror-exception-2" title="§ 6.7 Initiate the credential request">§ 6.7 Initiate the credential request</a> 
+    </li><li>
+      <a href="#ref-for-index-term-operationerror-exception-3" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-promise-interface" aria-label="Links in this document to definition: Promise interface">
@@ -7498,6 +7586,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <ul>
     <li>
       <a href="#ref-for-index-term-securityerror-exception-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> 
+    </li><li>
+      <a href="#ref-for-index-term-securityerror-exception-2" title="§ 6.4 Validate credential requests">§ 6.4 Validate credential requests</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-sequence" aria-label="Links in this document to definition: sequence">
@@ -7565,13 +7655,15 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-index-term-typeerror-exception-2" title="§ 6.3 Filter credential requests">§ 6.3 Filter credential requests</a> 
     </li><li>
-      <a href="#ref-for-index-term-typeerror-exception-3" title="§ 6.7 Initiate the credential request">§ 6.7 Initiate the credential request</a> <a href="#ref-for-index-term-typeerror-exception-4" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-typeerror-exception-3" title="§ 6.4 Validate credential requests">§ 6.4 Validate credential requests</a> 
     </li><li>
-      <a href="#ref-for-index-term-typeerror-exception-5" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
+      <a href="#ref-for-index-term-typeerror-exception-4" title="§ 6.7 Initiate the credential request">§ 6.7 Initiate the credential request</a> <a href="#ref-for-index-term-typeerror-exception-5" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-index-term-typeerror-exception-6" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
+      <a href="#ref-for-index-term-typeerror-exception-6" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
     </li><li>
-      <a href="#ref-for-index-term-typeerror-exception-7" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> 
+      <a href="#ref-for-index-term-typeerror-exception-7" title="§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method">§ 8.3 [[Create]](origin, options, sameOriginWithAncestors) internal method</a> 
+    </li><li>
+      <a href="#ref-for-index-term-typeerror-exception-8" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> 
     </li>
   </ul>
     </div><script id="respec-copy-paste">
