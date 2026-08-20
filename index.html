@@ -141,9 +141,10 @@
       requests=], ensuring that sites cannot silently request or issue digital
       credentials without the user's active participation.
       </li>
-      <li>Enable platform-provided UX for credential and wallet selection
-      during requests for [=digital credential/presentation|presentation=] or
-      [=digital credential/issuance|issuance=].
+      <li>Enable platform-provided UX for credential and [=credential manager=]
+      selection during requests for [=digital
+      credential/presentation|presentation=] or [=digital
+      credential/issuance|issuance=].
       </li>
       <li>Enable platforms to provide secure cross-device [=digital
       credential/presentation requests=] and [=digital credential/issuance
@@ -177,22 +178,22 @@
         Examples of usage
       </h2>
       <p>
-        The following examples illustrate how the Digital Credentials API can
-        be used to request and issue digital credentials.
+        The following examples illustrate how the [[[#DC-API|API]]] can be used
+        to request and issue digital credentials.
       </p>
       <h3>
         Feature Detection
       </h3>
       <p>
-        Before using the Digital Credentials API, it's important to check if
-        the user agent supports the necessary features. This can be done using
-        the following code:
+        Before using the [[[#DC-API|API]]], it's important to check if the user
+        agent supports the necessary features. This can be done using the
+        following code:
       </p>
       <pre class="example js" title="Checking for API support">
         if (typeof DigitalCredential !== "undefined") {
-          // Digital Credentials API is supported
+          // The API is supported
         } else {
-          // Digital Credentials API is not supported
+          // The API is not supported
         }
       </pre>
       <h3>
@@ -266,7 +267,7 @@
       </h3>
       <p>
         The following example shows how to request a digital credential using
-        the Digital Credentials API. The entry point for the API is the
+        the [[[#DC-API|API]]]. The entry point for the API is the
         `navigator.credentials.`{{CredentialsContainer/get()}} method, which is
         used to request a [=digital credential=] from the user agent. If the
         user agent supports [=digital credential/presentation
@@ -321,17 +322,17 @@
       </pre>
       <p>
         Similarly, when a site needs to [=digital credential/issuance|issue=] a
-        digital credential, the Digital Credentials API mediates the issuance
-        of a digital credential between the site, the user agent, and the
-        [=holder=].
+        digital credential, the [[[#DC-API|Digital Credentials API]]] mediates
+        the issuance of a digital credential between the site, the user agent,
+        and the [=holder=].
       </p>
       <h3>
         Issuing a digital credential
       </h3>
       <p>
         The following example shows how to request the issuance of a digital
-        credential using the Digital Credentials API. To issue a digital
-        credential, a site calls the
+        credential using the [[[#DC-API|Digital Credentials API]]]. To issue a
+        digital credential, a site calls the
         `navigator.credentials.`{{CredentialsContainer/create()}} method,
         which, if the user agent supports issuance, would initiate the issuance
         flow:
@@ -380,7 +381,7 @@
       </p>
       <pre class="example html" title=
       "Requesting a digital credential across origins">
-        &lt;iframe src="https://wallet-provider.example.com"
+        &lt;iframe src="https://verifier-service.example.com"
                 allow="digital-credentials-get"&gt;
         &lt;/iframe&gt;
       </pre>
@@ -443,11 +444,12 @@
       applications, and hardware components that store, manage, or process
       [=digital credentials=]. This includes the user interface and user
       interactions for selecting a specific credential and obtaining the user's
-      permission to forward a request to the user-selected wallet.
+      permission to forward a request to the user-selected [=credential
+      manager=].
       </li>
-      <li>Implementation of credential managers, specifically in the role of
-      [=holder=] software (commonly known as "digital wallets"), including how
-      they securely store or manage [=digital credentials=] or advertise
+      <li>Implementation of [=credential managers=], specifically in the role
+      of [=holder=] software (commonly known as "digital wallets"), including
+      how they securely store or manage [=digital credentials=] or advertise
       capabilities to [=digital credential/presentation|present=] or [=digital
       credential/issuance|issue=] them to the [=user agent=], is out of scope.
       The only exception is the transmission of [=digital credential/issuance
@@ -455,10 +457,10 @@
       and from such software.
       </li>
     </ul><!--
-    // MARK: Model
+    // MARK: Terminology
     -->
     <h2>
-      Model
+      Terminology
     </h2>
     <p class="note" title="Definitions under discussion">
       The goal of the definitions in this section is to reuse or establish
@@ -499,9 +501,10 @@
         "presentation response">Presentation response</dfn>
       </dt>
       <dd>
-        A format that a [=holder's=] software, such as a digital wallet, uses,
-        via an [=digital credential/presentation protocol=], to respond to a
-        [=digital credential/presentation request=] by a [=verifier=].
+        A format that a [=holder's=] [=credential manager=], such as a digital
+        wallet, uses, via an [=digital credential/presentation protocol=], to
+        respond to a [=digital credential/presentation request=] by a
+        [=verifier=].
       </dd>
       <dt>
         <dfn data-dfn-for="digital credential" data-local-lt=
@@ -598,10 +601,35 @@
       Protocols
     </h2>
     <p>
-      Use of the following [=digital credential/presentation protocols=] is
-      defined by this specification.
+      Use of the following [=digital credential/presentation protocols=] and
+      [=digital credential/issuance protocols=] is defined by this
+      specification.
     </p>
-    <aside class="issue" data-number="439"></aside>
+    <p>
+      A [=user agent=] MUST support all the [=digital credential/presentation
+      protocols=] listed in the [=table of supported presentation and issuance
+      protocols=]. It is RECOMMENDED that [=user agents=] also support all of
+      the [=digital credential/issuance protocols=] listed in [=table of
+      supported presentation and issuance protocols|that table=].
+    </p>
+    <aside class="note" title="Rationale for the required protocols">
+      <p>
+        Requiring every listed [=digital credential/presentation protocol=]
+        means a [=verifier=] can rely on the API regardless of the credential
+        format or request mode used. It also prevents [=user agents=] from each
+        allowing a different subset, which would fragment the ecosystem.
+      </p>
+    </aside>
+    <aside class="note" title="Checking which protocols a user agent allows">
+      <p>
+        Developers can learn which [=digital credential/presentation
+        protocols=] or [=digital credential/issuance protocols=] a user agent
+        allows by calling the
+        `DigitalCredential.`{{DigitalCredential.userAgentAllowsProtocol()}}
+        static method. See [[[#checking-if-protocol-is-allowed]]] for an
+        example of its use.
+      </p>
+    </aside>
     <table class="data">
       <caption>
         <dfn class="export">Table of supported [=digital
@@ -630,8 +658,8 @@
             "DigitalCredentialPresentationProtocol">openid4vp-v1-unsigned</dfn>
           </th>
           <td>
-            [[[OPENID4VP]]] § <a data-cite=
-            "OPENID4VP#name-unsigned-request">A.3.1. Unsigned Request</a>
+            [[[OPENID4VP]]] § [[[OPENID4VP#name-unsigned-request|A.3.1.
+            Unsigned Request]]]
           </td>
         </tr>
         <tr>
@@ -640,8 +668,8 @@
             "DigitalCredentialPresentationProtocol">openid4vp-v1-signed</dfn>
           </th>
           <td>
-            [[[OPENID4VP]]] § <a data-cite=
-            "OPENID4VP#name-signed-request">A.3.2. Signed Request</a>
+            [[[OPENID4VP]]] § [[[OPENID4VP#name-signed-request|A.3.2. Signed
+            Request]]]
           </td>
         </tr>
         <tr>
@@ -650,9 +678,8 @@
             "DigitalCredentialPresentationProtocol">openid4vp-v1-multisigned</dfn>
           </th>
           <td>
-            [[[OPENID4VP]]] § <a data-cite=
-            "OPENID4VP#name-jws-json-serialization">A.3.2.2. JWS JSON
-            Serialization</a> (Multi-signed requests)
+            [[[OPENID4VP]]] § [[[OPENID4VP#name-jws-json-serialization|A.3.2.2.
+            JWS JSON Serialization]]] (Multi-signed requests)
           </td>
         </tr>
         <tr>
@@ -691,6 +718,54 @@
       See [[[#security-considerations-for-protocols]]] for the security
       requirements that protocols listed in this table need to meet.
     </p><!--
+    // MARK: Convert request protocol
+    -->
+    <h3>
+      Convert request protocol
+    </h3>
+    <p>
+      To <dfn>convert request protocol</dfn> given a
+      {{DigitalCredentialGetRequest}} or {{DigitalCredentialCreateRequest}}
+      |request|:
+    </p>
+    <ol class="algorithm">
+      <li>If |request| is:
+        <dl class="switch">
+          <dt>
+            A {{DigitalCredentialGetRequest}}:
+          </dt>
+          <dd>
+            <ol>
+              <li>Let |protocolString| be |request|'s
+              {{DigitalCredentialGetRequest/protocol}}.
+              </li>
+              <li>If |protocolString| does not equal any [=enumeration value=]
+              in {{DigitalCredentialPresentationProtocol}}, return failure.
+              </li>
+              <li>Return the {{DigitalCredentialPresentationProtocol}}
+              [=enumeration value=] whose value is |protocolString|.
+              </li>
+            </ol>
+          </dd>
+          <dt>
+            A {{DigitalCredentialCreateRequest}}:
+          </dt>
+          <dd>
+            <ol>
+              <li>Let |protocolString| be |request|'s
+              {{DigitalCredentialCreateRequest/protocol}}.
+              </li>
+              <li>If |protocolString| does not equal any [=enumeration value=]
+              in {{DigitalCredentialIssuanceProtocol}}, return failure.
+              </li>
+              <li>Return the {{DigitalCredentialIssuanceProtocol}}
+              [=enumeration value=] whose value is |protocolString|.
+              </li>
+            </ol>
+          </dd>
+        </dl>
+      </li>
+    </ol><!--
     // MARK: Credential Request Coordinator
     -->
     <h2>
@@ -746,15 +821,15 @@
     </ul>
     <p>
       A user agent MAY delegate some or all coordinator responsibilities to
-      external wallet applications, platform components, or other trusted
+      external [=credential managers=], platform components, or other trusted
       entities according to user or platform policy.
     </p>
     <aside class="note">
       <p>
         Although the coordinator handles input/output coordination, it is the
-        responsibility of the platform together with available [=holders=], to
-        present the UI that allows the user to choose a [=digital credential=]
-        and/or a [=holder].
+        responsibility of the platform together with available [=credential
+        managers=], to present the UI that allows the user to choose a
+        [=digital credential=] and/or a [=credential manager=].
       </p>
     </aside>
     <h3>
@@ -801,13 +876,33 @@
     </h3>
     <p>
       To <dfn data-dfn-for="credential request coordinator">prepare credential
-      requests</dfn> given a [=Document=] |document:Document|, a [=sequence=]
-      of {{DigitalCredentialGetRequest}} values or a [=sequence=] of
-      {{DigitalCredentialCreateRequest}} values |requests|, a {{Promise}}
-      |promise:Promise|, and an optional {{AbortSignal}} |signal:AbortSignal|:
+      requests</dfn> given a {{Window}} |global|, an [=origin=] |origin|, a
+      [=sequence=] of {{DigitalCredentialGetRequest}} values or a [=sequence=]
+      of {{DigitalCredentialCreateRequest}} values |requests|, and an optional
+      {{AbortSignal}} |signal:AbortSignal|:
     </p>
     <ol class="algorithm">
-      <li>Let |global| be |document|'s [=relevant global object=].
+      <li>Let |realm| be |global|'s [=relevant realm=].
+      </li>
+      <li>If |origin| is an [=opaque origin=], return [=a promise rejected
+      with=] a {{"SecurityError"}} {{DOMException}} in |realm|.
+      </li>
+      <li>Let |document| be |global|'s [=associated `Document`=].
+      </li>
+      <li>If |document| is not [=Document/fully active=], return [=a promise
+      rejected with=] an {{"InvalidStateError"}} {{DOMException}} in |realm|.
+      </li>
+      <li>If |document| is not a [=Document/fully active descendant of a
+      top-level traversable with user attention=], return [=a promise rejected
+      with=] a {{"NotAllowedError"}} {{DOMException}} in |realm|.
+      </li>
+      <li>If |global| does not have [=transient activation=], return [=a
+      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}} in
+      |realm|.
+      </li>
+      <li>[=Consume user activation=] of |global|.
+      </li>
+      <li>Let |promise| be [=a new promise=] in |realm|.
       </li>
       <li>If the [=credential request coordinator=] is not in the "[=credential
       request coordinator/idle=]" [=credential request coordinator/interaction
@@ -817,7 +912,7 @@
           given |global| to [=reject=] |promise| with a {{"NotAllowedError"}}
           {{DOMException}}.
           </li>
-          <li>Return.
+          <li>Return |promise|.
           </li>
         </ol>
       </li>
@@ -838,7 +933,7 @@
           <li>[=credential request coordinator/Reject the credential request
           with=] |error| and |promise|.
           </li>
-          <li>Return.
+          <li>Return |promise|.
           </li>
         </ol>
       </li>
@@ -847,7 +942,7 @@
           <li>[=credential request coordinator/Reject the credential request
           with=] a newly created {{TypeError}} and |promise|.
           </li>
-          <li>Return.
+          <li>Return |promise|.
           </li>
         </ol>
       </li>
@@ -863,7 +958,8 @@
           <li>Set the [=credential request coordinator=]'s [=credential request
           coordinator/abort signal=] to |signal|.
           </li>
-          <li>Let |abortAlgorithm| be the following algorithm:
+          <li>Let |abortAlgorithm| be the following algorithm, closing over
+          |promise| and |signal|:
             <ol>
               <li>If the [=credential request coordinator=]'s [=credential
               request coordinator/active promise=] is not |promise|, return.
@@ -880,14 +976,59 @@
           </li>
         </ol>
       </li>
-      <li>[=credential request coordinator/Initiate the credential request=]
-      with |document|, |validatedRequests|, |promise|, and |signal|.
-      </li>
       <li>If |document| stops being [=Document/fully active=], [=credential
       request coordinator/abort the credential request=] with an
       {{"AbortError"}} {{DOMException}}.
       </li>
+      <li>Let |handled| be the result of running [=handle virtual wallet
+      behavior=] given |promise| and |global|.
+      </li>
+      <li>If |handled| is `true`, return |promise|.
+      </li>
+      <li>[=credential request coordinator/Initiate the credential request=]
+      with |document|, |validatedRequests|, |promise|, and |signal|.
+      </li>
+      <li>Return |promise|.
+      </li>
     </ol><!--
+    // MARK: Filter credential requests
+    -->
+    <h3>
+      Filter credential requests
+    </h3>
+    <p>
+      To <dfn data-dfn-for="credential request coordinator">filter credential
+      requests</dfn> given a sequence of {{DigitalCredentialGetRequest}} or
+      {{DigitalCredentialCreateRequest}} objects |requests|:
+    </p>
+    <ol class="algorithm">
+      <li>Let |supportedRequests| be a new empty [=list=].
+      </li>
+      <li>[=List/For each=] |request| of |requests|:
+        <ol>
+          <li>Let |protocol| be the result of running [=convert request
+          protocol=] given |request|.
+          </li>
+          <li>If |protocol| is failure, [=iteration/continue=].
+          </li>
+          <li>If [=user agent allows protocol=] given |protocol| returns
+          `false`, [=iteration/continue=].
+          </li>
+          <li>[=list/Append=] |request| to |supportedRequests|.
+          </li>
+        </ol>
+      </li>
+      <li>Return |supportedRequests|.
+      </li>
+    </ol>
+    <p class="note">
+      Filtering happens before [=Consume user activation|consuming user
+      activation=] so that a request whose protocols are all unsupported is
+      rejected with a {{TypeError}} without consuming the user activation.
+      Subsequent validation in [=credential request coordinator/validate
+      credential requests=] can safely assume all remaining requests use
+      supported protocols.
+    </p><!--
     // MARK: Validate credential requests
     -->
     <h3>
@@ -903,23 +1044,6 @@
       </li>
       <li>[=List/For each=] |request| of |requests|:
         <ol>
-          <li>Let |protocol| be |request|'s
-          {{DigitalCredentialGetRequest/protocol}}, if |request| is a
-          {{DigitalCredentialGetRequest}}, or |request|'s
-          {{DigitalCredentialCreateRequest/protocol}}, if |request| is a
-          {{DigitalCredentialCreateRequest}}.
-          </li>
-          <li>If |request| is a {{DigitalCredentialGetRequest}} and |protocol|
-          does not equal any [=enumeration value=] in
-          {{DigitalCredentialPresentationProtocol}}, [=iteration/continue=].
-          </li>
-          <li>If |request| is a {{DigitalCredentialCreateRequest}} and
-          |protocol| does not equal any [=enumeration value=] in
-          {{DigitalCredentialIssuanceProtocol}}, [=iteration/continue=].
-          </li>
-          <li>If [=user agent allows protocol=] given |protocol| returns
-          `false`, [=iteration/continue=].
-          </li>
           <li>Let |data| be |request|'s {{DigitalCredentialGetRequest/data}},
           if |request| is a {{DigitalCredentialGetRequest}}, or |request|'s
           {{DigitalCredentialCreateRequest/data}}, if |request| is a
@@ -934,10 +1058,20 @@
           <li>Validate |request|'s [=digital credential/presentation request
           data=] or [=digital credential/issuance request data=] according to
           |request|'s [=digital credential/presentation protocol=] or [=digital
-          credential/issuance protocol=] or other criteria. Validation
-          requirements are protocol-specific and are outside the scope of this
-          specification:
-            <aside class="note" title="Validation details outside scope">
+          credential/issuance protocol=] or other criteria.
+            <p>
+              In addition to protocol-defined requirements, a [=user agent=]
+              might apply validation criteria based on local policy,
+              configuration, or the user's choices. For example, a [=user
+              agent=] might reject a request that seeks particular credential
+              attributes.
+            </p>
+            <p>
+              What constitutes a validation failure is protocol-specific, but
+              how such a failure is classified into an exception type is
+              defined below:
+            </p>
+            <aside class="note" title="Protocol-specific validation details">
               <p>
                 Validation includes verifying |request|'s [=digital
                 credential/presentation request data=] or [=digital
@@ -952,10 +1086,54 @@
                 during validation.
               </p>
             </aside>
-            <aside class="issue" data-number="472"></aside>
             <ol>
-              <li>If validation fails, [=exception/throw=] an appropriate
-              [=exception=].
+              <li>If validation fails:
+                <ol>
+                  <li>Let |error| be determined as follows:
+                    <dl class="switch">
+                      <dt>
+                        The [=user agent=] does not permit the request based on
+                        local policy, configuration, or the user's choices:
+                      </dt>
+                      <dd>
+                        A [=exception/create|created=] {{"NotAllowedError"}}
+                        {{DOMException}}.
+                        <p class="note">
+                          {{"NotAllowedError"}} is deliberately
+                          indistinguishable from the error returned when the
+                          user cancels the operation, so that a website cannot
+                          determine whether a request was refused by the user
+                          or by the [=user agent=], nor infer anything about
+                          the user's configuration or credentials.
+                        </p>
+                      </dd>
+                      <dt>
+                        The request is not permitted for security reasons
+                        unrelated to the user, such as the context or
+                        transport:
+                      </dt>
+                      <dd>
+                        A [=exception/create|created=] {{"SecurityError"}}
+                        {{DOMException}}.
+                      </dd>
+                      <dt>
+                        The request data is malformed or invalid:
+                      </dt>
+                      <dd>
+                        A [=exception/create|created=] {{TypeError}}.
+                      </dd>
+                      <dt>
+                        Otherwise:
+                      </dt>
+                      <dd>
+                        A [=exception/create|created=] {{"OperationError"}}
+                        {{DOMException}}.
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>[=exception/Throw=] |error|.
+                  </li>
+                </ol>
               </li>
               <li>Otherwise, [=list/append=] |request| to |validatedRequests|.
               </li>
@@ -973,8 +1151,7 @@
     </h3>
     <p>
       To <dfn data-dfn-for="credential request coordinator">abort the
-      credential request</dfn> given a JavaScript value or {{DOMException}}
-      |error|:
+      credential request</dfn> given a JavaScript value |error|:
     </p>
     <ol class="algorithm">
       <li>If the [=credential request coordinator=]'s [=credential request
@@ -1085,7 +1262,11 @@
               <li>The platform encounters an error.
               </li>
             </ul>
-            <aside class="issue" data-number="456"></aside>
+            <p>
+              When a [=user agent=] communicates with a [=credential manager=]
+              located on a different device, it is RECOMMENDED that the [=user
+              agent=] use [[[FIDO-CLIENT-TO-AUTHENTICATOR-PROTOCOL-V2.3]]].
+            </p>
           </li>
           <li>If |signal| is not null and |signal| is [=AbortSignal/aborted=]:
             <ol>
@@ -1244,14 +1425,14 @@
     </ol><!--
     // MARK: The Digital Credentials API
     -->
-    <h2>
+    <h2 id="DC-API">
       The Digital Credentials API
     </h2>
     <p>
-      The Digital Credentials API leverages the [[[credential-management]]]
-      specification, allowing [=user agents=] to mediate the [=digital
-      credential/issuance=] and [=digital credential/presentation=] of
-      [=digital credentials=].
+      The [[[#DC-API|Digital Credentials API]]] leverages the
+      [[[credential-management]]] specification, allowing [=user agents=] to
+      mediate the [=digital credential/issuance=] and [=digital
+      credential/presentation=] of [=digital credentials=].
     </p>
     <p>
       The API allows [=digital credential/presentation request|requesting=] a
@@ -1269,7 +1450,7 @@
     <p>
       Additionally, the API also allows [=digital credential/Issuance
       request|requesting issuance=] of a [=digital credential=], which
-      initiates an mediated issuance flow between the user agent and/or a
+      initiates a mediated issuance flow between the user agent and/or a
       [=holder=]. This is done by calling the
       `navigator.credentials.`{{CredentialsContainer/create()}} method, which
       runs the [=create a credential=] algorithm of
@@ -1279,8 +1460,9 @@
       internal method.
     </p>
     <p>
-      Please see [[[#credential-management-integration]]] for complete details
-      of how to integrate with the [[[credential-management]]] specification.
+      Please see [[[#credential-management-integration|Credential Management
+      Integration]]] for complete details of how to integrate with the
+      [[[credential-management]]] specification.
     </p><!--
     // MARK: CredentialRequestOptions
     -->
@@ -1316,7 +1498,7 @@
       The <dfn data-dfn-for="DigitalCredentialRequestOptions">requests</dfn>
       specify an [=digital credential/presentation protocol=] and [=digital
       credential/presentation request data=], which the user agent MAY match
-      against a [=holder's=] software, such as a digital wallet.
+      against a [=credential manager=], such as a digital wallet.
     </p><!--
     // MARK: DigitalCredentialGetRequest
     -->
@@ -1328,7 +1510,7 @@
       credential/presentation request=]. It is used to specify an [=digital
       credential/presentation protocol=] and some [=digital
       credential/presentation request data=], which the user agent MAY match
-      against software used by a [=holder=], such as a digital wallet.
+      against a [=credential manager=], such as a digital wallet.
     </p>
     <pre class="idl">
       dictionary DigitalCredentialGetRequest {
@@ -1354,7 +1536,7 @@
     <p>
       The <dfn data-dfn-for="DigitalCredentialGetRequest">data</dfn> member is
       the [=digital credential/presentation request data=] to be handled by the
-      [=holder's=] credential provider, such as a digital identity wallet.
+      [=holder's=] [=credential manager=], such as a digital identity wallet.
     </p><!--
     // MARK: CredentialCreationOptions
     -->
@@ -1428,7 +1610,7 @@
     <p>
       The <dfn data-dfn-for="DigitalCredentialCreateRequest">data</dfn> member
       is the [=digital credential/issuance request data=] to be handled by the
-      [=holder's=] credential provider, such as a digital identity wallet.
+      [=holder's=] [=credential manager=], such as a digital identity wallet.
     </p><!--
     // MARK: DigitalCredential interface
     -->
@@ -1453,7 +1635,7 @@
       {{CredentialCreationOptions/mediation}} member is absent or has a value
       other than {{CredentialMediationRequirement/"required"}}. This makes
       {{CredentialMediationRequirement/"required"}} mediation an implicit and
-      non-overridable behavior of the API.
+      non-overridable behavior of the [[[#DC-API|API]]].
     </p>
     <pre class="idl">
     typedef (DigitalCredentialPresentationProtocol or DigitalCredentialIssuanceProtocol) DigitalCredentialProtocol;
@@ -1466,9 +1648,6 @@
       static boolean userAgentAllowsProtocol(DOMString protocol);
     };
     </pre>
-    <p>
-      {{DigitalCredential}} instances are [=Credential/origin bound=].
-    </p>
     <h4>
       The `protocol` member
     </h4>
@@ -1504,13 +1683,13 @@
     <p>
       User agents MUST NOT vary the response value based on any information
       about availability of hardware, presence or configuration of software,
-      wallets, credential providers, or digital credentials, or user
-      configuration or preferences. If the response value varied, the user
-      agent would introduce risks both of fingerprinting and of silently
-      revealing other details about user behavior or configuration. The
-      response value SHOULD vary only by user agent major version and indicate
-      whether the browser supports distributing requests with that protocol to
-      underlying platform or provider.
+      [=credential managers=], or digital credentials, or user configuration or
+      preferences. If the response value varied, the user agent would introduce
+      risks both of fingerprinting and of silently revealing other details
+      about user behavior or configuration. The response value SHOULD vary only
+      by user agent major version and indicate whether the browser supports
+      distributing requests with that protocol to underlying platform or
+      provider.
     </p>
     <p>
       To check whether a <dfn>user agent allows protocol</dfn> given a
@@ -1605,34 +1784,22 @@
       Otherwise:
     </p>
     <ol class="algorithm">
-      <li>Let |signal| be |options|'s {{CredentialRequestOptions/signal}}, if
-      present.
-      </li>
-      <li>If |signal| is [=AbortSignal/aborted=], return [=a promise rejected
-      with=] |signal|'s [=AbortSignal/abort reason=].
-      </li>
-      <li>Let |global| be [=this=]'s [=relevant global object=].
-      </li>
-      <li>Let |document| be |global|'s [=associated `Document`=].
-      </li>
-      <li>If |document| is not a [=Document/fully active descendant of a
-      top-level traversable with user attention=], return [=a promise rejected
-      with=] a {{"NotAllowedError"}} {{DOMException}}.
-      </li>
       <li>Let |requests| be |options|'s {{CredentialRequestOptions/digital}}'s
       {{DigitalCredentialRequestOptions/requests}} member.
       </li>
-      <li>If |global| does not have [=transient activation=], return [=a
-      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
+      <li>Set |requests| to the result of [=credential request
+      coordinator/filter credential requests=] given |requests|.
       </li>
-      <li>[=Consume user activation=] of |global|.
+      <li>If |requests| [=list/is empty=], return [=a promise rejected with=] a
+      newly created {{TypeError}}.
       </li>
-      <li>Let |promise| be [=a new promise=] in [=this=]'s [=relevant realm=].
+      <li>Let |signal| be |options|'s {{CredentialRequestOptions/signal}}, if
+      present.
       </li>
-      <li>[=credential request coordinator/Prepare credential requests=] with
-      |document|, |requests|, |promise|, and |signal|.
+      <li>Let |global| be [=this=]'s [=relevant global object=].
       </li>
-      <li>Return |promise|.
+      <li>Return the result of [=credential request coordinator/prepare
+      credential requests=] given |global|, |origin|, |requests|, and |signal|.
       </li>
     </ol><!--
     // MARK: [[Store]]()
@@ -1662,35 +1829,22 @@
       arguments. Otherwise:
     </p>
     <ol class="algorithm">
-      <li>Let |signal| be |options|'s {{CredentialCreationOptions/signal}}, if
-      present.
-      </li>
-      <li>If |signal| is [=AbortSignal/aborted=], return [=a promise rejected
-      with=] |signal|'s [=AbortSignal/abort reason=].
-      </li>
-      <li>Let |global| be [=this=]'s [=relevant global object=].
-      </li>
-      <li>Let |document| be |global|'s [=associated `Document`=].
-      </li>
-      <li>If |document| is not a [=Document/fully active descendant of a
-      top-level traversable with user attention=], return [=a promise rejected
-      with=] a {{"NotAllowedError"}} {{DOMException}}.
-      </li>
       <li>Let |requests| be |options|'s {{CredentialCreationOptions/digital}}'s
       {{DigitalCredentialCreationOptions/requests}} member.
       </li>
-      <li>If |global| does not have [=transient activation=], return [=a
-      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
+      <li>Set |requests| to the result of [=credential request
+      coordinator/filter credential requests=] given |requests|.
       </li>
-      <li>[=Consume user activation=] of |global|.
+      <li>If |requests| [=list/is empty=], return [=a promise rejected with=] a
+      newly created {{TypeError}}.
       </li>
-      <li>Let |promise| be [=a new promise=] in the [=relevant realm=] of
-      [=this=].
+      <li>Let |signal| be |options|'s {{CredentialCreationOptions/signal}}, if
+      present.
       </li>
-      <li>[=credential request coordinator/Prepare credential requests=] with
-      |document|, |requests|, |promise|, and |signal|.
+      <li>Let |global| be [=this=]'s [=relevant global object=].
       </li>
-      <li>Return |promise|.
+      <li>Return the result of [=credential request coordinator/prepare
+      credential requests=] given |global|, |origin|, |requests|, and |signal|.
       </li>
     </ol><!--
     // MARK: [[type]] internal slot
@@ -1719,7 +1873,7 @@
       User permission
     </h3>
     <p data-cite="permissions">
-      The <cite>Digital Credential API</cite> is a [=powerful feature=] that
+      The [[[#DC-API|Digital Credentials API]]] is a [=powerful feature=] that
       requires [=express permission=] from an end-user. This requirement is
       normatively enforced when calling {{CredentialsContainer}}'s
       {{CredentialsContainer/get()}} method.
@@ -1770,10 +1924,11 @@
         residual threats that remain after the mitigations are applied.
       </p>
       <p class="note">
-        Security considerations that depend on wallet implementations,
-        operating systems, or transport security are described as expectations
-        or preconditions, but these are not normatively required by this
-        specification.
+        Other security considerations that depend on protocols, credential
+        manager implementations, operating systems, or transport security are
+        described as expectations or preconditions, but these are not
+        normatively required by this specification unless already normatively
+        specified.
       </p>
       <h3>
         Threat Model
@@ -1831,10 +1986,10 @@
       </h4>
       <p>
         <dfn>Out-of-scope threats</dfn> are those handled by protocols,
-        wallets, OS platform security, or transport layers. Even if "out of
-        scope", they are relevant because they influence the end-to-end
-        security of credential presentation and issuance. The following defines
-        the [=out-of-scope threats=] for this specification:
+        [=credential managers=], OS platform security, or transport layers.
+        Even if "out of scope", they are relevant because they influence the
+        end-to-end security of credential presentation and issuance. The
+        following defines the [=out-of-scope threats=] for this specification:
       </p>
       <dl>
         <dt>
@@ -1851,6 +2006,21 @@
           validating requests and responses.
         </dd>
       </dl>
+      <ul>
+        <li>
+          <strong>Broken cryptography:</strong> a [=digital
+          credential/presentation protocol=] or [=digital credential/issuance
+          protocol=] can allow an algorithm, parameter, or certificate format
+          that is later found to be unsafe. Noticing that and moving away from
+          it is up to the protocol and to [=credential managers=], since they
+          are the ones that check the cryptography and decide who to trust.
+          This specification does not ask a [=user agent=] to look inside
+          [=digital credential/presentation request data=] or [=digital
+          credential/issuance request data=] to find it. So a [=verifier=] and
+          a [=credential manager=] can keep using something unsafe until the
+          protocol changes and implementations are updated.
+        </li>
+      </ul>
       <h3>
         Security Considerations for the User Agent
       </h3>
@@ -1862,10 +2032,18 @@
         WebIDL [=interfaces=] of the Digital Credential API are only exposed in
         [=secure contexts=], reducing the risk of [=tampering=] through
         [=secure contexts|insecure contexts=] (e.g., a malicious script being
-        injected through the network). Please refer to the <a href=
-        "https://www.w3.org/TR/secure-contexts/#security-considerations">Security
-        Considerations</a> section of the [[[secure-contexts]]] specification
-        for more information.
+        injected through the network). Please refer to the
+        [[[secure-contexts#security-considerations]]] section of the
+        [[[secure-contexts]]] specification for more information.
+      </p>
+      <p>
+        Additionally, requests from an [=opaque origin=] are rejected. Calls to
+        {{DigitalCredential/[[DiscoverFromExternalSource]](origin, options,
+        sameOriginWithAncestors)}} and {{DigitalCredential/[[Create]](origin,
+        options, sameOriginWithAncestors)}} from an [=opaque origin=] (for
+        example, a `data:` document, or a document sandboxed without
+        `allow-same-origin`) are [=reject|rejected=], reducing the risk of
+        malicious extraction or spoofing from untrusted environments.
       </p>
       <p>
         The Digital Credentials API reduces [=API flooding=] through two
@@ -1883,36 +2061,36 @@
         <li>
           <strong>Always required mediation:</strong> The API makes [=user
           mediation=] implicitly {{CredentialMediationRequirement/"required"}}
-          (see [[[#the-digitalcredential-interface]]]), ensuring that user
-          permission is obtained through the platform's credential chooser
-          interface for every credential operation.
+          (see [[[#the-digitalcredential-interface|the DigitalCredential
+          interface]]]), ensuring that user permission is obtained through the
+          platform's credential chooser interface for every credential
+          operation.
         </li>
       </ul>
       <p>
         For additional guidance on preventing abuse of credential requests,
-        please refer to the <a data-cite=
-        "credential-management#privacy-considerations">Privacy
-        Considerations</a> section of the [[[credential-management]]]
-        specification. Note, however, that these protections have limitations,
-        as sites may still employ dark patterns to encourage unnecessary user
-        interactions that trigger credential requests.
+        please refer to the section
+        [[[credential-management#privacy-considerations]]] of the
+        [[[credential-management]]] specification. Note, however, that these
+        protections have limitations, as sites may still employ dark patterns
+        to encourage unnecessary user interactions that trigger credential
+        requests.
       </p>
       <p data-cite="permissions-policy">
         The Digital Credentials API reduces [=Unauthorized Cross-Origin
-        Access|cross-origin abuse=] through [[[permissions-policy]]]
-        integration (see [[[#permissions-policy]]]). The [=request a
-        `Credential`=] and [=create a `Credential`=] algorithms respectively
-        serve as policy enforcement points for the
-        <a>"digital-credentials-get"</a> and
+        Access|cross-origin abuse=] through integration with
+        [[[permissions-policy]]] (see [[[#permissions-policy|Permissions Policy
+        Integration]]]). The [=request a `Credential`=] and [=create a
+        `Credential`=] algorithms respectively serve as policy enforcement
+        points for the <a>"digital-credentials-get"</a> and
         <a>"digital-credentials-create"</a> [=policy-controlled features=]. The
         two features are intentionally separate: a site may enable
         <a>"digital-credentials-get"</a> without enabling
         <a>"digital-credentials-create"</a>, and vice versa, limiting each
         embedded context to only the capability it requires. Please refer to
-        the <a data-cite="permissions-policy#privacy-and-security">Privacy and
-        Security Considerations</a> section of the [[[permissions-policy]]]
-        specification for additional security properties provided by this
-        integration.
+        section [[[permissions-policy#privacy-and-security]]] of the
+        [[[permissions-policy]]] specification for additional security
+        properties provided by this integration.
       </p>
       <h3>
         Security Considerations for Protocols
@@ -1951,8 +2129,38 @@
       <p>
         These mechanisms reduce [=data tampering=] at the protocol level.
       </p>
+      <section>
+        <!--
+        // MARK: Cross-Device Security and Proximity
+        -->
+        <h3>
+          Cross-Device Security and Proximity
+        </h3>
+        <p>
+          The Digital Credentials API supports cross-device experiences where a
+          user presents a [=digital credential=] from a secondary device, such
+          as a smartphone acting as a [=credential manager=], to a primary
+          device, such as a laptop. Although the specific data exchange
+          protocols (e.g., cryptographic formats and transports) are out of
+          scope for this API, such cross-device interactions typically rely on
+          established protocols like the Client to Authenticator Protocol
+          (CTAP) ([[[FIDO-CLIENT-TO-AUTHENTICATOR-PROTOCOL-V2.3]]]).
+        </p>
+        <p>
+          These protocols ensure security by establishing cryptographically
+          secure channels and enforcing physical proximity (e.g., via Bluetooth
+          Low Energy) to mitigate remote relay attacks. Crucially, in a
+          cross-device flow, the [=credential manager=] cannot inherently trust
+          the [=origin=] string forwarded by the primary device, as the primary
+          device or its browser might be compromised. Therefore, protocols that
+          employ signed requests, where the [=verifier=] cryptographically
+          proves its identity, provide significantly stronger security
+          assurances than relying solely on the browser-asserted [=origin=].
+        </p>
+      </section>
     </section>
-    <section class="informative" data-cite="privacy-principles">
+    <section id="privacy-principles" class="informative" data-cite=
+    "privacy-principles">
       <!--
       // MARK: Privacy Considerations
       -->
@@ -1980,11 +2188,10 @@
         </li>
         <li>[[[threat-model-decentralized-credentials]]]
         </li>
-        <li>
-          <a data-cite="vc-data-model#privacy-considerations">VC Data Model
-          Privacy Considerations</a>
+        <li>[[[vc-data-model#privacy-considerations]]] of the
+        [[[vc-data-model]]] specification.
         </li>
-        <li>...
+        <li>[[[prevent-credential-abuse]]]
         </li>
       </ul>
       <p>
@@ -2039,17 +2246,17 @@
           alternative to the aforementioned less-desirable technologies that is
           easy to use for developers, is compatible with existing credential
           [=digital credential/presentation protocols=] and, most importantly,
-          has better user privacy, security, and accessibility properties than
-          these alternatives.
+          has better user privacy, security, and accessibility properties for
+          users than the aforementioned alternatives.
         </p>
         <p>
           The Digital Credentials API offers the [=user agent=] the ability to
           intermediate on behalf of the user (e.g. in the form of a [=digital
-          credential chooser=]) to contextualize requests and <a href=
-          "#permission-prior-to-wallet-selection">prevent immediate exposure to
-          holder applications</a>. It also enforces certain minimum
-          requirements on supported protocols, such as <a href=
-          "#encrypting-credential-responses">response encryption</a>.
+          credential chooser=]) to contextualize requests and
+          [[[#permission-prior-to-credential-manager-selection|prevent
+          immediate exposure to holder applications]]]. It also enforces
+          certain minimum requirements on supported protocols, such as
+          [[[#encrypting-credential-responses|response encryption]]].
         </p>
         <aside class="note">
           The Digital Credentials API is not intended to inhibit the
@@ -2057,13 +2264,12 @@
           privacy. For example, an API could be standardized that more strictly
           enforces unlinkability for specific purposes such as age
           verification. Higher-level, designed-for-purpose APIs often enable
-          <a data-cite="privacy-principles#purpose-limitation">purpose
-          limitation</a>, ease of explanation to the user, and privacy and
-          security protections from <a data-cite=
-          "design-principles#high-level-low-level">user agents</a>.
+          [[[privacy-principles#purpose-limitation|purpose limitation]]], ease
+          of explanation to the user, and privacy and security protections from
+          [=user agents=].
         </aside>
       </section>
-      <section data-cite="vc-data-model#spectrum-of-privacy">
+      <section data-cite="vc-data-model">
         <!--
         // MARK: Spectrum of Privacy
         -->
@@ -2079,13 +2285,13 @@
           an individual user.
         </p>
         <p>
-          This means that some users may not want, or be allowed, to use the
+          This means that some users might not want, or be allowed, to use the
           most privacy-preserving means of exchanging credential information.
           Nonetheless, [=user agents=] need to serve users with an experience
           that is private by default and protect them from harm.
         </p>
         <p>
-          Because of this spectrum of preferences and use cases, it may be
+          Because of this spectrum of preferences and use cases, it can be
           difficult for a [=user agent=] to discern whether a user means to
           expose their personal information or is being tricked into doing so.
           It is thus the [=user agent=]'s responsibility to ensure that every
@@ -2115,10 +2321,9 @@
           Selective disclosure
         </h5>
         <p>
-          <a data-cite=
-          "credential-considerations#selective-disclosure">Selective
-          disclosure</a> is a fundamental technique for <a data-cite=
-          "privacy-principles#data-minimization">data minimization</a> that
+          [[[credential-considerations#selective-disclosure|Selective
+          disclosure]]] is a fundamental technique for
+          [[[privacy-principles#data-minimization|data minimization]]] that
           allows [=holders=] to share the minimum required information that is
           requested by a [=verifier=]. Protocols are expected to facilitate
           selective disclosure by allowing the [=verifier=] to specify the
@@ -2128,21 +2333,20 @@
           Unlinkable presentations
         </h5>
         <p>
-          <a data-cite=
-          "credential-considerations#unlinkable-presentations">Unlinkability</a>
+          [[[credential-considerations#unlinkable-presentations|Unlinkability]]]
           is a property that ensures that, if a user presents attributes from a
           credential multiple times, [=verifiers=] cannot link these separate
           presentations to conclude they concern the same user
           (verifier-verifier linkability), or that [=verifiers=] cannot collude
           with [=issuers=] to report the exchange of a credential from a
-          digital wallet to the [=issuer=] (verifier-issuer linkability). The
-          former is a property that can be maintained by the [=holder=] and
-          [=issuer=], e.g. through issuing fresh credentials for individual
-          [=verifiers=].
+          [=credential manager=] to the [=issuer=] (verifier-issuer
+          linkability). The former is a property that can be maintained by the
+          [=holder=] and [=issuer=], e.g. through issuing fresh credentials for
+          individual [=verifiers=].
         </p>
         <p>
-          While the latter is achievable, e.g. through <a data-cite=
-          "vc-data-model#zero-knowledge-proofs">Zero-Knowledge Proofs</a>,
+          While the latter is achievable, e.g. through
+          [[[vc-data-model#zero-knowledge-proofs|zero-knowledge proofs]]],
           design choices of the API such as encrypted responses make it
           impossible for a [=user agent=] to prove that verifier-issuer
           unlinkability was achieved in practice. Nonetheless, protocols are
@@ -2151,16 +2355,16 @@
         <p>
           Note that unlinkability is exclusively a consideration for attributes
           that cannot be linked to a specific user identity. Inherently
-          linkable attributes such as names, driver's license numbers or phone
+          linkable attributes such as names, driver's license numbers, or phone
           numbers do not benefit from unlinkability.
         </p>
         <p>
           Through the Digital Credentials API, the [=user agent=] can help
-          [=verifiers=] and digital wallets exchange unlinkable attributes,
-          but, because of response encryption, it cannot guarantee that no
-          linkable information is passed between [=verifiers=] and digital
-          wallets. It is recommended that [=user agents=] account for this fact
-          in their user permission experience.
+          [=verifiers=] and [=credential managers=] exchange unlinkable
+          attributes, but, because of response encryption, it cannot guarantee
+          that no linkable information is passed between [=verifiers=] and
+          [=credential managers=]. It is recommended that [=user agents=]
+          account for this fact in their user permission experience.
         </p>
         <p class="issue" data-number="279">
           Which level of unlinkability is the goal for this API? Can we
@@ -2171,30 +2375,31 @@
           "Phone home" mechanisms
         </h5>
         <p>
-          <a data-cite="credential-considerations#no-phoning-home">"Phoning
-          home"</a> refers to scenarios where the presentation or verification
-          of a digital credential causes a notification or communication back
-          to the [=issuer=] or another central entity, which can lead to
-          tracking and profiling of individuals.
+          [[[credential-considerations#no-phoning-home|"Phoning home"]]] refers
+          to scenarios where the presentation or verification of a digital
+          credential causes a notification or communication back to the
+          [=issuer=] or another central entity, which can lead to tracking and
+          profiling of individuals.
         </p>
         <p>
           Similar to unlinkability, it is impossible for [=user agents=] to
           ensure that an [=issuer=] isn't actively involved in the creation or
           validation of credential presentations after a user has given
           permission to proceed with a credential request. From that point on,
-          the digital wallet application owns this decision. While some digital
-          wallets can be considered [=user agents=], it is generally
-          recommended that the [=user agent=] implementing the Digital
-          Credentials API designs its permission experience to prevent <a href=
-          "#permission-prior-to-wallet-selection">exposure of a request to the
-          digital wallet application</a> before user confirmation (keeping in
-          mind <a href="#multiple-user-agents">considerations for integrating
-          multiple cooperating user agents</a>).
+          the [=credential manager=] owns this decision. While some credential
+          managers can be considered [=user agents=], it is generally
+          recommended that the [=user agent=] implementing the
+          [[[#DC-API|Digital Credentials API]]] designs its permission
+          experience to prevent
+          [[[#permission-prior-to-credential-manager-selection|exposure of a
+          request to the credential manager]]] before user confirmation
+          (keeping in mind [[[#multiple-user-agents|considerations for
+          integrating multiple cooperating user agents]]]).
         </p>
         <p>
           Protocols are required to support mechanisms that allow [=issuers=],
-          digital wallets, and [=verifiers=] to avoid or reduce the dependence
-          on "phone home" mechanisms.
+          [=credential managers=], and [=verifiers=] to avoid or reduce the
+          dependence on "phone home" mechanisms.
         </p>
         <p class="issue" data-number="279">
           Which level of unlinkability is the goal for this API? To what degree
@@ -2208,8 +2413,9 @@
           is for credential revocation checks. This is particularly challenging
           when presentations are intended to be verifier-issuer unlinkable.
           When credential presentations are made unlinkable through the use of
-          e.g. Zero-Knowledge Proofs, the credential formats used in protocols
-          are expected to support offline revocation methods such as <a href=
+          e.g. [[[vc-data-model#zero-knowledge-proofs|zero-knowledge proofs]]],
+          the credential formats used in protocols are expected to support
+          offline revocation methods such as <a href=
           "https://eprint.iacr.org/2024/657.pdf">Cryptographic
           Accumulators</a>. It is further expected that protocol design and
           specification discourages the involvement of [=verifiers=] for the
@@ -2241,10 +2447,10 @@
           restricted to the specific credential attributes it registered for.
         </p>
         <p>
-          Checking verifier authorization is usually handled by the digital
-          wallet, but [=user agents=] could find the presence of such a scheme
-          helpful in preventing API abuse and designing a well-informed user
-          permission experience.
+          Checking verifier authorization is usually handled by the
+          [=credential manager=], but [=user agents=] could find the presence
+          of such a scheme helpful in preventing API abuse and designing a
+          well-informed user permission experience.
         </p>
         <p class="issue" data-number="281">
           Should we require protocols to include provisions that allow [=user
@@ -2285,8 +2491,8 @@
           <li>Unnecessary requests for credentials without the explicit intent
           of user harm, such as an online store requesting users to sign up
           with their driver's license instead of generic email & passkey or
-          federated credentials. This can lead to <a data-cite=
-          "identity-web-impact#opportunities-and-threats">exclusion</a> of
+          federated credentials. This can lead to
+          [[[identity-web-impact#opportunities-and-threats|exclusion]]] of
           users without the ability or willingness to share such a credential
           with the site, a deterioration of the prompt experience on the web,
           and an increase in the risk of accidental data leakage.
@@ -2308,24 +2514,26 @@
           credentials. However, from a [=user agent=]'s perspective,
           [=verifiers=] are potential attackers, and might not consider the
           user's best interest in their designs. The Digital Credentials API
-          needs to operate from an assumption that all [=verifiers=] might have
+          operates from an assumption that all [=verifiers=] might have
           incentives that motivate unnecessary requests and abuse, and protect
           users accordingly.
           </li>
-          <li>[=user agents=] are responsible for protecting their users
+          <li>[=User agents=] are responsible for protecting their users
           against dangerous content and permission requests on the Web and
           could intervene on their behalf, proactively rejecting requests or
-          requiring pre-authorization. To support this, the Digital Credentials
-          API requires credential requests to be readable by the [=user agent=]
-          (i.e., not end-to-end encrypted to the [=verifier=]).
+          requiring pre-authorization. To support this, this specification
+          requires credential requests to be readable by the [=user agent=]
+          (i.e., not end-to-end encrypted to the [=verifier=], see
+          [[[#protocols]]] and [[[#prepare-credential-requests]]]).
           </li>
-          <li>[=issuers=] and lawmakers might decide to restrict use of
+          <li>[=Issuers=] and lawmakers might decide to restrict use of
           (particularly government-issued) credentials to specific
-          [=verifiers=] with purpose attestations. Digital wallets might be
-          expected to enforce these restrictions by law or policy.
+          [=verifiers=] with purpose attestations. [=Credential managers=]
+          might be expected to enforce these restrictions by law or policy.
           </li>
           <li>The ultimate decision of whether or not to share their personal
-          information lies with the user, which is why the API requires the
+          information lies with the user, which is why the API [=credential
+          request coordinator/initiate the credential request|requires=] the
           [=user agent=] to present a credential picker to the user, and other
           parties might additionally require confirmation or consent.
           </li>
@@ -2341,17 +2549,17 @@
           A key component of risk mitigation and ensuring user control that
           applies to both types of credentials is the [=user agent=]'s ability
           to inspect the credential request metadata and make decisions or UI
-          presentation based on it. The DC API ensures this [=user agent=]
-          access to the presentation through requirements placed on protocols
-          to transmit requests unencrypted and to include relevant information.
+          presentation based on it. This specification ensures this [=user
+          agent=] access through protocol requirements to transmit requests
+          unencrypted and include relevant information (see [[[#protocols]]]
+          and [[[#prepare-credential-requests]]]).
         </p>
         <h4>
           Government-issued credentials
         </h4>
         <p>
-          <a data-cite=
-          "identity-web-impact#pure-digital-credentials">Government-issued
-          digital credentials</a> include travel documents, personal licenses,
+          [[[identity-web-impact#pure-digital-credentials|Government-issued
+          digital credentials]]] include travel documents, personal licenses,
           proof of welfare and public health programs, vehicle registrations,
           and other documents issued by government authorities, or other
           documents representing this information. These documents are highly
@@ -2398,23 +2606,22 @@
           <li>Prompt fatigue and a loss in trust by users when they are
           prompted by a large number of websites to share personal information.
           </li>
-          <li>Increased potential for <a data-cite=
-          "rfc6973#section-5.1.1">surveillance</a> and restrictions on
-          pseudonymous use of online services. Collusion between [=verifiers=]
-          and [=issuers=], or other parties, might result in the ability to
-          closely monitor a user's activity on the Web and take adverse action
-          against this individual. Even when no action is taken, the
-          possibility of surveillance alone can cause anxiety, discomfort, and
-          behavioral changes such as inhibition and self-censorship, impacting
-          individual autonomy and freedom of expression.
+          <li>Increased potential for [[[rfc6973#section-5.1.1|surveillance]]]
+          and restrictions on pseudonymous use of online services. Collusion
+          between [=verifiers=] and [=issuers=], or other parties, might result
+          in the ability to closely monitor a user's activity on the Web and
+          take adverse action against this individual. Even when no action is
+          taken, the possibility of surveillance alone can cause anxiety,
+          discomfort, and behavioral changes such as inhibition and
+          self-censorship, impacting individual autonomy and freedom of
+          expression.
           </li>
           <li>
-            <a data-cite=
-            "credential-considerations#restrictions-of-free-expression">Exclusion
-            and discrimination</a> of individuals who cannot, or do not want
-            to, provide these credentials, prohibiting them from participation
-            in services that would previously not require government-issued
-            credentials, such as forums and social media platforms on the Web.
+          [[[credential-considerations#restrictions-of-free-expression|Exclusion
+          and discrimination]]] of individuals who cannot, or do not want to,
+          provide these credentials, prohibiting them from participation in
+          services that would previously not require government-issued
+          credentials, such as forums and social media platforms on the Web.
           </li>
         </ul>
         <h5>
@@ -2453,8 +2660,9 @@
           users in permission and consent flows.
           </li>
           <li>Support for protocols that allow unlinkability mechanisms such as
-          Zero-Knowledge Proofs can prevent [=verifier=]-based surveillance and
-          potential discrimination, by hiding the [=issuer=].
+          [[[vc-data-model#zero-knowledge-proofs|Zero-Knowledge Proofs]]] can
+          prevent [=verifier=]-based surveillance and potential discrimination,
+          by hiding the [=issuer=].
           </li>
           <li>Offering useful context and a clearly understandable permission
           flow will help users make better decisions on whether or not to
@@ -2501,7 +2709,7 @@
           The flexibility and lack of regulation of non-government credentials
           carries potential for abuse for the purpose of cross-site tracking
           and linking identities through long-lived identifiers, such as email
-          address or phone number. [=verifiers=] participating in a tracking
+          address or phone number. [=Verifiers=] participating in a tracking
           scheme based on digital credentials could create user incentives to
           accept sharing identifier credentials across many sites ("loyalty
           cards" for the Web), without fully understanding the implications on
@@ -2537,15 +2745,15 @@
           [=User agents=] cannot be expected to understand all credential
           requests. A [=user agent=] that does not recognize the type of
           credential being requested is advised to significantly increase user
-          friction in their permission experience, and very clearly communicate
-          the risks of sharing unknown credentials with websites to the user.
-          Note that this could require integration between <a href=
-          "#multiple-user-agents">different user agents</a> to apply
+          friction in their permission experience, and clearly communicate the
+          risks of sharing unknown credentials with websites to the user. Note
+          that this could require integration between
+          [[[#multiple-user-agents|different user agents]]] to apply
           appropriate levels of friction and transparency. For example, a
           browser might delegate knowledge about credential requests to the
-          operating system, which might require digital wallets to register
-          known credential types and reject an exchange request for an unknown
-          credential type.
+          operating system, which might require [=credential managers=] to
+          register known credential types and reject an exchange request for an
+          unknown credential type.
         </p>
         <p class="issue" data-number="100">
           The need to provide users with appropriate transparency conflicts
@@ -2572,16 +2780,17 @@
         </h4>
         <p>
           While the API ensures that no user data is ever shared without a
-          permission prompt (see [[[#user-permission-and-transparency]]]), the
-          longevity and uniqueness of real-world identifiers that are likely to
-          be returned by the Digital Credentials API make it a potential target
-          for trackers and fingerprinters.
+          permission prompt (see the [[[#user-permission-and-transparency|User
+          Permission and Transparency]] section), the longevity and uniqueness
+          of real-world identifiers that are likely to be returned by the
+          Digital Credentials API make it a potential target for trackers and
+          fingerprinters.
         </p>
         <p>
           Even with selective disclosure, attackers might combine data from a
           digital credential (such as the user's age, or the credential
-          [=issuer=], timestamps, see [[[#leaking-incidental-data]]]) to
-          reidentify and/or fingerprint users.
+          [=issuer=], timestamps; see the [[[#leaking-incidental-data|Leaking
+          Incidental Data]] section) to reidentify and/or fingerprint users.
         </p>
         <p>
           This attack might be harder for third-party attackers (such as
@@ -2599,8 +2808,8 @@
           To ensure authenticity of a credential, its presentation to
           [=verifiers=] generally includes more information than the content
           the [=verifier=] is requesting access to. It will usually contain at
-          least a signature of the [=issuer=] and the digital wallet, and
-          potentially other metadata.
+          least a signature of the [=issuer=] and the [=credential manager=],
+          and potentially other metadata.
         </p>
         <p>
           This additional information could be used to reidentify and
@@ -2626,17 +2835,17 @@
           {{DigitalCredential/userAgentAllowsProtocol()}}. It mitigates browser
           fingerprinting and revealing information about the user's device
           configuration by not customizing its response based on, for example,
-          which digital wallet applications are installed on a user's device.
-          The returned information is thus, at best, equivalent to a [=user
-          agent=] version.
+          which [=credential manager=] applications are installed on a user's
+          device. The returned information is thus, at best, equivalent to a
+          [=user agent=] version.
         </p>
         <h4>
           Avoiding leaks of credential availability
         </h4>
         <p>
           The Digital Credentials API does not enable sites to learn whether a
-          credential is available without first going through a <a href=
-          "#user-permission-and-transparency">user permission flow</a>.
+          credential is available without first going through a
+          [[[#user-permission-and-transparency|user permission flow]]].
           Revealing the presence of credentials would be a risk to user
           privacy, as the presence of a credential is personal information that
           the user might not have preferred to share with the site, and, in
@@ -2661,10 +2870,10 @@
           credentials, potentially granting the ability to track users online
           and offline, through permanent, unique, irrevocable, cross-context
           identifiers. It also reveals parts of the user's browsing activity as
-          well as their intent to identify to specific websites and/or digital
-          wallets. One crucial responsibility of the [=user agent=] in a
-          credential request is to gather permission from the user to proceed
-          with the exchange of information.
+          well as their intent to identify to specific websites and/or
+          [=credential managers=]. One crucial responsibility of the [=user
+          agent=] in a credential request is to gather permission from the user
+          to proceed with the exchange of information.
         </p>
         <p>
           Important context details that are needed for a user to make an
@@ -2679,8 +2888,8 @@
           </li>
           <li>Whether presenting this information will enable tracking.
           </li>
-          <li>Which digital wallets can be used to fulfill the credential
-          request.
+          <li>Which [=credential managers=] can be used to fulfill the
+          credential request.
           </li>
           <li>Which credential would be used to share the requested
           information.
@@ -2727,16 +2936,17 @@
           a browser trusts the API contract of an operating system to show an
           appropriate prompt, and thus does not show a prompt itself.
         </p>
-        <h4>
-          Permission Prior to Wallet Selection
+        <h4 id="permission-prior-to-credential-manager-selection">
+          Permission Prior to Credential Manager Selection
         </h4>
         <p>
           As part of the user permission flow, the [=user agent=] needs to
           ensure that users retain the power to choose whether to forward a
-          credential request to a digital wallet, and which digital wallet to
-          select. This is due to the information disclosure that happens as
-          part of the request, and the ability of digital wallets to retain or
-          share this information at the time of the request.
+          credential request to a [=credential manager=], and which credential
+          manager to select. This is due to the information disclosure that
+          happens as part of the request, and the ability of credential
+          managers to retain or share this information at the time of the
+          request.
         </p>
         <h4>
           Permission vs. Consent
@@ -2745,11 +2955,11 @@
           The permission mediated by the [=user agent=] is not consent, which
           has specific legal definitions that can vary among different legal
           and regulatory environments and may need to be collected by the
-          digital wallet before sharing information with the [=verifier=], or
-          by the [=verifier=] itself before initiating the request. With
-          frameworks and regulations for obtaining consent still being
-          developed, this API aims to enable the exchange of the necessary
-          information, which could include the following:
+          [=credential manager=] before sharing information with the
+          [=verifier=], or by the [=verifier=] itself before initiating the
+          request. With frameworks and regulations for obtaining consent still
+          being developed, this API aims to enable the exchange of the
+          necessary information, which could include the following:
         </p>
         <ul>
           <li>The privacy policy of the [=verifier=] receiving the credential.
@@ -2785,22 +2995,434 @@
         Accessibility Considerations
       </h2>
       <p>
-        Implementers need to consider accessibility when designing [=credential
-        choosers=] specifically for this API. The content of modal dialogs
-        presented during [=digital credential/issuance request|issuance=] or
-        [=digital credential/presentation requests|presentation=], which can
-        include text, QR codes, and other visual media, SHOULD be labelled and
-        exposed to assistive technologies.
+        The user interface for selecting and authorizing a [=digital
+        credential=] is provided by the platform and is largely outside the
+        scope of this specification; however, the accessibility of that
+        experience is within scope (see [[[#scope]]]). The following guidance
+        applies to [=user agents=] and platforms implementing the [=digital
+        credential chooser=] and the flows around it, and references the
+        relevant success criteria of [[WCAG22]]. Where the chooser is a non-web
+        user interface, those criteria apply as described in [[WCAG2ICT-22]].
+      </p>
+      <p>
+        The content of modal dialogs presented during [=digital
+        credential/issuance request|issuance=] or [=digital
+        credential/presentation requests|presentation=], which can include
+        text, QR codes, and other visual media, SHOULD be labelled and exposed
+        to assistive technologies with appropriate names, roles, and values
+        (see [[[WCAG22#name-role-value]]]), and SHOULD provide text
+        alternatives for non-text content (see [[[WCAG22#non-text-content]]]).
+      </p>
+      <p>
+        Changes in the state of an interaction, such as waiting for another
+        device, a successful response, an error, or a cancellation, SHOULD be
+        programmatically determinable and conveyed to assistive technologies
+        without requiring a change of focus (see [[[WCAG22#status-messages]]]).
+      </p>
+      <p>
+        When an operation fails, the [=user agent=] rejects with one of several
+        distinct errors; for example, a {{"NotAllowedError"}},
+        {{"InvalidStateError"}}, or {{"OperationError"}} {{DOMException}}, or a
+        {{TypeError}}. Where the platform surfaces such a failure to the user,
+        it SHOULD identify in text what went wrong and, where applicable, how
+        to recover, rather than only signalling that an error occurred (see
+        [[[WCAG22#error-identification]]]).
       </p>
       <p>
         Interactive elements, particularly those that allow the user to
-        continue or abort [=digital credential/issuance request|issuance=] or
-        [=digital credential/presentation requests|presentation=] requests,
-        MUST be operable in a device-independent manner.
+        continue or abort an [=digital credential/issuance request|issuance=]
+        or [=digital credential/presentation requests|presentation=] request,
+        MUST be operable in a device-independent manner (for example, via the
+        keyboard; see [[[WCAG22#keyboard]]]). In particular, activation MUST
+        NOT require a multipoint or path-based gesture (see
+        [[[WCAG22#pointer-gestures]]]) or device motion (see
+        [[[WCAG22#motion-actuation]]]) as the only means of operation. The
+        [=digital credential chooser=] SHOULD present its controls in a
+        meaningful focus order (see [[[WCAG22#focus-order]]]), move focus into
+        the chooser when it is opened; keep focus within it while it is shown;
+        and restore focus to the previously focused element, or another
+        appropriate location, when it is closed.
       </p>
+      <p>
+        Where releasing a [=digital credential=] requires the [=holder=] to
+        authenticate, an accessible authentication method SHOULD be available.
+        Where a step relies on a cognitive function test, such as recalling a
+        password, an alternative that does not require one SHOULD be offered
+        (see [[[WCAG22#accessible-authentication-minimum]]]); and
+        authentication SHOULD NOT depend solely on a single physical
+        characteristic, such as a biometric, that some users cannot provide.
+        This step is typically performed by the platform or [=credential
+        manager=] and is otherwise outside the scope of this specification.
+      </p>
+      <p>
+        Some platforms fulfil [=digital credential/presentation requests=]
+        across devices; for example, by displaying a QR code for the user to
+        scan with a separate device. Because such flows can depend on vision, a
+        camera, or the use of a second device, platforms SHOULD provide an
+        equivalent and accessible means of completing the interaction that does
+        not rely on a single sensory ability or input modality. A cross-device
+        request conveyed only through a visual artifact such as a QR code, with
+        no accessible alternative, excludes users who cannot use that modality.
+      </p>
+      <p>
+        An interaction may be subject to time limits from more than one source.
+        These SHOULD be handled so that users who need more time are not
+        excluded (see [[[WCAG22#timing-adjustable]]]):
+      </p>
+      <ul>
+        <li>A site can bound the interaction by passing an {{AbortSignal}} as
+        {{CredentialRequestOptions/signal}}; for example, one created with
+        `AbortSignal.timeout()`. Sites SHOULD allow sufficient time and SHOULD
+        NOT impose a short limit that rushes the user.
+        </li>
+        <li>A proximity check is a security-essential, real-time constraint
+        that cannot be extended without defeating its purpose. In this case,
+        the platform SHOULD make the remaining time programmatically
+        determinable, and SHOULD allow the user to retry the interaction.
+        </li>
+        <li>The validity window of a cross-device request SHOULD be extendable
+        or able to be retried.
+        </li>
+      </ul>
+      <p>
+        The decision to review and disclose a [=digital credential=] SHOULD NOT
+        be subject to a forcing countdown, including time pressure inherited
+        from the surrounding site flow.
+      </p>
+      <p>
+        Human-readable credential content shown during an interaction, together
+        with any accessible alternatives for it such as text alternatives for
+        images, is carried within the credential payload and is the
+        responsibility of the relevant credential format and protocol. Those
+        formats and protocols also determine the language and direction of that
+        content.
+      </p>
+    </section>
+    <section class="informative">
+      <!--
+      // MARK: Internationalization Considerations
+      -->
+      <h2>
+        Internationalization Considerations
+      </h2>
+      <p>
+        This API is agnostic to credential formats and exchange protocols, and
+        treats the request payloads ({{DigitalCredentialGetRequest}}'s
+        {{DigitalCredentialGetRequest/data}} and
+        {{DigitalCredentialCreateRequest}}'s
+        {{DigitalCredentialCreateRequest/data}}) and the response payload
+        ({{DigitalCredential}}'s {{DigitalCredential/data}}) as opaque. As a
+        result, the API defines no string-typed values that carry
+        human-readable, natural language content:
+      </p>
+      <ul>
+        <li>The string-typed values it defines, most notably [=digital
+        credential/protocol identifier|protocol identifiers=], are restricted
+        to ASCII ([=ASCII lower alpha=], U+002D HYPHEN-MINUS, and [=ASCII
+        digit=]) and compared by exact equality. They are machine identifiers,
+        not human-readable text, so normalization, case folding, and language
+        or direction metadata do not apply.
+        </li>
+        <li>All payloads are exchanged as JSON text and JavaScript values. When
+        a JSON string is encoded as bytes (for example, for transport), it is
+        encoded using UTF-8. Request payloads are serialized using [=serialize
+        a JavaScript value to a JSON string=], which calls the ECMAScript
+        `JSON.stringify` operation, and responses are parsed using [=parse a
+        JSON string to a JavaScript value=]. Because `JSON.stringify` emits
+        lone (unpaired) surrogate code points as `\uXXXX` escape sequences, the
+        serialized request is always well-formed, UTF-8-encodable JSON.
+        </li>
+        <li>Human-readable, localizable credential content (for example, the
+        values of credential claims such as a name or address, including their
+        representation in different scripts and languages) is carried opaquely
+        within the credential payload. Its internationalization is determined
+        by the relevant credential format and [=digital credential/presentation
+        protocol=] or [=digital credential/issuance protocol=] (for example,
+        the formats defined in [[[ISO18013-5]]], and protocols such as
+        [[[OPENID4VP]]]), which this specification expects to provide language
+        and direction metadata, and localized alternatives, where appropriate.
+        </li>
+        <li>The one value the API routes to the platform that a [=user agent=]
+        may display is the requesting [=request context/top-level origin=].
+        Rendering an origin's host to the user, including the handling of
+        internationalized domain names and bidirectional text, follows the
+        [[[URL#url-rendering-i18n|host-rendering guidance in the URL
+        Standard]]] and is out of scope for this specification.
+        </li>
+        <li>Any other text presented to the user during a credential
+        interaction is rendered either by the website (using HTML, which
+        provides language and direction support through the host language), or
+        by the platform's [=digital credential chooser=]. The chooser is out of
+        scope for this specification; where it displays credential content, the
+        language and direction of that content, as provided by the credential
+        format and protocol, govern its presentation.
+        </li>
+      </ul>
+      <p>
+        Consequently, this specification introduces no natural language text
+        that requires language or direction metadata. Were a future revision to
+        introduce site-authored human-readable text at the API layer,
+        normatively defined permission prompt text, or a user-agent-drawn
+        presentation element, that text would need to carry, or be associated
+        with, appropriate language and direction metadata.
+      </p>
+    </section>
+    <section data-cite="webdriver webdriver-bidi">
+      <h2>
+        Automated Testing
+      </h2>
+      <p>
+        For purposes of user-agent automation and application testing, this
+        document defines extension modules for the [[[webdriver-bidi]]]
+        specification. It is OPTIONAL for a [=user agent=] to support them.
+      </p>
+      <h3>
+        The `digitalCredentials` Module
+      </h3>
+      <p>
+        The `digitalCredentials` module contains commands for managing and
+        simulating the remote end behavior of [=credential managers=] during
+        {{DigitalCredential/[[DiscoverFromExternalSource]](origin, options,
+        sameOriginWithAncestors)}}, and {{Credential/[[Create]](origin,
+        options, sameOriginWithAncestors)}} calls.
+      </p>
+      <h4>
+        Types
+      </h4>
+      <pre class="cddl" data-cddl-module="remote-cddl">
+        digitalCredentials.VirtualWalletAction = "decline" / "respond" / "wait" / "clear"
+
+        digitalCredentials.SetVirtualWalletBehaviorParameters = {
+          action: digitalCredentials.VirtualWalletAction,
+          ? context: text,
+          ? protocol: text,
+          ? response: { * text =&gt; any },
+        }
+      </pre>
+      <p>
+        The {^digitalCredentials.VirtualWalletAction^} type represents the
+        different types of virtual wallet actions.
+      </p>
+      <dl>
+        <dt>
+          {^digitalCredentials.VirtualWalletAction/"decline"^}
+        </dt>
+        <dd>
+          The virtual wallet simulates a user cancellation or rejection,
+          aborting the request.
+        </dd>
+        <dt>
+          {^digitalCredentials.VirtualWalletAction/"respond"^}
+        </dt>
+        <dd>
+          The virtual wallet simulates a successful user interaction and
+          returns the predefined credential response.
+        </dd>
+        <dt>
+          {^digitalCredentials.VirtualWalletAction/"wait"^}
+        </dt>
+        <dd>
+          The virtual wallet simulates an active, pending prompt, effectively
+          leaving the active promise unsettled to test timeouts or concurrent
+          request handling.
+        </dd>
+        <dt>
+          {^digitalCredentials.VirtualWalletAction/"clear"^}
+        </dt>
+        <dd>
+          Clears the active virtual wallet behavior.
+        </dd>
+      </dl>
+      <h4>
+        Commands
+      </h4>
+      <h5>
+        The `digitalCredentials.setVirtualWalletBehavior` Command
+      </h5>
+      <dl>
+        <dt>
+          Command Type
+        </dt>
+        <dd>
+          <pre class="cddl" data-cddl-module="remote-cddl">
+                digitalCredentials.SetVirtualWalletBehavior = (
+                  method: "digitalCredentials.setVirtualWalletBehavior",
+                  params: digitalCredentials.SetVirtualWalletBehaviorParameters
+                )
+              </pre>
+        </dd>
+        <dt>
+          Return Type
+        </dt>
+        <dd>
+          <pre class="cddl" data-cddl-module="local-cddl">
+                digitalCredentials.SetVirtualWalletBehaviorResult = EmptyResult
+              </pre>
+        </dd>
+      </dl>
+      <p>
+        The [=remote end steps=] for the
+        `digitalCredentials.setVirtualWalletBehavior` command, given |session|
+        and |command parameters|, are:
+      </p>
+      <ol class="algorithm">
+        <li>Let |action| be |command parameters|["`action`"].
+        </li>
+        <li>Let |context| be |command parameters|["`context`"], if present, and
+        `null` otherwise.
+        </li>
+        <li>Let |protocol| be |command parameters|["`protocol`"], if present,
+        and `null` otherwise.
+        </li>
+        <li>Let |response| be |command parameters|["`response`"], if present,
+        and `null` otherwise.
+        </li>
+        <li>If |action| is `"respond"`:
+          <ol>
+            <li>If |protocol| is `null` or |response| is `null`, return an
+            [=error=] with [=error code=] [=invalid argument=].
+            </li>
+            <li>If |protocol| is not an [=enumeration value=] of
+            {{DigitalCredentialProtocol}}, return an [=error=] with [=error
+            code=] [=invalid argument=].
+            </li>
+            <li>[=serialize an Infra value to a JSON string|Serialize=]
+            |response| to a JSON string.
+            </li>
+            <li>If serialization results in an [=exception=], return an
+            [=error=] with [=error code=] [=invalid argument=].
+            </li>
+          </ol>
+        </li>
+        <li>Else:
+          <ol>
+            <li>If |response| is not `null` or |protocol| is not `null`, return
+            an [=error=] with [=error code=] [=invalid argument=].
+            </li>
+          </ol>
+        </li>
+        <li>If |action| is `"clear"`:
+          <ol>
+            <li>If |context| is not `null`, remove the entry for |context| from
+            the WebDriver [=session=]'s [=active virtual wallet behavior=].
+            </li>
+            <li>Else, set the WebDriver [=session=]'s [=active virtual wallet
+            behavior=] to `null`.
+            </li>
+          </ol>
+        </li>
+        <li>Else:
+          <ol>
+            <li>Let |behavior| be a tuple of (|action|, |protocol|,
+            |response|).
+            </li>
+            <li>If |context| is not `null`, set the WebDriver [=session=]'s
+            <dfn>active virtual wallet behavior</dfn> for the browsing context
+            ID |context| to |behavior|.
+            </li>
+            <li>Else, set the WebDriver [=session=]'s default [=active virtual
+            wallet behavior=] to |behavior|.
+            </li>
+          </ol>
+        </li>
+        <li>Return [=success=] with data `null`.
+        </li>
+      </ol>
+      <p class="note" title="Simulating wallet errors in tests">
+        Developers writing automated tests can simulate wallet errors by
+        passing an {{AbortSignal}} as {{CredentialRequestOptions/signal}} (for
+        {{CredentialsContainer/get()}}) or {{CredentialCreationOptions/signal}}
+        (for {{CredentialsContainer/create()}}), then aborting it with the
+        desired [=AbortSignal/abort reason=]. This exercises the same abort
+        path used by the request algorithms.
+      </p>
+      <pre class="example js" title=
+      "Simulating a wallet error with AbortController">
+        (async () =&gt; {
+          const controller = new AbortController();
+          const credentialPromise = navigator.credentials.get({
+            digital: {
+              requests: [{
+                protocol: "example-request-protocol",
+                data: { /* presentation request data */ }
+              }]
+            },
+            signal: controller.signal
+          });
+
+          controller.abort(
+            new DOMException("Simulated wallet failure", "OperationError")
+          );
+
+          try {
+            await credentialPromise;
+          } catch (error) {
+            console.assert(error.name === "OperationError");
+          }
+        })();
+      </pre>
+      <h3>
+        Handle Virtual Wallet Behavior
+      </h3>
+      <p>
+        To <dfn>handle virtual wallet behavior</dfn> given a {{Promise}}
+        |promise| and a global object |global|, run these steps:
+      </p>
+      <ol class="algorithm">
+        <li>If the [=user agent=] is not under automation, return `false`.
+        </li>
+        <li>Let |context ID| be the ID of |global|'s [=browsing context=].
+        </li>
+        <li>Let |behavior| be the current WebDriver [=session=]'s [=active
+        virtual wallet behavior=] for |context ID|.
+        </li>
+        <li>If |behavior| is `null`, set |behavior| to the current WebDriver
+        [=session=]'s default [=active virtual wallet behavior=].
+        </li>
+        <li>If |behavior| is `null`, return `false`.
+        </li>
+        <li>Let (|action|, |protocol|, |response|) be |behavior|.
+        </li>
+        <li>If |action| is `"wait"`, return `true`.
+        </li>
+        <li>If |action| is `"decline"`:
+          <ol>
+            <li>[=Reject=] |promise| with a {{"NotAllowedError"}}
+            {{DOMException}}.
+            </li>
+            <li>Return `true`.
+            </li>
+          </ol>
+        </li>
+        <li>If |action| is `"respond"`:
+          <ol>
+            <li>Let |JSON string| be the result of [=serialize an Infra value
+            to a JSON string|serializing=] |response|.
+            </li>
+            <li>Let |JS object| be the result of [=parse a JSON string to a
+            JavaScript value|parsing=] |JSON string| given |global|'s
+            [=relevant realm=].
+            </li>
+            <li>Let |credential| be a new {{DigitalCredential}} instance.
+            </li>
+            <li>Set |credential|'s {{DigitalCredential/protocol}} attribute to
+            |protocol|.
+            </li>
+            <li>Set |credential|'s {{DigitalCredential/data}} attribute to |JS
+            object|.
+            </li>
+            <li>[=Queue a global task=] on the [=DOM manipulation task source=]
+            given |global| to [=resolve=] |promise| with |credential|.
+            </li>
+            <li>Return `true`.
+            </li>
+          </ol>
+        </li>
+      </ol>
     </section>
     <section class="prefer-full-spec-title" id="index"></section>
     <section id="idl-index"></section>
+    <section id="cddl-index"></section>
     <section id="conformance"></section>
     <h2 class="appendix">
       Acknowledgements
