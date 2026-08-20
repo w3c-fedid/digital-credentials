@@ -1064,8 +1064,8 @@
             </p>
             <p>
               What constitutes a validation failure is protocol-specific, but
-              how such a failure is classified into an exception type is defined
-              below:
+              how such a failure is classified into an exception type is
+              defined below:
             </p>
             <aside class="note" title="Protocol-specific validation details">
               <p>
@@ -1092,22 +1092,25 @@
                         local policy, configuration, or the user's choices:
                       </dt>
                       <dd>
-                        A [=exception/create|created=] {{"NotAllowedError"}} {{DOMException}}.
+                        A [=exception/create|created=] {{"NotAllowedError"}}
+                        {{DOMException}}.
                         <p class="note">
                           {{"NotAllowedError"}} is deliberately
                           indistinguishable from the error returned when the
                           user cancels the operation, so that a website cannot
-                          determine whether a request was refused by the user or
-                          by the [=user agent=], nor infer anything about the
-                          user's configuration or credentials.
+                          determine whether a request was refused by the user
+                          or by the [=user agent=], nor infer anything about
+                          the user's configuration or credentials.
                         </p>
                       </dd>
                       <dt>
                         The request is not permitted for security reasons
-                        unrelated to the user, such as the context or transport:
+                        unrelated to the user, such as the context or
+                        transport:
                       </dt>
                       <dd>
-                        A [=exception/create|created=] {{"SecurityError"}} {{DOMException}}.
+                        A [=exception/create|created=] {{"SecurityError"}}
+                        {{DOMException}}.
                       </dd>
                       <dt>
                         The request data is malformed or invalid:
@@ -1119,7 +1122,8 @@
                         Otherwise:
                       </dt>
                       <dd>
-                        A [=exception/create|created=] {{"OperationError"}} {{DOMException}}.
+                        A [=exception/create|created=] {{"OperationError"}}
+                        {{DOMException}}.
                       </dd>
                     </dl>
                   </li>
