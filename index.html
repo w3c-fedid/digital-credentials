@@ -601,10 +601,35 @@
       Protocols
     </h2>
     <p>
-      Use of the following [=digital credential/presentation protocols=] is
-      defined by this specification.
+      Use of the following [=digital credential/presentation protocols=] and
+      [=digital credential/issuance protocols=] is defined by this
+      specification.
     </p>
-    <aside class="issue" data-number="439"></aside>
+    <p>
+      A [=user agent=] MUST support all the [=digital credential/presentation
+      protocols=] listed in the [=table of supported presentation and issuance
+      protocols=]. It is RECOMMENDED that [=user agents=] also support all of
+      the [=digital credential/issuance protocols=] listed in [=table of
+      supported presentation and issuance protocols|that table=].
+    </p>
+    <aside class="note" title="Rationale for the required protocols">
+      <p>
+        Requiring every listed [=digital credential/presentation protocol=]
+        means a [=verifier=] can rely on the API regardless of the credential
+        format or request mode used. It also prevents [=user agents=] from each
+        allowing a different subset, which would fragment the ecosystem.
+      </p>
+    </aside>
+    <aside class="note" title="Checking which protocols a user agent allows">
+      <p>
+        Developers can learn which [=digital credential/presentation
+        protocols=] or [=digital credential/issuance protocols=] a user agent
+        allows by calling the
+        `DigitalCredential.`{{DigitalCredential.userAgentAllowsProtocol()}}
+        static method. See [[[#checking-if-protocol-is-allowed]]] for an
+        example of its use.
+      </p>
+    </aside>
     <table class="data">
       <caption>
         <dfn class="export">Table of supported [=digital
@@ -794,8 +819,8 @@
       A [=user agent=] MUST use its own determination of the [=request
       context/document origin=] and the [=request context/top-level origin=],
       and MUST NOT rely on an [=origin=] supplied by the content whose request
-      is being mediated, whether to validate or form the request or to present
-      the [=digital credential chooser=].
+      is being mediated, in determining whether to validate or form the request
+      or to present the [=digital credential chooser=].
     </p>
     <p>
       A user agent MAY delegate some or all coordinator responsibilities to
@@ -854,14 +879,33 @@
     </h3>
     <p>
       To <dfn data-dfn-for="credential request coordinator">prepare credential
-      requests</dfn> given an [=origin=] |documentOrigin|, a [=Document=]
-      |document:Document|, a [=sequence=] of {{DigitalCredentialGetRequest}}
-      values or a [=sequence=] of {{DigitalCredentialCreateRequest}} values
-      |requests|, a {{Promise}} |promise:Promise|, and an optional
+      requests</dfn> given a {{Window}} |global|, an [=origin=] |origin|, a
+      [=sequence=] of {{DigitalCredentialGetRequest}} values or a [=sequence=]
+      of {{DigitalCredentialCreateRequest}} values |requests|, and an optional
       {{AbortSignal}} |signal:AbortSignal|:
     </p>
     <ol class="algorithm">
-      <li>Let |global| be |document|'s [=relevant global object=].
+      <li>Let |realm| be |global|'s [=relevant realm=].
+      </li>
+      <li>If |origin| is an [=opaque origin=], return [=a promise rejected
+      with=] a {{"SecurityError"}} {{DOMException}} in |realm|.
+      </li>
+      <li>Let |document| be |global|'s [=associated `Document`=].
+      </li>
+      <li>If |document| is not [=Document/fully active=], return [=a promise
+      rejected with=] an {{"InvalidStateError"}} {{DOMException}} in |realm|.
+      </li>
+      <li>If |document| is not a [=Document/fully active descendant of a
+      top-level traversable with user attention=], return [=a promise rejected
+      with=] a {{"NotAllowedError"}} {{DOMException}} in |realm|.
+      </li>
+      <li>If |global| does not have [=transient activation=], return [=a
+      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}} in
+      |realm|.
+      </li>
+      <li>[=Consume user activation=] of |global|.
+      </li>
+      <li>Let |promise| be [=a new promise=] in |realm|.
       </li>
       <li>If the [=credential request coordinator=] is not in the "[=credential
       request coordinator/idle=]" [=credential request coordinator/interaction
@@ -871,7 +915,7 @@
           given |global| to [=reject=] |promise| with a {{"NotAllowedError"}}
           {{DOMException}}.
           </li>
-          <li>Return.
+          <li>Return |promise|.
           </li>
         </ol>
       </li>
@@ -892,7 +936,7 @@
           <li>[=credential request coordinator/Reject the credential request
           with=] |error| and |promise|.
           </li>
-          <li>Return.
+          <li>Return |promise|.
           </li>
         </ol>
       </li>
@@ -901,7 +945,7 @@
           <li>[=credential request coordinator/Reject the credential request
           with=] a newly created {{TypeError}} and |promise|.
           </li>
-          <li>Return.
+          <li>Return |promise|.
           </li>
         </ol>
       </li>
@@ -942,13 +986,52 @@
       <li>Let |handled| be the result of running [=handle virtual wallet
       behavior=] given |promise| and |global|.
       </li>
-      <li>If |handled| is `true`, return.
+      <li>If |handled| is `true`, return |promise|.
       </li>
       <li>[=credential request coordinator/Initiate the credential request=]
-      with |documentOrigin|, |document|, |validatedRequests|, |promise|, and
-      |signal|.
+      with |origin|, |document|, |validatedRequests|, |promise|, and |signal|.
+      </li>
+      <li>Return |promise|.
       </li>
     </ol><!--
+    // MARK: Filter credential requests
+    -->
+    <h3>
+      Filter credential requests
+    </h3>
+    <p>
+      To <dfn data-dfn-for="credential request coordinator">filter credential
+      requests</dfn> given a sequence of {{DigitalCredentialGetRequest}} or
+      {{DigitalCredentialCreateRequest}} objects |requests|:
+    </p>
+    <ol class="algorithm">
+      <li>Let |supportedRequests| be a new empty [=list=].
+      </li>
+      <li>[=List/For each=] |request| of |requests|:
+        <ol>
+          <li>Let |protocol| be the result of running [=convert request
+          protocol=] given |request|.
+          </li>
+          <li>If |protocol| is failure, [=iteration/continue=].
+          </li>
+          <li>If [=user agent allows protocol=] given |protocol| returns
+          `false`, [=iteration/continue=].
+          </li>
+          <li>[=list/Append=] |request| to |supportedRequests|.
+          </li>
+        </ol>
+      </li>
+      <li>Return |supportedRequests|.
+      </li>
+    </ol>
+    <p class="note">
+      Filtering happens before [=Consume user activation|consuming user
+      activation=] so that a request whose protocols are all unsupported is
+      rejected with a {{TypeError}} without consuming the user activation.
+      Subsequent validation in [=credential request coordinator/validate
+      credential requests=] can safely assume all remaining requests use
+      supported protocols.
+    </p><!--
     // MARK: Validate credential requests
     -->
     <h3>
@@ -964,14 +1047,6 @@
       </li>
       <li>[=List/For each=] |request| of |requests|:
         <ol>
-          <li>Let |protocol| be the result of running [=convert request
-          protocol=] given |request|.
-          </li>
-          <li>If |protocol| is failure, [=iteration/continue=].
-          </li>
-          <li>If [=user agent allows protocol=] given |protocol| returns
-          `false`, [=iteration/continue=].
-          </li>
           <li>Let |data| be |request|'s {{DigitalCredentialGetRequest/data}},
           if |request| is a {{DigitalCredentialGetRequest}}, or |request|'s
           {{DigitalCredentialCreateRequest/data}}, if |request| is a
@@ -986,10 +1061,20 @@
           <li>Validate |request|'s [=digital credential/presentation request
           data=] or [=digital credential/issuance request data=] according to
           |request|'s [=digital credential/presentation protocol=] or [=digital
-          credential/issuance protocol=] or other criteria. Validation
-          requirements are protocol-specific and are outside the scope of this
-          specification:
-            <aside class="note" title="Validation details outside scope">
+          credential/issuance protocol=] or other criteria.
+            <p>
+              In addition to protocol-defined requirements, a [=user agent=]
+              might apply validation criteria based on local policy,
+              configuration, or the user's choices. For example, a [=user
+              agent=] might reject a request that seeks particular credential
+              attributes.
+            </p>
+            <p>
+              What constitutes a validation failure is protocol-specific, but
+              how such a failure is classified into an exception type is
+              defined below:
+            </p>
+            <aside class="note" title="Protocol-specific validation details">
               <p>
                 Validation includes verifying |request|'s [=digital
                 credential/presentation request data=] or [=digital
@@ -1004,10 +1089,54 @@
                 during validation.
               </p>
             </aside>
-            <aside class="issue" data-number="472"></aside>
             <ol>
-              <li>If validation fails, [=exception/throw=] an appropriate
-              [=exception=].
+              <li>If validation fails:
+                <ol>
+                  <li>Let |error| be determined as follows:
+                    <dl class="switch">
+                      <dt>
+                        The [=user agent=] does not permit the request based on
+                        local policy, configuration, or the user's choices:
+                      </dt>
+                      <dd>
+                        A [=exception/create|created=] {{"NotAllowedError"}}
+                        {{DOMException}}.
+                        <p class="note">
+                          {{"NotAllowedError"}} is deliberately
+                          indistinguishable from the error returned when the
+                          user cancels the operation, so that a website cannot
+                          determine whether a request was refused by the user
+                          or by the [=user agent=], nor infer anything about
+                          the user's configuration or credentials.
+                        </p>
+                      </dd>
+                      <dt>
+                        The request is not permitted for security reasons
+                        unrelated to the user, such as the context or
+                        transport:
+                      </dt>
+                      <dd>
+                        A [=exception/create|created=] {{"SecurityError"}}
+                        {{DOMException}}.
+                      </dd>
+                      <dt>
+                        The request data is malformed or invalid:
+                      </dt>
+                      <dd>
+                        A [=exception/create|created=] {{TypeError}}.
+                      </dd>
+                      <dt>
+                        Otherwise:
+                      </dt>
+                      <dd>
+                        A [=exception/create|created=] {{"OperationError"}}
+                        {{DOMException}}.
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>[=exception/Throw=] |error|.
+                  </li>
+                </ol>
               </li>
               <li>Otherwise, [=list/append=] |request| to |validatedRequests|.
               </li>
@@ -1723,44 +1852,22 @@
       Otherwise:
     </p>
     <ol class="algorithm">
-      <li>Let |signal| be |options|'s {{CredentialRequestOptions/signal}}, if
-      present.
-      </li>
-      <li>If |origin| is an [=opaque origin=], return [=a promise rejected
-      with=] a {{"SecurityError"}} {{DOMException}}.
-      </li>
-      <li>Let |global| be [=this=]'s [=relevant global object=].
-      </li>
-      <li>Let |document| be |global|'s [=associated `Document`=].
-      </li>
-      <li>If |document| is not a [=Document/fully active descendant of a
-      top-level traversable with user attention=], return [=a promise rejected
-      with=] a {{"NotAllowedError"}} {{DOMException}}.
-      </li>
-      <li>Let |topLevelDocument| be the [=navigable/active document=] of the
-      [=navigable/top-level traversable=] of |document|'s [=node navigable=].
-      </li>
-      <li>Let |topLevelOrigin| be |topLevelDocument|'s [=relevant settings
-      object's=] [=environment settings object/origin=].
-      </li>
-      <li>If |topLevelOrigin| is an [=opaque origin=], return [=a promise
-      rejected with=] a {{"SecurityError"}} {{DOMException}}.
-      </li>
       <li>Let |requests| be |options|'s {{CredentialRequestOptions/digital}}'s
       {{DigitalCredentialRequestOptions/requests}} member.
       </li>
-      <li>If |global| does not have [=transient activation=], return [=a
-      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
+      <li>Set |requests| to the result of [=credential request
+      coordinator/filter credential requests=] given |requests|.
       </li>
-      <li>[=Consume user activation=] of |global|.
+      <li>If |requests| [=list/is empty=], return [=a promise rejected with=] a
+      newly created {{TypeError}}.
       </li>
-      <li>Let |promise| be [=a new promise=] in [=this=]'s [=relevant realm=].
+      <li>Let |signal| be |options|'s {{CredentialRequestOptions/signal}}, if
+      present.
       </li>
-      <li>[=credential request coordinator/Prepare credential requests=] with
-      |origin| as |documentOrigin|, |document|, |requests|, |promise|, and
-      |signal|.
+      <li>Let |global| be [=this=]'s [=relevant global object=].
       </li>
-      <li>Return |promise|.
+      <li>Return the result of [=credential request coordinator/prepare
+      credential requests=] given |global|, |origin|, |requests|, and |signal|.
       </li>
     </ol><!--
     // MARK: [[Store]]()
@@ -1790,48 +1897,22 @@
       arguments. Otherwise:
     </p>
     <ol class="algorithm">
-      <li>Let |signal| be |options|'s {{CredentialCreationOptions/signal}}, if
-      present.
-      </li>
-      <li>If |signal| is [=AbortSignal/aborted=], return [=a promise rejected
-      with=] |signal|'s [=AbortSignal/abort reason=].
-      </li>
-      <li>If |origin| is an [=opaque origin=], return [=a promise rejected
-      with=] a {{"SecurityError"}} {{DOMException}}.
-      </li>
-      <li>Let |global| be [=this=]'s [=relevant global object=].
-      </li>
-      <li>Let |document| be |global|'s [=associated `Document`=].
-      </li>
-      <li>If |document| is not a [=Document/fully active descendant of a
-      top-level traversable with user attention=], return [=a promise rejected
-      with=] a {{"NotAllowedError"}} {{DOMException}}.
-      </li>
-      <li>Let |topLevelDocument| be the [=navigable/active document=] of the
-      [=navigable/top-level traversable=] of |document|'s [=node navigable=].
-      </li>
-      <li>Let |topLevelOrigin| be |topLevelDocument|'s [=relevant settings
-      object's=] [=environment settings object/origin=].
-      </li>
-      <li>If |topLevelOrigin| is an [=opaque origin=], return [=a promise
-      rejected with=] a {{"SecurityError"}} {{DOMException}}.
-      </li>
       <li>Let |requests| be |options|'s {{CredentialCreationOptions/digital}}'s
       {{DigitalCredentialCreationOptions/requests}} member.
       </li>
-      <li>If |global| does not have [=transient activation=], return [=a
-      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
+      <li>Set |requests| to the result of [=credential request
+      coordinator/filter credential requests=] given |requests|.
       </li>
-      <li>[=Consume user activation=] of |global|.
+      <li>If |requests| [=list/is empty=], return [=a promise rejected with=] a
+      newly created {{TypeError}}.
       </li>
-      <li>Let |promise : Promise| be [=a new promise=] in the [=relevant
-      realm=] of [=this=].
+      <li>Let |signal| be |options|'s {{CredentialCreationOptions/signal}}, if
+      present.
       </li>
-      <li>[=credential request coordinator/Prepare credential requests=] with
-      |origin| as |documentOrigin|, |document|, |requests|, |promise|, and
-      |signal|.
+      <li>Let |global| be [=this=]'s [=relevant global object=].
       </li>
-      <li>Return |promise|.
+      <li>Return the result of [=credential request coordinator/prepare
+      credential requests=] given |global|, |origin|, |requests|, and |signal|.
       </li>
     </ol><!--
     // MARK: [[type]] internal slot
@@ -1978,7 +2059,18 @@
         following defines the [=out-of-scope threats=] for this specification:
       </p>
       <ul>
-        <li>To be written...
+        <li>
+          <strong>Broken cryptography:</strong> a [=digital
+          credential/presentation protocol=] or [=digital credential/issuance
+          protocol=] can allow an algorithm, parameter, or certificate format
+          that is later found to be unsafe. Noticing that and moving away from
+          it is up to the protocol and to [=credential managers=], since they
+          are the ones that check the cryptography and decide who to trust.
+          This specification does not ask a [=user agent=] to look inside
+          [=digital credential/presentation request data=] or [=digital
+          credential/issuance request data=] to find it. So a [=verifier=] and
+          a [=credential manager=] can keep using something unsafe until the
+          protocol changes and implementations are updated.
         </li>
       </ul>
       <h3>
@@ -2039,9 +2131,9 @@
         of the [=navigable/top-level traversable=] in which the request was
         made. [[[#credential-request-coordinator]]] requires the [=user agent=]
         to use its own determination of both, and to not rely on an [=origin=]
-        supplied by the content whose request is being mediated, whether to
-        validate or form the request or to present the [=digital credential
-        chooser=].
+        supplied by the content whose request is being mediated, in determining
+        whether to validate or form the request or to present the [=digital
+        credential chooser=].
       </p>
       <p>
         This mitigates [=Unauthorized Cross-Origin Access=]: the party that is
@@ -3289,6 +3381,39 @@
         <li>Return [=success=] with data `null`.
         </li>
       </ol>
+      <p class="note" title="Simulating wallet errors in tests">
+        Developers writing automated tests can simulate wallet errors by
+        passing an {{AbortSignal}} as {{CredentialRequestOptions/signal}} (for
+        {{CredentialsContainer/get()}}) or {{CredentialCreationOptions/signal}}
+        (for {{CredentialsContainer/create()}}), then aborting it with the
+        desired [=AbortSignal/abort reason=]. This exercises the same abort
+        path used by the request algorithms.
+      </p>
+      <pre class="example js" title=
+      "Simulating a wallet error with AbortController">
+        (async () =&gt; {
+          const controller = new AbortController();
+          const credentialPromise = navigator.credentials.get({
+            digital: {
+              requests: [{
+                protocol: "example-request-protocol",
+                data: { /* presentation request data */ }
+              }]
+            },
+            signal: controller.signal
+          });
+
+          controller.abort(
+            new DOMException("Simulated wallet failure", "OperationError")
+          );
+
+          try {
+            await credentialPromise;
+          } catch (error) {
+            console.assert(error.name === "OperationError");
+          }
+        })();
+      </pre>
       <h3>
         Handle Virtual Wallet Behavior
       </h3>
