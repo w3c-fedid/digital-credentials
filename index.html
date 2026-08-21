@@ -2074,6 +2074,46 @@
       </p>
       <section>
         <!--
+        // MARK: Signing presentation requests
+        -->
+        <h3>
+          Signing presentation requests
+        </h3>
+        <p>
+          Where a [=digital credential/presentation protocol=] offers a way to
+          sign a request, a [=verifier=] is strongly encouraged to use it.
+        </p>
+        <p>
+          An unsigned request can be altered by a script running in the
+          verifier's own page, such as one injected by a malicious browser
+          extension. That script can change what is being asked for, turning a
+          narrow request into a demand for much more, and it can replace the
+          parameters used to [[[#encrypting-credential-responses|encrypt the response]]]  so that the response is
+          encrypted to the attacker rather than to the verifier. Requiring the
+          API to be used in a [=secure context=] does not prevent this, because
+          the attacker is already inside one. With an unsigned request, the
+          [=credential manager=] has to trust that the verifier has kept its own
+          page free of such scripts. A signed request, on the other hand, gives
+          the [=credential manager=] something to check, so the change can be
+          detected instead of passing unnoticed. 
+        </p>
+        <p>
+          Even at that, signing only helps if the [=credential manager=] can tell
+          that the signature belongs to the verifier making the request. A script
+          inside the page can re-sign an altered request with a key of its own,
+          so a signature offers no protection against this attacker unless it can
+          be checked against a signing key that is already recognized as the
+          verifier's. Which signing keys to accept, and how they are established,
+          is decided by the ecosystem a credential belongs to rather than by this
+          specification, and the protection a signed request actually offers
+          depends on that decision. Beyond protecting against same-device
+         in-page tampering, request signing also provides critical
+         defense-in-depth when presenting credentials across multiple devices
+         (see [[[#cross-device-security-and-proximity]]]).
+        </p>
+      </section>
+      <section>
+        <!--
         // MARK: Cross-Device Security and Proximity
         -->
         <h3>
