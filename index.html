@@ -2106,7 +2106,10 @@
           verifier's. Which signing keys to accept, and how they are established,
           is decided by the ecosystem a credential belongs to rather than by this
           specification, and the protection a signed request actually offers
-          depends on that decision.
+          depends on that decision. Beyond protecting against same-device
+         in-page tampering, request signing also provides critical
+         defense-in-depth when presenting credentials across multiple devices
+         (see [[[#cross-device-security-and-proximity]]]).
         </p>
       </section>
       <section>
