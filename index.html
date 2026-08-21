@@ -176,7 +176,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="6f6c19bb5d7c64757fef5dc2e26bba4338c8c306">
+<meta name="revision" content="2e9b6877a4fde28f4d35d8c2ad1843c686f1e299">
 <meta name="description" content="This document specifies an API enabling user agents to mediate the
         presentation and issuance of digital credentials, such as a
         driver's license, government-issued identification card, or
@@ -325,7 +325,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "6f6c19bb5d7c64757fef5dc2e26bba4338c8c306",
+  "gitRevision": "2e9b6877a4fde28f4d35d8c2ad1843c686f1e299",
   "publishISODate": "2026-08-21T00:00:00.000Z",
   "generatedSubtitle": "W3C Editor's Draft 21 August 2026"
 }</script>
@@ -2415,28 +2415,29 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           verifier's own page, such as one injected by a malicious browser
           extension. That script can change what is being asked for, turning a
           narrow request into a demand for much more, and it can replace the
-          parameters used to <a href="#encrypting-credential-responses" data-matched-text="[[[#encrypting-credential-responses|encrypt the response]]]">encrypt the response</a>  so that the response is
-          encrypted to the attacker rather than to the verifier. Requiring the
-          API to be used in a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#secure-context" id="ref-for-index-term-secure-contexts-3">secure context</a> does not prevent this, because
-          the attacker is already inside one. With an unsigned request, the
-          <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-17">credential manager</a> has to trust that the verifier has kept its own
-          page free of such scripts. A signed request, on the other hand, gives
-          the <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-18">credential manager</a> something to check, so the change can be
-          detected instead of passing unnoticed. 
+          parameters used to <a href="#encrypting-credential-responses" data-matched-text="[[[#encrypting-credential-responses|encrypt the
+          response]]]">encrypt the
+          response</a> so that the response is encrypted to the attacker rather
+          than to the verifier. Requiring the API to be used in a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#secure-context" id="ref-for-index-term-secure-contexts-3">secure context</a> does not prevent this, because the attacker is already
+          inside one. With an unsigned request, the <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-17">credential manager</a> has
+          to trust that the verifier has kept its own page free of such
+          scripts. A signed request, on the other hand, gives the <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-18">credential manager</a> something to check, so the change can be detected instead
+          of passing unnoticed.
         </p>
         <p>
-          Even at that, signing only helps if the <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-19">credential manager</a> can tell
-          that the signature belongs to the verifier making the request. A script
-          inside the page can re-sign an altered request with a key of its own,
-          so a signature offers no protection against this attacker unless it can
-          be checked against a signing key that is already recognized as the
-          verifier's. Which signing keys to accept, and how they are established,
-          is decided by the ecosystem a credential belongs to rather than by this
-          specification, and the protection a signed request actually offers
-          depends on that decision. Beyond protecting against same-device
-         in-page tampering, request signing also provides critical
-         defense-in-depth when presenting credentials across multiple devices
-         (see <a href="#cross-device-security-and-proximity" data-matched-text="[[[#cross-device-security-and-proximity]]]" class="sec-ref"><bdi class="secno">10.4 </bdi>
+          Even at that, signing only helps if the <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-19">credential manager</a> can
+          tell that the signature belongs to the verifier making the request. A
+          script inside the page can re-sign an altered request with a key of
+          its own, so a signature offers no protection against this attacker
+          unless it can be checked against a signing key that is already
+          recognized as the verifier's. Which signing keys to accept, and how
+          they are established, is decided by the ecosystem a credential
+          belongs to rather than by this specification, and the protection a
+          signed request actually offers depends on that decision. Beyond
+          protecting against same-device in-page tampering, request signing
+          also provides critical defense-in-depth when presenting credentials
+          across multiple devices (see
+          <a href="#cross-device-security-and-proximity" data-matched-text="[[[#cross-device-security-and-proximity]]]" class="sec-ref"><bdi class="secno">10.4 </bdi>
           Cross-Device Security and Proximity</a>).
         </p>
       </section>
