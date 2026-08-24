@@ -1245,36 +1245,6 @@
       context/requests=] is |validatedRequests| and [=request context/top-level
       origin=] is |topLevelOrigin|.
       </li>
-      <li>The user agent SHOULD independently verify that the request to
-      present the [=digital credential chooser=] was initiated by a
-      user-activated event, using a mechanism that does not solely rely on the
-      [=navigable=] responsible for running the content of the [=top-level
-      traversable=].
-        <ol>
-          <li>If the verification fails:
-            <ol>
-              <li>Let |error| be a newly created {{"NotAllowedError"}}
-              {{DOMException}}.
-              </li>
-              <li>[=credential request coordinator/Reject the credential
-              request with=] |error| and |promise|.
-              </li>
-              <li>Return.
-              </li>
-            </ol>
-          </li>
-        </ol>
-        <aside class="note" title="Defense in depth">
-          In multi-process architectures, the [=consume user activation=] check
-          occurs in the process responsible for running web content (variously
-          called the "content process" or "renderer process"), which could be
-          compromised. By correlating the request with a user interaction event
-          dispatched by a trusted process (e.g., the user agent's own
-          event-handling process), the user agent can provide defense in depth
-          against presenting the [=digital credential chooser=] without a
-          genuine user gesture.
-        </aside>
-      </li>
       <li>[=In parallel=]:
         <ol>
           <li>Display a [=digital credential chooser=] with |requestData| and
@@ -2013,6 +1983,17 @@
           underlying operating system or [=credential manager=] by passing
           carefully crafted or malformed protocol requests through the API.
         </dd>
+        <dt>
+          <dfn data-local-lt=
+          "forged requests|content process compromise">Forged Requests from a
+          Compromised Content Process</dfn>
+        </dt>
+        <dd>
+          An attacker who has taken control of the process that runs a page's
+          code attempts to make the [=digital credential chooser=] appear
+          without the user having interacted with the page, by skipping the
+          [=transient activation=] check that runs in that same process.
+        </dd>
       </dl>
       <h4>
         Out of Scope Threats
@@ -2149,6 +2130,51 @@
         [[[permissions-policy]]] specification for additional security
         properties provided by this integration.
       </p>
+      <section id="content-process-compromise">
+        <!--
+        // MARK: Forged Requests from a Compromised Content Process
+        -->
+        <h3>
+          Forged Requests from a Compromised Content Process
+        </h3>
+        <p>
+          Some user agents run a page's code in one process and handle
+          keyboard, mouse, and touch input in another, more trusted, process.
+          In those user agents both the [=transient activation=] check and the
+          step that [=Consume user activation|consumes that activation=] are
+          evaluated in the process that runs the page, which is the process an
+          attacker is most likely to have taken over. An attacker in that
+          position can skip both and ask for the [=digital credential chooser=]
+          anyway.
+        </p>
+        <p>
+          [=Transient activation=] lasts only a few seconds so that the user
+          can perceive the link between interacting with a page and the page
+          calling an interface gated on that interaction. [=Forged requests=]
+          break exactly that link. What the attacker gains is a credential
+          prompt drawn by the user agent or by the operating system, at a
+          moment of the attacker's choosing, which the user cannot tell apart
+          from a legitimate one. That makes it useful for phishing, and for the
+          same prompt fatigue described under [=API flooding=].
+        </p>
+        <p>
+          Such a user agent is not asked to do anything beyond what this
+          specification already requires. What matters is where the requirement
+          is evaluated. A user agent is encouraged to satisfy the [=transient
+          activation=] check, and the consumption that follows it, against a
+          record of input held by the process that presents the chooser, rather
+          than one the process running the page can write to.
+        </p>
+        <p class="note">
+          This changes nothing that content can observe, because a page that
+          has not been taken over always has [=transient activation=] when it
+          calls the API. It appears here rather than as a step in an algorithm
+          because the model has a single [=transient activation=] state,
+          already checked and consumed before the [=digital credential
+          chooser=] is reached, so a second check of it cannot be expressed as
+          a distinct step.
+        </p>
+      </section>
       <section>
         <!--
         // MARK: Signing presentation requests
