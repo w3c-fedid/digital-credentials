@@ -2158,21 +2158,25 @@
           same prompt fatigue described under [=API flooding=].
         </p>
         <p>
-          Such a user agent is not asked to do anything beyond what this
-          specification already requires. What matters is where the requirement
-          is evaluated. A user agent is encouraged to satisfy the [=transient
-          activation=] check, and the consumption that follows it, against a
-          record of input held by the process that presents the chooser, rather
-          than one the process running the page can write to.
+          A multi-process user agent is not asked to do anything beyond what
+          this specification already requires. What matters is where the
+          requirement is evaluated. Such a user agent is encouraged to evaluate
+          the [=transient activation=] check against a record of input held by
+          the process that presents the chooser, rather than one the process
+          running the page can write to, and to record the consumption that
+          follows it in that same trusted process. Having done so, it rejects a
+          request that fails the check, as the [=transient activation=] check
+          already does.
         </p>
         <p class="note">
-          This changes nothing that content can observe, because a page that
-          has not been taken over always has [=transient activation=] when it
-          calls the API. It appears here rather than as a step in an algorithm
-          because the model has a single [=transient activation=] state,
-          already checked and consumed before the [=digital credential
-          chooser=] is reached, so a second check of it cannot be expressed as
-          a distinct step.
+          This changes nothing that content can observe. A page that has not
+          been taken over reaches the [=digital credential chooser=] only by
+          passing the [=transient activation=] check, so evaluating that check
+          somewhere the page cannot influence gives the same answer. It appears
+          here rather than as a step in an algorithm because the model has a
+          single [=transient activation=] state, already checked and consumed
+          before the [=digital credential chooser=] is reached, so a second
+          check of it cannot be expressed as a distinct step.
         </p>
       </section>
       <section>
