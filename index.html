@@ -2010,16 +2010,15 @@
         </dt>
         <dd>
           A user might install, or be coerced by institutional mandate or
-          essential services to use, a [=credential manager=] that intentionally
-          leaks data, fails to securely encrypt credentials, or ignores user
-          consent. While the API protects users prior to wallet selection
-          through explicit user permission (see
-          [[[#user-permission-and-transparency]]]), it cannot govern the internal
-          behavior of a
-          [=credential manager=] once the user authorizes it to handle a
-          request. Mitigating this risk relies on OS platform security, app
-          store vetting, and legal/regulatory frameworks governing wallet
-          providers.
+          essential services to use, a [=credential manager=] that
+          intentionally leaks data, fails to securely encrypt credentials, or
+          ignores user consent. While the API protects users prior to wallet
+          selection through explicit user permission (see
+          [[[#user-permission-and-transparency]]]), it cannot govern the
+          internal behavior of a [=credential manager=] once the user
+          authorizes it to handle a request. Mitigating this risk relies on OS
+          platform security, app store vetting, and legal/regulatory frameworks
+          governing wallet providers.
         </dd>
         <dt>
           <dfn>Protocol and Format Vulnerabilities</dfn>
@@ -2057,12 +2056,12 @@
       </p>
       <p>
         To mitigate the risk of [=malicious payloads to the underlying
-        platform=], [=user agents=] pass request parameters to the
-        [=credential manager=] using [=serialize a JavaScript value to a JSON
-        string|JSON serialization=] (see [=credential request
-        coordinator/validate credential requests=]). The underlying platform
-        and [=credential managers=] are responsible for robustly parsing and
-        validating these protocol-specific JSON payloads before acting on them.
+        platform=], [=user agents=] pass request parameters to the [=credential
+        manager=] using [=serialize a JavaScript value to a JSON string|JSON
+        serialization=] (see [=credential request coordinator/validate
+        credential requests=]). The underlying platform and [=credential
+        managers=] are responsible for robustly parsing and validating these
+        protocol-specific JSON payloads before acting on them.
       </p>
       <p>
         Additionally, requests from an [=opaque origin=] are rejected. Calls to
