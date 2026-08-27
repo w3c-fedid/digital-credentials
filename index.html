@@ -713,11 +713,7 @@
           </td>
         </tr>
       </tbody>
-    </table>
-    <p>
-      See [[[#security-considerations-for-protocols]]] for the security
-      requirements that protocols listed in this table need to meet.
-    </p><!--
+    </table><!--
     // MARK: Convert request protocol
     -->
     <h3>
@@ -1921,7 +1917,9 @@
       <p>
         The sections that follow describe the API's security properties, the
         threats in scope, the assumptions on which security depends, and
-        residual threats that remain after the mitigations are applied.
+        residual threats that remain after the mitigations are applied. This
+        specification defines requirements for the user agent's behavior only
+        when mediating [=digital credential/credential responses=].
       </p>
       <p class="note">
         Other security considerations that depend on protocols, credential
@@ -1950,15 +1948,14 @@
       </p>
       <dl>
         <dt>
-          <dfn data-local-lt="tampering">Network Tampering</dfn>
+          <dfn>Network Tampering</dfn>
         </dt>
         <dd>
-          An attacker on the network attempts to inject or modify page content
-          to alter a {{DigitalCredentialGetRequest}} or
-          {{DigitalCredentialCreateRequest}} in transit. Transport security
-          (enforced via [=secure contexts=]) mitigates this threat. This is
-          distinct from [=data tampering=], which occurs at the protocol level
-          after message creation.
+          A network attacker that can inject or modify page content in an
+          insecure context attempts to alter a {{DigitalCredentialGetRequest}}
+          or {{DigitalCredentialCreateRequest}} before processing. Threats that
+          arise from a protocol or credential format are described separately
+          as [=protocol and format vulnerabilities=].
         </dd>
         <dt>
           <dfn>API Flooding</dfn>
@@ -1980,6 +1977,14 @@
           explicit permission from the embedding site, potentially enabling
           credential harvesting or unauthorized access to sensitive user data.
         </dd>
+        <dt>
+          <dfn>Malicious Payloads to the Underlying Platform</dfn>
+        </dt>
+        <dd>
+          A malicious website attempts to exploit vulnerabilities in the
+          underlying operating system or [=credential manager=] by passing
+          carefully crafted or malformed protocol requests through the API.
+        </dd>
       </dl>
       <h4>
         Out of Scope Threats
@@ -1993,36 +1998,53 @@
       </p>
       <dl>
         <dt>
-          <dfn>Data Tampering</dfn>
+          <dfn>OS or Device Compromise</dfn>
         </dt>
         <dd>
-          Modification of a [=digital credential/presentation protocol=] or
-          [=digital credential/issuance protocol=] request or response by an attacker
-          or intermediary (including a [=verifier=], [=issuer=], or [=holder=]) after
-          it is created by its sender. Unlike [=network tampering=], this threat
-          occurs at the protocol level and is not mitigated by transport
-          security alone. This threat is expected to be addressed by the
-          underlying exchange protocol; for example, through signing and
-          validating requests and responses.
+          An attacker who gains control over the user's operating system or
+          device hardware could bypass [=user agent=] protections, extract
+          sensitive credential data directly from storage, or manipulate the
+          API calls. This threat is addressed by OS platform security and
+          hardware-backed keystores.
+        </dd>
+        <dt>
+          <dfn>Malicious Credential Managers</dfn>
+        </dt>
+        <dd>
+          A user might install, or be coerced by institutional mandate or
+          essential services to use, a [=credential manager=] that intentionally
+          leaks data, fails to securely encrypt credentials, or ignores user
+          consent. While the API protects users prior to wallet selection
+          through explicit user permission (see
+          [[[#user-permission-and-transparency]]]), it cannot govern the internal
+          behavior of a
+          [=credential manager=] once the user authorizes it to handle a
+          request. Mitigating this risk relies on OS platform security, app
+          store vetting, and legal/regulatory frameworks governing wallet
+          providers.
+        </dd>
+        <dt>
+          <dfn>Protocol and Format Vulnerabilities</dfn>
+        </dt>
+        <dd>
+          Weaknesses in the specific [=digital credential/presentation
+          protocol=], [=digital credential/issuance protocol=], or credential
+          format being used (e.g., cryptographic flaws, unsafe algorithms, lack
+          of replay protection, missing request authentication, or missing
+          message integrity protection) could allow attackers to intercept,
+          forge, or modify protocol requests, responses, or credentials.
+          Mitigation occurs primarily at the protocol, format, and transport
+          layers (e.g., mandating response encryption, request signing, and
+          TLS). While the API does not define format-specific cryptography or
+          inspect protocol payloads for cryptographic safety, it enforces
+          baseline security criteria on supported protocols (such as requiring
+          [[[#encrypting-credential-responses|response encryption]]] and
+          encouraging [[[#signing-presentation-requests|signed requests]]]) to
+          steer requests through the most secure path.
         </dd>
       </dl>
-      <ul>
-        <li>
-          <strong>Broken cryptography:</strong> a [=digital
-          credential/presentation protocol=] or [=digital credential/issuance
-          protocol=] can allow an algorithm, parameter, or certificate format
-          that is later found to be unsafe. Noticing that and moving away from
-          it is up to the protocol and to [=credential managers=], since they
-          are the ones that check the cryptography and decide who to trust.
-          This specification does not ask a [=user agent=] to look inside
-          [=digital credential/presentation request data=] or [=digital
-          credential/issuance request data=] to find it. So a [=verifier=] and
-          a [=credential manager=] can keep using something unsafe until the
-          protocol changes and implementations are updated.
-        </li>
-      </ul>
       <h3>
-        Security Considerations for the User Agent
+        Mitigations
       </h3>
       <p>
         The following mitigations address [=in-scope threats=] through
@@ -2030,11 +2052,20 @@
       </p>
       <p>
         WebIDL [=interfaces=] of the Digital Credential API are only exposed in
-        [=secure contexts=], reducing the risk of [=tampering=] through
+        [=secure contexts=], reducing the risk of [=network tampering=] through
         [=secure contexts|insecure contexts=] (e.g., a malicious script being
         injected through the network). Please refer to the
         [[[secure-contexts#security-considerations]]] section of the
         [[[secure-contexts]]] specification for more information.
+      </p>
+      <p>
+        To mitigate the risk of [=malicious payloads to the underlying
+        platform=], [=user agents=] pass request parameters to the
+        [=credential manager=] using [=serialize a JavaScript value to a JSON
+        string|JSON serialization=] (see [=credential request
+        coordinator/validate credential requests=]). The underlying platform
+        and [=credential managers=] are responsible for robustly parsing and
+        validating these protocol-specific JSON payloads before acting on them.
       </p>
       <p>
         Additionally, requests from an [=opaque origin=] are rejected. Calls to
@@ -2091,43 +2122,6 @@
         section [[[permissions-policy#privacy-and-security]]] of the
         [[[permissions-policy]]] specification for additional security
         properties provided by this integration.
-      </p>
-      <h3>
-        Security Considerations for Protocols
-      </h3>
-      <p>
-        This specification defines the user agent's mediation behavior, but it
-        does not by itself provide all of the security properties necessary to
-        guarantee the end-to-end security of digital credentials exchanged
-        through the API. Consequently, this specification assumes that
-        protocols intended to be used with this API define the additional
-        security properties, trust relationships, and mitigations needed to
-        protect the request and response beyond the user agent boundary.
-      </p>
-      <p>
-        This API mediates access to digital credentials, including
-        government-issued documents (see [[#abstract]]). Such exchanges involve
-        [=issuers=], [=holders=], and [=verifiers=], each of which may
-        introduce integrity risks that the user agent cannot detect at runtime.
-        The user agent determines whether a protocol is supported (via
-        {{DigitalCredential/userAgentAllowsProtocol()}}), but cannot inspect
-        the cryptographic integrity of individual exchanges. The requirements
-        below address this by gating protocol support on whether the protocol
-        defines adequate integrity mechanisms.
-      </p>
-      <h4>
-        Request and Response Integrity
-      </h4>
-      <p>
-        A user agent MUST NOT support a [=digital credential/presentation
-        protocol=] or [=digital credential/issuance protocol=] unless the protocol
-        defines mechanisms that allow the recipient of a request or response to
-        determine that it has not been modified after creation by its sender. In
-        general, this is achieved by signing requests and responses at the protocol
-        level.
-      </p>
-      <p>
-        These mechanisms reduce [=data tampering=] at the protocol level.
       </p>
       <section>
         <!--
