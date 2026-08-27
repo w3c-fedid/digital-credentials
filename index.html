@@ -2140,7 +2140,7 @@
         <p>
           Some user agents run a page's code in one process and handle
           keyboard, mouse, and touch input in another, more trusted, process.
-          In those user agents both the [=transient activation=] check and the
+          In those user agents, both the [=transient activation=] check and the
           step that [=Consume user activation|consumes that activation=] are
           evaluated in the process that runs the page, which is the process an
           attacker is most likely to have taken over. An attacker in that
@@ -2165,8 +2165,8 @@
           the process that presents the chooser, rather than one the process
           running the page can write to, and to record the consumption that
           follows it in that same trusted process. Having done so, it rejects a
-          request that fails the check, as the [=transient activation=] check
-          already does.
+          request that fails the check with a {{"NotAllowedError"}}
+          {{DOMException}}, as the [=transient activation=] check already does.
         </p>
         <p class="note">
           This changes nothing that content can observe. A page that has not
