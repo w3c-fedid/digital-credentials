@@ -2888,17 +2888,16 @@
           individuals who are unwilling to present credentials.
         </p>
         <p>
-          To ensure this protection is robust,
-          errors returned by the API do not leak information about the user's
-          available credentials through observable differences, such as distinct
-          error types or timing attacks. For example, rejecting a request
-          because the user has no matching credentials returns the same
-          generic error as rejecting a request because the user cancelled the
-          prompt. Furthermore, to prevent timing attacks without relying on
-          artificial delays, [=user agents=] present a user-facing
-          dialog (such as an empty chooser or notification) when no matching
-          credentials are found, so that prompt dismissal latency is
-          indistinguishable from user cancellation.
+          To ensure this protection is robust, errors returned by the API do
+          not leak information about the user's available credentials through
+          observable differences, such as distinct error types or timing
+          attacks. For example, rejecting a request because the user has no
+          matching credentials returns the same generic error as rejecting a
+          request because the user cancelled the prompt. Furthermore, to
+          prevent timing attacks without relying on artificial delays, [=user
+          agents=] present a user-facing dialog (such as an empty chooser or
+          notification) when no matching credentials are found, so that prompt
+          dismissal latency is indistinguishable from user cancellation.
         </p>
       </section>
       <section id="user-permission-and-transparency">
