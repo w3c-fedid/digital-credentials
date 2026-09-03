@@ -880,9 +880,6 @@
     <ol class="algorithm">
       <li>Let |realm| be |global|'s [=relevant realm=].
       </li>
-      <li>If |origin| is an [=opaque origin=], return [=a promise rejected
-      with=] a {{"SecurityError"}} {{DOMException}} in |realm|.
-      </li>
       <li>Let |document| be |global|'s [=associated `Document`=].
       </li>
       <li>If |document| is not [=Document/fully active=], return [=a promise
@@ -1644,6 +1641,9 @@
       static boolean userAgentAllowsProtocol(DOMString protocol);
     };
     </pre>
+    <p>
+      {{DigitalCredential}} instances are [=Credential/origin bound=].
+    </p>
     <h4>
       The `protocol` member
     </h4>
@@ -2064,15 +2064,6 @@
         protocol-specific JSON payloads before acting on them.
       </p>
       <p>
-        Additionally, requests from an [=opaque origin=] are rejected. Calls to
-        {{DigitalCredential/[[DiscoverFromExternalSource]](origin, options,
-        sameOriginWithAncestors)}} and {{DigitalCredential/[[Create]](origin,
-        options, sameOriginWithAncestors)}} from an [=opaque origin=] (for
-        example, a `data:` document, or a document sandboxed without
-        `allow-same-origin`) are [=reject|rejected=], reducing the risk of
-        malicious extraction or spoofing from untrusted environments.
-      </p>
-      <p>
         The Digital Credentials API reduces [=API flooding=] through two
         mechanisms:
       </p>
@@ -2118,6 +2109,15 @@
         section [[[permissions-policy#privacy-and-security]]] of the
         [[[permissions-policy]]] specification for additional security
         properties provided by this integration.
+      </p>
+      <p>
+        Additionally, requests from an [=opaque origin=] are rejected. Because
+        {{DigitalCredential}} instances are [=Credential/origin bound=], calls
+        to request or create digital credentials from an [=opaque origin=] (for
+        example, a `data:` document, or a document sandboxed without
+        `allow-same-origin`) are rejected by [[[credential-management]]],
+        reducing the risk of malicious extraction or spoofing from untrusted
+        environments.
       </p>
       <section>
         <!--
