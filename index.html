@@ -880,9 +880,6 @@
     <ol class="algorithm">
       <li>Let |realm| be |global|'s [=relevant realm=].
       </li>
-      <li>If |origin| is an [=opaque origin=], return [=a promise rejected
-      with=] a {{"SecurityError"}} {{DOMException}} in |realm|.
-      </li>
       <li>Let |document| be |global|'s [=associated `Document`=].
       </li>
       <li>If |document| is not [=Document/fully active=], return [=a promise
@@ -1644,6 +1641,9 @@
       static boolean userAgentAllowsProtocol(DOMString protocol);
     };
     </pre>
+    <p>
+      {{DigitalCredential}} instances are [=Credential/origin bound=].
+    </p>
     <h4>
       The `protocol` member
     </h4>
@@ -2075,15 +2075,6 @@
         protocol-specific JSON payloads before acting on them.
       </p>
       <p>
-        Additionally, requests from an [=opaque origin=] are rejected. Calls to
-        {{DigitalCredential/[[DiscoverFromExternalSource]](origin, options,
-        sameOriginWithAncestors)}} and {{DigitalCredential/[[Create]](origin,
-        options, sameOriginWithAncestors)}} from an [=opaque origin=] (for
-        example, a `data:` document, or a document sandboxed without
-        `allow-same-origin`) are [=reject|rejected=], reducing the risk of
-        malicious extraction or spoofing from untrusted environments.
-      </p>
-      <p>
         The Digital Credentials API reduces [=API flooding=] through two
         mechanisms:
       </p>
@@ -2129,6 +2120,15 @@
         section [[[permissions-policy#privacy-and-security]]] of the
         [[[permissions-policy]]] specification for additional security
         properties provided by this integration.
+      </p>
+      <p>
+        Additionally, requests from an [=opaque origin=] are rejected. Because
+        {{DigitalCredential}} instances are [=Credential/origin bound=], calls
+        to request or create digital credentials from an [=opaque origin=] (for
+        example, a `data:` document, or a document sandboxed without
+        `allow-same-origin`) are rejected by [[[credential-management]]],
+        reducing the risk of malicious extraction or spoofing from untrusted
+        environments.
       </p>
       <section id="content-process-compromise">
         <!--
@@ -2947,6 +2947,18 @@
           credentials from the user in order to access services, excluding
           individuals who are unwilling to present credentials.
         </p>
+        <p>
+          To ensure this protection is robust, errors returned by the API do
+          not leak information about the user's available credentials through
+          observable differences, such as distinct error types or timing
+          attacks. For example, rejecting a request because the user has no
+          matching credentials returns the same generic error as rejecting a
+          request because the user cancelled the prompt. Furthermore, to
+          prevent timing attacks without relying on artificial delays, [=user
+          agents=] present a user-facing dialog (such as an empty chooser or
+          notification) when no matching credentials are found, so that prompt
+          dismissal latency is indistinguishable from user cancellation.
+        </p>
       </section>
       <section id="user-permission-and-transparency">
         <!--
@@ -3076,6 +3088,24 @@
           As more of this information becomes available in a structured format,
           we expect [=user agents=] and this specification to leverage it to
           improve the user permission experience as well.
+        </p>
+      </section>
+      <section>
+        <!--
+        // MARK: Data Clearing and Persistent State
+        -->
+        <h3>
+          Data Clearing and Persistent State
+        </h3>
+        <p>
+          The Digital Credentials API itself does not introduce new
+          browser-managed persistent state or local storage mechanisms. The
+          credentials requested through this API are stored and managed by
+          external [=credential managers=] or the operating system.
+          Consequently, when a user clears their browsing data (e.g., cookies
+          or local storage) for a given origin or globally, it generally does
+          not clear or affect the credentials held within those external
+          managers.
         </p>
       </section>
     </section>
