@@ -2138,6 +2138,53 @@
         reducing the risk of malicious extraction or spoofing from untrusted
         environments.
       </p>
+      <h3>
+        Verifier hardening against script injection
+      </h3>
+      <p>
+        The [[[#DC-API|Digital Credentials API]]] is only exposed in [=secure
+        contexts=], which means the page reached the user over a secure
+        connection. It does not mean that every script running on that page can
+        be trusted. The [=verifier=] here is the site the user is visiting, the
+        one asking for a credential. The attacker is script that ends up
+        running inside that site's own page in the user's browser: injected
+        through a cross-site scripting flaw, pulled in with a compromised
+        third-party library, or served as a tampered script. The [=verifier's=]
+        servers can be perfectly sound. The problem is on the page.
+      </p>
+      <p>
+        Script running there has the same access as the site's own code. It can
+        read a [=digital credential/credential response=] once the [=verifier=]
+        has decrypted it and handed it back to the page, and it can call the
+        API itself, in which case the request comes from the site's own
+        [=origin=] and looks like one the site made.
+      </p>
+      <p>
+        Mandated response encryption (see
+        [[[#encrypting-credential-responses]]]) does not address this case,
+        because the response is available in cleartext once it reaches the
+        page. The requirement that every request be mediated through a
+        [=digital credential chooser=] limits silent misuse of the API, but it
+        does not stop an injected script from reading data the [=verifier=] has
+        already exposed to the page.
+      </p>
+      <p>
+        [=Verifiers=] are encouraged to harden their pages against script
+        injection as defense-in-depth. A strong [[CSP3|Content Security
+        Policy]], for example a nonce- or hash-based policy that avoids
+        `'unsafe-inline'` and constrains the origins from which scripts can
+        load, reduces the likelihood that an injected or unauthorized script
+        runs in the page. [[[trusted-types]]] further reduce the risk of
+        DOM-based injection, and [[[SRI]]] guards against tampered or
+        compromised third-party scripts. These measures reduce, but do not
+        eliminate, the risk: malicious browser extensions, a [=verifier=] that
+        misuses the data it receives, and injection vectors outside the page's
+        script-execution model remain beyond what these mechanisms can address.
+        To prevent injected scripts or extensions from altering outgoing
+        credential requests or replacing response encryption keys,
+        [=verifiers=] can employ signed requests (see
+        [[[#signing-presentation-requests]]]).
+      </p>
       <section>
         <!--
         // MARK: Signing presentation requests
