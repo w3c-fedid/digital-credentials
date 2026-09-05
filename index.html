@@ -774,37 +774,22 @@
     <ol class="algorithm">
       <li>If |data| is not an [=object=], return failure.
       </li>
-      <li>If |data| does not have an own property "`deviceRequest`", return
-      failure.
-      </li>
       <li>If |data| does not have an own property "`encryptionInfo`", return
       failure.
       </li>
-      <li>If |data|["`deviceRequest`"] is not a [=string=], return failure.
-      </li>
-      <li>If |data|["`encryptionInfo`"] is not a [=string=], return failure.
-      </li>
-      <li>Let |deviceRequest| be the result of parsing
-      |data|["`deviceRequest`"] as a `Base64DeviceRequest` value according to
-      [[[ISO18013-7]]] Annex C.
-      </li>
-      <li>If |deviceRequest| is failure, return failure.
-      </li>
-      <li>Let |encryptionInfo| be the result of parsing
-      |data|["`encryptionInfo`"] as a `Base64EncryptionInfo` value according to
-      [[[ISO18013-7]]] Annex C.
-      </li>
-      <li>If |encryptionInfo| is failure, return failure.
-      </li>
-      <li>If |encryptionInfo| does not identify the encryption protocol
-      "`dcapi`", return failure.
-      </li>
-      <li>If |encryptionInfo| does not contain encryption parameters with a
-      nonce and recipient public key, return failure.
-      </li>
       <li>Return success.
       </li>
-    </ol><!--
+    </ol>
+    <aside class="note" title="Why only encryptionInfo">
+      <p>
+        [[[ISO18013-7]]] Annex C requires "`encryptionInfo`" in every request
+        and defines only one response structure, an encrypted one. A request
+        carrying "`encryptionInfo`" therefore compels an encrypted [=digital
+        credential/presentation response=], which is all this algorithm
+        establishes. Whether the rest of the request conforms to Annex C is for
+        the [=holder=] to decide, not the [=user agent=].
+      </p>
+    </aside><!--
       // MARK: Validate OpenID4VP request data
     -->
     <h3>
@@ -833,36 +818,6 @@
       <li>Return success.
       </li>
     </ol><!--
-    // MARK: Validate OpenID4VCI request data
-    -->
-    <h3>
-      Validate OpenID4VCI request data
-    </h3>
-    <p>
-      To <dfn>validate OpenID4VCI request data</dfn> given a JavaScript value
-      |data| and a {{DigitalCredentialGetRequest}} or
-      {{DigitalCredentialCreateRequest}} |request|:
-    </p>
-    <ol class="algorithm">
-      <li>Assert: |request| is a {{DigitalCredentialCreateRequest}}.
-      </li>
-      <li>If |data| is not an [=object=], return failure.
-      </li>
-      <li>Let |issuanceRequest| be the result of processing |data| as an
-      OpenID4VCI issuance request according to [[[OPENID4VCI]]].
-      </li>
-      <li>If |issuanceRequest| is failure, return failure.
-      </li>
-      <li>Return success.
-      </li>
-    </ol>
-    <aside class="issue" title="OpenID4VCI validation requirements">
-      <p>
-        The exact validation requirements for OpenID4VCI request data are
-        expected to be refined as the OpenID4VCI integration with this API
-        stabilizes.
-      </p>
-    </aside><!--
     // MARK: Credential Request Coordinator
     -->
     <h2>
@@ -1161,8 +1116,7 @@
             </p>
           </li>
           <li>Let |validation| be the result of running [=credential request
-          coordinator/validate request data=] given |protocol|, |data|, and
-          |request|.
+          coordinator/validate request data=] given |protocol| and |data|.
             <p>
               A [=user agent=] can also reject |request| on grounds this
               specification does not define, such as local policy,
@@ -1234,9 +1188,7 @@
     <p>
       To <dfn data-dfn-for="credential request coordinator">validate request
       data</dfn> given a {{DigitalCredentialProtocol}}
-      |protocol:DigitalCredentialProtocol|, a JavaScript value |data|, and a
-      {{DigitalCredentialGetRequest}} or {{DigitalCredentialCreateRequest}}
-      |request|:
+      |protocol:DigitalCredentialProtocol| and a JavaScript value |data|:
     </p>
     <ol class="algorithm">
       <li>If |protocol| is:
@@ -1262,22 +1214,31 @@
             |protocol| and |data|.
           </dd>
           <dt>
-            {{DigitalCredentialIssuanceProtocol/"openid4vci-v1"}}:
+            Otherwise:
           </dt>
           <dd>
-            Return the result of [=validate OpenID4VCI request data=] given
-            |data| and |request|.
+            Return success.
           </dd>
         </dl>
       </li>
     </ol>
+    <aside class="note" title="Only presentation protocols are checked here">
+      <p>
+        A [=digital credential/issuance protocol=] reaches the "Otherwise"
+        case. Issuance sends a credential to the [=holder=] rather than
+        returning credential data to the requesting party, so there is nothing
+        here for encryption to protect. A [=holder=] still validates the
+        request it receives.
+      </p>
+    </aside>
     <p>
-      A [=digital credential/credential response=] is always encrypted for the
-      requesting party. This is enforced, per [=digital credential/presentation
-      protocol=], by [=credential request coordinator/validate request data=],
-      which requires the request to mandate an encrypted response, and by
-      [=credential request coordinator/validate response data=], which rejects
-      a response that is not encrypted.
+      A [=digital credential/presentation response=] is always encrypted for
+      the requesting party. This is enforced, per [=digital
+      credential/presentation protocol=], by [=credential request
+      coordinator/validate request data=], which requires the request to
+      mandate an encrypted response, and by [=credential request
+      coordinator/validate response data=], which rejects a response that is
+      not encrypted.
     </p>
     <aside class="note" title="Encryption applies per operating mode">
       <p>
@@ -1289,22 +1250,6 @@
         enforced for each individually (i.e., per operating mode). For
         OpenID4VP the `response_mode` is "`dc_api.jwt`"; for the ISO mdoc
         protocol, `encryptionInfo` is present.
-      </p>
-    </aside>
-    <aside class="note" title="Issuance responses">
-      <p>
-        A [=digital credential/issuance response=] does not return credential
-        data to the requesting party, so encryption concerns [=digital
-        credential/presentation protocols=].
-      </p>
-    </aside>
-    <aside class="note" title="Protocol-specific validation">
-      <p>
-        Validation includes verifying |request|'s [=digital
-        credential/presentation request data=] or [=digital credential/issuance
-        request data=] conforms to the requirements of the specified [=digital
-        credential/presentation protocol=] or [=digital credential/issuance
-        protocol=].
       </p>
     </aside><!--
     // MARK: Validate response data
