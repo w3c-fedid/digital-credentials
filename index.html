@@ -77,6 +77,12 @@
           date: "2025-02-25",
           publisher: "W3C"
         },
+        "OpenID4VCI": {
+          title: "OpenID for Verifiable Credential Issuance 1.0",
+          href: "https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html",
+          authors: ["Torsten Lodderstedt", "Kristina Yasuda", "Tobias Looker"],
+          publisher: "OpenID Foundation"
+        },
       },
       xref: {
         profile: "web-platform",
@@ -884,7 +890,8 @@
       To <dfn data-dfn-for="credential request coordinator">prepare credential
       requests</dfn> given a {{Window}} |global|, an [=origin=] |origin|, a
       [=sequence=] of {{DigitalCredentialGetRequest}} values or a [=sequence=]
-      of {{DigitalCredentialCreateRequest}} values |requests|, and an optional
+      of {{DigitalCredentialCreateRequest}} values |requests|, a [=byte
+      sequence=] or `null` |issuerAttestationNonce|, and an optional
       {{AbortSignal}} |signal:AbortSignal|:
     </p>
     <ol class="algorithm">
@@ -989,7 +996,8 @@
       <li>If |handled| is `true`, return |promise|.
       </li>
       <li>[=credential request coordinator/Initiate the credential request=]
-      with |document|, |validatedRequests|, |promise|, and |signal|.
+      with |document|, |validatedRequests|, |promise|,
+      |issuerAttestationNonce|, and |signal|.
       </li>
       <li>Return |promise|.
       </li>
@@ -1242,7 +1250,8 @@
       To <dfn data-dfn-for="credential request coordinator">initiate the
       credential request</dfn> given a [=Document=] |document|, a [=list=] of
       validated credential requests |validatedRequests|, a {{Promise}}
-      |promise:Promise|, and an optional {{AbortSignal}} |signal|:
+      |promise:Promise|, a [=byte sequence=] or `null`
+      |issuerAttestationNonce|, and an optional {{AbortSignal}} |signal|:
     </p>
     <ol class="algorithm">
       <li>Let |topLevelOrigin| be |document|'s [=top-level traversable=]'s
@@ -1250,8 +1259,9 @@
       [=environment settings object/origin=].
       </li>
       <li>Let |requestData| be a new [=request context=] whose [=request
-      context/requests=] is |validatedRequests| and [=request context/top-level
-      origin=] is |topLevelOrigin|.
+      context/requests=] is |validatedRequests|, [=request context/top-level
+      origin=] is |topLevelOrigin|, and [=request context/issuer attestation
+      nonce=] is |issuerAttestationNonce|.
       </li>
       <li>[=In parallel=]:
         <ol>
@@ -1270,6 +1280,28 @@
               When a [=user agent=] communicates with a [=credential manager=]
               located on a different device, it is RECOMMENDED that the [=user
               agent=] use [[[FIDO-CLIENT-TO-AUTHENTICATOR-PROTOCOL-V2.3]]].
+            </p>
+            <p>
+              If |requestData|'s [=request context/issuer attestation nonce=]
+              is not `null`, the [=user agent=] MUST NOT include it in the
+              [=digital credential/issuance request data=] it transmits to a
+              [=credential manager=], whether that [=credential manager=] is on
+              the same device or is reached over a cross-device transport.
+              Where the platform exposes a mechanism that binds a
+              caller-supplied value to the [=holder=] the user selected, the
+              [=user agent=] MUST convey the nonce through that mechanism
+              instead.
+            </p>
+            <p class="note" title=
+            "The chooser is not constrained by the nonce">
+              The presence of an [=request context/issuer attestation nonce=]
+              does not constrain which entries or transports the [=digital
+              credential chooser=] offers. A [=user agent=] cannot verify
+              whether a receiving device upholds the isolation the binding
+              depends on, so withholding cross-device transports would not
+              establish that property. See
+              [[[#platform-bound-wallet-attestation]]] for the resulting
+              residual risk.
             </p>
           </li>
           <li>If |signal| is not null and |signal| is [=AbortSignal/aborted=]:
@@ -1575,6 +1607,7 @@
     <pre class="idl">
     dictionary DigitalCredentialCreationOptions {
       required sequence&lt;DigitalCredentialCreateRequest&gt; requests;
+      BufferSource issuerAttestationNonce;
     };
     </pre>
     <h4>
@@ -1585,6 +1618,28 @@
       specify an [=digital credential/issuance protocol=] and [=digital
       credential/issuance request data=], which the user agent MAY forward to a
       [=holder=].
+    </p>
+    <h4>
+      The `issuerAttestationNonce` member
+    </h4>
+    <p>
+      The <dfn data-dfn-for=
+      "DigitalCredentialCreationOptions">issuerAttestationNonce</dfn> member is
+      an optional {{BufferSource}} containing an opaque challenge, supplied by
+      the credential [=issuer=], to bind the issuance request to the wallet the
+      user selects. The [=user agent=] does not transmit it to a [=credential
+      manager=]; it conveys it to the platform's attestation subsystem instead,
+      so that the resulting platform attestation covers both the nonce and the
+      selected wallet's identity. See
+      [[[#platform-bound-wallet-attestation]]].
+    </p>
+    <p class="note">
+      The user agent validates only that the {{BufferSource}} holds at least
+      one byte, rejecting an empty or detached buffer with a
+      {{TypeError}} in {{DigitalCredential/[[Create]](origin, options,
+      sameOriginWithAncestors)}}. Any further constraint on the nonce, such as
+      a minimum length or an entropy requirement, comes from the platform
+      attestation subsystem or from the issuer, not from this specification.
     </p><!--
     // MARK: DigitalCredentialCreateRequest
     -->
@@ -1750,6 +1805,17 @@
         An [=environment settings object=]'s [=environment settings
         object/origin=].
       </dd>
+      <dt>
+        <dfn data-dfn-for="request context">issuer attestation nonce</dfn>
+      </dt>
+      <dd>
+        A [=byte sequence=] supplied by an [=issuer=] to bind a [=digital
+        credential/issuance request=] to the [=holder=] the user selects, or
+        `null` if the [=issuer=] did not supply one. Unlike [=request
+        context/requests=], this item is never part of the [=digital
+        credential/issuance request data=] transmitted to a [=credential
+        manager=]. See [[[#platform-bound-wallet-attestation]]].
+      </dd>
     </dl>
     <h4>
       The {{DigitalCredentialPresentationProtocol}} enumeration
@@ -1814,7 +1880,8 @@
       <li>Let |global| be [=this=]'s [=relevant global object=].
       </li>
       <li>Return the result of [=credential request coordinator/prepare
-      credential requests=] given |global|, |origin|, |requests|, and |signal|.
+      credential requests=] given |global|, |origin|, |requests|, `null`, and
+      |signal|.
       </li>
     </ol><!--
     // MARK: [[Store]]()
@@ -1853,13 +1920,33 @@
       <li>If |requests| [=list/is empty=], return [=a promise rejected with=] a
       newly created {{TypeError}}.
       </li>
+      <li>Let |issuerAttestationNonce| be `null`.
+      </li>
+      <li>If |options|'s {{CredentialCreationOptions/digital}}'s
+      {{DigitalCredentialCreationOptions/issuerAttestationNonce}} member is
+      present, then:
+        <ol>
+          <li>Let |bytes| be the result of [=get a copy of the bytes held by
+          the buffer source|getting a copy of the bytes held by the buffer
+          source=] given |options|'s
+          {{CredentialCreationOptions/digital}}'s
+          {{DigitalCredentialCreationOptions/issuerAttestationNonce}}.
+          </li>
+          <li>If |bytes| [=byte sequence/is empty=], return [=a promise
+          rejected with=] a newly created {{TypeError}}.
+          </li>
+          <li>Set |issuerAttestationNonce| to |bytes|.
+          </li>
+        </ol>
+      </li>
       <li>Let |signal| be |options|'s {{CredentialCreationOptions/signal}}, if
       present.
       </li>
       <li>Let |global| be [=this=]'s [=relevant global object=].
       </li>
       <li>Return the result of [=credential request coordinator/prepare
-      credential requests=] given |global|, |origin|, |requests|, and |signal|.
+      credential requests=] given |global|, |origin|, |requests|,
+      |issuerAttestationNonce|, and |signal|.
       </li>
     </ol><!--
     // MARK: [[type]] internal slot
@@ -2207,6 +2294,101 @@
           employ signed requests, where the [=verifier=] cryptographically
           proves its identity, provide significantly stronger security
           assurances than relying solely on the browser-asserted [=origin=].
+        </p>
+      </section>
+      <section id="platform-bound-wallet-attestation">
+        <!--
+        // MARK: Platform-Bound Wallet Attestation
+        -->
+        <h3>
+          Platform-Bound Wallet Attestation during Issuance
+        </h3>
+        <p>
+          When issuing a credential with
+          {{CredentialsContainer/create()}}, an [=issuer=] cannot otherwise
+          tell which wallet processed its request, or on which device. A
+          malicious wallet can therefore forward the issuance offer to another
+          device, where a legitimate wallet completes it and produces a valid
+          platform attestation. Supplying an
+          {{DigitalCredentialCreationOptions/issuerAttestationNonce}} in
+          {{DigitalCredentialCreationOptions}} lets the issuer bind the
+          issuance to the wallet the user actually selected, which closes that
+          gap.
+        </p>
+        <p>
+          The security of this mechanism rests on the [=request context/issuer
+          attestation nonce=] being withheld from the wallet. [=credential
+          request coordinator/initiate the credential request|Initiating the
+          credential request=] requires the [=user agent=] to keep the nonce out
+          of the [=digital credential/issuance request data=] it transmits, and
+          to convey it instead to the platform attestation subsystem. Where
+          such a subsystem exists, it is expected to combine the nonce with the
+          identity of the selected wallet (such as its platform application
+          identifier), sign the result with a hardware-backed device
+          attestation key, and make the resulting integrity assertion available
+          to the wallet, which conveys it to the [=issuer=] over the [=digital
+          credential/issuance protocol=] (for example, via client attestation
+          headers in [[[OpenID4VCI]]]). None of those steps are performed by
+          the user agent, so none of them are normatively required by this
+          specification.
+        </p>
+        <h4>
+          Cross-device transports and remote platform non-compliance
+        </h4>
+        <p>
+          The Digital Credentials API permits cross-device issuance flows (such
+          as scanning a QR code with a secondary device) while an
+          {{DigitalCredentialCreationOptions/issuerAttestationNonce}} is
+          present. Preserving the security guarantees of platform-bound wallet
+          attestation across a cross-device hop requires the receiving device
+          to enforce operating-system-level isolation, receiving the nonce at
+          the platform layer and conveying it directly to the hardware
+          attestation subsystem without exposing it to the wallet application
+          process.
+        </p>
+        <p>
+          There is an inherent residual risk in cross-device flows because the
+          initiating [=user agent=] cannot verify or guarantee the compliance or
+          security posture of the remote receiving platform. If a user scans a
+          cross-device QR code using an operating system, authenticator, or
+          client application that forwards the attestation challenge to the
+          wallet application process or fails to maintain platform-level
+          isolation, the nonce is exposed to the wallet on the secondary
+          device, nullifying the protection against issuance request
+          forwarding. Users are therefore encouraged to scan cross-device
+          requests using trusted platforms that maintain operating system
+          isolation. Issuers with strict platform assurance requirements can
+          evaluate the resulting platform attestation (or its absence) to
+          enforce their authorization policies.
+        </p>
+        <h4>
+          Replay protection
+        </h4>
+        <p>
+          The Digital Credentials API does not track nonces or enforce replay
+          protection. The [=user agent=] treats the
+          {{DigitalCredentialCreationOptions/issuerAttestationNonce}} as an
+          opaque value for the duration of the issuance request and maintains
+          no state once the request settles.
+        </p>
+        <p>
+          Replay protection is therefore the responsibility of the credential
+          [=issuer=]. An issuer is expected to generate a unique,
+          cryptographically unpredictable nonce for each issuance request, bind
+          it to an active authenticated session, and maintain server-side
+          state to ensure that each nonce is accepted at most once.
+        </p>
+        <h4>
+          Limits of user agent verification
+        </h4>
+        <p>
+          The [=user agent=] treats
+          {{DigitalCredentialCreationOptions/issuerAttestationNonce}} as an
+          opaque [=byte sequence=]. The user agent does not verify the
+          cryptographic entropy, uniqueness, or freshness of the nonce. If an
+          issuer generates a predictable, static, or reusable nonce, the
+          security guarantees of the attestation are undermined even though all
+          user agent steps succeed.
         </p>
       </section>
     </section>
@@ -2918,6 +3100,51 @@
           agents=] present a user-facing dialog (such as an empty chooser or
           notification) when no matching credentials are found, so that prompt
           dismissal latency is indistinguishable from user cancellation.
+        </p>
+      </section>
+      <section id="wallet-identity-disclosure-and-attestation-granularity">
+        <!--
+        // MARK: Wallet Identity Disclosure and Attestation Granularity
+        -->
+        <h3>
+          Wallet Identity Disclosure and Attestation Granularity
+        </h3>
+        <h4>
+          Disclosure of selected wallet identity in unauthenticated issuance
+          flows
+        </h4>
+        <p>
+          In issuance flows where the issuer authenticates the wallet, the
+          [=issuer=] already establishes which wallet application it is
+          interacting with. In flows where client authentication is optional,
+          such as the Pre-Authorized Code Grant Type of [[[OpenID4VCI]]] (which
+          defers to [[[RFC6749]]] on this point), the issuer does not
+          necessarily learn which wallet application is redeeming the credential
+          offer. Supplying a platform-bound wallet attestation in those flows
+          discloses the identity of the specific wallet application that the
+          user selected to the issuer, where it would not otherwise have been
+          revealed.
+        </p>
+        <h4>
+          Wallet type granularity versus instance tracking
+        </h4>
+        <p>
+          The privacy cost of that disclosure depends on how precisely the
+          attested identifier names the wallet. The Wallet Attestation Subject
+          privacy considerations in [[[OpenID4VCI]]] recommend that the subject
+          claim identify the wallet type, a value shared across every
+          installation of that application such as an App ID or package name,
+          rather than a specific wallet or device instance. An identifier at
+          that granularity tells the issuer which wallet implementation it is
+          dealing with without singling out the user's copy of it.
+        </p>
+        <p>
+          An attestation payload that carried persistent hardware serial
+          numbers, unique device identifiers, or persistent per-instance
+          cryptographic keys alongside the wallet identity would defeat that
+          property and reintroduce a cross-origin tracking vector. Platforms
+          offering a wallet attestation mechanism are therefore expected to
+          keep the payload minimal.
         </p>
       </section>
       <section id="user-permission-and-transparency">
