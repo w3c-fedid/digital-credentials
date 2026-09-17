@@ -2156,8 +2156,8 @@
       </h3>
       <p>
         The [[[#DC-API|Digital Credentials API]]] is only exposed in [=secure
-        contexts=], which means the page reached the user over a secure
-        connection. It does not mean that every script running on that page can
+        contexts=], which means the page reached the user over a trustworthy
+        origin (e.g., from https). It does not mean that every script running on that page can
         be trusted. The [=verifier=] here is the site the user is visiting, the
         one asking for a credential. The attacker is script that ends up
         running inside that site's own page in the user's browser: injected
