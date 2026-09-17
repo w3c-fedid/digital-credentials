@@ -2196,8 +2196,8 @@
         injection as defense-in-depth. A strong [[CSP3|Content Security
         Policy]], for example a nonce- or hash-based policy that avoids
         `'unsafe-inline'` and constrains the origins from which scripts can
-        load, stops an injected or unauthorized script from running in the
-        page. A policy that strict is hard to write, and hard to keep intact as
+        load, can prevent some injected or unauthorized script from running in the
+        page. However, a policy this strict is hard to write, and to keep intact as
         a site grows, so in practice a Content Security Policy lowers this risk
         rather than removing it. [[[trusted-types]]] further reduce the risk of
         DOM-based injection, and [[[SRI]]] guards against tampered or
@@ -2207,7 +2207,7 @@
         [[[#signing-presentation-requests]]]).
       </p>
       <p>
-        These measures reduce, but do not eliminate, the risk. A browser
+        These measures reduce, but do not eliminate, the threat. A browser
         extension that the user has allowed to run on the page holds full
         access to that page, so none of these measures constrain the extension,
         and this specification offers no mitigation for that case. Injection
