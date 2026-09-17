@@ -829,8 +829,8 @@
         For {{DigitalCredentialPresentationProtocol/"openid4vp-v1-unsigned"}},
         `response_mode` is a member of |data| itself. For
         {{DigitalCredentialPresentationProtocol/"openid4vp-v1-signed"}} and
-        {{DigitalCredentialPresentationProtocol/"openid4vp-v1-multisigned"}} it
-        sits inside the signed payload, so the [=user agent=] decodes that
+        {{DigitalCredentialPresentationProtocol/"openid4vp-v1-multisigned"}},
+        it sits inside the signed payload, so the [=user agent=] decodes that
         payload to read it. The [=user agent=] does not verify the signature:
         it cannot, having no trust framework, and [[[OPENID4VP]]] leaves that
         verification to the [=holder=].
