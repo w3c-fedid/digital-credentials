@@ -2163,7 +2163,7 @@
           step that [=Consume user activation|consumes that activation=] are
           evaluated in the process that runs the page, which is the process an
           attacker is most likely to have taken over. An attacker in that
-          position can skip both and ask for the [=digital credential chooser=]
+          position can skip both (A and B) and ask for the [=digital credential chooser=]
           anyway.
         </p>
         <p>
@@ -2171,9 +2171,9 @@
           can perceive the link between interacting with a page and the page
           calling an interface gated on that interaction. [=Forged requests=]
           break exactly that link. What the attacker gains is a credential
-          prompt drawn by the user agent or by the operating system, at a
+          prompt drawn by the user agent or the operating system, at a
           moment of the attacker's choosing, which the user cannot tell apart
-          from a legitimate one. That makes it useful for phishing, and for the
+          from a legitimate prompt. That makes it useful for phishing, and for the
           same prompt fatigue described under [=API flooding=].
         </p>
         <p>
