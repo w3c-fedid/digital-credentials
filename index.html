@@ -1246,9 +1246,9 @@
       origin=] is |topLevelOrigin|.
       </li>
       <li>If a [=digital credential/credential request=] in |validatedRequests|
-      carries no signature that a [=credential manager=] can verify, the [=user
-      agent=] SHOULD apply additional friction when displaying the [=digital
-      credential chooser=], and strongly discourage the user from continuing.
+      carries no signature, the [=user agent=] SHOULD apply additional friction
+      when displaying the [=digital credential chooser=], and strongly
+      discourage the user from continuing.
         <p class="note" title="Why friction here">
           An unsigned request can be altered by a script running in the
           [=verifier=]'s own page, including the parameters used to encrypt the
