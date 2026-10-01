@@ -2156,9 +2156,11 @@
       </h3>
       <p>
         The [[[#DC-API|Digital Credentials API]]] is only exposed in [=secure
-        contexts=], which means the page reached the user over a [=potentially trustworthy origin=] (e.g., from https). It does not mean that every script running on that page can
+        contexts=], which means the page reached the user over a [=potentially
+        trustworthy origin=] (e.g., from https). It does not mean that every
+        script running on that page can
         be trusted. The [=verifier=] here is the site the user is visiting, the
-        one asking for a credential. The attacker is script that ends up
+        one asking for a credential. The attacker is a script that ends up
         running inside that site's own page in the user's browser: injected
         through a cross-site scripting flaw, pulled in with a compromised
         third-party library, or served as a tampered script. The [=verifier's=]
@@ -2166,7 +2168,7 @@
         model calls this a [=verifier-origin script compromise=].
       </p>
       <p>
-        Script running there has the same access as the site's own code. It can
+        A script running there has the same access as the site's own code. It can
         read a [=digital credential/credential response=] once the [=verifier=]
         has decrypted it and handed it back to the page, and it can call the
         API itself, in which case the request comes from the site's own
@@ -2175,7 +2177,7 @@
       <p>
         Mandated response encryption (see
         [[[#encrypting-credential-responses]]]) does protect the response from
-        this attacker, but only while the response stays encrypted. The
+        this attack, but only while the response stays encrypted. The
         response reaches the page still encrypted. An injected script reads the
         cleartext only if the [=verifier=] decrypts the response in the page,
         or decrypts the response on a server and then sends the cleartext back
@@ -2196,7 +2198,7 @@
         injection as defense-in-depth. A strong [[CSP3|Content Security
         Policy]], for example a nonce- or hash-based policy that avoids
         `'unsafe-inline'` and constrains the origins from which scripts can
-        load, can prevent some injected or unauthorized script from running in the
+        load, can prevent some injected or unauthorized scripts from running in the
         page. However, a policy this strict is hard to write, and to keep intact as
         a site grows, so in practice a Content Security Policy lowers this risk
         rather than removing it. [[[trusted-types]]] further reduce the risk of
