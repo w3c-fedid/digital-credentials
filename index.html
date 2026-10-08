@@ -84,7 +84,8 @@
     };
     </script>
   </head>
-  <body data-cite="credential-management permissions-policy vc-data-model">
+  <body data-cite=
+  "credential-management permissions-policy secure-contexts vc-data-model">
     <section id="abstract">
       <p>
         This document specifies an API enabling [=user agents=] to mediate the
@@ -2158,27 +2159,27 @@
         The [[[#DC-API|Digital Credentials API]]] is only exposed in [=secure
         contexts=], which means the page reached the user over a [=potentially
         trustworthy origin=] (e.g., from https). It does not mean that every
-        script running on that page can
-        be trusted. The [=verifier=] here is the site the user is visiting, the
-        one asking for a credential. The attacker is a script that ends up
-        running inside that site's own page in the user's browser: injected
-        through a cross-site scripting flaw, pulled in with a compromised
-        third-party library, or served as a tampered script. The [=verifier's=]
-        servers can be perfectly sound. The problem is on the page. The threat
-        model calls this a [=verifier-origin script compromise=].
+        script running on that page can be trusted. The [=verifier=] here is
+        the site the user is visiting, the one asking for a credential. The
+        attacker is a script that ends up running inside that site's own page
+        in the user's browser: injected through a cross-site scripting flaw,
+        pulled in with a compromised third-party library, or served as a
+        tampered script. The [=verifier's=] servers can be perfectly sound. The
+        problem is on the page. The threat model calls this a [=verifier-origin
+        script compromise=].
       </p>
       <p>
-        A script running there has the same access as the site's own code. It can
-        read a [=digital credential/credential response=] once the [=verifier=]
-        has decrypted it and handed it back to the page, and it can call the
-        API itself, in which case the request comes from the site's own
-        [=origin=] and looks like one the site made.
+        A script running there has the same access as the site's own code. It
+        can read a [=digital credential/credential response=] once the
+        [=verifier=] has decrypted it and handed it back to the page, and it
+        can call the API itself, in which case the request comes from the
+        site's own [=origin=] and looks like one the site made.
       </p>
       <p>
         Mandated response encryption (see
         [[[#encrypting-credential-responses]]]) does protect the response from
-        this attack, but only while the response stays encrypted. The
-        response reaches the page still encrypted. An injected script reads the
+        this attack, but only while the response stays encrypted. The response
+        reaches the page still encrypted. An injected script reads the
         cleartext only if the [=verifier=] decrypts the response in the page,
         or decrypts the response on a server and then sends the cleartext back
         to the page. [=Verifiers=] are therefore encouraged to decrypt
@@ -2198,12 +2199,12 @@
         injection as defense-in-depth. A strong [[CSP3|Content Security
         Policy]], for example a nonce- or hash-based policy that avoids
         `'unsafe-inline'` and constrains the origins from which scripts can
-        load, can prevent some injected or unauthorized scripts from running in the
-        page. However, a policy this strict is hard to write, and to keep intact as
-        a site grows, so in practice a Content Security Policy lowers this risk
-        rather than removing it. [[[trusted-types]]] further reduce the risk of
-        DOM-based injection, and [[[SRI]]] guards against tampered or
-        compromised third-party scripts. To prevent injected scripts or
+        load, can prevent some injected or unauthorized scripts from running in
+        the page. However, a policy this strict is hard to write, and to keep
+        intact as a site grows, so in practice a Content Security Policy lowers
+        this risk rather than removing it. [[[trusted-types]]] further reduce
+        the risk of DOM-based injection, and [[[SRI]]] guards against tampered
+        or compromised third-party scripts. To prevent injected scripts or
         extensions from altering outgoing credential requests or replacing
         response encryption keys, [=verifiers=] can employ signed requests (see
         [[[#signing-presentation-requests]]]).
