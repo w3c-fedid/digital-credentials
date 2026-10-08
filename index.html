@@ -1971,12 +1971,9 @@
           <dfn data-local-lt="tampering">Request Tampering</dfn>
         </dt>
         <dd>
-          An attacker that can inject or modify page content attempts to alter
-          a {{DigitalCredentialGetRequest}} or
-          {{DigitalCredentialCreateRequest}} before processing. A network
-          attacker does this through [=secure contexts|insecure contexts=]. A
-          script running in the [=verifier's=] origin does the same thing
-          inside [=secure contexts=].
+          A network attacker that can inject or modify page content in an
+          insecure context attempts to alter a {{DigitalCredentialGetRequest}}
+          or {{DigitalCredentialCreateRequest}} before processing.
         </dd>
         <dt>
           <dfn>Verifier-Origin Script Compromise</dfn>
