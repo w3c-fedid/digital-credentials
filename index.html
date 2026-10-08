@@ -2234,20 +2234,20 @@
         described below (see [[[#signing-presentation-requests]]]).
       </p>
       <p>
-        These measures reduce, but do not eliminate, the threat. Content
-        Security Policy, Trusted Types, and Subresource Integrity do not
-        address [=browser extension access=]: a browser extension that the user
-        has allowed to run on the page holds full access to that page and can
-        read or rewrite a request before it is sent. A signed request helps
-        only if the [=credential manager=] checks the signature against a key
-        it already recognizes as the [=verifier's=], and also refuses an
-        unsigned request in its place. Otherwise the extension can drop the
-        signature, send an unsigned request instead, and supply its own
-        response encryption key. Which requests a [=credential manager=]
-        accepts is decided by the ecosystem a credential belongs to, not by
-        this specification (see [[[#signing-presentation-requests]]]).
-        Injection vectors outside the page's script-execution model also remain
-        beyond what these mechanisms can address.
+        These measures reduce, but do not eliminate, the threat. A Content
+        Security Policy, [[[trusted-types]]], and [[[SRI]]] do not address
+        [=browser extension access=]: a browser extension that the user has
+        allowed to run on the page holds full access to that page and can read
+        or rewrite a request before it is sent. A signed request helps only if
+        the [=credential manager=] checks the signature against a key it
+        already recognizes as the [=verifier's=], and also refuses an unsigned
+        request in its place. Otherwise the extension can drop the signature,
+        send an unsigned request instead, and supply its own response
+        encryption key. Which requests a [=credential manager=] accepts is
+        decided by the ecosystem a credential belongs to, not by this
+        specification (see [[[#signing-presentation-requests]]]). Injection
+        vectors outside the page's script-execution model also remain beyond
+        what these mechanisms can address.
       </p>
       <section>
         <!--
