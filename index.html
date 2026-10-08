@@ -1986,10 +1986,20 @@
         </dt>
         <dd>
           An attacker that can run scripts in the [=verifier's=] origin, for
-          example through cross-site scripting, a compromised dependency, or a
-          browser extension, attempts to read a [=digital credential/credential
-          response=] that the [=verifier=] decrypted and exposed to the page,
-          or to start credential requests of its own from that origin.
+          example through cross-site scripting or a compromised dependency,
+          attempts to read a [=digital credential/credential response=] that
+          the [=verifier=] decrypted and exposed to the page, or to start
+          credential requests of its own from that origin.
+        </dd>
+        <dt>
+          <dfn>Browser Extension Access</dfn>
+        </dt>
+        <dd>
+          A browser extension that the user has allowed to run on the
+          [=verifier's=] page reads or alters what passes through that page,
+          including outgoing credential requests and any [=digital
+          credential/credential response=] the [=verifier=] exposes to the
+          page.
         </dd>
         <dt>
           <dfn>API Flooding</dfn>
@@ -2213,18 +2223,26 @@
         blocked-destinations=(script)` header (see
         [[[SRI#integrity-policy-section]]]), so that the [=user agent=] blocks
         the request for any external script that has no integrity metadata, and
-        for any no-CORS external script. To prevent injected scripts or
-        extensions from altering outgoing credential requests or replacing
-        response encryption keys, [=verifiers=] can employ signed requests (see
-        [[[#signing-presentation-requests]]]).
+        for any no-CORS external script. [=Verifiers=] can also employ signed
+        requests, which can let a [=credential manager=] detect an altered
+        request or a replaced response encryption key, within the limits
+        described below (see [[[#signing-presentation-requests]]]).
       </p>
       <p>
-        These measures reduce, but do not eliminate, the threat. A browser
-        extension that the user has allowed to run on the page holds full
-        access to that page, so none of these measures constrain the extension,
-        and this specification offers no mitigation for that case. Injection
-        vectors outside the page's script-execution model also remain beyond
-        what these mechanisms can address.
+        These measures reduce, but do not eliminate, the threat. Content
+        Security Policy, Trusted Types, and Subresource Integrity do not
+        address [=browser extension access=]: a browser extension that the user
+        has allowed to run on the page holds full access to that page and can
+        read or rewrite a request before it is sent. A signed request helps
+        only if the [=credential manager=] checks the signature against a key
+        it already recognizes as the [=verifier's=], and also refuses an
+        unsigned request in its place. Otherwise the extension can drop the
+        signature, send an unsigned request instead, and supply its own
+        response encryption key. Which requests a [=credential manager=]
+        accepts is decided by the ecosystem a credential belongs to, not by
+        this specification (see [[[#signing-presentation-requests]]]).
+        Injection vectors outside the page's script-execution model also remain
+        beyond what these mechanisms can address.
       </p>
       <section>
         <!--
