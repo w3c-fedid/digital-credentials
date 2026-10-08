@@ -77,6 +77,12 @@
           date: "2025-02-25",
           publisher: "W3C"
         },
+        "web-dev-strict-csp-article": {
+          title: "Mitigate cross-site scripting (XSS) with a strict Content Security Policy (CSP)",
+          href: "https://web.dev/articles/strict-csp",
+          date: "2024-09-13",
+          publisher: "web.dev"
+        },
       },
       xref: {
         profile: "web-platform",
@@ -2194,14 +2200,15 @@
       <p>
         [=Verifiers=] are encouraged to harden their pages against script
         injection as defense-in-depth. A strong [[CSP3|Content Security
-        Policy]], for example a nonce- or hash-based policy that avoids
-        `'unsafe-inline'` and constrains the origins from which scripts can
-        load, can prevent some injected or unauthorized scripts from running in
-        the page. However, a policy this strict is hard to write, and to keep
-        intact as a site grows, so in practice a Content Security Policy lowers
-        this risk rather than removing it. [=Verifiers=] are also encouraged to
-        use [[[trusted-types]]], which reduce the risk of DOM-based injection,
-        and [[[SRI]]], which guards against tampered or compromised third-party
+        Policy]], for example a strict policy based on nonces or hashes rather
+        than on a list of allowed origins (see
+        [[?web-dev-strict-csp-article]]), can prevent some injected or
+        unauthorized scripts from running in the page. However, a policy this
+        strict is hard to write, and to keep intact as a site grows, so in
+        practice a Content Security Policy lowers this risk rather than
+        removing it. [=Verifiers=] are also encouraged to use
+        [[[trusted-types]]], which reduce the risk of DOM-based injection, and
+        [[[SRI]]], which guards against tampered or compromised third-party
         scripts. [=Verifiers=] can also send an `Integrity-Policy:
         blocked-destinations=(script)` header (see
         [[[SRI#integrity-policy-section]]]), so that the [=user agent=] blocks
