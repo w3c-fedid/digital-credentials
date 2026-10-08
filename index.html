@@ -139,7 +139,12 @@
       <li>Require [=transient activation=] to perform [=digital
       credential/presentation requests=] or [=digital credential/issuance
       requests=], ensuring that sites cannot silently request or issue digital
-      credentials without the user's active participation.
+      credentials without the user's active participation. A [=digital
+      credential/presentation request=] MAY instead rely on a {{Document}}'s
+      [=unspent credential navigation allowance=] when
+      {{CredentialMediationRequirement/"conditional"}} mediation is explicitly
+      requested; see [[[#credential-navigation-allowance|Credential navigation
+      allowance]]].
       </li>
       <li>Enable platform-provided UX for credential and [=credential manager=]
       selection during requests for [=digital
@@ -875,6 +880,52 @@
       The coordinator is initialized in the [=credential request
       coordinator/idle=] [=credential request coordinator/interaction state=].
     </p><!--
+    // MARK: Credential navigation allowance
+    -->
+    <h3 id="credential-navigation-allowance">
+      Credential navigation allowance
+    </h3>
+    <p>
+      Each {{Document}} has an associated <dfn export>unspent credential
+      navigation allowance</dfn>, a boolean, determined once when the
+      {{Document}} is created.
+    </p>
+    <p>
+      A {{Document}} |document| has an [=unspent credential navigation
+      allowance=] if all of the following hold:
+    </p>
+    <ol>
+      <li>|document|'s [=node navigable=] is a [=top-level traversable=]. No
+      frame, fenced frame, or other embedded navigable context ever satisfies
+      this condition, regardless of [[[permissions-policy]]] grants.
+      </li>
+      <li>The [=navigate=] call that created |document|, including any HTTP
+      redirect chain processed within that call, had [=user navigation
+      involvement=] of "activation" or "browser UI".
+      </li>
+    </ol>
+    <p class="issue" data-number="587">
+      This definition assumes [=user navigation involvement=] is retained,
+      after the navigation completes, as a queryable property of |document| or
+      of the [=session history entry=] created by |document|'s initial
+      navigation. [[HTML]] does not currently define such a retained,
+      document-level record: [=user navigation involvement=] is presently a
+      parameter internal to the [=navigate=] algorithm. This section is
+      non-normative until that dependency is resolved with HTML.
+    </p>
+    <p>
+      To <dfn data-dfn-for="credential request coordinator">consume the
+      credential navigation allowance</dfn> of a {{Document}} |document|, set
+      |document|'s [=unspent credential navigation allowance=] to false.
+    </p>
+    <p class="note">
+      Once consumed, the allowance does not regenerate for the lifetime of that
+      {{Document}}, including across back/forward cache restores of the same
+      instance. A redirect chain processed within the single [=navigate=] call
+      that creates a {{Document}} shares that one allowance; a subsequently and
+      separately initiated navigation (for example, a script-initiated redirect
+      after the page has already loaded) does not inherit it.
+    </p><!--
     // MARK: Prepare credential requests
     -->
     <h3>
@@ -884,8 +935,9 @@
       To <dfn data-dfn-for="credential request coordinator">prepare credential
       requests</dfn> given a {{Window}} |global|, an [=origin=] |origin|, a
       [=sequence=] of {{DigitalCredentialGetRequest}} values or a [=sequence=]
-      of {{DigitalCredentialCreateRequest}} values |requests|, and an optional
-      {{AbortSignal}} |signal:AbortSignal|:
+      of {{DigitalCredentialCreateRequest}} values |requests|, a boolean
+      |mayBypassActivation|, and an optional {{AbortSignal}}
+      |signal:AbortSignal|:
     </p>
     <ol class="algorithm">
       <li>Let |realm| be |global|'s [=relevant realm=].
@@ -899,11 +951,28 @@
       top-level traversable with user attention=], return [=a promise rejected
       with=] a {{"NotAllowedError"}} {{DOMException}} in |realm|.
       </li>
-      <li>If |global| does not have [=transient activation=], return [=a
-      promise rejected with=] a {{"NotAllowedError"}} {{DOMException}} in
-      |realm|.
+      <li>If |mayBypassActivation| is false:
+        <ol>
+          <li>If |global| does not have [=transient activation=], return [=a
+          promise rejected with=] a {{"NotAllowedError"}} {{DOMException}} in
+          |realm|.
+          </li>
+          <li>[=Consume user activation=] of |global|.
+          </li>
+        </ol>
       </li>
-      <li>[=Consume user activation=] of |global|.
+      <li>Otherwise:
+        <ol>
+          <li>Assert: |document| has an [=unspent credential navigation
+          allowance=].
+          </li>
+          <li>[=credential request coordinator/Consume the credential
+          navigation allowance=] of |document|.
+          </li>
+          <li>If |global| has [=transient activation=], [=Consume user
+          activation=] of |global|.
+          </li>
+        </ol>
       </li>
       <li>Let |promise| be [=a new promise=] in |realm|.
       </li>
@@ -1641,13 +1710,22 @@
       To simplify the developer experience of {{CredentialsContainer/get()}}
       calls involving a {{DigitalCredential}}, [=user agents=] MUST NOT throw
       an error if the {{CredentialRequestOptions/mediation}} member is absent
-      or has a value other than {{CredentialMediationRequirement/"required"}}.
-      Similarly, in {{CredentialsContainer/create()}} calls involving a
-      {{DigitalCredential}}, [=user agents=] MUST NOT throw an error if the
+      or has a value other than {{CredentialMediationRequirement/"required"}}
+      or {{CredentialMediationRequirement/"conditional"}}. A
+      {{CredentialMediationRequirement/"conditional"}} value is given effect as
+      described in [[[#credential-navigation-allowance|Credential navigation
+      allowance]]]; any other value is treated as
+      {{CredentialMediationRequirement/"required"}}. Similarly, in
+      {{CredentialsContainer/create()}} calls involving a {{DigitalCredential}},
+      [=user agents=] MUST NOT throw an error if the
       {{CredentialCreationOptions/mediation}} member is absent or has a value
-      other than {{CredentialMediationRequirement/"required"}}. This makes
+      other than {{CredentialMediationRequirement/"required"}}, including
+      {{CredentialMediationRequirement/"conditional"}}, which has no effect for
+      {{CredentialsContainer/create()}}. This makes
       {{CredentialMediationRequirement/"required"}} mediation an implicit and
-      non-overridable behavior of the [[[#DC-API|API]]].
+      non-overridable behavior of {{CredentialsContainer/create()}} calls, and
+      the default for {{CredentialsContainer/get()}} calls except where
+      {{CredentialMediationRequirement/"conditional"}} is explicitly requested.
     </p>
     <pre class="idl">
     typedef (DigitalCredentialPresentationProtocol or DigitalCredentialIssuanceProtocol) DigitalCredentialProtocol;
@@ -1658,6 +1736,7 @@
       readonly attribute DigitalCredentialProtocol protocol;
       [SameObject] readonly attribute object data;
       static boolean userAgentAllowsProtocol(DOMString protocol);
+      static boolean isConditionalGetAvailable();
     };
     </pre>
     <p>
@@ -1721,6 +1800,35 @@
     <p>
       When this method is invoked, the user agent MUST return the result of
       [=user agent allows protocol=] given |protocol|.
+    </p>
+    <h4>
+      The
+      <dfn data-dfn-for="DigitalCredential">isConditionalGetAvailable()</dfn>
+      method
+    </h4>
+    <p>
+      The {{DigitalCredential/isConditionalGetAvailable()}} method allows
+      [=verifiers=] to determine whether the user agent supports
+      {{CredentialMediationRequirement/"conditional"}} mediation for
+      {{CredentialsContainer/get()}} calls involving a {{DigitalCredential}}.
+      It is named in parallel with
+      {{PublicKeyCredential/isConditionalMediationAvailable()}}.
+      [=Verifiers=] SHOULD check this method before relying on
+      {{CredentialMediationRequirement/"conditional"}} mediation, and fall back
+      to requesting [=transient activation=] otherwise.
+    </p>
+    <p>
+      As with {{DigitalCredential/userAgentAllowsProtocol()}}, user agents MUST
+      NOT vary the response value based on any information about availability
+      of hardware, presence or configuration of software, [=credential
+      managers=], or digital credentials, or user configuration or preferences.
+      The response value SHOULD vary only by user agent major version.
+    </p>
+    <p>
+      When this method is invoked, the user agent MUST return `true` if it
+      supports {{CredentialMediationRequirement/"conditional"}} mediation as
+      described in [[[#credential-navigation-allowance|Credential navigation
+      allowance]]], and `false` otherwise.
     </p>
     <h3>
       Supporting Data Structures
@@ -1813,8 +1921,16 @@
       </li>
       <li>Let |global| be [=this=]'s [=relevant global object=].
       </li>
+      <li>Let |document| be |global|'s [=associated `Document`=].
+      </li>
+      <li>Let |mayBypassActivation| be true if
+      |options|'s {{CredentialRequestOptions/mediation}} is
+      {{CredentialMediationRequirement/"conditional"}} and |document| has an
+      [=unspent credential navigation allowance=]; otherwise false.
+      </li>
       <li>Return the result of [=credential request coordinator/prepare
-      credential requests=] given |global|, |origin|, |requests|, and |signal|.
+      credential requests=] given |global|, |origin|, |requests|,
+      |mayBypassActivation|, and |signal|.
       </li>
     </ol><!--
     // MARK: [[Store]]()
@@ -1859,7 +1975,8 @@
       <li>Let |global| be [=this=]'s [=relevant global object=].
       </li>
       <li>Return the result of [=credential request coordinator/prepare
-      credential requests=] given |global|, |origin|, |requests|, and |signal|.
+      credential requests=] given |global|, |origin|, |requests|, false, and
+      |signal|.
       </li>
     </ol><!--
     // MARK: [[type]] internal slot
@@ -2088,12 +2205,23 @@
       </p>
       <ul>
         <li>
-          <strong>Transient activation:</strong> Both
+          <strong>Transient activation:</strong>
+          {{DigitalCredential/[[Create]](origin, options,
+          sameOriginWithAncestors)}} always [=Consume user
+          activation|consumes user activation=], and
           {{DigitalCredential/[[DiscoverFromExternalSource]](origin, options,
-          sameOriginWithAncestors)}} and {{DigitalCredential/[[Create]](origin,
-          options, sameOriginWithAncestors)}} methods [=Consume user
-          activation=], preventing automated or repeated requests without user
-          interaction.
+          sameOriginWithAncestors)}} does so unless
+          {{CredentialMediationRequirement/"conditional"}} mediation is
+          requested and the calling {{Document}} has an [=unspent credential
+          navigation allowance=], preventing automated or repeated requests
+          without user interaction. That allowance is available only to a
+          top-level {{Document}} reached by a user-caused navigation (see
+          [[[#credential-navigation-allowance|Credential navigation
+          allowance]]]), is usable at most once per {{Document}}, is never
+          available to any embedded context regardless of
+          [[[permissions-policy]]] grants, and is never available to
+          {{DigitalCredential/[[Create]](origin, options,
+          sameOriginWithAncestors)}}.
         </li>
         <li>
           <strong>Always required mediation:</strong> The API makes [=user
@@ -2104,6 +2232,22 @@
           operation.
         </li>
       </ul>
+      <p>
+        A {{Document}} can acquire an [=unspent credential navigation
+        allowance=] via a redirect chain originating from a user action that had
+        no substantive relationship to the eventual [=verifier=]: for example,
+        an unrelated site redirecting, in one or more hops, to a page that
+        requests {{CredentialMediationRequirement/"conditional"}} mediation.
+        This is not mitigated structurally, because no origin- or
+        site-relationship test distinguishes this case from the legitimate
+        scenario of an unrelated merchant redirecting to a payment or identity
+        provider; both are, mechanically, a trusted user action on one site
+        navigating to another. The consequence is bounded by the mitigations
+        above (mandatory, explicit [=user mediation=] before any disclosure,
+        and single-use consumption of the allowance per {{Document}}) to at
+        most one unexpected chooser appearance per navigation, with no
+        disclosure possible without further explicit user action.
+      </p>
       <p>
         For additional guidance on preventing abuse of credential requests,
         please refer to the section
