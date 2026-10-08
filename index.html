@@ -2199,9 +2199,14 @@
         load, can prevent some injected or unauthorized scripts from running in
         the page. However, a policy this strict is hard to write, and to keep
         intact as a site grows, so in practice a Content Security Policy lowers
-        this risk rather than removing it. [[[trusted-types]]] further reduce
-        the risk of DOM-based injection, and [[[SRI]]] guards against tampered
-        or compromised third-party scripts. To prevent injected scripts or
+        this risk rather than removing it. [=Verifiers=] are also encouraged to
+        use [[[trusted-types]]], which reduce the risk of DOM-based injection,
+        and [[[SRI]]], which guards against tampered or compromised third-party
+        scripts. [=Verifiers=] can also send an `Integrity-Policy:
+        blocked-destinations=(script)` header (see
+        [[[SRI#integrity-policy-section]]]), so that the [=user agent=] blocks
+        the request for any external script that has no integrity metadata, and
+        for any no-CORS external script. To prevent injected scripts or
         extensions from altering outgoing credential requests or replacing
         response encryption keys, [=verifiers=] can employ signed requests (see
         [[[#signing-presentation-requests]]]).
