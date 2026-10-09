@@ -77,6 +77,12 @@
           date: "2025-02-25",
           publisher: "W3C"
         },
+        "web-dev-strict-csp-article": {
+          title: "Mitigate cross-site scripting (XSS) with a strict Content Security Policy (CSP)",
+          href: "https://web.dev/articles/strict-csp",
+          date: "2024-09-13",
+          publisher: "web.dev"
+        },
       },
       xref: {
         profile: "web-platform",
@@ -84,7 +90,8 @@
     };
     </script>
   </head>
-  <body data-cite="credential-management permissions-policy vc-data-model">
+  <body data-cite=
+  "credential-management permissions-policy secure-contexts vc-data-model">
     <section id="abstract">
       <p>
         This document specifies an API enabling [=user agents=] to mediate the
@@ -1975,6 +1982,26 @@
           or {{DigitalCredentialCreateRequest}} before processing.
         </dd>
         <dt>
+          <dfn>Verifier-Origin Script Compromise</dfn>
+        </dt>
+        <dd>
+          An attacker that can run scripts in the [=verifier's=] origin, for
+          example through cross-site scripting or a compromised dependency,
+          attempts to read a [=digital credential/credential response=] that
+          the [=verifier=] decrypted and exposed to the page, or to start
+          credential requests of its own from that origin.
+        </dd>
+        <dt>
+          <dfn>Browser Extension Access</dfn>
+        </dt>
+        <dd>
+          A browser extension that the user has allowed to run on the
+          [=verifier's=] page reads or alters what passes through that page,
+          including outgoing credential requests and any [=digital
+          credential/credential response=] the [=verifier=] exposes to the
+          page.
+        </dd>
+        <dt>
           <dfn>API Flooding</dfn>
         </dt>
         <dd>
@@ -2137,6 +2164,93 @@
         `allow-same-origin`) are rejected by [[[credential-management]]],
         reducing the risk of malicious extraction or spoofing from untrusted
         environments.
+      </p>
+      <h3>
+        Verifier hardening against script injection
+      </h3>
+      <p>
+        The [[[#DC-API|Digital Credentials API]]] is only exposed in [=secure
+        contexts=], which means the page reached the user over a [=potentially
+        trustworthy origin=] (e.g., from https). It does not mean that every
+        script running on that page can be trusted. The [=verifier=] here is
+        the site the user is visiting, the one asking for a credential. The
+        attacker is a script that ends up running inside that site's own page
+        in the user's browser: injected through a cross-site scripting flaw,
+        pulled in with a compromised third-party library, or served as a
+        tampered script. The [=verifier's=] servers can be perfectly sound. The
+        problem is on the page. The threat model calls this a [=verifier-origin
+        script compromise=].
+      </p>
+      <p>
+        A script running there has the same access as the site's own code. It
+        can read a [=digital credential/credential response=] once the
+        [=verifier=] has decrypted it and handed it back to the page, and it
+        can call the API itself, in which case the request comes from the
+        site's own [=origin=] and looks like one the site made.
+      </p>
+      <p>
+        Mandated response encryption (see
+        [[[#encrypting-credential-responses]]]) does protect the response from
+        this attack, but only while the response stays encrypted. An injected
+        script that leaves the request alone reads the cleartext only if the
+        [=verifier=] decrypts the response in the page, or decrypts the
+        response on a server and then sends the cleartext back to the page. A
+        script that alters the request, or starts its own, can supply its own
+        response encryption key instead. Only a [=credential manager=] that
+        requires a request signed with a key it recognizes as the
+        [=verifier's=] can catch this (see
+        [[[#signing-presentation-requests]]]). [=Verifiers=] are therefore
+        encouraged to decrypt [=digital credential/credential responses=] on a
+        server and to keep the decryption key off the page. A [=verifier=] that
+        needs the cleartext in the page hands this attacker the same access, so
+        a [=verifier=] is encouraged to expose only the data the page actually
+        uses.
+      </p>
+      <p>
+        Mediating every request through a [=digital credential chooser=] or a
+        [=credential manager chooser=] limits silent misuse of the API. Neither
+        chooser stops an injected script from reading data the [=verifier=] has
+        already exposed to the page.
+      </p>
+      <p>
+        [=Verifiers=] are encouraged to harden their pages against script
+        injection as defense-in-depth. A strong [[CSP3|Content Security
+        Policy]], for example a strict policy based on nonces or hashes rather
+        than on a list of allowed origins (see
+        [[?web-dev-strict-csp-article]]), can prevent some injected or
+        unauthorized scripts from running in the page. However, a policy this
+        strict is hard to write, and to keep intact as a site grows, so in
+        practice a Content Security Policy lowers this risk rather than
+        removing it. [=Verifiers=] are also encouraged to use
+        [[[trusted-types]]], which reduce the risk of DOM-based injection, and
+        [[[SRI]]], which guards against tampered or compromised third-party
+        scripts. [=Verifiers=] can also send an `Integrity-Policy:
+        blocked-destinations=(script)` header (see
+        [[[SRI#integrity-policy-section]]]), so that the [=user agent=] blocks
+        the request for any external script that has no integrity metadata, and
+        for any no-CORS external script. [=Verifiers=] can also employ signed
+        requests, which can let a [=credential manager=] detect an altered
+        request or a replaced response encryption key, within the limits
+        described below (see [[[#signing-presentation-requests]]]).
+      </p>
+      <p>
+        These measures reduce, but do not eliminate, the threat. A Content
+        Security Policy, [[[trusted-types]]], and [[[SRI]]] do not address
+        [=browser extension access=]: a browser extension that the user has
+        allowed to run on the page holds full access to that page and can read
+        or rewrite a request before it is sent. A signed request helps only if
+        the [=credential manager=] checks the signature against a key it
+        already recognizes as the [=verifier's=], and also refuses an unsigned
+        request in its place. Otherwise the extension can drop the signature,
+        send an unsigned request instead, and supply its own response
+        encryption key. A [=verifier=] that builds and signs each request on
+        its server, and never signs a request that comes from the page, keeps
+        an extension from forging the [=verifier's=] signature, but not from
+        dropping the signature. Which requests a [=credential manager=] accepts
+        is decided by the ecosystem a credential belongs to, not by this
+        specification (see [[[#signing-presentation-requests]]]). Injection
+        vectors outside the page's script-execution model also remain beyond
+        what these mechanisms can address.
       </p>
       <section>
         <!--
