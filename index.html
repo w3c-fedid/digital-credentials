@@ -778,8 +778,8 @@
       Validate ISO18013-7 Annex C request data
     </h3>
     <p>
-      To <dfn>validate ISO18013-7 Annex C request data</dfn> given a JavaScript
-      value |data|:
+      To <dfn>validate ISO18013-7 Annex C request data</dfn> given an {{object}}
+      |data|:
     </p>
     <p>
       To <dfn>strictly decode CBOR</dfn> given a [=byte sequence=] |bytes|,
@@ -880,8 +880,7 @@
     </h3>
     <p>
       To <dfn>validate OpenID4VP request data</dfn> given a [=digital
-      credential/protocol identifier=] |protocol| and a JavaScript value
-      |data|:
+      credential/protocol identifier=] |protocol| and an {{object}} |data|:
     </p>
     <ol class="algorithm">
       <li>If |data| is not an {{object}}, return failure.
@@ -1289,7 +1288,7 @@
     <p>
       To <dfn data-dfn-for="credential request coordinator">validate request
       data</dfn> given a {{DigitalCredentialProtocol}}
-      |protocol:DigitalCredentialProtocol| and a JavaScript value |data|:
+      |protocol:DigitalCredentialProtocol| and an {{object}} |data|:
     </p>
     <ol class="algorithm">
       <li>If |protocol| is:
@@ -1361,7 +1360,7 @@
     <p>
       To <dfn data-dfn-for="credential request coordinator">validate response
       data</dfn> given a {{DigitalCredentialProtocol}}
-      |protocol:DigitalCredentialProtocol| and an {{object}} |data|:
+      |protocol:DigitalCredentialProtocol| and a JavaScript <a data-cite="ECMASCRIPT#sec-object-type">Object</a> |data|:
     </p>
     <ol class="algorithm">
       <li>If |protocol| is:
