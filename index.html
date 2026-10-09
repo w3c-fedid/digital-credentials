@@ -793,7 +793,7 @@
       the CBOR text string "`name`". The steps ignore other entries.
     </p>
     <ol class="algorithm">
-      <li>If |data| is not an <a data-cite="ECMASCRIPT#sec-object-type">Object</a>, return failure.
+      <li>If |data| is not an {{object}}, return failure.
       </li>
       <li>If |data| does not have an own property "`encryptionInfo`" whose
       value is a [=string=], return failure.
@@ -884,7 +884,7 @@
       |data|:
     </p>
     <ol class="algorithm">
-      <li>If |data| is not an <a data-cite="ECMASCRIPT#sec-object-type">Object</a>, return failure.
+      <li>If |data| is not an {{object}}, return failure.
       </li>
       <li>Let |authorizationRequest| be the result of processing |data| as an
       OpenID4VP Authorization Request according to |protocol|'s request type.
@@ -1361,7 +1361,7 @@
     <p>
       To <dfn data-dfn-for="credential request coordinator">validate response
       data</dfn> given a {{DigitalCredentialProtocol}}
-      |protocol:DigitalCredentialProtocol| and a JavaScript <a data-cite="ECMASCRIPT#sec-object-type">Object</a> |data|:
+      |protocol:DigitalCredentialProtocol| and an {{object}} |data|:
     </p>
     <ol class="algorithm">
       <li>If |protocol| is:
