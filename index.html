@@ -2243,8 +2243,11 @@
         already recognizes as the [=verifier's=], and also refuses an unsigned
         request in its place. Otherwise the extension can drop the signature,
         send an unsigned request instead, and supply its own response
-        encryption key. Which requests a [=credential manager=] accepts is
-        decided by the ecosystem a credential belongs to, not by this
+        encryption key. A [=verifier=] that builds and signs each request on
+        its server, and never signs a request that comes from the page, keeps
+        an extension from forging the [=verifier's=] signature, but not from
+        dropping the signature. Which requests a [=credential manager=] accepts
+        is decided by the ecosystem a credential belongs to, not by this
         specification (see [[[#signing-presentation-requests]]]). Injection
         vectors outside the page's script-execution model also remain beyond
         what these mechanisms can address.
