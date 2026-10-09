@@ -782,6 +782,14 @@
       {{object}} |data|:
     </p>
     <p>
+      To <dfn>strictly decode base64url</dfn> given a [=string=] |input|: if
+      |input| contains any [=code point=] other than an [=ASCII alphanumeric=],
+      U+002D (-), or U+005F (_), return failure. Otherwise, return the result
+      of decoding |input| as <a data-cite="RFC4648#section-5">base64url</a>, or
+      failure if decoding fails. Both [[[ISO18013-7]]] Annex C and [[RFC7515]]
+      use base64url without padding or whitespace.
+    </p>
+    <p>
       To <dfn>strictly decode CBOR</dfn> given a [=byte sequence=] |bytes|,
       decode |bytes| as CBOR [[RFC8949]]. If |bytes| is not exactly one
       well-formed CBOR data item with no bytes left over, or any item in it is
@@ -801,13 +809,8 @@
       <li>If |data| does not have an own property "`deviceRequest`" whose value
       is a [=string=], return failure.
       </li>
-      <li>If |data|["`deviceRequest`"] contains any [=code point=] other than
-      an [=ASCII alphanumeric=], U+002D (-), or U+005F (_), return failure.
-      [[[ISO18013-7]]] Annex C requires base64url without padding.
-      </li>
-      <li>Let |bytes| be the result of decoding |data|["`deviceRequest`"] as
-      <a data-cite="RFC4648#section-5">base64url</a>. If decoding fails, return
-      failure.
+      <li>Let |bytes| be the result of [=strictly decode base64url|strictly
+      decoding=] |data|["`deviceRequest`"]. If that is failure, return failure.
       </li>
       <li>Let |deviceRequest| be the result of [=strictly decode CBOR|strictly
       decoding=] |bytes|. If that is failure, return failure.
@@ -877,33 +880,85 @@
       Validate OpenID4VP request data
     </h3>
     <p>
+      To <dfn>read the response mode</dfn> from a JWS payload given a
+      [=string=] |payload|:
+    </p>
+    <ol class="algorithm">
+      <li>Let |bytes| be the result of [=strictly decode base64url|strictly
+      decoding=] |payload|. If that is failure, return failure.
+      </li>
+      <li>Let |claims| be the result of [=parse JSON bytes to an Infra value=]
+      given |bytes|. If that throws, return failure.
+      </li>
+      <li>If |claims| is not an [=ordered map|map=], return failure.
+      </li>
+      <li>If |claims|["`response_mode`"] [=map/exists=], return it. Otherwise,
+      return null.
+      </li>
+    </ol>
+    <p>
       To <dfn>validate OpenID4VP request data</dfn> given a [=digital
       credential/protocol identifier=] |protocol| and an {{object}} |data|:
     </p>
     <ol class="algorithm">
       <li>If |data| is not an {{object}}, return failure.
       </li>
-      <li>Let |authorizationRequest| be the result of processing |data| as an
-      OpenID4VP Authorization Request according to |protocol|'s request type.
+      <li>Let |responseMode| be null.
       </li>
-      <li>If |authorizationRequest| is failure, return failure.
+      <li>If |protocol| is:
+        <dl class="switch">
+          <dt>
+            {{DigitalCredentialPresentationProtocol/"openid4vp-v1-unsigned"}}:
+          </dt>
+          <dd>
+            If |data| has an own property "`response_mode`", set |responseMode|
+            to |data|["`response_mode`"].
+          </dd>
+          <dt>
+            {{DigitalCredentialPresentationProtocol/"openid4vp-v1-signed"}}:
+          </dt>
+          <dd>
+            <ol>
+              <li>If |data| does not have an own property "`request`" whose
+              value is a [=string=], return failure.
+              </li>
+              <li>Let |parts| be the result of [=strictly split|strictly
+              splitting=] |data|["`request`"] on U+002E (.).
+              </li>
+              <li>If |parts|'s [=list/size=] is not 3, return failure.
+              </li>
+              <li>Set |responseMode| to the result of [=read the response
+              mode|reading the response mode=] from |parts|[1]. If that is
+              failure, return failure.
+              </li>
+            </ol>
+          </dd>
+          <dt>
+            {{DigitalCredentialPresentationProtocol/"openid4vp-v1-multisigned"}}:
+          </dt>
+          <dd>
+            <ol>
+              <li>If |data| does not have an own property "`payload`" whose
+              value is a [=string=], return failure.
+              </li>
+              <li>Set |responseMode| to the result of [=read the response
+              mode|reading the response mode=] from |data|["`payload`"]. If
+              that is failure, return failure.
+              </li>
+            </ol>
+          </dd>
+        </dl>
       </li>
-      <li>If |authorizationRequest|'s `response_mode` value is not
-      "`dc_api.jwt`", return failure.
+      <li>If |responseMode| is not "`dc_api.jwt`", return failure.
       </li>
       <li>Return success.
       </li>
     </ol>
-    <aside class="note" title="Reading response_mode from a signed request">
+    <aside class="note" title="Why the signature is not checked">
       <p>
-        For {{DigitalCredentialPresentationProtocol/"openid4vp-v1-unsigned"}},
-        `response_mode` is a member of |data| itself. For
-        {{DigitalCredentialPresentationProtocol/"openid4vp-v1-signed"}} and
-        {{DigitalCredentialPresentationProtocol/"openid4vp-v1-multisigned"}},
-        it sits inside the signed payload, so the [=user agent=] decodes that
-        payload to read it. The [=user agent=] does not verify the signature:
-        it cannot, having no trust framework, and [[[OPENID4VP]]] leaves that
-        verification to the [=holder=].
+        The [=user agent=] reads `response_mode` from the signed payload but
+        does not verify the signature: it cannot, having no trust framework,
+        and [[[OPENID4VP]]] leaves that verification to the [=holder=].
       </p>
     </aside>
     <aside class="note" title="Why the encryption keys are not checked here">
@@ -1330,13 +1385,16 @@
       </p>
     </aside>
     <p>
-      A [=digital credential/presentation response=] is always encrypted for
-      the requesting party. [=credential request coordinator/Validate request
-      data=] establishes this, per [=digital credential/presentation
-      protocol=], by rejecting a request that does not compel an encrypted
-      response. [=credential request coordinator/Validate response data=] then
-      rejects a response that is plainly unencrypted, which catches a
-      [=holder=] that ignored the request rather than one that set out to leak.
+      A [=digital credential/presentation response=] that carries credential
+      data is always encrypted for the requesting party. [=credential request
+      coordinator/Validate request data=] makes sure of this, per [=digital
+      credential/presentation protocol=], by rejecting a request that would let
+      the [=holder=] respond unencrypted. [=credential request
+      coordinator/Validate response data=] then rejects a response that carries
+      credential data unencrypted, which catches a [=holder=] that ignored the
+      request rather than one that set out to leak. An error response can still
+      arrive unencrypted, for example when the [=holder=] could not use the
+      requesting party's encryption key.
     </p>
     <aside class="note" title="Encryption applies per operating mode">
       <p>
