@@ -785,8 +785,8 @@
       To <dfn>strictly decode CBOR</dfn> given a [=byte sequence=] |bytes|,
       decode |bytes| as CBOR [[RFC8949]]. If |bytes| is not exactly one
       well-formed CBOR data item with no bytes left over, or any item in it is
-      not valid ([[RFC8949]], section 5.3), such as a map with duplicate keys,
-      return failure. Otherwise, return the decoded item.
+      <a data-cite="RFC8949#section-5.3">not valid</a>, such as a map with
+      duplicate keys, return failure. Otherwise, return the decoded item.
     </p>
     <p>
       In the steps below, a map's "`name`" entry means its entry whose key is
@@ -806,7 +806,8 @@
       [[[ISO18013-7]]] Annex C requires base64url without padding.
       </li>
       <li>Let |bytes| be the result of decoding |data|["`deviceRequest`"] as
-      base64url ([[RFC4648]], section 5). If decoding fails, return failure.
+      <a data-cite="RFC4648#section-5">base64url</a>. If decoding fails,
+      return failure.
       </li>
       <li>Let |deviceRequest| be the result of [=strictly decode
       CBOR|strictly decoding=] |bytes|. If that is failure, return failure.
@@ -817,8 +818,9 @@
       <li>For each |docRequest| in |deviceRequest|["`docRequests`"]:
         <ol>
           <li>If |docRequest| is not a map whose "`itemsRequest`" entry is a
-          byte string with tag 24 and no other tag, an encoded CBOR data item
-          ([[RFC8949]], section 3.4.5.1), return failure.
+          byte string with tag 24 and no other tag, an
+          <a data-cite="RFC8949#section-3.4.5.1">encoded CBOR data item</a>,
+          return failure.
           </li>
           <li>Let |itemsRequest| be the result of [=strictly decode
           CBOR|strictly decoding=] that byte string. If that is failure, or
