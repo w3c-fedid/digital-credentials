@@ -778,8 +778,8 @@
       Validate ISO18013-7 Annex C request data
     </h3>
     <p>
-      To <dfn>validate ISO18013-7 Annex C request data</dfn> given an {{object}}
-      |data|:
+      To <dfn>validate ISO18013-7 Annex C request data</dfn> given an
+      {{object}} |data|:
     </p>
     <p>
       To <dfn>strictly decode CBOR</dfn> given a [=byte sequence=] |bytes|,
@@ -798,19 +798,19 @@
       <li>If |data| does not have an own property "`encryptionInfo`" whose
       value is a [=string=], return failure.
       </li>
-      <li>If |data| does not have an own property "`deviceRequest`" whose
-      value is a [=string=], return failure.
+      <li>If |data| does not have an own property "`deviceRequest`" whose value
+      is a [=string=], return failure.
       </li>
       <li>If |data|["`deviceRequest`"] contains any [=code point=] other than
       an [=ASCII alphanumeric=], U+002D (-), or U+005F (_), return failure.
       [[[ISO18013-7]]] Annex C requires base64url without padding.
       </li>
       <li>Let |bytes| be the result of decoding |data|["`deviceRequest`"] as
-      <a data-cite="RFC4648#section-5">base64url</a>. If decoding fails,
-      return failure.
+      <a data-cite="RFC4648#section-5">base64url</a>. If decoding fails, return
+      failure.
       </li>
-      <li>Let |deviceRequest| be the result of [=strictly decode
-      CBOR|strictly decoding=] |bytes|. If that is failure, return failure.
+      <li>Let |deviceRequest| be the result of [=strictly decode CBOR|strictly
+      decoding=] |bytes|. If that is failure, return failure.
       </li>
       <li>If |deviceRequest| is not a map whose "`docRequests`" entry is an
       array, return failure.
@@ -818,9 +818,8 @@
       <li>For each |docRequest| in |deviceRequest|["`docRequests`"]:
         <ol>
           <li>If |docRequest| is not a map whose "`itemsRequest`" entry is a
-          byte string with tag 24 and no other tag, an
-          <a data-cite="RFC8949#section-3.4.5.1">encoded CBOR data item</a>,
-          return failure.
+          byte string with tag 24 and no other tag, an <a data-cite=
+          "RFC8949#section-3.4.5.1">encoded CBOR data item</a>, return failure.
           </li>
           <li>Let |itemsRequest| be the result of [=strictly decode
           CBOR|strictly decoding=] that byte string. If that is failure, or
@@ -844,20 +843,20 @@
     </ol>
     <aside class="note" title="Why server retrieval details are refused">
       <p>
-        This check stops a verifier from using this API to ask the
-        [=holder=] for the server retrieval details that [[ISO18013-5]]
-        defines. Those details, the "`oidc_info`" and "`webapi_info`" data
-        elements, carry the issuer's address and a token, and server
-        retrieval uses them to fetch the holder's data from the issuer. The
-        token identifies the holder's credential to the issuer, so a verifier
-        that has one can tell the issuer about the presentation.
+        This check stops a verifier from using this API to ask the [=holder=]
+        for the server retrieval details that [[ISO18013-5]] defines. Those
+        details, the "`oidc_info`" and "`webapi_info`" data elements, carry the
+        issuer's address and a token, and server retrieval uses them to fetch
+        the holder's data from the issuer. The token identifies the holder's
+        credential to the issuer, so a verifier that has one can tell the
+        issuer about the presentation.
       </p>
       <p>
         The check cannot stop a verifier from contacting the issuer by other
-        means, such as from its own servers, and the [=user agent=] cannot
-        see the response, which is encrypted to the verifier. Rejecting
-        invalid CBOR, such as a map with duplicate keys, stops the [=user
-        agent=] and the [=holder=] from reading the same request differently.
+        means, such as from its own servers, and the [=user agent=] cannot see
+        the response, which is encrypted to the verifier. Rejecting invalid
+        CBOR, such as a map with duplicate keys, stops the [=user agent=] and
+        the [=holder=] from reading the same request differently.
       </p>
     </aside>
     <aside class="note" title="What else this algorithm checks">
@@ -866,11 +865,10 @@
         and defines only one response structure, an encrypted one. A request
         carrying "`encryptionInfo`" therefore compels an encrypted [=digital
         credential/presentation response=]. Beyond that, the [=user agent=]
-        checks only that the device request is well-formed, valid CBOR with
-        the structure these steps read, and that it does not ask for the
-        server retrieval data elements. Whether the rest of the request
-        conforms to Annex C is for the [=holder=] to decide, not the [=user
-        agent=].
+        checks only that the device request is well-formed, valid CBOR with the
+        structure these steps read, and that it does not ask for the server
+        retrieval data elements. Whether the rest of the request conforms to
+        Annex C is for the [=holder=] to decide, not the [=user agent=].
       </p>
     </aside><!--
       // MARK: Validate OpenID4VP request data
@@ -1360,7 +1358,8 @@
     <p>
       To <dfn data-dfn-for="credential request coordinator">validate response
       data</dfn> given a {{DigitalCredentialProtocol}}
-      |protocol:DigitalCredentialProtocol| and a JavaScript <a data-cite="ECMASCRIPT#sec-object-type">Object</a> |data|:
+      |protocol:DigitalCredentialProtocol| and a JavaScript <a data-cite=
+      "ECMASCRIPT#sec-object-type">Object</a> |data|:
     </p>
     <ol class="algorithm">
       <li>If |protocol| is:
