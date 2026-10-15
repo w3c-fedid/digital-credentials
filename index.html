@@ -801,8 +801,6 @@
       the CBOR text string "`name`". The steps ignore other entries.
     </p>
     <ol class="algorithm">
-      <li>If |data| is not an {{object}}, return failure.
-      </li>
       <li>If |data| does not have an own property "`encryptionInfo`" whose
       value is a [=string=], return failure.
       </li>
@@ -875,8 +873,6 @@
       credential/protocol identifier=] |protocol| and an {{object}} |data|:
     </p>
     <ol class="algorithm">
-      <li>If |data| is not an {{object}}, return failure.
-      </li>
       <li>Let |responseMode| be null.
       </li>
       <li>If |protocol| is:
