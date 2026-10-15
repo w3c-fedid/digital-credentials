@@ -2513,10 +2513,16 @@
         </h5>
         <p>
           To prevent exposure of user information to other parties in
-          "transit", for example browser extensions loaded on [=verifier=]
-          pages, and to encourage secure storage of user credentials by the
+          "transit", and to encourage secure storage of user credentials by the
           [=verifier=], protocols are required to support and mandate encrypted
-          responses in a credential exchange.
+          responses in a credential exchange. When the encryption key travels
+          inside the request, a script on the [=verifier's=] page, such as one
+          injected by a browser extension, can replace that key in an unsigned
+          request, so that the response is encrypted to the attacker rather
+          than to the [=verifier=]. A signed request lets the [=credential
+          manager=] detect the change only if it checks the signature against a
+          key it already recognizes as the [=verifier's=] (see
+          [[[#signing-presentation-requests]]]).
         </p>
         <p class="issue" data-number="109"></p>
       </section>
