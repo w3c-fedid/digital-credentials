@@ -176,7 +176,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="60514a844ebc8d0a8b1132a5454e89ea2de02a0b">
+<meta name="revision" content="9dfdc5bd5418982ac7faeeceb8b08fb9ede09c32">
 <meta name="description" content="This document specifies an API enabling user agents to mediate the
         presentation and issuance of digital credentials, such as a
         driver's license, government-issued identification card, or
@@ -325,7 +325,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "60514a844ebc8d0a8b1132a5454e89ea2de02a0b",
+  "gitRevision": "9dfdc5bd5418982ac7faeeceb8b08fb9ede09c32",
   "publishISODate": "2026-10-20T00:00:00.000Z",
   "generatedSubtitle": "W3C Editor's Draft 20 October 2026"
 }</script>
@@ -2837,15 +2837,16 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         </h5><a class="self-link" href="#encrypting-credential-responses" aria-label="Permalink for Section 11.3.1.7"></a></div>
         <p>
           To prevent exposure of user information to other parties in
-          "transit", and to encourage secure processing and storage of user attributes by the
-          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-22">verifier</a>, protocols are required to support and mandate encrypted
-          responses in a credential exchange. When the encryption key travels
-          inside the request, a script on the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-23">verifier's</a> page, such as one
-          injected by a browser extension, can replace that key in an unsigned
-          request, so that the response is encrypted to the attacker rather
-          than to the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-24">verifier</a>. A signed request lets the <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-35">credential manager</a> detect the change only if it checks the signature against a
-          key it already recognizes as the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-25">verifier's</a> (see
-          <a href="#signing-presentation-requests" data-matched-text="[[[#signing-presentation-requests]]]" class="sec-ref"><bdi class="secno">10.3 </bdi>
+          "transit", and to encourage secure processing and storage of user
+          attributes by the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-22">verifier</a>, protocols are required to support and
+          mandate encrypted responses in a credential exchange. When the
+          encryption key travels inside the request, a script on the
+          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-23">verifier's</a> page, such as one injected by a browser extension, can
+          replace that key in an unsigned request, so that the response is
+          encrypted to the attacker rather than to the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-24">verifier</a>. A signed
+          request lets the <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-35">credential manager</a> detect the change only if it
+          checks the signature against a key it already recognizes as the
+          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-25">verifier's</a> (see <a href="#signing-presentation-requests" data-matched-text="[[[#signing-presentation-requests]]]" class="sec-ref"><bdi class="secno">10.3 </bdi>
           Signing presentation requests</a>).
         </p>
         <div class="issue closed" id="issue-container-number-109"><div class="issue-title marker" id="h-issue-6"><a href="https://github.com/w3c-fedid/digital-credentials/issues/109"><span class="issue-number">Issue 109</span></a><span class="issue-label">: Should response encryption be required <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22discussion%22" style="background-color: rgb(75, 158, 238); color: rgb(0, 0, 0);" aria-label="GitHub label: discussion">discussion</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22pending+closure%22" style="background-color: rgb(251, 202, 4); color: rgb(0, 0, 0);" aria-label="GitHub label: pending closure">pending closure</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22security-tracker%22" style="background-color: rgb(255, 255, 0); color: rgb(0, 0, 0);" aria-label="GitHub label: security-tracker">security-tracker</a></span></div><p dir="auto">Related to <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2024260424" data-permission-text="Title is private" data-url="https://github.com/w3c-fedid/digital-credentials/issues/49" data-hovercard-type="issue" data-hovercard-url="/w3c-fedid/digital-credentials/issues/49/hovercard" href="https://github.com/w3c-fedid/digital-credentials/issues/49">#49</a> and several other discussions we've had: do we want to say that the response must always be encrypted (and if so, by which algorithms), or are we OK leaving that as optional?</p></div>
