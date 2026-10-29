@@ -3073,6 +3073,10 @@
           not clear or affect the credentials held within those external
           managers.
         </p>
+        <p>
+          A wallet might reuse keys (from batch issuance) for multiple sessions with the same origin, which could include “private browsing” sessions. There is no technical mechanism for explicitly signalling to the wallet that a user has cleared local storage and may wish to use a fresh key (to reduce the risk of identification). One mitigation could be for wallets to limit key reuse in general (absent this explicit signal), although this comes at the cost of depleting the batch more rapidly.
+If possible, this risk should be communicated in any private browsing UI, as a piece of information that will not be cleared.
+        </p>
       </section>
     </section>
     <section>
