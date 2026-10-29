@@ -176,7 +176,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="9dfdc5bd5418982ac7faeeceb8b08fb9ede09c32">
+<meta name="revision" content="0bf45fc429510e9322995d3f0dfa039f22a295b4">
 <meta name="description" content="This document specifies an API enabling user agents to mediate the
         presentation and issuance of digital credentials, such as a
         driver's license, government-issued identification card, or
@@ -325,9 +325,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "9dfdc5bd5418982ac7faeeceb8b08fb9ede09c32",
-  "publishISODate": "2026-10-20T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 20 October 2026"
+  "gitRevision": "0bf45fc429510e9322995d3f0dfa039f22a295b4",
+  "publishISODate": "2026-10-29T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 29 October 2026"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED">
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/dark.css" disabled=""></head>
@@ -335,7 +335,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Digital Credentials</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-10-20">20 October 2026</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-10-29">29 October 2026</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -555,9 +555,11 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         Out of Scope Threats
       </a></li></ol></li><li class="tocline"><a class="tocxref" href="#mitigations"><bdi class="secno">10.2 </bdi>
         Mitigations
-      </a></li><li class="tocline"><a class="tocxref" href="#signing-presentation-requests"><bdi class="secno">10.3 </bdi>
+      </a></li><li class="tocline"><a class="tocxref" href="#content-process-compromise"><bdi class="secno">10.3 </bdi>
+          Forged Requests from a Compromised Content Process
+        </a></li><li class="tocline"><a class="tocxref" href="#signing-presentation-requests"><bdi class="secno">10.4 </bdi>
           Signing presentation requests
-        </a></li><li class="tocline"><a class="tocxref" href="#cross-device-security-and-proximity"><bdi class="secno">10.4 </bdi>
+        </a></li><li class="tocline"><a class="tocxref" href="#cross-device-security-and-proximity"><bdi class="secno">10.5 </bdi>
           Cross-Device Security and Proximity
         </a></li></ol></li><li class="tocline"><a class="tocxref" href="#privacy-principles"><bdi class="secno">11. </bdi>
         Privacy Considerations
@@ -2341,6 +2343,16 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           underlying operating system or <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-18">credential manager</a> by passing
           carefully crafted or malformed protocol requests through the API.
         </dd>
+        <dt>
+          <dfn data-local-lt="forged requests|content process compromise" data-noexport="" id="dfn-forged-requests-from-a-compromised-content-process" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">Forged Requests from a
+          Compromised Content Process</dfn>
+        </dt>
+        <dd>
+          An attacker who has taken control of the process that runs a page's
+          code attempts to make the <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-11">digital credential chooser</a> appear
+          without the user having interacted with the page, by skipping the
+          <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-index-term-transient-activation-3">transient activation</a> check that runs in that same process.
+        </dd>
       </dl>
       </section><section id="out-of-scope-threats"><div class="header-wrapper"><h4 id="x10-1-2-out-of-scope-threats"><bdi class="secno">10.1.2 </bdi>
         Out of Scope Threats
@@ -2468,9 +2480,56 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         reducing the risk of malicious extraction or spoofing from untrusted
         environments.
       </p>
-      </section><section id="signing-presentation-requests"><div class="header-wrapper"><h3 id="x10-3-signing-presentation-requests"><bdi class="secno">10.3 </bdi>
+      </section><section id="content-process-compromise"><div class="header-wrapper"><h3 id="x10-3-forged-requests-from-a-compromised-content-process"><bdi class="secno">10.3 </bdi>
+          Forged Requests from a Compromised Content Process
+        </h3><a class="self-link" href="#content-process-compromise" aria-label="Permalink for Section 10.3"></a></div>
+        
+        
+        <p>
+          Some user agents run a page's code in one process and handle
+          keyboard, mouse, and touch input in another, more trusted, process.
+          In those user agents, both the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-index-term-transient-activation-4">transient activation</a> check and the
+          step that <a data-link-type="dfn" data-lt="Consume user activation" href="https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation" id="ref-for-index-term-consume-user-activation-4">consumes that activation</a> are
+          evaluated in the process that runs the page, which is the process an
+          attacker is most likely to have taken over. An attacker in that
+          position can skip both (A and B) and ask for the <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-12">digital credential chooser</a>
+          anyway.
+        </p>
+        <p>
+          <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-index-term-transient-activation-5">Transient activation</a> lasts only a few seconds so that the user
+          can perceive the link between interacting with a page and the page
+          calling an interface gated on that interaction. <a data-link-type="dfn|abstract-op" href="#dfn-forged-requests-from-a-compromised-content-process" class="internalDFN" id="ref-for-dfn-forged-requests-from-a-compromised-content-process-1">Forged requests</a>
+          break exactly that link. What the attacker gains is a credential
+          prompt drawn by the user agent or the operating system, at a
+          moment of the attacker's choosing, which the user cannot tell apart
+          from a legitimate prompt. That makes it useful for phishing, and for the
+          same prompt fatigue described under <a data-link-type="dfn|abstract-op" href="#dfn-api-flooding" class="internalDFN" id="ref-for-dfn-api-flooding-2">API flooding</a>.
+        </p>
+        <p>
+          A multi-process user agent is not asked to do anything beyond what
+          this specification already requires. What matters is where the
+          requirement is evaluated. Such a user agent is encouraged to evaluate
+          the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-index-term-transient-activation-6">transient activation</a> check against a record of input held by
+          the process that presents the chooser, rather than one the process
+          running the page can write to, and to record the consumption that
+          follows it in that same trusted process. Having done so, it rejects a
+          request that fails the check with a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-8"><code>NotAllowedError</code></a>"
+          <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-13"><code>DOMException</code></a>, as the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-index-term-transient-activation-7">transient activation</a> check already does.
+        </p>
+        <div class="note" role="note" id="issue-container-generatedID-16"><div class="note-title marker" id="h-note-15"><span>Note</span></div><p class="">
+          This changes nothing that content can observe. A page that has not
+          been taken over reaches the <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-13">digital credential chooser</a> only by
+          passing the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-index-term-transient-activation-8">transient activation</a> check, so evaluating that check
+          somewhere the page cannot influence gives the same answer. It appears
+          here rather than as a step in an algorithm because the model has a
+          single <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-index-term-transient-activation-9">transient activation</a> state, already checked and consumed
+          before the <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-14">digital credential chooser</a> is reached, so a second
+          check of it cannot be expressed as a distinct step.
+        </p></div>
+      </section>
+      <section id="signing-presentation-requests"><div class="header-wrapper"><h3 id="x10-4-signing-presentation-requests"><bdi class="secno">10.4 </bdi>
           Signing presentation requests
-        </h3><a class="self-link" href="#signing-presentation-requests" aria-label="Permalink for Section 10.3"></a></div>
+        </h3><a class="self-link" href="#signing-presentation-requests" aria-label="Permalink for Section 10.4"></a></div>
         
         
         <p>
@@ -2504,13 +2563,13 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           protecting against same-device in-page tampering, request signing
           also provides critical defense-in-depth when presenting credentials
           across multiple devices (see
-          <a href="#cross-device-security-and-proximity" data-matched-text="[[[#cross-device-security-and-proximity]]]" class="sec-ref"><bdi class="secno">10.4 </bdi>
+          <a href="#cross-device-security-and-proximity" data-matched-text="[[[#cross-device-security-and-proximity]]]" class="sec-ref"><bdi class="secno">10.5 </bdi>
           Cross-Device Security and Proximity</a>).
         </p>
       </section>
-      <section id="cross-device-security-and-proximity"><div class="header-wrapper"><h3 id="x10-4-cross-device-security-and-proximity"><bdi class="secno">10.4 </bdi>
+      <section id="cross-device-security-and-proximity"><div class="header-wrapper"><h3 id="x10-5-cross-device-security-and-proximity"><bdi class="secno">10.5 </bdi>
           Cross-Device Security and Proximity
-        </h3><a class="self-link" href="#cross-device-security-and-proximity" aria-label="Permalink for Section 10.4"></a></div>
+        </h3><a class="self-link" href="#cross-device-security-and-proximity" aria-label="Permalink for Section 10.5"></a></div>
         
         
         <p>
@@ -2541,7 +2600,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       </h2><a class="self-link" href="#privacy-principles" aria-label="Permalink for Section 11."></a></div><p><em>This section is non-normative.</em></p>
       
       
-      <div class="issue" id="issue-container-generatedID-16"><div class="issue-title marker" id="h-issue-0"><span>Issue</span><span class="issue-label">: Privacy Considerations section is a work in progress</span></div><div class="">
+      <div class="issue" id="issue-container-generatedID-17"><div class="issue-title marker" id="h-issue-0"><span>Issue</span><span class="issue-label">: Privacy Considerations section is a work in progress</span></div><div class="">
         <p>
           This section is a work in progress as this document evolves.
         </p>
@@ -2620,7 +2679,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         </p>
         <p>
           The Digital Credentials API offers the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-22">user agent</a> the ability to
-          intermediate on behalf of the user (e.g. in the form of a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-11">digital credential chooser</a> or a <a data-link-type="dfn|abstract-op" href="#dfn-credential-manager-chooser" class="internalDFN" id="ref-for-dfn-credential-manager-chooser-4">credential manager chooser</a>) to
+          intermediate on behalf of the user (e.g. in the form of a <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-15">digital credential chooser</a> or a <a data-link-type="dfn|abstract-op" href="#dfn-credential-manager-chooser" class="internalDFN" id="ref-for-dfn-credential-manager-chooser-4">credential manager chooser</a>) to
           contextualize requests and
           <a href="#permission-prior-to-credential-manager-selection" data-matched-text="[[[#permission-prior-to-credential-manager-selection|prevent
           immediate exposure to holder applications]]]">prevent
@@ -2628,7 +2687,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           certain minimum requirements on supported protocols, such as
           <a href="#encrypting-credential-responses" data-matched-text="[[[#encrypting-credential-responses|response encryption]]]">response encryption</a>.
         </p>
-        <div class="note" role="note" id="issue-container-generatedID-17"><div class="note-title marker" id="h-note-15"><span>Note</span></div><aside class="">
+        <div class="note" role="note" id="issue-container-generatedID-18"><div class="note-title marker" id="h-note-16"><span>Note</span></div><aside class="">
           The Digital Credentials API is not intended to inhibit the
           development of other standardized solutions that enhance user
           privacy. For example, an API could be standardized that more strictly
@@ -2846,7 +2905,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           encrypted to the attacker rather than to the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-24">verifier</a>. A signed
           request lets the <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-35">credential manager</a> detect the change only if it
           checks the signature against a key it already recognizes as the
-          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-25">verifier's</a> (see <a href="#signing-presentation-requests" data-matched-text="[[[#signing-presentation-requests]]]" class="sec-ref"><bdi class="secno">10.3 </bdi>
+          <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-25">verifier's</a> (see <a href="#signing-presentation-requests" data-matched-text="[[[#signing-presentation-requests]]]" class="sec-ref"><bdi class="secno">10.4 </bdi>
           Signing presentation requests</a>).
         </p>
         <div class="issue closed" id="issue-container-number-109"><div class="issue-title marker" id="h-issue-6"><a href="https://github.com/w3c-fedid/digital-credentials/issues/109"><span class="issue-number">Issue 109</span></a><span class="issue-label">: Should response encryption be required <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22discussion%22" style="background-color: rgb(75, 158, 238); color: rgb(0, 0, 0);" aria-label="GitHub label: discussion">discussion</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22pending+closure%22" style="background-color: rgb(251, 202, 4); color: rgb(0, 0, 0);" aria-label="GitHub label: pending closure">pending closure</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22security-tracker%22" style="background-color: rgb(255, 255, 0); color: rgb(0, 0, 0);" aria-label="GitHub label: security-tracker">security-tracker</a></span></div><p dir="auto">Related to <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="2024260424" data-permission-text="Title is private" data-url="https://github.com/w3c-fedid/digital-credentials/issues/49" data-hovercard-type="issue" data-hovercard-url="/w3c-fedid/digital-credentials/issues/49/hovercard" href="https://github.com/w3c-fedid/digital-credentials/issues/49">#49</a> and several other discussions we've had: do we want to say that the response must always be encrypted (and if so, by which algorithms), or are we OK leaving that as optional?</p></div>
@@ -3251,7 +3310,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         </h3><a class="self-link" href="#user-permission-and-transparency" aria-label="Permalink for Section 11.6"></a></div>
         
         
-        <div class="issue" id="issue-container-generatedID-18"><div class="issue-title marker" id="h-issue-9"><span>Issue</span><span class="issue-label">: Work in progress</span></div><p class=""></p></div>
+        <div class="issue" id="issue-container-generatedID-19"><div class="issue-title marker" id="h-issue-9"><span>Issue</span><span class="issue-label">: Work in progress</span></div><p class=""></p></div>
         <p>
           The Digital Credentials API enables the sharing of highly personal,
           sensitive, and at-risk user information with websites via
@@ -3399,7 +3458,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         scope of this specification; however, the accessibility of that
         experience is within scope (see <a href="#scope" data-matched-text="[[[#scope]]]" class="sec-ref"><bdi class="secno">3. </bdi>
       Scope</a>). The following guidance
-        applies to <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-62">user agents</a> and platforms implementing the <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-12">digital credential chooser</a>, <a data-link-type="dfn|abstract-op" href="#dfn-credential-manager-chooser" class="internalDFN" id="ref-for-dfn-credential-manager-chooser-5">credential manager chooser</a> and the flows
+        applies to <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-62">user agents</a> and platforms implementing the <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-16">digital credential chooser</a>, <a data-link-type="dfn|abstract-op" href="#dfn-credential-manager-chooser" class="internalDFN" id="ref-for-dfn-credential-manager-chooser-5">credential manager chooser</a> and the flows
         around them, and references the relevant success criteria of
         [<cite><a class="bibref" data-link-type="biblio" href="#bib-wcag22" title="Web Content Accessibility Guidelines (WCAG) 2.2">WCAG22</a></cite>]. Where either chooser is a non-web user interface, those
         criteria apply as described in [<cite><a class="bibref" data-link-type="biblio" href="#bib-wcag2ict-22" title="Guidance on Applying WCAG 2 to Non-Web Information and Communications Technologies (WCAG2ICT)">WCAG2ICT-22</a></cite>].
@@ -3419,8 +3478,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       </p>
       <p>
         When an operation fails, the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-63">user agent</a> rejects with one of several
-        distinct errors; for example, a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-8"><code>NotAllowedError</code></a>",
-        "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#invalidstateerror" id="ref-for-index-term-invalidstateerror-exception-3"><code>InvalidStateError</code></a>", or "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#operationerror" id="ref-for-index-term-operationerror-exception-3"><code>OperationError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-13"><code>DOMException</code></a>, or a
+        distinct errors; for example, a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-9"><code>NotAllowedError</code></a>",
+        "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#invalidstateerror" id="ref-for-index-term-invalidstateerror-exception-3"><code>InvalidStateError</code></a>", or "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#operationerror" id="ref-for-index-term-operationerror-exception-3"><code>OperationError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-14"><code>DOMException</code></a>, or a
         <a data-link-type="exception" data-lt="TypeError" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-index-term-typeerror-exception-8"><code>TypeError</code></a>. Where the platform surfaces such a failure to the user,
         it <em class="rfc2119">SHOULD</em> identify in text what went wrong and, where applicable, how
         to recover, rather than only signalling that an error occurred (see
@@ -3434,7 +3493,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         keyboard; see <a data-matched-text="[[[WCAG22#keyboard]]]" href="https://www.w3.org/TR/WCAG22/#keyboard" class="sec-ref">§&nbsp;Success Criterion 2.1.1 Keyboard</a>). In particular, activation <em class="rfc2119">MUST NOT</em> require a multipoint or path-based gesture (see
         <a data-matched-text="[[[WCAG22#pointer-gestures]]]" href="https://www.w3.org/TR/WCAG22/#pointer-gestures" class="sec-ref">§&nbsp;Success Criterion 2.5.1 Pointer Gestures</a>) or device motion (see
         <a data-matched-text="[[[WCAG22#motion-actuation]]]" href="https://www.w3.org/TR/WCAG22/#motion-actuation" class="sec-ref">§&nbsp;Success Criterion 2.5.4 Motion Actuation</a>) as the only means of operation. The
-        <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-13">digital credential chooser</a> and <a data-link-type="dfn|abstract-op" href="#dfn-credential-manager-chooser" class="internalDFN" id="ref-for-dfn-credential-manager-chooser-6">credential manager chooser</a>
+        <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-17">digital credential chooser</a> and <a data-link-type="dfn|abstract-op" href="#dfn-credential-manager-chooser" class="internalDFN" id="ref-for-dfn-credential-manager-chooser-6">credential manager chooser</a>
         <em class="rfc2119">SHOULD</em> present their controls in a meaningful focus order (see
         <a data-matched-text="[[[WCAG22#focus-order]]]" href="https://www.w3.org/TR/WCAG22/#focus-order" class="sec-ref">§&nbsp;Success Criterion 2.4.3 Focus Order</a>), move focus into the chooser when it is
         opened; keep focus within it while it is shown; and restore focus to
@@ -3542,7 +3601,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         <li>Any other text presented to the user during a credential
         interaction is rendered either by the website (using HTML, which
         provides language and direction support through the host language), or
-        by the platform's <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-14">digital credential chooser</a> and <a data-link-type="dfn|abstract-op" href="#dfn-credential-manager-chooser" class="internalDFN" id="ref-for-dfn-credential-manager-chooser-7">credential manager chooser</a>. The choosers are out of scope for this
+        by the platform's <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-18">digital credential chooser</a> and <a data-link-type="dfn|abstract-op" href="#dfn-credential-manager-chooser" class="internalDFN" id="ref-for-dfn-credential-manager-chooser-7">credential manager chooser</a>. The choosers are out of scope for this
         specification; where they display credential content, the language and
         direction of that content, as provided by the credential format and
         protocol, govern its presentation.
@@ -3707,7 +3766,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         <li>Return <a data-link-type="dfn" href="https://www.w3.org/TR/webdriver2/#dfn-success" id="ref-for-index-term-success-1">success</a> with data <code>null</code>.
         </li>
       </ol>
-      <div class="note" role="note" id="issue-container-generatedID-19"><div class="note-title marker" id="h-note-16"><span>Note</span><span class="issue-label">: Simulating wallet errors in tests</span></div><p class="">
+      <div class="note" role="note" id="issue-container-generatedID-20"><div class="note-title marker" id="h-note-17"><span>Note</span><span class="issue-label">: Simulating wallet errors in tests</span></div><p class="">
         Developers writing automated tests can simulate wallet errors by
         passing an <a data-link-type="interface" data-lt="AbortSignal" href="https://dom.spec.whatwg.org/#abortsignal" id="ref-for-index-term-abortsignal-interface-5"><code>AbortSignal</code></a> as <a data-link-type="dict-member" href="https://www.w3.org/TR/credential-management-1/#dom-credentialrequestoptions-signal" id="ref-for-index-term-signal-for-credentialrequestoptions-3"><code>signal</code></a> (for
         <a data-link-type="method" data-lt="get()" href="https://www.w3.org/TR/credential-management-1/#dom-credentialscontainer-get" id="ref-for-index-term-get-for-credentialscontainer-5"><code>get</code></a><code>()</code>) or <a data-link-type="dict-member" href="https://www.w3.org/TR/credential-management-1/#dom-credentialcreationoptions-signal" id="ref-for-index-term-signal-for-credentialcreationoptions-2"><code>signal</code></a>
@@ -3766,8 +3825,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         </li>
         <li>If <var>action</var> is <code>"decline"</code>:
           <ol>
-            <li><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-index-term-rejects-7">Reject</a> <var>promise</var> with a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-9"><code>NotAllowedError</code></a>"
-            <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-14"><code>DOMException</code></a>.
+            <li><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-index-term-rejects-7">Reject</a> <var>promise</var> with a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-10"><code>NotAllowedError</code></a>"
+            <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-15"><code>DOMException</code></a>.
             </li>
             <li>Return <code>true</code>.
             </li>
@@ -3897,6 +3956,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <span class="print-only">§1.</span></li><li>
       <a class="index-term" href="#dfn-filter-credential-requests">filter credential requests</a> 
     <span class="print-only">§6.3</span></li><li>
+      <a class="index-term" href="#dfn-forged-requests-from-a-compromised-content-process">Forged Requests from a Compromised Content Process</a> 
+    <span class="print-only">§10.1.1</span></li><li>
       <a class="index-term" href="#dfn-handle-virtual-wallet-behavior">handle virtual wallet behavior</a> 
     <span class="print-only">§14.2</span></li><li>
       <a class="index-term" href="#dfn-idle">idle</a> 
@@ -4485,7 +4546,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-dfn-digital-credential-30" title="§ 7.7.1 The protocol member">§ 7.7.1 The protocol member</a> <a href="#ref-for-dfn-digital-credential-31" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-dfn-digital-credential-32" title="§ 10.4 Cross-Device Security and Proximity">§ 10.4 Cross-Device Security and Proximity</a> 
+      <a href="#ref-for-dfn-digital-credential-32" title="§ 10.5 Cross-Device Security and Proximity">§ 10.5 Cross-Device Security and Proximity</a> 
     </li><li>
       <a href="#ref-for-dfn-digital-credential-33" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> <a href="#ref-for-dfn-digital-credential-34" title="Reference 2">(2)</a> <a href="#ref-for-dfn-digital-credential-35" title="Reference 3">(3)</a> 
     </li>
@@ -4512,11 +4573,15 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-dfn-digital-credential-chooser-10" title="§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method">§ 8.1 [[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors) internal method</a> 
     </li><li>
-      <a href="#ref-for-dfn-digital-credential-chooser-11" title="§ 11.1 Design Considerations and Alternatives">§ 11.1 Design Considerations and Alternatives</a> 
+      <a href="#ref-for-dfn-digital-credential-chooser-11" title="§ 10.1.1 In-Scope Threats">§ 10.1.1 In-Scope Threats</a> 
     </li><li>
-      <a href="#ref-for-dfn-digital-credential-chooser-12" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> <a href="#ref-for-dfn-digital-credential-chooser-13" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-digital-credential-chooser-12" title="§ 10.3 Forged Requests from a Compromised Content Process">§ 10.3 Forged Requests from a Compromised Content Process</a> <a href="#ref-for-dfn-digital-credential-chooser-13" title="Reference 2">(2)</a> <a href="#ref-for-dfn-digital-credential-chooser-14" title="Reference 3">(3)</a> 
     </li><li>
-      <a href="#ref-for-dfn-digital-credential-chooser-14" title="§ 13. Internationalization Considerations">§ 13. Internationalization Considerations</a> 
+      <a href="#ref-for-dfn-digital-credential-chooser-15" title="§ 11.1 Design Considerations and Alternatives">§ 11.1 Design Considerations and Alternatives</a> 
+    </li><li>
+      <a href="#ref-for-dfn-digital-credential-chooser-16" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> <a href="#ref-for-dfn-digital-credential-chooser-17" title="Reference 2">(2)</a> 
+    </li><li>
+      <a href="#ref-for-dfn-digital-credential-chooser-18" title="§ 13. Internationalization Considerations">§ 13. Internationalization Considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-issuance-protocol" aria-label="Links in this document to definition: Issuance protocol">
@@ -4659,7 +4724,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-dfn-presentation-protocol-22" title="§ 10.1.2 Out of Scope Threats">§ 10.1.2 Out of Scope Threats</a> 
     </li><li>
-      <a href="#ref-for-dfn-presentation-protocol-23" title="§ 10.3 Signing presentation requests">§ 10.3 Signing presentation requests</a> 
+      <a href="#ref-for-dfn-presentation-protocol-23" title="§ 10.4 Signing presentation requests">§ 10.4 Signing presentation requests</a> 
     </li><li>
       <a href="#ref-for-dfn-presentation-protocol-24" title="§ 11.1 Design Considerations and Alternatives">§ 11.1 Design Considerations and Alternatives</a> <a href="#ref-for-dfn-presentation-protocol-25" title="Reference 2">(2)</a> 
     </li><li>
@@ -5692,6 +5757,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <ul>
     <li>
       <a href="#ref-for-dfn-api-flooding-1" title="§ 10.2 Mitigations">§ 10.2 Mitigations</a> 
+    </li><li>
+      <a href="#ref-for-dfn-api-flooding-2" title="§ 10.3 Forged Requests from a Compromised Content Process">§ 10.3 Forged Requests from a Compromised Content Process</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-unauthorized-cross-origin-access" aria-label="Links in this document to definition: Unauthorized Cross-Origin Access">
@@ -5718,6 +5785,19 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <ul>
     <li>
       <a href="#ref-for-dfn-malicious-payloads-to-the-underlying-platform-1" title="§ 10.2 Mitigations">§ 10.2 Mitigations</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-forged-requests-from-a-compromised-content-process" aria-label="Links in this document to definition: Forged Requests from a Compromised Content Process">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dfn-forged-requests-from-a-compromised-content-process" aria-label="Permalink for definition: Forged Requests from a Compromised Content Process. Activate to close this dialog.">Permalink</a>
+         
+        
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-dfn-forged-requests-from-a-compromised-content-process-1" title="§ 10.3 Forged Requests from a Compromised Content Process">§ 10.3 Forged Requests from a Compromised Content Process</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-out-of-scope-threats" aria-label="Links in this document to definition: Out-of-scope threats">
@@ -6143,9 +6223,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-index-term-credential-manager-22" title="§ 10.2 Mitigations">§ 10.2 Mitigations</a> <a href="#ref-for-index-term-credential-manager-23" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-index-term-credential-manager-24" title="§ 10.3 Signing presentation requests">§ 10.3 Signing presentation requests</a> <a href="#ref-for-index-term-credential-manager-25" title="Reference 2">(2)</a> <a href="#ref-for-index-term-credential-manager-26" title="Reference 3">(3)</a> 
+      <a href="#ref-for-index-term-credential-manager-24" title="§ 10.4 Signing presentation requests">§ 10.4 Signing presentation requests</a> <a href="#ref-for-index-term-credential-manager-25" title="Reference 2">(2)</a> <a href="#ref-for-index-term-credential-manager-26" title="Reference 3">(3)</a> 
     </li><li>
-      <a href="#ref-for-index-term-credential-manager-27" title="§ 10.4 Cross-Device Security and Proximity">§ 10.4 Cross-Device Security and Proximity</a> <a href="#ref-for-index-term-credential-manager-28" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-credential-manager-27" title="§ 10.5 Cross-Device Security and Proximity">§ 10.5 Cross-Device Security and Proximity</a> <a href="#ref-for-index-term-credential-manager-28" title="Reference 2">(2)</a> 
     </li><li>
       <a href="#ref-for-index-term-credential-manager-29" title="§ 11.3.1.2 Unlinkable presentations">§ 11.3.1.2 Unlinkable presentations</a> <a href="#ref-for-index-term-credential-manager-30" title="Reference 2">(2)</a> <a href="#ref-for-index-term-credential-manager-31" title="Reference 3">(3)</a> 
     </li><li>
@@ -6564,6 +6644,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-consume-user-activation-2" title="§ 6.3 Filter credential requests">§ 6.3 Filter credential requests</a> 
     </li><li>
       <a href="#ref-for-index-term-consume-user-activation-3" title="§ 10.2 Mitigations">§ 10.2 Mitigations</a> 
+    </li><li>
+      <a href="#ref-for-index-term-consume-user-activation-4" title="§ 10.3 Forged Requests from a Compromised Content Process">§ 10.3 Forged Requests from a Compromised Content Process</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-dom-manipulation-task-source" aria-label="Links in this document to definition: DOM manipulation task source">
@@ -6675,7 +6757,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <li>
       <a href="#ref-for-index-term-origin-1" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> 
     </li><li>
-      <a href="#ref-for-index-term-origin-2" title="§ 10.4 Cross-Device Security and Proximity">§ 10.4 Cross-Device Security and Proximity</a> <a href="#ref-for-index-term-origin-3" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-origin-2" title="§ 10.5 Cross-Device Security and Proximity">§ 10.5 Cross-Device Security and Proximity</a> <a href="#ref-for-index-term-origin-3" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-origin-for-environment-settings-object" aria-label="Links in this document to definition: origin (for environment settings object)">
@@ -6771,7 +6853,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <li>
       <a href="#ref-for-index-term-secure-contexts-1" title="§ 10.2 Mitigations">§ 10.2 Mitigations</a> <a href="#ref-for-index-term-secure-contexts-2" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-index-term-secure-contexts-3" title="§ 10.3 Signing presentation requests">§ 10.3 Signing presentation requests</a> 
+      <a href="#ref-for-index-term-secure-contexts-3" title="§ 10.4 Signing presentation requests">§ 10.4 Signing presentation requests</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-top-level-traversable" aria-label="Links in this document to definition: top-level traversable">
@@ -6802,6 +6884,10 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-transient-activation-1" title="§ 1. Introduction">§ 1. Introduction</a> 
     </li><li>
       <a href="#ref-for-index-term-transient-activation-2" title="§ 6.2 Prepare credential requests">§ 6.2 Prepare credential requests</a> 
+    </li><li>
+      <a href="#ref-for-index-term-transient-activation-3" title="§ 10.1.1 In-Scope Threats">§ 10.1.1 In-Scope Threats</a> 
+    </li><li>
+      <a href="#ref-for-index-term-transient-activation-4" title="§ 10.3 Forged Requests from a Compromised Content Process">§ 10.3 Forged Requests from a Compromised Content Process</a> <a href="#ref-for-index-term-transient-activation-5" title="Reference 2">(2)</a> <a href="#ref-for-index-term-transient-activation-6" title="Reference 3">(3)</a> <a href="#ref-for-index-term-transient-activation-7" title="Reference 4">(4)</a> <a href="#ref-for-index-term-transient-activation-8" title="Reference 5">(5)</a> <a href="#ref-for-index-term-transient-activation-9" title="Reference 6">(6)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-window-interface" aria-label="Links in this document to definition: Window interface">
@@ -7327,9 +7413,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-index-term-verifiers-6" title="§ 7.7.3 The userAgentAllowsProtocol() method">§ 7.7.3 The userAgentAllowsProtocol() method</a> 
     </li><li>
-      <a href="#ref-for-index-term-verifiers-7" title="§ 10.3 Signing presentation requests">§ 10.3 Signing presentation requests</a> 
+      <a href="#ref-for-index-term-verifiers-7" title="§ 10.4 Signing presentation requests">§ 10.4 Signing presentation requests</a> 
     </li><li>
-      <a href="#ref-for-index-term-verifiers-8" title="§ 10.4 Cross-Device Security and Proximity">§ 10.4 Cross-Device Security and Proximity</a> 
+      <a href="#ref-for-index-term-verifiers-8" title="§ 10.5 Cross-Device Security and Proximity">§ 10.5 Cross-Device Security and Proximity</a> 
     </li><li>
       <a href="#ref-for-index-term-verifiers-9" title="§ 11. Privacy Considerations">§ 11. Privacy Considerations</a> 
     </li><li>
@@ -7563,9 +7649,11 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-index-term-domexception-interface-9" title="§ 6.7 Initiate the credential request">§ 6.7 Initiate the credential request</a> <a href="#ref-for-index-term-domexception-interface-10" title="Reference 2">(2)</a> <a href="#ref-for-index-term-domexception-interface-11" title="Reference 3">(3)</a> <a href="#ref-for-index-term-domexception-interface-12" title="Reference 4">(4)</a> 
     </li><li>
-      <a href="#ref-for-index-term-domexception-interface-13" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> 
+      <a href="#ref-for-index-term-domexception-interface-13" title="§ 10.3 Forged Requests from a Compromised Content Process">§ 10.3 Forged Requests from a Compromised Content Process</a> 
     </li><li>
-      <a href="#ref-for-index-term-domexception-interface-14" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
+      <a href="#ref-for-index-term-domexception-interface-14" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> 
+    </li><li>
+      <a href="#ref-for-index-term-domexception-interface-15" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-domstring-interface" aria-label="Links in this document to definition: DOMString interface">
@@ -7703,9 +7791,11 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-index-term-notallowederror-exception-6" title="§ 6.7 Initiate the credential request">§ 6.7 Initiate the credential request</a> <a href="#ref-for-index-term-notallowederror-exception-7" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-index-term-notallowederror-exception-8" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> 
+      <a href="#ref-for-index-term-notallowederror-exception-8" title="§ 10.3 Forged Requests from a Compromised Content Process">§ 10.3 Forged Requests from a Compromised Content Process</a> 
     </li><li>
-      <a href="#ref-for-index-term-notallowederror-exception-9" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
+      <a href="#ref-for-index-term-notallowederror-exception-9" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> 
+    </li><li>
+      <a href="#ref-for-index-term-notallowederror-exception-10" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-object-type" aria-label="Links in this document to definition: object type">
@@ -7965,9 +8055,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </dd><dt id="bib-openid4vp">[OPENID4VP]</dt><dd>
       <a href="https://openid.net/specs/openid-4-verifiable-presentations-1_0.html"><cite>OpenID for Verifiable Presentations 1.0</cite></a>. Oliver Terbu; Torsten Lodderstedt; Kristina Yasuda; Daniel Fett; Joseph Heenan.  OpenID Foundation. 9 July 2025. Final. URL: <a href="https://openid.net/specs/openid-4-verifiable-presentations-1_0.html">https://openid.net/specs/openid-4-verifiable-presentations-1_0.html</a>
     </dd><dt id="bib-permissions">[permissions]</dt><dd>
-      <a href="https://www.w3.org/TR/permissions/"><cite>Permissions</cite></a>. Marcos Caceres; Mike Taylor.  W3C. 6 October 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/permissions/">https://www.w3.org/TR/permissions/</a>
+      <a href="https://www.w3.org/TR/permissions/"><cite>Permissions</cite></a>. Marcos Caceres; Mike Taylor.  W3C. 26 October 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/permissions/">https://www.w3.org/TR/permissions/</a>
     </dd><dt id="bib-permissions-policy">[permissions-policy]</dt><dd>
-      <a href="https://www.w3.org/TR/permissions-policy-1/"><cite>Permissions Policy</cite></a>. Ian Clelland; Ari Chivukula.  W3C. 22 September 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/permissions-policy-1/">https://www.w3.org/TR/permissions-policy-1/</a>
+      <a href="https://www.w3.org/TR/permissions-policy-1/"><cite>Permissions Policy</cite></a>. Ian Clelland; Ari Chivukula.  W3C. 26 October 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/permissions-policy-1/">https://www.w3.org/TR/permissions-policy-1/</a>
     </dd><dt id="bib-rfc2119">[RFC2119]</dt><dd>
       <a href="https://www.rfc-editor.org/info/rfc2119/"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. S. Bradner.  IETF. March 1997. Best Current Practice. URL: <a href="https://www.rfc-editor.org/info/rfc2119/">https://www.rfc-editor.org/info/rfc2119/</a>
     </dd><dt id="bib-rfc8174">[RFC8174]</dt><dd>
