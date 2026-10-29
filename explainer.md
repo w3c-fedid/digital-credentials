@@ -40,7 +40,7 @@ Please see the [requesting](https://www.w3.org/TR/digital-credentials/#requestin
 
 ## Horizontal reviews
 
-* [Security and privacy TAG Questionnaire](https://github.com/w3c-fedid/digital-credentials/wiki/Horizontal-reviews)
+* [Security and privacy TAG Questionnaire](https://github.com/w3c-fedid/digital-credentials/wiki/Security-and-Privacy-Self-Review)
 
 # Alternatives Considered
 
