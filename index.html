@@ -176,7 +176,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="0bf45fc429510e9322995d3f0dfa039f22a295b4">
+<meta name="revision" content="f7441da1ead8e03eba37a7f8304f6f979dc72f29">
 <meta name="description" content="This document specifies an API enabling user agents to mediate the
         presentation and issuance of digital credentials, such as a
         driver's license, government-issued identification card, or
@@ -325,9 +325,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "0bf45fc429510e9322995d3f0dfa039f22a295b4",
-  "publishISODate": "2026-10-29T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 29 October 2026"
+  "gitRevision": "f7441da1ead8e03eba37a7f8304f6f979dc72f29",
+  "publishISODate": "2026-11-05T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 05 November 2026"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED">
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/dark.css" disabled=""></head>
@@ -335,7 +335,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Digital Credentials</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-10-29">29 October 2026</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-11-05">05 November 2026</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -2492,17 +2492,16 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           step that <a data-link-type="dfn" data-lt="Consume user activation" href="https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation" id="ref-for-index-term-consume-user-activation-4">consumes that activation</a> are
           evaluated in the process that runs the page, which is the process an
           attacker is most likely to have taken over. An attacker in that
-          position can skip both (A and B) and ask for the <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-12">digital credential chooser</a>
-          anyway.
+          position can skip both (A and B) and ask for the <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-12">digital credential chooser</a> anyway.
         </p>
         <p>
           <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-index-term-transient-activation-5">Transient activation</a> lasts only a few seconds so that the user
           can perceive the link between interacting with a page and the page
           calling an interface gated on that interaction. <a data-link-type="dfn|abstract-op" href="#dfn-forged-requests-from-a-compromised-content-process" class="internalDFN" id="ref-for-dfn-forged-requests-from-a-compromised-content-process-1">Forged requests</a>
           break exactly that link. What the attacker gains is a credential
-          prompt drawn by the user agent or the operating system, at a
-          moment of the attacker's choosing, which the user cannot tell apart
-          from a legitimate prompt. That makes it useful for phishing, and for the
+          prompt drawn by the user agent or the operating system, at a moment
+          of the attacker's choosing, which the user cannot tell apart from a
+          legitimate prompt. That makes it useful for phishing, and for the
           same prompt fatigue described under <a data-link-type="dfn|abstract-op" href="#dfn-api-flooding" class="internalDFN" id="ref-for-dfn-api-flooding-2">API flooding</a>.
         </p>
         <p>
@@ -8073,7 +8072,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </dd><dt id="bib-webdriver">[webdriver]</dt><dd>
       <a href="https://www.w3.org/TR/webdriver2/"><cite>WebDriver</cite></a>. Simon Stewart; David Burns.  W3C. 2 July 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/webdriver2/">https://www.w3.org/TR/webdriver2/</a>
     </dd><dt id="bib-webdriver-bidi">[webdriver-bidi]</dt><dd>
-      <a href="https://www.w3.org/TR/webdriver-bidi/"><cite>WebDriver BiDi</cite></a>. James Graham; Alex Rudenko; Maksim Sadym.  W3C. 8 October 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/webdriver-bidi/">https://www.w3.org/TR/webdriver-bidi/</a>
+      <a href="https://www.w3.org/TR/webdriver-bidi/"><cite>WebDriver BiDi</cite></a>. James Graham; Alex Rudenko; Maksim Sadym.  W3C. 3 November 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/webdriver-bidi/">https://www.w3.org/TR/webdriver-bidi/</a>
     </dd><dt id="bib-webidl">[webidl]</dt><dd>
       <a href="https://webidl.spec.whatwg.org/"><cite>Web IDL Standard</cite></a>. Edgar Chen; Timothy Gu.  WHATWG. Living Standard. URL: <a href="https://webidl.spec.whatwg.org/">https://webidl.spec.whatwg.org/</a>
     </dd></dl>
