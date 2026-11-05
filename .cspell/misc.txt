@@ -13,4 +13,3 @@ multisigned
 sandboxed
 digitalcredentials
 ciphertext
-webapi

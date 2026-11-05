@@ -772,178 +772,6 @@
         </dl>
       </li>
     </ol><!--
-    // MARK: Validate ISO18013-7 Annex C request data
-    -->
-    <h3>
-      Validate ISO 18013-7 Annex C request data
-    </h3>
-    <p>
-      To <dfn>validate ISO 18013-7 Annex C request data</dfn> given an
-      {{object}} |data|:
-    </p>
-    <p>
-      To <dfn>strictly decode base64url</dfn> given a [=string=] |input|: if
-      |input| contains any [=code point=] other than an [=ASCII alphanumeric=],
-      U+002D (-), or U+005F (_), return failure. Otherwise, return the result
-      of decoding |input| as <a data-cite="RFC4648#section-5">base64url</a>, or
-      failure if decoding fails. Both [[[ISO18013-7]]] Annex C and [[RFC7515]]
-      use base64url without padding or whitespace.
-    </p>
-    <p>
-      To <dfn>strictly decode CBOR</dfn> given a [=byte sequence=] |bytes|,
-      decode |bytes| as CBOR [[RFC8949]]. If |bytes| is not exactly one
-      well-formed CBOR data item with no bytes left over, or any item in it is
-      <a data-cite="RFC8949#section-5.3">not valid</a>, such as a map with
-      duplicate keys, return failure. Otherwise, return the decoded item.
-    </p>
-    <p>
-      In the steps below, a map's "`name`" entry means its entry whose key is
-      the CBOR text string "`name`". The steps ignore other entries.
-    </p>
-    <ol class="algorithm">
-      <li>If |data| does not have an own property "`encryptionInfo`" whose
-      value is a [=string=], return failure.
-      </li>
-      <li>If |data| does not have an own property "`deviceRequest`" whose value
-      is a [=string=], return failure.
-      </li>
-      <li>Let |bytes| be the result of [=strictly decode base64url|strictly
-      decoding=] |data|["`deviceRequest`"]. If that is failure, return failure.
-      </li>
-      <li>Let |deviceRequest| be the result of [=strictly decode CBOR|strictly
-      decoding=] |bytes|. If that is failure, return failure.
-      </li>
-      <li>If |deviceRequest| is not a map whose "`docRequests`" entry is an
-      array, return failure.
-      </li>
-      <li>For each |docRequest| in |deviceRequest|["`docRequests`"]:
-        <ol>
-          <li>If |docRequest| is not a map whose "`itemsRequest`" entry is a
-          byte string with tag 24 and no other tag, an <a data-cite=
-          "RFC8949#section-3.4.5.1">encoded CBOR data item</a>, return failure.
-          </li>
-          <li>Let |itemsRequest| be the result of [=strictly decode
-          CBOR|strictly decoding=] that byte string. If that is failure, or
-          |itemsRequest| is not a map whose "`nameSpaces`" entry is a map,
-          return failure.
-          </li>
-        </ol>
-      </li>
-      <li>Return success.
-      </li>
-    </ol>
-    <aside class="note" title="What else this algorithm checks">
-      <p>
-        [[[ISO18013-7]]] Annex C requires "`encryptionInfo`" in every request
-        and defines only one response structure, an encrypted one. A request
-        carrying "`encryptionInfo`" therefore compels an encrypted [=digital
-        credential/presentation response=]. Beyond that, the [=user agent=]
-        checks only that the device request is well-formed, valid CBOR with the
-        structure these steps read. Rejecting invalid CBOR, such as a map with
-        duplicate keys, stops the [=user agent=] and the [=holder=] from
-        reading the same request differently. Whether the rest of the request
-        conforms to Annex C is for the [=holder=] to decide, not the [=user
-        agent=].
-      </p>
-    </aside><!--
-      // MARK: Validate OpenID4VP request data
-    -->
-    <h3>
-      Validate OpenID4VP request data
-    </h3>
-    <p>
-      To <dfn>read the response mode</dfn> from a JWS payload given a
-      [=string=] |payload|:
-    </p>
-    <ol class="algorithm">
-      <li>Let |bytes| be the result of [=strictly decode base64url|strictly
-      decoding=] |payload|. If that is failure, return failure.
-      </li>
-      <li>Let |claims| be the result of [=parse JSON bytes to an Infra value=]
-      given |bytes|. If that throws, return failure.
-      </li>
-      <li>If |claims| is not an [=ordered map|map=], return failure.
-      </li>
-      <li>If |claims|["`response_mode`"] [=map/exists=], return it. Otherwise,
-      return null.
-      </li>
-    </ol>
-    <p>
-      To <dfn>validate OpenID4VP request data</dfn> given a [=digital
-      credential/protocol identifier=] |protocol| and an {{object}} |data|:
-    </p>
-    <ol class="algorithm">
-      <li>Let |responseMode| be null.
-      </li>
-      <li>If |protocol| is:
-        <dl class="switch">
-          <dt>
-            {{DigitalCredentialPresentationProtocol/"openid4vp-v1-unsigned"}}:
-          </dt>
-          <dd>
-            If |data| has an own property "`response_mode`", set |responseMode|
-            to |data|["`response_mode`"].
-          </dd>
-          <dt>
-            {{DigitalCredentialPresentationProtocol/"openid4vp-v1-signed"}}:
-          </dt>
-          <dd>
-            <ol>
-              <li>If |data| does not have an own property "`request`" whose
-              value is a [=string=], return failure.
-              </li>
-              <li>Let |parts| be the result of [=strictly split|strictly
-              splitting=] |data|["`request`"] on U+002E (.).
-              </li>
-              <li>If |parts|'s [=list/size=] is not 3, return failure.
-              </li>
-              <li>Set |responseMode| to the result of [=read the response
-              mode|reading the response mode=] from |parts|[1]. If that is
-              failure, return failure.
-              </li>
-            </ol>
-          </dd>
-          <dt>
-            {{DigitalCredentialPresentationProtocol/"openid4vp-v1-multisigned"}}:
-          </dt>
-          <dd>
-            <ol>
-              <li>If |data| does not have an own property "`payload`" whose
-              value is a [=string=], return failure.
-              </li>
-              <li>Set |responseMode| to the result of [=read the response
-              mode|reading the response mode=] from |data|["`payload`"]. If
-              that is failure, return failure.
-              </li>
-            </ol>
-          </dd>
-        </dl>
-      </li>
-      <li>If |responseMode| is not "`dc_api.jwt`", return failure.
-      </li>
-      <li>Return success.
-      </li>
-    </ol>
-    <aside class="note" title="Why the signature is not checked">
-      <p>
-        The [=user agent=] reads `response_mode` from the signed payload but
-        does not verify the signature: it cannot, having no trust framework,
-        and [[[OPENID4VP]]] leaves that verification to the [=holder=].
-      </p>
-    </aside>
-    <aside class="note" title="Why the encryption keys are not checked here">
-      <p>
-        [[[OPENID4VP]]] Section 8.3 lets the [=holder=] obtain the requesting
-        party's public key from the `client_metadata` request parameter "or
-        other mechanisms as allowed by the given Client Identifier Prefix". A
-        [=user agent=] cannot follow those other mechanisms, so it cannot tell
-        a request that names its keys elsewhere from one that supplies none.
-        Requiring keys in the request would reject the former. A request that
-        genuinely supplies no usable key still cannot produce an unencrypted
-        response, because "`dc_api.jwt`" leaves the [=holder=] no unencrypted
-        response to fall back to.
-      </p>
-    </aside><!--
     // MARK: Credential Request Coordinator
     -->
     <h2>
@@ -1314,46 +1142,51 @@
       |protocol:DigitalCredentialProtocol| and an {{object}} |data|:
     </p>
     <ol class="algorithm">
-      <li>If |protocol| is:
-        <dl class="switch">
-          <dt>
-            {{DigitalCredentialPresentationProtocol/"org-iso-mdoc"}}:
-          </dt>
-          <dd>
-            Return the result of [=validate ISO 18013-7 Annex C request data=]
-            given |data|.
-          </dd>
-          <dt>
-            {{DigitalCredentialPresentationProtocol/"openid4vp-v1-unsigned"}}:
-          </dt>
-          <dt>
-            {{DigitalCredentialPresentationProtocol/"openid4vp-v1-signed"}}:
-          </dt>
-          <dt>
-            {{DigitalCredentialPresentationProtocol/"openid4vp-v1-multisigned"}}:
-          </dt>
-          <dd>
-            Return the result of [=validate OpenID4VP request data=] given
-            |protocol| and |data|.
-          </dd>
-          <dt>
-            Otherwise:
-          </dt>
-          <dd>
-            Return success.
-          </dd>
-        </dl>
+      <li>If |protocol| is
+      {{DigitalCredentialPresentationProtocol/"org-iso-mdoc"}} and |data| does
+      not have an own property "`encryptionInfo`" whose value is a [=string=],
+      return failure.
+      </li>
+      <li>If |protocol| is
+      {{DigitalCredentialPresentationProtocol/"openid4vp-v1-unsigned"}},
+      {{DigitalCredentialPresentationProtocol/"openid4vp-v1-signed"}}, or
+      {{DigitalCredentialPresentationProtocol/"openid4vp-v1-multisigned"}}:
+        <ol>
+          <li>Let |claims| be:
+            <dl class="switch">
+              <dt>
+                {{DigitalCredentialPresentationProtocol/"openid4vp-v1-unsigned"}}:
+              </dt>
+              <dd>
+                |data|.
+              </dd>
+              <dt>
+                {{DigitalCredentialPresentationProtocol/"openid4vp-v1-signed"}}:
+              </dt>
+              <dd>
+                The payload of the JWS Compact Serialization in |data|'s own
+                property "`request`", read as JSON [[RFC7515]].
+              </dd>
+              <dt>
+                {{DigitalCredentialPresentationProtocol/"openid4vp-v1-multisigned"}}:
+              </dt>
+              <dd>
+                The payload of the JWS JSON Serialization |data|, taken from
+                |data|'s own property "`payload`" and read as JSON [[RFC7515]].
+              </dd>
+            </dl>
+          </li>
+          <li>Let |responseMode| be the value of |claims|'s own property
+          "`response_mode`", or null if the [=user agent=] cannot read |claims|
+          or |claims| has no such own property.
+          </li>
+          <li>If |responseMode| is not "`dc_api.jwt`", return failure.
+          </li>
+        </ol>
+      </li>
+      <li>Return success.
       </li>
     </ol>
-    <aside class="note" title="Only presentation protocols are checked here">
-      <p>
-        A [=digital credential/issuance protocol=] reaches the "Otherwise"
-        case. Issuance sends a credential to the [=holder=] rather than
-        returning credential data to the requesting party, so there is nothing
-        here for encryption to protect. A [=holder=] still validates the
-        request it receives.
-      </p>
-    </aside>
     <p>
       A [=digital credential/presentation response=] that carries credential
       data is always encrypted for the requesting party. [=credential request
@@ -1366,16 +1199,33 @@
       arrive unencrypted, for example when the [=holder=] could not use the
       requesting party's encryption key.
     </p>
-    <aside class="note" title="Encryption applies per operating mode">
+    <aside class="note" title="What the user agent leaves to the holder">
       <p>
-        Because
-        {{DigitalCredentialPresentationProtocol/"openid4vp-v1-unsigned"}},
-        {{DigitalCredentialPresentationProtocol/"openid4vp-v1-signed"}}, and
-        {{DigitalCredentialPresentationProtocol/"openid4vp-v1-multisigned"}}
-        are distinct [=digital credential/presentation protocols=], this is
-        enforced for each individually (i.e., per operating mode). For
-        OpenID4VP the `response_mode` is "`dc_api.jwt`"; for the ISO mdoc
-        protocol, `encryptionInfo` is present.
+        [[[ISO18013-7]]] Annex C requires "`encryptionInfo`" in every request
+        and defines only an encrypted response. A request that carries
+        "`encryptionInfo`" therefore compels an encrypted response, and the
+        [=user agent=] does not read "`deviceRequest`".
+      </p>
+      <p>
+        [[[OPENID4VP]]] requires an encrypted response when `response_mode` is
+        "`dc_api.jwt`". The [=user agent=] does not verify signatures: the
+        [=user agent=] has no trust framework, and [[[OPENID4VP]]] leaves that
+        verification to the [=holder=]. The [=user agent=] does not check the
+        encryption keys either. [[[OPENID4VP]]] Section 8.3 lets the [=holder=]
+        obtain the requesting party's public key from the `client_metadata`
+        request parameter "or other mechanisms as allowed by the given Client
+        Identifier Prefix". A [=user agent=] cannot follow those other
+        mechanisms, so the [=user agent=] cannot tell a request that names its
+        keys elsewhere from one that supplies none, and requiring keys in the
+        request would reject the former. A request with no usable key still
+        cannot produce an unencrypted response, because "`dc_api.jwt`" leaves
+        the [=holder=] no unencrypted response to fall back to.
+      </p>
+      <p>
+        Issuance protocols match neither rule. Issuance sends a credential to
+        the [=holder=] and returns no credential data to the requesting party,
+        so there is nothing to encrypt. A [=holder=] still validates the
+        request it receives.
       </p>
     </aside><!--
     // MARK: Validate response data
