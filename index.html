@@ -1090,55 +1090,9 @@
               </p>
             </aside>
             <ol>
-              <li>If validation fails:
-                <ol>
-                  <li>Let |error| be determined as follows:
-                    <dl class="switch">
-                      <dt>
-                        The [=user agent=] does not permit the request based on
-                        local policy, configuration, or the user's choices:
-                      </dt>
-                      <dd>
-                        A [=exception/create|created=] {{"NotAllowedError"}}
-                        {{DOMException}}.
-                        <p class="note">
-                          {{"NotAllowedError"}} is deliberately
-                          indistinguishable from the error returned when the
-                          user cancels the operation, so that a website cannot
-                          determine whether a request was refused by the user
-                          or by the [=user agent=], nor infer anything about
-                          the user's configuration or credentials.
-                        </p>
-                      </dd>
-                      <dt>
-                        The request is not permitted for security reasons
-                        unrelated to the user, such as the context or
-                        transport:
-                      </dt>
-                      <dd>
-                        A [=exception/create|created=] {{"SecurityError"}}
-                        {{DOMException}}.
-                      </dd>
-                      <dt>
-                        The request data is malformed or invalid:
-                      </dt>
-                      <dd>
-                        A [=exception/create|created=] {{TypeError}}.
-                      </dd>
-                      <dt>
-                        Otherwise:
-                      </dt>
-                      <dd>
-                        A [=exception/create|created=] {{"OperationError"}}
-                        {{DOMException}}.
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>[=exception/Throw=] |error|.
-                  </li>
-                </ol>
+              <li>If validation fails, [=iteration/continue=].
               </li>
-              <li>Otherwise, [=list/append=] |request| to |validatedRequests|.
+              <li>[=list/append=] |request| to |validatedRequests|.
               </li>
             </ol>
           </li>
