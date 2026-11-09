@@ -1192,7 +1192,7 @@
       data is always encrypted for the requesting party. [=credential request
       coordinator/Validate request data=] makes sure of this, per [=digital
       credential/presentation protocol=], by rejecting a request that would let
-      the [=holder=] respond unencrypted. [=credential request
+      the [=credential manager=] respond unencrypted. [=credential request
       coordinator/Validate response data=] then rejects a response that carries
       credential data unencrypted, which catches a [=holder=] that ignored the
       request rather than one that set out to leak. For [[[OPENID4VP]]], an
