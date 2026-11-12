@@ -1284,7 +1284,7 @@
               agent=] use [[[FIDO-CLIENT-TO-AUTHENTICATOR-PROTOCOL-V2.3]]].
             </p>
             <p>
-              The origins presented to the user are determined as follows:
+              When presenting the request to the user:
             </p>
             <dl class="switch">
               <dt>
@@ -1292,18 +1292,19 @@
                 [=request context/top-level origin=] are [=same site=]:
               </dt>
               <dd>
-                The [=request context/top-level origin=] is presented to the
-                user.
+                The [=user agent=] SHOULD present the [=request
+                context/top-level origin=] to the user.
               </dd>
               <dt>
                 Otherwise:
               </dt>
               <dd>
-                Both the [=request context/top-level origin=] and the [=request
-                context/document origin=] are presented to the user, conveying
-                that the [=request context/document origin=] is embedded within
-                the page at the [=request context/top-level origin=] and would
-                receive the requested [=digital credential=].
+                The [=user agent=] SHOULD present both the [=request
+                context/top-level origin=] and the [=request context/document
+                origin=] to the user, conveying that the [=request
+                context/document origin=] is embedded within the page at the
+                [=request context/top-level origin=] and would receive the
+                requested [=digital credential=].
               </dd>
             </dl>
             <p class="note">
