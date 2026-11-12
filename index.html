@@ -1156,93 +1156,31 @@
     <p>
       To <dfn data-dfn-for="credential request coordinator">validate request
       data</dfn> given a {{DigitalCredentialProtocol}}
-      |protocol:DigitalCredentialProtocol| and an {{object}} |data|:
-    </p>
-    <ol class="algorithm">
-      <li>If |protocol| is
-      {{DigitalCredentialPresentationProtocol/"org-iso-mdoc"}} and |data| does
-      not have an own property "`encryptionInfo`" whose value is a [=string=],
-      return failure.
-      </li>
-      <li>If |protocol| is
+      |protocol:DigitalCredentialProtocol| and an {{object}} |data|, return
+      failure if |protocol| is
       {{DigitalCredentialPresentationProtocol/"openid4vp-v1-unsigned"}},
       {{DigitalCredentialPresentationProtocol/"openid4vp-v1-signed"}}, or
-      {{DigitalCredentialPresentationProtocol/"openid4vp-v1-multisigned"}}:
-        <ol>
-          <li>Let |claims| be:
-            <dl class="switch">
-              <dt>
-                {{DigitalCredentialPresentationProtocol/"openid4vp-v1-unsigned"}}:
-              </dt>
-              <dd>
-                |data|.
-              </dd>
-              <dt>
-                {{DigitalCredentialPresentationProtocol/"openid4vp-v1-signed"}}:
-              </dt>
-              <dd>
-                The payload of the JWS Compact Serialization in |data|'s own
-                property "`request`", read as JSON [[RFC7515]].
-              </dd>
-              <dt>
-                {{DigitalCredentialPresentationProtocol/"openid4vp-v1-multisigned"}}:
-              </dt>
-              <dd>
-                The payload of the JWS JSON Serialization |data|, taken from
-                |data|'s own property "`payload`" and read as JSON [[RFC7515]].
-              </dd>
-            </dl>
-          </li>
-          <li>Let |responseMode| be the value of |claims|'s own property
-          "`response_mode`", or null if the [=user agent=] cannot read |claims|
-          or |claims| has no such own property.
-          </li>
-          <li>If |responseMode| is not "`dc_api.jwt`", return failure.
-          </li>
-        </ol>
-      </li>
-      <li>Return success.
-      </li>
-    </ol>
-    <p>
-      A [=digital credential/presentation response=] that carries credential
-      data is always encrypted for the requesting party. [=credential request
-      coordinator/Validate request data=] makes sure of this, per [=digital
-      credential/presentation protocol=], by rejecting a request that would let
-      the [=credential manager=] respond unencrypted. [=credential request
-      coordinator/Validate response data=] then rejects a response that carries
-      credential data unencrypted, which catches a [=holder=] that ignored the
-      request rather than one that set out to leak. For [[[OPENID4VP]]], an
-      error response can still arrive unencrypted, for example when the
-      [=holder=] could not use the requesting party's encryption key.
+      {{DigitalCredentialPresentationProtocol/"openid4vp-v1-multisigned"}} and
+      the request's "`response_mode`" is not "`dc_api.jwt`". Otherwise, return
+      success.
     </p>
-    <aside class="note" title="What the user agent leaves to the holder">
+    <p>
+      For unsigned requests, "`response_mode`" is an own property of |data|.
+      For signed requests, "`response_mode`" is a claim in the payload of the
+      JWS Compact Serialization in |data|'s own property "`request`". For
+      multisigned requests, "`response_mode`" is a claim in the payload of the
+      JWS JSON Serialization |data|, taken from |data|'s own property
+      "`payload`" [[RFC7515]]. If the [=user agent=] cannot read
+      "`response_mode`", [=credential request coordinator/validate request
+      data=] returns failure.
+    </p>
+    <aside class="note">
       <p>
-        [[[ISO18013-7]]] Annex C requires "`encryptionInfo`" in every request
-        and defines only an encrypted response. A request that carries
-        "`encryptionInfo`" therefore compels an encrypted response, and the
-        [=user agent=] does not read "`deviceRequest`".
-      </p>
-      <p>
-        [[[OPENID4VP]]] requires an encrypted response when `response_mode` is
-        "`dc_api.jwt`". The [=user agent=] does not verify signatures: the
-        [=user agent=] has no trust framework, and [[[OPENID4VP]]] leaves that
-        verification to the [=holder=]. The [=user agent=] does not check the
-        encryption keys either. [[[OPENID4VP]]] Section 8.3 lets the [=holder=]
-        obtain the requesting party's public key from the `client_metadata`
-        request parameter "or other mechanisms as allowed by the given Client
-        Identifier Prefix". A [=user agent=] cannot follow those other
-        mechanisms, so the [=user agent=] cannot tell a request that names its
-        keys elsewhere from one that supplies none, and requiring keys in the
-        request would reject the former. A request with no usable key still
-        cannot produce an unencrypted response, because "`dc_api.jwt`" leaves
-        the [=holder=] no unencrypted response to fall back to.
-      </p>
-      <p>
-        Issuance protocols match neither rule. Issuance sends a credential to
-        the [=credential manager=] and returns no credential data to the
-        requesting party, so there is nothing to encrypt. A [=credential
-        manager=] still validates the request it receives.
+        Only [[[OPENID4VP]]] needs a rule here, because [[[OPENID4VP]]] allows
+        an unencrypted response unless "`response_mode`" is "`dc_api.jwt`".
+        [[[ISO18013-7]]] Annex C defines only an encrypted response. The [=user
+        agent=] does not check signatures or encryption keys; the [=credential
+        manager=] does.
       </p>
     </aside><!--
     // MARK: Validate response data
