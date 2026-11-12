@@ -827,11 +827,12 @@
     </ul>
     <p>
       A [=user agent=] MUST use its own determination of the [=request
-      context/document origin=] and the [=request context/top-level origin=],
-      and MUST NOT rely on an [=origin=] supplied by the content whose request
-      is being mediated, when validating or forming the request, or when
-      presenting the [=digital credential chooser=] or [=credential manager
-      chooser=].
+      context/document origin=] when validating or forming the request, and of
+      both the [=request context/document origin=] and the [=request
+      context/top-level origin=] when presenting the [=digital credential
+      chooser=] or [=credential manager chooser=]. A user agent MUST NOT rely
+      on an [=origin=] supplied by the content whose request is being mediated
+      for either purpose.
     </p>
     <p>
       A user agent MAY delegate some or all coordinator responsibilities to
@@ -1303,20 +1304,24 @@
                 context/top-level origin=] and the [=request context/document
                 origin=] to the user, conveying that the [=request
                 context/document origin=] is embedded within the page at the
-                [=request context/top-level origin=] and would receive the
-                requested [=digital credential=].
+                [=request context/top-level origin=] and is the party requesting
+                presentation or issuance of the [=digital credential=].
               </dd>
             </dl>
+            <p>
+              Where the [=digital credential chooser=] or [=credential manager
+              chooser=] is provided by the underlying platform, the [=user
+              agent=] SHOULD make both origins available to it so that they can
+              be presented to the user.
+            </p>
             <p class="note">
               Presenting only the [=request context/document origin=] can
               prevent the user from associating the request with the site they
               are visiting, as that origin is typically not reflected in the
               [=user agent=]'s address bar. Presenting only the [=request
               context/top-level origin=] can mislead the user about which party
-              would receive the [=digital credential=]. Where the [=digital
-              credential chooser=] is provided by the underlying platform, the
-              [=user agent=] makes both origins available to it so that they
-              can be presented to the user.
+              is requesting presentation or issuance of the [=digital
+              credential=].
             </p>
           </li>
           <li>If |signal| is not null and |signal| is [=AbortSignal/aborted=]:
@@ -1795,22 +1800,22 @@
       </dt>
       <dd>
         An [=origin=]; the [=origin=] in which the request was made, that is,
-        the [=current settings object=]'s [=environment settings
-        object/origin=] as provided to the internal methods in
-        [[[#credential-management-integration]]]. When the request is made from
-        a [=Document=] embedded in a cross-origin context, this is the embedded
-        [=Document=]'s [=origin=] and not the [=request context/top-level
-        origin=].
+        the [=relevant settings object=]'s [=environment settings
+        object/origin=] passed by [[[credential-management]]] to the internal
+        methods in [[[#credential-management-integration]]]. When the request
+        is made from a [=Document=] embedded in a cross-origin context, this is
+        the embedded [=Document=]'s [=origin=] and not the [=request
+        context/top-level origin=].
       </dd>
       <dt>
         <dfn data-dfn-for="request context">top-level origin</dfn>
       </dt>
       <dd>
-        An [=origin=]; the [=origin=] of the [=navigable/top-level
-        traversable=] in which the request was made, as determined by
-        [=credential request coordinator/initiate the credential request=]. It
-        is used only when presenting the request to the user; it is not used to
-        validate or form the request.
+        An [=origin=]; the [=origin=] of the [=navigable/active document=] of
+        the [=navigable/top-level traversable=] in which the request was made,
+        as determined by [=credential request coordinator/initiate the
+        credential request=]. It is used only when presenting the request to
+        the user; it is not used to validate or form the request.
       </dd>
     </dl>
     <h4>
@@ -2183,21 +2188,23 @@
         context/document origin=] is the [=origin=] passed to
         {{DigitalCredential/[[DiscoverFromExternalSource]](origin, options,
         sameOriginWithAncestors)}} and {{DigitalCredential/[[Create]](origin,
-        options, sameOriginWithAncestors)}} by the
-        [[[#credential-management-integration]]]; the [=request
+        options, sameOriginWithAncestors)}} by [[[credential-management]]] (see
+        [[[#credential-management-integration]]]); the [=request
         context/top-level origin=] is that of the [=navigable/active document=]
         of the [=navigable/top-level traversable=] in which the request was
         made. [[[#credential-request-coordinator]]] requires the [=user agent=]
-        to use its own determination of both, and to not rely on an [=origin=]
-        supplied by the content whose request is being mediated, in determining
-        whether to validate or form the request or to present the [=digital
-        credential chooser=].
+        to use its own determination of the [=request context/document origin=]
+        when validating or forming the request, and of both origins when
+        presenting the [=digital credential chooser=] or [=credential manager
+        chooser=], and to not rely on an [=origin=] supplied by the content
+        whose request is being mediated.
       </p>
       <p>
         This mitigates [=Unauthorized Cross-Origin Access=]: the party that is
-        shown to the user, and that would receive the [=digital credential=],
-        reflects the [=user agent=]'s own determination of who is asking,
-        rather than a value the requesting content can choose.
+        shown to the user, and that is requesting presentation or issuance of
+        the [=digital credential=], reflects the [=user agent=]'s own
+        determination of who is asking, rather than a value the requesting
+        content can choose.
       </p>
       <p>
         For additional guidance on preventing abuse of credential requests,
@@ -3376,10 +3383,11 @@
         [[[OPENID4VP]]]), which this specification expects to provide language
         and direction metadata, and localized alternatives, where appropriate.
         </li>
-        <li>The one value the API routes to the platform that a [=user agent=]
-        may display is the requesting [=request context/top-level origin=].
-        Rendering an origin's host to the user, including the handling of
-        internationalized domain names and bidirectional text, follows the
+        <li>The only values the API routes to the platform that a [=user
+        agent=] may display are the [=request context/document origin=] and
+        [=request context/top-level origin=]. Rendering an origin's host to the
+        user, including the handling of internationalized domain names and
+        bidirectional text, follows the
         [[[URL#url-rendering-i18n|host-rendering guidance in the URL
         Standard]]] and is out of scope for this specification.
         </li>
