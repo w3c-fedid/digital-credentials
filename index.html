@@ -828,7 +828,11 @@
     <p>
       A user agent MAY delegate some or all coordinator responsibilities to
       external [=credential managers=], platform components, or other trusted
-      entities according to user or platform policy.
+      entities according to user or platform policy. A [=user agent=] MUST NOT
+      send a [=digital credential/credential request|request=] to a
+      [=credential manager=] until the user chooses to forward the [=digital
+      credential/credential request|request=] to that [=credential manager=].
+      See [[[#permission-prior-to-credential-manager-selection]]].
     </p>
     <aside class="note">
       <p>
