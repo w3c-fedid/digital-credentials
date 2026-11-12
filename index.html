@@ -1253,6 +1253,21 @@
       context/requests=] is |validatedRequests| and [=request context/top-level
       origin=] is |topLevelOrigin|.
       </li>
+      <li>If a [=digital credential/credential request=] in |validatedRequests|
+      carries no signature, the [=user agent=] SHOULD apply additional friction
+      when displaying the [=digital credential chooser=], and strongly
+      discourage the user from continuing.
+        <p class="note" title="Why friction here">
+          An unsigned request can be altered by a script running in the
+          [=verifier=]'s own page, including the parameters used to encrypt the
+          response, and neither the [=credential manager=] nor the [=verifier=]
+          can detect that it happened. Requests are transmitted unencrypted so
+          that a [=user agent=] can inspect them for exactly this kind of risk
+          analysis. A user who declines is handled by the steps below, which
+          [=credential request coordinator/reject the credential request with=]
+          a {{"NotAllowedError"}} {{DOMException}}.
+        </p>
+      </li>
       <li>[=In parallel=]:
         <ol>
           <li>Display a [=digital credential chooser=] with |requestData| and
@@ -2238,6 +2253,22 @@
           also provides critical defense-in-depth when presenting credentials
           across multiple devices (see
           [[[#cross-device-security-and-proximity]]]).
+        </p>
+        <p>
+          Because [=digital credential/presentation requests=] are transmitted
+          unencrypted, a [=user agent=] (or platform providing the [=digital
+          credential chooser=]; see [[[#multiple-user-agents]]]) can inspect a
+          request as part of its risk analysis and factor the absence of a
+          verifier signature, alongside the sensitivity of the requested
+          credential (see [[[#unnecessary-requests-for-credentials]]]), into
+          the friction and warnings shown to the user. Applying blanket high
+          friction solely on whether a request carries a syntactic signature is
+          insufficient on its own: an in-page attacker can attach a signature
+          with a key of its own, while strongly discouraging low-risk unsigned
+          exchanges (where no verifier key infrastructure exists) risks warning
+          fatigue. When a user declines to proceed, the [=credential request
+          coordinator/initiate the credential request=] steps reject with a
+          {{"NotAllowedError"}} {{DOMException}}.
         </p>
       </section>
       <section>
