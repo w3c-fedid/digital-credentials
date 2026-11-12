@@ -1268,11 +1268,15 @@
       </li>
       <li>[=In parallel=]:
         <ol>
-          <li>Display a [=digital credential chooser=] with |requestData| and
-          wait for one of the following outcomes:
+          <li>Display a [=digital credential chooser=] or [=credential manager
+          chooser=] with |requestData| and wait for one of the following
+          outcomes:
             <ul>
               <li>The user selects a [=digital credential=] or [=holder=] that
               can fulfill the request.
+              </li>
+              <li>The user chooses a [=credential manager=] to handle the
+              [=digital credential/issuance request=].
               </li>
               <li>The user cancels the operation.
               </li>
@@ -1337,7 +1341,7 @@
               </li>
             </ol>
           </li>
-          <li>If the user cancels the operation or no credential was selected:
+          <li>If the user cancels the operation:
             <ol>
               <li>Let |error| be a newly created {{"NotAllowedError"}}
               {{DOMException}}.
@@ -1386,11 +1390,12 @@
               </li>
             </ol>
           </li>
-          <li>If a [=digital credential=] was selected by the user:
+          <li>If the user selected a [=digital credential=] or [=holder=], or
+          chose a [=credential manager=]:
             <ol>
               <li>Let |protocol| be the [=digital credential/protocol
-              identifier=] returned by the [=digital credential chooser=] for
-              this exchange.
+              identifier=] returned by the [=digital credential chooser=] or
+              [=credential manager chooser=] for this exchange.
                 <p class="note" title="Protocol is determined by the platform">
                   The [=digital credential chooser=] or underlying platform
                   determines which item in |validatedRequests| to forward to a
