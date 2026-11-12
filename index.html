@@ -3118,6 +3118,58 @@
       </section>
       <section>
         <!--
+        // MARK: Centralization of Trust and Limiting User Choice
+        -->
+        <h3>
+          Centralization of Trust and Limiting User Choice
+        </h3>
+        <p>
+          Relying on third-party [=issuer=]-attested [=digital credentials=]
+          where user self-assertion suffices can diminish user agency over
+          [[[privacy-principles#identity|how users present their identity]]]
+          and [[[privacy-principles#support-choosing-info|what information they
+          choose to share]]] (see also
+          [[[credential-considerations#invasions-of-privacy|Invasions of
+          Privacy]]]). For example, if a [=verifier=] requires a [=digital
+          credential=] without offering self-asserted or alternative options,
+          users might be coerced into disclosing institutional attributes that
+          conflict with their contextual or lived identity (such as a legal
+          name or gender marker on a government record), or face exclusion (see
+          [[[#unnecessary-requests-for-credentials]]]).
+        </p>
+        <p>
+          Similarly, users can be constrained in their choice of devices or
+          [=credential managers=] when [=issuers=] only issue credentials into
+          certain [=credential managers=], or [=verifiers=] only accept
+          presentations backed by specific operating systems, hardware
+          enclaves, or certified [=credential managers=]. A [=verifier=] might
+          also request a high-assurance [=digital credential=] not because it
+          needs the attested claims, but to infer that the [=holder=]'s device
+          and [=credential manager=] meet an [=issuer=]'s hardware or software
+          integrity requirements.
+        </p>
+        <p>
+          Because [=digital credential/presentation responses=] are
+          encrypted and acceptance policies execute on the [=verifier=], [=user
+          agents=] cannot normatively prevent a [=verifier=] from rejecting
+          certain [=issuers=] or [=credential managers=]. However, [=user
+          agents=] and platforms can help preserve user choice by keeping the
+          [=digital credential chooser=], used when presenting, and the
+          [=credential manager chooser=], used when issuing, open to
+          user-controlled and cross-device [=credential managers=], and
+          by surfacing clear context when [=digital credential/presentation
+          requests=] narrow accepted options.
+          [=Verifiers=] are advised to preserve non-credential fallback paths
+          where cryptographic attestation is unnecessary and not to use
+          credential requests as a proxy for device integrity. Broader
+          ecosystem governance (such as limiting strict requirements to legally
+          mandated cases; see
+          [[[#mitigating-unnecessary-requests-for-government-credentials]]])
+          can further help maintain a balance of interests and user choice.
+        </p>
+      </section>
+      <section>
+        <!--
         // MARK: Data Clearing and Persistent State
         -->
         <h3>
