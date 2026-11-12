@@ -2254,6 +2254,22 @@
           across multiple devices (see
           [[[#cross-device-security-and-proximity]]]).
         </p>
+        <p>
+          Because [=digital credential/presentation requests=] are transmitted
+          unencrypted, a [=user agent=] (or platform providing the [=digital
+          credential chooser=]; see [[[#multiple-user-agents]]]) can inspect a
+          request as part of its risk analysis and factor the absence of a
+          verifier signature, alongside the sensitivity of the requested
+          credential (see [[[#unnecessary-requests-for-credentials]]]), into
+          the friction and warnings shown to the user. Applying blanket high
+          friction solely on whether a request carries a syntactic signature is
+          insufficient on its own: an in-page attacker can attach a signature
+          with a key of its own, while strongly discouraging low-risk unsigned
+          exchanges (where no verifier key infrastructure exists) risks warning
+          fatigue. When a user declines to proceed, the [=credential request
+          coordinator/initiate the credential request=] steps reject with a
+          {{"NotAllowedError"}} {{DOMException}}.
+        </p>
       </section>
       <section>
         <!--
