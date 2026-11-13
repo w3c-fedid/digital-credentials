@@ -1059,9 +1059,10 @@
           that [=exception=].
           </li>
           <li>Validate |request|'s [=digital credential/presentation request
-          data=] or [=digital credential/issuance request data=] according to
-          |request|'s [=digital credential/presentation protocol=] or [=digital
-          credential/issuance protocol=] or other criteria.
+          data=] or [=digital credential/issuance request data=] by running
+          [=credential request coordinator/validate request data=] given the
+          result of [=convert request protocol=] given |request|, and |data|,
+          or by other criteria. Validation fails if that returns failure.
             <p>
               In addition to protocol-defined requirements, a [=user agent=]
               might apply validation criteria based on local policy,
@@ -1147,6 +1148,118 @@
       <li>Return |validatedRequests|.
       </li>
     </ol><!--
+    // MARK: Validate request data
+    -->
+    <h3>
+      Validate request data
+    </h3>
+    <p>
+      To <dfn data-dfn-for="credential request coordinator">validate request
+      data</dfn> given a {{DigitalCredentialProtocol}}
+      |protocol:DigitalCredentialProtocol| and an {{object}} |data|, return
+      failure if |protocol| is
+      {{DigitalCredentialPresentationProtocol/"openid4vp-v1-unsigned"}},
+      {{DigitalCredentialPresentationProtocol/"openid4vp-v1-signed"}}, or
+      {{DigitalCredentialPresentationProtocol/"openid4vp-v1-multisigned"}} and
+      the request's "`response_mode`" is not "`dc_api.jwt`". Otherwise, return
+      success.
+    </p>
+    <p>
+      For unsigned requests, "`response_mode`" is an own property of |data|.
+      For signed requests, "`response_mode`" is a claim in the payload of the
+      JWS Compact Serialization in |data|'s own property "`request`". For
+      multisigned requests, "`response_mode`" is a claim in the payload of the
+      JWS JSON Serialization |data|, taken from |data|'s own property
+      "`payload`" [[RFC7515]]. If the [=user agent=] cannot read
+      "`response_mode`", [=credential request coordinator/validate request
+      data=] returns failure.
+    </p>
+    <aside class="note">
+      <p>
+        Only [[[OPENID4VP]]] needs a rule here, because [[[OPENID4VP]]] allows
+        an unencrypted response unless "`response_mode`" is "`dc_api.jwt`".
+        [[[ISO18013-7]]] Annex C defines only an encrypted response. The [=user
+        agent=] does not check signatures or encryption keys; the [=credential
+        manager=] does.
+      </p>
+    </aside><!--
+    // MARK: Validate response data
+    -->
+    <h3>
+      Validate response data
+    </h3>
+    <p>
+      To <dfn data-dfn-for="credential request coordinator">validate response
+      data</dfn> given a {{DigitalCredentialProtocol}}
+      |protocol:DigitalCredentialProtocol| and a JavaScript <a data-cite=
+      "ECMASCRIPT#sec-object-type">Object</a> |data|:
+    </p>
+    <ol class="algorithm">
+      <li>If |protocol| is:
+        <dl class="switch">
+          <dt>
+            {{DigitalCredentialPresentationProtocol/"org-iso-mdoc"}}:
+          </dt>
+          <dd>
+            If |data| does not have an own property "`response`", return
+            failure.
+          </dd>
+          <dt>
+            {{DigitalCredentialPresentationProtocol/"openid4vp-v1-unsigned"}}:
+          </dt>
+          <dt>
+            {{DigitalCredentialPresentationProtocol/"openid4vp-v1-signed"}}:
+          </dt>
+          <dt>
+            {{DigitalCredentialPresentationProtocol/"openid4vp-v1-multisigned"}}:
+          </dt>
+          <dd>
+            If |data| has an own property "`vp_token`", return failure. If
+            |data| has neither an own property "`response`" nor an own property
+            "`error`", return failure.
+          </dd>
+          <dt>
+            Otherwise:
+          </dt>
+          <dd>
+            Return success.
+          </dd>
+        </dl>
+      </li>
+      <li>Return success.
+      </li>
+    </ol>
+    <aside class="note" title="Why each protocol is checked differently">
+      <p>
+        Each branch requires a response shape its protocol actually defines.
+        [[[ISO18013-7]]] Annex C defines one, so a response without
+        "`response`" is not an Annex C response. [[[OPENID4VP]]] defines two:
+        an encrypted Authorization Response in "`response`", and the error
+        object in [[[OPENID4VP]]] Appendix A.4, which carries a single
+        "`error`" member and is a successful outcome for this API. Requiring
+        "`response`" for [[[OPENID4VP]]] would reject that error object.
+      </p>
+      <p>
+        The [[[OPENID4VP]]] branch also rejects "`vp_token`" by name, because
+        that is where an unencrypted Authorization Response carries credential
+        data. Rejecting unknown shapes alone would not catch a [=holder=] that
+        returns "`vp_token`" alongside "`response`".
+      </p>
+    </aside>
+    <aside class="note" title="What the outbound check does and does not do">
+      <p>
+        This check catches an [=digital credential/presentation response=] that
+        an otherwise-honest [=credential manager=] returns in the clear, having
+        ignored the encrypted response the request asked for. It does nothing
+        against a [=credential manager=] that sets out to leak the response,
+        because such a [=credential manager=] can encode cleartext to look like
+        ciphertext and the [=user agent=] holds no key to tell the difference.
+        The protection that does not depend on the [=credential manager=]
+        behaving is [=credential request coordinator/validate request data=],
+        which rejects a request that does not compel an encrypted [=digital
+        credential/presentation response=].
+      </p>
+    </aside><!--
     // MARK: Abort and reject algorithms
     -->
     <h3>
@@ -1398,6 +1511,15 @@
                     <ol>
                       <li>[=Reject=] |promise| with a newly created
                       {{TypeError}}.
+                      </li>
+                    </ol>
+                  </li>
+                  <li>Otherwise, if [=credential request coordinator/validate
+                  response data=] given |protocol| and
+                  |parsedResponseDataOrError| returns failure:
+                    <ol>
+                      <li>[=Reject=] |promise| with a newly created
+                      {{"SecurityError"}} {{DOMException}}.
                       </li>
                     </ol>
                   </li>
