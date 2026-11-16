@@ -1192,72 +1192,30 @@
       To <dfn data-dfn-for="credential request coordinator">validate response
       data</dfn> given a {{DigitalCredentialProtocol}}
       |protocol:DigitalCredentialProtocol| and a JavaScript <a data-cite=
-      "ECMASCRIPT#sec-object-type">Object</a> |data|:
+      "ECMASCRIPT#sec-object-type">Object</a> |data|, return failure if any of
+      these is true, and success otherwise:
     </p>
-    <ol class="algorithm">
-      <li>If |protocol| is:
-        <dl class="switch">
-          <dt>
-            {{DigitalCredentialPresentationProtocol/"org-iso-mdoc"}}:
-          </dt>
-          <dd>
-            If |data| does not have an own property "`response`", return
-            failure.
-          </dd>
-          <dt>
-            {{DigitalCredentialPresentationProtocol/"openid4vp-v1-unsigned"}}:
-          </dt>
-          <dt>
-            {{DigitalCredentialPresentationProtocol/"openid4vp-v1-signed"}}:
-          </dt>
-          <dt>
-            {{DigitalCredentialPresentationProtocol/"openid4vp-v1-multisigned"}}:
-          </dt>
-          <dd>
-            If |data| has an own property "`vp_token`", return failure. If
-            |data| has neither an own property "`response`" nor an own property
-            "`error`", return failure.
-          </dd>
-          <dt>
-            Otherwise:
-          </dt>
-          <dd>
-            Return success.
-          </dd>
-        </dl>
+    <ul>
+      <li>|protocol| is
+      {{DigitalCredentialPresentationProtocol/"org-iso-mdoc"}} and |data| does
+      not have an own property "`response`".
       </li>
-      <li>Return success.
+      <li>|protocol| is
+      {{DigitalCredentialPresentationProtocol/"openid4vp-v1-unsigned"}},
+      {{DigitalCredentialPresentationProtocol/"openid4vp-v1-signed"}}, or
+      {{DigitalCredentialPresentationProtocol/"openid4vp-v1-multisigned"}}, and
+      |data| has an own property "`vp_token`", or has neither an own property
+      "`response`" nor an own property "`error`".
       </li>
-    </ol>
-    <aside class="note" title="Why each protocol is checked differently">
+    </ul>
+    <aside class="note">
       <p>
-        Each branch requires a response shape its protocol actually defines.
-        [[[ISO18013-7]]] Annex C defines one, so a response without
-        "`response`" is not an Annex C response. [[[OPENID4VP]]] defines two:
-        an encrypted Authorization Response in "`response`", and the error
-        object in [[[OPENID4VP]]] Appendix A.4, which carries a single
-        "`error`" member and is a successful outcome for this API. Requiring
-        "`response`" for [[[OPENID4VP]]] would reject that error object.
-      </p>
-      <p>
-        The [[[OPENID4VP]]] branch also rejects "`vp_token`" by name, because
-        that is where an unencrypted Authorization Response carries credential
-        data. Rejecting unknown shapes alone would not catch a [=holder=] that
-        returns "`vp_token`" alongside "`response`".
-      </p>
-    </aside>
-    <aside class="note" title="What the outbound check does and does not do">
-      <p>
-        This check catches an [=digital credential/presentation response=] that
-        an otherwise-honest [=credential manager=] returns in the clear, having
-        ignored the encrypted response the request asked for. It does nothing
-        against a [=credential manager=] that sets out to leak the response,
-        because such a [=credential manager=] can encode cleartext to look like
-        ciphertext and the [=user agent=] holds no key to tell the difference.
-        The protection that does not depend on the [=credential manager=]
-        behaving is [=credential request coordinator/validate request data=],
-        which rejects a request that does not compel an encrypted [=digital
-        credential/presentation response=].
+        [[[OPENID4VP]]] carries unencrypted credential data in "`vp_token`",
+        and its error object carries only "`error`". The [=user agent=] cannot
+        tell ciphertext from cleartext, so this check only catches a
+        [=credential manager=] that ignored the request. [=credential request
+        coordinator/Validate request data=] is the check that does not depend
+        on the [=credential manager=].
       </p>
     </aside><!--
     // MARK: Abort and reject algorithms
