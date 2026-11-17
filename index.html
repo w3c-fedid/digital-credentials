@@ -3133,6 +3133,41 @@
           not clear or affect the credentials held within those external
           managers.
         </p>
+        <h4>
+          Private browsing mode and clearing site data
+        </h4>
+        <p>
+          This specification defines no difference between private browsing
+          mode and regular browsing mode. As a result, neither a site nor a
+          [=credential manager=] can determine from the [[[#DC-API|Digital
+          Credentials API]]] that the user is in a private browsing session.
+        </p>
+        <p>
+          Users might expect private browsing mode to stop a [=verifier=] from
+          recognizing them from earlier presentations. Private browsing mode
+          separates what the [=user agent=] remembers, but not what
+          [=credential managers=] and the operating system remember. Because
+          the [[[#DC-API|Digital Credentials API]]] does not tell a
+          [=credential manager=] whether the user is in a private or a regular
+          browsing session, a [=credential manager=] can reuse a credential,
+          key, or identifier in a private browsing session, in a regular
+          browsing session, and after the user clears site data. Depending on
+          the credential format and presentation protocol (see
+          [[[credential-considerations#unlinkable-presentations|Unlinkability]]]),
+          the [=verifier=] can then link the user's presentations.
+        </p>
+        <p>
+          This specification defines no persistent relationship between a
+          [=user agent=] and a [=credential manager=]. As a result, this
+          specification gives the [=user agent=] no way to tell the
+          [=credential manager=] that the user cleared site data. A
+          [=credential manager=] needs no signal from the [=user agent=] to
+          rotate keys and credentials. [=Credential managers=] and issuers can
+          read Annex E ("Privacy and security recommendations") of
+          [[[ISO18013-5]]] and
+          [[[OPENID4VP#name-verifier-to-verifier-unlink|Verifier-to-Verifier
+          Unlinkable Presentations]]] in [[[OPENID4VP]]] for guidance.
+        </p>
       </section>
     </section>
     <section>
