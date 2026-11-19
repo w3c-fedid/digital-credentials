@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"><head>
 <meta charset="utf-8">
-<meta name="generator" content="ReSpec 37.4.1">
+<meta name="generator" content="ReSpec 37.5.1">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <style>
 span.example-title{text-transform:none}
@@ -176,7 +176,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="f7441da1ead8e03eba37a7f8304f6f979dc72f29">
+<meta name="revision" content="05f2a72904da03aa1ec24107106a880d4a8f7864">
 <meta name="description" content="This document specifies an API enabling user agents to mediate the
         presentation and issuance of digital credentials, such as a
         driver's license, government-issued identification card, or
@@ -325,9 +325,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "f7441da1ead8e03eba37a7f8304f6f979dc72f29",
-  "publishISODate": "2026-11-05T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 05 November 2026"
+  "gitRevision": "05f2a72904da03aa1ec24107106a880d4a8f7864",
+  "publishISODate": "2026-11-19T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 19 November 2026"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED">
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/dark.css" disabled=""></head>
@@ -335,7 +335,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Digital Credentials</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-11-05">05 November 2026</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-11-19">19 November 2026</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -2308,12 +2308,14 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       </p>
       <dl>
         <dt>
-          <dfn data-local-lt="tampering" data-noexport="" id="dfn-request-tampering" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">Request Tampering</dfn>
+          <dfn data-noexport="" id="dfn-network-tampering" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">Network Tampering</dfn>
         </dt>
         <dd>
           A network attacker that can inject or modify page content in an
-          insecure context attempts to alter a <a data-link-type="idl" data-lt="DigitalCredentialGetRequest" href="#dom-digitalcredentialgetrequest" class="internalDFN" id="ref-for-dom-digitalcredentialgetrequest-9"><code>DigitalCredentialGetRequest</code></a>
-          or <a data-link-type="idl" data-lt="DigitalCredentialCreateRequest" href="#dom-digitalcredentialcreaterequest" class="internalDFN" id="ref-for-dom-digitalcredentialcreaterequest-9"><code>DigitalCredentialCreateRequest</code></a> before processing.
+          <a data-link-type="dfn" data-lt="secure context" href="https://html.spec.whatwg.org/multipage/webappapis.html#secure-context" id="ref-for-index-term-secure-context-1">insecure context</a> attempts to alter a <a data-link-type="idl" data-lt="DigitalCredentialGetRequest" href="#dom-digitalcredentialgetrequest" class="internalDFN" id="ref-for-dom-digitalcredentialgetrequest-9"><code>DigitalCredentialGetRequest</code></a>
+          or <a data-link-type="idl" data-lt="DigitalCredentialCreateRequest" href="#dom-digitalcredentialcreaterequest" class="internalDFN" id="ref-for-dom-digitalcredentialcreaterequest-9"><code>DigitalCredentialCreateRequest</code></a> before processing. Threats that
+          arise from a protocol or credential format are described separately
+          as <a data-link-type="dfn|abstract-op" href="#dfn-protocol-and-format-vulnerabilities" class="internalDFN" id="ref-for-dfn-protocol-and-format-vulnerabilities-1">protocol and format vulnerabilities</a>.
         </dd>
         <dt>
           <dfn data-noexport="" id="dfn-api-flooding" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">API Flooding</dfn>
@@ -2392,13 +2394,15 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           governing wallet providers.
         </dd>
         <dt>
-          <dfn data-noexport="" id="dfn-protocol-and-format-vulnerabilities" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn" class="respec-offending-element" title="Found definition for &quot;Protocol and Format Vulnerabilities&quot;, but nothing links to it. This is usually a spec bug!">Protocol and Format Vulnerabilities</dfn>
+          <dfn data-noexport="" id="dfn-protocol-and-format-vulnerabilities" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">Protocol and Format Vulnerabilities</dfn>
         </dt>
         <dd>
           Weaknesses in the specific <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-22">presentation protocol</a>, <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-21">issuance protocol</a>, or credential
           format being used (e.g., cryptographic flaws, unsafe algorithms, lack
-          of replay protection, or missing request authentication) could allow
-          attackers to intercept, forge, or tamper with credentials in transit.
+          of replay protection, missing request authentication, or missing
+          message integrity protection) could allow a network attacker, a
+          malicious website, or a malicious credential manager to intercept,
+          forge, or modify protocol requests, responses, or credentials.
           Mitigation occurs primarily at the protocol, format, and transport
           layers (e.g., mandating response encryption, request signing, and
           TLS). While the API does not define format-specific cryptography or
@@ -2418,8 +2422,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       </p>
       <p>
         WebIDL <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-interface" id="ref-for-index-term-interfaces-1">interfaces</a> of the Digital Credential API are only exposed in
-        <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#secure-context" id="ref-for-index-term-secure-contexts-1">secure contexts</a>, reducing the risk of <a data-link-type="dfn|abstract-op" href="#dfn-request-tampering" class="internalDFN" id="ref-for-dfn-request-tampering-1">tampering</a> through
-        <a data-link-type="dfn" data-lt="secure contexts" href="https://html.spec.whatwg.org/multipage/webappapis.html#secure-context" id="ref-for-index-term-secure-contexts-2">insecure contexts</a> (e.g., a malicious script being
+        <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#secure-context" id="ref-for-index-term-secure-context-2">secure contexts</a>, reducing the risk of <a data-link-type="dfn|abstract-op" href="#dfn-network-tampering" class="internalDFN" id="ref-for-dfn-network-tampering-1">network tampering</a> through
+        <a data-link-type="dfn" data-lt="secure contexts" href="https://html.spec.whatwg.org/multipage/webappapis.html#secure-context" id="ref-for-index-term-secure-context-3">insecure contexts</a> (e.g., a malicious script being
         injected through the network). Please refer to the
         <a data-matched-text="[[[secure-contexts#security-considerations]]]" href="https://www.w3.org/TR/secure-contexts/#security-considerations" class="sec-ref">§&nbsp;<bdi class="secno">5 </bdi>Security Considerations</a> section of the
         <cite><a data-matched-text="[[[secure-contexts]]]" href="https://www.w3.org/TR/secure-contexts/">Secure Contexts</a></cite> specification for more information.
@@ -2543,7 +2547,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           parameters used to <a href="#encrypting-credential-responses" data-matched-text="[[[#encrypting-credential-responses|encrypt the
           response]]]">encrypt the
           response</a> so that the response is encrypted to the attacker rather
-          than to the verifier. Requiring the API to be used in a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#secure-context" id="ref-for-index-term-secure-contexts-3">secure context</a> does not prevent this, because the attacker is already
+          than to the verifier. Requiring the API to be used in a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#secure-context" id="ref-for-index-term-secure-context-4">secure context</a> does not prevent this, because the attacker is already
           inside one. With an unsigned request, the <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-24">credential manager</a> has
           to trust that the verifier has kept its own page free of such
           scripts. A signed request, on the other hand, gives the <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-25">credential manager</a> something to check, so the change can be detected instead
@@ -3981,6 +3985,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <span class="print-only">§10.1.1</span></li><li>
       <a class="index-term" href="#cddl-key-digitalcredentials-setvirtualwalletbehavior-method"><code>method</code></a> 
     <span class="print-only">§14.1.2.1</span></li><li>
+      <a class="index-term" href="#dfn-network-tampering">Network Tampering</a> 
+    <span class="print-only">§10.1.1</span></li><li>
       <a class="index-term" href="#dom-digitalcredentialissuanceprotocol-openid4vci-v1"><code>"openid4vci-v1"</code></a> enum value for <code>DigitalCredentialIssuanceProtocol</code>
     <span class="print-only">§5.</span></li><li>
       <a class="index-term" href="#dom-digitalcredentialpresentationprotocol-openid4vp-v1-multisigned"><code>"openid4vp-v1-multisigned"</code></a> enum value for <code>DigitalCredentialPresentationProtocol</code>
@@ -4028,8 +4034,6 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <span class="print-only">§6.6</span></li><li>
       <a class="index-term" href="#dfn-request-context">request context</a> 
     <span class="print-only">§7.8.1</span></li><li>
-      <a class="index-term" href="#dfn-request-tampering">Request Tampering</a> 
-    <span class="print-only">§10.1.1</span></li><li>
       <a class="index-term" href="#dfn-requesting">requesting</a> 
     <span class="print-only">§6.1</span></li><li>
     requests
@@ -4184,7 +4188,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
   </li><li>
     <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/webappapis.html#relevant-settings-object" id="index-term-relevant-settings-object" tabindex="0" aria-haspopup="dialog">relevant settings object</span>
   </li><li>
-    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/webappapis.html#secure-context" id="index-term-secure-contexts" tabindex="0" aria-haspopup="dialog">secure contexts</span>
+    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/webappapis.html#secure-context" id="index-term-secure-context" tabindex="0" aria-haspopup="dialog">secure context</span>
   </li><li>
     <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-traversable" id="index-term-top-level-traversable" tabindex="0" aria-haspopup="dialog">top-level traversable</span>
   </li><li>
@@ -5732,17 +5736,17 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-dfn-in-scope-threats-3" title="§ 10.2 Mitigations">§ 10.2 Mitigations</a> 
     </li>
   </ul>
-    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-request-tampering" aria-label="Links in this document to definition: Request Tampering">
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-network-tampering" aria-label="Links in this document to definition: Network Tampering">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="#dfn-request-tampering" aria-label="Permalink for definition: Request Tampering. Activate to close this dialog.">Permalink</a>
+        <a class="self-link" href="#dfn-network-tampering" aria-label="Permalink for definition: Network Tampering. Activate to close this dialog.">Permalink</a>
          
         
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-dfn-request-tampering-1" title="§ 10.2 Mitigations">§ 10.2 Mitigations</a> 
+      <a href="#ref-for-dfn-network-tampering-1" title="§ 10.2 Mitigations">§ 10.2 Mitigations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-api-flooding" aria-label="Links in this document to definition: API Flooding">
@@ -5845,8 +5849,10 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
-      <li>Not referenced in this document.</li>
-    </ul>
+    <li>
+      <a href="#ref-for-dfn-protocol-and-format-vulnerabilities-1" title="§ 10.1.1 In-Scope Threats">§ 10.1.1 In-Scope Threats</a> 
+    </li>
+  </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-cddl-type-digitalcredentials-virtualwalletaction" aria-label="Links in this document to definition: digitalCredentials.VirtualWalletAction">
       <span class="caret"></span>
       <div>
@@ -6840,19 +6846,21 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-relevant-settings-object-1" title="§ 6.7 Initiate the credential request">§ 6.7 Initiate the credential request</a> 
     </li>
   </ul>
-    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-secure-contexts" aria-label="Links in this document to definition: secure contexts">
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-secure-context" aria-label="Links in this document to definition: secure context">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="https://html.spec.whatwg.org/multipage/webappapis.html#secure-context" aria-label="Permalink for definition: secure contexts. Activate to close this dialog.">Permalink</a>
+        <a class="self-link" href="https://html.spec.whatwg.org/multipage/webappapis.html#secure-context" aria-label="Permalink for definition: secure context. Activate to close this dialog.">Permalink</a>
          
         
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-secure-contexts-1" title="§ 10.2 Mitigations">§ 10.2 Mitigations</a> <a href="#ref-for-index-term-secure-contexts-2" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-secure-context-1" title="§ 10.1.1 In-Scope Threats">§ 10.1.1 In-Scope Threats</a> 
     </li><li>
-      <a href="#ref-for-index-term-secure-contexts-3" title="§ 10.4 Signing presentation requests">§ 10.4 Signing presentation requests</a> 
+      <a href="#ref-for-index-term-secure-context-2" title="§ 10.2 Mitigations">§ 10.2 Mitigations</a> <a href="#ref-for-index-term-secure-context-3" title="Reference 2">(2)</a> 
+    </li><li>
+      <a href="#ref-for-index-term-secure-context-4" title="§ 10.4 Signing presentation requests">§ 10.4 Signing presentation requests</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-top-level-traversable" aria-label="Links in this document to definition: top-level traversable">
@@ -8070,9 +8078,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </dd><dt id="bib-wcag2ict-22">[WCAG2ICT-22]</dt><dd>
       <a href="https://www.w3.org/TR/wcag2ict-22/"><cite>Guidance on Applying WCAG 2 to Non-Web Information and Communications Technologies (WCAG2ICT)</cite></a>. Mary Jo Mueller; Phil Day; Daniel Montalvo.  W3C. 11 December 2025. W3C Working Group Note. URL: <a href="https://www.w3.org/TR/wcag2ict-22/">https://www.w3.org/TR/wcag2ict-22/</a>
     </dd><dt id="bib-webdriver">[webdriver]</dt><dd>
-      <a href="https://www.w3.org/TR/webdriver2/"><cite>WebDriver</cite></a>. Simon Stewart; David Burns.  W3C. 2 July 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/webdriver2/">https://www.w3.org/TR/webdriver2/</a>
+      <a href="https://www.w3.org/TR/webdriver2/"><cite>WebDriver</cite></a>. Simon Stewart; David Burns.  W3C. 9 November 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/webdriver2/">https://www.w3.org/TR/webdriver2/</a>
     </dd><dt id="bib-webdriver-bidi">[webdriver-bidi]</dt><dd>
-      <a href="https://www.w3.org/TR/webdriver-bidi/"><cite>WebDriver BiDi</cite></a>. James Graham; Alex Rudenko; Maksim Sadym.  W3C. 3 November 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/webdriver-bidi/">https://www.w3.org/TR/webdriver-bidi/</a>
+      <a href="https://www.w3.org/TR/webdriver-bidi/"><cite>WebDriver BiDi</cite></a>. James Graham; Alex Rudenko; Maksim Sadym.  W3C. 13 November 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/webdriver-bidi/">https://www.w3.org/TR/webdriver-bidi/</a>
     </dd><dt id="bib-webidl">[webidl]</dt><dd>
       <a href="https://webidl.spec.whatwg.org/"><cite>Web IDL Standard</cite></a>. Edgar Chen; Timothy Gu.  WHATWG. Living Standard. URL: <a href="https://webidl.spec.whatwg.org/">https://webidl.spec.whatwg.org/</a>
     </dd></dl>
