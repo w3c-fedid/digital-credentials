@@ -1067,18 +1067,19 @@
           <li>If serialization results in an [=exception=], [=exception/throw=]
           that [=exception=].
           </li>
-          <li>Set |data| to the result of [=parse a JSON string to a JavaScript
-          value=] given |serializedData|, and set |request|'s
-          {{DigitalCredentialGetRequest/data}} or
-          {{DigitalCredentialCreateRequest/data}} to |data|, so that the
-          request this algorithm validates is the request the [=user agent=]
-          forwards.
+          <li>Let |checkedData| be the result of [=parse a JSON string to a
+          JavaScript value=] given |serializedData|.
+          </li>
+          <li>If |checkedData| is not an <a data-cite=
+          "ECMASCRIPT#sec-object-type">Object</a>, [=exception/throw=] a
+          {{TypeError}}.
           </li>
           <li>Validate |request|'s [=digital credential/presentation request
           data=] or [=digital credential/issuance request data=] by running
           [=credential request coordinator/validate request data=] given the
-          result of [=convert request protocol=] given |request|, and |data|,
-          or by other criteria. Validation fails if that returns failure.
+          result of [=convert request protocol=] given |request|, and
+          |checkedData|, and by any other criteria. Validation fails if any of
+          these fail.
             <p>
               In addition to protocol-defined requirements, a [=user agent=]
               might apply validation criteria based on local policy,
@@ -1156,6 +1157,9 @@
                 </ol>
               </li>
               <li>Otherwise, [=list/append=] |request| to |validatedRequests|.
+              When the [=user agent=] forwards |request| to a [=credential
+              manager=], it forwards |serializedData| as the request's data,
+              unchanged.
               </li>
             </ol>
           </li>
