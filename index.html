@@ -938,6 +938,32 @@
       <li>Set the [=credential request coordinator=]'s [=credential request
       coordinator/active promise=] to |promise|.
       </li>
+      <li>If |document| stops being [=Document/fully active=] while the
+      [=credential request coordinator=]'s [=credential request
+      coordinator/active promise=] is |promise|, then:
+        <ol>
+          <li>Let |wasRequesting| be `true` if the [=credential request
+          coordinator=]'s [=credential request coordinator/interaction state=]
+          is "[=credential request coordinator/requesting=]", and `false`
+          otherwise.
+          </li>
+          <li>[=credential request coordinator/Clear the abort signal=].
+          </li>
+          <li>[=credential request coordinator/Return to idle=].
+          </li>
+          <li>If |wasRequesting| is `true`, dismiss the [=digital credential
+          chooser=] or [=credential manager chooser=].
+          </li>
+          <li>[=Reject=] |promise| with a newly created {{"AbortError"}}
+          {{DOMException}} in |realm|.
+            <p class="note">
+              This step rejects |promise| directly. A task queued for a
+              document that is not [=Document/fully active=] might never run,
+              but a parent page holding |promise| must still see the rejection.
+            </p>
+          </li>
+        </ol>
+      </li>
       <li>Let |validatedRequests| be the result of [=credential request
       coordinator/validate credential requests=] given |requests|. If that
       [=exception/throws=] an [=exception=] |error|, then:
@@ -957,6 +983,9 @@
           <li>Return |promise|.
           </li>
         </ol>
+      </li>
+      <li>If the [=credential request coordinator=]'s [=credential request
+      coordinator/active promise=] is not |promise|, return |promise|.
       </li>
       <li>If |signal| was passed, then:
         <ol>
@@ -985,30 +1014,6 @@
           coordinator/abort algorithm=] to |abortAlgorithm|.
           </li>
           <li>[=AbortSignal/Add=] |abortAlgorithm| to |signal|.
-          </li>
-        </ol>
-      </li>
-      <li>If |document| stops being [=Document/fully active=] while the
-      [=credential request coordinator=]'s [=credential request
-      coordinator/active promise=] is |promise|, then:
-        <ol>
-          <li>Dismiss the [=digital credential chooser=] or [=credential
-          manager chooser=].
-          </li>
-          <li>[=credential request coordinator/Clear the abort signal=].
-          </li>
-          <li>[=credential request coordinator/Return to idle=].
-          </li>
-          <li>[=Queue a global task=] on the [=DOM manipulation task source=]
-          given |global| to [=reject=] |promise| with a newly created
-          {{"AbortError"}} {{DOMException}} in |realm|.
-            <p class="note">
-              The coordinator does not wait for this task. A task for a
-              document that is not [=Document/fully active=] does not run, and
-              for a destroyed document it never will, so the coordinator has to
-              be "[=credential request coordinator/idle=]" before the task is
-              queued.
-            </p>
           </li>
         </ol>
       </li>
