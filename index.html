@@ -2493,21 +2493,25 @@
           OpenID for Verifiable Presentations
         </h5>
         <p>
-          [[OPENID4VP]] facilitates selective disclosure through its query
+          [[[OPENID4VP]]] facilitates selective disclosure through its query
           language, allowing a [=verifier=] to request only the claims it
           needs; the granularity actually achieved depends on the credential
           format (for example, a salted-hash format). It does not provide
           unlinkability as an inherent property: it addresses
           verifier-to-verifier linkability only, and treats unlinkability as
           achievable by presenting a single-use credential instance, with batch
-          issuance of such instances defined in [[OPENID4VCI]] rather than in
+          issuance of such instances defined in [[[OPENID4VCI]]] rather than in
           the presentation protocol itself. It does not define zero-knowledge
           mechanisms. The core presentation exchange does not require
-          contacting the [=issuer=]; however, establishing trust in the issuer
-          (or in the framework that certifies issuers) can involve online
-          resolution that could enable profiling, and the protocol advises
-          wallets against retrieving unfamiliar URLs supplied in a request.
-          Revocation is not addressed beyond a verifier-side policy check.
+          contacting the [=issuer=]; however, establishing trust in the
+          [=issuer=] (or in the framework that certifies [=issuers=]) can
+          involve online resolution that could enable profiling, and the
+          protocol advises [=credential managers=] against retrieving
+          unfamiliar URLs supplied in a request. Revocation is not addressed
+          beyond a verifier-side policy check, and obtaining [=holder=] consent
+          is left to the [=credential manager=]. Over the Digital Credentials
+          API, response encryption is mode-dependent (encrypted in
+          `dc_api.jwt`, unencrypted in `dc_api`).
         </p>
         <p>
           Verifier authorization is the main axis on which the three variants
@@ -2515,13 +2519,16 @@
           {{DigitalCredentialPresentationProtocol/"openid4vp-v1-signed"}}, and
           {{DigitalCredentialPresentationProtocol/"openid4vp-v1-multisigned"}})
           differ. An unsigned request carries no cryptographic authentication
-          of the verifier and relies on the request [=origin=] and the Web PKI;
-          a signed request lets the wallet authenticate the verifier through a
-          trust framework in addition to the Web PKI, and binds the request to
-          its expected origins to detect replay; a multi-signed request extends
-          this to multiple verifier identities and trust frameworks for a
-          single request. The variants differ in verifier authentication
-          strength, not in presentation unlinkability.
+          of the [=verifier=] and relies on the request [=origin=] and the Web
+          PKI, leaving any embedded response encryption key open to
+          substitution by an in-page script (see
+          [[[#signing-presentation-requests]]]); a signed request lets the
+          [=credential manager=] authenticate the [=verifier=] through a trust
+          framework in addition to the Web PKI, and binds the request to its
+          expected origins to mitigate cross-origin request forwarding; a
+          multi-signed request extends this to multiple [=verifier=] identities
+          and trust frameworks for a single request. The variants differ in
+          verifier authentication strength, not in presentation unlinkability.
         </p>
         <h5>
           ISO/IEC mdoc
