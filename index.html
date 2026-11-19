@@ -1296,34 +1296,57 @@
           <li>If the [=credential request coordinator=]'s [=credential request
           coordinator/active promise=] is not |promise|, then return.
           </li>
-          <li>Let |signal| be the [=credential request coordinator=]'s
-          [=credential request coordinator/abort signal=].
-          </li>
-          <li>Let |abortAlgorithm| be the [=credential request coordinator=]'s
-          [=credential request coordinator/abort algorithm=].
-          </li>
-          <li>If |signal| is not `null` and |abortAlgorithm| is not `null`:
-            <ol>
-              <li>[=AbortSignal/Remove=] |abortAlgorithm| from |signal|.
-              </li>
-            </ol>
-          </li>
-          <li>Set the [=credential request coordinator=]'s [=credential request
-          coordinator/abort signal=] to `null`.
-          </li>
-          <li>Set the [=credential request coordinator=]'s [=credential request
-          coordinator/abort algorithm=] to `null`.
+          <li>[=credential request coordinator/Clear the abort signal=].
           </li>
           <li>[=Reject=] |promise| with |error|.
           </li>
-          <li>Set the [=credential request coordinator=]'s [=credential request
-          coordinator/active promise=] to `null`.
-          </li>
-          <li>Set the [=credential request coordinator=] [=credential request
-          coordinator/interaction state=] to "[=credential request
-          coordinator/idle=]".
+          <li>[=credential request coordinator/Return to idle=].
           </li>
         </ol>
+      </li>
+    </ol><!--
+    // MARK: Clear the abort signal
+    -->
+    <h3>
+      Clear the abort signal
+    </h3>
+    <p>
+      To <dfn data-dfn-for="credential request coordinator">clear the abort
+      signal</dfn>:
+    </p>
+    <ol class="algorithm">
+      <li>Let |signal| be the [=credential request coordinator=]'s [=credential
+      request coordinator/abort signal=].
+      </li>
+      <li>Let |abortAlgorithm| be the [=credential request coordinator=]'s
+      [=credential request coordinator/abort algorithm=].
+      </li>
+      <li>If |signal| is not `null` and |abortAlgorithm| is not `null`,
+      [=AbortSignal/Remove=] |abortAlgorithm| from |signal|.
+      </li>
+      <li>Set the [=credential request coordinator=]'s [=credential request
+      coordinator/abort signal=] to `null`.
+      </li>
+      <li>Set the [=credential request coordinator=]'s [=credential request
+      coordinator/abort algorithm=] to `null`.
+      </li>
+    </ol><!--
+    // MARK: Return to idle
+    -->
+    <h3>
+      Return to idle
+    </h3>
+    <p>
+      To <dfn data-dfn-for="credential request coordinator">return to
+      idle</dfn>:
+    </p>
+    <ol class="algorithm">
+      <li>Set the [=credential request coordinator=]'s [=credential request
+      coordinator/active promise=] to `null`.
+      </li>
+      <li>Set the [=credential request coordinator=]'s [=credential request
+      coordinator/interaction state=] to "[=credential request
+      coordinator/idle=]".
       </li>
     </ol><!--
     // MARK: Initiate the credential request
@@ -1512,23 +1535,8 @@
                   <li>Let |parsedResponseDataOrError| be the result of [=parse
                   a JSON string to a JavaScript value=] given |responseData|.
                   </li>
-                  <li>Let |abortSignal| be the [=credential request
-                  coordinator=]'s [=credential request coordinator/abort
+                  <li>[=credential request coordinator/Clear the abort
                   signal=].
-                  </li>
-                  <li>Let |abortAlgorithm| be the [=credential request
-                  coordinator=]'s [=credential request coordinator/abort
-                  algorithm=].
-                  </li>
-                  <li>If |abortSignal| is not `null` and |abortAlgorithm| is
-                  not `null`, [=AbortSignal/Remove=] |abortAlgorithm| from
-                  |abortSignal|.
-                  </li>
-                  <li>Set the [=credential request coordinator=]'s [=credential
-                  request coordinator/abort signal=] to `null`.
-                  </li>
-                  <li>Set the [=credential request coordinator=]'s [=credential
-                  request coordinator/abort algorithm=] to `null`.
                   </li>
                   <li>If |parsedResponseDataOrError| is an [=exception=]:
                     <ol>
@@ -1566,12 +1574,7 @@
                       </li>
                     </ol>
                   </li>
-                  <li>Set the [=credential request coordinator=]'s [=credential
-                  request coordinator/active promise=] to `null`.
-                  </li>
-                  <li>Set the [=credential request coordinator=] [=credential
-                  request coordinator/interaction state=] to "[=credential
-                  request coordinator/idle=]".
+                  <li>[=credential request coordinator/Return to idle=].
                   </li>
                 </ol>
               </li>
@@ -1788,19 +1791,13 @@
     </p>
     <p>
       The {{DigitalCredential}} interface mandates [=user mediation=] for all
-      operations to ensure user control and consent.
-    </p>
-    <p>
-      To simplify the developer experience of {{CredentialsContainer/get()}}
-      calls involving a {{DigitalCredential}}, [=user agents=] MUST NOT throw
-      an error if the {{CredentialRequestOptions/mediation}} member is absent
-      or has a value other than {{CredentialMediationRequirement/"required"}}.
-      Similarly, in {{CredentialsContainer/create()}} calls involving a
-      {{DigitalCredential}}, [=user agents=] MUST NOT throw an error if the
-      {{CredentialCreationOptions/mediation}} member is absent or has a value
-      other than {{CredentialMediationRequirement/"required"}}. This makes
-      {{CredentialMediationRequirement/"required"}} mediation an implicit and
-      non-overridable behavior of the [[[#DC-API|API]]].
+      operations to ensure user control and consent. The {{DigitalCredential}}
+      [=interface object=] sets the {{Credential/[[implicitMediation]]}}
+      internal slot to {{CredentialMediationRequirement/"required"}}. This
+      means the credential type always behaves as if
+      {{CredentialMediationRequirement/"required"}} was passed, regardless of
+      the actual value of the {{CredentialRequestOptions/mediation}} and
+      {{CredentialCreationOptions/mediation}} members.
     </p>
     <pre class="idl">
     typedef (DigitalCredentialPresentationProtocol or DigitalCredentialIssuanceProtocol) DigitalCredentialProtocol;
@@ -3736,8 +3733,11 @@
         </li>
         <li>If |action| is `"decline"`:
           <ol>
-            <li>[=Reject=] |promise| with a {{"NotAllowedError"}}
-            {{DOMException}}.
+            <li>Let |error| be a newly created {{"NotAllowedError"}}
+            {{DOMException}} in |global|'s [=relevant realm=].
+            </li>
+            <li>[=credential request coordinator/Reject the credential request
+            with=] |error| and |promise|.
             </li>
             <li>Return `true`.
             </li>
@@ -3752,16 +3752,32 @@
             JavaScript value|parsing=] |JSON string| given |global|'s
             [=relevant realm=].
             </li>
-            <li>Let |credential| be a new {{DigitalCredential}} instance.
-            </li>
-            <li>Set |credential|'s {{DigitalCredential/protocol}} attribute to
-            |protocol|.
-            </li>
-            <li>Set |credential|'s {{DigitalCredential/data}} attribute to |JS
-            object|.
+            <li>Assert: the [=credential request coordinator=]'s [=credential
+            request coordinator/active promise=] is |promise|.
             </li>
             <li>[=Queue a global task=] on the [=DOM manipulation task source=]
-            given |global| to [=resolve=] |promise| with |credential|.
+            given |global| to perform the following steps:
+              <ol>
+                <li>If the [=credential request coordinator=]'s [=credential
+                request coordinator/active promise=] is not |promise|, then
+                return.
+                </li>
+                <li>[=credential request coordinator/Clear the abort signal=].
+                </li>
+                <li>Let |credential| be a new {{DigitalCredential}} instance in
+                |global|'s [=relevant realm=].
+                </li>
+                <li>Set |credential|'s {{DigitalCredential/protocol}} attribute
+                to |protocol|.
+                </li>
+                <li>Set |credential|'s {{DigitalCredential/data}} attribute to
+                |JS object|.
+                </li>
+                <li>[=Resolve=] |promise| with |credential|.
+                </li>
+                <li>[=credential request coordinator/Return to idle=].
+                </li>
+              </ol>
             </li>
             <li>Return `true`.
             </li>
