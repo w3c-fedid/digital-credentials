@@ -3659,13 +3659,8 @@
             JavaScript value|parsing=] |JSON string| given |global|'s
             [=relevant realm=].
             </li>
-            <li>Let |credential| be a new {{DigitalCredential}} instance.
-            </li>
-            <li>Set |credential|'s {{DigitalCredential/protocol}} attribute to
-            |protocol|.
-            </li>
-            <li>Set |credential|'s {{DigitalCredential/data}} attribute to |JS
-            object|.
+            <li>Assert: the [=credential request coordinator=]'s [=credential
+            request coordinator/active promise=] is |promise|.
             </li>
             <li>[=Queue a global task=] on the [=DOM manipulation task source=]
             given |global| to perform the following steps:
@@ -3675,6 +3670,15 @@
                 return.
                 </li>
                 <li>[=credential request coordinator/Clear the abort signal=].
+                </li>
+                <li>Let |credential| be a new {{DigitalCredential}} instance in
+                |global|'s [=relevant realm=].
+                </li>
+                <li>Set |credential|'s {{DigitalCredential/protocol}} attribute
+                to |protocol|.
+                </li>
+                <li>Set |credential|'s {{DigitalCredential/data}} attribute to
+                |JS object|.
                 </li>
                 <li>[=Resolve=] |promise| with |credential|.
                 </li>
