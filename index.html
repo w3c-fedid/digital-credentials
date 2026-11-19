@@ -3640,8 +3640,11 @@
         </li>
         <li>If |action| is `"decline"`:
           <ol>
-            <li>[=Reject=] |promise| with a {{"NotAllowedError"}}
-            {{DOMException}}.
+            <li>Let |error| be a newly created {{"NotAllowedError"}}
+            {{DOMException}} in |global|'s [=relevant realm=].
+            </li>
+            <li>[=credential request coordinator/Reject the credential request
+            with=] |error| and |promise|.
             </li>
             <li>Return `true`.
             </li>
@@ -3665,7 +3668,19 @@
             object|.
             </li>
             <li>[=Queue a global task=] on the [=DOM manipulation task source=]
-            given |global| to [=resolve=] |promise| with |credential|.
+            given |global| to perform the following steps:
+              <ol>
+                <li>If the [=credential request coordinator=]'s [=credential
+                request coordinator/active promise=] is not |promise|, then
+                return.
+                </li>
+                <li>[=credential request coordinator/Clear the abort signal=].
+                </li>
+                <li>[=Resolve=] |promise| with |credential|.
+                </li>
+                <li>[=credential request coordinator/Return to idle=].
+                </li>
+              </ol>
             </li>
             <li>Return `true`.
             </li>
