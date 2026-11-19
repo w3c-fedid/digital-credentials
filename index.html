@@ -1052,11 +1052,18 @@
           {{DigitalCredentialCreateRequest/data}}, if |request| is a
           {{DigitalCredentialCreateRequest}}.
           </li>
-          <li>[=serialize a JavaScript value to a JSON string|Serialize=]
-          |data| to a JSON string.
+          <li>Let |serializedData| be the result of [=serialize a JavaScript
+          value to a JSON string|serializing=] |data| to a JSON string.
           </li>
           <li>If serialization results in an [=exception=], [=exception/throw=]
           that [=exception=].
+          </li>
+          <li>Set |data| to the result of [=parse a JSON string to a JavaScript
+          value=] given |serializedData|, and set |request|'s
+          {{DigitalCredentialGetRequest/data}} or
+          {{DigitalCredentialCreateRequest/data}} to |data|, so that the
+          request this algorithm validates is the request the [=user agent=]
+          forwards.
           </li>
           <li>Validate |request|'s [=digital credential/presentation request
           data=] or [=digital credential/issuance request data=] by running
