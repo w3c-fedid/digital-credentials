@@ -988,9 +988,29 @@
           </li>
         </ol>
       </li>
-      <li>If |document| stops being [=Document/fully active=], [=credential
-      request coordinator/abort the credential request=] with an
-      {{"AbortError"}} {{DOMException}}.
+      <li>If |document| stops being [=Document/fully active=] while the
+      [=credential request coordinator=]'s [=credential request
+      coordinator/active promise=] is |promise|, then:
+        <ol>
+          <li>Dismiss the [=digital credential chooser=] or [=credential
+          manager chooser=].
+          </li>
+          <li>[=credential request coordinator/Clear the abort signal=].
+          </li>
+          <li>[=credential request coordinator/Return to idle=].
+          </li>
+          <li>[=Queue a global task=] on the [=DOM manipulation task source=]
+          given |global| to [=reject=] |promise| with a newly created
+          {{"AbortError"}} {{DOMException}} in |realm|.
+            <p class="note">
+              The coordinator does not wait for this task. A task for a
+              document that is not [=Document/fully active=] does not run, and
+              for a destroyed document it never will, so the coordinator has to
+              be "[=credential request coordinator/idle=]" before the task is
+              queued.
+            </p>
+          </li>
+        </ol>
       </li>
       <li>Let |handled| be the result of running [=handle virtual wallet
       behavior=] given |promise| and |global|.
@@ -1203,9 +1223,6 @@
       {{Promise}} |promise:Promise|:
     </p>
     <ol class="algorithm">
-      <li>Assert: the [=credential request coordinator=]'s [=credential request
-      coordinator/active promise=] is |promise|.
-      </li>
       <li>[=Queue a global task=] on the [=DOM manipulation task source=] given
       |promise|'s [=relevant global object=] to perform the following steps:
         <ol>
