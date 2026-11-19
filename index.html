@@ -1273,21 +1273,15 @@
       coordinator/idle=]".
       </li>
     </ol><!--
-    // MARK: Unloading document cleanup steps
+    // MARK: Digital credentials unloading steps
     -->
     <h3>
-      Unloading document cleanup steps
+      Digital credentials unloading steps
     </h3>
     <p>
-      This specification defines the following [=unloading document cleanup
-      steps=], given a [=Document=] |document|:
+      The <dfn class="export">digital credentials unloading steps</dfn>, given
+      a [=Document=] |document|, are:
     </p>
-    <p class="note">
-      HTML runs these steps when a document is unloaded, even if the user agent
-      keeps the document for the back/forward cache, and again when the
-      document is destroyed.
-    </p>
-    <aside class="issue" data-number="607"></aside>
     <ol class="algorithm">
       <li>Let |promise| be the [=credential request coordinator=]'s
       [=credential request coordinator/active promise=]. If |promise| is
@@ -1315,7 +1309,18 @@
           page holding |promise| must still see the rejection.
         </p>
       </li>
-    </ol><!--
+    </ol>
+    <p>
+      As one of the [=unloading document cleanup steps=], given a [=Document=]
+      |document|, run the [=digital credentials unloading steps=] given
+      |document|.
+    </p>
+    <p class="note">
+      HTML runs its [=unloading document cleanup steps=] when a document is
+      unloaded, even if the user agent keeps the document for the back/forward
+      cache, and again when the document is destroyed.
+    </p>
+    <aside class="issue" data-number="607"></aside><!--
     // MARK: Initiate the credential request
     -->
     <h3>
