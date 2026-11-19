@@ -1212,34 +1212,57 @@
           <li>If the [=credential request coordinator=]'s [=credential request
           coordinator/active promise=] is not |promise|, then return.
           </li>
-          <li>Let |signal| be the [=credential request coordinator=]'s
-          [=credential request coordinator/abort signal=].
-          </li>
-          <li>Let |abortAlgorithm| be the [=credential request coordinator=]'s
-          [=credential request coordinator/abort algorithm=].
-          </li>
-          <li>If |signal| is not `null` and |abortAlgorithm| is not `null`:
-            <ol>
-              <li>[=AbortSignal/Remove=] |abortAlgorithm| from |signal|.
-              </li>
-            </ol>
-          </li>
-          <li>Set the [=credential request coordinator=]'s [=credential request
-          coordinator/abort signal=] to `null`.
-          </li>
-          <li>Set the [=credential request coordinator=]'s [=credential request
-          coordinator/abort algorithm=] to `null`.
+          <li>[=credential request coordinator/Clear the abort signal=].
           </li>
           <li>[=Reject=] |promise| with |error|.
           </li>
-          <li>Set the [=credential request coordinator=]'s [=credential request
-          coordinator/active promise=] to `null`.
-          </li>
-          <li>Set the [=credential request coordinator=] [=credential request
-          coordinator/interaction state=] to "[=credential request
-          coordinator/idle=]".
+          <li>[=credential request coordinator/Return to idle=].
           </li>
         </ol>
+      </li>
+    </ol><!--
+    // MARK: Clear the abort signal
+    -->
+    <h3>
+      Clear the abort signal
+    </h3>
+    <p>
+      To <dfn data-dfn-for="credential request coordinator">clear the abort
+      signal</dfn>:
+    </p>
+    <ol class="algorithm">
+      <li>Let |signal| be the [=credential request coordinator=]'s [=credential
+      request coordinator/abort signal=].
+      </li>
+      <li>Let |abortAlgorithm| be the [=credential request coordinator=]'s
+      [=credential request coordinator/abort algorithm=].
+      </li>
+      <li>If |signal| is not `null` and |abortAlgorithm| is not `null`,
+      [=AbortSignal/Remove=] |abortAlgorithm| from |signal|.
+      </li>
+      <li>Set the [=credential request coordinator=]'s [=credential request
+      coordinator/abort signal=] to `null`.
+      </li>
+      <li>Set the [=credential request coordinator=]'s [=credential request
+      coordinator/abort algorithm=] to `null`.
+      </li>
+    </ol><!--
+    // MARK: Return to idle
+    -->
+    <h3>
+      Return to idle
+    </h3>
+    <p>
+      To <dfn data-dfn-for="credential request coordinator">return to
+      idle</dfn>:
+    </p>
+    <ol class="algorithm">
+      <li>Set the [=credential request coordinator=]'s [=credential request
+      coordinator/active promise=] to `null`.
+      </li>
+      <li>Set the [=credential request coordinator=]'s [=credential request
+      coordinator/interaction state=] to "[=credential request
+      coordinator/idle=]".
       </li>
     </ol><!--
     // MARK: Initiate the credential request
@@ -1428,23 +1451,8 @@
                   <li>Let |parsedResponseDataOrError| be the result of [=parse
                   a JSON string to a JavaScript value=] given |responseData|.
                   </li>
-                  <li>Let |abortSignal| be the [=credential request
-                  coordinator=]'s [=credential request coordinator/abort
+                  <li>[=credential request coordinator/Clear the abort
                   signal=].
-                  </li>
-                  <li>Let |abortAlgorithm| be the [=credential request
-                  coordinator=]'s [=credential request coordinator/abort
-                  algorithm=].
-                  </li>
-                  <li>If |abortSignal| is not `null` and |abortAlgorithm| is
-                  not `null`, [=AbortSignal/Remove=] |abortAlgorithm| from
-                  |abortSignal|.
-                  </li>
-                  <li>Set the [=credential request coordinator=]'s [=credential
-                  request coordinator/abort signal=] to `null`.
-                  </li>
-                  <li>Set the [=credential request coordinator=]'s [=credential
-                  request coordinator/abort algorithm=] to `null`.
                   </li>
                   <li>If |parsedResponseDataOrError| is an [=exception=]:
                     <ol>
@@ -1473,12 +1481,7 @@
                       </li>
                     </ol>
                   </li>
-                  <li>Set the [=credential request coordinator=]'s [=credential
-                  request coordinator/active promise=] to `null`.
-                  </li>
-                  <li>Set the [=credential request coordinator=] [=credential
-                  request coordinator/interaction state=] to "[=credential
-                  request coordinator/idle=]".
+                  <li>[=credential request coordinator/Return to idle=].
                   </li>
                 </ol>
               </li>
