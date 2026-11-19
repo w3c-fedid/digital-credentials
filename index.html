@@ -2535,45 +2535,49 @@
           ({{DigitalCredentialPresentationProtocol/"org-iso-mdoc"}})
         </h5>
         <p>
-          The mdoc data model ([[ISO18013-5]]) is element-granular: a
+          The mdoc data model ([[[ISO18013-5]]]) is element-granular: a
           [=verifier=] requests individual data elements, and an mdoc need not
           release an element merely because it is present, which supports data
           minimization (for example, an age-over attestation can confirm a
-          threshold without revealing date of birth). As with [[OPENID4VP]],
-          unlinkability is not inherent: it depends on the issuer and wallet
-          rotating per-presentation keys and signed objects, and is described
-          as a recommendation rather than a guaranteed property. On the Digital
-          Credentials API path defined in [[ISO18013-7]] Annex C, the
-          presentation is a direct exchange between the wallet and the verifier
-          with no issuer contact, and the response is encrypted to the
-          verifier, so a [=user agent=] cannot inspect it. Revocation is out of
-          scope for [[ISO18013-7]]; freshness relies on the validity window of
-          the signed object, and [[ISO18013-5]] cautions that revocation
-          techniques can undermine unlinkability. The mechanism for obtaining
-          the holder's consent is out of scope, but the base standard
-          recommends informed, transaction-time consent rather than blanket
-          authorization. Verifier authentication (reader authentication) is
-          optional, while the Digital Credentials API path additionally binds
-          the request [=origin=] into the session and requires the exchange to
-          be aborted if the origin is absent, which mitigates
-          request-forwarding attacks that affect other invocation mechanisms.
+          threshold without revealing date of birth). As with [[[OPENID4VP]]],
+          unlinkability is not inherent: it depends on the [=issuer=] and
+          [=credential manager=] rotating per-presentation keys and signed
+          objects, and is described as a recommendation rather than a
+          guaranteed property. On the Digital Credentials API path defined in
+          [[[ISO18013-7]]] Annex C, the presentation is a direct exchange
+          between the [=credential manager=] and the [=verifier=] with no
+          [=issuer=] contact, and the response is encrypted to the request's
+          encryption key, so a [=user agent=] cannot inspect it (though when
+          reader authentication is omitted, an in-page script can substitute
+          that key; see [[[#signing-presentation-requests]]]). Revocation is
+          out of scope for [[[ISO18013-7]]]; freshness relies on the validity
+          window of the signed object, and [[[ISO18013-5]]] cautions that
+          revocation techniques can undermine unlinkability. The mechanism for
+          obtaining the [=holder=]'s consent is out of scope, but the base
+          standard recommends informed, transaction-time consent rather than
+          blanket authorization. Verifier authentication (reader
+          authentication) is optional, while the Digital Credentials API path
+          additionally binds the request [=origin=] into the session and
+          requires the exchange to be aborted if the origin is absent, which
+          mitigates request-forwarding attacks that affect other invocation
+          mechanisms.
         </p>
         <h5>
           OpenID for Verifiable Credential Issuance
           ({{DigitalCredentialIssuanceProtocol/"openid4vci-v1"}})
         </h5>
         <p>
-          [[OPENID4VCI]] is an [=digital credential/issuance protocol=], so the
-          presentation considerations above apply to it only indirectly. For
-          unlinkability it supports batch issuance of credentials bound to
+          [[[OPENID4VCI]]] is an [=digital credential/issuance protocol=], so
+          the presentation considerations above apply to it only indirectly.
+          For unlinkability it supports batch issuance of credentials bound to
           distinct keys, which its own text describes as aiding
-          verifier-to-verifier unlinkability only; the issuer controls the
+          verifier-to-verifier unlinkability only; the [=issuer=] controls the
           batch size. Beyond first issuance, the credential lifecycle can
           involve further contact with the [=issuer=] (for example deferred
           issuance, a notification endpoint, or non-interactive refresh), some
           of which is optional. Data-minimization guidance is present but is
           directed at limiting what a [=verifier=] later obtains and at
-          storage, rather than constraining what the issuer collects.
+          storage, rather than constraining what the [=issuer=] collects.
         </p>
         <p class="note">
           At the time of writing, no binding of
