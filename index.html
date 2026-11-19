@@ -800,6 +800,12 @@
     </p>
     <p>
       The [=credential request coordinator=] maintains an <dfn data-dfn-for=
+      "credential request coordinator">active document</dfn>, which the user
+      agent initializes as `null`. It is the {{Document}} that made the request
+      the [=credential request coordinator/active promise=] reflects.
+    </p>
+    <p>
+      The [=credential request coordinator=] maintains an <dfn data-dfn-for=
       "credential request coordinator">abort signal</dfn>, which the user agent
       initializes as `null`.
     </p>
@@ -938,31 +944,8 @@
       <li>Set the [=credential request coordinator=]'s [=credential request
       coordinator/active promise=] to |promise|.
       </li>
-      <li>If |document| stops being [=Document/fully active=] while the
-      [=credential request coordinator=]'s [=credential request
-      coordinator/active promise=] is |promise|, then:
-        <ol>
-          <li>Let |wasRequesting| be `true` if the [=credential request
-          coordinator=]'s [=credential request coordinator/interaction state=]
-          is "[=credential request coordinator/requesting=]", and `false`
-          otherwise.
-          </li>
-          <li>[=credential request coordinator/Clear the abort signal=].
-          </li>
-          <li>[=credential request coordinator/Return to idle=].
-          </li>
-          <li>If |wasRequesting| is `true`, dismiss the [=digital credential
-          chooser=] or [=credential manager chooser=].
-          </li>
-          <li>[=Reject=] |promise| with a newly created {{"AbortError"}}
-          {{DOMException}} in |realm|.
-            <p class="note">
-              This step rejects |promise| directly. A task queued for a
-              document that is not [=Document/fully active=] might never run,
-              but a parent page holding |promise| must still see the rejection.
-            </p>
-          </li>
-        </ol>
+      <li>Set the [=credential request coordinator=]'s [=credential request
+      coordinator/active document=] to |document|.
       </li>
       <li>Let |validatedRequests| be the result of [=credential request
       coordinator/validate credential requests=] given |requests|. If that
@@ -1283,8 +1266,54 @@
       coordinator/active promise=] to `null`.
       </li>
       <li>Set the [=credential request coordinator=]'s [=credential request
+      coordinator/active document=] to `null`.
+      </li>
+      <li>Set the [=credential request coordinator=]'s [=credential request
       coordinator/interaction state=] to "[=credential request
       coordinator/idle=]".
+      </li>
+    </ol><!--
+    // MARK: Unloading document cleanup steps
+    -->
+    <h3>
+      Unloading document cleanup steps
+    </h3>
+    <p>
+      This specification defines the following [=unloading document cleanup
+      steps=], given a [=Document=] |document|:
+    </p>
+    <p class="note">
+      HTML runs these steps when a document is unloaded, even if the user agent
+      keeps the document for the back/forward cache, and again when the
+      document is destroyed.
+    </p>
+    <aside class="issue" data-number="607"></aside>
+    <ol class="algorithm">
+      <li>Let |promise| be the [=credential request coordinator=]'s
+      [=credential request coordinator/active promise=]. If |promise| is
+      `null`, return.
+      </li>
+      <li>If the [=credential request coordinator=]'s [=credential request
+      coordinator/active document=] is not |document|, return.
+      </li>
+      <li>Let |wasRequesting| be `true` if the [=credential request
+      coordinator=]'s [=credential request coordinator/interaction state=] is
+      "[=credential request coordinator/requesting=]", and `false` otherwise.
+      </li>
+      <li>[=credential request coordinator/Clear the abort signal=].
+      </li>
+      <li>[=credential request coordinator/Return to idle=].
+      </li>
+      <li>If |wasRequesting| is `true`, dismiss the [=digital credential
+      chooser=] or [=credential manager chooser=].
+      </li>
+      <li>[=Reject=] |promise| with a newly created {{"AbortError"}}
+      {{DOMException}} in |promise|'s [=relevant realm=].
+        <p class="note">
+          This step rejects |promise| directly. A task queued for a document
+          that is not [=Document/fully active=] might never run, but a parent
+          page holding |promise| must still see the rejection.
+        </p>
       </li>
     </ol><!--
     // MARK: Initiate the credential request
