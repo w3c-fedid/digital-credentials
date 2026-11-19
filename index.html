@@ -1079,7 +1079,8 @@
           [=credential request coordinator/validate request data=] given the
           result of [=convert request protocol=] given |request|, and
           |checkedData|, and by any other criteria. Validation fails if any of
-          these fail.
+          these fail. A failure of [=credential request coordinator/validate
+          request data=] means the request data is malformed or invalid.
             <p>
               In addition to protocol-defined requirements, a [=user agent=]
               might apply validation criteria based on local policy,
@@ -1176,8 +1177,9 @@
     <p>
       To <dfn data-dfn-for="credential request coordinator">validate request
       data</dfn> given a {{DigitalCredentialProtocol}}
-      |protocol:DigitalCredentialProtocol| and an {{object}} |data|, return
-      failure if |protocol| is
+      |protocol:DigitalCredentialProtocol| and a JavaScript <a data-cite=
+      "ECMASCRIPT#sec-object-type">Object</a> |data|, return failure if
+      |protocol| is
       {{DigitalCredentialPresentationProtocol/"openid4vp-v1-unsigned"}},
       {{DigitalCredentialPresentationProtocol/"openid4vp-v1-signed"}}, or
       {{DigitalCredentialPresentationProtocol/"openid4vp-v1-multisigned"}} and
@@ -1231,11 +1233,11 @@
     <aside class="note">
       <p>
         [[[OPENID4VP]]] carries unencrypted credential data in "`vp_token`",
-        and its error object carries only "`error`". The [=user agent=] cannot
-        tell ciphertext from cleartext, so this check only catches a
-        [=credential manager=] that ignored the request. [=credential request
-        coordinator/Validate request data=] is the check that does not depend
-        on the [=credential manager=].
+        and its error object carries "`error`" rather than "`response`". The
+        [=user agent=] cannot tell ciphertext from cleartext, so this check
+        only catches a [=credential manager=] that ignored the request.
+        [=credential request coordinator/Validate request data=] is the check
+        that does not depend on the [=credential manager=].
       </p>
     </aside><!--
     // MARK: Abort and reject algorithms
