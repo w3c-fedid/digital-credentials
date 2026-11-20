@@ -938,12 +938,14 @@
       <li>Set the [=credential request coordinator=]'s [=credential request
       coordinator/active promise=] to |promise|.
       </li>
-      <li>Let |validationError| be `null`.
+      <li>Let |validationFailed| be `false`.
+      </li>
+      <li>Let |validationError| be `undefined`.
       </li>
       <li>Let |validatedRequests| be the result of [=credential request
       coordinator/validate credential requests=] given |requests|. If that
-      [=exception/throws=] an [=exception=] |error|, then set |validationError|
-      to |error|.
+      [=exception/throws=] an [=exception=] |error|, then set
+      |validationFailed| to `true` and |validationError| to |error|.
       </li>
       <li>If |signal| was passed and |signal| is [=AbortSignal/aborted=], then:
         <ol>
@@ -962,7 +964,7 @@
           `toJSON()` method. An abort takes precedence over a validation error.
         </p>
       </li>
-      <li>If |validationError| is not `null`, then:
+      <li>If |validationFailed| is `true`, then:
         <ol>
           <li>[=credential request coordinator/Reject the credential request
           with=] |validationError| and |promise|.
