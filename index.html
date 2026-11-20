@@ -1061,16 +1061,26 @@
           {{DigitalCredentialCreateRequest/data}}, if |request| is a
           {{DigitalCredentialCreateRequest}}.
           </li>
-          <li>[=serialize a JavaScript value to a JSON string|Serialize=]
-          |data| to a JSON string.
+          <li>Let |serializedData| be the result of [=serialize a JavaScript
+          value to a JSON string|serializing=] |data| to a JSON string.
           </li>
           <li>If serialization results in an [=exception=], [=exception/throw=]
           that [=exception=].
           </li>
+          <li>Let |checkedData| be the result of [=parse a JSON string to a
+          JavaScript value=] given |serializedData|.
+          </li>
+          <li>If |checkedData| is not an <a data-cite=
+          "ECMASCRIPT#sec-object-type">Object</a>, [=exception/throw=] a
+          {{TypeError}}.
+          </li>
           <li>Validate |request|'s [=digital credential/presentation request
-          data=] or [=digital credential/issuance request data=] according to
-          |request|'s [=digital credential/presentation protocol=] or [=digital
-          credential/issuance protocol=] or other criteria.
+          data=] or [=digital credential/issuance request data=] by running
+          [=credential request coordinator/validate request data=] given the
+          result of [=convert request protocol=] given |request|, and
+          |checkedData|, and by any other criteria. Validation fails if any of
+          these fail. A failure of [=credential request coordinator/validate
+          request data=] means the request data is malformed or invalid.
             <p>
               In addition to protocol-defined requirements, a [=user agent=]
               might apply validation criteria based on local policy,
@@ -1148,6 +1158,9 @@
                 </ol>
               </li>
               <li>Otherwise, [=list/append=] |request| to |validatedRequests|.
+              When the [=user agent=] forwards |request| to a [=credential
+              manager=], it forwards |serializedData| as the request's data,
+              unchanged.
               </li>
             </ol>
           </li>
@@ -1156,6 +1169,77 @@
       <li>Return |validatedRequests|.
       </li>
     </ol><!--
+    // MARK: Validate request data
+    -->
+    <h3>
+      Validate request data
+    </h3>
+    <p>
+      To <dfn data-dfn-for="credential request coordinator">validate request
+      data</dfn> given a {{DigitalCredentialProtocol}}
+      |protocol:DigitalCredentialProtocol| and a JavaScript <a data-cite=
+      "ECMASCRIPT#sec-object-type">Object</a> |data|, return failure if
+      |protocol| is
+      {{DigitalCredentialPresentationProtocol/"openid4vp-v1-unsigned"}},
+      {{DigitalCredentialPresentationProtocol/"openid4vp-v1-signed"}}, or
+      {{DigitalCredentialPresentationProtocol/"openid4vp-v1-multisigned"}} and
+      the request's "`response_mode`" is not "`dc_api.jwt`". Otherwise, return
+      success.
+    </p>
+    <p>
+      For unsigned requests, "`response_mode`" is an own property of |data|.
+      For signed requests, "`response_mode`" is a claim in the payload of the
+      JWS Compact Serialization in |data|'s own property "`request`". For
+      multisigned requests, "`response_mode`" is a claim in the payload of the
+      JWS JSON Serialization |data|, taken from |data|'s own property
+      "`payload`" [[RFC7515]]. If the [=user agent=] cannot read
+      "`response_mode`", [=credential request coordinator/validate request
+      data=] returns failure.
+    </p>
+    <aside class="note">
+      <p>
+        Only [[[OPENID4VP]]] needs a rule here, because [[[OPENID4VP]]] allows
+        an unencrypted response unless "`response_mode`" is "`dc_api.jwt`".
+        [[[ISO18013-7]]] Annex C defines only an encrypted response. The [=user
+        agent=] does not check signatures or encryption keys; the [=credential
+        manager=] does.
+      </p>
+    </aside><!--
+    // MARK: Validate response data
+    -->
+    <h3>
+      Validate response data
+    </h3>
+    <p>
+      To <dfn data-dfn-for="credential request coordinator">validate response
+      data</dfn> given a {{DigitalCredentialProtocol}}
+      |protocol:DigitalCredentialProtocol| and a JavaScript <a data-cite=
+      "ECMASCRIPT#sec-object-type">Object</a> |data|, return failure if any of
+      these is true, and success otherwise:
+    </p>
+    <ul>
+      <li>|protocol| is
+      {{DigitalCredentialPresentationProtocol/"org-iso-mdoc"}} and |data| does
+      not have an own property "`response`".
+      </li>
+      <li>|protocol| is
+      {{DigitalCredentialPresentationProtocol/"openid4vp-v1-unsigned"}},
+      {{DigitalCredentialPresentationProtocol/"openid4vp-v1-signed"}}, or
+      {{DigitalCredentialPresentationProtocol/"openid4vp-v1-multisigned"}}, and
+      |data| has an own property "`vp_token`", or has neither an own property
+      "`response`" nor an own property "`error`".
+      </li>
+    </ul>
+    <aside class="note">
+      <p>
+        [[[OPENID4VP]]] carries unencrypted credential data in "`vp_token`",
+        and its error object carries "`error`" rather than "`response`". The
+        [=user agent=] cannot tell ciphertext from cleartext, so this check
+        only catches a [=credential manager=] that ignored the request.
+        [=credential request coordinator/Validate request data=] is the check
+        that does not depend on the [=credential manager=].
+      </p>
+    </aside><!--
     // MARK: Abort and reject algorithms
     -->
     <h3>
@@ -1466,6 +1550,15 @@
                     <ol>
                       <li>[=Reject=] |promise| with a newly created
                       {{TypeError}}.
+                      </li>
+                    </ol>
+                  </li>
+                  <li>Otherwise, if [=credential request coordinator/validate
+                  response data=] given |protocol| and
+                  |parsedResponseDataOrError| returns failure:
+                    <ol>
+                      <li>[=Reject=] |promise| with a newly created
+                      {{"SecurityError"}} {{DOMException}}.
                       </li>
                     </ol>
                   </li>
@@ -3658,6 +3751,32 @@
             <li>Let |JS object| be the result of [=parse a JSON string to a
             JavaScript value|parsing=] |JSON string| given |global|'s
             [=relevant realm=].
+            </li>
+            <li>If |JS object| is not an <a data-cite=
+            "ECMASCRIPT#sec-object-type">Object</a>:
+              <ol>
+                <li>Let |error| be a newly created {{TypeError}} in |global|'s
+                [=relevant realm=].
+                </li>
+                <li>[=credential request coordinator/Reject the credential
+                request with=] |error| and |promise|.
+                </li>
+                <li>Return `true`.
+                </li>
+              </ol>
+            </li>
+            <li>If [=credential request coordinator/validate response data=]
+            given |protocol| and |JS object| returns failure:
+              <ol>
+                <li>Let |error| be a newly created {{"SecurityError"}}
+                {{DOMException}} in |global|'s [=relevant realm=].
+                </li>
+                <li>[=credential request coordinator/Reject the credential
+                request with=] |error| and |promise|.
+                </li>
+                <li>Return `true`.
+                </li>
+              </ol>
             </li>
             <li>Assert: the [=credential request coordinator=]'s [=credential
             request coordinator/active promise=] is |promise|.
