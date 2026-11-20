@@ -3752,6 +3752,32 @@
             JavaScript value|parsing=] |JSON string| given |global|'s
             [=relevant realm=].
             </li>
+            <li>If |JS object| is not an <a data-cite=
+            "ECMASCRIPT#sec-object-type">Object</a>:
+              <ol>
+                <li>Let |error| be a newly created {{TypeError}} in |global|'s
+                [=relevant realm=].
+                </li>
+                <li>[=credential request coordinator/Reject the credential
+                request with=] |error| and |promise|.
+                </li>
+                <li>Return `true`.
+                </li>
+              </ol>
+            </li>
+            <li>If [=credential request coordinator/validate response data=]
+            given |protocol| and |JS object| returns failure:
+              <ol>
+                <li>Let |error| be a newly created {{"SecurityError"}}
+                {{DOMException}} in |global|'s [=relevant realm=].
+                </li>
+                <li>[=credential request coordinator/Reject the credential
+                request with=] |error| and |promise|.
+                </li>
+                <li>Return `true`.
+                </li>
+              </ol>
+            </li>
             <li>Assert: the [=credential request coordinator=]'s [=credential
             request coordinator/active promise=] is |promise|.
             </li>
