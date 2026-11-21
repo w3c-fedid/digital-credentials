@@ -960,11 +960,23 @@
       </li>
       <li>If |signal| was passed, then:
         <ol>
-          <li>Assert: |signal| is not [=AbortSignal/aborted=].
+          <li>If |signal| is [=AbortSignal/aborted=], then:
+            <ol>
+              <li>[=credential request coordinator/Reject the credential
+              request with=] |signal|'s [=AbortSignal/abort reason=] and
+              |promise|.
+              </li>
+              <li>Return |promise|.
+              </li>
+            </ol>
             <p class="note">
-              [=AbortSignal/aborted|Pre-aborted=] [=AbortController/signals=]
-              are handled by [=request a `Credential`=] and [=create a
-              `Credential`=] before this algorithm is invoked.
+              [=request a `Credential`=] and [=create a `Credential`=] reject a
+              [=AbortSignal/aborted|pre-aborted=] [=AbortController/signal=]
+              before this algorithm runs. A signal can still become aborted
+              while [=credential request coordinator/validate credential
+              requests=] runs, because serializing request data can call
+              script, such as a `toJSON()` method. A validation error still
+              wins over such an abort, because validation finishes first.
             </p>
           </li>
           <li>Set the [=credential request coordinator=]'s [=credential request
