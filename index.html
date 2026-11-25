@@ -2524,9 +2524,8 @@
           </li>
           <li>If a protocol supports issuer-hiding presentations, it can reduce
           [=verifier=]-based surveillance and potential discrimination. The use
-          of
-          [[[vc-data-model#zero-knowledge-proofs|zero-knowledge proofs]]] alone
-          does not guarantee this property; it depends on whether the
+          of [[[vc-data-model#zero-knowledge-proofs|zero-knowledge proofs]]]
+          alone does not guarantee this property; it depends on whether the
           credential format, proof mechanism, and trust model are designed not
           to identify a single [=issuer=].
           </li>
@@ -2671,13 +2670,12 @@
           Leaking incidental data with credential presentations
         </h4>
         <p>
-          The presentation of a credential to [=verifiers=] generally includes
+          The presentation of a credential to a [=verifier=] generally includes
           more information than the [=verifier=] requested. This can include
           issuer-identifying material, signatures, verification keys, and other
           metadata. The privacy implications of revealing issuer-identifying
-          material are described in
-          [[[#issuer-identity-disclosure|Issuer identity disclosure and inferred
-          information]]].
+          material are described in [[[#issuer-identity-disclosure|Issuer
+          identity disclosure and inferred information]]].
         </p>
         <p>
           This additional information could be used to reidentify or
