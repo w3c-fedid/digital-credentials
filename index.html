@@ -77,6 +77,12 @@
           date: "2025-02-25",
           publisher: "W3C"
         },
+        "web-dev-strict-csp-article": {
+          title: "Mitigate cross-site scripting (XSS) with a strict Content Security Policy (CSP)",
+          href: "https://web.dev/articles/strict-csp",
+          date: "2024-09-13",
+          publisher: "web.dev"
+        },
       },
       xref: {
         profile: "web-platform",
@@ -84,7 +90,8 @@
     };
     </script>
   </head>
-  <body data-cite="credential-management permissions-policy vc-data-model">
+  <body data-cite=
+  "credential-management permissions-policy secure-contexts vc-data-model">
     <section id="abstract">
       <p>
         This document specifies an API enabling [=user agents=] to mediate the
@@ -324,7 +331,8 @@
         Similarly, when a site needs to [=digital credential/issuance|issue=] a
         digital credential, the [[[#DC-API|Digital Credentials API]]] mediates
         the issuance of a digital credential between the site, the user agent,
-        and the [=holder=].
+        and the [=holder=]'s [=credential manager=], via a [=credential manager
+        chooser=].
       </p>
       <h3>
         Issuing a digital credential
@@ -594,6 +602,15 @@
           user interface. The exact relationship is implementation-defined.
         </aside>
       </dd>
+      <dt>
+        <dfn>Credential manager chooser</dfn>
+      </dt>
+      <dd>
+        A platform-provided user interface that presents one or more
+        [=credential managers=] to the user, allowing them to choose a
+        credential manager to handle the [=digital credential/issuance
+        request=], or cancel the operation.
+      </dd>
     </dl><!--
     // MARK: Protocols
     -->
@@ -816,6 +833,15 @@
       </li>
     </ul>
     <p>
+      A [=user agent=] MUST use its own determination of the [=request
+      context/document origin=] when validating or forming the request, and of
+      both the [=request context/document origin=] and the [=request
+      context/top-level origin=] when presenting the [=digital credential
+      chooser=] or [=credential manager chooser=]. A user agent MUST NOT rely
+      on an [=origin=] supplied by the content whose request is being mediated
+      for either purpose.
+    </p>
+    <p>
       A user agent MAY delegate some or all coordinator responsibilities to
       external [=credential managers=], platform components, or other trusted
       entities according to user or platform policy.
@@ -879,9 +905,6 @@
     </p>
     <ol class="algorithm">
       <li>Let |realm| be |global|'s [=relevant realm=].
-      </li>
-      <li>If |origin| is an [=opaque origin=], return [=a promise rejected
-      with=] a {{"SecurityError"}} {{DOMException}} in |realm|.
       </li>
       <li>Let |document| be |global|'s [=associated `Document`=].
       </li>
@@ -982,7 +1005,7 @@
       <li>If |handled| is `true`, return |promise|.
       </li>
       <li>[=credential request coordinator/Initiate the credential request=]
-      with |document|, |validatedRequests|, |promise|, and |signal|.
+      with |origin|, |document|, |validatedRequests|, |promise|, and |signal|.
       </li>
       <li>Return |promise|.
       </li>
@@ -1164,7 +1187,8 @@
           coordinator/interaction state=] to "[=credential request
           coordinator/aborting=]".
           </li>
-          <li>Dismiss the [=digital credential chooser=].
+          <li>Dismiss the [=digital credential chooser=] or [=credential
+          manager chooser=].
             <p class="note">
               Dismissal can fail (e.g., if the [=digital credential chooser=]
               was destroyed due to memory pressure), but the [=coordinator=]
@@ -1195,34 +1219,57 @@
           <li>If the [=credential request coordinator=]'s [=credential request
           coordinator/active promise=] is not |promise|, then return.
           </li>
-          <li>Let |signal| be the [=credential request coordinator=]'s
-          [=credential request coordinator/abort signal=].
-          </li>
-          <li>Let |abortAlgorithm| be the [=credential request coordinator=]'s
-          [=credential request coordinator/abort algorithm=].
-          </li>
-          <li>If |signal| is not `null` and |abortAlgorithm| is not `null`:
-            <ol>
-              <li>[=AbortSignal/Remove=] |abortAlgorithm| from |signal|.
-              </li>
-            </ol>
-          </li>
-          <li>Set the [=credential request coordinator=]'s [=credential request
-          coordinator/abort signal=] to `null`.
-          </li>
-          <li>Set the [=credential request coordinator=]'s [=credential request
-          coordinator/abort algorithm=] to `null`.
+          <li>[=credential request coordinator/Clear the abort signal=].
           </li>
           <li>[=Reject=] |promise| with |error|.
           </li>
-          <li>Set the [=credential request coordinator=]'s [=credential request
-          coordinator/active promise=] to `null`.
-          </li>
-          <li>Set the [=credential request coordinator=] [=credential request
-          coordinator/interaction state=] to "[=credential request
-          coordinator/idle=]".
+          <li>[=credential request coordinator/Return to idle=].
           </li>
         </ol>
+      </li>
+    </ol><!--
+    // MARK: Clear the abort signal
+    -->
+    <h3>
+      Clear the abort signal
+    </h3>
+    <p>
+      To <dfn data-dfn-for="credential request coordinator">clear the abort
+      signal</dfn>:
+    </p>
+    <ol class="algorithm">
+      <li>Let |signal| be the [=credential request coordinator=]'s [=credential
+      request coordinator/abort signal=].
+      </li>
+      <li>Let |abortAlgorithm| be the [=credential request coordinator=]'s
+      [=credential request coordinator/abort algorithm=].
+      </li>
+      <li>If |signal| is not `null` and |abortAlgorithm| is not `null`,
+      [=AbortSignal/Remove=] |abortAlgorithm| from |signal|.
+      </li>
+      <li>Set the [=credential request coordinator=]'s [=credential request
+      coordinator/abort signal=] to `null`.
+      </li>
+      <li>Set the [=credential request coordinator=]'s [=credential request
+      coordinator/abort algorithm=] to `null`.
+      </li>
+    </ol><!--
+    // MARK: Return to idle
+    -->
+    <h3>
+      Return to idle
+    </h3>
+    <p>
+      To <dfn data-dfn-for="credential request coordinator">return to
+      idle</dfn>:
+    </p>
+    <ol class="algorithm">
+      <li>Set the [=credential request coordinator=]'s [=credential request
+      coordinator/active promise=] to `null`.
+      </li>
+      <li>Set the [=credential request coordinator=]'s [=credential request
+      coordinator/interaction state=] to "[=credential request
+      coordinator/idle=]".
       </li>
     </ol><!--
     // MARK: Initiate the credential request
@@ -1232,26 +1279,34 @@
     </h3>
     <p>
       To <dfn data-dfn-for="credential request coordinator">initiate the
-      credential request</dfn> given a [=Document=] |document|, a [=list=] of
-      validated credential requests |validatedRequests|, a {{Promise}}
-      |promise:Promise|, and an optional {{AbortSignal}} |signal|:
+      credential request</dfn> given an [=origin=] |documentOrigin|, a
+      [=Document=] |document|, a [=list=] of validated credential requests
+      |validatedRequests|, a {{Promise}} |promise:Promise|, and an optional
+      {{AbortSignal}} |signal|:
     </p>
     <ol class="algorithm">
-      <li>Let |topLevelOrigin| be |document|'s [=top-level traversable=]'s
-      [=navigable/active document=]'s [=relevant settings object=]'s
-      [=environment settings object/origin=].
+      <li>Let |topLevelDocument| be the [=navigable/active document=] of the
+      [=navigable/top-level traversable=] of |document|'s [=node navigable=].
+      </li>
+      <li>Let |topLevelOrigin| be |topLevelDocument|'s [=relevant settings
+      object=]'s [=environment settings object/origin=].
       </li>
       <li>Let |requestData| be a new [=request context=] whose [=request
-      context/requests=] is |validatedRequests| and [=request context/top-level
-      origin=] is |topLevelOrigin|.
+      context/requests=] is |validatedRequests|, [=request context/document
+      origin=] is |documentOrigin|, and [=request context/top-level origin=] is
+      |topLevelOrigin|.
       </li>
       <li>[=In parallel=]:
         <ol>
-          <li>Display a [=digital credential chooser=] with |requestData| and
-          wait for one of the following outcomes:
+          <li>Display a [=digital credential chooser=] or [=credential manager
+          chooser=] with |requestData| and wait for one of the following
+          outcomes:
             <ul>
               <li>The user selects a [=digital credential=] or [=holder=] that
               can fulfill the request.
+              </li>
+              <li>The user chooses a [=credential manager=] to handle the
+              [=digital credential/issuance request=].
               </li>
               <li>The user cancels the operation.
               </li>
@@ -1262,6 +1317,47 @@
               When a [=user agent=] communicates with a [=credential manager=]
               located on a different device, it is RECOMMENDED that the [=user
               agent=] use [[[FIDO-CLIENT-TO-AUTHENTICATOR-PROTOCOL-V2.3]]].
+            </p>
+            <p>
+              When presenting the request to the user:
+            </p>
+            <dl class="switch">
+              <dt>
+                |requestData|'s [=request context/document origin=] and its
+                [=request context/top-level origin=] are [=same origin=]:
+              </dt>
+              <dd>
+                The [=user agent=] SHOULD present the [=request
+                context/top-level origin=] to the user.
+              </dd>
+              <dt>
+                Otherwise:
+              </dt>
+              <dd>
+                The [=user agent=] SHOULD present both the [=request
+                context/top-level origin=] and the [=request context/document
+                origin=] to the user, conveying that the [=request
+                context/document origin=] is embedded within the page at the
+                [=request context/top-level origin=] and is the party
+                requesting presentation or issuance of the [=digital
+                credential=].
+              </dd>
+            </dl>
+            <p>
+              Where the [=digital credential chooser=] or [=credential manager
+              chooser=] is provided by the underlying platform, the [=user
+              agent=] SHOULD make both origins available to it so that they can
+              be presented to the user.
+            </p>
+            <p class="note">
+              When the two origins differ, presenting only the [=request
+              context/document origin=] can prevent the user from associating
+              the request with the site they are visiting, as that origin is
+              typically not reflected in the [=user agent=]'s address bar. When
+              the two origins differ, presenting only the [=request
+              context/top-level origin=] can mislead the user about which party
+              is requesting presentation or issuance of the [=digital
+              credential=].
             </p>
           </li>
           <li>If |signal| is not null and |signal| is [=AbortSignal/aborted=]:
@@ -1276,7 +1372,7 @@
               </li>
             </ol>
           </li>
-          <li>If the user cancels the operation or no credential was selected:
+          <li>If the user cancels the operation:
             <ol>
               <li>Let |error| be a newly created {{"NotAllowedError"}}
               {{DOMException}}.
@@ -1325,11 +1421,12 @@
               </li>
             </ol>
           </li>
-          <li>If a [=digital credential=] was selected by the user:
+          <li>If the user selected a [=digital credential=] or [=holder=], or
+          chose a [=credential manager=]:
             <ol>
               <li>Let |protocol| be the [=digital credential/protocol
-              identifier=] returned by the [=digital credential chooser=] for
-              this exchange.
+              identifier=] returned by the [=digital credential chooser=] or
+              [=credential manager chooser=] for this exchange.
                 <p class="note" title="Protocol is determined by the platform">
                   The [=digital credential chooser=] or underlying platform
                   determines which item in |validatedRequests| to forward to a
@@ -1340,7 +1437,8 @@
               </li>
               <li>Let |responseData| be a [=string=] [=digital
               credential/presentation response=] or [=string=] [=digital
-              credential/issuance response=] returned by the [=holder=].
+              credential/issuance response=] returned by the [=holder=] or
+              [=credential manager=].
                 <aside class="note" title="Why the response is a string">
                   The response is a string because the user agent is
                   responsible for parsing it into a JavaScript object in the
@@ -1360,23 +1458,8 @@
                   <li>Let |parsedResponseDataOrError| be the result of [=parse
                   a JSON string to a JavaScript value=] given |responseData|.
                   </li>
-                  <li>Let |abortSignal| be the [=credential request
-                  coordinator=]'s [=credential request coordinator/abort
+                  <li>[=credential request coordinator/Clear the abort
                   signal=].
-                  </li>
-                  <li>Let |abortAlgorithm| be the [=credential request
-                  coordinator=]'s [=credential request coordinator/abort
-                  algorithm=].
-                  </li>
-                  <li>If |abortSignal| is not `null` and |abortAlgorithm| is
-                  not `null`, [=AbortSignal/Remove=] |abortAlgorithm| from
-                  |abortSignal|.
-                  </li>
-                  <li>Set the [=credential request coordinator=]'s [=credential
-                  request coordinator/abort signal=] to `null`.
-                  </li>
-                  <li>Set the [=credential request coordinator=]'s [=credential
-                  request coordinator/abort algorithm=] to `null`.
                   </li>
                   <li>If |parsedResponseDataOrError| is an [=exception=]:
                     <ol>
@@ -1386,7 +1469,7 @@
                     </ol>
                   </li>
                   <li>Otherwise, if |parsedResponseDataOrError| is not an
-                  [=object=]:
+                  <a data-cite="ECMASCRIPT#sec-object-type">Object</a>:
                     <ol>
                       <li>[=Reject=] |promise| with a newly created
                       {{TypeError}}.
@@ -1405,12 +1488,7 @@
                       </li>
                     </ol>
                   </li>
-                  <li>Set the [=credential request coordinator=]'s [=credential
-                  request coordinator/active promise=] to `null`.
-                  </li>
-                  <li>Set the [=credential request coordinator=] [=credential
-                  request coordinator/interaction state=] to "[=credential
-                  request coordinator/idle=]".
+                  <li>[=credential request coordinator/Return to idle=].
                   </li>
                 </ol>
               </li>
@@ -1445,15 +1523,23 @@
     </p>
     <p>
       Additionally, the API also allows [=digital credential/Issuance
-      request|requesting issuance=] of a [=digital credential=], which
-      initiates a mediated issuance flow between the user agent and/or a
-      [=holder=]. This is done by calling the
+      request|requesting issuance=] of a [=digital credential=], which in turn
+      presents a [=credential manager chooser=] to the user, allowing them to
+      select a [=credential manager=] to save the [=digital credential=]. This
+      is done by calling the
       `navigator.credentials.`{{CredentialsContainer/create()}} method, which
       runs the [=create a credential=] algorithm of
       [[[credential-management]]]. That algorithm then calls back into this
       specification's {{DigitalCredential}} interface's
       {{Credential/[[Create]](origin,options, sameOriginWithAncestors)}}
       internal method.
+    </p>
+    <p>
+      [=digital credential/Issuance request|Digital credential issuance=] via
+      this API differs slightly from digital credential presentation. The
+      response data contains the protocol-specific response from the holder's
+      [=credential manager=], as defined by the issuance protocol, and does not
+      represent the actual issued digital credential itself.
     </p>
     <p>
       Please see [[[#credential-management-integration|Credential Management
@@ -1619,19 +1705,13 @@
     </p>
     <p>
       The {{DigitalCredential}} interface mandates [=user mediation=] for all
-      operations to ensure user control and consent.
-    </p>
-    <p>
-      To simplify the developer experience of {{CredentialsContainer/get()}}
-      calls involving a {{DigitalCredential}}, [=user agents=] MUST NOT throw
-      an error if the {{CredentialRequestOptions/mediation}} member is absent
-      or has a value other than {{CredentialMediationRequirement/"required"}}.
-      Similarly, in {{CredentialsContainer/create()}} calls involving a
-      {{DigitalCredential}}, [=user agents=] MUST NOT throw an error if the
-      {{CredentialCreationOptions/mediation}} member is absent or has a value
-      other than {{CredentialMediationRequirement/"required"}}. This makes
-      {{CredentialMediationRequirement/"required"}} mediation an implicit and
-      non-overridable behavior of the [[[#DC-API|API]]].
+      operations to ensure user control and consent. The {{DigitalCredential}}
+      [=interface object=] sets the {{Credential/[[implicitMediation]]}}
+      internal slot to {{CredentialMediationRequirement/"required"}}. This
+      means the credential type always behaves as if
+      {{CredentialMediationRequirement/"required"}} was passed, regardless of
+      the actual value of the {{CredentialRequestOptions/mediation}} and
+      {{CredentialCreationOptions/mediation}} members.
     </p>
     <pre class="idl">
     typedef (DigitalCredentialPresentationProtocol or DigitalCredentialIssuanceProtocol) DigitalCredentialProtocol;
@@ -1644,6 +1724,9 @@
       static boolean userAgentAllowsProtocol(DOMString protocol);
     };
     </pre>
+    <p>
+      {{DigitalCredential}} instances are [=Credential/origin bound=].
+    </p>
     <h4>
       The `protocol` member
     </h4>
@@ -1725,11 +1808,26 @@
         A [=list=] of validated [=digital credential/credential requests=].
       </dd>
       <dt>
+        <dfn data-dfn-for="request context">document origin</dfn>
+      </dt>
+      <dd>
+        An [=origin=]; the [=origin=] in which the request was made, that is,
+        the [=relevant settings object=]'s [=environment settings
+        object/origin=] passed by [[[credential-management]]] to the internal
+        methods in [[[#credential-management-integration]]]. When the request
+        is made from a [=Document=] embedded in a cross-origin context, this is
+        the embedded [=Document=]'s [=origin=] and not the [=request
+        context/top-level origin=].
+      </dd>
+      <dt>
         <dfn data-dfn-for="request context">top-level origin</dfn>
       </dt>
       <dd>
-        An [=environment settings object=]'s [=environment settings
-        object/origin=].
+        An [=origin=]; the [=origin=] of the [=navigable/active document=] of
+        the [=navigable/top-level traversable=] in which the request was made,
+        as determined by [=credential request coordinator/initiate the
+        credential request=]. It is used only when presenting the request to
+        the user; it is not used to validate or form the request.
       </dd>
     </dl>
     <h4>
@@ -1948,12 +2046,35 @@
       </p>
       <dl>
         <dt>
-          <dfn data-local-lt="tampering">Request Tampering</dfn>
+          <dfn>Network Tampering</dfn>
         </dt>
         <dd>
           A network attacker that can inject or modify page content in an
-          insecure context attempts to alter a {{DigitalCredentialGetRequest}}
-          or {{DigitalCredentialCreateRequest}} before processing.
+          [=secure context|insecure context=] attempts to alter a
+          {{DigitalCredentialGetRequest}} or {{DigitalCredentialCreateRequest}}
+          before processing. Threats that arise from a protocol or credential
+          format are described separately as [=protocol and format
+          vulnerabilities=].
+        </dd>
+        <dt>
+          <dfn>Verifier-Origin Script Compromise</dfn>
+        </dt>
+        <dd>
+          An attacker that can run scripts in the [=verifier's=] origin, for
+          example through cross-site scripting or a compromised dependency,
+          attempts to read a [=digital credential/credential response=] that
+          the [=verifier=] decrypted and exposed to the page, or to start
+          credential requests of its own from that origin.
+        </dd>
+        <dt>
+          <dfn>Browser Extension Access</dfn>
+        </dt>
+        <dd>
+          A browser extension that the user has allowed to run on the
+          [=verifier's=] page reads or alters what passes through that page,
+          including outgoing credential requests and any [=digital
+          credential/credential response=] the [=verifier=] exposes to the
+          page.
         </dd>
         <dt>
           <dfn>API Flooding</dfn>
@@ -1975,6 +2096,25 @@
           explicit permission from the embedding site, potentially enabling
           credential harvesting or unauthorized access to sensitive user data.
         </dd>
+        <dt>
+          <dfn>Malicious Payloads to the Underlying Platform</dfn>
+        </dt>
+        <dd>
+          A malicious website attempts to exploit vulnerabilities in the
+          underlying operating system or [=credential manager=] by passing
+          carefully crafted or malformed protocol requests through the API.
+        </dd>
+        <dt>
+          <dfn data-local-lt=
+          "forged requests|content process compromise">Forged Requests from a
+          Compromised Content Process</dfn>
+        </dt>
+        <dd>
+          An attacker who has taken control of the process that runs a page's
+          code attempts to make the [=digital credential chooser=] appear
+          without the user having interacted with the page, by skipping the
+          [=transient activation=] check that runs in that same process.
+        </dd>
       </dl>
       <h4>
         Out of Scope Threats
@@ -1986,21 +2126,53 @@
         end-to-end security of credential presentation and issuance. The
         following defines the [=out-of-scope threats=] for this specification:
       </p>
-      <ul>
-        <li>
-          <strong>Broken cryptography:</strong> a [=digital
-          credential/presentation protocol=] or [=digital credential/issuance
-          protocol=] can allow an algorithm, parameter, or certificate format
-          that is later found to be unsafe. Noticing that and moving away from
-          it is up to the protocol and to [=credential managers=], since they
-          are the ones that check the cryptography and decide who to trust.
-          This specification does not ask a [=user agent=] to look inside
-          [=digital credential/presentation request data=] or [=digital
-          credential/issuance request data=] to find it. So a [=verifier=] and
-          a [=credential manager=] can keep using something unsafe until the
-          protocol changes and implementations are updated.
-        </li>
-      </ul>
+      <dl>
+        <dt>
+          <dfn>OS or Device Compromise</dfn>
+        </dt>
+        <dd>
+          An attacker who gains control over the user's operating system or
+          device hardware could bypass [=user agent=] protections, extract
+          sensitive credential data directly from storage, or manipulate the
+          API calls. This threat is addressed by OS platform security and
+          hardware-backed keystores.
+        </dd>
+        <dt>
+          <dfn>Malicious Credential Managers</dfn>
+        </dt>
+        <dd>
+          A user might install, or be coerced by institutional mandate or
+          essential services to use, a [=credential manager=] that
+          intentionally leaks data, fails to securely encrypt credentials, or
+          ignores user consent. While the API protects users prior to wallet
+          selection through explicit user permission (see
+          [[[#user-permission-and-transparency]]]), it cannot govern the
+          internal behavior of a [=credential manager=] once the user
+          authorizes it to handle a request. Mitigating this risk relies on OS
+          platform security, app store vetting, and legal/regulatory frameworks
+          governing wallet providers.
+        </dd>
+        <dt>
+          <dfn>Protocol and Format Vulnerabilities</dfn>
+        </dt>
+        <dd>
+          Weaknesses in the specific [=digital credential/presentation
+          protocol=], [=digital credential/issuance protocol=], or credential
+          format being used (e.g., cryptographic flaws, unsafe algorithms, lack
+          of replay protection, missing request authentication, or missing
+          message integrity protection) could allow a network attacker, a
+          malicious website, or a malicious credential manager to intercept,
+          forge, or modify protocol requests, responses, or credentials.
+          Mitigation occurs primarily at the protocol, format, and transport
+          layers (e.g., mandating response encryption, request signing, and
+          TLS). While the API does not define format-specific cryptography or
+          inspect protocol payloads for cryptographic safety, it enforces
+          baseline security criteria on supported protocols (such as requiring
+          [[[#encrypting-credential-responses|response encryption]]] and
+          encouraging [[[#signing-presentation-requests|signed requests]]]) to
+          steer requests through the most secure path.
+        </dd>
+      </dl>
       <h3>
         Mitigations
       </h3>
@@ -2010,20 +2182,20 @@
       </p>
       <p>
         WebIDL [=interfaces=] of the Digital Credential API are only exposed in
-        [=secure contexts=], reducing the risk of [=tampering=] through
+        [=secure contexts=], reducing the risk of [=network tampering=] through
         [=secure contexts|insecure contexts=] (e.g., a malicious script being
         injected through the network). Please refer to the
         [[[secure-contexts#security-considerations]]] section of the
         [[[secure-contexts]]] specification for more information.
       </p>
       <p>
-        Additionally, requests from an [=opaque origin=] are rejected. Calls to
-        {{DigitalCredential/[[DiscoverFromExternalSource]](origin, options,
-        sameOriginWithAncestors)}} and {{DigitalCredential/[[Create]](origin,
-        options, sameOriginWithAncestors)}} from an [=opaque origin=] (for
-        example, a `data:` document, or a document sandboxed without
-        `allow-same-origin`) are [=reject|rejected=], reducing the risk of
-        malicious extraction or spoofing from untrusted environments.
+        To mitigate the risk of [=malicious payloads to the underlying
+        platform=], [=user agents=] pass request parameters to the [=credential
+        manager=] using [=serialize a JavaScript value to a JSON string|JSON
+        serialization=] (see [=credential request coordinator/validate
+        credential requests=]). The underlying platform and [=credential
+        managers=] are responsible for robustly parsing and validating these
+        protocol-specific JSON payloads before acting on them.
       </p>
       <p>
         The Digital Credentials API reduces [=API flooding=] through two
@@ -2048,6 +2220,30 @@
         </li>
       </ul>
       <p>
+        The [=request context/document origin=] and [=request context/top-level
+        origin=] are determined by the [=user agent=]: the [=request
+        context/document origin=] is the [=origin=] passed to
+        {{DigitalCredential/[[DiscoverFromExternalSource]](origin, options,
+        sameOriginWithAncestors)}} and {{DigitalCredential/[[Create]](origin,
+        options, sameOriginWithAncestors)}} by [[[credential-management]]] (see
+        [[[#credential-management-integration]]]); the [=request
+        context/top-level origin=] is that of the [=navigable/active document=]
+        of the [=navigable/top-level traversable=] in which the request was
+        made. [[[#credential-request-coordinator]]] requires the [=user agent=]
+        to use its own determination of the [=request context/document origin=]
+        when validating or forming the request, and of both origins when
+        presenting the [=digital credential chooser=] or [=credential manager
+        chooser=], and to not rely on an [=origin=] supplied by the content
+        whose request is being mediated.
+      </p>
+      <p>
+        This mitigates [=Unauthorized Cross-Origin Access=]: the party that is
+        shown to the user, and that is requesting presentation or issuance of
+        the [=digital credential=], reflects the [=user agent=]'s own
+        determination of who is asking, rather than a value the requesting
+        content can choose.
+      </p>
+      <p>
         For additional guidance on preventing abuse of credential requests,
         please refer to the section
         [[[credential-management#privacy-considerations]]] of the
@@ -2071,6 +2267,151 @@
         section [[[permissions-policy#privacy-and-security]]] of the
         [[[permissions-policy]]] specification for additional security
         properties provided by this integration.
+      </p>
+      <p>
+        Additionally, requests from an [=opaque origin=] are rejected. Because
+        {{DigitalCredential}} instances are [=Credential/origin bound=], calls
+        to request or create digital credentials from an [=opaque origin=] (for
+        example, a `data:` document, or a document sandboxed without
+        `allow-same-origin`) are rejected by [[[credential-management]]],
+        reducing the risk of malicious extraction or spoofing from untrusted
+        environments.
+      </p>
+      <section id="content-process-compromise">
+        <!--
+        // MARK: Forged Requests from a Compromised Content Process
+        -->
+        <h3>
+          Forged Requests from a Compromised Content Process
+        </h3>
+        <p>
+          Some user agents run a page's code in one process and handle
+          keyboard, mouse, and touch input in another, more trusted, process.
+          In those user agents, both the [=transient activation=] check and the
+          step that [=Consume user activation|consumes that activation=] are
+          evaluated in the process that runs the page, which is the process an
+          attacker is most likely to have taken over. An attacker in that
+          position can skip both (A and B) and ask for the [=digital credential
+          chooser=] anyway.
+        </p>
+        <p>
+          [=Transient activation=] lasts only a few seconds so that the user
+          can perceive the link between interacting with a page and the page
+          calling an interface gated on that interaction. [=Forged requests=]
+          break exactly that link. What the attacker gains is a credential
+          prompt drawn by the user agent or the operating system, at a moment
+          of the attacker's choosing, which the user cannot tell apart from a
+          legitimate prompt. That makes it useful for phishing, and for the
+          same prompt fatigue described under [=API flooding=].
+        </p>
+        <p>
+          A multi-process user agent is not asked to do anything beyond what
+          this specification already requires. What matters is where the
+          requirement is evaluated. Such a user agent is encouraged to evaluate
+          the [=transient activation=] check against a record of input held by
+          the process that presents the chooser, rather than one the process
+          running the page can write to, and to record the consumption that
+          follows it in that same trusted process. Having done so, it rejects a
+          request that fails the check with a {{"NotAllowedError"}}
+          {{DOMException}}, as the [=transient activation=] check already does.
+        </p>
+        <p class="note">
+          This changes nothing that content can observe. A page that has not
+          been taken over reaches the [=digital credential chooser=] only by
+          passing the [=transient activation=] check, so evaluating that check
+          somewhere the page cannot influence gives the same answer. It appears
+          here rather than as a step in an algorithm because the model has a
+          single [=transient activation=] state, already checked and consumed
+          before the [=digital credential chooser=] is reached, so a second
+          check of it cannot be expressed as a distinct step.
+        </p>
+      </section>
+      <h3>
+        Verifier hardening against script injection
+      </h3>
+      <p>
+        The [[[#DC-API|Digital Credentials API]]] is only exposed in [=secure
+        contexts=], which means the page reached the user over a [=potentially
+        trustworthy origin=] (e.g., from https). It does not mean that every
+        script running on that page can be trusted. The [=verifier=] here is
+        the site the user is visiting, the one asking for a credential. The
+        attacker is a script that ends up running inside that site's own page
+        in the user's browser: injected through a cross-site scripting flaw,
+        pulled in with a compromised third-party library, or served as a
+        tampered script. The [=verifier's=] servers can be perfectly sound. The
+        problem is on the page. The threat model calls this a [=verifier-origin
+        script compromise=].
+      </p>
+      <p>
+        A script running there has the same access as the site's own code. It
+        can read a [=digital credential/credential response=] once the
+        [=verifier=] has decrypted it and handed it back to the page, and it
+        can call the API itself, in which case the request comes from the
+        site's own [=origin=] and looks like one the site made.
+      </p>
+      <p>
+        Mandated response encryption (see
+        [[[#encrypting-credential-responses]]]) does protect the response from
+        this attack, but only while the response stays encrypted. An injected
+        script that leaves the request alone reads the cleartext only if the
+        [=verifier=] decrypts the response in the page, or decrypts the
+        response on a server and then sends the cleartext back to the page. A
+        script that alters the request, or starts its own, can supply its own
+        response encryption key instead. Only a [=credential manager=] that
+        requires a request signed with a key it recognizes as the
+        [=verifier's=] can catch this (see
+        [[[#signing-presentation-requests]]]). [=Verifiers=] are therefore
+        encouraged to decrypt [=digital credential/credential responses=] on a
+        server and to keep the decryption key off the page. A [=verifier=] that
+        needs the cleartext in the page hands this attacker the same access, so
+        a [=verifier=] is encouraged to expose only the data the page actually
+        uses.
+      </p>
+      <p>
+        Mediating every request through a [=digital credential chooser=] or a
+        [=credential manager chooser=] limits silent misuse of the API. Neither
+        chooser stops an injected script from reading data the [=verifier=] has
+        already exposed to the page.
+      </p>
+      <p>
+        [=Verifiers=] are encouraged to harden their pages against script
+        injection as defense-in-depth. A strong [[CSP3|Content Security
+        Policy]], for example a strict policy based on nonces or hashes rather
+        than on a list of allowed origins (see
+        [[?web-dev-strict-csp-article]]), can prevent some injected or
+        unauthorized scripts from running in the page. However, a policy this
+        strict is hard to write, and to keep intact as a site grows, so in
+        practice a Content Security Policy lowers this risk rather than
+        removing it. [=Verifiers=] are also encouraged to use
+        [[[trusted-types]]], which reduce the risk of DOM-based injection, and
+        [[[SRI]]], which guards against tampered or compromised third-party
+        scripts. [=Verifiers=] can also send an `Integrity-Policy:
+        blocked-destinations=(script)` header (see
+        [[[SRI#integrity-policy-section]]]), so that the [=user agent=] blocks
+        the request for any external script that has no integrity metadata, and
+        for any no-CORS external script. [=Verifiers=] can also employ signed
+        requests, which can let a [=credential manager=] detect an altered
+        request or a replaced response encryption key, within the limits
+        described below (see [[[#signing-presentation-requests]]]).
+      </p>
+      <p>
+        These measures reduce, but do not eliminate, the threat. A Content
+        Security Policy, [[[trusted-types]]], and [[[SRI]]] do not address
+        [=browser extension access=]: a browser extension that the user has
+        allowed to run on the page holds full access to that page and can read
+        or rewrite a request before it is sent. A signed request helps only if
+        the [=credential manager=] checks the signature against a key it
+        already recognizes as the [=verifier's=], and also refuses an unsigned
+        request in its place. Otherwise the extension can drop the signature,
+        send an unsigned request instead, and supply its own response
+        encryption key. A [=verifier=] that builds and signs each request on
+        its server, and never signs a request that comes from the page, keeps
+        an extension from forging the [=verifier's=] signature, but not from
+        dropping the signature. Which requests a [=credential manager=] accepts
+        is decided by the ecosystem a credential belongs to, not by this
+        specification (see [[[#signing-presentation-requests]]]). Injection
+        vectors outside the page's script-execution model also remain beyond
+        what these mechanisms can address.
       </p>
       <section>
         <!--
@@ -2262,7 +2603,8 @@
         <p>
           The Digital Credentials API offers the [=user agent=] the ability to
           intermediate on behalf of the user (e.g. in the form of a [=digital
-          credential chooser=]) to contextualize requests and
+          credential chooser=] or a [=credential manager chooser=]) to
+          contextualize requests and
           [[[#permission-prior-to-credential-manager-selection|prevent
           immediate exposure to holder applications]]]. It also enforces
           certain minimum requirements on supported protocols, such as
@@ -2471,10 +2813,16 @@
         </h5>
         <p>
           To prevent exposure of user information to other parties in
-          "transit", for example browser extensions loaded on [=verifier=]
-          pages, and to encourage secure storage of user credentials by the
-          [=verifier=], protocols are required to support and mandate encrypted
-          responses in a credential exchange.
+          "transit", and to encourage secure processing and storage of user
+          attributes by the [=verifier=], protocols are required to support and
+          mandate encrypted responses in a credential exchange. When the
+          encryption key travels inside the request, a script on the
+          [=verifier's=] page, such as one injected by a browser extension, can
+          replace that key in an unsigned request, so that the response is
+          encrypted to the attacker rather than to the [=verifier=]. A signed
+          request lets the [=credential manager=] detect the change only if it
+          checks the signature against a key it already recognizes as the
+          [=verifier's=] (see [[[#signing-presentation-requests]]]).
         </p>
         <p class="issue" data-number="109"></p>
         <h4>
@@ -2975,6 +3323,18 @@
           credentials from the user in order to access services, excluding
           individuals who are unwilling to present credentials.
         </p>
+        <p>
+          To ensure this protection is robust, errors returned by the API do
+          not leak information about the user's available credentials through
+          observable differences, such as distinct error types or timing
+          attacks. For example, rejecting a request because the user has no
+          matching credentials returns the same generic error as rejecting a
+          request because the user cancelled the prompt. Furthermore, to
+          prevent timing attacks without relying on artificial delays, [=user
+          agents=] present a user-facing dialog (such as an empty chooser or
+          notification) when no matching credentials are found, so that prompt
+          dismissal latency is indistinguishable from user cancellation.
+        </p>
       </section>
       <section id="user-permission-and-transparency">
         <!--
@@ -3106,6 +3466,24 @@
           improve the user permission experience as well.
         </p>
       </section>
+      <section>
+        <!--
+        // MARK: Data Clearing and Persistent State
+        -->
+        <h3>
+          Data Clearing and Persistent State
+        </h3>
+        <p>
+          The Digital Credentials API itself does not introduce new
+          browser-managed persistent state or local storage mechanisms. The
+          credentials requested through this API are stored and managed by
+          external [=credential managers=] or the operating system.
+          Consequently, when a user clears their browsing data (e.g., cookies
+          or local storage) for a given origin or globally, it generally does
+          not clear or affect the credentials held within those external
+          managers.
+        </p>
+      </section>
     </section>
     <section>
       <!--
@@ -3120,9 +3498,10 @@
         scope of this specification; however, the accessibility of that
         experience is within scope (see [[[#scope]]]). The following guidance
         applies to [=user agents=] and platforms implementing the [=digital
-        credential chooser=] and the flows around it, and references the
-        relevant success criteria of [[WCAG22]]. Where the chooser is a non-web
-        user interface, those criteria apply as described in [[WCAG2ICT-22]].
+        credential chooser=], [=credential manager chooser=] and the flows
+        around them, and references the relevant success criteria of
+        [[WCAG22]]. Where either chooser is a non-web user interface, those
+        criteria apply as described in [[WCAG2ICT-22]].
       </p>
       <p>
         The content of modal dialogs presented during [=digital
@@ -3157,11 +3536,12 @@
         NOT require a multipoint or path-based gesture (see
         [[[WCAG22#pointer-gestures]]]) or device motion (see
         [[[WCAG22#motion-actuation]]]) as the only means of operation. The
-        [=digital credential chooser=] SHOULD present its controls in a
-        meaningful focus order (see [[[WCAG22#focus-order]]]), move focus into
-        the chooser when it is opened; keep focus within it while it is shown;
-        and restore focus to the previously focused element, or another
-        appropriate location, when it is closed.
+        [=digital credential chooser=] and [=credential manager chooser=]
+        SHOULD present their controls in a meaningful focus order (see
+        [[[WCAG22#focus-order]]]), move focus into the chooser when it is
+        opened; keep focus within it while it is shown; and restore focus to
+        the previously focused element, or another appropriate location, when
+        it is closed.
       </p>
       <p>
         Where releasing a [=digital credential=] requires the [=holder=] to
@@ -3262,20 +3642,22 @@
         [[[OPENID4VP]]]), which this specification expects to provide language
         and direction metadata, and localized alternatives, where appropriate.
         </li>
-        <li>The one value the API routes to the platform that a [=user agent=]
-        may display is the requesting [=request context/top-level origin=].
-        Rendering an origin's host to the user, including the handling of
-        internationalized domain names and bidirectional text, follows the
+        <li>The only values the API routes to the platform that the [=user
+        agent=] or the platform may display are the [=request context/document
+        origin=] and [=request context/top-level origin=]. Rendering an
+        origin's host to the user, including the handling of internationalized
+        domain names and bidirectional text, follows the
         [[[URL#url-rendering-i18n|host-rendering guidance in the URL
         Standard]]] and is out of scope for this specification.
         </li>
         <li>Any other text presented to the user during a credential
         interaction is rendered either by the website (using HTML, which
         provides language and direction support through the host language), or
-        by the platform's [=digital credential chooser=]. The chooser is out of
-        scope for this specification; where it displays credential content, the
-        language and direction of that content, as provided by the credential
-        format and protocol, govern its presentation.
+        by the platform's [=digital credential chooser=] and [=credential
+        manager chooser=]. The choosers are out of scope for this
+        specification; where they display credential content, the language and
+        direction of that content, as provided by the credential format and
+        protocol, govern its presentation.
         </li>
       </ul>
       <p>
@@ -3507,8 +3889,11 @@
         </li>
         <li>If |action| is `"decline"`:
           <ol>
-            <li>[=Reject=] |promise| with a {{"NotAllowedError"}}
-            {{DOMException}}.
+            <li>Let |error| be a newly created {{"NotAllowedError"}}
+            {{DOMException}} in |global|'s [=relevant realm=].
+            </li>
+            <li>[=credential request coordinator/Reject the credential request
+            with=] |error| and |promise|.
             </li>
             <li>Return `true`.
             </li>
@@ -3523,16 +3908,32 @@
             JavaScript value|parsing=] |JSON string| given |global|'s
             [=relevant realm=].
             </li>
-            <li>Let |credential| be a new {{DigitalCredential}} instance.
-            </li>
-            <li>Set |credential|'s {{DigitalCredential/protocol}} attribute to
-            |protocol|.
-            </li>
-            <li>Set |credential|'s {{DigitalCredential/data}} attribute to |JS
-            object|.
+            <li>Assert: the [=credential request coordinator=]'s [=credential
+            request coordinator/active promise=] is |promise|.
             </li>
             <li>[=Queue a global task=] on the [=DOM manipulation task source=]
-            given |global| to [=resolve=] |promise| with |credential|.
+            given |global| to perform the following steps:
+              <ol>
+                <li>If the [=credential request coordinator=]'s [=credential
+                request coordinator/active promise=] is not |promise|, then
+                return.
+                </li>
+                <li>[=credential request coordinator/Clear the abort signal=].
+                </li>
+                <li>Let |credential| be a new {{DigitalCredential}} instance in
+                |global|'s [=relevant realm=].
+                </li>
+                <li>Set |credential|'s {{DigitalCredential/protocol}} attribute
+                to |protocol|.
+                </li>
+                <li>Set |credential|'s {{DigitalCredential/data}} attribute to
+                |JS object|.
+                </li>
+                <li>[=Resolve=] |promise| with |credential|.
+                </li>
+                <li>[=credential request coordinator/Return to idle=].
+                </li>
+              </ol>
             </li>
             <li>Return `true`.
             </li>

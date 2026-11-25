@@ -5,7 +5,7 @@
 ## Useful links
 
 * [Latest published spec](https://www.w3.org/TR/digital-credentials/)
-* [Horizontal reviews](https://github.com/w3c-fedid/digital-credentials/wiki/Horizontal-reviews)
+* [Security and Privacy Self-Review](https://github.com/w3c-fedid/digital-credentials/wiki/Security-and-Privacy-Self-Review)
 
 ## Scope
 
