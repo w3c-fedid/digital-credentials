@@ -83,6 +83,13 @@
           date: "2024-09-13",
           publisher: "web.dev"
         },
+        "eudi-reporting-to-dpa": {
+          title: "Specification of Common Interface for reporting of Relying Parties to Data Protection Authorities",
+          href: "https://github.com/eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications/blob/main/docs/technical-specifications/ts8-common-interface-for-reporting-of-wrp-to-dpa.md",
+          date: "2026-08-12",
+          publisher: "European Union",
+          status: "Version 1.0 (Final Version)"
+        },
       },
       xref: {
         profile: "web-platform",
@@ -3096,9 +3103,15 @@
         <h5>
           Reporting abuse
         </h5>
-        <p class="issue" data-number="267">
-          Consider an interoperable abuse reporting system for [=verifiers=]
-          making unnecessary and abusive requests.
+        <p>
+          This specification does not define a way for users to report a
+          [=verifier=] that makes unnecessary and abusive requests. A browser
+          can let a user report a deceptive website, and safe browsing services
+          accept those reports. A European Digital Identity specification
+          describes how a wallet lets a user report a relying party to a data
+          protection authority. The European specification covers requests that
+          look unlawful or suspicious. For details, see
+          [[?eudi-reporting-to-dpa]].
         </p>
       </section>
       <section>
