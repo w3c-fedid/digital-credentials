@@ -184,7 +184,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="7312dbe7e8b57d7428efd9a0849773b8f56c30bd">
+<meta name="revision" content="eca6bd44d87fe2802e681851e2ca7de0298869bb">
 <meta name="description" content="This document specifies an API enabling user agents to mediate the
         presentation and issuance of digital credentials, such as a
         driver's license, government-issued identification card, or
@@ -340,9 +340,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "7312dbe7e8b57d7428efd9a0849773b8f56c30bd",
-  "publishISODate": "2026-11-25T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 25 November 2026"
+  "gitRevision": "eca6bd44d87fe2802e681851e2ca7de0298869bb",
+  "publishISODate": "2026-11-27T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 27 November 2026"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED">
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/dark.css" disabled=""></head>
@@ -350,7 +350,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Digital Credentials</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-11-25">25 November 2026</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-11-27">27 November 2026</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -648,7 +648,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           Permission vs. Consent
         </a></li></ol></li><li class="tocline"><a class="tocxref" href="#data-clearing-and-persistent-state"><bdi class="secno">11.7 </bdi>
           Data Clearing and Persistent State
-        </a></li></ol></li><li class="tocline"><a class="tocxref" href="#accessibility-considerations"><bdi class="secno">12. </bdi>
+        </a><ol class="toc"><li class="tocline"><a class="tocxref" href="#private-browsing-mode-and-clearing-site-data"><bdi class="secno">11.7.1 </bdi>
+          Private Browsing Mode and Clearing Site Data
+        </a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#accessibility-considerations"><bdi class="secno">12. </bdi>
         Accessibility Considerations
       </a></li><li class="tocline"><a class="tocxref" href="#internationalization-considerations"><bdi class="secno">13. </bdi>
         Internationalization Considerations
@@ -3414,7 +3416,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         </section><section id="reporting-abuse"><div class="header-wrapper"><h5 id="x11-4-2-4-reporting-abuse"><bdi class="secno">11.4.2.4 </bdi>
           Reporting abuse
         </h5><a class="self-link" href="#reporting-abuse" aria-label="Permalink for Section 11.4.2.4"></a></div>
-        <div class="issue" id="issue-container-number-267"><div class="issue-title marker" id="h-issue-8"><a href="https://github.com/w3c-fedid/digital-credentials/issues/267"><span class="issue-number">Issue 267</span></a><span class="issue-label">: reporting abuse of credential requests <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a></span></div><p class="">
+        <div class="issue" id="issue-container-number-267"><div class="issue-title marker" id="h-issue-8"><a href="https://github.com/w3c-fedid/digital-credentials/issues/267"><span class="issue-number">Issue 267</span></a><span class="issue-label">: reporting abuse of credential requests <a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-tracker%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-tracker">privacy-tracker</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22privacy-considerations%22" style="background-color: rgb(212, 175, 55); color: rgb(0, 0, 0);" aria-label="GitHub label: privacy-considerations">privacy-considerations</a><a class="respec-gh-label" href="https://github.com/w3c-fedid/digital-credentials/issues/?q=is%3Aissue+is%3Aopen+label%3A%22review-requested%22" style="background-color: rgb(9, 60, 126); color: rgb(255, 255, 255);" aria-label="GitHub label: review-requested">review-requested</a></span></div><p class="">
           Consider an interoperable abuse reporting system for <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-57">verifiers</a>
           making unnecessary and abusive requests.
         </p></div>
@@ -3655,7 +3657,48 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
           not clear or affect the credentials held within those external
           managers.
         </p>
-      </section>
+        <section id="private-browsing-mode-and-clearing-site-data"><div class="header-wrapper"><h4 id="x11-7-1-private-browsing-mode-and-clearing-site-data"><bdi class="secno">11.7.1 </bdi>
+          Private Browsing Mode and Clearing Site Data
+        </h4><a class="self-link" href="#private-browsing-mode-and-clearing-site-data" aria-label="Permalink for Section 11.7.1"></a></div>
+        <p>
+          This specification defines no difference between private browsing
+          mode and regular browsing mode. As a result, neither a site nor a
+          <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-52">credential manager</a> can determine from the <a href="#DC-API" data-matched-text="[[[#DC-API|Digital
+          Credentials API]]]">Digital
+          Credentials API</a> that the user is in a private browsing session.
+        </p>
+        <p>
+          Users might expect private browsing mode to stop a <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-72">verifier</a> from
+          recognizing them from earlier presentations. Private browsing mode
+          separates what the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-69">user agent</a> remembers, but not what
+          <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-53">credential managers</a> and the operating system remember. Because
+          the <a href="#DC-API" data-matched-text="[[[#DC-API|Digital Credentials API]]]">Digital Credentials API</a> neither tells a
+          <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-54">credential manager</a> whether the user is in a private or a regular
+          browsing session nor tells it when the user clears site data, a
+          <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-55">credential manager</a> can reuse a credential, key, or identifier in
+          a private browsing session, in a regular browsing session, and after
+          the user clears site data. Depending on
+          the credential format and <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-28">presentation protocol</a> (see
+          <a data-matched-text="[[[credential-considerations#unlinkable-presentations|Unlinkability]]]" href="https://github.com/w3c/credential-considerations/blob/main/credentials-considerations.md#unlinkable-presentations">Unlinkability</a>),
+          the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-73">verifier</a> can then link the user's presentations.
+        </p>
+        <p>
+          This specification defines no persistent relationship between a
+          <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-70">user agent</a> and a <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-56">credential manager</a>. As a result, this
+          specification gives the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-71">user agent</a> no way to tell the
+          <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-57">credential manager</a> that the user cleared site data. A
+          <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-58">credential manager</a> needs no signal from the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-72">user agent</a> to
+          rotate keys and credentials. <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-59">Credential managers</a> and <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers" id="ref-for-index-term-issuers-23">issuers</a> can
+          read Annex E ("Privacy and security recommendations") of
+          <cite><a data-matched-text="[[[ISO18013-5]]]" href="https://www.iso.org/standard/69084.html">ISO/IEC 18013-5:2021 ISO-compliant driving licence, Part 5: Mobile driving licence (mDL) application</a></cite> and
+          <a data-matched-text="[[[OPENID4VP#name-verifier-to-verifier-unlink|Verifier-to-Verifier
+          Unlinkable Presentations]]]" href="https://openid.net/specs/openid-4-verifiable-presentations-1_0.html#name-verifier-to-verifier-unlink">Verifier-to-Verifier
+          Unlinkable Presentations</a> in <cite><a data-matched-text="[[[OPENID4VP]]]" href="https://openid.net/specs/openid-4-verifiable-presentations-1_0.html">OpenID for Verifiable Presentations 1.0</a></cite> for guidance. That
+          section also describes presenting each credential instance only once,
+          which stops the <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-issuers" id="ref-for-index-term-issuers-24">issuer</a> signature or bound key from linking
+          presentations across sessions or across <a data-link-type="dfn" href="https://www.w3.org/TR/vc-data-model-2.0/#dfn-verifier" id="ref-for-index-term-verifiers-74">verifiers</a>.
+        </p>
+      </section></section>
     </section>
     <section id="accessibility-considerations"><div class="header-wrapper"><h2 id="x12-accessibility-considerations"><bdi class="secno">12. </bdi>
         Accessibility Considerations
@@ -3667,7 +3710,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         scope of this specification; however, the accessibility of that
         experience is within scope (see <a href="#scope" data-matched-text="[[[#scope]]]" class="sec-ref"><bdi class="secno">3. </bdi>
       Scope</a>). The following guidance
-        applies to <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-69">user agents</a> and platforms implementing the <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-20">digital credential chooser</a>, <a data-link-type="dfn|abstract-op" href="#dfn-credential-manager-chooser" class="internalDFN" id="ref-for-dfn-credential-manager-chooser-11">credential manager chooser</a> and the flows
+        applies to <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-73">user agents</a> and platforms implementing the <a data-link-type="dfn|abstract-op" href="#dfn-digital-credential-chooser" class="internalDFN" id="ref-for-dfn-digital-credential-chooser-20">digital credential chooser</a>, <a data-link-type="dfn|abstract-op" href="#dfn-credential-manager-chooser" class="internalDFN" id="ref-for-dfn-credential-manager-chooser-11">credential manager chooser</a> and the flows
         around them, and references the relevant success criteria of
         [<cite><a class="bibref" data-link-type="biblio" href="#bib-wcag22" title="Web Content Accessibility Guidelines (WCAG) 2.2">WCAG22</a></cite>]. Where either chooser is a non-web user interface, those
         criteria apply as described in [<cite><a class="bibref" data-link-type="biblio" href="#bib-wcag2ict-22" title="Guidance on Applying WCAG 2 to Non-Web Information and Communications Technologies (WCAG2ICT)">WCAG2ICT-22</a></cite>].
@@ -3686,7 +3729,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         without requiring a change of focus (see <a data-matched-text="[[[WCAG22#status-messages]]]" href="https://www.w3.org/TR/WCAG22/#status-messages" class="sec-ref">§&nbsp;Success Criterion 4.1.3 Status Messages</a>).
       </p>
       <p>
-        When an operation fails, the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-70">user agent</a> rejects with one of several
+        When an operation fails, the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-74">user agent</a> rejects with one of several
         distinct errors; for example, a "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-index-term-notallowederror-exception-9"><code>NotAllowedError</code></a>",
         "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#invalidstateerror" id="ref-for-index-term-invalidstateerror-exception-3"><code>InvalidStateError</code></a>", or "<a data-link-type="exception" href="https://webidl.spec.whatwg.org/#operationerror" id="ref-for-index-term-operationerror-exception-3"><code>OperationError</code></a>" <a data-link-type="interface" data-lt="DOMException" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-index-term-domexception-interface-14"><code>DOMException</code></a>, or a
         <a data-link-type="exception" data-lt="TypeError" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-index-term-typeerror-exception-8"><code>TypeError</code></a>. Where the platform surfaces such a failure to the user,
@@ -3717,7 +3760,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         (see <a data-matched-text="[[[WCAG22#accessible-authentication-minimum]]]" href="https://www.w3.org/TR/WCAG22/#accessible-authentication-minimum" class="sec-ref">§&nbsp;Success Criterion 3.3.8 Accessible Authentication (Minimum)</a>); and
         authentication <em class="rfc2119">SHOULD NOT</em> depend solely on a single physical
         characteristic, such as a biometric, that some users cannot provide.
-        This step is typically performed by the platform or <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-52">credential manager</a> and is otherwise outside the scope of this specification.
+        This step is typically performed by the platform or <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-60">credential manager</a> and is otherwise outside the scope of this specification.
       </p>
       <p>
         Some platforms fulfil <a data-link-type="dfn|abstract-op" href="#dfn-presentation-request" class="internalDFN" id="ref-for-dfn-presentation-request-23">presentation requests</a>
@@ -3794,12 +3837,12 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         values of credential claims such as a name or address, including their
         representation in different scripts and languages) is carried opaquely
         within the credential payload. Its internationalization is determined
-        by the relevant credential format and <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-28">presentation protocol</a> or <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-23">issuance protocol</a> (for example,
+        by the relevant credential format and <a data-link-type="dfn|abstract-op" href="#dfn-presentation-protocol" class="internalDFN" id="ref-for-dfn-presentation-protocol-29">presentation protocol</a> or <a data-link-type="dfn|abstract-op" href="#dfn-issuance-protocol" class="internalDFN" id="ref-for-dfn-issuance-protocol-23">issuance protocol</a> (for example,
         the formats defined in <cite><a data-matched-text="[[[ISO18013-5]]]" href="https://www.iso.org/standard/69084.html">ISO/IEC 18013-5:2021 ISO-compliant driving licence, Part 5: Mobile driving licence (mDL) application</a></cite>, and protocols such as
         <cite><a data-matched-text="[[[OPENID4VP]]]" href="https://openid.net/specs/openid-4-verifiable-presentations-1_0.html">OpenID for Verifiable Presentations 1.0</a></cite>), which this specification expects to provide language
         and direction metadata, and localized alternatives, where appropriate.
         </li>
-        <li>The only values the API routes to the platform that the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-71">user agent</a> or the platform may display are the <a data-link-type="dfn|abstract-op" href="#dfn-document-origin" class="internalDFN" id="ref-for-dfn-document-origin-11">document origin</a> and <a data-link-type="dfn|abstract-op" href="#dfn-top-level-origin" class="internalDFN" id="ref-for-dfn-top-level-origin-11">top-level origin</a>. Rendering an
+        <li>The only values the API routes to the platform that the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-75">user agent</a> or the platform may display are the <a data-link-type="dfn|abstract-op" href="#dfn-document-origin" class="internalDFN" id="ref-for-dfn-document-origin-11">document origin</a> and <a data-link-type="dfn|abstract-op" href="#dfn-top-level-origin" class="internalDFN" id="ref-for-dfn-top-level-origin-11">top-level origin</a>. Rendering an
         origin's host to the user, including the handling of internationalized
         domain names and bidirectional text, follows the
         <a data-matched-text="[[[URL#url-rendering-i18n|host-rendering guidance in the URL
@@ -3831,14 +3874,14 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <p>
         For purposes of user-agent automation and application testing, this
         document defines extension modules for the <cite><a data-matched-text="[[[webdriver-bidi]]]" href="https://www.w3.org/TR/webdriver-bidi/">WebDriver BiDi</a></cite>
-        specification. It is <em class="rfc2119">OPTIONAL</em> for a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-72">user agent</a> to support them.
+        specification. It is <em class="rfc2119">OPTIONAL</em> for a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-76">user agent</a> to support them.
       </p>
       <section id="the-digitalcredentials-module"><div class="header-wrapper"><h3 id="x14-1-the-digitalcredentials-module"><bdi class="secno">14.1 </bdi>
         The <code>digitalCredentials</code> Module
       </h3><a class="self-link" href="#the-digitalcredentials-module" aria-label="Permalink for Section 14.1"></a></div>
       <p>
         The <code>digitalCredentials</code> module contains commands for managing and
-        simulating the remote end behavior of <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-53">credential managers</a> during
+        simulating the remote end behavior of <a data-link-type="dfn" href="https://www.w3.org/TR/credential-management-1/#credential-manager" id="ref-for-index-term-credential-manager-61">credential managers</a> during
         <a data-link-type="method" data-lt="[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)" href="#dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors" class="internalDFN" id="ref-for-dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors-4"><code>[[DiscoverFromExternalSource]](<var>origin</var>, <var>options</var>, <var>sameOriginWithAncestors</var>)</code></a>, and <a data-link-type="method" data-lt="[[Create]](origin, options, sameOriginWithAncestors)" href="https://www.w3.org/TR/credential-management-1/#dom-credential-create-slot" id="ref-for-index-term-create-origin-options-sameoriginwithancestors-for-credential-3"><code>[[Create]](<var>origin</var>, <var>options</var>, <var>sameOriginWithAncestors</var>)</code></a> calls.
       </p>
       <section id="types"><div class="header-wrapper"><h4 id="x14-1-1-types"><bdi class="secno">14.1.1 </bdi>
@@ -4016,7 +4059,7 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
         <var>promise</var> and a global object <var>global</var>, run these steps:
       </p>
       <ol class="algorithm">
-        <li>If the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-73">user agent</a> is not under automation, return <code>false</code>.
+        <li>If the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agents-77">user agent</a> is not under automation, return <code>false</code>.
         </li>
         <li>Let <var>context ID</var> be the ID of <var>global</var>'s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#browsing-context" id="ref-for-index-term-browsing-context-1">browsing context</a>.
         </li>
@@ -5001,7 +5044,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-dfn-presentation-protocol-27" title="§ 11.5.3 Revealing device properties through protocol availability">§ 11.5.3 Revealing device properties through protocol availability</a> 
     </li><li>
-      <a href="#ref-for-dfn-presentation-protocol-28" title="§ 13. Internationalization Considerations">§ 13. Internationalization Considerations</a> 
+      <a href="#ref-for-dfn-presentation-protocol-28" title="§ 11.7.1 Private Browsing Mode and Clearing Site Data">§ 11.7.1 Private Browsing Mode and Clearing Site Data</a> 
+    </li><li>
+      <a href="#ref-for-dfn-presentation-protocol-29" title="§ 13. Internationalization Considerations">§ 13. Internationalization Considerations</a> 
     </li>
   </ul> 
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-presentation-request" aria-label="Details for definition: Presentation request">
@@ -6958,9 +7003,11 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-index-term-credential-manager-51" title="§ 11.7 Data Clearing and Persistent State">§ 11.7 Data Clearing and Persistent State</a> 
     </li><li>
-      <a href="#ref-for-index-term-credential-manager-52" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> 
+      <a href="#ref-for-index-term-credential-manager-52" title="§ 11.7.1 Private Browsing Mode and Clearing Site Data">§ 11.7.1 Private Browsing Mode and Clearing Site Data</a> <a href="#ref-for-index-term-credential-manager-53" title="Reference 2">(2)</a> <a href="#ref-for-index-term-credential-manager-54" title="Reference 3">(3)</a> <a href="#ref-for-index-term-credential-manager-55" title="Reference 4">(4)</a> <a href="#ref-for-index-term-credential-manager-56" title="Reference 5">(5)</a> <a href="#ref-for-index-term-credential-manager-57" title="Reference 6">(6)</a> <a href="#ref-for-index-term-credential-manager-58" title="Reference 7">(7)</a> <a href="#ref-for-index-term-credential-manager-59" title="Reference 8">(8)</a> 
     </li><li>
-      <a href="#ref-for-index-term-credential-manager-53" title="§ 14.1 The digitalCredentials Module">§ 14.1 The digitalCredentials Module</a> 
+      <a href="#ref-for-index-term-credential-manager-60" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> 
+    </li><li>
+      <a href="#ref-for-index-term-credential-manager-61" title="§ 14.1 The digitalCredentials Module">§ 14.1 The digitalCredentials Module</a> 
     </li>
   </ul> 
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-credentialcreationoptions" aria-label="Details for definition: CredentialCreationOptions">
@@ -7955,13 +8002,15 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </li><li>
       <a href="#ref-for-index-term-user-agents-67" title="§ 11.6.4 Permission vs. Consent">§ 11.6.4 Permission vs. Consent</a> <a href="#ref-for-index-term-user-agents-68" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-index-term-user-agents-69" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> <a href="#ref-for-index-term-user-agents-70" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-user-agents-69" title="§ 11.7.1 Private Browsing Mode and Clearing Site Data">§ 11.7.1 Private Browsing Mode and Clearing Site Data</a> <a href="#ref-for-index-term-user-agents-70" title="Reference 2">(2)</a> <a href="#ref-for-index-term-user-agents-71" title="Reference 3">(3)</a> <a href="#ref-for-index-term-user-agents-72" title="Reference 4">(4)</a> 
     </li><li>
-      <a href="#ref-for-index-term-user-agents-71" title="§ 13. Internationalization Considerations">§ 13. Internationalization Considerations</a> 
+      <a href="#ref-for-index-term-user-agents-73" title="§ 12. Accessibility Considerations">§ 12. Accessibility Considerations</a> <a href="#ref-for-index-term-user-agents-74" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-index-term-user-agents-72" title="§ 14. Automated Testing">§ 14. Automated Testing</a> 
+      <a href="#ref-for-index-term-user-agents-75" title="§ 13. Internationalization Considerations">§ 13. Internationalization Considerations</a> 
     </li><li>
-      <a href="#ref-for-index-term-user-agents-73" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
+      <a href="#ref-for-index-term-user-agents-76" title="§ 14. Automated Testing">§ 14. Automated Testing</a> 
+    </li><li>
+      <a href="#ref-for-index-term-user-agents-77" title="§ 14.2 Handle Virtual Wallet Behavior">§ 14.2 Handle Virtual Wallet Behavior</a> 
     </li>
   </ul> 
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-express-permission" aria-label="Details for definition: express permission">
@@ -8150,6 +8199,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-issuers-21" title="§ 11.5.1 Browser fingerprinting">§ 11.5.1 Browser fingerprinting</a> 
     </li><li>
       <a href="#ref-for-index-term-issuers-22" title="§ 11.5.2 Leaking incidental data with credential presentations">§ 11.5.2 Leaking incidental data with credential presentations</a> 
+    </li><li>
+      <a href="#ref-for-index-term-issuers-23" title="§ 11.7.1 Private Browsing Mode and Clearing Site Data">§ 11.7.1 Private Browsing Mode and Clearing Site Data</a> <a href="#ref-for-index-term-issuers-24" title="Reference 2">(2)</a> 
     </li>
   </ul> 
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-subjects" aria-label="Details for definition: subjects">
@@ -8224,6 +8275,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       <a href="#ref-for-index-term-verifiers-66" title="§ 11.6 User Permission and Transparency">§ 11.6 User Permission and Transparency</a> 
     </li><li>
       <a href="#ref-for-index-term-verifiers-67" title="§ 11.6.4 Permission vs. Consent">§ 11.6.4 Permission vs. Consent</a> <a href="#ref-for-index-term-verifiers-68" title="Reference 2">(2)</a> <a href="#ref-for-index-term-verifiers-69" title="Reference 3">(3)</a> <a href="#ref-for-index-term-verifiers-70" title="Reference 4">(4)</a> <a href="#ref-for-index-term-verifiers-71" title="Reference 5">(5)</a> 
+    </li><li>
+      <a href="#ref-for-index-term-verifiers-72" title="§ 11.7.1 Private Browsing Mode and Clearing Site Data">§ 11.7.1 Private Browsing Mode and Clearing Site Data</a> <a href="#ref-for-index-term-verifiers-73" title="Reference 2">(2)</a> <a href="#ref-for-index-term-verifiers-74" title="Reference 3">(3)</a> 
     </li>
   </ul> 
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-error" aria-label="Details for definition: error">
@@ -8849,9 +8902,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </dd><dt id="bib-wcag2ict-22">[WCAG2ICT-22]</dt><dd>
       <a href="https://www.w3.org/TR/wcag2ict-22/"><cite>Guidance on Applying WCAG 2 to Non-Web Information and Communications Technologies (WCAG2ICT)</cite></a>. Mary Jo Mueller; Phil Day; Daniel Montalvo.  W3C. 11 December 2025. W3C Working Group Note. URL: <a href="https://www.w3.org/TR/wcag2ict-22/">https://www.w3.org/TR/wcag2ict-22/</a>
     </dd><dt id="bib-webdriver">[webdriver]</dt><dd>
-      <a href="https://www.w3.org/TR/webdriver2/"><cite>WebDriver</cite></a>. Simon Stewart; David Burns.  W3C. 9 November 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/webdriver2/">https://www.w3.org/TR/webdriver2/</a>
+      <a href="https://www.w3.org/TR/webdriver2/"><cite>WebDriver</cite></a>. Simon Stewart; David Burns.  W3C. 26 November 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/webdriver2/">https://www.w3.org/TR/webdriver2/</a>
     </dd><dt id="bib-webdriver-bidi">[webdriver-bidi]</dt><dd>
-      <a href="https://www.w3.org/TR/webdriver-bidi/"><cite>WebDriver BiDi</cite></a>. James Graham; Alex Rudenko; Maksim Sadym.  W3C. 13 November 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/webdriver-bidi/">https://www.w3.org/TR/webdriver-bidi/</a>
+      <a href="https://www.w3.org/TR/webdriver-bidi/"><cite>WebDriver BiDi</cite></a>. James Graham; Alex Rudenko; Maksim Sadym.  W3C. 26 November 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/webdriver-bidi/">https://www.w3.org/TR/webdriver-bidi/</a>
     </dd><dt id="bib-webidl">[webidl]</dt><dd>
       <a href="https://webidl.spec.whatwg.org/"><cite>Web IDL Standard</cite></a>. Edgar Chen; Timothy Gu.  WHATWG. Living Standard. URL: <a href="https://webidl.spec.whatwg.org/">https://webidl.spec.whatwg.org/</a>
     </dd></dl>
