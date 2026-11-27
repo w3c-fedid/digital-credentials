@@ -3362,11 +3362,12 @@
           recognizing them from earlier presentations. Private browsing mode
           separates what the [=user agent=] remembers, but not what
           [=credential managers=] and the operating system remember. Because
-          the [[[#DC-API|Digital Credentials API]]] does not tell a
+          the [[[#DC-API|Digital Credentials API]]] neither tells a
           [=credential manager=] whether the user is in a private or a regular
-          browsing session, a [=credential manager=] can reuse a credential,
-          key, or identifier in a private browsing session, in a regular
-          browsing session, and after the user clears site data. Depending on
+          browsing session nor tells it when the user clears site data, a
+          [=credential manager=] can reuse a credential, key, or identifier in
+          a private browsing session, in a regular browsing session, and after
+          the user clears site data. Depending on
           the credential format and [=digital credential/presentation protocol=] (see
           [[[credential-considerations#unlinkable-presentations|Unlinkability]]]),
           the [=verifier=] can then link the user's presentations.
