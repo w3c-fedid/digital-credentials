@@ -184,7 +184,7 @@ ul.index code{color:inherit}
 #index-defined-here .print-only{display:initial}
 }
 </style>
-<meta name="revision" content="31bc9fd5c1692f09fea85d2ea69b57c66256a17b">
+<meta name="revision" content="fc869e7f51dcff14670ab230decddf659597e775">
 <meta name="description" content="This document specifies an API enabling user agents to mediate the
         presentation and issuance of digital credentials, such as a
         driver's license, government-issued identification card, or
@@ -340,9 +340,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "xref": {
     "profile": "web-platform"
   },
-  "gitRevision": "31bc9fd5c1692f09fea85d2ea69b57c66256a17b",
-  "publishISODate": "2026-11-27T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 27 November 2026"
+  "gitRevision": "fc869e7f51dcff14670ab230decddf659597e775",
+  "publishISODate": "2026-11-28T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 28 November 2026"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED">
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/dark.css" disabled=""></head>
@@ -350,7 +350,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Digital Credentials</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-11-27">27 November 2026</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-11-28">28 November 2026</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -3932,6 +3932,9 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
       </section><section id="commands"><div class="header-wrapper"><h4 id="x14-1-2-commands"><bdi class="secno">14.1.2 </bdi>
         Commands
       </h4><a class="self-link" href="#commands" aria-label="Permalink for Section 14.1.2"></a></div>
+      <pre class="cddl def highlight" data-cddl-module="remote-cddl" id="cddl-block-1692865357"><span class="cddlHeader"><a class="self-link" href="#cddl-block-1692865357">CDDL</a></span><code><dfn data-dfn-type="cddl-type" id="cddl-type-digitalcredentialscommand" data-export="" tabindex="0" aria-haspopup="dialog">DigitalCredentialsCommand</dfn> <span class="cddl-op">=</span> (
+  <a href="#cddl-type-digitalcredentials-setvirtualwalletbehavior" class="cddl-name" data-link-type="cddl-type" id="ref-for-cddl-type-digitalcredentials-setvirtualwalletbehavior-1">digitalCredentials.SetVirtualWalletBehavior</a>
+)</code></pre>
       <section id="the-digitalcredentials-setvirtualwalletbehavior-command"><div class="header-wrapper"><h5 id="x14-1-2-1-the-digitalcredentials-setvirtualwalletbehavior-command"><bdi class="secno">14.1.2.1 </bdi>
         The <code>digitalCredentials.setVirtualWalletBehavior</code> Command
       </h5><a class="self-link" href="#the-digitalcredentials-setvirtualwalletbehavior-command" aria-label="Permalink for Section 14.1.2.1"></a></div>
@@ -4219,6 +4222,8 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     <span class="print-only">§14.1.2.1</span></li><li>
       <a class="index-term" href="#cddl-type-digitalcredentials-virtualwalletaction"><code>digitalCredentials.VirtualWalletAction</code></a> 
     <span class="print-only">§14.1.1</span></li><li>
+      <a class="index-term" href="#cddl-type-digitalcredentialscommand"><code>DigitalCredentialsCommand</code></a> 
+    <span class="print-only">§14.1.2</span></li><li>
       <a class="index-term" href="#dfn-discoverfromexternalsource-origin-options-sameoriginwithancestors"><code>[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)</code></a> internal slot for <code>DigitalCredential</code>
     <span class="print-only">§8.1</span></li><li>
       <a class="index-term" href="#dfn-discovery"><code>[[discovery]]</code></a> internal slot for <code>DigitalCredential</code>
@@ -4700,6 +4705,10 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
   <span class="cddl-occ">?</span> <span>protocol</span>: <a class="cddl-kw" data-link-type="cddl-type" data-link-spec="rfc8610" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
   <span class="cddl-occ">?</span> <span>response</span>: { <span class="cddl-occ">*</span> <span>text</span> <span class="cddl-op">=&gt;</span> <a class="cddl-kw" data-link-type="cddl-type" data-link-spec="rfc8610" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">any</a> },
 }
+
+<span>DigitalCredentialsCommand</span> <span class="cddl-op">=</span> (
+  <a href="#cddl-type-digitalcredentials-setvirtualwalletbehavior" class="cddl-name" data-link-type="cddl-type" id="ref-for-cddl-type-digitalcredentials-setvirtualwalletbehavior-2">digitalCredentials.SetVirtualWalletBehavior</a>
+)
 
 <span>digitalCredentials.SetVirtualWalletBehavior</span> <span class="cddl-op">=</span> (
   <span>method</span>: <span>"digitalCredentials.setVirtualWalletBehavior"</span>,
@@ -6689,17 +6698,39 @@ interface <a class="internalDFN idlID" data-link-type="interface" href="#dom-dig
     </svg>
   </button></li>
     </ul>
-    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-cddl-type-digitalcredentials-setvirtualwalletbehavior" aria-label="Details for definition: digitalCredentials.SetVirtualWalletBehavior">
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-cddl-type-digitalcredentialscommand" aria-label="Details for definition: DigitalCredentialsCommand">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="#cddl-type-digitalcredentials-setvirtualwalletbehavior" aria-label="Permalink for definition: digitalCredentials.SetVirtualWalletBehavior. Activate to close this dialog.">Permalink</a>
+        <a class="self-link" href="#cddl-type-digitalcredentialscommand" aria-label="Permalink for definition: DigitalCredentialsCommand. Activate to close this dialog.">Permalink</a>
         <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
         
       </div>
       <p><b>Referenced in:</b></p>
       <ul class="dfn-panel-refs">
       <li>Not referenced in this document.</li>
-    </ul> <p><b id="dfn-panel-lt-heading-cddl-type-digitalcredentials-setvirtualwalletbehavior">Possible linking syntaxes:</b></p><ul class="dfn-panel-lt" aria-labelledby="dfn-panel-lt-heading-cddl-type-digitalcredentials-setvirtualwalletbehavior">
+    </ul> <p><b id="dfn-panel-lt-heading-cddl-type-digitalcredentialscommand">Possible linking syntaxes:</b></p><ul class="dfn-panel-lt" aria-labelledby="dfn-panel-lt-heading-cddl-type-digitalcredentialscommand">
+      <li><button type="button" class="dfn-panel-copy-btn">
+    <span class="respec-visually-hidden">Copy </span><code>{^DigitalCredentialsCommand^}</code>
+    <svg aria-hidden="true" viewBox="0 0 14 16">
+      <use href="#respec-dfn-panel-copy-icon"></use>
+    </svg>
+  </button></li>
+    </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-cddl-type-digitalcredentials-setvirtualwalletbehavior" aria-label="Details for definition: digitalCredentials.SetVirtualWalletBehavior">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#cddl-type-digitalcredentials-setvirtualwalletbehavior" aria-label="Permalink for definition: digitalCredentials.SetVirtualWalletBehavior. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+        <a class="marker cddl-block" title="Jump to CDDL declaration" href="#cddl-block-1692865357">CDDL</a>
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul class="dfn-panel-refs">
+    <li>
+      <a href="#ref-for-cddl-type-digitalcredentials-setvirtualwalletbehavior-1" title="§ 14.1.2 Commands">§ 14.1.2 Commands</a> 
+    </li><li>
+      <a href="#ref-for-cddl-type-digitalcredentials-setvirtualwalletbehavior-2" title="§ C.1 Module: remote-cddl">§ C.1 Module: remote-cddl</a> 
+    </li>
+  </ul> <p><b id="dfn-panel-lt-heading-cddl-type-digitalcredentials-setvirtualwalletbehavior">Possible linking syntaxes:</b></p><ul class="dfn-panel-lt" aria-labelledby="dfn-panel-lt-heading-cddl-type-digitalcredentials-setvirtualwalletbehavior">
       <li><button type="button" class="dfn-panel-copy-btn">
     <span class="respec-visually-hidden">Copy </span><code>{^digitalCredentials.SetVirtualWalletBehavior^}</code>
     <svg aria-hidden="true" viewBox="0 0 14 16">
